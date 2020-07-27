@@ -8,7 +8,7 @@ class Protocol(Base):
     protocol_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     protocol_num = Column(VARCHAR(20), nullable=False)
     protocol_date = Column(Date, nullable=False)
-    meetings_type_id = Column(Integer, nullable=False)  # TODO: ForeignKey
+    meetings_type_id = Column(Integer, ForeignKey('meeting.meetings_type_id'))
     protocol_name = Column(VARCHAR(255), nullable=False)
     note = Column(VARCHAR(2000))
     idfilestorage = Column(UUID, ForeignKey('filestorage.idfilestorage'))
@@ -24,3 +24,8 @@ class Filestorage(Base):
     createdOn = Column(TIMESTAMP(timezone=True))
     description = Column(VARCHAR(100))
     authorid = Column(Integer)
+
+
+class Meeting(Base):
+    __tablename__ = 'meeting'
+    meetings_type_id = Column(Integer, primary_key=True, nullable=False)
