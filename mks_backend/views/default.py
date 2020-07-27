@@ -6,15 +6,23 @@ from sqlalchemy.exc import DBAPIError
 from .. import models
 
 
-@view_config(route_name='home', renderer='../templates/mytemplate.jinja2')
-def my_view(request):
+@view_config(route_name='protocols', renderer='json')
+def protocols_view(request):
+    """
+    Return protocols
+    """
     try:
-        print('root here')
-        # query = request.dbsession.query(models.MyModel)
-        # one = query.filter(models.MyModel.name == 'one').first()
+        protocol_query = request.dbsession.query(models.Protocol)
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'one': 'one', 'project': 'mks_backend'}
+
+    if request.method == 'GET':
+        if request.params:
+            # filtration params
+            pass
+        else:
+            protocols = protocol_query.all()
+            return protocols
 
 
 db_err_msg = """\
