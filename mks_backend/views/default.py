@@ -25,6 +25,32 @@ def protocols_view(request):
             return protocols
 
 
+@view_config(route_name='add_protocol', renderer='json')
+def add_protocol_view(request):
+    try:
+        protocol_query = request.dbsession.query(models.Protocol)
+        meetings_query = request.dbsession.query(models.Meeting)
+    except DBAPIError:
+        return Response(db_err_msg, content_type='text/plain', status=500)
+
+    if request.method == 'GET':
+        return [meeting.meetings_type_id for meeting in meetings_query.all()]
+    elif request.method == 'POST':
+        recieved_data = dict(request.POST.items())
+
+        new_protocol = models.Protocol(protocol_num=recieved_data.get('protocol_num'),
+                                       protocol_date=recieved_data.get('protocol_date'),
+                                       meetings_type_id=recieved_data.get('meetings_type_id'),
+                                       protocol_name=recieved_data.get('protocol_name'),
+                                       note=recieved_data.get('note'),
+                                       idfilestorage=recieved_data.get('idfilestorage'),
+                                       )
+        protocol_query.session.add(new_protocol)
+        protocol_query.session.flush()
+
+        return new_protocol.protocol_id
+
+
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:
