@@ -31,40 +31,39 @@ def protocols_view(request):
         return protocols
 
 
-@view_config(route_name='protocols_delete_and_view', renderer='json', request_method='GET')
+@view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
 def protocol_view(request):
     protocols_query = session.query(models.Protocol)
-    protocol_to_view = protocols_query.filter(models.Protocol.protocol_id == request.matchdict['id'])
-    if protocol_to_view.first() is None:
+    protocol_to_view = protocols_query.filter(models.Protocol.protocol_id == request.matchdict['id']).first()
+    if protocol_to_view is None:
         return False
     else:
-        return protocol_to_view.first()
-    session.commit()
+        return protocol_to_view
 
 
-@view_config(route_name='protocols_delete_and_view', renderer='json', request_method='DELETE')
+@view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
 def protocol_delete(request):
     protocol_query = session.query(models.Protocol)
     protocol_to_delete = protocol_query.filter(models.Protocol.protocol_id == request.matchdict['id'])
     if protocol_to_delete.delete():
+        session.commit()
         return True
     else:
         return False
-    session.commit()
 
 
-@view_config(route_name='protocols_delete_and_view', renderer='json', request_method='PUT')
+@view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
 def protocol_change(request):
     recieved_data = dict(request.POST.items())
 
     protocol_query = session.query(models.Protocol)
-    protocol_to_change = protocol_query.filter(models.Protocol.protocol_id == recieved_data['protocol_id']).first()
-    protocol_to_change.protocol_num = recieved_data['protocol_num']
-    # protocol_to_change.protocol_date = recieved_data['protocol_date']
-    protocol_to_change.meetings_type_id = recieved_data['meetings_type_id']
-    protocol_to_change.protocol_name = recieved_data['protocol_name']
-    protocol_to_change.note = recieved_data['note']
-    # protocol_to_change.idfilestorage = recieved_data['idfilestorage']
+    protocol_to_change = protocol_query.filter(models.Protocol.protocol_id == recieved_data.get('protocol_id')).first()
+    protocol_to_change.protocol_num = recieved_data.get('protocol_num')
+    # protocol_to_change.protocol_date = recieved_data.get('protocol_date')
+    protocol_to_change.meetings_type_id = recieved_data.get('meetings_type_id')
+    protocol_to_change.protocol_name = recieved_data.get('protocol_name')
+    protocol_to_change.note = recieved_data.get('note')
+    # protocol_to_change.idfilestorage = recieved_data.get('idfilestorage')
     return session.commit()
 
 
