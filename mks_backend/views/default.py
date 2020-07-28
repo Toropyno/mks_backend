@@ -1,6 +1,8 @@
-from pyramid.view import view_config
-from pyramid.response import Response
+import shutil
+import os
 from uuid import uuid4
+
+from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import sessionmaker
@@ -77,14 +79,36 @@ def get_meetings_types_view(request):
 @view_config(route_name='add_protocol', request_method='POST', renderer='json')
 def add_protocol_view(request):
     recieved_data = dict(request.POST.items())
+
+    protocol_filename = recieved_data.get('protocol_file').filename
+    protocol_file = recieved_data.get('protocol_file').file
+    protocol_filesize = recieved_data.get('protocol_file').limit
+
+    id_file_storage = str(uuid4())
+    new_file = models.Filestorage(idfilestorage=id_file_storage,
+                                  filename=protocol_filename,
+                                  uri='protocols/download/' + id_file_storage,
+                                  filesize=protocol_filesize,
+                                  mimeType='text/plain',
+                                  description='file description',
+                                  authorid=1,
+                                  )
+    file_path = os.path.join('/tmp/protocols', id_file_storage)
+    with open(file_path, 'wb') as output_file:
+        shutil.copyfileobj(protocol_file, output_file)
+
+    session.add(new_file)
+    session.flush()
+
     new_protocol = models.Protocol(protocol_num=recieved_data.get('protocol_num'),
                                    protocol_date=recieved_data.get('protocol_date'),
                                    meetings_type_id=recieved_data.get('meetings_type_id'),
                                    protocol_name=recieved_data.get('protocol_name'),
                                    note=recieved_data.get('note'),
-                                   idfilestorage=recieved_data.get('idfilestorage'))
-    #  TODO: add file uploading mechanism
+                                   idfilestorage=id_file_storage,
+                                   )
     session.add(new_protocol)
+    session.flush()
     session.commit()
     return new_protocol.protocol_id
 
