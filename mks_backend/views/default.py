@@ -27,6 +27,27 @@ def protocols_view(request):
             return protocols
 
 
+@view_config(route_name='protocols_delete_and_view', renderer='json')
+def protocols_delete_and_view(request):
+    """
+    Delete protocol
+    """
+    if request.method == 'DELETE':
+        protocol_query = request.dbsession.query(models.Protocol)
+        protocol_to_delete = protocol_query.filter(models.Protocol.protocol_id == request.matchdict['id'])
+        if protocol_to_delete.delete():
+            return True
+        else:
+            return False
+    if request.method == 'GET':
+        protocols_query = request.dbsession.query(models.Protocol)
+        protocol_to_view = protocols_query.filter(models.Protocol.protocol_id == request.matchdict['id'])
+        if protocol_to_view.first() is None:
+            return False
+        else:
+            return protocol_to_view.first()
+
+
 @view_config(route_name='add_protocol', renderer='json')
 def add_protocol_view(request):
     try:
