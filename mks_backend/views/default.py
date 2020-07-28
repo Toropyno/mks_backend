@@ -23,10 +23,11 @@ def protocols_view(request):
     Return protocols
     """
     if request.params:
-        # filtration params
-        pass
+        params = dict(request.params)
+        protocols = session.query(models.Protocol)
+        filter_dict = dict(zip(params.keys(), params.values()))
+        return protocols.filter_by(**filter_dict).all()
     else:
-        # protocols = protocol_query.all()
         protocols = session.query(models.Protocol).all()
         return protocols
 
@@ -34,7 +35,7 @@ def protocols_view(request):
 @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
 def protocol_view(request):
     protocols_query = session.query(models.Protocol)
-    protocol_to_view = protocols_query.filter(models.Protocol.protocol_id == request.matchdict['id']).first()
+    protocol_to_view = protocols_query.filter_by(protocol_id=request.matchdict['id']).first()
     if protocol_to_view is None:
         return False
     else:
