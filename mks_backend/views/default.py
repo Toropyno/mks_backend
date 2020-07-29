@@ -26,9 +26,6 @@ except DBAPIError:
 
 @view_config(route_name='protocols', request_method='GET', renderer='json')
 def protocols_view(request):
-    """
-    Return protocols
-    """
     if request.params:
         params = dict(request.params)
         protocols = session.query(models.Protocol)
@@ -50,9 +47,9 @@ def protocol_view(request):
 
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
-def protocol_delete(request):
+def delete_protocol_view(request):
     protocol_query = session.query(models.Protocol)
-    protocol_to_delete = protocol_query.filter(models.Protocol.protocol_id == request.matchdict['id'])
+    protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id'])
     if protocol_to_delete.delete():
         session.commit()
         return True
@@ -61,11 +58,11 @@ def protocol_delete(request):
 
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
-def protocol_change(request):
+def change_protocol_view(request):
     recieved_data = dict(request.POST.items())
 
     protocol_query = session.query(models.Protocol)
-    protocol_to_change = protocol_query.filter(models.Protocol.protocol_id == recieved_data.get('protocol_id')).first()
+    protocol_to_change = protocol_query.filter_by(protocol_id=recieved_data.get('protocol_id')).first()
     protocol_to_change.protocol_num = recieved_data.get('protocol_num')
     # protocol_to_change.protocol_date = recieved_data.get('protocol_date')
     protocol_to_change.meetings_type_id = recieved_data.get('meetings_type_id')
@@ -119,7 +116,7 @@ def add_protocol_view(request):
 
 
 @view_config(route_name='download_protocol', request_method='GET')
-def dowload_protocol_view(request):
+def download_protocol_view(request):
     protocol_file = f'{PROTOCOLS_STORAGE}/{request.matchdict["uuid"]}'
     if os.path.exists(protocol_file):
         filestorage_query = session.query(models.Filestorage)
