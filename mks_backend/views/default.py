@@ -1,14 +1,19 @@
 import shutil
 import os
+import urllib
 from uuid import uuid4
 
 from pyramid.view import view_config
+from pyramid.response import FileResponse, Response
 
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 from .. import models
+
+
+PROTOCOLS_STORAGE = '/tmp/protocols'
 
 try:
     Session = sessionmaker(bind=create_engine('postgresql://yan:yan@172.23.112.98:5432/mks_db'),
@@ -93,7 +98,7 @@ def add_protocol_view(request):
                                   description='file description',
                                   authorid=1,
                                   )
-    file_path = os.path.join('/tmp/protocols', id_file_storage)
+    file_path = os.path.join(PROTOCOLS_STORAGE, id_file_storage)
     with open(file_path, 'wb') as output_file:
         shutil.copyfileobj(protocol_file, output_file)
 
@@ -113,17 +118,18 @@ def add_protocol_view(request):
     return new_protocol.protocol_id
 
 
-db_err_msg = """\
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
+@view_config(route_name='download_protocol', request_method='GET')
+def dowload_protocol_view(request):
+    protocol_file = f'{PROTOCOLS_STORAGE}/{request.matchdict["uuid"]}'
+    if os.path.exists(protocol_file):
+        filestorage_query = session.query(models.Filestorage)
+        protocol_filename = filestorage_query.\
+            filter_by(idfilestorage=request.matchdict["uuid"]).\
+            first().filename
+        protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
 
-1.  You may need to initialize your database tables with `alembic`.
-    Check your README.txt for descriptions and try to run it.
-
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
-
-After you fix the problem, please restart the Pyramid application to
-try it again.
-"""
+        response = FileResponse(protocol_file)
+        response.headers['Content-Disposition'] = f"attachment; filename*=UTF-8''{protocol_filename}"
+        return response
+    else:
+        return Response(f'Unable to find: {protocol_file}')
