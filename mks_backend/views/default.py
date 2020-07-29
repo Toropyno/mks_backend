@@ -59,16 +59,16 @@ def delete_protocol_view(request):
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
 def change_protocol_view(request):
-    recieved_data = dict(request.POST.items())
+    recieved_data = request.json_body
 
     protocol_query = session.query(models.Protocol)
-    protocol_to_change = protocol_query.filter_by(protocol_id=recieved_data.get('protocol_id')).first()
-    protocol_to_change.protocol_num = recieved_data.get('protocol_num')
-    # protocol_to_change.protocol_date = recieved_data.get('protocol_date')
-    protocol_to_change.meetings_type_id = recieved_data.get('meetings_type_id')
-    protocol_to_change.protocol_name = recieved_data.get('protocol_name')
+    protocol_to_change = protocol_query.filter_by(protocol_id=recieved_data.get('protocolId')).first()
+
+    protocol_to_change.protocol_num = recieved_data.get('protocolNumber')
+    protocol_to_change.protocol_date = recieved_data.get('protocolDate')
+    protocol_to_change.meetings_type_id = recieved_data.get('meetingsTypeId')
+    protocol_to_change.protocol_name = recieved_data.get('protocolName')
     protocol_to_change.note = recieved_data.get('note')
-    # protocol_to_change.idfilestorage = recieved_data.get('idfilestorage')
     return session.commit()
 
 
@@ -80,37 +80,36 @@ def get_meetings_types_view(request):
 
 @view_config(route_name='add_protocol', request_method='POST', renderer='json')
 def add_protocol_view(request):
-    recieved_data = dict(request.POST.items())
+    recieved_data = request.json_body
 
-    protocol_filename = recieved_data.get('protocol_file').filename
-    protocol_file = recieved_data.get('protocol_file').file
-    protocol_filesize = recieved_data.get('protocol_file').limit
+    # protocol_filename = recieved_data.get('protocol_file').filename
+    # protocol_file = recieved_data.get('protocol_file').file
+    # protocol_filesize = recieved_data.get('protocol_file').limit
 
     id_file_storage = str(uuid4())
     new_file = models.Filestorage(idfilestorage=id_file_storage,
-                                  filename=protocol_filename,
+                                  filename=recieved_data.get('protocolFile'),
                                   uri='protocols/download/' + id_file_storage,
-                                  filesize=protocol_filesize,
+                                  filesize=1024,
                                   mimeType='text/plain',
                                   description='file description',
                                   authorid=1,
                                   )
-    file_path = os.path.join(PROTOCOLS_STORAGE, id_file_storage)
-    with open(file_path, 'wb') as output_file:
-        shutil.copyfileobj(protocol_file, output_file)
+    # file_path = os.path.join(PROTOCOLS_STORAGE, id_file_storage)
+    # with open(file_path, 'wb') as output_file:
+    #     shutil.copyfileobj(protocol_file, output_file)
 
     session.add(new_file)
     session.flush()
 
-    new_protocol = models.Protocol(protocol_num=recieved_data.get('protocol_num'),
-                                   protocol_date=recieved_data.get('protocol_date'),
-                                   meetings_type_id=recieved_data.get('meetings_type_id'),
-                                   protocol_name=recieved_data.get('protocol_name'),
+    new_protocol = models.Protocol(protocol_num=recieved_data.get('protocolNumber'),
+                                   protocol_date=recieved_data.get('protocolDate'),
+                                   meetings_type_id=recieved_data.get('meetingsTypeId'),
+                                   protocol_name=recieved_data.get('protocolName'),
                                    note=recieved_data.get('note'),
                                    idfilestorage=id_file_storage,
                                    )
     session.add(new_protocol)
-    session.flush()
     session.commit()
     return new_protocol.protocol_id
 
