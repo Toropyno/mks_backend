@@ -1,5 +1,6 @@
 import shutil
 import os
+import urllib
 from uuid import uuid4
 
 from pyramid.view import view_config
@@ -125,26 +126,10 @@ def dowload_protocol_view(request):
         protocol_filename = filestorage_query.\
             filter_by(idfilestorage=request.matchdict["uuid"]).\
             first().filename
+        protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
 
         response = FileResponse(protocol_file)
-
-        response.headers['Content-Disposition'] = f"attachment; filename=protocol.odt"
+        response.headers['Content-Disposition'] = f"attachment; filename*=UTF-8''{protocol_filename}"
         return response
     else:
         return Response(f'Unable to find: {protocol_file}')
-
-
-db_err_msg = """\
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
-
-1.  You may need to initialize your database tables with `alembic`.
-    Check your README.txt for descriptions and try to run it.
-
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
-
-After you fix the problem, please restart the Pyramid application to
-try it again.
-"""
