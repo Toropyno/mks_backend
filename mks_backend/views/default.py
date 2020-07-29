@@ -82,32 +82,12 @@ def get_meetings_types_view(request):
 def add_protocol_view(request):
     recieved_data = request.json_body
 
-    # protocol_filename = recieved_data.get('protocol_file').filename
-    # protocol_file = recieved_data.get('protocol_file').file
-    # protocol_filesize = recieved_data.get('protocol_file').limit
-
-    id_file_storage = str(uuid4())
-    new_file = models.Filestorage(idfilestorage=id_file_storage,
-                                  filename=recieved_data.get('protocolFile'),
-                                  uri='protocols/download/' + id_file_storage,
-                                  filesize=1024,
-                                  mimeType='text/plain',
-                                  description='file description',
-                                  authorid=1,
-                                  )
-    # file_path = os.path.join(PROTOCOLS_STORAGE, id_file_storage)
-    # with open(file_path, 'wb') as output_file:
-    #     shutil.copyfileobj(protocol_file, output_file)
-
-    session.add(new_file)
-    session.flush()
-
     new_protocol = models.Protocol(protocol_num=recieved_data.get('protocolNumber'),
                                    protocol_date=recieved_data.get('protocolDate'),
                                    meetings_type_id=recieved_data.get('meetingsTypeId'),
                                    protocol_name=recieved_data.get('protocolName'),
                                    note=recieved_data.get('note'),
-                                   idfilestorage=id_file_storage,
+                                   idfilestorage=recieved_data.get('idFileStorage'),
                                    )
     session.add(new_protocol)
     session.commit()
@@ -129,3 +109,30 @@ def download_protocol_view(request):
         return response
     else:
         return Response(f'Unable to find: {protocol_file}')
+
+
+@view_config(route_name='upload_protocol', request_method='POST', renderer='json')
+def upload_protocol_view(request):
+    recieved_data = dict(request.POST.items())
+
+    protocol_filename = recieved_data.get('protocolFile').filename
+    protocol_file = recieved_data.get('protocolFile').file
+    protocol_filesize = recieved_data.get('protocolFile').limit
+
+    id_file_storage = str(uuid4())
+    new_file = models.Filestorage(idfilestorage=id_file_storage,
+                                  filename=protocol_filename,
+                                  uri='protocols/download/' + id_file_storage,
+                                  filesize=protocol_filesize,
+                                  mimeType='text/plain',
+                                  description='file description',
+                                  authorid=1,
+                                  )
+    file_path = os.path.join(PROTOCOLS_STORAGE, id_file_storage)
+    with open(file_path, 'wb') as output_file:
+        shutil.copyfileobj(protocol_file, output_file)
+
+    session.add(new_file)
+    session.commit()
+
+    return {'idFileStorage': id_file_storage}
