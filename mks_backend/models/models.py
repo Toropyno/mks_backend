@@ -16,7 +16,7 @@ class Protocol(Base):
     meetings_type_id = Column(Integer, ForeignKey('meeting.meetings_type_id'))
     protocol_name = Column(VARCHAR(255), nullable=False)
     note = Column(VARCHAR(2000))
-    idfilestorage = Column(UUID, ForeignKey('filestorage.idfilestorage'))
+    idfilestorage = Column(UUID, ForeignKey('filestorage.idfilestorage', ondelete='CASCADE'))
 
     def __json__(self, request):
         json_exclude = getattr(self, '__json_exclude__', set())
