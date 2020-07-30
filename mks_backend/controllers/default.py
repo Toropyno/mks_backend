@@ -10,7 +10,7 @@ from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
-from .. import models
+from mks_backend.models import models
 
 PROTOCOLS_STORAGE = '/tmp/protocols'
 
