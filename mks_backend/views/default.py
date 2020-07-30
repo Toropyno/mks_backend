@@ -50,8 +50,12 @@ def protocol_view(request):
 def delete_protocol_view(request):
     protocol_query = session.query(models.Protocol)
     protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id'])
+    filestorage_query = session.query(models.Filestorage)
+    filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.one().idfilestorage)
     if protocol_to_delete.delete():
-        session.commit()
+        os.remove(filestorage_to_delete.one().uri)
+        if filestorage_to_delete.delete():
+            session.commit()
         return True
     else:
         return False
