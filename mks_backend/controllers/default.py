@@ -15,7 +15,7 @@ from .. import models
 PROTOCOLS_STORAGE = '/tmp/protocols'
 
 try:
-    Session = sessionmaker(bind=create_engine('postgresql://yan:yan@172.23.112.98:5432/mks_db'),
+    Session = sessionmaker(bind=create_engine('postgresql://yan:yan@172.23.112.151:5432/mks_db'),
                            autocommit=False,
                            autoflush=False)
     session = Session()
@@ -24,7 +24,7 @@ except DBAPIError:
 
 
 @view_config(route_name='protocols', request_method='GET', renderer='json')
-def protocols_view(request):
+def get_all_protocols(request):
     if request.params:
         params = dict(request.params)
         protocols = session.query(models.Protocol)
@@ -36,7 +36,7 @@ def protocols_view(request):
 
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
-def protocol_view(request):
+def get_protocol(request):
     protocols_query = session.query(models.Protocol)
     protocol_to_view = protocols_query.filter_by(protocol_id=request.matchdict['id']).first()
     if protocol_to_view is None:
@@ -46,7 +46,7 @@ def protocol_view(request):
 
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
-def delete_protocol_view(request):
+def delete_protocol(request):
     protocol_query = session.query(models.Protocol)
     filestorage_query = session.query(models.Filestorage)
 
@@ -64,7 +64,7 @@ def delete_protocol_view(request):
 
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
-def change_protocol_view(request):
+def change_protocol(request):
     recieved_data = request.json_body
 
     protocol_query = session.query(models.Protocol)
@@ -79,13 +79,13 @@ def change_protocol_view(request):
 
 
 @view_config(route_name='add_protocol', request_method='GET', renderer='json')
-def get_meetings_types_view(request):
+def get_meetings_types(request):
     meetings_query = session.query(models.Meeting)
     return [meeting.meetings_type_id for meeting in meetings_query.all()]
 
 
 @view_config(route_name='add_protocol', request_method='POST', renderer='json')
-def add_protocol_view(request):
+def add_protocol(request):
     recieved_data = request.json_body
 
     new_protocol = models.Protocol(protocol_num=recieved_data.get('protocolNumber'),
@@ -100,8 +100,8 @@ def add_protocol_view(request):
     return new_protocol.protocol_id
 
 
-@view_config(route_name='download_protocol', request_method='GET')
-def download_protocol_view(request):
+@view_config(route_name='download_file', request_method='GET')
+def download_file(request):
     protocol_file = f'{PROTOCOLS_STORAGE}/{request.matchdict["uuid"]}'
     if os.path.exists(protocol_file):
         filestorage_query = session.query(models.Filestorage)
@@ -117,8 +117,8 @@ def download_protocol_view(request):
         return Response(f'Unable to find: {protocol_file}')
 
 
-@view_config(route_name='upload_protocol', request_method='POST', renderer='json')
-def upload_protocol_view(request):
+@view_config(route_name='upload_file', request_method='POST', renderer='json')
+def upload_file(request):
     recieved_data = dict(request.POST.items())
 
     protocol_filename = recieved_data.get('protocolFile').filename
