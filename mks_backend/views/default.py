@@ -12,7 +12,6 @@ from sqlalchemy import create_engine
 
 from .. import models
 
-
 PROTOCOLS_STORAGE = '/tmp/protocols'
 
 try:
@@ -49,8 +48,15 @@ def protocol_view(request):
 @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
 def delete_protocol_view(request):
     protocol_query = session.query(models.Protocol)
-    protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id'])
-    if protocol_to_delete.delete():
+    filestorage_query = session.query(models.Filestorage)
+
+    protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id']).one()
+    filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.idfilestorage).one()
+
+    path_to_file = PROTOCOLS_STORAGE + '/' + str(filestorage_to_delete.idfilestorage)
+    if os.path.exists(path_to_file):
+        os.remove(path_to_file)
+        session.delete(filestorage_to_delete)
         session.commit()
         return True
     else:
@@ -99,8 +105,8 @@ def download_protocol_view(request):
     protocol_file = f'{PROTOCOLS_STORAGE}/{request.matchdict["uuid"]}'
     if os.path.exists(protocol_file):
         filestorage_query = session.query(models.Filestorage)
-        protocol_filename = filestorage_query.\
-            filter_by(idfilestorage=request.matchdict["uuid"]).\
+        protocol_filename = filestorage_query. \
+            filter_by(idfilestorage=request.matchdict["uuid"]). \
             first().filename
         protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
 
