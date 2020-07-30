@@ -12,7 +12,6 @@ from sqlalchemy import create_engine
 
 from .. import models
 
-
 PROTOCOLS_STORAGE = '/tmp/protocols'
 
 try:
@@ -52,10 +51,9 @@ def delete_protocol_view(request):
     protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id'])
     filestorage_query = session.query(models.Filestorage)
     filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.one().idfilestorage)
-    if protocol_to_delete.delete():
-        os.remove(filestorage_to_delete.one().uri)
-        if filestorage_to_delete.delete():
-            session.commit()
+    if os.path.exists('/tmp/' + filestorage_to_delete.one().uri) and protocol_to_delete.delete() \
+            and os.remove('/tmp/' + filestorage_to_delete.one().uri) and filestorage_to_delete.delete():
+        session.commit()
         return True
     else:
         return False
@@ -123,8 +121,8 @@ def download_protocol_view(request):
     protocol_file = f'{PROTOCOLS_STORAGE}/{request.matchdict["uuid"]}'
     if os.path.exists(protocol_file):
         filestorage_query = session.query(models.Filestorage)
-        protocol_filename = filestorage_query.\
-            filter_by(idfilestorage=request.matchdict["uuid"]).\
+        protocol_filename = filestorage_query. \
+            filter_by(idfilestorage=request.matchdict["uuid"]). \
             first().filename
         protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
 
