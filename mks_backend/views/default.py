@@ -48,14 +48,19 @@ def protocol_view(request):
 @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
 def delete_protocol_view(request):
     protocol_query = session.query(models.Protocol)
-    protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id'])
     filestorage_query = session.query(models.Filestorage)
-    filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.one().idfilestorage)
-    if os.path.exists('/tmp/' + filestorage_to_delete.one().uri) and protocol_to_delete.delete() \
-            and os.remove('/tmp/' + filestorage_to_delete.one().uri) and filestorage_to_delete.delete():
+
+    protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id']).one()
+    filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.idfilestorage).one()
+
+    if os.path.exists(PROTOCOLS_STORAGE + filestorage_to_delete.idfilestorage) \
+            and filestorage_to_delete.delete():
+        print('HERE')
+        os.remove(PROTOCOLS_STORAGE + filestorage_to_delete.idfilestorage)
         session.commit()
         return True
     else:
+        print('NOT HERE')
         return False
 
 
