@@ -53,14 +53,13 @@ def delete_protocol_view(request):
     protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id']).one()
     filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.idfilestorage).one()
 
-    if os.path.exists(PROTOCOLS_STORAGE + filestorage_to_delete.idfilestorage) \
-            and filestorage_to_delete.delete():
-        print('HERE')
-        os.remove(PROTOCOLS_STORAGE + filestorage_to_delete.idfilestorage)
+    path_to_file = PROTOCOLS_STORAGE + '/' + str(filestorage_to_delete.idfilestorage)
+    if os.path.exists(path_to_file):
+        os.remove(path_to_file)
+        session.delete(filestorage_to_delete)
         session.commit()
         return True
     else:
-        print('NOT HERE')
         return False
 
 
