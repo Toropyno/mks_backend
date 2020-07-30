@@ -6,38 +6,27 @@ from uuid import uuid4
 from pyramid.view import view_config
 from pyramid.response import FileResponse, Response
 
-from sqlalchemy.exc import DBAPIError
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
-
 from mks_backend.models import models
+from mks_backend.models import DBSession
 
 PROTOCOLS_STORAGE = '/tmp/protocols'
-
-try:
-    Session = sessionmaker(bind=create_engine('postgresql://yan:yan@172.23.112.151:5432/mks_db'),
-                           autocommit=False,
-                           autoflush=False)
-    session = Session()
-except DBAPIError:
-    print('ERROR WITH DB')
 
 
 @view_config(route_name='protocols', request_method='GET', renderer='json')
 def get_all_protocols(request):
     if request.params:
         params = dict(request.params)
-        protocols = session.query(models.Protocol)
+        protocols = DBSession.query(models.Protocol)
         filter_dict = dict(zip(params.keys(), params.values()))
         return protocols.filter_by(**filter_dict).all()
     else:
-        protocols = session.query(models.Protocol).all()
+        protocols = DBSession.query(models.Protocol).all()
         return protocols
 
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
 def get_protocol(request):
-    protocols_query = session.query(models.Protocol)
+    protocols_query = DBSession.query(models.Protocol)
     protocol_to_view = protocols_query.filter_by(protocol_id=request.matchdict['id']).first()
     if protocol_to_view is None:
         return False
@@ -47,8 +36,8 @@ def get_protocol(request):
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
 def delete_protocol(request):
-    protocol_query = session.query(models.Protocol)
-    filestorage_query = session.query(models.Filestorage)
+    protocol_query = DBSession.query(models.Protocol)
+    filestorage_query = DBSession.query(models.Filestorage)
 
     protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id']).one()
     filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.idfilestorage).one()
@@ -56,8 +45,8 @@ def delete_protocol(request):
     path_to_file = PROTOCOLS_STORAGE + '/' + str(filestorage_to_delete.idfilestorage)
     if os.path.exists(path_to_file):
         os.remove(path_to_file)
-        session.delete(filestorage_to_delete)
-        session.commit()
+        DBSession.delete(filestorage_to_delete)
+        DBSession.commit()
         return True
     else:
         return False
@@ -67,7 +56,7 @@ def delete_protocol(request):
 def change_protocol(request):
     recieved_data = request.json_body
 
-    protocol_query = session.query(models.Protocol)
+    protocol_query = DBSession.query(models.Protocol)
     protocol_to_change = protocol_query.filter_by(protocol_id=recieved_data.get('protocolId')).first()
 
     protocol_to_change.protocol_num = recieved_data.get('protocolNumber')
@@ -75,12 +64,12 @@ def change_protocol(request):
     protocol_to_change.meetings_type_id = recieved_data.get('meetingsTypeId')
     protocol_to_change.protocol_name = recieved_data.get('protocolName')
     protocol_to_change.note = recieved_data.get('note')
-    return session.commit()
+    return DBSession.commit()
 
 
 @view_config(route_name='add_protocol', request_method='GET', renderer='json')
 def get_meetings_types(request):
-    meetings_query = session.query(models.Meeting)
+    meetings_query = DBSession.query(models.Meeting)
     return [meeting.meetings_type_id for meeting in meetings_query.all()]
 
 
@@ -95,8 +84,8 @@ def add_protocol(request):
                                    note=recieved_data.get('note'),
                                    idfilestorage=recieved_data.get('idFileStorage'),
                                    )
-    session.add(new_protocol)
-    session.commit()
+    DBSession.add(new_protocol)
+    DBSession.commit()
     return new_protocol.protocol_id
 
 
@@ -104,7 +93,7 @@ def add_protocol(request):
 def download_file(request):
     protocol_file = f'{PROTOCOLS_STORAGE}/{request.matchdict["uuid"]}'
     if os.path.exists(protocol_file):
-        filestorage_query = session.query(models.Filestorage)
+        filestorage_query = DBSession.query(models.Filestorage)
         protocol_filename = filestorage_query. \
             filter_by(idfilestorage=request.matchdict["uuid"]). \
             first().filename
@@ -138,7 +127,7 @@ def upload_file(request):
     with open(file_path, 'wb') as output_file:
         shutil.copyfileobj(protocol_file, output_file)
 
-    session.add(new_file)
-    session.commit()
+    DBSession.add(new_file)
+    DBSession.commit()
 
     return {'idFileStorage': id_file_storage}

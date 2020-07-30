@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, ForeignKey, VARCHAR, Date, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 
-from .meta import Base
+from mks_backend.models import Base
 
 
 class Protocol(Base):
