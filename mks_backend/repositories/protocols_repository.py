@@ -29,9 +29,11 @@ class ProtocolRepository(object):
         DBSession.commit()
 
     def filter_protocols(self, protocols, params):
-        meetings_type_id = params.get('meetings_type_id')
-        protocol_name = params.get('protocol_name')
-        protocol_num = params.get('protocol_num')
+        meetings_type_id = params.get('meetingsTypeId')
+        protocol_name = params.get('protocolName')
+        protocol_num = params.get('protocolNumber')
+        date_start = params.get('dateStart')
+        date_end = params.get('dateEnd')
 
         if meetings_type_id:
             protocols = protocols.filter_by(meetings_type_id=meetings_type_id)
@@ -41,4 +43,6 @@ class ProtocolRepository(object):
         if protocol_num:
             protocol_num = "%" + protocol_num + "%"
             protocols = protocols.filter(Protocol.protocol_num.like(protocol_num))
+        if date_start and date_end:
+            protocols = protocols.filter(Protocol.protocol_date >= date_start, Protocol.protocol_date <= date_end)
         return protocols.all()
