@@ -20,7 +20,7 @@ class ProtocolRepository(object):
         DBSession.commit()
 
     def update_protocol(self, protocol):
-        DBSession.query(Protocol).get(protocol.protocol_id).update(
+        DBSession.query(Protocol).filter_by(protocol_id=protocol.protocol_id).update(
             {'protocol_num': protocol.protocol_num,
              'protocol_date': protocol.protocol_date,
              'meetings_type_id': protocol.meetings_type_id,
