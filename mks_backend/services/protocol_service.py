@@ -29,7 +29,7 @@ class ProtocolService(object):
         return self.repo.add_protocol(protocol)
 
     def update_protocol(self, id, new_protocol):
-        old_protocol = ProtocolRepository.get_protocol_by_id(id)
+        old_protocol = self.repo.get_protocol_by_id(id)
         new_protocol.protocol_id = old_protocol.protocol_id
 
         old_idfilestorage = old_protocol.idfilestorage
