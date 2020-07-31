@@ -64,7 +64,22 @@ def change_protocol(request):
     protocol_to_change.meetings_type_id = received_data.get('meetingsTypeId')
     protocol_to_change.protocol_name = received_data.get('protocolName')
     protocol_to_change.note = received_data.get('note')
-    return DBSession.commit()
+
+    if received_data.get('idFileStorage') != protocol_to_change.idfilestorage:
+        old_idfilestorage = protocol_to_change.idfilestorage
+        path_to_file = PROTOCOLS_STORAGE + '/' + old_idfilestorage
+        if os.path.exists(path_to_file):
+            os.remove(path_to_file)
+
+        protocol_to_change.idfilestorage = received_data.get('idFileStorage')
+        DBSession.flush()
+
+        filestorage_query = DBSession.query(models.Filestorage)
+        filestorage_to_delete = filestorage_query.filter_by(idfilestorage=old_idfilestorage).one()
+        DBSession.delete(filestorage_to_delete)
+
+    DBSession.commit()
+    return {'status': True}
 
 
 @view_config(route_name='add_protocol', request_method='GET', renderer='json')
