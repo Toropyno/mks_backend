@@ -24,7 +24,8 @@ class FilestorageController(object):
     def upload_file(self):
         filestorage = self.get_filestorage_object_from_request_params()
         self.repository.add_file(filestorage)
-        return {'idFileStorage': filestorage.idfilestorage}
+        print(filestorage.idfilestorage)
+        return {'idFileStorage': str(filestorage.idfilestorage)}
 
     @view_config(route_name='download_file', request_method='GET')
     def download_file(self):

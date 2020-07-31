@@ -1,15 +1,20 @@
 class ProtocolSerializer(object):
 
     def convert_object_to_json(self, protocol):
+        print(protocol.protocol_date)
+        print(self.get_date_string(protocol.protocol_date))
         protocol_dict = {
             "protocolId": protocol.protocol_id,
             "protocolNumber": protocol.protocol_num,
-            "protocolDate": str(protocol.protocol_date),
+            "protocolDate": self.get_date_string(protocol.protocol_date),
             "meetingsTypeId": protocol.meetings_type_id,
             "protocolName": protocol.protocol_name,
             "note": protocol.note,
             "idFileStorage": protocol.idfilestorage}
         return protocol_dict
+
+    def get_date_string(self, date):
+        return str(date.day) + '.' + str(date.month) + '.' + str(date.year)
 
     def convert_list_to_json(self, protocols):
         protocols_array = []
