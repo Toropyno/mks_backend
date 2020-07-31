@@ -27,7 +27,7 @@ def get_all_protocols(request):
 @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
 def get_protocol(request):
     protocols_query = DBSession.query(models.Protocol)
-    protocol_to_view = protocols_query.filter_by(protocol_id=request.matchdict['id']).first()
+    protocol_to_view = protocols_query.get(request.matchdict['id'])
     if protocol_to_view is None:
         return False
     else:
@@ -39,8 +39,8 @@ def delete_protocol(request):
     protocol_query = DBSession.query(models.Protocol)
     filestorage_query = DBSession.query(models.Filestorage)
 
-    protocol_to_delete = protocol_query.filter_by(protocol_id=request.matchdict['id']).one()
-    filestorage_to_delete = filestorage_query.filter_by(idfilestorage=protocol_to_delete.idfilestorage).one()
+    protocol_to_delete = protocol_query.get(request.matchdict['id'])
+    filestorage_to_delete = filestorage_query.get(protocol_to_delete.idfilestorage)
 
     path_to_file = PROTOCOLS_STORAGE + '/' + str(filestorage_to_delete.idfilestorage)
     if os.path.exists(path_to_file):
@@ -57,7 +57,7 @@ def change_protocol(request):
     received_data = request.json_body
 
     protocol_query = DBSession.query(models.Protocol)
-    protocol_to_change = protocol_query.filter_by(protocol_id=received_data.get('protocolId')).first()
+    protocol_to_change = protocol_query.get(received_data.get('protocolId'))
 
     protocol_to_change.protocol_num = received_data.get('protocolNumber')
     protocol_to_change.protocol_date = received_data.get('protocolDate')
@@ -75,7 +75,7 @@ def change_protocol(request):
         DBSession.flush()
 
         filestorage_query = DBSession.query(models.Filestorage)
-        filestorage_to_delete = filestorage_query.filter_by(idfilestorage=old_idfilestorage).one()
+        filestorage_to_delete = filestorage_query.get(old_idfilestorage)
         DBSession.delete(filestorage_to_delete)
 
     DBSession.commit()
@@ -109,9 +109,7 @@ def download_file(request):
     protocol_file = f'{PROTOCOLS_STORAGE}/{request.matchdict["uuid"]}'
     if os.path.exists(protocol_file):
         filestorage_query = DBSession.query(models.Filestorage)
-        protocol_filename = filestorage_query. \
-            filter_by(idfilestorage=request.matchdict["uuid"]). \
-            first().filename
+        protocol_filename = filestorage_query.get(request.matchdict["uuid"]).filename
         protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
 
         response = FileResponse(protocol_file)
