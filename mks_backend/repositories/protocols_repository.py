@@ -7,7 +7,8 @@ class ProtocolRepository(object):
     def get_all_protocols(self):
         return DBSession.query(Protocol).all()
 
-    def get_protocol_by_id(self, id):
+    @classmethod
+    def get_protocol_by_id(cls, id):
         return DBSession.query(Protocol).get(id)
 
     def add_protocol(self, protocol):
@@ -25,6 +26,7 @@ class ProtocolRepository(object):
              'protocol_date': protocol.protocol_date,
              'meetings_type_id': protocol.meetings_type_id,
              'protocol_name': protocol.protocol_name,
-             'note': protocol.note})
+             'note': protocol.note,
+             'idfilestorage': protocol.idfilestorage})
         DBSession.commit()
 

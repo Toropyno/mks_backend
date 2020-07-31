@@ -33,7 +33,7 @@ class FilestorageController(object):
         uuid = self.request.matchdict['uuid']
         protocol_file = f'{PROTOCOLS_STORAGE}/{uuid}'
         if os.path.exists(protocol_file):
-            file = self.repository.get_file(uuid)
+            file = self.repository.get_filestorage_by_id(uuid)
             protocol_filename = file.filename
             protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
 
