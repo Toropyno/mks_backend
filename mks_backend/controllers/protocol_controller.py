@@ -47,7 +47,6 @@ class ProtocolController(object):
         return {'id': protocol_id}
 
 
-
     def get_protocol_object_from_request_params(self):
         protocol_num = self.request.json_body.get('protocolNumber')
         protocol_date = self.request.json_body.get('protocolDate')
