@@ -1,7 +1,7 @@
-import shutil
 import os
 import urllib
 from uuid import uuid4
+from shutil import copyfileobj
 
 from pyramid.view import view_config
 from pyramid.response import FileResponse, Response
@@ -54,16 +54,16 @@ def delete_protocol(request):
 
 @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
 def change_protocol(request):
-    recieved_data = request.json_body
+    received_data = request.json_body
 
     protocol_query = DBSession.query(models.Protocol)
-    protocol_to_change = protocol_query.filter_by(protocol_id=recieved_data.get('protocolId')).first()
+    protocol_to_change = protocol_query.filter_by(protocol_id=received_data.get('protocolId')).first()
 
-    protocol_to_change.protocol_num = recieved_data.get('protocolNumber')
-    protocol_to_change.protocol_date = recieved_data.get('protocolDate')
-    protocol_to_change.meetings_type_id = recieved_data.get('meetingsTypeId')
-    protocol_to_change.protocol_name = recieved_data.get('protocolName')
-    protocol_to_change.note = recieved_data.get('note')
+    protocol_to_change.protocol_num = received_data.get('protocolNumber')
+    protocol_to_change.protocol_date = received_data.get('protocolDate')
+    protocol_to_change.meetings_type_id = received_data.get('meetingsTypeId')
+    protocol_to_change.protocol_name = received_data.get('protocolName')
+    protocol_to_change.note = received_data.get('note')
     return DBSession.commit()
 
 
@@ -75,14 +75,14 @@ def get_meetings_types(request):
 
 @view_config(route_name='add_protocol', request_method='POST', renderer='json')
 def add_protocol(request):
-    recieved_data = request.json_body
+    received_data = request.json_body
 
-    new_protocol = models.Protocol(protocol_num=recieved_data.get('protocolNumber'),
-                                   protocol_date=recieved_data.get('protocolDate'),
-                                   meetings_type_id=recieved_data.get('meetingsTypeId'),
-                                   protocol_name=recieved_data.get('protocolName'),
-                                   note=recieved_data.get('note'),
-                                   idfilestorage=recieved_data.get('idFileStorage'),
+    new_protocol = models.Protocol(protocol_num=received_data.get('protocolNumber'),
+                                   protocol_date=received_data.get('protocolDate'),
+                                   meetings_type_id=received_data.get('meetingsTypeId'),
+                                   protocol_name=received_data.get('protocolName'),
+                                   note=received_data.get('note'),
+                                   idfilestorage=received_data.get('idFileStorage'),
                                    )
     DBSession.add(new_protocol)
     DBSession.commit()
@@ -108,11 +108,11 @@ def download_file(request):
 
 @view_config(route_name='upload_file', request_method='POST', renderer='json')
 def upload_file(request):
-    recieved_data = dict(request.POST.items())
+    received_data = dict(request.POST.items())
 
-    protocol_filename = recieved_data.get('protocolFile').filename
-    protocol_file = recieved_data.get('protocolFile').file
-    protocol_filesize = recieved_data.get('protocolFile').limit
+    protocol_filename = received_data.get('protocolFile').filename
+    protocol_file = received_data.get('protocolFile').file
+    protocol_filesize = received_data.get('protocolFile').limit
 
     id_file_storage = str(uuid4())
     new_file = models.Filestorage(idfilestorage=id_file_storage,
@@ -125,7 +125,7 @@ def upload_file(request):
                                   )
     file_path = os.path.join(PROTOCOLS_STORAGE, id_file_storage)
     with open(file_path, 'wb') as output_file:
-        shutil.copyfileobj(protocol_file, output_file)
+        copyfileobj(protocol_file, output_file)
 
     DBSession.add(new_file)
     DBSession.commit()
