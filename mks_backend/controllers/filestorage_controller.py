@@ -11,7 +11,6 @@ from mks_backend.services.filestorage_service import FilestorageService
 from mks_backend.serializers.filestorage_serializer import FilestorageSerializer
 from mks_backend.models.filestorage import Filestorage
 
-
 PROTOCOLS_STORAGE = '/tmp/protocols'
 
 

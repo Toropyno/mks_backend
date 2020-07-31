@@ -1,8 +1,6 @@
 class ProtocolSerializer(object):
 
     def convert_object_to_json(self, protocol):
-        print(protocol.protocol_date)
-        print(self.get_date_string(protocol.protocol_date))
         protocol_dict = {
             "protocolId": protocol.protocol_id,
             "protocolNumber": protocol.protocol_num,
