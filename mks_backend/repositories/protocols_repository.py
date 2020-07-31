@@ -5,7 +5,7 @@ from mks_backend.repositories import DBSession
 class ProtocolRepository(object):
 
     def get_all_protocols(self):
-        return DBSession.query(Protocol).all()
+        return DBSession.query(Protocol)
 
     def get_protocol_by_id(self, id):
         return DBSession.query(Protocol).get(id)
@@ -28,3 +28,17 @@ class ProtocolRepository(object):
              'note': protocol.note})
         DBSession.commit()
 
+    def filter_protocols(self, protocols, params):
+        meetings_type_id = params.get('meetings_type_id')
+        protocol_name = params.get('protocol_name')
+        protocol_num = params.get('protocol_num')
+
+        if meetings_type_id:
+            protocols = protocols.filter_by(meetings_type_id=meetings_type_id)
+        if protocol_name:
+            protocol_name = "%" + protocol_name + "%"
+            protocols = protocols.filter(Protocol.protocol_name.like(protocol_name))
+        if protocol_num:
+            protocol_num = "%" + protocol_num + "%"
+            protocols = protocols.filter(Protocol.protocol_num.like(protocol_num))
+        return protocols.all()

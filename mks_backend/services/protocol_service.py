@@ -6,6 +6,9 @@ class ProtocolService(object):
     def __init__(self):
         self.repo = ProtocolRepository()
 
+    def get_all_protocols(self):
+        return self.repo.get_all_protocols().all()
+
     def get_protocol_by_id(self, id):
         return self.repo.get_protocol_by_id(id)
 
