@@ -1,49 +1,26 @@
-import argparse
+import os
 import sys
 
-from pyramid.paster import bootstrap, setup_logging
-from sqlalchemy.exc import OperationalError
 
-from .. import models
+from pyramid.paster import get_appsettings, setup_logging
+from sqlalchemy import engine_from_config
 
-
-def setup_models(dbsession):
-    """
-    Add or update models / fixtures in the database.
-
-    """
-    # model = models.models.Protocol(name='one', value=1)
-    # dbsession.add(model)
-    pass
+from mks_backend.models import DBSession, Base
 
 
-def parse_args(argv):
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        'config_uri',
-        help='Configuration file, e.g., development.ini',
-    )
-    return parser.parse_args(argv[1:])
+def usage(argv):
+    cmd = os.path.basename(argv[0])
+    print('usage: %s <config_uri>\n'
+          '(example: "%s development.ini")' % (cmd, cmd))
+    sys.exit(1)
 
 
 def main(argv=sys.argv):
-    args = parse_args(argv)
-    setup_logging(args.config_uri)
-    env = bootstrap(args.config_uri)
-
-    try:
-        with env['request'].tm:
-            dbsession = env['request'].dbsession
-            setup_models(dbsession)
-    except OperationalError:
-        print('''
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
-
-1.  You may need to initialize your database tables with `alembic`.
-    Check your README.txt for description and try to run it.
-
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
-            ''')
+    if len(argv) != 2:
+        usage(argv)
+    config_uri = argv[1]
+    setup_logging(config_uri)
+    settings = get_appsettings(config_uri)
+    engine = engine_from_config(settings, 'sqlalchemy.')
+    DBSession.configure(bind=engine)
+    Base.metadata.create_all(engine)

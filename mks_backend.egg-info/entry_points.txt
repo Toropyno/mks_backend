@@ -1,6 +1,0 @@
-[console_scripts]
-initialize_mks_backend_db = mks_backend.scripts.initialize_db:main
-
-[paste.app_factory]
-main = mks_backend:main
-
