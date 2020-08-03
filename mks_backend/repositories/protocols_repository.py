@@ -44,10 +44,12 @@ class ProtocolRepository(object):
             protocols = protocols.filter_by(meetings_type_id=meetings_type_id)
         if protocol_name:
             protocol_name = "%" + protocol_name + "%"
-            protocols = protocols.filter(Protocol.protocol_name.like(protocol_name))
+            print(protocol_name)
+            protocols = protocols.filter(Protocol.protocol_name.ilike(protocol_name))
         if protocol_num:
             protocol_num = "%" + protocol_num + "%"
-            protocols = protocols.filter(Protocol.protocol_num.like(protocol_num))
+            print(protocol_num)
+            protocols = protocols.filter(Protocol.protocol_num.ilike(protocol_num))
         if date_start and date_end:
             protocols = protocols.filter(Protocol.protocol_date >= date_start, Protocol.protocol_date <= date_end)
         return protocols.all()
