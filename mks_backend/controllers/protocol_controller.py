@@ -14,9 +14,17 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols', request_method='GET', renderer='json')
     def get_all_protocols(self):
-        protocols_array = self.repository.get_all_protocols()
-        json = self.serializer.convert_list_to_json(protocols_array)
-        return json
+        if self.request.params:
+            params = dict(self.request.params)
+            filter_dict = dict(zip(params.keys(), params.values()))
+            protocols_array = self.repository.get_all_protocols()
+            protocols_array = self.repository.filter_protocols(protocols_array, filter_dict)
+            json = self.serializer.convert_list_to_json(protocols_array)
+            return json
+        else:
+            protocols_array = self.service.get_all_protocols()
+            json = self.serializer.convert_list_to_json(protocols_array)
+            return json
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
     def add_protocol(self):

@@ -2,7 +2,7 @@ import urllib
 import os
 
 from pyramid.response import FileResponse, Response
-from pyramid.view import view_config, view_defaults
+from pyramid.view import view_config
 
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
 from mks_backend.services.filestorage_service import FilestorageService
