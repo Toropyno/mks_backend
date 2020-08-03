@@ -1,7 +1,3 @@
-import urllib
-import os
-
-from pyramid.response import FileResponse, Response
 from pyramid.view import view_config
 
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
@@ -27,14 +23,5 @@ class FilestorageController(object):
     @view_config(route_name='download_file', request_method='GET')
     def download_file(self):
         uuid = self.request.matchdict['uuid']
-        protocol_file = f'{PROTOCOLS_STORAGE}/{uuid}'
-        if os.path.exists(protocol_file):
-            file = self.repository.get_filestorage_by_id(uuid)
-            protocol_filename = file.filename
-            protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
-
-            response = FileResponse(protocol_file)
-            response.headers['Content-Disposition'] = f"attachment; filename*=UTF-8''{protocol_filename}"
-            return response
-        else:
-            return Response(f'Unable to find: {protocol_file}')
+        response = self.service.get_file(uuid)
+        return response

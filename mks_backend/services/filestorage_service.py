@@ -1,5 +1,7 @@
 from uuid import uuid4
 
+from pyramid.response import FileResponse, Response
+
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
 from mks_backend.models.filestorage import Filestorage
 
@@ -21,8 +23,17 @@ class FilestorageService(object):
                                   mimeType='text/plain',
                                   description='file description',
                                   authorid=1)
-        self.repo.add_file(filestorage)
+        self.repo.add_filestorage(filestorage)
         return filestorage
+
+    def get_file(self, id):
+        path_to_file, filename = self.repo.get_file(id)
+        if path_to_file and filename:
+            response = FileResponse(path_to_file)
+            response.headers['Content-Disposition'] = f"attachment; filename*=UTF-8''{filename}"
+        else:
+            response = Response(f'Unable to find file with id = {id}')
+        return response
 
     @classmethod
     def compare_two_filestorages(cls, new_filestorage, old_filestorage):
