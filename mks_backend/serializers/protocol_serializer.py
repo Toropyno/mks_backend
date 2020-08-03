@@ -1,5 +1,4 @@
 class ProtocolSerializer(object):
-
     def convert_object_to_json(self, protocol):
         protocol_dict = {
             "protocolId": protocol.protocol_id,

@@ -1,5 +1,3 @@
-from datetime import date
-
 from sqlalchemy import Column, Integer, ForeignKey, VARCHAR, Date
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
@@ -16,20 +14,6 @@ class Protocol(Base):
     protocol_name = Column(VARCHAR(255), nullable=False)
     note = Column(VARCHAR(2000))
     idfilestorage = Column(UUID, ForeignKey('filestorage.idfilestorage', ondelete='CASCADE'))
-
-    def __json__(self, request):
-        json_exclude = getattr(self, '__json_exclude__', set())
-
-        json_protocol = dict()
-        for key, value in self.__dict__.items():
-            if key.startswith('_') or key in json_exclude:
-                continue
-            elif isinstance(value, date):
-                value = str(value)
-
-            json_protocol[key] = value
-
-        return json_protocol
 
     def __str__(self):
         return f'id={self.protocol_id}, protocol_number={self.protocol_num}'
