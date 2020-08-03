@@ -1,10 +1,10 @@
-from uuid import uuid4
 import urllib
+from uuid import uuid4
 from shutil import copyfileobj
-import os
+from os.path import exists, join
 
+from pyramid.view import view_config
 from pyramid.response import FileResponse, Response
-from pyramid.view import view_config, view_defaults
 
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
 from mks_backend.services.filestorage_service import FilestorageService
@@ -31,7 +31,7 @@ class FilestorageController(object):
     def download_file(self):
         uuid = self.request.matchdict['uuid']
         protocol_file = f'{PROTOCOLS_STORAGE}/{uuid}'
-        if os.path.exists(protocol_file):
+        if exists(protocol_file):
             file = self.repository.get_file(uuid)
             protocol_filename = file.filename
             protocol_filename = urllib.request.quote(protocol_filename.encode('utf-8'))
@@ -46,7 +46,7 @@ class FilestorageController(object):
         file = dict(self.request.POST.items()).get('protocolFile')
         id_file_storage = str(uuid4())
 
-        file_path = os.path.join(PROTOCOLS_STORAGE, id_file_storage)
+        file_path = join(PROTOCOLS_STORAGE, id_file_storage)
         with open(file_path, 'wb') as output_file:
             copyfileobj(file.file, output_file)
 

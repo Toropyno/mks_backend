@@ -1,8 +1,8 @@
 from uuid import uuid4
 
-from sqlalchemy import Column, Integer, VARCHAR, TIMESTAMP
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, Integer, VARCHAR, TIMESTAMP
 
 from mks_backend.models import Base
 

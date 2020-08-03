@@ -3,7 +3,6 @@ from mks_backend.repositories import DBSession
 
 
 class ProtocolRepository(object):
-
     def get_all_protocols(self):
         return DBSession.query(Protocol)
 

@@ -1,4 +1,4 @@
-from pyramid.view import view_config, view_defaults
+from pyramid.view import view_config
 
 from mks_backend.repositories.protocols_repository import ProtocolRepository
 from mks_backend.serializers.protocol_serializer import ProtocolSerializer

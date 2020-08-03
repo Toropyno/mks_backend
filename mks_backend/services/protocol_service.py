@@ -2,7 +2,6 @@ from mks_backend.repositories.protocols_repository import ProtocolRepository
 
 
 class ProtocolService(object):
-
     def __init__(self):
         self.repo = ProtocolRepository()
 

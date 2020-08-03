@@ -1,4 +1,4 @@
-from pyramid.view import view_config, view_defaults
+from pyramid.view import view_config
 
 from mks_backend.repositories.meeting_repository import MeetingRepository
 
