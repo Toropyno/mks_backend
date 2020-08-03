@@ -42,7 +42,7 @@ class ProtocolController(object):
     @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_protocol(self):
         id = self.request.matchdict['id']
-        self.repository.delete_protocol_by_id(id)
+        self.service.delete_protocol_by_id(id)
         return {'id': id}
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')

@@ -1,5 +1,6 @@
 from mks_backend.models.protocol import Protocol
 from mks_backend.repositories import DBSession
+from mks_backend.repositories.filestorage_repository import FilestorageRepository
 
 
 class ProtocolRepository(object):
@@ -16,8 +17,11 @@ class ProtocolRepository(object):
 
     def delete_protocol_by_id(self, id):
         protocol = self.get_protocol_by_id(id)
+        filestorage_id = protocol.idfilestorage
         DBSession.delete(protocol)
         DBSession.commit()
+
+        FilestorageRepository.delete_filestorage_by_id(filestorage_id)
 
     def update_protocol(self, protocol):
         DBSession.query(Protocol).filter_by(protocol_id=protocol.protocol_id).update(

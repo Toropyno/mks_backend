@@ -42,5 +42,5 @@ class ProtocolService(object):
         FilestorageService.compare_two_filestorages(new_idfilestorage, old_idfilestorage)
         return new_protocol
 
-    def delete_protocol_id(self, id):
+    def delete_protocol_by_id(self, id):
         return self.repo.delete_protocol_by_id(id)

@@ -1,4 +1,3 @@
-import os
 from uuid import uuid4
 
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
@@ -6,8 +5,6 @@ from mks_backend.models.filestorage import Filestorage
 
 
 class FilestorageService(object):
-    PROTOCOL_STORAGE = '/tmp/protocols/'
-
     def __init__(self):
         self.repo = FilestorageRepository()
 
@@ -30,7 +27,4 @@ class FilestorageService(object):
     @classmethod
     def compare_two_filestorages(cls, new_filestorage, old_filestorage):
         if new_filestorage != old_filestorage:
-            path_to_file = FilestorageService.PROTOCOL_STORAGE + old_filestorage
-            if os.path.exists(path_to_file):
-                os.remove(path_to_file)
             FilestorageRepository.delete_filestorage_by_id(old_filestorage)

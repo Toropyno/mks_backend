@@ -1,3 +1,4 @@
+from os import path as os_path, remove as os_remove
 from shutil import copyfileobj
 
 from mks_backend.models.filestorage import Filestorage
@@ -22,6 +23,11 @@ class FilestorageRepository(object):
 
     @classmethod
     def delete_filestorage_by_id(cls, id):
+        # delete from DB
         filestorage = cls.get_filestorage_by_id(id)
         DBSession.delete(filestorage)
         DBSession.commit()
+        #  delete from filesystem
+        path_to_file = FilestorageRepository.PROTOCOL_STORAGE + id
+        if os_path.exists(path_to_file):
+            os_remove(path_to_file)
