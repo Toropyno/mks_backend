@@ -16,7 +16,7 @@ class ProtocolService(object):
     def get_protocol_from_request(self, request_data):
         protocol_num = request_data.get('protocolNumber')
         protocol_date = request_data.get('protocolDate')
-        meetings_type_id = request_data.get('meetingsTypeId')
+        meetings_type_id = request_data.get('meeting')
         protocol_name = request_data.get('protocolName')
         note = request_data.get('note')
         idfilestorage = request_data.get('idFileStorage')

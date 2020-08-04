@@ -1,13 +1,20 @@
+from mks_backend.repositories.meeting_repository import MeetingRepository
+
+
 class ProtocolSerializer(object):
     def convert_object_to_json(self, protocol):
         protocol_dict = {
-            "protocolId": protocol.protocol_id,
-            "protocolNumber": protocol.protocol_num,
-            "protocolDate": self.get_date_string(protocol.protocol_date),
-            "meetingsTypeId": protocol.meetings_type_id,
-            "protocolName": protocol.protocol_name,
-            "note": protocol.note,
-            "idFileStorage": protocol.idfilestorage}
+            'protocolId': protocol.protocol_id,
+            'protocolNumber': protocol.protocol_num,
+            'protocolDate': self.get_date_string(protocol.protocol_date),
+            'meeting': {
+                'id': protocol.meetings_type_id,
+                'fullName': MeetingRepository.get_meeting_fullname_by_id(protocol.meetings_type_id)
+            },
+            'protocolName': protocol.protocol_name,
+            'note': protocol.note,
+            'idFileStorage': protocol.idfilestorage
+        }
         return protocol_dict
 
     def get_date_string(self, date):
