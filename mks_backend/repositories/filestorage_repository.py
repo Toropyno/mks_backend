@@ -40,7 +40,7 @@ class FilestorageRepository(object):
     def guess_mime_type(self, filename):
         mime_type = guess_mimetype(filename, strict=False)[0]  # return (type, encoding)
 
-        if mime_type and len(mime_type) < 30:  # max length for models.Filestorage.mimeType
+        if mime_type and len(mime_type) < 45:  # max length for models.Filestorage.mimeType
             return mime_type
         else:
             return 'unknow/type'
