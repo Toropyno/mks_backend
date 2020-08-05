@@ -1,3 +1,7 @@
+from ..models.meeting import Meetings_type
+from ..models.protocol import Protocol
+from ..models.filestorage import Filestorage
+
 import os
 import sys
 
