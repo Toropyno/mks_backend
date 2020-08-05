@@ -10,21 +10,21 @@ class FilestorageService(object):
     def __init__(self):
         self.repo = FilestorageRepository()
 
-    def get_filestorage_from_request(self, request_data):
+    def create_filestorage_from_request(self, request_data):
         file = request_data.get('protocolFile')
 
         id_file_storage = str(uuid4())
-        self.repo.create_file(id_file_storage, file.file)
+        self.repo.create_file(id_file_storage, file)
 
         filestorage = Filestorage(idfilestorage=id_file_storage,
                                   filename=file.filename,
                                   uri='protocols/download/' + id_file_storage,
                                   filesize=file.limit,
-                                  mimeType='text/plain',
+                                  mimeType=self.repo.guess_mime_type(file.filename),
                                   description='file description',
                                   authorid=1)
         self.repo.add_filestorage(filestorage)
-        return filestorage
+        return filestorage.idfilestorage
 
     def get_file(self, id):
         path_to_file, filename = self.repo.get_file(id)
