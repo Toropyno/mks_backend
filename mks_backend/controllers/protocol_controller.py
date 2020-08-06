@@ -101,7 +101,7 @@ class ProtocolControllerIdSchema(colander.MappingSchema):
 
 class ProtocolControllerSchema(colander.MappingSchema):
     protocol_num = colander.SchemaNode(colander.String(), name='protocolNumber', validator=colander.Length(min=1, max=20))
-    protocol_date = colander.SchemaNode(colander.Date('%a %b %d %Y %H:%M:%S %z'), name='protocolDate')
+    protocol_date = colander.SchemaNode(colander.Date('%a %b %d %Y %H:%M:%S GMT%z'), name='protocolDate')
     meetings_type_id = colander.SchemaNode(colander.Int(), name='meeting', validator=colander.Range(min=0))
     protocol_name = colander.SchemaNode(colander.String(), name='protocolName', validator=colander.Length(min=1, max=255))
     note = colander.SchemaNode(colander.String(), name='note', validator=colander.Length(min=1,max=2000))
