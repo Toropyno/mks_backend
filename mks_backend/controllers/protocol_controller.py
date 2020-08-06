@@ -7,7 +7,6 @@ from mks_backend.services.protocol_service import ProtocolService
 from pyramid.response import Response
 
 import colander
-import datetime
 
 
 class ProtocolController(object):
