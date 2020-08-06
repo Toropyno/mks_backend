@@ -1,6 +1,7 @@
 from mks_backend.repositories.protocols_repository import ProtocolRepository
 from mks_backend.services.filestorage_service import FilestorageService
 from mks_backend.models.protocol import Protocol
+from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 
 
 class ProtocolService(object):
@@ -16,7 +17,7 @@ class ProtocolService(object):
     def get_protocol_from_request(self, request_data):
         protocol_num = request_data.get('protocolNumber')
         protocol_date = request_data.get('protocolDate')
-        meetings_type_id = request_data.get('meetings')
+        meetings_type_id = request_data.get('meeting')
         protocol_name = request_data.get('protocolName')
         note = request_data.get('note')
         idfilestorage = request_data.get('idFileStorage')
@@ -43,4 +44,7 @@ class ProtocolService(object):
         return new_protocol
 
     def delete_protocol_by_id(self, id):
-        return self.repo.delete_protocol_by_id(id)
+        filestorage_id = self.repo.get_protocol_by_id(id).idfilestorage
+        FilestorageHDD.delete_by_id(filestorage_id)
+
+        self.repo.delete_protocol_by_id(id)

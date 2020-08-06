@@ -21,6 +21,7 @@ class ProtocolRepository(object):
         DBSession.delete(protocol)
         DBSession.commit()
 
+        # TODO: refactor when cascade-deleting on Filestorage will be good
         FilestorageRepository.delete_filestorage_by_id(filestorage_id)
 
     def update_protocol(self, protocol):
@@ -34,7 +35,7 @@ class ProtocolRepository(object):
         DBSession.commit()
 
     def filter_protocols(self, protocols, params):
-        meetings_type_id = params.get('meetings')
+        meetings_type_id = params.get('meeting')
         protocol_name = params.get('protocolName')
         protocol_num = params.get('protocolNumber')
         date_start = params.get('dateStart')
@@ -43,10 +44,10 @@ class ProtocolRepository(object):
         if meetings_type_id:
             protocols = protocols.filter_by(meetings_type_id=meetings_type_id)
         if protocol_name:
-            protocol_name = "%" + protocol_name + "%"
+            protocol_name = '%' + protocol_name + '%'
             protocols = protocols.filter(Protocol.protocol_name.ilike(protocol_name))
         if protocol_num:
-            protocol_num = "%" + protocol_num + "%"
+            protocol_num = '%' + protocol_num + '%'
             protocols = protocols.filter(Protocol.protocol_num.ilike(protocol_num))
         if date_start and date_end:
             protocols = protocols.filter(Protocol.protocol_date >= date_start, Protocol.protocol_date <= date_end)

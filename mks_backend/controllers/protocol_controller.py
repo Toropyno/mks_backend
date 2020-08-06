@@ -16,9 +16,8 @@ class ProtocolController(object):
     def get_all_protocols(self):
         if self.request.params:
             params = dict(self.request.params)
-            filter_dict = dict(zip(params.keys(), params.values()))
             protocols_array = self.repository.get_all_protocols()
-            protocols_array = self.repository.filter_protocols(protocols_array, filter_dict)
+            protocols_array = self.repository.filter_protocols(protocols_array, params)
             json = self.serializer.convert_list_to_json(protocols_array)
             return json
         else:

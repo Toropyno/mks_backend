@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, Integer, VARCHAR, TIMESTAMP
@@ -13,7 +14,9 @@ class Filestorage(Base):
     filename = Column(VARCHAR(255), nullable=False)
     uri = Column(VARCHAR(1024), nullable=False)
     filesize = Column(Integer, default=0)
-    mimeType = Column(VARCHAR(30))
+    mimeType = Column(VARCHAR(45))
     createdOn = Column(TIMESTAMP(timezone=True), default=func.now())
     description = Column(VARCHAR(100))
     authorid = Column(Integer)
+
+    protocols = relationship("Protocol", back_populates="filestorage", passive_deletes=True)
