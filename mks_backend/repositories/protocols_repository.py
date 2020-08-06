@@ -21,6 +21,7 @@ class ProtocolRepository(object):
         DBSession.delete(protocol)
         DBSession.commit()
 
+        # TODO: refactor when cascade-deleting on Filestorage will be good
         FilestorageRepository.delete_filestorage_by_id(filestorage_id)
 
     def update_protocol(self, protocol):
