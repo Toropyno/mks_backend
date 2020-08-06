@@ -53,10 +53,10 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
     def get_protocol(self):
-        protocol_schema = ProtocolControllerIdSchema()
+        protocol_id_schema = ProtocolControllerIdSchema()
         try:
-            protocol_deserialized = protocol_schema.deserialize(self.request.GET)
-            id = protocol_deserialized['id']
+            protocol_id_deserialized = protocol_id_schema.deserialize(self.request.GET)
+            id = protocol_id_deserialized['id']
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
@@ -67,10 +67,10 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_protocol(self):
-        protocol_schema = ProtocolControllerIdSchema()
+        protocol_id_schema = ProtocolControllerIdSchema()
         try:
-            protocol_deserialized = protocol_schema.deserialize(self.request.GET)
-            id = protocol_deserialized['id']
+            protocol_id_deserialized = protocol_id_schema.deserialize(self.request.GET)
+            id = protocol_id_deserialized['id']
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
@@ -111,4 +111,4 @@ class ProtocolControllerFilterSchema(colander.MappingSchema):
     meetings_type_id = colander.SchemaNode(colander.Int(), name='meeting', validator=colander.Range(min=0), missing=None)
     protocol_name = colander.SchemaNode(colander.String(), name='protocolName', validator=colander.Length(max=255), missing=None)
     date_start = colander.SchemaNode(colander.Date('%d.%m.%Y'), name='dateStart', missing=None)
-    date_end = colander.SchemaNode(colander.Date('%d.%m.%Y'), name='dateEnd', validator=colander.Length(max=2000), missing=None)
+    date_end = colander.SchemaNode(colander.Date('%d.%m.%Y'), name='dateEnd', missing=None)
