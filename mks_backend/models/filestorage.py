@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, Integer, VARCHAR, TIMESTAMP
@@ -19,4 +19,4 @@ class Filestorage(Base):
     description = Column(VARCHAR(100))
     authorid = Column(Integer)
 
-    protocol = relationship("Protocol", back_populates="filestorage")
+    protocols = relationship("Protocol", back_populates="filestorage", passive_deletes=True)
