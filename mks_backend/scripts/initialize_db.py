@@ -5,8 +5,10 @@ from mks_backend.models.protocol import Protocol
 
 import os
 import sys
+
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
+
 from mks_backend.models import DBSession, Base
 
 
