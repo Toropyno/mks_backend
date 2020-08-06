@@ -13,21 +13,6 @@ class ProtocolService(object):
     def get_protocol_by_id(self, id):
         return self.repo.get_protocol_by_id(id)
 
-    def get_protocol_from_request(self, request_data):
-        protocol_num = request_data.get('protocolNumber')
-        protocol_date = request_data.get('protocolDate')
-        meetings_type_id = request_data.get('meeting')
-        protocol_name = request_data.get('protocolName')
-        note = request_data.get('note')
-        idfilestorage = request_data.get('idFileStorage')
-
-        return Protocol(protocol_num=protocol_num,
-                        protocol_date=protocol_date,
-                        meetings_type_id=meetings_type_id,
-                        protocol_name=protocol_name,
-                        note=note,
-                        idfilestorage=idfilestorage)
-
     def add_protocol(self, protocol):
         return self.repo.add_protocol(protocol)
 
@@ -44,3 +29,18 @@ class ProtocolService(object):
 
     def delete_protocol_by_id(self, id):
         return self.repo.delete_protocol_by_id(id)
+
+    def get_params_from_schema(self, schema_dict):
+        params = {}
+        if 'dateStart' in schema_dict:
+            params['dateStart'] = schema_dict['dateStart']
+        if 'dateEnd' in schema_dict:
+            params['dateEnd'] = schema_dict['dateEnd']
+        if 'protocolNumber' in schema_dict:
+            params['protocolNumber'] = schema_dict['protocolNumber']
+        if 'meeting' in schema_dict:
+            params['meeting'] = schema_dict['meeting']
+        if 'protocolName' in schema_dict:
+            params['protocolName'] = schema_dict['protocolName']
+        return params
+

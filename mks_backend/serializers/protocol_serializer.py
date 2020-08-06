@@ -41,27 +41,3 @@ class ProtocolSerializer(object):
         protocol.note = schema_dict['note']
         #protocol.idfilestorage = schema_dict['idFileStorage']
         return protocol
-
-
-    def get_params_from_schema(self,schema_dict):
-        date_start = schema_dict['dateStart'] if 'dateStart' in schema_dict else None
-        date_end = schema_dict['dateEnd'] if 'dateEnd' in schema_dict else None
-        protocol_num = schema_dict['protocolNumber'] if 'protocolNumber' in schema_dict else None
-        meetings_type_id = schema_dict['meeting'] if 'meeting' in schema_dict else None
-        protocol_name = schema_dict['protocolName'] if 'protocolName' in schema_dict else None
-
-        params = {}
-
-        if date_start is not None:
-            params['dateStart'] = date_start
-        if date_end is not None:
-            params['dateEnd'] = date_end
-        if protocol_num is not None:
-            params['protocolNumber'] = protocol_num
-        if protocol_name is not None:
-            params['protocolName'] = protocol_name
-        if meetings_type_id is not None:
-            params['meeting'] = meetings_type_id
-
-        return params
-

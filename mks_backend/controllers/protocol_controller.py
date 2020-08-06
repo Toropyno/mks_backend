@@ -22,13 +22,12 @@ class ProtocolController(object):
             params_schema = ProtocolControllerFilterSchema()
             try:
                 params_deserialized = params_schema.deserialize(self.request.GET)
-                params = self.serializer.get_params_from_schema(params_deserialized)
+                params = self.service.get_params_from_schema(params_deserialized)
             except colander.Invalid as error:
                 return Response(status=403, json_body=error.asdict())
             except ValueError as date_parse_error:
                 return Response(status=403, json_body=date_parse_error.args)
 
-            #params = dict(self.request.params)
             protocols_array = self.repository.get_all_protocols()
             protocols_array = self.repository.filter_protocols(protocols_array, params)
             json = self.serializer.convert_list_to_json(protocols_array)
@@ -49,7 +48,6 @@ class ProtocolController(object):
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
 
-        #protocol = self.service.get_protocol_from_request(self.request.json_body)
         self.repository.add_protocol(protocol)
         return {'id': protocol.protocol_id}
 
@@ -95,7 +93,6 @@ class ProtocolController(object):
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
 
-        #new_protocol = self.service.get_protocol_from_request(self.request.json_body)
         new_protocol = self.service.update_protocol(new_protocol.protocol_id, new_protocol)
         return {'id': new_protocol.protocol_id}
 
@@ -104,7 +101,6 @@ class ProtocolControllerIdSchema(colander.MappingSchema):
     id = colander.SchemaNode(colander.Int(), name='id', validator=colander.Range(min=0))
 
 class ProtocolControllerSchema(colander.MappingSchema):
-    #id = colander.SchemaNode(colander.Int(), name='id', validator=colander.Range(min=0))
     protocol_num = colander.SchemaNode(colander.String(), name='protocolNumber')
     protocol_date = colander.SchemaNode(colander.Date('%d.%m.%Y'), name='protocolDate')
     meetings_type_id = colander.SchemaNode(colander.Int(), name='meeting', validator=colander.Range(min=0))
