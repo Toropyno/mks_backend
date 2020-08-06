@@ -7,6 +7,7 @@ from mks_backend.services.protocol_service import ProtocolService
 from pyramid.response import Response
 
 import colander
+import datetime
 
 
 class ProtocolController(object):
@@ -100,15 +101,18 @@ class ProtocolControllerIdSchema(colander.MappingSchema):
 
 class ProtocolControllerSchema(colander.MappingSchema):
     protocol_num = colander.SchemaNode(colander.String(), name='protocolNumber', validator=colander.Length(min=1, max=20))
-    protocol_date = colander.SchemaNode(colander.Date('%d.%m.%Y'), name='protocolDate')
+    protocol_date = colander.SchemaNode(colander.Date('%a %b %d %Y %H:%M:%S %z'), name='protocolDate')
     meetings_type_id = colander.SchemaNode(colander.Int(), name='meeting', validator=colander.Range(min=0))
     protocol_name = colander.SchemaNode(colander.String(), name='protocolName', validator=colander.Length(min=1, max=255))
     note = colander.SchemaNode(colander.String(), name='note', validator=colander.Length(min=1,max=2000))
-    idfilestorage = colander.SchemaNode(colander.String(), name='idFileStorage', validator=colander.Regex(regex='[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[89AB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}'))
+    idfilestorage = colander.SchemaNode(colander.String(), name='idFileStorage', validator=colander.Regex(regex='[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'))
 
 class ProtocolControllerFilterSchema(colander.MappingSchema):
     protocol_num = colander.SchemaNode(colander.String(), name='protocolNumber', validator=colander.Length(max=20), missing=None)
     meetings_type_id = colander.SchemaNode(colander.Int(), name='meeting', validator=colander.Range(min=0), missing=None)
     protocol_name = colander.SchemaNode(colander.String(), name='protocolName', validator=colander.Length(max=255), missing=None)
-    date_start = colander.SchemaNode(colander.Date('%d.%m.%Y'), name='dateStart', missing=None)
-    date_end = colander.SchemaNode(colander.Date('%d.%m.%Y'), name='dateEnd', missing=None)
+    date_start = colander.SchemaNode(colander.Date('%a %b %d %Y'), name='dateStart', missing=None)
+    date_end = colander.SchemaNode(colander.Date('%a %b %d %Y'), name='dateEnd', missing=None)
+
+
+
