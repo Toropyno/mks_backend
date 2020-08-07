@@ -19,7 +19,7 @@ class ProtocolSerializer(object):
         return protocol_dict
 
     def get_date_string(self, date):
-        return str(date.day) + '.' + str(date.month) + '.' + str(date.year)
+        return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
 
     def convert_list_to_json(self, protocols):
         protocols_array = []
