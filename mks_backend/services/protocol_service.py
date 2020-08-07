@@ -16,8 +16,8 @@ class ProtocolService(object):
     def add_protocol(self, protocol):
         return self.repo.add_protocol(protocol)
 
-    def update_protocol(self, id, new_protocol):
-        old_protocol = self.repo.get_protocol_by_id(id)
+    def update_protocol(self, new_protocol):
+        old_protocol = self.repo.get_protocol_by_id(new_protocol.protocol_id)
         new_protocol.protocol_id = old_protocol.protocol_id
 
         old_idfilestorage = old_protocol.idfilestorage
