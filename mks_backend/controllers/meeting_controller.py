@@ -7,8 +7,6 @@ class MeetingController(object):
     def __init__(self, request):
         self.request = request
         self.repository = MeetingRepository()
-        # self.serializer = ProtocolSerializer()
-        # self.service = ProtocolService()
 
     @view_config(route_name='add_protocol', request_method='GET', renderer='json')
     def get_meetings_types(self):
