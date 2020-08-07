@@ -39,5 +39,5 @@ class ProtocolSerializer(object):
         protocol.meetings_type_id = schema_dict['meeting']
         protocol.protocol_name = schema_dict['protocolName']
         protocol.note = schema_dict['note']
-        #protocol.idfilestorage = schema_dict['idFileStorage']
+        protocol.idfilestorage = schema_dict['idFileStorage']
         return protocol
