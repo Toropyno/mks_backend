@@ -1,4 +1,7 @@
+import colander
+
 from pyramid.view import view_config
+from pyramid.response import Response
 
 from mks_backend.repositories.protocols_repository import ProtocolRepository
 from mks_backend.serializers.protocol_serializer import ProtocolSerializer
@@ -15,7 +18,18 @@ class ProtocolController(object):
     @view_config(route_name='protocols', request_method='GET', renderer='json')
     def get_all_protocols(self):
         if self.request.params:
-            params = dict(self.request.params)
+            params_schema = ProtocolControllerFilterSchema()
+            try:
+                params_deserialized = params_schema.deserialize(self.request.GET)
+            except colander.Invalid as error:
+                return Response(status=403, json_body={
+                                'error_code': 403,
+                                'text': error.asdict(), })
+            except ValueError as date_parse_error:
+                return Response(status=403, json_body={
+                                'error_code': 403,
+                                'text': date_parse_error.args, })
+            params = self.service.get_params_from_schema(params_deserialized)
             protocols_array = self.repository.get_all_protocols()
             protocols_array = self.repository.filter_protocols(protocols_array, params)
             json = self.serializer.convert_list_to_json(protocols_array)
@@ -27,14 +41,25 @@ class ProtocolController(object):
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
     def add_protocol(self):
-        protocol = self.service.get_protocol_from_request(self.request.json_body)
+        protocol_schema = ProtocolControllerSchema()
+        try:
+            protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body={
+                                'error_code': 403,
+                                'text': error.asdict(),})
+        except ValueError as date_parse_error:
+            return Response(status=403, json_body={
+                                'error_code': 403,
+                                'text': date_parse_error.args,})
+        protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
         self.repository.add_protocol(protocol)
         return {'id': protocol.protocol_id}
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
     def get_protocol(self):
         id = self.request.matchdict['id']
-        protocol = self.repository.get_protocol_by_id(id)
+        protocol = self.service.get_protocol_by_id(id)
         json = self.serializer.convert_object_to_json(protocol)
         return json
 
@@ -46,6 +71,50 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_protocol(self):
-        new_protocol = self.service.get_protocol_from_request(self.request.json_body)
-        new_protocol = self.service.update_protocol(self.request.matchdict['id'], new_protocol)
+        protocol_schema = ProtocolControllerSchema()
+        id = self.request.matchdict['id']
+        try:
+            protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body={
+                            'error_code': 403,
+                            'text': error.asdict(), })
+        except ValueError as date_parse_error:
+            return Response(status=403, json_body={
+                            'error_code': 403,
+                            'text': date_parse_error.args, })
+        protocol_deserialized["id"] = id
+        new_protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
+        new_protocol = self.service.update_protocol(new_protocol)
         return {'id': new_protocol.protocol_id}
+
+
+class ProtocolControllerIdSchema(colander.MappingSchema):
+    id = colander.SchemaNode(colander.Int(), name='id', validator=colander.Range(min=0))
+
+class ProtocolControllerSchema(colander.MappingSchema):
+    protocol_num = colander.SchemaNode(colander.String(), name='protocolNumber',
+                                       validator=colander.Length(min=1, max=20))
+    protocol_date = colander.SchemaNode(colander.Date('%a %b %d %Y'), name='protocolDate')
+    meetings_type_id = colander.SchemaNode(colander.Int(), name='meeting',
+                                           validator=colander.Range(min=0))
+    protocol_name = colander.SchemaNode(colander.String(), name='protocolName',
+                                        validator=colander.Length(min=1, max=255))
+    note = colander.SchemaNode(colander.String(), name='note',
+                                        validator=colander.Length(min=1, max=2000))
+    idfilestorage = colander.SchemaNode(colander.String(), name='idFileStorage',
+                                        validator=colander.Regex(regex=
+                                        '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'))
+
+class ProtocolControllerFilterSchema(colander.MappingSchema):
+    protocol_num = colander.SchemaNode(colander.String(), name='protocolNumber',
+                                       validator=colander.Length(max=20), missing=None)
+    meetings_type_id = colander.SchemaNode(colander.Int(), name='meeting',
+                                           validator=colander.Range(min=0), missing=None)
+    protocol_name = colander.SchemaNode(colander.String(), name='protocolName',
+                                        validator=colander.Length(max=255), missing=None)
+    date_start = colander.SchemaNode(colander.Date('%a %b %d %Y'), name='dateStart', missing=None)
+    date_end = colander.SchemaNode(colander.Date('%a %b %d %Y'), name='dateEnd', missing=None)
+
+
+
