@@ -22,13 +22,9 @@ class ProtocolController(object):
             try:
                 params_deserialized = params_schema.deserialize(self.request.GET)
             except colander.Invalid as error:
-                return Response(status=403, json_body={
-                                'error_code': 403,
-                                'text': error.asdict(), })
+                return Response(status=403, json_body=error.asdict())
             except ValueError as date_parse_error:
-                return Response(status=403, json_body={
-                                'error_code': 403,
-                                'text': date_parse_error.args, })
+                return Response(status=403, json_body=date_parse_error.args)
             params = self.service.get_params_from_schema(params_deserialized)
             protocols_array = self.repository.get_all_protocols()
             protocols_array = self.repository.filter_protocols(protocols_array, params)
@@ -45,13 +41,9 @@ class ProtocolController(object):
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body={
-                                'error_code': 403,
-                                'text': error.asdict(),})
+            return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
-            return Response(status=403, json_body={
-                                'error_code': 403,
-                                'text': date_parse_error.args,})
+            return Response(status=403, json_body=date_parse_error.args)
         protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
         self.repository.add_protocol(protocol)
         return {'id': protocol.protocol_id}
@@ -76,13 +68,9 @@ class ProtocolController(object):
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body={
-                            'error_code': 403,
-                            'text': error.asdict(), })
+            return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
-            return Response(status=403, json_body={
-                            'error_code': 403,
-                            'text': date_parse_error.args, })
+            return Response(status=403, json_body=date_parse_error.args)
         protocol_deserialized["id"] = id
         new_protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
         new_protocol = self.service.update_protocol(new_protocol)
