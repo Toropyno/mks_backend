@@ -28,7 +28,10 @@ class ProtocolService(object):
         return new_protocol
 
     def delete_protocol_by_id(self, id):
-        return self.repo.delete_protocol_by_id(id)
+        filestorage_id = self.repo.get_protocol_by_id(id).idfilestorage
+        FilestorageHDD.delete_by_id(filestorage_id)
+
+        self.repo.delete_protocol_by_id(id)
 
     def get_params_from_schema(self, schema_dict):
         params = {}

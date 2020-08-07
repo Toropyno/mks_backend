@@ -1,10 +1,10 @@
+# Do not delete import models
+from mks_backend.models.filestorage import Filestorage
 from mks_backend.models.meeting import Meetings_type
 from mks_backend.models.protocol import Protocol
-from mks_backend.models.filestorage import Filestorage
 
 import os
 import sys
-
 
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
