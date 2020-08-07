@@ -1,6 +1,6 @@
-from ..models.meeting import Meetings_type
-from ..models.protocol import Protocol
-from ..models.filestorage import Filestorage
+from mks_backend.models.meeting import Meetings_type
+from mks_backend.models.protocol import Protocol
+from mks_backend.models.filestorage import Filestorage
 
 import os
 import sys
