@@ -1,6 +1,7 @@
 from mks_backend.repositories.protocols_repository import ProtocolRepository
 from mks_backend.services.filestorage_service import FilestorageService
 from mks_backend.models.protocol import Protocol
+from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 
 
 class ProtocolService(object):
