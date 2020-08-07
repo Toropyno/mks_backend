@@ -1,5 +1,6 @@
 from mks_backend.repositories.meeting_repository import MeetingRepository
 
+from mks_backend.models.protocol import Protocol
 
 class ProtocolSerializer(object):
     def convert_object_to_json(self, protocol):
@@ -28,3 +29,15 @@ class ProtocolSerializer(object):
             protocols_array.append(protocol_dict)
 
         return protocols_array
+
+    def convert_schema_to_object(self, schema_dict):
+        protocol = Protocol()
+        if 'id' in schema_dict:
+            protocol.protocol_id = schema_dict['id']
+        protocol.protocol_num = schema_dict['protocolNumber']
+        protocol.protocol_date = schema_dict['protocolDate']
+        protocol.meetings_type_id = schema_dict['meeting']
+        protocol.protocol_name = schema_dict['protocolName']
+        protocol.note = schema_dict['note']
+        protocol.idfilestorage = schema_dict['idFileStorage']
+        return protocol
