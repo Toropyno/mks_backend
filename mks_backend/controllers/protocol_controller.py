@@ -70,7 +70,6 @@ class ProtocolController(object):
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
-            print(date_parse_error)
             return Response(status=403, json_body=date_parse_error.args)
         protocol_deserialized["id"] = id
         new_protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
@@ -86,7 +85,6 @@ def date_validator(node, value):
 def uuid_validator(node,value):
     pattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
     res = re.match(pattern, value)
-    print(res)
     if res is None:
         raise colander.Invalid(node, 'Недопустимая информация о файле')
 
