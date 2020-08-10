@@ -48,4 +48,4 @@ class ProtocolService(object):
         return params
 
     def filter_protocols(self, protocols_array, params):
-        self.repo.filter_protocols(protocols_array, params)
+        return self.repo.filter_protocols(protocols_array, params)
