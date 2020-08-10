@@ -1,7 +1,7 @@
 import re
-import colander
 from datetime import datetime
 
+import colander
 from pyramid.view import view_config
 from pyramid.response import Response
 
@@ -76,10 +76,11 @@ class ProtocolController(object):
         new_protocol = self.service.update_protocol(new_protocol)
         return {'id': new_protocol.protocol_id}
 
+
 def date_validator(node, value):
     try:
-        value = datetime.strptime(value, "%a %b %d %Y")
-    except:
+        value = datetime.strptime(value, '%a %b %d %Y')
+    except ValueError:
         raise colander.Invalid(node, 'Неверный формат даты')
 
 def uuid_validator(node,value):
@@ -87,6 +88,7 @@ def uuid_validator(node,value):
     res = re.match(pattern, value)
     if res is None:
         raise colander.Invalid(node, 'Недопустимая информация о файле')
+
 
 class ProtocolControllerSchema(colander.MappingSchema):
     protocol_num = colander.SchemaNode(colander.String(),
@@ -113,10 +115,10 @@ class ProtocolControllerSchema(colander.MappingSchema):
                                validator=colander.Length(min=1,
                                                          max=2000,
                                                          min_err='Слишком короткое примечание',
-                                                         max_err='Слишком длинное примечание'))
+                                                         max_err='Недопустимое примечание'))
     idfilestorage = colander.SchemaNode(colander.String(),
                                         name='idFileStorage',
-                                        msg="Недопустимая информация о файле",
+                                        msg='Недопустимая информация о файле',
                                         validator=uuid_validator)
 
 class ProtocolControllerFilterSchema(colander.MappingSchema):
@@ -137,5 +139,11 @@ class ProtocolControllerFilterSchema(colander.MappingSchema):
                                                                  min_err='Слишком короткое имя протокола',
                                                                  max_err='Слишком длинное имя протокола'),
                                         missing=None)
-    date_start = colander.SchemaNode(colander.String(), name='dateStart', validator=date_validator, missing=None)
-    date_end = colander.SchemaNode(colander.String(), name='dateEnd', validator=date_validator, missing=None)
+    date_start = colander.SchemaNode(colander.String(),
+                                     name='dateStart',
+                                     validator=date_validator,
+                                     missing=None)
+    date_end = colander.SchemaNode(colander.String(),
+                                   name='dateEnd',
+                                   validator=date_validator,
+                                   missing=None)
