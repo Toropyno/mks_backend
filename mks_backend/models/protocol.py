@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, VARCHAR, Date
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from mks_backend.models import Base

@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, Integer, VARCHAR, TIMESTAMP

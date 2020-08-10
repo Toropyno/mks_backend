@@ -1,8 +1,9 @@
 from mks_backend.repositories.meeting_repository import MeetingRepository
-
 from mks_backend.models.protocol import Protocol
 
+
 class ProtocolSerializer(object):
+
     def convert_object_to_json(self, protocol):
         protocol_dict = {
             'protocolId': protocol.protocol_id,

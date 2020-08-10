@@ -10,7 +10,7 @@ class ProtocolRepository(object):
         return DBSession.query(Protocol).get(id)
 
     def get_all_protocols(self):
-        return DBSession.query(Protocol)
+        return DBSession.query(Protocol).all()
 
     def add_protocol(self, protocol):
         DBSession.add(protocol)
@@ -35,12 +35,14 @@ class ProtocolRepository(object):
              'idfilestorage': protocol.idfilestorage})
         DBSession.commit()
 
-    def filter_protocols(self, protocols, params):
+    def filter_protocols(self, params):
         meetings_type_id = params.get('meeting')
         protocol_name = params.get('protocolName')
         protocol_num = params.get('protocolNumber')
         date_start = params.get('dateStart')
         date_end = params.get('dateEnd')
+
+        protocols = DBSession.query(Protocol)
 
         if meetings_type_id:
             protocols = protocols.filter_by(meetings_type_id=meetings_type_id)
@@ -54,4 +56,5 @@ class ProtocolRepository(object):
             protocols = protocols.filter(Protocol.protocol_date >= date_start)
         if date_end:
             protocols = protocols.filter(Protocol.protocol_date <= date_end)
+
         return protocols.all()

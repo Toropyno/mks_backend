@@ -8,6 +8,7 @@ from mks_backend.services.protocol_service import ProtocolService
 
 
 class ProtocolController(object):
+
     def __init__(self, request):
         self.request = request
         self.serializer = ProtocolSerializer()
@@ -15,6 +16,7 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols', request_method='GET', renderer='json')
     def get_all_protocols(self):
+
         if self.request.params:
             params_schema = ProtocolControllerFilterSchema()
             try:
@@ -24,14 +26,12 @@ class ProtocolController(object):
             except ValueError as date_parse_error:
                 return Response(status=403, json_body=date_parse_error.args)
             params = self.service.get_params_from_schema(params_deserialized)
-            protocols_array = self.service.get_all_protocols()
-            protocols_array = self.service.filter_protocols(protocols_array, params)
-            json = self.serializer.convert_list_to_json(protocols_array)
-            return json
+            protocols_array = self.service.filter_protocols(params)
         else:
-            protocols_array = self.service.get_all_protocols().all()
-            json = self.serializer.convert_list_to_json(protocols_array)
-            return json
+            protocols_array = self.service.get_all_protocols()
+
+        json = self.serializer.convert_list_to_json(protocols_array)
+        return json
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
     def add_protocol(self):
