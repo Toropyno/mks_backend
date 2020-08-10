@@ -1,7 +1,6 @@
 from pyramid.view import view_config
 from pyramid.response import Response
 
-from mks_backend.repositories.filestorage_repository import FilestorageRepository
 from mks_backend.repositories.filestorage_hdd import FilestorageException
 from mks_backend.services.filestorage_service import FilestorageService
 
@@ -9,7 +8,6 @@ from mks_backend.services.filestorage_service import FilestorageService
 class FilestorageController:
     def __init__(self, request):
         self.request = request
-        self.repository = FilestorageRepository()
         self.service = FilestorageService()
 
     @view_config(route_name='upload_file', request_method='POST', renderer='json')
@@ -22,7 +20,7 @@ class FilestorageController:
                             json_body={
                                 'error_code': error.code,
                                 'text': error.msg,
-                                }
+                            }
                             )
 
     @view_config(route_name='download_file', request_method='GET')
@@ -36,5 +34,5 @@ class FilestorageController:
                             json_body={
                                 'error_code': error.code,
                                 'text': error.msg,
-                                }
+                            }
                             )
