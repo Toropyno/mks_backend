@@ -18,7 +18,6 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols', request_method='GET', renderer='json')
     def get_all_protocols(self):
-
         if self.request.params:
             params_schema = ProtocolControllerFilterSchema()
             try:
