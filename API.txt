@@ -7,4 +7,4 @@ Method: GET
 Description: Get filtered protocols
 Route:
 Method: GET
-# /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart=2020-01-01&dateEnd=2020-05-01
+# /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart=2020,01,01&dateEnd=2020,05,01

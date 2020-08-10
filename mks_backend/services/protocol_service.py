@@ -1,6 +1,5 @@
 from mks_backend.repositories.protocols_repository import ProtocolRepository
 from mks_backend.services.filestorage_service import FilestorageService
-from mks_backend.models.protocol import Protocol
 from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 
 
@@ -9,7 +8,7 @@ class ProtocolService(object):
         self.repo = ProtocolRepository()
 
     def get_all_protocols(self):
-        return self.repo.get_all_protocols().all()
+        return self.repo.get_all_protocols()
 
     def get_protocol_by_id(self, id):
         return self.repo.get_protocol_by_id(id)
@@ -48,3 +47,5 @@ class ProtocolService(object):
             params['protocolName'] = schema_dict['protocolName']
         return params
 
+    def filter_protocols(self, protocols_array, params):
+        return self.repo.filter_protocols(protocols_array, params)

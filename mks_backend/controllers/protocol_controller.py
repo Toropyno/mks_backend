@@ -5,7 +5,6 @@ from datetime import datetime
 from pyramid.view import view_config
 from pyramid.response import Response
 
-from mks_backend.repositories.protocols_repository import ProtocolRepository
 from mks_backend.serializers.protocol_serializer import ProtocolSerializer
 from mks_backend.services.protocol_service import ProtocolService
 
@@ -13,7 +12,6 @@ from mks_backend.services.protocol_service import ProtocolService
 class ProtocolController(object):
     def __init__(self, request):
         self.request = request
-        self.repository = ProtocolRepository()
         self.serializer = ProtocolSerializer()
         self.service = ProtocolService()
 
@@ -28,12 +26,12 @@ class ProtocolController(object):
             except ValueError as date_parse_error:
                 return Response(status=403, json_body=date_parse_error.args)
             params = self.service.get_params_from_schema(params_deserialized)
-            protocols_array = self.repository.get_all_protocols()
-            protocols_array = self.repository.filter_protocols(protocols_array, params)
+            protocols_array = self.service.get_all_protocols()
+            protocols_array = self.service.filter_protocols(protocols_array, params)
             json = self.serializer.convert_list_to_json(protocols_array)
             return json
         else:
-            protocols_array = self.service.get_all_protocols()
+            protocols_array = self.service.get_all_protocols().all()
             json = self.serializer.convert_list_to_json(protocols_array)
             return json
 
@@ -47,7 +45,7 @@ class ProtocolController(object):
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
         protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
-        self.repository.add_protocol(protocol)
+        self.service.add_protocol(protocol)
         return {'id': protocol.protocol_id}
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
@@ -143,7 +141,3 @@ class ProtocolControllerFilterSchema(colander.MappingSchema):
                                         missing=None)
     date_start = colander.SchemaNode(colander.String(), name='dateStart', validator=date_validator, missing=None)
     date_end = colander.SchemaNode(colander.String(), name='dateEnd', validator=date_validator, missing=None)
-
-
-
-

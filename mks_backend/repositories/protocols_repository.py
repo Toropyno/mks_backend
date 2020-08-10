@@ -4,12 +4,13 @@ from mks_backend.repositories.filestorage_repository import FilestorageRepositor
 
 
 class ProtocolRepository(object):
-    def get_all_protocols(self):
-        return DBSession.query(Protocol)
 
     @classmethod
     def get_protocol_by_id(cls, id):
         return DBSession.query(Protocol).get(id)
+
+    def get_all_protocols(self):
+        return DBSession.query(Protocol)
 
     def add_protocol(self, protocol):
         DBSession.add(protocol)
