@@ -1,12 +1,13 @@
 from sqlalchemy import Column, Integer, ForeignKey, VARCHAR, Date
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from mks_backend.models import Base
 
 
 class Protocol(Base):
+
     __tablename__ = 'protocol'
     protocol_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     protocol_num = Column(VARCHAR(20), nullable=False)

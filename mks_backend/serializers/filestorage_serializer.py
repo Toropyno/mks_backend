@@ -1,4 +1,5 @@
 class FilestorageSerializer(object):
+
     def convert_object_to_json(self, filestorage):
         filestorage_dict = {
             'idFileStorage': filestorage.idfilestorage,

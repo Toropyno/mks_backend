@@ -4,6 +4,7 @@ from mks_backend.repositories.meeting_repository import MeetingRepository
 
 
 class MeetingController(object):
+
     def __init__(self, request):
         self.request = request
         self.repository = MeetingRepository()

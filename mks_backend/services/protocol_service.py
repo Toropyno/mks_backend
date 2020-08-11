@@ -4,6 +4,7 @@ from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 
 
 class ProtocolService(object):
+
     def __init__(self):
         self.repo = ProtocolRepository()
 
@@ -47,5 +48,5 @@ class ProtocolService(object):
             params['protocolName'] = schema_dict['protocolName']
         return params
 
-    def filter_protocols(self, protocols_array, params):
-        return self.repo.filter_protocols(protocols_array, params)
+    def filter_protocols(self, params):
+        return self.repo.filter_protocols(params)

@@ -3,6 +3,7 @@ from mks_backend.models import DBSession
 
 
 class FilestorageRepository:
+
     def add_filestorage(self, file):
         DBSession.add(file)
         DBSession.commit()
@@ -13,7 +14,6 @@ class FilestorageRepository:
 
     @classmethod
     def delete_filestorage_by_id(cls, id):
-        # delete from DB
         filestorage = cls.get_filestorage_by_id(id)
         DBSession.delete(filestorage)
         DBSession.commit()

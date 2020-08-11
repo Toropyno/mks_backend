@@ -6,6 +6,7 @@ from mks_backend.services.filestorage_service import FilestorageService
 
 
 class FilestorageController:
+
     def __init__(self, request):
         self.request = request
         self.service = FilestorageService()
