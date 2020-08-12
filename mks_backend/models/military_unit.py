@@ -12,6 +12,7 @@ from mks_backend.models import Base
 
 
 class MilitaryUnit(Base):
+
     __tablename__ = 'military_unit'
     idMU = Column(Integer, primary_key=True)
     pidMU = Column(Integer, ForeignKey(idMU))
@@ -27,4 +28,29 @@ class MilitaryUnit(Base):
         "MilitaryUnit",
         cascade="all, delete-orphan",
         backref=backref("parent", remote_side=idMU),
+    )
+
+    name_military_unit = relationship(
+        "NameMilitaryUnit",
+        back_populates='military_unit'
+    )
+
+    purpose_m_u = relationship(
+        "PurposeMilitaryUnit",
+        back_populates='military_unit'
+    )
+
+    military_city = relationship(
+        "MilitaryCity",
+        back_populates='military_unit'
+    )
+
+    sort_armed_forces = relationship(
+        "SortArmedForces",
+        back_populates='military_unit'
+    )
+
+    combat_arm = relationship(
+        "CombatArm",
+        back_populates='military_unit'
     )

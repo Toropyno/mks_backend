@@ -20,4 +20,8 @@ class Filestorage(Base):
     description = Column(VARCHAR(100))
     authorid = Column(Integer)
 
-    protocols = relationship("Protocol", back_populates="filestorage", passive_deletes=True)
+    protocols = relationship(
+        "Protocol",
+        back_populates="filestorage",
+        passive_deletes=True
+    )
