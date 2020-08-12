@@ -37,3 +37,16 @@ class FilestorageController:
                                 'text': error.msg,
                             }
                             )
+
+    @view_config(route_name='get_file_info', request_method='GET', renderer='json')
+    def get_file_info(self):
+        uuid = self.request.params.get('idfilestorage')
+        try:
+            return self.service.get_file_info(uuid)
+        except FilestorageException as error:
+            return Response(status=403,
+                            json_body={
+                                'error_code': error.code,
+                                'text': error.msg,
+                            }
+                            )

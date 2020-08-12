@@ -59,6 +59,24 @@ class FilestorageService(object):
             response = Response(f'Unable to find file with id = {id}')
         return response
 
+    def get_file_info(self, uuid):
+        try:
+            filestorage = self.repo.get_filestorage_by_id(uuid)
+        except DatabaseError:
+            raise FilestorageException(6)
+
+        filename = filestorage.filename
+        filesize = filestorage.filesize / 1024  # to Kbytes
+
+        if filesize >= 1024:
+            filesize = filesize / 1024
+            filesize = f'{filesize:.1f}Мб'
+        else:
+            filesize = f'{filesize:.1f}Кб'
+
+        return {'filename': filename,
+                'filesize': filesize}
+
     @classmethod
     def compare_two_filestorages(cls, new_filestorage, old_filestorage):
         if new_filestorage != old_filestorage:
