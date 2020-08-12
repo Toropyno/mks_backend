@@ -1,7 +1,5 @@
-from sqlalchemy import Column, Integer, ForeignKey, VARCHAR, Date
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, Integer, VARCHAR
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
 
 from mks_backend.models import Base
 
