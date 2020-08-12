@@ -12,4 +12,4 @@ class ConstructionCategories(Base):
     construction_categories_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     fullname = Column(VARCHAR(255), nullable=False)
 
-    construction_subcategories = relationship('SubcategoriesList', back_populates='construction_categories')
+    subcategories_list = relationship('SubcategoriesList', back_populates='construction_categories')
