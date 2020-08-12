@@ -28,11 +28,11 @@ class ProtocolService(object):
         FilestorageService.compare_two_filestorages(new_idfilestorage, old_idfilestorage)
         return new_protocol
 
-    def delete_protocol_by_id(self, id):
+    def delete_protocol_by_id_with_filestorage_cascade(self, id):
         filestorage_id = self.repo.get_protocol_by_id(id).idfilestorage
         FilestorageHDD.delete_by_id(filestorage_id)
 
-        self.repo.delete_protocol_by_id(id)
+        self.repo.delete_protocol_by_id_with_filestorage_cascade(id)
 
     def get_params_from_schema(self, schema_dict):
         params = {}
