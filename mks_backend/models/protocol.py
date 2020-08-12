@@ -17,7 +17,7 @@ class Protocol(Base):
     note = Column(VARCHAR(2000))
     idfilestorage = Column(UUID, ForeignKey('filestorage.idfilestorage', ondelete='CASCADE'))
 
-    filestorage = relationship("Filestorage", back_populates='protocols')
+    filestorage = relationship('Filestorage', back_populates='protocols')
 
     def __str__(self):
         return f'id={self.protocol_id}, protocol_number={self.protocol_num}'
