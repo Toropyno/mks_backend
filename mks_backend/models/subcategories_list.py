@@ -17,5 +17,5 @@ class SubcategoriesList(Base):
         Integer,
         ForeignKey('construction_subcategories.construction_subcategories_id', ondelete='CASCADE'))
 
-    construction_categories = relationship('SubcategoriesList', back_populates='subcategories_list', passive_deletes=True)
-    construction_subcategories = relationship('SubcategoriesList', back_populates='subcategories_list', passive_deletes=True)
+    construction_categories = relationship('ConstructionCategories', back_populates='subcategories_list', passive_deletes=True)
+    construction_subcategories = relationship('ConstructionSubcategories', back_populates='subcategories_list', passive_deletes=True)
