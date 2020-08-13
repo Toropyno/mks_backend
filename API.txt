@@ -8,3 +8,102 @@ Description: Get filtered protocols
 Route:
 Method: GET
 # /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart=2020,01,01&dateEnd=2020,05,01
+
+
+# --- construction_stages ---
+
+Description: Get all construction_stages
+Route: '/construction_stages'
+Method: GET
+
+Description: Add construction_stage
+Route: '/construction_stages/add'
+Method: POST
+
+Description: Get construction_stage
+Route: '/construction_stages/{id}'
+Method: GET
+
+Description: Edit construction_stage
+Route: '/construction_stages{id}'
+Method: PUT
+
+Description: Delete construction_stage
+Route: '/construction_stages{id}'
+Method: DELETE
+
+# --- construction_objects ---
+
+Description: Get all construction_objects
+Route: '/construction_objects'
+Method: GET
+
+Description: Add construction_object
+Route: '/construction_objects/add'
+Method: POST
+
+Description: Get construction_object
+Route: '/construction_objects/{id}'
+Method: GET
+
+Description: Edit construction_object
+Route: '/construction_objects{id}'
+Method: PUT
+
+Description: Delete construction_object
+Route: '/construction_objects{id}'
+Method: DELETE
+
+# --- object_categories ---
+
+Description: Get all object_categories
+Route: '/object_categories'
+Method: GET
+
+Description: Get object_category
+Route: '/object_categories/{id}'
+Method: GET
+
+# --- object_categories_lists ---
+
+Description: Get all object_categories_lists
+Route: '/object_categories_lists'
+Method: GET
+
+Description: Add object_categories_lists
+Route: '/object_categories_lists/add'
+Method: POST
+
+Description: Get object_categories_lists
+Route: '/object_categories_lists/{id}'
+Method: GET
+
+Description: Edit object_categories_lists
+Route: '/object_categories_lists{id}'
+Method: PUT
+
+Description: Delete object_categories_lists
+Route: '/object_categories_lists{id}'
+Method: DELETE
+
+# --- zones ---
+
+Description: Get all zones
+Route: '/zones'
+Method: GET
+
+Description: Add zones
+Route: '/zones/add'
+Method: POST
+
+Description: Get zones
+Route: '/zones/{id}'
+Method: GET
+
+Description: Edit zones
+Route: '/zones/{id}'
+Method: PUT
+
+Description: Delete zones
+Route: '/zones/{id}'
+Method: DELETE
