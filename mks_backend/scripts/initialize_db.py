@@ -1,7 +1,20 @@
 # Do not delete import models
-from mks_backend.models.filestorage import Filestorage
-from mks_backend.models.meeting import Meetings_type
+from mks_backend.models import Base
 from mks_backend.models.protocol import Protocol
+from mks_backend.models.filestorage import Filestorage
+from mks_backend.models.meeting import MeetingsType
+
+from mks_backend.models.commission import Commission
+from mks_backend.models.construction import Construction
+from mks_backend.models.construction_categories import ConstructionCategories
+from mks_backend.models.construction_objects import ConstructionObjects
+from mks_backend.models.construction_stages import ConstructionStages
+from mks_backend.models.construction_subcategories import ConstructionSubcategories
+from mks_backend.models.military_unit import MilitaryUnit
+from mks_backend.models.object_categories import ObjectCategories
+from mks_backend.models.object_categories_list import ObjectCategoriesList
+from mks_backend.models.subcategories_list import SubcategoriesList
+from mks_backend.models.zones import Zones
 
 import os
 import sys
