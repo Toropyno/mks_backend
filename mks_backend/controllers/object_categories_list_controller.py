@@ -27,7 +27,7 @@ class ConstructionStagesController(object):
         #object_categories_list = self.service.add_object_categories_list(object_categories_list)
         #return {'id': object_categories_list.object_categories_list_id}
 
-    @view_config(route_name='object_categories_lists_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='object_categories_list_delete_change_and_view', request_method='GET', renderer='json')
     def get_object_categories_list(self):
         pass
         #id = self.request.matchdict['id']
@@ -35,14 +35,14 @@ class ConstructionStagesController(object):
         #json = self.serializer.convert_object_to_json(object_categories_list)
         #return json
 
-    @view_config(route_name='object_categories_lists_delete_change_and_view', request_method='DELETE', renderer='json')
+    @view_config(route_name='object_categories_list_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self):
         pass
         #id = self.request.matchdict['id']
         #self.service.delete_object_categories_list_by_id(id)
         #return {'id': id}
 
-    @view_config(route_name='object_categories_lists_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='object_categories_list_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_object_categories_list(self):
         pass
         #id = self.request.matchdict['id']
