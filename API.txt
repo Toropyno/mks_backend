@@ -22,6 +22,22 @@ Description: Get all subcategories_lists
 Route: '/subcategories_lists'
 Method: GET
 
-Description: Create subcategories_lists
+Description: Get filtered subcategories_lists
+Route:
+Method: GET
+
+Description: Get subcategories_list
+Route: '/subcategories_lists/{id}'
+Method: GET
+
+Description: Create subcategories_list
 Route: '/subcategories_lists/add'
 Method: POST
+
+Description: Edit subcategories_list
+Route: '/subcategories_lists/{id}'
+Method: PUT
+
+Description: Delete subcategories_lists
+Route: '/subcategories_lists/{id}'
+Method: DELETE
