@@ -7,3 +7,4 @@ def includeme(config):
 
     config.add_route('subcategories_lists', '/subcategories_lists')
     config.add_route('add_subcategories_list', '/subcategories_lists/add')
+    config.add_route('subcategories_list_delete_change_and_view', '/subcategories_lists/{id}')
