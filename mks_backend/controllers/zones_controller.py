@@ -43,7 +43,7 @@ class ConstructionStagesController(object):
         #return json
 
     @view_config(route_name='zone_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_construction_object(self):
+    def delete_zone(self):
         pass
         #id = self.request.matchdict['id']
         #self.service.delete_zone_by_id(id)
