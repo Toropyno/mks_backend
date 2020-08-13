@@ -24,7 +24,7 @@ class SubcategoriesListController(object):
 
     @view_config(route_name='add_subcategories_list', request_method='POST', renderer='json')
     def add_subcategories_list(self):
-        # subcategories_list = self.serializer.convert_schema_to_object(self.request.json_body)
+        # subcategories_list = self.service.get_object(self.request.json_body)
         # self.service.add_subcategories_list(subcategories_list)
         # return {'id': subcategories_list.subcategories_list_id}
         pass

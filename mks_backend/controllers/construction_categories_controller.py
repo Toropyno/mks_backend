@@ -24,7 +24,7 @@ class ConstructionCategoryController(object):
 
     @view_config(route_name='add_construction_category', request_method='POST', renderer='json')
     def add_construction_category(self):
-        # construction_category = self.serializer.convert_schema_to_object(self.request.json_body)
+        # construction_category = self.service.get_object(self.request.json_body)
         # self.service.add_construction_category(construction_category)
         # return {'id': construction_category.construction_category_id}
         pass
@@ -47,9 +47,7 @@ class ConstructionCategoryController(object):
     @view_config(route_name='construction_category_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction_category(self):
         # id = self.request.matchdict['id']
-        # # construction_category_deserialized = construction_category_schema.deserialize(self.request.json_body)
-        # # construction_category_deserialized["id"] = id
-        # new_construction_category = self.serializer.convert_schema_to_object(self.request.json_body)
+        # new_construction_category = self.service.get_object(self.request.json_body)
         # new_construction_category.construction_category_id = id
         # new_construction_category = self.service.update_construction_category(new_construction_category)
         # return {'id': new_construction_category.construction_category_id}
