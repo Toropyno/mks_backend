@@ -17,7 +17,7 @@ def includeme(config):
     config.add_route('add_construction_subcategory', '/construction_subcategories/add')
     config.add_route('construction_subcategory_delete_change_and_view', '/construction_subcategories/{id}')
 
-    config.add_route('constrution_stages', '/construction_stages')
+    config.add_route('construction_stages', '/construction_stages')
     config.add_route('add_construction_stage', '/construction_stages/add')
     config.add_route('construction_stages_delete_change_and_view', '/construction_stages/{id}')
 
