@@ -4,7 +4,6 @@ from pyramid.view import view_config
 #from mks_backend.serializers.object_categories_serializer import ConstructionStagesSerializer
 
 
-
 class ConstructionStagesController(object):
 
     def __init__(self, request):

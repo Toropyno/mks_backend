@@ -6,7 +6,6 @@ from pyramid.response import Response
 #from mks_backend.serializers.construction_objects_serializer import ConstructionObjectsSerializer
 
 
-
 class ConstructionObjectsController(object):
 
     def __init__(self, request):
