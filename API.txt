@@ -78,29 +78,29 @@ Route: '/subcategories_lists/{id}'
 Method: DELETE
 
 
-# --- subconstruction_categories ---
+# --- construction_subcategories ---
 
-Description: Get all subconstruction_categories
-Route: '/subconstruction_categories'
+Description: Get all construction_subcategories
+Route: '/construction_subcategories'
 Method: GET
 
-Description: Get filtered subconstruction_categories
+Description: Get filtered construction_subcategories
 Route:
 Method: GET
 
-Description: Get subconstruction_category
-Route: '/subconstruction_categories/{id}'
+Description: Get construction_subcategory
+Route: '/construction_subcategories/{id}'
 Method: GET
 
-Description: Create subconstruction_category
-Route: '/subconstruction_categories/add'
+Description: Create construction_subcategory
+Route: '/construction_subcategories/add'
 Method: POST
 
-Description: Edit subconstruction_category
-Route: '/subconstruction_categories/{id}'
+Description: Edit construction_subcategory
+Route: '/construction_subcategories/{id}'
 Method: PUT
 
-Description: Delete subconstruction_categories
-Route: '/subconstruction_categories/{id}'
+Description: Delete construction_subcategories
+Route: '/construction_subcategories/{id}'
 Method: DELETE
 
