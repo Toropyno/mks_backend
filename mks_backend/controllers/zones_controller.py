@@ -34,7 +34,7 @@ class ConstructionStagesController(object):
         #self.service.add_zone(zone)
         #return {'id': zone.zone_id}
 
-    @view_config(route_name='zones_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='zone_delete_change_and_view', request_method='GET', renderer='json')
     def get_zone(self):
         pass
         #id = self.request.matchdict['id']
