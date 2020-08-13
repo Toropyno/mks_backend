@@ -1,9 +1,15 @@
 from uuid import uuid4
 
+from sqlalchemy import (
+    Column,
+    Integer,
+    VARCHAR,
+    TIMESTAMP,
+)
+
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import Column, Integer, VARCHAR, TIMESTAMP
 
 from mks_backend.models import Base
 
@@ -20,4 +26,8 @@ class Filestorage(Base):
     description = Column(VARCHAR(100))
     authorid = Column(Integer)
 
-    protocols = relationship("Protocol", back_populates="filestorage", passive_deletes=True)
+    protocols = relationship(
+        'Protocol',
+        back_populates='filestorage',
+        passive_deletes=True
+    )
