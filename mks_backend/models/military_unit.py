@@ -17,40 +17,41 @@ class MilitaryUnit(Base):
     idMU = Column(Integer, primary_key=True)
     pidMU = Column(Integer, ForeignKey(idMU))
     vChNumber = Column(VARCHAR(4))
-    idNameMU = Column(Integer, ForeignKey('name_military_unit.id'), nullable=False)
-    idPurpose = Column(Integer, ForeignKey('purpose_m_u.id'), nullable=False)
+    idNameMU = Column(Integer, ForeignKey('name_military_unit.id', ondelete='CASCADE'), nullable=False)
+    idPurpose = Column(Integer, ForeignKey('purpose_m_u.id', ondelete='CASCADE'), nullable=False)
     idMilitaryCity = Column(Integer, ForeignKey('military_city.id'))
-    idSortAF = Column(VARCHAR(2), ForeignKey('sort_armed_forces.id'), nullable=False)
-    idCombatArm = Column(CHAR(3), ForeignKey('combat_arm.id'), nullable=False)
+    idSortAF = Column(VARCHAR(2), ForeignKey('sort_armed_forces.id', ondelete='CASCADE'), nullable=False)
+    idCombatArm = Column(CHAR(3), ForeignKey('combat_arm.id', ondelete='CASCADE'), nullable=False)
     codeNameMU = Column(VARCHAR(5))
 
     children = relationship(
-        "MilitaryUnit",
-        cascade="all, delete-orphan",
-        backref=backref("parent", remote_side=idMU),
+        'MilitaryUnit',
+        cascade='all, delete-orphan',
+        backref=backref('parent', remote_side=idMU),
+        passive_deletes=True,
     )
 
     name_military_unit = relationship(
-        "NameMilitaryUnit",
+        'NameMilitaryUnit',
         back_populates='military_unit'
     )
 
     purpose_m_u = relationship(
-        "PurposeMilitaryUnit",
+        'PurposeMilitaryUnit',
         back_populates='military_unit'
     )
 
     military_city = relationship(
-        "MilitaryCity",
+        'MilitaryCity',
         back_populates='military_unit'
     )
 
     sort_armed_forces = relationship(
-        "SortArmedForces",
+        'SortArmedForces',
         back_populates='military_unit'
     )
 
     combat_arm = relationship(
-        "CombatArm",
+        'CombatArm',
         back_populates='military_unit'
     )

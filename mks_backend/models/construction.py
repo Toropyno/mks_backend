@@ -29,21 +29,21 @@ class Construction(Base):
     planned_date = Column(DATE, nullable=False)
 
     construction_categories = relationship(
-        "ConstructionCategories",
+        'ConstructionCategories',
         back_populates='construction'
     )
 
     subcategories_list = relationship(
-        "SubcategoriesList",
+        'SubcategoriesList',
         back_populates='construction'
     )
 
     commission = relationship(
-        "Commission",
+        'Commission',
         back_populates='construction'
     )
 
     military_unit = relationship(
-        "MilitaryUnit",
+        'MilitaryUnit',
         back_populates='construction'
     )

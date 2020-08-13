@@ -2,11 +2,7 @@ from sqlalchemy import (
     Column,
     Integer,
     VARCHAR,
-    ForeignKey,
-    CheckConstraint,
 )
-
-from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 

@@ -21,8 +21,7 @@ class Filestorage(Base):
     authorid = Column(Integer)
 
     protocols = relationship(
-        "Protocol",
-        back_populates="filestorage",
+        'Protocol',
+        back_populates='filestorage',
         passive_deletes=True
     )
-

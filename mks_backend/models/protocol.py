@@ -1,4 +1,11 @@
-from sqlalchemy import Column, Integer, ForeignKey, VARCHAR, Date
+from sqlalchemy import (
+    Column,
+    Integer,
+    ForeignKey,
+    VARCHAR,
+    Date,
+)
+
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -18,7 +25,7 @@ class Protocol(Base):
     idfilestorage = Column(UUID, ForeignKey('filestorage.idfilestorage', ondelete='CASCADE'))
 
     filestorage = relationship(
-        "Filestorage",
+        'Filestorage',
         back_populates='protocols'
     )
 
