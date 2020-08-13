@@ -2,6 +2,9 @@
 from mks_backend.models.filestorage import Filestorage
 from mks_backend.models.meeting import Meetings_type
 from mks_backend.models.protocol import Protocol
+from mks_backend.models.construction_categories import ConstructionCategories
+from mks_backend.models.construction_subcategories import ConstructionSubcategories
+from mks_backend.models.subcategories_list import SubcategoriesList
 
 import os
 import sys
