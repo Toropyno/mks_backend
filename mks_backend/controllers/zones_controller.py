@@ -6,7 +6,7 @@ from pyramid.response import Response
 #from mks_backend.serializers.zones_serializer import ZonesSerializer
 
 
-class ConstructionStagesController(object):
+class ZonesController(object):
 
     def __init__(self, request):
         self.request = request
