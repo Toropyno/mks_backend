@@ -16,7 +16,7 @@ class ConstructionObjects(Base):
 
     __tablename__ = 'construction_objects'
     construction_objects_id = Column(Integer, primary_key=True, autoincrement=True)
-    # construction_id = Column(Integer, ForeignKey('construction.construction_id', ondelete='CASCADE'), nullable=False)
+    construction_id = Column(Integer, ForeignKey('construction.construction_id', ondelete='CASCADE'), nullable=False)
     object_code = Column(VARCHAR(40), unique=True, nullable=False)
     object_name = Column(VARCHAR(255), nullable=False)
     zones_id = Column(Integer, ForeignKey('zones.zones_id'))
@@ -29,10 +29,10 @@ class ConstructionObjects(Base):
     construction_stages_id = Column(Integer, ForeignKey('construction_stages.construction_stages_id',
                                                         ondelete='CASCADE'))
 
-    # construction = relationship(
-    #     'Construction',
-    #     back_populates=''
-    # )
+    construction = relationship(
+        'Construction',
+        back_populates='construction_objects'
+    )
 
     zone = relationship(
         'Zones',

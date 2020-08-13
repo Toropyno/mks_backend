@@ -14,7 +14,7 @@ from mks_backend.models import Base
 class MilitaryUnit(Base):
 
     __tablename__ = 'military_unit'
-    idMU = Column(Integer, primary_key=True)
+    idMU = Column(Integer, primary_key=True, autoincrement=True)
     pidMU = Column(Integer, ForeignKey(idMU))
     vChNumber = Column(VARCHAR(4))
     idNameMU = Column(Integer, ForeignKey('name_military_unit.id', ondelete='CASCADE'), nullable=False)
@@ -53,5 +53,10 @@ class MilitaryUnit(Base):
 
     combat_arm = relationship(
         'CombatArm',
+        back_populates='military_unit'
+    )
+
+    construction = relationship(
+        'Construction',
         back_populates='military_unit'
     )

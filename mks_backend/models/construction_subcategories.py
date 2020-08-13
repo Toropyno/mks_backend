@@ -9,7 +9,7 @@ class ConstructionSubcategories(Base):
 
     __tablename__ = 'construction_subcategories'
     construction_subcategories_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    fullname = Column(VARCHAR(255), nullable=False)
+    fullname = Column(VARCHAR(255), unique=True, nullable=False)
 
     subcategories_list = relationship(
         'SubcategoriesList',

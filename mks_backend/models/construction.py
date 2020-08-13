@@ -7,7 +7,6 @@ from sqlalchemy import (
     DATE,
     CheckConstraint,
 )
-
 from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
@@ -16,14 +15,14 @@ from mks_backend.models import Base
 class Construction(Base):
 
     __tablename__ = 'construction'
-    construction_id = Column(Integer, primary_key=True)
-    project_code = Column(VARCHAR(40), nullable=False)
+    construction_id = Column(Integer, primary_key=True, autoincrement=True)
+    project_code = Column(VARCHAR(40), unique=True, nullable=False)
     project_name = Column(VARCHAR(255), nullable=False)
     construction_categories_id = Column(Integer, ForeignKey('construction_categories.construction_categories_id'))
     subcategories_list_id = Column(Integer, ForeignKey('subcategories_list.subcategories_list_id'))
-    commission_id = Column(Integer, ForeignKey('commission.commission_id'))
-    idMU = Column(Integer, ForeignKey('military_unit.idMU'))
     is_critical = Column(Boolean, nullable=False)
+    commission_id = Column(Integer, ForeignKey('commission.commission_id', ondelete='CASCADE'), nullable=False)
+    idMU = Column(Integer, ForeignKey('military_unit.idMU'))
     contract_date = Column(DATE, nullable=False)
     object_amount = Column(Integer, CheckConstraint('object_amount>0'), nullable=False)
     planned_date = Column(DATE, nullable=False)
@@ -45,5 +44,10 @@ class Construction(Base):
 
     military_unit = relationship(
         'MilitaryUnit',
+        back_populates='construction'
+    )
+
+    construction_objects = relationship(
+        'ConstructionObjects',
         back_populates='construction'
     )
