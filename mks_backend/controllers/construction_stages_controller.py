@@ -31,7 +31,7 @@ class ConstructionStagesController(object):
         ##    return Response(status=403, json_body=error.asdict())
         ##except ValueError as date_parse_error:
         ##    return Response(status=403, json_body=date_parse_error.args)
-        #construction_stage = self.serializer.get_construction_stage_from_json(self.request.json_body)#convert_schema_to_object(construction_stage_deserialized)
+        #construction_stage = self.service.get_object(self.request.json_body)#convert_schema_to_object(construction_stage_deserialized)
         #self.service.add_construction_stage(construction_stage)
         #return {'id': construction_stage.construction_stage_id}
 
@@ -62,6 +62,6 @@ class ConstructionStagesController(object):
         ##except ValueError as date_parse_error:
         ##    return Response(status=403, json_body=date_parse_error.args)
         ##construction_stage_deserialized["id"] = id
-        #construction_stage = self.serializer.get_construction_stage_from_json(self.request.json_body) #convert_schema_to_object(construction_stage_deserialized)
+        #construction_stage = self.service.get_object(self.request.json_body) #convert_schema_to_object(construction_stage_deserialized)
         #construction_stage = self.service.update_construction_stage(construction_stage)
         #return {'id': construction_stage.construction_stage_id}

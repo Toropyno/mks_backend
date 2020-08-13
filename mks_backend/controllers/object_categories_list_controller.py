@@ -24,7 +24,8 @@ class ConstructionStagesController(object):
     @view_config(route_name='add_object_categories_list', request_method='POST', renderer='json')
     def add_object_categories_list(self):
         pass
-        #object_categories_list = self.serializer.get_object_categories_list_from_json(self.request.json_body) 		#self.service.add_object_categories_list(object_categories_list)
+        #object_categories_list = self.service.get_object(self.request.json_body)
+        #object_categories_list = self.service.add_object_categories_list(object_categories_list)
         #return {'id': object_categories_list.object_categories_list_id}
 
     @view_config(route_name='object_categories_lists_delete_change_and_view', request_method='GET', renderer='json')
@@ -46,6 +47,6 @@ class ConstructionStagesController(object):
     def edit_object_categories_list(self):
         pass
         #id = self.request.matchdict['id']
-        #object_categories_list = self.serializer.get_object_categories_list_from_json(self.request.json_body)
+        #object_categories_list = self.service.get_object(self.request.json_body)
         #object_categories_list = self.service.update_object_categories_list(object_categories_list)
         #return {'id': object_categories_list.object_categories_list}

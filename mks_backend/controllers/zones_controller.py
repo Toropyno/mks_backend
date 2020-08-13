@@ -31,7 +31,7 @@ class ConstructionStagesController(object):
         ##    return Response(status=403, json_body=error.asdict())
         ##except ValueError as date_parse_error:
         ##    return Response(status=403, json_body=date_parse_error.args)
-        #zone = self.serializer.get_zone_from_json(self.request.json_body)#convert_schema_to_object(zone_deserialized)
+        #zone = self.service.get_object(self.request.json_body)#convert_schema_to_object(zone_deserialized)
         #self.service.add_zone(zone)
         #return {'id': zone.zone_id}
 
@@ -62,6 +62,6 @@ class ConstructionStagesController(object):
         ##except ValueError as date_parse_error:
         ##    return Response(status=403, json_body=date_parse_error.args)
         ##zone_deserialized["id"] = id
-        #zone = self.serializer.get_zone_from_json(self.request.json_body) #convert_schema_to_object(zone_deserialized)
+        #zone = self.service.get_object(self.request.json_body) #convert_schema_to_object(zone_deserialized)
         #zone = self.service.update_zone(zone)
         #return {'id': zone.zone_id}
