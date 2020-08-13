@@ -1,5 +1,7 @@
 API
 
+# --- protocols ---
+
 Description: Get all protocols
 Route: '/protocols'
 Method: GET
@@ -7,4 +9,19 @@ Method: GET
 Description: Get filtered protocols
 Route:
 Method: GET
-# /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart=2020,01,01&dateEnd=2020,05,01
+# /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart='Thu Aug 06 2020'&dateEnd='Thu Aug 08 2020'
+
+Description: Create protocol
+Route: '/protocols/add'
+Method: POST
+
+
+# --- subcategories_lists ---
+
+Description: Get all subcategories_lists
+Route: '/subcategories_lists'
+Method: GET
+
+Description: Create subcategories_lists
+Route: '/subcategories_lists/add'
+Method: POST
