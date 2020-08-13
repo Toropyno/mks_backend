@@ -60,9 +60,21 @@ Description: Get all object_categories
 Route: '/object_categories'
 Method: GET
 
-Description: Get object_category
+Description: Add object_categories
+Route: '/object_categories/add'
+Method: POST
+
+Description: Get object_categories
 Route: '/object_categories/{id}'
 Method: GET
+
+Description: Edit object_categories
+Route: '/object_categories{id}'
+Method: PUT
+
+Description: Delete object_categories
+Route: '/object_categories{id}'
+Method: DELETE
 
 # --- object_categories_lists ---
 
