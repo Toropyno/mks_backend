@@ -21,7 +21,7 @@ class ConstructionObjectsController(object):
         #json = self.serializer.convert_list_to_json(construction_objects_array)
         #return json
 
-    @view_config(route_name='construction_object', request_method='POST', renderer='json')
+    @view_config(route_name='add_construction_object', request_method='POST', renderer='json')
     def add_construction_object(self):
         pass
         ##construction_object_schema = ConstructionOjectControllerSchema()

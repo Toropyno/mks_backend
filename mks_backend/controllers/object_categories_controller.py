@@ -20,7 +20,7 @@ class ConstructionStagesController(object):
         #return json
 
 
-    @view_config(route_name='object_categories_view', request_method='GET', renderer='json')
+    @view_config(route_name='object_category_view', request_method='GET', renderer='json')
     def get_object_category(self):
         pass
         #id = self.request.matchdict['id']

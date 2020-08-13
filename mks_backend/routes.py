@@ -4,3 +4,26 @@ def includeme(config):
     config.add_route('download_file', '/protocols/download/{uuid}')
     config.add_route('upload_file', '/protocols/upload')
     config.add_route('protocols_delete_change_and_view', '/protocols/{id}')
+
+    config.add_route('subcategories_lists', '/subcategories_lists')
+    config.add_route('add_subcategories_list', '/subcategories_lists/add')
+    config.add_route('subcategories_list_delete_change_and_view', '/subcategories_lists/{id}')
+
+    config.add_route('constrution_stages', '/construction_stages')
+    config.add_route('add_construction_stage', '/construction_stages/add')
+    config.add_route('construction_stages_delete_change_and_view', '/construction_stages/{id}')
+
+    config.add_route('construction_objects', '/construction_objects')
+    config.add_route('add_construction_object', '/construction_objects/add')
+    config.add_route('construction_objects_delete_change_and_view', '/construction_objects/{id}')
+
+    config.add_route('object_categories', '/object_categories')
+    config.add_route('object_categorys_view', '/object_categories/{id}')
+
+    config.add_route('object_categories_list', '/object_categories_list')
+    config.add_route('add_object_categories_list', '/object_categories_list/add')
+    config.add_route('object_categories_list_delete_change_and_view', '/object_categories_list/{id}')
+
+    config.add_route('zones', '/zones')
+    config.add_route('add_zone', '/zones/add')
+    config.add_route('zone_delete_change_and_view', '/zones/{id}')

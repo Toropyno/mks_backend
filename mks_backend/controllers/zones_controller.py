@@ -21,7 +21,7 @@ class ConstructionStagesController(object):
         #json = self.serializer.convert_list_to_json(zones_array)
         #return json
 
-    @view_config(route_name='zone', request_method='POST', renderer='json')
+    @view_config(route_name='add_zone', request_method='POST', renderer='json')
     def add_zone(self):
         pass
         ##zone_schema = ConstructionStagetControllerSchema()

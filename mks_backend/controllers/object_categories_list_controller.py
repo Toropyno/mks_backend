@@ -21,7 +21,7 @@ class ConstructionStagesController(object):
         #json = self.serializer.convert_list_to_json(object_categories_lists_array)
         #return json
 
-    @view_config(route_name='object_categories_list', request_method='POST', renderer='json')
+    @view_config(route_name='add_object_categories_list', request_method='POST', renderer='json')
     def add_object_categories_list(self):
         pass
         #object_categories_list = self.serializer.get_object_categories_list_from_json(self.request.json_body) 		#self.service.add_object_categories_list(object_categories_list)
