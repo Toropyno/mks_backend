@@ -24,4 +24,22 @@ class SubcategoriesListController(object):
 
     @view_config(route_name='add_subcategories_list', request_method='POST', renderer='json')
     def add_subcategories_list(self):
+        # subcategories_list = self.serializer.convert_schema_to_object(self.request.json_body)
+        # self.service.add_subcategories_list(subcategories_list)
+        # return {'id': subcategories_list.subcategories_list_id}
+        pass
+
+    @view_config(route_name='subcategories_list_delete_and_view', request_method='GET', renderer='json')
+    def get_subcategories_list(self):
+        # id = self.request.matchdict['id']
+        # subcategories_list = self.service.get_subcategories_list_by_id(id)
+        # json = self.serializer.convert_object_to_json(subcategories_list)
+        # return json
+        pass
+
+    @view_config(route_name='subcategories_list_delete_and_view', request_method='DELETE', renderer='json')
+    def delete_subcategories_list(self):
+        # id = self.request.matchdict['id']
+        # self.service.delete_subcategories_list_by_id(id)
+        # return {'id': id}
         pass
