@@ -1,5 +1,7 @@
 API
 
+# --- protocols ---
+
 Description: Get all protocols
 Route: '/protocols'
 Method: GET
@@ -7,4 +9,98 @@ Method: GET
 Description: Get filtered protocols
 Route:
 Method: GET
-# /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart=2020,01,01&dateEnd=2020,05,01
+# /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart='Thu Aug 06 2020'&dateEnd='Thu Aug 08 2020'
+
+Description: Get protocol
+Route: '/protocol/{id}'
+Method: GET
+
+Description: Create protocol
+Route: '/protocols/add'
+Method: POST
+
+Description: Edit protocol
+Route: '/protocols/{id}'
+Method: PUT
+
+Description: Delete protocol
+Route: '/protocols/{id}'
+Method: DELETE
+
+
+# --- construction_categories ---
+
+Description: Get all construction_categories
+Route: '/construction_categories'
+Method: GET
+
+Description: Get filtered construction_categories
+Route:
+Method: GET
+
+Description: Get construction_category
+Route: '/construction_categories/{id}'
+Method: GET
+
+Description: Create construction_category
+Route: '/construction_categories/add'
+Method: POST
+
+Description: Edit construction_category
+Route: '/construction_categories/{id}'
+Method: PUT
+
+Description: Delete construction_categories
+Route: '/construction_categories/{id}'
+Method: DELETE
+
+
+# --- subcategories_lists ---
+
+Description: Get all subcategories_lists
+Route: '/subcategories_lists'
+Method: GET
+
+Description: Get filtered subcategories_lists
+Route:
+Method: GET
+
+Description: Get subcategories_list
+Route: '/subcategories_lists/{id}'
+Method: GET
+
+Description: Create subcategories_list
+Route: '/subcategories_lists/add'
+Method: POST
+
+Description: Delete subcategories_lists
+Route: '/subcategories_lists/{id}'
+Method: DELETE
+
+
+# --- construction_subcategories ---
+
+Description: Get all construction_subcategories
+Route: '/construction_subcategories'
+Method: GET
+
+Description: Get filtered construction_subcategories
+Route:
+Method: GET
+
+Description: Get construction_subcategory
+Route: '/construction_subcategories/{id}'
+Method: GET
+
+Description: Create construction_subcategory
+Route: '/construction_subcategories/add'
+Method: POST
+
+Description: Edit construction_subcategory
+Route: '/construction_subcategories/{id}'
+Method: PUT
+
+Description: Delete construction_subcategories
+Route: '/construction_subcategories/{id}'
+Method: DELETE
+
