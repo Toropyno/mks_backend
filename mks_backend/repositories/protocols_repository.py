@@ -3,7 +3,7 @@ from mks_backend.repositories import DBSession
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
 
 
-class ProtocolRepository(object):
+class ProtocolRepository:
 
     @classmethod
     def get_protocol_by_id(cls, id):
