@@ -2,7 +2,7 @@ from mks_backend.models.meeting import MeetingsType
 from mks_backend.repositories import DBSession
 
 
-class MeetingRepository(object):
+class MeetingRepository:
 
     def get_meetings_types(self):
         meetings_query = DBSession.query(MeetingsType).all()
