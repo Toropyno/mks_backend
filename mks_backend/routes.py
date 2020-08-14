@@ -29,7 +29,7 @@ def includeme(config):
     config.add_route('add_object_category', '/object_categories/{id}')
     config.add_route('object_category_delete_change_and_view', '/object_categories/{id}')
 
-    config.add_route('object_categories_list', '/object_categories_list')
+    config.add_route('object_categories_lists', '/object_categories_list')
     config.add_route('add_object_categories_list', '/object_categories_list/add')
     config.add_route('object_categories_list_delete_change_and_view', '/object_categories_list/{id}')
 
