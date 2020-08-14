@@ -4,7 +4,7 @@ from mks_backend.repositories import DBSession
 
 class ConstructionRepository:
 
-    def get_all_construction(self):
+    def get_all_constructions(self):
         return DBSession.query(Construction).all()
 
     def add_construction(self, construction):

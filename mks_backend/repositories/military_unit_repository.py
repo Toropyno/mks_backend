@@ -3,7 +3,7 @@ from mks_backend.repositories import DBSession
 
 class MilitaryUnitRepository:
 
-    def get_all_military_unit(self):
+    def get_all_military_units(self):
         return DBSession.query(MilitaryUnit).all()
 
     def add_military_unit(self, military_unit):
