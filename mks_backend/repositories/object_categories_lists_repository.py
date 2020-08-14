@@ -2,7 +2,7 @@ from mks_backend.models.object_categories_list import ObjectCategoriesList
 from mks_backend.repositories import DBSession
 
 
-class ObjectCategoriesRepository(object):
+class ObjectCategoriesListRepository:
 
     @classmethod
     def get_object_categories_list_by_id(cls, id):
@@ -21,4 +21,8 @@ class ObjectCategoriesRepository(object):
         DBSession.commit()
 
     def update_object_categories_list(self, object_categories_list):
-        pass
+        DBSession.query(ObjectCategoriesList).filter_by(
+            object_categories_list_id=object_categories_list.object_categories_list_id).update(
+            {'code': object_categories_list.code,
+             'fullname': object_categories_list.fullname})
+        DBSession.commit()

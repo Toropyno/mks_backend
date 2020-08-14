@@ -2,7 +2,7 @@ from mks_backend.models.zones import Zones
 from mks_backend.repositories import DBSession
 
 
-class ZoneRepository(object):
+class ZoneRepository:
 
     @classmethod
     def get_zone_by_id(cls, id):
@@ -21,4 +21,6 @@ class ZoneRepository(object):
         DBSession.commit()
 
     def update_zone(self, zone):
-        pass
+        DBSession.query(Zones).filter_by(zone_id=zone.construction_stage_id).update(
+            {'fullname': zone.fullname})
+        DBSession.commit()

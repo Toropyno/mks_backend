@@ -2,7 +2,7 @@ from mks_backend.models.construction_stages import ConstructionStages
 from mks_backend.repositories import DBSession
 
 
-class ConstructionStageRepository(object):
+class ConstructionStageRepository:
 
     @classmethod
     def get_construction_stage_by_id(cls, id):
@@ -20,5 +20,9 @@ class ConstructionStageRepository(object):
         DBSession.delete(construction_stage)
         DBSession.commit()
 
-    def update_construction_stage(self, construction_object):
-        pass
+    def update_construction_stage(self, construction_stage):
+        DBSession.query(ConstructionStages).filter_by(
+            construction_stage_id=construction_stage.construction_stage_id).update(
+            {'code': construction_stage.code,
+             'fullname': construction_stage.fullname})
+        DBSession.commit()
