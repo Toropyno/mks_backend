@@ -36,3 +36,11 @@ def includeme(config):
     config.add_route('zones', '/zones')
     config.add_route('add_zone', '/zones/add')
     config.add_route('zone_delete_change_and_view', '/zones/{id}')
+
+    config.add_route('constructions', '/constructions')
+    config.add_route('add_construction', '/constructions/add')
+    config.add_route('construction_delete_change_and_view', '/constructions/{id}')
+
+    config.add_route('commissions', '/commissions')
+    config.add_route('add_commission', '/commissions/add')
+    config.add_route('commission_delete_change_and_view', '/commissions/{id}')

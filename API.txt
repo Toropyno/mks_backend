@@ -213,3 +213,47 @@ Method: PUT
 Description: Delete zones
 Route: '/zones/{id}'
 Method: DELETE
+
+# --- constructions ---
+
+Description: Get all constructions (query parameters for filter)
+Route: '/constructions'
+Method: GET
+
+Description: Add construction
+Route: '/constructions/add'
+Method: POST
+
+Description: Delete construction
+Route: '/constructions/{id}'
+Method: DELETE
+
+Description: Edit construction
+Route: '/constructions/{id}'
+Method: PUT
+
+Description: Get construction
+Route: '/constructions/{id}'
+Method: GET
+
+# --- commissions ---
+
+Description: Get all commissions (query parameters for filter)
+Route: '/commissions'
+Method: GET
+
+Description: Add construction
+Route: '/commissions/add'
+Method: POST
+
+Description: Delete construction
+Route: '/commissions/{id}'
+Method: DELETE
+
+Description: Edit construction
+Route: '/commissions/{id}'
+Method: PUT
+
+Description: Get construction
+Route: '/commissions/{id}'
+Method: GET
