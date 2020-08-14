@@ -26,24 +26,22 @@ class ConstructionCategoryController(object):
 
     @view_config(route_name='construction_category_delete_change_and_view', request_method='GET', renderer='json')
     def get_construction_category(self):
-        # id = self.request.matchdict['id']
-        # construction_category = self.service.get_construction_category_by_id(id)
-        # json = self.serializer.convert_object_to_json(construction_category)
-        # return json
-        pass
+        id = self.request.matchdict['id']
+        construction_category = self.service.get_construction_category_by_id(id)
+        json = [] # self.serializer.convert_object_to_json(construction_category)
+        return json
 
     @view_config(route_name='construction_category_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_category(self):
-        # id = self.request.matchdict['id']
-        # self.service.delete_construction_category_by_id(id)
-        # return {'id': id}
+        id = self.request.matchdict['id']
+        self.service.delete_construction_category_by_id(id)
+        return {'id': id}
         pass
 
     @view_config(route_name='construction_category_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction_category(self):
-        # id = self.request.matchdict['id']
-        # new_construction_category = self.service.get_object(self.request.json_body)
-        # new_construction_category.construction_category_id = id
-        # new_construction_category = self.service.update_construction_category(new_construction_category)
-        # return {'id': new_construction_category.construction_category_id}
-        pass
+        id = self.request.matchdict['id']
+        new_construction_category = self.service.get_object(self.request.json_body)
+        new_construction_category.construction_category_id = id
+        new_construction_category = self.service.update_construction_category(new_construction_category)
+        return {'id': new_construction_category.construction_categories_id}
