@@ -6,7 +6,7 @@ from pyramid.response import Response
 #from mks_backend.serializers.zones_serializer import ZonesSerializer
 
 
-class ConstructionStagesController(object):
+class ZonesController(object):
 
     def __init__(self, request):
         self.request = request
@@ -42,14 +42,14 @@ class ConstructionStagesController(object):
         #json = self.serializer.convert_object_to_json(zone)
         #return json
 
-    @view_config(route_name='zones_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_construction_object(self):
+    @view_config(route_name='zone_delete_change_and_view', request_method='DELETE', renderer='json')
+    def delete_zone(self):
         pass
         #id = self.request.matchdict['id']
         #self.service.delete_zone_by_id(id)
         #return {'id': id}
 
-    @view_config(route_name='zones_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='zone_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_zone(self):
         pass
         #id = self.request.matchdict['id']
