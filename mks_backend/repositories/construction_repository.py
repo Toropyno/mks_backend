@@ -4,10 +4,6 @@ from mks_backend.repositories import DBSession
 
 class ConstructionRepository:
 
-    @classmethod
-    def get_construction_by_id(cls, id):
-        return DBSession.query(Construction).get(id)
-
     def get_all_construction(self):
         return DBSession.query(Construction).all()
 
@@ -39,3 +35,8 @@ class ConstructionRepository:
         constructions = DBSession.query(Construction)
         # add filters from params
         return constructions.all()
+
+    @classmethod
+    def get_construction_by_id(cls, id):
+        return DBSession.query(Construction).get(id)
+

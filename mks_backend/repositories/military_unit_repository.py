@@ -3,10 +3,6 @@ from mks_backend.repositories import DBSession
 
 class MilitaryUnitRepository:
 
-    @classmethod
-    def get_military_unit_by_id(cls, id):
-        return DBSession.query(MilitaryUnit).get(id)
-
     def get_all_military_unit(self):
         return DBSession.query(MilitaryUnit).all()
 
@@ -31,3 +27,8 @@ class MilitaryUnitRepository:
         military_unit = self.get_military_unit_by_id(id)
         DBSession.delete(military_unit)
         DBSession.commit()
+
+
+    @classmethod
+    def get_military_unit_by_id(cls, id):
+        return DBSession.query(MilitaryUnit).get(id)
