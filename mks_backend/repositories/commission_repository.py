@@ -4,7 +4,7 @@ from mks_backend.repositories import DBSession
 
 class CommissionRepository:
 
-    def get_all_commission(self):
+    def get_all_commissions(self):
         return DBSession.query(Commission).all()
 
     def add_commission(self, commission):
