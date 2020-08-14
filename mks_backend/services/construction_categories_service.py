@@ -13,7 +13,7 @@ class ConstructionCategoriesService:
         return self.repo.add_construction_category(construction_categories)
 
     def delete_construction_category_by_id(self, id):
-        self.repo.delete_construction_category_by_id()
+        self.repo.delete_construction_category_by_id(id)
 
     def update_construction_category(self, construction_category):
         self.repo.update_construction_category(construction_category)
@@ -23,6 +23,7 @@ class ConstructionCategoriesService:
 
     def get_object(self, json_body):
         construction_category = ConstructionCategories()
-        construction_category.construction_categories_id = json_body['constructionCategoryId']
+        if 'constructionCategoryId' in json_body:
+            construction_category.construction_categories_id = json_body['constructionCategoryId']
         construction_category.fullname = json_body['fullname']
         return construction_category
