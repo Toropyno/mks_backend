@@ -1,33 +1,28 @@
 from pyramid.view import view_config
 
+
 # from mks_backend.serializers.construction_category_serializer import ConstructionCategorySerializer
-# from mks_backend.services.construction_category_service import ConstructionCategoryService
+from mks_backend.services.construction_categories_service import ConstructionCategoriesService
 
 
 class ConstructionCategoryController(object):
 
     def __init__(self, request):
         self.request = request
-        # self.serializer = ConstructionCategorySerializer()
-        # self.service = ConstructionCategoryService()
+        # self.serializer = ConstructionCategoriesSerializer()
+        self.service = ConstructionCategoriesService()
 
     @view_config(route_name='construction_categories', request_method='GET', renderer='json')
     def get_all_construction_categories(self):
-        # if self.request.params:
-        #     construction_categories_array = self.service.filter_construction_category(self.request.params)
-        # else:
-        #     construction_categories_array = self.service.get_all_construction_categories()
-        #
-        # json = self.serializer.convert_list_to_json(construction_categories_array)
-        # return json
-        pass
+        construction_categories_array = self.service.get_all_construction_categories()
+        json = [] #self.serializer.convert_list_to_json(construction_categories_array)
+        return json
 
     @view_config(route_name='add_construction_category', request_method='POST', renderer='json')
     def add_construction_category(self):
-        # construction_category = self.service.get_object(self.request.json_body)
-        # self.service.add_construction_category(construction_category)
-        # return {'id': construction_category.construction_category_id}
-        pass
+        construction_category = self.service.get_object(self.request.json_body)
+        self.service.add_construction_category(construction_category)
+        return {'id': construction_category.construction_category_id}
 
     @view_config(route_name='construction_category_delete_change_and_view', request_method='GET', renderer='json')
     def get_construction_category(self):
