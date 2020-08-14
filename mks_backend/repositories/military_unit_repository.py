@@ -28,4 +28,6 @@ class MilitaryUnitRepository:
 
 
     def delete_military_unit_by_id(self, id):
-        pass
+        military_unit = self.get_military_unit_by_id(id)
+        DBSession.delete(military_unit)
+        DBSession.commit()

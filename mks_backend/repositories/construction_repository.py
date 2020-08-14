@@ -30,8 +30,12 @@ class ConstructionRepository:
             })
         DBSession.commit()
 
-    def delete_construction(self):
-        pass
+    def delete_construction(self, id):
+        construction = self.get_construction_by_id(id)
+        DBSession.delete(construction)
+        DBSession.commit()
 
     def filter_construction(self, params):
-        pass
+        constructions = DBSession.query(Construction)
+        # add filters from params
+        return constructions.all()

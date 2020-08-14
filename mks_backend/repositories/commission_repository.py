@@ -18,6 +18,7 @@ class CommissionRepository:
     def delete_commission_by_id(self, id):
         commission = self.get_commission_by_id(id)
         DBSession.delete(commission)
+        DBSession.commit()
 
     def updete_commission(self, commission):
         DBSession.query(Commission).filter_by(commission_id=commission.commission_id).update(
