@@ -1,8 +1,8 @@
 class MilitaryUnitSerializer:
     def convert_object_to_json(self, military_unit):
         return {
-            "id": military_unit.pidMU,
-            "fullName": military_unit.vChNumber,
+            'id': military_unit.pidMU,
+            'fullName': military_unit.vChNumber,
         }
 
     def convert_list_to_json(self, military_units):
