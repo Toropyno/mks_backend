@@ -3,6 +3,8 @@ from pyramid.view import view_config
 from pyramid.response import Response
 
 from mks_backend.services.construction_objects_service import ConstructionObjectService
+
+
 # from mks_backend.serializers.construction_objects_serializer import ConstructionObjectsSerializer
 
 
@@ -12,6 +14,14 @@ class ConstructionObjectsController(object):
         self.request = request
         self.service = ConstructionObjectService()
         # self.serializer = ConstructionObjectsSerializer()
+
+    @view_config(route_name='construction_objects', request_method='GET', renderer='json')
+    def get_all_construction_objects_by_construction_id(self):
+        pass
+        # construction_id = self.request.matchdict['constructionId']
+        # construction_objects_array = self.service.get_all_construction_objects_by_construction_id(construction_id)
+        # json = self.serializer.convert_list_to_json(construction_objects_array)
+        # return json
 
     @view_config(route_name='add_construction_object', request_method='POST', renderer='json')
     def add_construction_object(self):
