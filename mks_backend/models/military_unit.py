@@ -14,7 +14,7 @@ class MilitaryUnit(Base):
 
     __tablename__ = 'military_unit'
     idMU = Column(Integer, primary_key=True, autoincrement=True)
-    pidMU = Column(Integer, ForeignKey(idMU))
+    pidMU = Column(Integer)
     vChNumber = Column(VARCHAR(4))
     idNameMU = Column(Integer, nullable=False)
     # idPurpose = Column(Integer, ForeignKey('purpose_m_u.id', ondelete='CASCADE'), nullable=False)
