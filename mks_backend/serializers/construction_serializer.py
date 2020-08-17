@@ -1,6 +1,4 @@
 class ConstructionSerializer:
-    def convert_list_to_json(self, constructions):
-        return list(map(self.convert_object_to_json, constructions))
 
     def convert_object_to_json(self, construction):
         return {
@@ -28,6 +26,9 @@ class ConstructionSerializer:
             'objectsAmount': construction.object_amount,
             'plannedDate': self.get_date_string(construction.planned_date),
         }
+
+    def convert_list_to_json(self, constructions):
+        return list(map(self.convert_object_to_json, constructions))
 
     def get_date_string(self, date):
         return str(date.year) + ',' + str(date.month) + ',' + str(date.day)

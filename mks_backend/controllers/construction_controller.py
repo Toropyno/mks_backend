@@ -45,10 +45,12 @@ class ConstructionController:
         construction_schema = ConstructionSchema()
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
-            construction = self.service.convert_schema_to_object(construction_deserialized)
-            self.service.add_construction(construction)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
+
+        try:
+            construction = self.service.convert_schema_to_object(construction_deserialized)
+            self.service.add_construction(construction)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
 
@@ -63,15 +65,15 @@ class ConstructionController:
     @view_config(route_name='construction_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction(self):
         construction_schema = ConstructionSchema()
-        id = self.request.matchdict['id']
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
-            construction_deserialized['id'] = id
-
-            new_construction = self.service.convert_schema_to_object(construction_deserialized)
-            self.service.update_construction(new_construction)
+            construction_deserialized['id'] = self.request.matchdict['id']
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
+
+        try:
+            new_construction = self.service.convert_schema_to_object(construction_deserialized)
+            self.service.update_construction(new_construction)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
 

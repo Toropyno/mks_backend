@@ -24,10 +24,12 @@ class CommissionController:
         commission_schema = CommissionSchema()
         try:
             commission_deserialized = commission_schema.deserialize(self.request.json_body)
-            commission = self.service.convert_schema_to_object(commission_deserialized)
-            self.service.add_commission(commission)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
+
+        try:
+            commission = self.service.convert_schema_to_object(commission_deserialized)
+            self.service.add_commission(commission)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
 
@@ -42,15 +44,15 @@ class CommissionController:
     @view_config(route_name='commission_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_commission(self):
         commission_schema = CommissionSchema()
-        id = self.request.matchdict['id']
         try:
             commission_deserialized = commission_schema.deserialize(self.request.json_body)
-            commission_deserialized['id'] = id
-
-            new_commission = self.service.convert_schema_to_object(commission_deserialized)
-            self.service.update_commission(new_commission)
+            commission_deserialized['id'] = self.request.matchdict['id']
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
+
+        try:
+            new_commission = self.service.convert_schema_to_object(commission_deserialized)
+            self.service.update_commission(new_commission)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
 
