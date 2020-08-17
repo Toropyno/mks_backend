@@ -45,3 +45,5 @@ def includeme(config):
     config.add_route('commissions', '/commissions')
     config.add_route('add_commission', '/commissions/add')
     config.add_route('commission_delete_change_and_view', '/commissions/{id}')
+
+    config.add_route('military_units', '/military_units')
