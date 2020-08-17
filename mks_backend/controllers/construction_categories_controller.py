@@ -1,6 +1,5 @@
 from pyramid.view import view_config
 
-
 from mks_backend.serializers.construction_categories_serializer import ConstructionCategoriesSerializer
 from mks_backend.services.construction_categories_service import ConstructionCategoriesService
 

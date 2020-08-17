@@ -21,7 +21,8 @@ class SubcategoriesListService:
 
     def get_object(self, json_body):
         subcategories_list = SubcategoriesList()
-        subcategories_list.subcategories_list_id = json_body['subcategoriesListId']
+        if 'subcategoriesListId' in json_body:
+            subcategories_list.subcategories_list_id = json_body['subcategoriesListId']
         subcategories_list.construction_categories_id = json_body['constructionCategoriesId']
         subcategories_list.construction_subcategories_id = json_body['constructionSubcategoriesId']
         return subcategories_list
