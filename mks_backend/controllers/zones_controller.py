@@ -13,8 +13,8 @@ class ZonesController(object):
 
     @view_config(route_name='zones', request_method='GET', renderer='json')
     def get_all_zones(self):
-        zones_array = self.service.get_all_zones()
-        json = self.serializer.convert_list_to_json(zones_array)
+        zones = self.service.get_all_zones()
+        json = self.serializer.convert_list_to_json(zones)
         return json
 
     @view_config(route_name='add_zone', request_method='POST', renderer='json')

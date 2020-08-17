@@ -13,8 +13,8 @@ class ObjectCategoryController(object):
 
     @view_config(route_name='object_categories', request_method='GET', renderer='json')
     def get_all_object_categories(self):
-        object_categories_array = self.service.get_all_object_categories()
-        json = self.serializer.convert_list_to_json(object_categories_array)
+        object_categories = self.service.get_all_object_categories()
+        json = self.serializer.convert_list_to_json(object_categories)
         return json
 
     @view_config(route_name='add_object_category', request_method='GET', renderer='json')

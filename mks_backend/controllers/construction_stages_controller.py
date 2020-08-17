@@ -13,8 +13,8 @@ class ConstructionStagesController(object):
 
     @view_config(route_name='construction_stages', request_method='GET', renderer='json')
     def get_all_construction_stages(self):
-        construction_stages_array = self.service.get_all_construction_stages()
-        json = self.serializer.convert_list_to_json(construction_stages_array)
+        construction_stages = self.service.get_all_construction_stages()
+        json = self.serializer.convert_list_to_json(construction_stages)
         return json
 
     @view_config(route_name='add_construction_stage', request_method='POST', renderer='json')
@@ -57,5 +57,5 @@ class ConstructionStagesController(object):
         # construction_stage_deserialized["id"] = id
         construction_stage = self.service.get_object(
             self.request.json_body)  # convert_schema_to_object(construction_stage_deserialized)
-        construction_stage = self.service.update_construction_stage(construction_stage)
-        return {'id': construction_stage.construction_stage_id}
+        self.service.update_construction_stage(construction_stage)
+        return {'id': id}

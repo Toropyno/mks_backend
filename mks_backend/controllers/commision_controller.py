@@ -51,7 +51,7 @@ class CommissionController:
     @view_config(route_name='commission_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_commission(self):
         # commission_schema = CommissionControllerSchema()
-        # id = self.request.matchdict['id']
+        id = self.request.matchdict['id']
         # try:
         #     commission_deserialized = commission_schema.deserialize(self.request.json_body)
         # except colander.Invalid as error:
@@ -61,7 +61,7 @@ class CommissionController:
         # commission_deserialized['id'] = id
         # new_commission = self.serializer.convert_schema_to_object(commission_deserialized)
         # new_commission = self.service.update_commission(new_commission)
-        return {'id': 'new_commission.commission_id'}
+        return {'id': id}
 
     @view_config(route_name='commission_delete_change_and_view', request_method='GET', renderer='json')
     def get_commission(self):

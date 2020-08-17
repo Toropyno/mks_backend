@@ -51,7 +51,7 @@ class ConstructionController:
     @view_config(route_name='construction_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction(self):
         # construction_schema = ConstructionControllerSchema()
-        # id = self.request.matchdict['id']
+        id = self.request.matchdict['id']
         # try:
         #     construction_deserialized = construction_schema.deserialize(self.request.json_body)
         # except colander.Invalid as error:
@@ -61,7 +61,7 @@ class ConstructionController:
         # construction_deserialized['id'] = id
         # new_construction = self.serializer.convert_schema_to_object(construction_deserialized)
         # new_construction = self.service.update_construction(new_construction)
-        return {'id': 'new_construction.construction_id'}
+        return {'id': id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='GET', renderer='json')
     def get_construction(self):

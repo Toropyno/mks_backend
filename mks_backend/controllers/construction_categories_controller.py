@@ -43,4 +43,4 @@ class ConstructionCategoryController(object):
         new_construction_category = self.service.get_object(self.request.json_body)
         new_construction_category.construction_categories_id = id
         self.service.update_construction_category(new_construction_category)
-        return {'id': new_construction_category.construction_categories_id}
+        return {'id': id}

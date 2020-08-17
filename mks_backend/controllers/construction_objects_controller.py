@@ -13,9 +13,9 @@ class ConstructionObjectsController(object):
 
     @view_config(route_name='construction_objects', request_method='GET', renderer='json')
     def get_all_construction_objects_by_construction_id(self):
-        construction_id = self.request.matchdict['constructionId']
-        construction_objects_array = self.service.get_all_construction_objects_by_construction_id(construction_id)
-        json = self.serializer.convert_list_to_json(construction_objects_array)
+        construction_id = self.request.matchdict['construction_id']
+        construction_objects = self.service.get_all_construction_objects_by_construction_id(construction_id)
+        json = self.serializer.convert_list_to_json(construction_objects)
         return json
 
     @view_config(route_name='add_construction_object', request_method='POST', renderer='json')
@@ -58,5 +58,5 @@ class ConstructionObjectsController(object):
         # construction_object_deserialized["id"] = id
         construction_object = self.service.get_object(
             self.request.json_body)  # convert_schema_to_object(construction_object_deserialized)
-        construction_object = self.service.update_construction_object(construction_object)
-        return {'id': construction_object.construction_object_id}
+        self.service.update_construction_object(construction_object)
+        return {'id': id}

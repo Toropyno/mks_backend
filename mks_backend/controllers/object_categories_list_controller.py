@@ -13,8 +13,8 @@ class ObjectCategoriesListController(object):
 
     @view_config(route_name='object_categories_lists', request_method='GET', renderer='json')
     def get_all_object_categories_lists(self):
-        object_categories_lists_array = self.service.get_all_object_categories_lists()
-        json = self.serializer.convert_list_to_json(object_categories_lists_array)
+        object_categories_lists = self.service.get_all_object_categories_lists()
+        json = self.serializer.convert_list_to_json(object_categories_lists)
         return json
 
     @view_config(route_name='add_object_categories_list', request_method='POST', renderer='json')
@@ -41,4 +41,4 @@ class ObjectCategoriesListController(object):
         id = self.request.matchdict['id']
         object_categories_list = self.service.get_object(self.request.json_body)
         object_categories_list = self.service.update_object_categories_list(object_categories_list)
-        return {'id': object_categories_list.object_categories_list}
+        return {'id': id}
