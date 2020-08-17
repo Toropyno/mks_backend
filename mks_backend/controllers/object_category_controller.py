@@ -1,6 +1,6 @@
 from pyramid.view import view_config
 
-from mks_backend.services.object_categories_service import ObjectCategoryService
+from mks_backend.services.object_category_service import ObjectCategoryService
 from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
 
 

@@ -8,10 +8,4 @@ class ZoneSerializer:
         return zone_dict
 
     def convert_list_to_json(self, zones):
-        zones_array = []
-
-        for zone in zones:
-            zone_dict = self.convert_object_to_json(zone)
-            zones_array.append(zone_dict)
-
-        return zones_array
+        return list(map(self.convert_object_to_json, zones))

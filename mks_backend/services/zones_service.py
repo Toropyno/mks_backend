@@ -1,3 +1,4 @@
+from mks_backend.models.zones import Zones
 from mks_backend.repositories.zones_repository import ZoneRepository
 
 
@@ -20,3 +21,11 @@ class ZoneService:
 
     def update_zone(self, new_zone):
         self.repo.update_zone(new_zone)
+
+    def get_object(self, json_body):
+        zone = Zones()
+        if 'id' in json_body:
+            zone.zones_id = json_body['id']
+
+        zone.fullname = json_body['fullName']
+        return zone

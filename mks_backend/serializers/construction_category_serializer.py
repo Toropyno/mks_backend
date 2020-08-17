@@ -1,6 +1,3 @@
-from mks_backend.models.construction_categories import ConstructionCategories
-
-
 class ConstructionCategoriesSerializer:
 
     def convert_object_to_json(self, construction_category):

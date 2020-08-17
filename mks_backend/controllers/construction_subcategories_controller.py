@@ -1,7 +1,7 @@
 from pyramid.view import view_config
 
-from mks_backend.serializers.construction_subcategories_serializer import ConstructionSubcategoriesSerializer
-from mks_backend.services.construction_subcategories_service import ConstructionSubcategoriesService
+from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategoriesSerializer
+from mks_backend.services.construction_subcategory_service import ConstructionSubcategoriesService
 
 
 class ConstructionSubcategoryController(object):

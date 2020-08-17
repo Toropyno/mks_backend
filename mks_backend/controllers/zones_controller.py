@@ -1,6 +1,4 @@
-import colander
 from pyramid.view import view_config
-from pyramid.response import Response
 
 from mks_backend.services.zones_service import ZoneService
 from mks_backend.serializers.zones_serializer import ZoneSerializer

@@ -9,10 +9,4 @@ class ObjectCategoriesListSerializer:
         return object_categories_list_dict
 
     def convert_list_to_json(self, object_categories_lists):
-        object_categories_lists_array = []
-
-        for object_categories_list in object_categories_lists:
-            object_categories_list_dict = self.convert_object_to_json(object_categories_list)
-            object_categories_lists_array.append(object_categories_list_dict)
-
-        return object_categories_lists_array
+        return list(map(self.convert_object_to_json, object_categories_lists))

@@ -23,13 +23,7 @@ class ProtocolSerializer:
         return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
 
     def convert_list_to_json(self, protocols):
-        protocols_array = []
-
-        for protocol in protocols:
-            protocol_dict = self.convert_object_to_json(protocol)
-            protocols_array.append(protocol_dict)
-
-        return protocols_array
+        return list(map(self.convert_object_to_json, protocols))
 
     def convert_schema_to_object(self, schema_dict):
         protocol = Protocol()
