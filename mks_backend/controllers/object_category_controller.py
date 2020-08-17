@@ -1,15 +1,15 @@
 from pyramid.view import view_config
 
-#from mks_backend.services.object_categories_service import ConstructionStagesService
-#from mks_backend.serializers.object_categories_serializer import ConstructionStagesSerializer
+from mks_backend.services.object_categories_service import ObjectCategoryService
+from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
 
 
 class ObjectCategoriesController(object):
 
     def __init__(self, request):
         self.request = request
-        self.service = None #ObjectCategoriesService()
-        self.serializer = None #ObjectCategoriesSerializer()
+        self.service =  ObjectCategoryService()
+        self.serializer = ObjectCategorySerializer()
 
     @view_config(route_name='object_categories', request_method='GET', renderer='json')
     def get_all_object_categories(self):
