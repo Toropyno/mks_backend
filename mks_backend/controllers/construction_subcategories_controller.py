@@ -13,8 +13,8 @@ class ConstructionSubcategoryController(object):
 
     @view_config(route_name='construction_subcategories', request_method='GET', renderer='json')
     def get_all_construction_subcategories(self):
-        construction_subcategories_array = self.service.get_all_construction_subcategories()
-        json = self.serializer.convert_list_to_json(construction_subcategories_array)
+        construction_subcategories = self.service.get_all_construction_subcategories()
+        json = self.serializer.convert_list_to_json(construction_subcategories)
         return json
 
     @view_config(route_name='add_construction_subcategory', request_method='POST', renderer='json')

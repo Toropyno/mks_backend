@@ -13,8 +13,8 @@ class SubcategoriesListController(object):
 
     @view_config(route_name='subcategories_lists', request_method='GET', renderer='json')
     def get_all_subcategories_lists(self):
-        subcategories_lists_array = self.service.get_all_subcategories_lists()
-        json = self.serializer.convert_list_to_json(subcategories_lists_array)
+        subcategories_lists = self.service.get_all_subcategories_lists()
+        json = self.serializer.convert_list_to_json(subcategories_lists)
         return json
 
     @view_config(route_name='add_subcategories_list', request_method='POST', renderer='json')

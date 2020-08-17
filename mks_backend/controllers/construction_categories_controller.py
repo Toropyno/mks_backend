@@ -13,8 +13,8 @@ class ConstructionCategoryController(object):
 
     @view_config(route_name='construction_categories', request_method='GET', renderer='json')
     def get_all_construction_categories(self):
-        construction_categories_array = self.service.get_all_construction_categories()
-        json = self.serializer.convert_list_to_json(construction_categories_array)
+        construction_categories = self.service.get_all_construction_categories()
+        json = self.serializer.convert_list_to_json(construction_categories)
         return json
 
     @view_config(route_name='add_construction_category', request_method='POST', renderer='json')
