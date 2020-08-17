@@ -27,8 +27,8 @@ class CommissionController:
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
+        commission = self.service.convert_schema_to_object(commission_deserialized)
         try:
-            commission = self.service.convert_schema_to_object(commission_deserialized)
             self.service.add_commission(commission)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
@@ -50,8 +50,8 @@ class CommissionController:
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
+        new_commission = self.service.convert_schema_to_object(commission_deserialized)
         try:
-            new_commission = self.service.convert_schema_to_object(commission_deserialized)
             self.service.update_commission(new_commission)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
