@@ -7,6 +7,9 @@ class ConstructionRepository:
     def get_all_constructions(self):
         return DBSession.query(Construction).all()
 
+    def get_construction_by_id(cls, id):
+        return DBSession.query(Construction).get(id)
+
     def add_construction(self, construction):
         DBSession.add(construction)
         DBSession.commit()
@@ -23,7 +26,8 @@ class ConstructionRepository:
              'contract_date': construction.contract_date,
              'object_amount': construction.object_amount,
              'planned_date': construction.planned_date
-            })
+            }
+        )
         DBSession.commit()
 
     def delete_construction(self, id):
@@ -31,12 +35,12 @@ class ConstructionRepository:
         DBSession.delete(construction)
         DBSession.commit()
 
-    def filter_construction(self, params):
+    def filter_constructions(self, params):
         constructions = DBSession.query(Construction)
         # add filters from params
         return constructions.all()
 
     @classmethod
-    def get_construction_by_id(cls, id):
-        return DBSession.query(Construction).get(id)
-
+    def get_construction_by_project_code(cls, code):
+        construction = DBSession.query(Construction).filter_by(project_code=code).first()
+        return construction

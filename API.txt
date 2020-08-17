@@ -267,3 +267,10 @@ Method: PUT
 Description: Get construction
 Route: '/commissions/{id}'
 Method: GET
+
+
+# --- military_units ---
+
+Description: Get all military_units
+Route: '/military_units'
+Method: GET
