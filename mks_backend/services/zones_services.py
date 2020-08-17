@@ -3,7 +3,7 @@ from mks_backend.repositories.zones_repository import ZoneRepository
 
 class ZoneService:
 
-    def _init_(self):
+    def __init__(self):
         self.repo = ZoneRepository()
 
     def get_all_zones(self):

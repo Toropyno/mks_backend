@@ -3,7 +3,7 @@ from mks_backend.repositories.object_categories_repository import ObjectCategory
 
 class ObjectCategoryService:
 
-    def _init_(self):
+    def __init__(self):
         self.repo = ObjectCategoryRepository()
 
     def get_all_object_categories(self):
