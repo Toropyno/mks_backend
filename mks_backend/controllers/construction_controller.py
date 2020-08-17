@@ -50,7 +50,7 @@ class ConstructionController:
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as error:
-            return Response(status=403, json_body={'code': error.args[0]})
+            return Response(status=403, json_body={'error': error.args[0]})
 
         return {'id': construction.construction_id}
 
@@ -67,11 +67,14 @@ class ConstructionController:
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
             construction_deserialized['id'] = id
+
+            new_construction = self.service.convert_schema_to_object(construction_deserialized)
+            self.service.update_construction(new_construction)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
 
-        new_construction = self.service.convert_schema_to_object(construction_deserialized)
-        new_construction = self.service.update_construction(new_construction)
         return {'id': new_construction.construction_id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='GET', renderer='json')

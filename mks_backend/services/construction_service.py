@@ -19,8 +19,13 @@ class ConstructionService:
             return self.repo.add_construction(construction)
 
     def update_construction(self, new_construction):
+        old_construction = self.repo.get_construction_by_id(new_construction.construction_id)
+
+        if old_construction.project_code != new_construction.project_code:
+            if self.repo.get_construction_by_project_code(new_construction.project_code):
+                raise ValueError('Проект с таим кодом уже существует')
+
         self.repo.update_construction(new_construction)
-        return new_construction
 
     def delete_construction_by_id(self, id):
         self.repo.delete_construction(id)
