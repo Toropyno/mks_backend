@@ -1,13 +1,10 @@
-from mks_backend.models.subcategories_list import SubcategoriesList
-
-
 class SubcategoriesListSerializer:
 
     def convert_object_to_json(self, subcategories_list):
         subcategories_list_dict = {
             'id': subcategories_list.subcategories_list_id,
-            'construction_categories_id': subcategories_list.construction_categories_id,
-            'construction_subcategories_id': subcategories_list.construction_subcategories_id
+            'constructionCategoriesId': subcategories_list.construction_categories_id,
+            'constructionSubcategoriesId': subcategories_list.construction_subcategories_id
         }
         return subcategories_list_dict
 

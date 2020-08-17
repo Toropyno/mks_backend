@@ -11,6 +11,8 @@ from mks_backend.repositories.construction_categories_repository import Construc
 from mks_backend.repositories.construction_subcategories_repository import ConstructionSubcategoryRepository
 from mks_backend.repositories.commission_repository import CommissionRepository
 from mks_backend.repositories.military_unit_repository import MilitaryUnitRepository
+
+
 # ------------------------
 
 
@@ -115,7 +117,6 @@ def construction_military_unit_validator(node, value):
 
 
 class ConstructionSchema(colander.MappingSchema):
-
     project_code = colander.SchemaNode(
         colander.String(),
         name='code',
