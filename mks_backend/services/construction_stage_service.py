@@ -15,7 +15,7 @@ class ConstructionStageService:
     def add_construction_stage(self, construction_stage):
         if self.repo.get_construction_stage_by_code(construction_stage.code):
             raise ValueError('Этап строительства с таким кратким наименованием уже существует.')
-        if self.repo.get_construction_stage_by_fullname(construction_stage.fulname):
+        if self.repo.get_construction_stage_by_fullname(construction_stage.fullname):
             raise ValueError('Этап строительства с таким полным наименованием уже существует.')
         self.repo.add_construction_stage(construction_stage)
 

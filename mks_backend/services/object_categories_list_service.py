@@ -25,12 +25,3 @@ class ObjectCategoriesListService:
 
     def update_object_categories_list(self, new_object_categories_list):
         self.repo.update_object_categories_list(new_object_categories_list)
-
-    def get_object(self, json_body):
-        object_categories_list = ObjectCategoriesList()
-        if 'id' in json_body:
-            object_categories_list.object_categories_lists_id = json_body['id']
-
-        object_categories_list.zones_id = json_body['zonesId']
-        object_categories_list.object_categories_id = json_body['objectCategoriesId']
-        return object_categories_list

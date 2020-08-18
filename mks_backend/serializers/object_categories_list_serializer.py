@@ -17,7 +17,7 @@ class ObjectCategoriesListSerializer:
     def convert_schema_to_object(self, schema):
         object_categories_list = ObjectCategoriesList()
         if 'id' in schema:
-            object_categories_list.construction_stages_id = schema['id']
+            object_categories_list.object_categories_list_id = schema['id']
 
         object_categories_list.zones_id = schema['zoneId']
         object_categories_list.object_categories_id = schema['objectCategoriesId']
