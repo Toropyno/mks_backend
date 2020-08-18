@@ -16,7 +16,7 @@ class ConstructionObjectSerializer:
             'stage': {
                 'fullname': construction_object.construction_stage.fullname,
                 'id': construction_object.construction_stage_id,
-                'code': construction_object.code,
+                'code': construction_object.construction_stage.code,
             }
         }
         return construction_object_dict
