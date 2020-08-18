@@ -12,6 +12,7 @@ class ConstructionStagesController(object):
         self.request = request
         self.service = ConstructionStageService()
         self.serializer = ConstructionStageSerializer()
+        self.schema = ConstructionStagesSchema()
 
     @view_config(route_name='construction_stages', request_method='GET', renderer='json')
     def get_all_construction_stages(self):
@@ -21,15 +22,17 @@ class ConstructionStagesController(object):
 
     @view_config(route_name='add_construction_stage', request_method='POST', renderer='json')
     def add_construction_stage(self):
-        construction_stage_schema = ConstructionStagesSchema()
         try:
-            construction_stage_deserialized = construction_stage_schema.deserialize(self.request.json_body)
+            construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
-        self.service.add_construction_stage(construction_stage)
+        try:
+            self.service.add_construction_stage(construction_stage)
+        except ValueError as error:
+            return Response(status=403, json_body={'error':error.args[0]})
         return {'id': construction_stage.construction_stages_id}
 
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='GET', renderer='json')
@@ -48,13 +51,12 @@ class ConstructionStagesController(object):
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction_stage(self):
         id = self.request.matchdict['id']
-        construction_stage_schema = ConstructionStagesSchema()
         try:
-           construction_stage_deserialized = construction_stage_schema.deserialize(self.request.json_body)
+            construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-           return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
-           return Response(status=403, json_body=date_parse_error.args)
+            return Response(status=403, json_body=date_parse_error.args)
         construction_stage_deserialized["id"] = id
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         self.service.update_construction_stage(construction_stage)

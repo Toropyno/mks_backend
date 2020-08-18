@@ -14,6 +14,8 @@ class ZoneService:
         return self.repo.get_zone_by_id(id)
 
     def add_zone(self, zone):
+        if self.repo.get_zone_by_fullname(zone.fullname):
+            raise ValueError('Зона военного городка с таким наименованием уже существует.')
         self.repo.add_zone(zone)
 
     def delete_zone_by_id(self, id):

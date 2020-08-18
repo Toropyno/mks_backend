@@ -13,6 +13,8 @@ class ConstructionObjectService:
         return self.repo.get_construction_object_by_id(id)
 
     def add_construction_object(self, construction_object):
+        if self.repo.get_construction_object_by_code(construction_object.object_code):
+            raise ValueError('Объект строительства с таким кодом уже существует.')
         self.repo.add_construction_object(construction_object)
 
     def delete_construction_object_by_id(self, id):

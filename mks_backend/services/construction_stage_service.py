@@ -13,6 +13,10 @@ class ConstructionStageService:
         return self.repo.get_construction_stage_by_id(id)
 
     def add_construction_stage(self, construction_stage):
+        if self.repo.get_construction_stage_by_code(construction_stage.code):
+            raise ValueError('Этап строительства с таким кратким наименованием уже существует.')
+        if self.repo.get_construction_stage_by_fullname(construction_stage.fulname):
+            raise ValueError('Этап строительства с таким полным наименованием уже существует.')
         self.repo.add_construction_stage(construction_stage)
 
     def delete_construction_stage_by_id(self, id):

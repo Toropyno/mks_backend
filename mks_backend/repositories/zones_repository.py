@@ -24,3 +24,6 @@ class ZoneRepository:
         DBSession.query(Zones).filter_by(zone_id=zone.construction_stage_id).update(
             {'fullname': zone.fullname})
         DBSession.commit()
+
+    def get_zone_by_fullname(self, fullname):
+        return DBSession.query(Zones).filter_by(fullname=fullname).first()

@@ -13,6 +13,7 @@ class ObjectCategoriesListController(object):
         self.request = request
         self.service = ObjectCategoriesListService()
         self.serializer = ObjectCategoriesListSerializer()
+        self.schema = ObjectCategoriesListSchema()
 
     @view_config(route_name='object_categories_lists', request_method='GET', renderer='json')
     def get_all_object_categories_lists(self):
@@ -22,15 +23,17 @@ class ObjectCategoriesListController(object):
 
     @view_config(route_name='add_object_categories_list', request_method='POST', renderer='json')
     def add_object_categories_list(self):
-        object_categories_list_schema = ObjectCategoriesListSchema()
         try:
-            object_categories_list_deserialized = object_categories_list_schema.deserialize(self.request.json_body)
+            object_categories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
         object_categories_list = self.serializer.convert_schema_to_object(object_categories_list_deserialized)
-        self.service.add_object_categories_list(object_categories_list)
+        try:
+            self.service.add_object_categories_list(object_categories_list)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
         return {'id': object_categories_list.object_categories_list_id}
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='GET', renderer='json')
@@ -49,9 +52,8 @@ class ObjectCategoriesListController(object):
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_object_categories_list(self):
         id = self.request.matchdict['id']
-        object_categories_list_schema = ObjectCategoriesListSchema()
         try:
-            object_categories_list_deserialized = object_categories_list_schema.deserialize(self.request.json_body)
+            object_categories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:

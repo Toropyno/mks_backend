@@ -14,6 +14,10 @@ class ObjectCategoriesListService:
         return self.repo.get_object_categories_list_by_id(id)
 
     def add_object_categories_list(self, object_categories_list):
+        if self.repo.get_object_categories_list_by_zone_id(object_categories_list.zones_id):
+            raise ValueError('Перечень категорий объектов с указанной зоной военного городка уже существует.')
+        if self.repo.get_object_categories_list_by_object_categories_id(object_categories_list.object_categories_id):
+            raise ValueError('Перечень категорий объектов с указанной категорией объекта строительства уже существует.')
         self.repo.add_object_categories_list(object_categories_list)
 
     def delete_object_categories_list_by_id(self, id):

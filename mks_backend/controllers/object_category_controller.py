@@ -4,7 +4,7 @@ from pyramid.response import Response
 
 from mks_backend.services.object_category_service import ObjectCategoryService
 from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
-from mks_backend.controllers.schemas.object_categories_schema import ObjectCategoriesSchema
+from mks_backend.controllers.schemas.object_category_schema import ObjectCategorySchema
 
 
 class ObjectCategoryController(object):
@@ -13,6 +13,7 @@ class ObjectCategoryController(object):
         self.request = request
         self.service = ObjectCategoryService()
         self.serializer = ObjectCategorySerializer()
+        self.schema = ObjectCategorySchema()
 
     @view_config(route_name='object_categories', request_method='GET', renderer='json')
     def get_all_object_categories(self):
@@ -29,15 +30,17 @@ class ObjectCategoryController(object):
 
     @view_config(route_name='add_object_category', request_method='POST', renderer='json')
     def add_object_category(self):
-        object_category_schema = ObjectCategoriesSchema()
         try:
-            object_category_deserialized = object_category_schema.deserialize(self.request.json_body)
+            object_category_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
-        self.service.add_object_category(object_category)
+        try:
+            self.service.add_object_category(object_category)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
         return {'id': object_category.object_categories_id}
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='DELETE', renderer='json')
@@ -49,9 +52,8 @@ class ObjectCategoryController(object):
     @view_config(route_name='object_category_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_object_categories_list(self):
         id = self.request.matchdict['id']
-        object_category_schema = ObjectCategoriesSchema()
         try:
-            object_category_deserialized = object_category_schema.deserialize(self.request.json_body)
+            object_category_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:

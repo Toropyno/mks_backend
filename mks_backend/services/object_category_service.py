@@ -14,6 +14,8 @@ class ObjectCategoryService:
         return self.repo.get_object_category_by_id(id)
 
     def add_object_category(self, object_category):
+        if self.repo.get_object_category_by_fullname(object_category.fullname):
+            raise ValueError('Категория объекта строительства с таким наименованием уже существует.')
         self.repo.add_object_category(object_category)
 
     def delete_object_category_by_id(self, id):

@@ -19,4 +19,5 @@ class ObjectCategorySerializer:
             object_category.object_categories_id = schema['id']
 
         object_category.fullname = schema['fullName']
+        object_category.note = schema['note']
         return object_category
