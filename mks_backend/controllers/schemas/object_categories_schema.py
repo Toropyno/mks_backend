@@ -1,7 +1,7 @@
 import colander
 
 
-class ZonesSchema(colander.MappingSchema):
+class ObjectCategoriesSchema(colander.MappingSchema):
 
     fullname = colander.SchemaNode(
         colander.String(),

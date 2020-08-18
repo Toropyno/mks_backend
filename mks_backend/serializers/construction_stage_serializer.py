@@ -1,3 +1,5 @@
+from mks_backend.models.construction_stages import ConstructionStages
+
 class ConstructionStageSerializer:
 
     def convert_object_to_json(self, construction_stage):
@@ -10,3 +12,12 @@ class ConstructionStageSerializer:
 
     def convert_list_to_json(self, construction_stages):
         return list(map(self.convert_object_to_json, construction_stages))
+
+    def convert_schema_to_object(self, schema):
+        construction_stage = ConstructionStages()
+        if 'id' in schema:
+            construction_stage.construction_stages_id = schema['id']
+
+        construction_stage.code = schema['code']
+        construction_stage.fullname = schema['fullName']
+        return construction_stage

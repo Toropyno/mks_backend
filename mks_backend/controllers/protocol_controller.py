@@ -1,12 +1,11 @@
-import re
-from datetime import datetime
-
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
 
 from mks_backend.serializers.protocol_serializer import ProtocolSerializer
 from mks_backend.services.protocol_service import ProtocolService
+from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerFilterSchema
+from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSchema
 
 
 class ProtocolController(object):
@@ -19,7 +18,6 @@ class ProtocolController(object):
     @view_config(route_name='protocols', request_method='GET', renderer='json')
     def get_all_protocols(self):
         if self.request.params:
-            from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerFilterSchema
             params_schema = ProtocolControllerFilterSchema()
             try:
                 params_deserialized = params_schema.deserialize(self.request.GET)
@@ -37,7 +35,6 @@ class ProtocolController(object):
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
     def add_protocol(self):
-        from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSchema
         protocol_schema = ProtocolControllerSchema()
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
@@ -64,7 +61,6 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_protocol(self):
-        from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSchema
         protocol_schema = ProtocolControllerSchema()
         id = self.request.matchdict['id']
         try:

@@ -56,11 +56,11 @@ class ConstructionObjectsSchema(colander.MappingSchema):
     )
     floors_amount = colander.SchemaNode(
         colander.Int(),
-        name='buildingVolume',
+        name='floorsAmount',
         validator=colander.Range(min=0, min_err='Недопустимое количество этажей')
     )
     construction_stages_id = colander.SchemaNode(
         colander.Int(),
-        name='buildingVolume',
+        name='constructionStagesId',
         validator=colander.Range(min=0, min_err='Недопустимый этап строительства')
     )
