@@ -28,6 +28,55 @@ Route: '/protocols/{id}'
 Method: DELETE
 
 
+# --- constructions ---
+
+Description: Get all constructions (query parameters for filter)
+Route: '/constructions'
+Method: GET
+
+Description: Add construction
+Route: '/constructions/add'
+Method: POST
+
+Description: Delete construction
+Route: '/constructions/{id}'
+Method: DELETE
+
+Description: Edit construction
+Route: '/constructions/{id}'
+Method: PUT
+
+Description: Get construction
+Route: '/constructions/{id}'
+Method: GET
+
+
+# --- construction -> construction_objects ---
+
+Description: Get all construction_objects
+Route: 'construction/construction_objects/{constructionId}'
+Method: GET
+
+
+# --- construction_objects ---
+
+Description: Add construction_object
+Route: '/construction_objects/add'
+Method: POST
+
+Description: Get construction_object
+Route: '/construction_objects/{id}'
+Method: GET
+
+Description: Edit construction_object
+Route: '/construction_objects{id}'
+Method: PUT
+
+Description: Delete construction_object
+Route: '/construction_objects{id}'
+Method: DELETE
+
+
 # --- construction_categories ---
 
 Description: Get all construction_categories
@@ -104,6 +153,7 @@ Description: Delete construction_subcategories
 Route: '/construction_subcategories/{id}'
 Method: DELETE
 
+
 # --- construction_stages ---
 
 Description: Get all construction_stages
@@ -126,27 +176,6 @@ Description: Delete construction_stage
 Route: '/construction_stages{id}'
 Method: DELETE
 
-# --- construction_objects ---
-
-Description: Get all construction_objects
-Route: '/construction_objects'
-Method: GET
-
-Description: Add construction_object
-Route: '/construction_objects/add'
-Method: POST
-
-Description: Get construction_object
-Route: '/construction_objects/{id}'
-Method: GET
-
-Description: Edit construction_object
-Route: '/construction_objects{id}'
-Method: PUT
-
-Description: Delete construction_object
-Route: '/construction_objects{id}'
-Method: DELETE
 
 # --- object_categories ---
 
@@ -170,6 +199,7 @@ Description: Delete object_categories
 Route: '/object_categories{id}'
 Method: DELETE
 
+
 # --- object_categories_lists ---
 
 Description: Get all object_categories_lists
@@ -191,6 +221,7 @@ Method: PUT
 Description: Delete object_categories_lists
 Route: '/object_categories_lists{id}'
 Method: DELETE
+
 
 # --- zones ---
 
@@ -214,27 +245,6 @@ Description: Delete zones
 Route: '/zones/{id}'
 Method: DELETE
 
-# --- constructions ---
-
-Description: Get all constructions (query parameters for filter)
-Route: '/constructions'
-Method: GET
-
-Description: Add construction
-Route: '/constructions/add'
-Method: POST
-
-Description: Delete construction
-Route: '/constructions/{id}'
-Method: DELETE
-
-Description: Edit construction
-Route: '/constructions/{id}'
-Method: PUT
-
-Description: Get construction
-Route: '/constructions/{id}'
-Method: GET
 
 # --- commissions ---
 
@@ -256,4 +266,11 @@ Method: PUT
 
 Description: Get construction
 Route: '/commissions/{id}'
+Method: GET
+
+
+# --- military_units ---
+
+Description: Get all military_units
+Route: '/military_units'
 Method: GET

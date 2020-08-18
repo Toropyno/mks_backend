@@ -23,13 +23,11 @@ class SubcategoriesList(Base):
     construction_category = relationship(
         'ConstructionCategories',
         back_populates='subcategories_list',
-        passive_deletes=True
     )
 
     construction_subcategory = relationship(
         'ConstructionSubcategories',
         back_populates='subcategories_list',
-        passive_deletes=True
     )
 
     construction = relationship(

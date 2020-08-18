@@ -28,11 +28,11 @@ class ProtocolController(object):
             except ValueError as date_parse_error:
                 return Response(status=403, json_body=date_parse_error.args)
             params = self.service.get_params_from_schema(params_deserialized)
-            protocols_array = self.service.filter_protocols(params)
+            protocols = self.service.filter_protocols(params)
         else:
-            protocols_array = self.service.get_all_protocols()
+            protocols = self.service.get_all_protocols()
 
-        json = self.serializer.convert_list_to_json(protocols_array)
+        json = self.serializer.convert_list_to_json(protocols)
         return json
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
@@ -73,7 +73,7 @@ class ProtocolController(object):
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
-        protocol_deserialized["id"] = id
+        protocol_deserialized['id'] = id
         new_protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
         new_protocol = self.service.update_protocol(new_protocol)
         return {'id': new_protocol.protocol_id}
