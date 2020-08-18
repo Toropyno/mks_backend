@@ -19,6 +19,7 @@ class ProtocolController(object):
     @view_config(route_name='protocols', request_method='GET', renderer='json')
     def get_all_protocols(self):
         if self.request.params:
+            from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerFilterSchema
             params_schema = ProtocolControllerFilterSchema()
             try:
                 params_deserialized = params_schema.deserialize(self.request.GET)
@@ -36,6 +37,7 @@ class ProtocolController(object):
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
     def add_protocol(self):
+        from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSchema
         protocol_schema = ProtocolControllerSchema()
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
@@ -62,6 +64,7 @@ class ProtocolController(object):
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_protocol(self):
+        from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSchema
         protocol_schema = ProtocolControllerSchema()
         id = self.request.matchdict['id']
         try:
@@ -76,86 +79,3 @@ class ProtocolController(object):
         return {'id': new_protocol.protocol_id}
 
 
-def date_validator(node, value):
-    try:
-        value = datetime.strptime(value, '%a %b %d %Y')
-    except ValueError:
-        raise colander.Invalid(node, 'Неверный формат даты')
-
-
-def uuid_validator(node, value):
-    pattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-    res = re.match(pattern, value)
-    if res is None:
-        raise colander.Invalid(node, 'Недопустимая информация о файле')
-
-
-class ProtocolControllerSchema(colander.MappingSchema):
-
-    protocol_num = colander.SchemaNode(
-        colander.String(),
-        name='protocolNumber',
-        validator=colander.Length(min=1, max=20, min_err='Слишком короткий номер протокола',
-                                  max_err='Слишком длинный номер протокола'))
-
-    protocol_date = colander.SchemaNode(
-        colander.String(),
-        name='protocolDate',
-        validator=date_validator)
-
-    meetings_type_id = colander.SchemaNode(
-        colander.Int(),
-        name='meeting',
-        validator=colander.Range(min=0, min_err='Неверный вид заседания'))
-
-    protocol_name = colander.SchemaNode(
-        colander.String(),
-        name='protocolName',
-        validator=colander.Length(min=1, max=255, min_err='Слишком короткое имя протока',
-                                  max_err='Слишком длинное имя протокола'))
-
-    note = colander.SchemaNode(
-        colander.String(),
-        name='note',
-        validator=colander.Length(min=1, max=2000, min_err='Слишком короткое примечание',
-                                  max_err='Недопустимое примечание'))
-
-    idfilestorage = colander.SchemaNode(
-        colander.String(),
-        name='idFileStorage',
-        msg='Недопустимая информация о файле',
-        validator=uuid_validator)
-
-
-class ProtocolControllerFilterSchema(colander.MappingSchema):
-    protocol_num = colander.SchemaNode(
-        colander.String(),
-        name='protocolNumber',
-        validator=colander.Length(min=1, max=20, min_err='Слишком короткий номер протокола',
-                                  max_err='Слишком длинный номер протокола'),
-        missing=None)
-
-    meetings_type_id = colander.SchemaNode(
-        colander.Int(),
-        name='meeting',
-        validator=colander.Range(min=0, min_err='Неверный вид заседания'),
-        missing=None)
-
-    protocol_name = colander.SchemaNode(
-        colander.String(),
-        name='protocolName',
-        validator=colander.Length(min=1, max=255, min_err='Слишком короткое имя протокола',
-                                  max_err='Слишком длинное имя протокола'),
-        missing=None)
-
-    date_start = colander.SchemaNode(
-        colander.String(),
-        name='dateStart',
-        validator=date_validator,
-        missing=None)
-
-    date_end = colander.SchemaNode(
-        colander.String(),
-        name='dateEnd',
-        validator=date_validator,
-        missing=None)
