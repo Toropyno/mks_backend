@@ -22,7 +22,7 @@ class ConstructionObjectRepository:
 
     def update_construction_object(self, construction_object):
         DBSession.query(ConstructionObjects).filter_by(
-            construction_object_id=construction_object.construction_object_id).update(
+            construction_objects_id=construction_object.construction_objects_id).update(
             {'construction_id': construction_object.construction_id,
              'object_code': construction_object.object_code,
              'object_name': construction_object.object_name,

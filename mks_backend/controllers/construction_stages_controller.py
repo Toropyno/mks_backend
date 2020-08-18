@@ -30,7 +30,7 @@ class ConstructionStagesController(object):
             return Response(status=403, json_body=date_parse_error.args)
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         self.service.add_construction_stage(construction_stage)
-        return {'id': construction_stage.construction_stage_id}
+        return {'id': construction_stage.construction_stages_id}
 
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='GET', renderer='json')
     def get_construction_stage(self):

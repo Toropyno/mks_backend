@@ -20,7 +20,7 @@ class ObjectCategoryController(object):
         json = self.serializer.convert_list_to_json(object_categories)
         return json
 
-    @view_config(route_name='add_object_category', request_method='GET', renderer='json')
+    @view_config(route_name='object_category_delete_change_and_view', request_method='GET', renderer='json')
     def get_object_category(self):
         id = self.request.matchdict['id']
         object_category = self.service.get_object_category_by_id(id)
@@ -37,8 +37,8 @@ class ObjectCategoryController(object):
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
-        object_category = self.service.add_object_category(object_category)
-        return {'id': object_category.object_category_id}
+        self.service.add_object_category(object_category)
+        return {'id': object_category.object_categories_id}
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self):

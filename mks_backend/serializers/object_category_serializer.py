@@ -15,5 +15,8 @@ class ObjectCategorySerializer:
 
     def convert_schema_to_object(self, schema):
         object_category = ObjectCategories()
+        if 'id' in schema:
+            object_category.object_categories_id = schema['id']
 
+        object_category.fullname = schema['fullName']
         return object_category

@@ -50,7 +50,7 @@ class ConstructionObjectsSchema(colander.MappingSchema):
         validator=colander.Range(min=0, min_err='Недопустимый номер объекта на генеральном плане')
     )
     building_volume = colander.SchemaNode(
-        colander.Decimal(quant=17, rounding=3),
+        colander.Decimal(),
         name='buildingVolume',
         validator=colander.Range(min=0, min_err='Недопустимый объем здания')
     )

@@ -1,3 +1,6 @@
+from mks_backend.models.construction import Construction
+
+
 class ConstructionSerializer:
 
     def convert_object_to_json(self, construction):

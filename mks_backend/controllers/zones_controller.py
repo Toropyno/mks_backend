@@ -1,8 +1,10 @@
+import colander
 from pyramid.view import view_config
+from pyramid.response import Response
 
 from mks_backend.services.zones_service import ZoneService
 from mks_backend.serializers.zones_serializer import ZoneSerializer
-
+from mks_backend.controllers.schemas.zones_schema import ZonesSchema
 
 class ZonesController(object):
 
@@ -19,14 +21,14 @@ class ZonesController(object):
 
     @view_config(route_name='add_zone', request_method='POST', renderer='json')
     def add_zone(self):
-        # zone_schema = ConstructionStagetControllerSchema()
-        # try:
-        #    zone_deserialized = zone_schema.deserialize(self.request.json_body)
-        # except colander.Invalid as error:
-        #    return Response(status=403, json_body=error.asdict())
-        # except ValueError as date_parse_error:
-        #    return Response(status=403, json_body=date_parse_error.args)
-        zone = self.service.get_object(self.request.json_body)  # convert_schema_to_object(zone_deserialized)
+        zone_schema = ZonesSchema()
+        try:
+           zone_deserialized = zone_schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+           return Response(status=403, json_body=error.asdict())
+        except ValueError as date_parse_error:
+           return Response(status=403, json_body=date_parse_error.args)
+        zone = self.serializer.convert_schema_to_object(zone_deserialized)
         self.service.add_zone(zone)
         return {'id': zone.zones_id}
 
