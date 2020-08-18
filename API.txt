@@ -54,7 +54,7 @@ Method: GET
 # --- construction -> construction_objects ---
 
 Description: Get all construction_objects
-Route: 'construction/construction_objects/{constructionId}'
+Route: 'construction/construction_objects/{construction_id}'
 Method: GET
 
 
