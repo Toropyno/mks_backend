@@ -127,8 +127,9 @@ class ConstructionSchema(colander.MappingSchema):
     project_name = colander.SchemaNode(
         colander.String(),
         name='name',
-        validator=colander.Length(min=1, max=255, min_err='Слишком короткое имя проекта',
-                                  max_err='Слишком длинное имя проекта')
+        validator=colander.Length(
+            min=1, max=255, min_err='Слишком короткое имя проекта',
+            max_err='Слишком длинное имя проекта')
     )
 
     construction_categories_id = colander.SchemaNode(
