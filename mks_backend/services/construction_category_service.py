@@ -1,6 +1,7 @@
 from mks_backend.repositories.construction_categories_repository import ConstructionCategoryRepository
 from mks_backend.models.construction_categories import ConstructionCategories
 
+
 class ConstructionCategoriesService:
 
     def __init__(self):
@@ -21,9 +22,10 @@ class ConstructionCategoriesService:
     def get_all_construction_categories(self):
         return self.repo.get_all_construction_categories()
 
-    def get_object(self, json_body):
-        construction_category = ConstructionCategories()
-        if 'constructionCategoryId' in json_body:
-            construction_category.construction_categories_id = json_body['constructionCategoryId']
-        construction_category.fullname = json_body['fullname']
-        return construction_category
+    def convert_schema_to_object(self, schema):
+        construction_categories = ConstructionCategories()
+
+        construction_categories.construction_categories_id = schema.get('id')
+        construction_categories.fullname = schema.get('fullName')
+
+        return construction_categories

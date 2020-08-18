@@ -22,9 +22,9 @@ class ConstructionSubcategoriesService:
     def update_construction_subcategory(self, construction_subcategory):
         self.repo.update_construction_subcategory(construction_subcategory)
 
-    def get_object(self, json_body):
-        construction_subcategory = ConstructionSubcategories()
-        if 'constructionSubcategoryId' in json_body:
-            construction_subcategory.construction_subcategories_id = json_body['constructionSubcategoryId']
-        construction_subcategory.fullname = json_body['fullname']
-        return construction_subcategory
+    def convert_schema_to_object(self, schema):
+        construction_subcategories = ConstructionSubcategories()
+
+        construction_subcategories.fullname = schema.get('fullName')
+
+        return construction_subcategories

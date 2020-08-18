@@ -19,10 +19,10 @@ class SubcategoriesListService:
     def get_all_subcategories_lists(self):
         return self.repo.get_all_subcategories_lists()
 
-    def get_object(self, json_body):
-        subcategories_list = SubcategoriesList()
-        if 'subcategoriesListId' in json_body:
-            subcategories_list.subcategories_list_id = json_body['subcategoriesListId']
-        subcategories_list.construction_categories_id = json_body['constructionCategoriesId']
-        subcategories_list.construction_subcategories_id = json_body['constructionSubcategoriesId']
-        return subcategories_list
+    def convert_schema_to_object(self, schema):
+        subcategories_lists = SubcategoriesList()
+
+        subcategories_lists.construction_categories_id = schema.get('constructionCategoriesId')
+        subcategories_lists.construction_subcategories_id = schema.get('constructionSubcategoriesId')
+
+        return subcategories_lists
