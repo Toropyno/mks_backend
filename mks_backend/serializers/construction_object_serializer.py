@@ -13,11 +13,7 @@ class ConstructionObjectSerializer:
             'generalPlanNumber': construction_object.generalplan_number,
             'buildingVolume': float(construction_object.building_volume),
             'floorsAmount': construction_object.floors_amount,
-            'stage': {
-                'fullname': construction_object.construction_stage.fullname,
-                'id': construction_object.construction_stage_id,
-                'code': construction_object.construction_stage.code,
-            }
+            'stage': construction_object.construction_stage.fullname,
         }
         return construction_object_dict
 
