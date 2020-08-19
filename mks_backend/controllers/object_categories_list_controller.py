@@ -60,5 +60,8 @@ class ObjectCategoriesListController(object):
             return Response(status=403, json_body=date_parse_error.args)
         object_categories_list_deserialized['id'] = id
         object_categories_list = self.serializer.convert_schema_to_object(object_categories_list_deserialized)
-        self.service.update_object_categories_list(object_categories_list)
+        try:
+            self.service.update_object_categories_list(object_categories_list)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
         return {'id': id}

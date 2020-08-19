@@ -59,5 +59,8 @@ class ZonesController(object):
             return Response(status=403, json_body=date_parse_error.args)
         zone_deserialized["id"] = id
         zone = self.serializer.convert_schema_to_object(zone_deserialized)
-        self.service.update_zone(zone)
+        try:
+            self.service.update_zone(zone)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
         return {'id': id}

@@ -61,5 +61,8 @@ class ConstructionObjectsController(object):
             return Response(status=403, json_body=date_parse_error.args)
         construction_object_deserialized["id"] = id
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
-        self.service.update_construction_object(construction_object)
+        try:
+            self.service.update_construction_object(construction_object)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
         return {'id': id}

@@ -14,11 +14,16 @@ class ConstructionObjectService:
 
     def add_construction_object(self, construction_object):
         if self.repo.get_construction_object_by_code(construction_object.object_code):
-            raise ValueError('Объект строительства с таким кодом уже существует.')
+            raise ValueError('Объект строительства с таким кодом уже существует')
         self.repo.add_construction_object(construction_object)
 
     def delete_construction_object_by_id(self, id):
         self.repo.delete_construction_object_by_id(id)
 
     def update_construction_object(self, new_construction_object):
+        old_construction_object = self.repo.get_construction_object_by_id(new_construction_object.construction_objects_id)
+
+        if old_construction_object.object_code != new_construction_object.object_code:
+            if self.repo.get_construction_object_by_code(new_construction_object.object_code):
+                raise ValueError('Объект строительства с таким кодом уже существует')
         self.repo.update_construction_object(new_construction_object)

@@ -59,5 +59,8 @@ class ConstructionStagesController(object):
             return Response(status=403, json_body=date_parse_error.args)
         construction_stage_deserialized["id"] = id
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
-        self.service.update_construction_stage(construction_stage)
+        try:
+            self.service.update_construction_stage(construction_stage)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
         return {'id': id}
