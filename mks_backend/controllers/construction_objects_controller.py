@@ -59,7 +59,7 @@ class ConstructionObjectsController(object):
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
-        construction_object_deserialized["id"] = id
+        construction_object_deserialized['id'] = id
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
         try:
             self.service.update_construction_object(construction_object)
