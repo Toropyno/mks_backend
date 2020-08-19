@@ -1,10 +1,12 @@
 import colander
 
+strip_space = lambda v: v.strip(' \t\n\r') if v is not None else v
+
 
 class ConstructionSubcategoriesSchema(colander.MappingSchema):
-
     fullname = colander.SchemaNode(
-        colander.String(),
+        colander.String(allow_empty=True),
+        preparer=[strip_space],
         name='fullName',
         validator=colander.Length(
             min=1,
