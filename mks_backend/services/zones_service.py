@@ -14,12 +14,18 @@ class ZoneService:
         return self.repo.get_zone_by_id(id)
 
     def add_zone(self, zone):
+        if self.repo.get_zone_by_fullname(zone.fullname):
+            raise ValueError('Зона военного городка с таким наименованием уже существует')
         self.repo.add_zone(zone)
 
     def delete_zone_by_id(self, id):
         self.repo.delete_zone_by_id(id)
 
     def update_zone(self, new_zone):
+        old_zone = self.repo.get_zone_by_id(new_zone.zones_id)
+        if old_zone.fullname != new_zone.fullname:
+            if self.repo.get_zone_by_fullname(new_zone.fullname):
+                raise ValueError('Зона военного городка с таким наименованием уже существует')
         self.repo.update_zone(new_zone)
 
     def get_object(self, json_body):

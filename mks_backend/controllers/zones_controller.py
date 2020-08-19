@@ -1,7 +1,10 @@
+import colander
 from pyramid.view import view_config
+from pyramid.response import Response
 
 from mks_backend.services.zones_service import ZoneService
 from mks_backend.serializers.zones_serializer import ZoneSerializer
+from mks_backend.controllers.schemas.zones_schema import ZonesSchema
 
 
 class ZonesController(object):
@@ -10,6 +13,7 @@ class ZonesController(object):
         self.request = request
         self.service = ZoneService()
         self.serializer = ZoneSerializer()
+        self.schema = ZonesSchema()
 
     @view_config(route_name='zones', request_method='GET', renderer='json')
     def get_all_zones(self):
@@ -19,15 +23,16 @@ class ZonesController(object):
 
     @view_config(route_name='add_zone', request_method='POST', renderer='json')
     def add_zone(self):
-        # zone_schema = ConstructionStagetControllerSchema()
-        # try:
-        #    zone_deserialized = zone_schema.deserialize(self.request.json_body)
-        # except colander.Invalid as error:
-        #    return Response(status=403, json_body=error.asdict())
-        # except ValueError as date_parse_error:
-        #    return Response(status=403, json_body=date_parse_error.args)
-        zone = self.service.get_object(self.request.json_body)  # convert_schema_to_object(zone_deserialized)
-        self.service.add_zone(zone)
+        try:
+            zone_deserialized = self.schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body=error.asdict())
+        zone = self.serializer.convert_schema_to_object(zone_deserialized)
+        try:
+            self.service.add_zone(zone)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': zone.zones_id}
 
     @view_config(route_name='zone_delete_change_and_view', request_method='GET', renderer='json')
@@ -46,14 +51,15 @@ class ZonesController(object):
     @view_config(route_name='zone_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_zone(self):
         id = self.request.matchdict['id']
-        # constructio_stage_schema = ConstructionStageControllerSchema()
-        # try:
-        #    construction_object_deserialized = zone_schema.deserialize(self.request.json_body)
-        # except colander.Invalid as error:
-        #    return Response(status=403, json_body=error.asdict())
-        # except ValueError as date_parse_error:
-        #    return Response(status=403, json_body=date_parse_error.args)
-        # zone_deserialized["id"] = id
-        zone = self.service.get_object(self.request.json_body)  # convert_schema_to_object(zone_deserialized)
-        self.service.update_zone(zone)
+        try:
+            zone_deserialized = self.schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body=error.asdict())
+        zone_deserialized['id'] = id
+        zone = self.serializer.convert_schema_to_object(zone_deserialized)
+        try:
+            self.service.update_zone(zone)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}

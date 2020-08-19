@@ -22,7 +22,13 @@ class ConstructionStageRepository:
 
     def update_construction_stage(self, construction_stage):
         DBSession.query(ConstructionStages).filter_by(
-            construction_stage_id=construction_stage.construction_stage_id).update(
+            construction_stages_id=construction_stage.construction_stages_id).update(
             {'code': construction_stage.code,
              'fullname': construction_stage.fullname})
         DBSession.commit()
+
+    def get_construction_stage_by_code(self, code):
+        return DBSession.query(ConstructionStages).filter_by(code=code).first()
+
+    def get_construction_stage_by_fullname(self, fullname):
+        return DBSession.query(ConstructionStages).filter_by(fullname=fullname).first()

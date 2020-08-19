@@ -31,7 +31,7 @@ def includeme(config):
     config.add_route('construction_stages_delete_change_and_view', '/construction_stages/{id}')
 
     config.add_route('object_categories', '/object_categories')
-    config.add_route('add_object_category', '/object_categories/{id}')
+    config.add_route('add_object_category', '/object_categories/add')
     config.add_route('object_category_delete_change_and_view', '/object_categories/{id}')
 
     config.add_route('object_categories_lists', '/object_categories_list')
