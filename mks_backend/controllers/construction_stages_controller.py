@@ -6,6 +6,7 @@ from mks_backend.services.construction_stage_service import ConstructionStageSer
 from mks_backend.serializers.construction_stage_serializer import ConstructionStageSerializer
 from mks_backend.controllers.schemas.construction_stages_schema import ConstructionStagesSchema
 
+
 class ConstructionStagesController(object):
 
     def __init__(self, request):
@@ -26,8 +27,6 @@ class ConstructionStagesController(object):
             construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         try:
             self.service.add_construction_stage(construction_stage)
@@ -55,9 +54,7 @@ class ConstructionStagesController(object):
             construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
-        construction_stage_deserialized["id"] = id
+        construction_stage_deserialized['id'] = id
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         try:
             self.service.update_construction_stage(construction_stage)

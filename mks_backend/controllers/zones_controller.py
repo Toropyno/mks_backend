@@ -6,6 +6,7 @@ from mks_backend.services.zones_service import ZoneService
 from mks_backend.serializers.zones_serializer import ZoneSerializer
 from mks_backend.controllers.schemas.zones_schema import ZonesSchema
 
+
 class ZonesController(object):
 
     def __init__(self, request):
@@ -26,8 +27,6 @@ class ZonesController(object):
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
         zone = self.serializer.convert_schema_to_object(zone_deserialized)
         try:
             self.service.add_zone(zone)
@@ -55,8 +54,6 @@ class ZonesController(object):
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
         zone_deserialized["id"] = id
         zone = self.serializer.convert_schema_to_object(zone_deserialized)
         try:

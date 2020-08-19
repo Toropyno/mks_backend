@@ -34,8 +34,6 @@ class ObjectCategoryController(object):
             object_category_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
         try:
             self.service.add_object_category(object_category)
@@ -56,8 +54,6 @@ class ObjectCategoryController(object):
             object_category_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
         object_category_deserialized['id'] = id
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
         try:
