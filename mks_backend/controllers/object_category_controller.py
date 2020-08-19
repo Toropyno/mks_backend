@@ -39,6 +39,7 @@ class ObjectCategoryController(object):
             self.service.add_object_category(object_category)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': object_category.object_categories_id}
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='DELETE', renderer='json')
@@ -60,4 +61,5 @@ class ObjectCategoryController(object):
             self.service.update_object_category(object_category)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}

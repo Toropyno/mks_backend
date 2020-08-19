@@ -32,6 +32,7 @@ class ObjectCategoriesListController(object):
             self.service.add_object_categories_list(object_categories_list)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': object_categories_list.object_categories_list_id}
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='GET', renderer='json')
@@ -60,4 +61,5 @@ class ObjectCategoriesListController(object):
             self.service.update_object_categories_list(object_categories_list)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}

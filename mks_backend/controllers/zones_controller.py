@@ -32,6 +32,7 @@ class ZonesController(object):
             self.service.add_zone(zone)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': zone.zones_id}
 
     @view_config(route_name='zone_delete_change_and_view', request_method='GET', renderer='json')
@@ -60,4 +61,5 @@ class ZonesController(object):
             self.service.update_zone(zone)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}

@@ -11,6 +11,7 @@ class ObjectCategoriesListSchema(colander.MappingSchema):
                min_err='Недопустимая зона военных городков'
           )
      )
+
      object_categories_id = colander.SchemaNode(
           colander.Int(),
           name='objectCategoriesId',

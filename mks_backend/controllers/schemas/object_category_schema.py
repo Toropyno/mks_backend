@@ -13,6 +13,7 @@ class ObjectCategorySchema(colander.MappingSchema):
             max_err='Слишком длинное наименование'
         )
     )
+
     note = colander.SchemaNode(
         colander.String(),
         name='note',

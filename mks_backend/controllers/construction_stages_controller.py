@@ -32,6 +32,7 @@ class ConstructionStagesController(object):
             self.service.add_construction_stage(construction_stage)
         except ValueError as error:
             return Response(status=403, json_body={'error':error.args[0]})
+
         return {'id': construction_stage.construction_stages_id}
 
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='GET', renderer='json')
@@ -60,4 +61,5 @@ class ConstructionStagesController(object):
             self.service.update_construction_stage(construction_stage)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}

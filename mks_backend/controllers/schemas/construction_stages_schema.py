@@ -1,5 +1,6 @@
 import colander
 
+
 class ConstructionStagesSchema(colander.MappingSchema):
 
     code = colander.SchemaNode(
@@ -12,6 +13,7 @@ class ConstructionStagesSchema(colander.MappingSchema):
             max_err='Слишком длинное краткое наименование'
         )
     )
+
     fullname = colander.SchemaNode(
         colander.String(),
         name='fullName',

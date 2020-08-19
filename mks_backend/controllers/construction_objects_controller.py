@@ -35,6 +35,7 @@ class ConstructionObjectsController(object):
             self.service.add_construction_object(construction_object)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': construction_object.construction_objects_id}
 
     @view_config(route_name='construction_objects_delete_change_and_view', request_method='GET', renderer='json')
@@ -65,4 +66,5 @@ class ConstructionObjectsController(object):
             self.service.update_construction_object(construction_object)
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}

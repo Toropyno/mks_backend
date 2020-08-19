@@ -28,17 +28,17 @@ class ConstructionObjectSerializer:
         if 'id' in schema:
             construction_object.construction_objects_id = schema['id']
 
-        construction_object.construction_id = schema['constructionId']
-        construction_object.object_code = schema['objectCode']
-        construction_object.object_name = schema['objectName']
-        construction_object.zones_id = schema['zonesId']
-        construction_object.object_categories_list_id = schema['objectCategoriesListId']
+        construction_object.construction_id = schema['projectId']
+        construction_object.object_code = schema['code']
+        construction_object.object_name = schema['name']
+        construction_object.zones_id = schema['zone']
+        construction_object.object_categories_list_id = schema['category']
         construction_object.planned_date = schema['plannedDate']
         construction_object.weight = schema['weight']
         construction_object.generalplan_number = schema['generalPlanNumber']
         construction_object.building_volume = schema['buildingVolume']
         construction_object.floors_amount = schema['floorsAmount']
-        construction_object.construction_stages_id = schema['constructionStagesId']
+        construction_object.construction_stages_id = schema['stage']
         return construction_object
 
     def get_date_string(self, date):
