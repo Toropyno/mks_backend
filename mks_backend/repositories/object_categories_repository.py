@@ -22,7 +22,10 @@ class ObjectCategoryRepository:
 
     def update_object_category(self, object_category):
         DBSession.query(ObjectCategories).filter_by(
-            object_category_id=object_category.object_category_id).update(
+            object_categories_id=object_category.object_categories_id).update(
             {'note': object_category.note,
              'fullname': object_category.fullname})
         DBSession.commit()
+
+    def get_object_category_by_fullname(self, fullname):
+        return DBSession.query(ObjectCategories).filter_by(fullname=fullname).first()
