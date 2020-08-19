@@ -23,6 +23,13 @@ class ObjectCategoriesListRepository:
     def update_object_categories_list(self, object_categories_list):
         DBSession.query(ObjectCategoriesList).filter_by(
             object_categories_list_id=object_categories_list.object_categories_list_id).update(
-            {'code': object_categories_list.code,
-             'fullname': object_categories_list.fullname})
+            {'zones_id': object_categories_list.zones_id,
+             'object_categories_id': object_categories_list.object_categories_id})
         DBSession.commit()
+
+    def get_object_categories_list_by_zone_id(self, zones_id):
+        return DBSession.query(ObjectCategoriesList).filter_by(zones_id=zones_id).first()
+
+    def get_object_categories_list_by_object_categories_id(self, object_categories_id):
+        return DBSession.query(ObjectCategoriesList).filter_by(object_categories_id=object_categories_id).first()
+

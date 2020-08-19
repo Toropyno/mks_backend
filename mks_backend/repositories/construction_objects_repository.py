@@ -22,7 +22,7 @@ class ConstructionObjectRepository:
 
     def update_construction_object(self, construction_object):
         DBSession.query(ConstructionObjects).filter_by(
-            construction_object_id=construction_object.construction_object_id).update(
+            construction_objects_id=construction_object.construction_objects_id).update(
             {'construction_id': construction_object.construction_id,
              'object_code': construction_object.object_code,
              'object_name': construction_object.object_name,
@@ -35,3 +35,6 @@ class ConstructionObjectRepository:
              'floors_amount': construction_object.floors_amount,
              'construction_stages_id': construction_object.construction_stages_id})
         DBSession.commit()
+
+    def get_construction_object_by_code(self, object_code):
+        return DBSession.query(ConstructionObjects).filter_by(object_code=object_code).first()

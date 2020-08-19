@@ -1,7 +1,10 @@
 from pyramid.view import view_config
+from pyramid.response import Response
+import colander
 
 from mks_backend.services.construction_object_service import ConstructionObjectService
 from mks_backend.serializers.construction_object_serializer import ConstructionObjectSerializer
+from mks_backend.controllers.schemas.construction_objects_schema import ConstructionObjectsSchema
 
 
 class ConstructionObjectsController(object):
@@ -10,6 +13,7 @@ class ConstructionObjectsController(object):
         self.request = request
         self.service = ConstructionObjectService()
         self.serializer = ConstructionObjectSerializer()
+        self.schema = ConstructionObjectsSchema()
 
     @view_config(route_name='construction_objects', request_method='GET', renderer='json')
     def get_all_construction_objects_by_construction_id(self):
@@ -20,17 +24,19 @@ class ConstructionObjectsController(object):
 
     @view_config(route_name='add_construction_object', request_method='POST', renderer='json')
     def add_construction_object(self):
-        # construction_object_schema = ConstructionOjectControllerSchema()
-        # try:
-        #    construction_object_deserialized = construction_object_schema.deserialize(self.request.json_body)
-        # except colander.Invalid as error:
-        #    return Response(status=403, json_body=error.asdict())
-        # except ValueError as date_parse_error:
-        #    return Response(status=403, json_body=date_parse_error.args)
-        construction_object = self.service.get_object(
-            self.request.json_body)  # convert_schema_to_object(construction_object_deserialized)
-        self.service.add_construction_object(construction_object)
-        return {'id': construction_object.construction_object_id}
+        try:
+            construction_object_deserialized = self.schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body=error.asdict())
+        except ValueError as date_parse_error:
+            return Response(status=403, json_body=date_parse_error.args)
+        construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
+        try:
+            self.service.add_construction_object(construction_object)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
+
+        return {'id': construction_object.construction_objects_id}
 
     @view_config(route_name='construction_objects_delete_change_and_view', request_method='GET', renderer='json')
     def get_construction_object(self):
@@ -48,15 +54,17 @@ class ConstructionObjectsController(object):
     @view_config(route_name='construction_objects_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction_object(self):
         id = self.request.matchdict['id']
-        # construction_object__schema = ConstructionObjectControllerSchema()
-        # try:
-        #    construction_object_deserialized = construction_object_schema.deserialize(self.request.json_body)
-        # except colander.Invalid as error:
-        #    return Response(status=403, json_body=error.asdict())
-        # except ValueError as date_parse_error:
-        #    return Response(status=403, json_body=date_parse_error.args)
-        # construction_object_deserialized["id"] = id
-        construction_object = self.service.get_object(
-            self.request.json_body)  # convert_schema_to_object(construction_object_deserialized)
-        self.service.update_construction_object(construction_object)
+        try:
+            construction_object_deserialized = self.schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body=error.asdict())
+        except ValueError as date_parse_error:
+            return Response(status=403, json_body=date_parse_error.args)
+        construction_object_deserialized['id'] = id
+        construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
+        try:
+            self.service.update_construction_object(construction_object)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}
