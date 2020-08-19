@@ -55,7 +55,7 @@ class ZonesController(object):
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        zone_deserialized["id"] = id
+        zone_deserialized['id'] = id
         zone = self.serializer.convert_schema_to_object(zone_deserialized)
         try:
             self.service.update_zone(zone)
