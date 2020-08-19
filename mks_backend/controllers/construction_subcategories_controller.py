@@ -28,7 +28,7 @@ class ConstructionSubcategoryController(object):
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
-        construction_subcategory = self.service.convert_schema_to_object(construction_subcategories_deserialized)
+        construction_subcategory = self.serializer.convert_schema_to_object(construction_subcategories_deserialized)
         try:
             self.service.add_construction_subcategory(construction_subcategory)
         except ValueError as error:
@@ -58,7 +58,7 @@ class ConstructionSubcategoryController(object):
             return Response(status=403, json_body=error.asdict())
 
         construction_subcategories_deserialized['id'] = id
-        construction_subcategory = self.service.convert_schema_to_object(construction_subcategories_deserialized)
+        construction_subcategory = self.serializer.convert_schema_to_object(construction_subcategories_deserialized)
         try:
             self.service.update_construction_subcategory(construction_subcategory)
         except ValueError as error:

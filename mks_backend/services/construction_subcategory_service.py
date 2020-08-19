@@ -1,5 +1,4 @@
 from mks_backend.repositories.construction_subcategories_repository import ConstructionSubcategoryRepository
-from mks_backend.models.construction_subcategories import ConstructionSubcategories
 
 
 class ConstructionSubcategoriesService:
@@ -21,10 +20,3 @@ class ConstructionSubcategoriesService:
 
     def update_construction_subcategory(self, construction_subcategory):
         self.repo.update_construction_subcategory(construction_subcategory)
-
-    def convert_schema_to_object(self, schema):
-        construction_subcategories = ConstructionSubcategories()
-
-        construction_subcategories.fullname = schema.get('fullName')
-
-        return construction_subcategories

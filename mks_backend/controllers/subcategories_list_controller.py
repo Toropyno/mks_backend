@@ -28,7 +28,7 @@ class SubcategoriesListController(object):
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
-        subcategories_list = self.service.convert_schema_to_object(subcategories_list_deserialized)
+        subcategories_list = self.serializer.convert_schema_to_object(subcategories_list_deserialized)
         try:
             self.service.add_subcategories_list(subcategories_list)
         except ValueError as error:
