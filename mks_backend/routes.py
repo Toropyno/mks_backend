@@ -9,7 +9,7 @@ def includeme(config):
     config.add_route('add_construction', '/constructions/add')
     config.add_route('construction_delete_change_and_view', '/constructions/{id}')
 
-    config.add_route('construction_objects', 'construction/construction_objects/{constructionId}')
+    config.add_route('construction_objects', 'construction/construction_objects/{construction_id}')
 
     config.add_route('add_construction_object', '/construction_objects/add')
     config.add_route('construction_objects_delete_change_and_view', '/construction_objects/{id}')
