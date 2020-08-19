@@ -15,3 +15,5 @@ def uuid_validator(node, value):
     res = re.match(pattern, value)
     if res is None:
         raise colander.Invalid(node, 'Недопустимая информация о файле')
+
+strip_space = lambda v: v.strip(' \t\n\r') if v is not None else v

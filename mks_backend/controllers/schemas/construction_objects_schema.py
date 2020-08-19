@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import date_validator
+from mks_backend.controllers.schemas.validator_utils import date_validator, strip_space
 
 
 class ConstructionObjectsSchema(colander.MappingSchema):
@@ -15,8 +15,9 @@ class ConstructionObjectsSchema(colander.MappingSchema):
     )
 
     object_code = colander.SchemaNode(
-        colander.String(),
+        colander.String(allow_empty=True),
         name='code',
+        preparer=[strip_space],
         validator=colander.Length(
             min=1,
             max=40,
@@ -26,8 +27,9 @@ class ConstructionObjectsSchema(colander.MappingSchema):
     )
 
     object_name = colander.SchemaNode(
-        colander.String(),
+        colander.String(allow_empty=True),
         name='name',
+        preparer=[strip_space],
         validator=colander.Length(
             min=1,
             max=40,
@@ -58,8 +60,9 @@ class ConstructionObjectsSchema(colander.MappingSchema):
     )
 
     planned_date = colander.SchemaNode(
-        colander.String(),
+        colander.String(allow_empty=True),
         name='plannedDate',
+        preparer=[strip_space],
         validator=date_validator
     )
 
