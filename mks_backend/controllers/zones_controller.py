@@ -7,7 +7,7 @@ from mks_backend.serializers.zones_serializer import ZoneSerializer
 from mks_backend.controllers.schemas.zones_schema import ZonesSchema
 
 
-class ZonesController(object):
+class ZonesController:
 
     def __init__(self, request):
         self.request = request

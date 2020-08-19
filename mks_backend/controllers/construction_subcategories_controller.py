@@ -4,7 +4,7 @@ from mks_backend.serializers.construction_subcategory_serializer import Construc
 from mks_backend.services.construction_subcategory_service import ConstructionSubcategoriesService
 
 
-class ConstructionSubcategoryController(object):
+class ConstructionSubcategoryController:
 
     def __init__(self, request):
         self.request = request

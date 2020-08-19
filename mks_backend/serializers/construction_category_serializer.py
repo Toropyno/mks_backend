@@ -6,10 +6,10 @@ class ConstructionCategoriesSerializer:
             'fullName': construction_category.fullname,
 
             # id from SubcategoriesList.subcategories_list_id, fullName from ConstructionSubcategories.fullname
-            'subcategory': {
+            'subcategory': [{
                 'id': construction_category.subcategories_list[0].subcategories_list_id,
-                'fullname': construction_category.subcategories_list[0].construction_subcategory.fullname
-            }
+                'fullName': construction_category.subcategories_list[0].construction_subcategory.fullname
+            }]
             # end of shit
         }
         return construction_category_dict

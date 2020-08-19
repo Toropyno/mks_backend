@@ -7,7 +7,7 @@ from mks_backend.serializers.object_category_serializer import ObjectCategorySer
 from mks_backend.controllers.schemas.object_category_schema import ObjectCategorySchema
 
 
-class ObjectCategoryController(object):
+class ObjectCategoryController:
 
     def __init__(self, request):
         self.request = request

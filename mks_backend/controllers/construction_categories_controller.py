@@ -4,7 +4,7 @@ from mks_backend.serializers.construction_category_serializer import Constructio
 from mks_backend.services.construction_category_service import ConstructionCategoriesService
 
 
-class ConstructionCategoryController(object):
+class ConstructionCategoryController:
 
     def __init__(self, request):
         self.request = request

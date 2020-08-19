@@ -3,7 +3,7 @@ from mks_backend.services.filestorage_service import FilestorageService
 from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 
 
-class ProtocolService(object):
+class ProtocolService:
 
     def __init__(self):
         self.repo = ProtocolRepository()
