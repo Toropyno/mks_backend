@@ -1,4 +1,4 @@
-from sqlalchemy import exc
+from sqlalchemy.exc import DBAPIError
 
 from mks_backend.repositories.construction_objects_repository import ConstructionObjectRepository
 
@@ -15,13 +15,13 @@ class ConstructionObjectService:
         return self.repo.get_construction_object_by_id(id)
 
     def add_construction_object(self, construction_object):
-        #if self.repo.get_construction_object_by_code(construction_object.object_code):
-        #    raise ValueError('Объект строительства с таким кодом уже существует')
         try:
             self.repo.add_construction_object(construction_object)
-        except exc.DatabaseError as error:
-            if error.args[0].find('duplicate key value violates unique constraint'):
-                detail = error.args[0][error.args[0].find('DETAIL:') + 7:]
+        except DBAPIError as error:
+            print(error.orig.pgerror)
+            errortext = error.orig.pgerror[0]
+            detail = error.orig.pgerror[1]
+            if errortext.find('duplicate key value violates unique constraint'):
                 if detail.find('object_code'):
                     raise ValueError('Объект строительства с таким кодом уже существует')
                 else:
