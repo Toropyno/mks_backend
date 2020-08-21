@@ -1,11 +1,10 @@
 import colander
 
-from mks_backend.controllers.construction_controller import construction_category_validator
-from mks_backend.controllers.construction_controller import construction_subcategory_validator
+from mks_backend.controllers.schemas.validator_utils import construction_category_validator
+from mks_backend.controllers.schemas.validator_utils import construction_subcategory_validator
 
 
 class SubcategoriesListSchema(colander.MappingSchema):
-
     construction_categories_id = colander.SchemaNode(
         colander.Integer(),
         name='constructionCategoriesId',
