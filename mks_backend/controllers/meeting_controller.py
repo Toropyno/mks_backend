@@ -3,7 +3,7 @@ from pyramid.view import view_config
 from mks_backend.repositories.meeting_repository import MeetingRepository
 
 
-class MeetingController(object):
+class MeetingController:
 
     def __init__(self, request):
         self.request = request

@@ -10,7 +10,7 @@ from mks_backend.repositories.filestorage_hdd import FilestorageHDD, Filestorage
 from mks_backend.models.filestorage import Filestorage
 
 
-class FilestorageService(object):
+class FilestorageService:
     ALLOWED_EXTENSIONS = [
         'doc', 'docx', 'docm',
         'pdf', 'odt', 'txt',

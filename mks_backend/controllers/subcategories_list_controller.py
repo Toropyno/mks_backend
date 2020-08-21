@@ -7,7 +7,7 @@ from mks_backend.serializers.subcategories_list_serializer import SubcategoriesL
 from mks_backend.services.subcategories_list_service import SubcategoriesListService
 
 
-class SubcategoriesListController(object):
+class SubcategoriesListController:
 
     def __init__(self, request):
         self.request = request
