@@ -1,5 +1,4 @@
 from mks_backend.repositories.construction_subcategories_repository import ConstructionSubcategoryRepository
-from mks_backend.models.construction_subcategories import ConstructionSubcategories
 
 
 class ConstructionSubcategoriesService:
@@ -21,10 +20,3 @@ class ConstructionSubcategoriesService:
 
     def update_construction_subcategory(self, construction_subcategory):
         self.repo.update_construction_subcategory(construction_subcategory)
-
-    def get_object(self, json_body):
-        construction_subcategory = ConstructionSubcategories()
-        if 'constructionSubcategoryId' in json_body:
-            construction_subcategory.construction_subcategories_id = json_body['constructionSubcategoryId']
-        construction_subcategory.fullname = json_body['fullname']
-        return construction_subcategory

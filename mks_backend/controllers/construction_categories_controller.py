@@ -1,5 +1,8 @@
+import colander
 from pyramid.view import view_config
+from pyramid.response import Response
 
+from mks_backend.controllers.schemas.construction_categories_schema import ConstructionCategoriesSchema
 from mks_backend.serializers.construction_category_serializer import ConstructionCategoriesSerializer
 from mks_backend.services.construction_category_service import ConstructionCategoriesService
 
@@ -10,6 +13,7 @@ class ConstructionCategoryController(object):
         self.request = request
         self.serializer = ConstructionCategoriesSerializer()
         self.service = ConstructionCategoriesService()
+        self.schema = ConstructionCategoriesSchema()
 
     @view_config(route_name='construction_categories', request_method='GET', renderer='json')
     def get_all_construction_categories(self):
@@ -19,8 +23,17 @@ class ConstructionCategoryController(object):
 
     @view_config(route_name='add_construction_category', request_method='POST', renderer='json')
     def add_construction_category(self):
-        construction_category = self.service.get_object(self.request.json_body)
-        self.service.add_construction_category(construction_category)
+        try:
+            construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body=error.asdict())
+
+        construction_category = self.serializer.convert_schema_to_object(construction_categories_deserialized)
+        try:
+            self.service.add_construction_category(construction_category)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': construction_category.construction_categories_id}
 
     @view_config(route_name='construction_category_delete_change_and_view', request_method='GET', renderer='json')
@@ -40,7 +53,16 @@ class ConstructionCategoryController(object):
     @view_config(route_name='construction_category_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction_category(self):
         id = self.request.matchdict['id']
-        new_construction_category = self.service.get_object(self.request.json_body)
-        new_construction_category.construction_categories_id = id
-        self.service.update_construction_category(new_construction_category)
+        try:
+            construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
+        except colander.Invalid as error:
+            return Response(status=403, json_body=error.asdict())
+
+        construction_categories_deserialized['id'] = id
+        construction_category = self.serializer.convert_schema_to_object(construction_categories_deserialized)
+        try:
+            self.service.update_construction_category(construction_category)
+        except ValueError as error:
+            return Response(status=403, json_body={'error': error.args[0]})
+
         return {'id': id}
