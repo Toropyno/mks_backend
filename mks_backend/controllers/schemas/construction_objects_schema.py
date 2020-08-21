@@ -15,7 +15,7 @@ class ConstructionObjectsSchema(colander.MappingSchema):
     )
 
     object_code = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='code',
         preparer=[strip_space],
         validator=colander.Length(
@@ -27,7 +27,7 @@ class ConstructionObjectsSchema(colander.MappingSchema):
     )
 
     object_name = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='name',
         preparer=[strip_space],
         validator=colander.Length(
@@ -60,7 +60,7 @@ class ConstructionObjectsSchema(colander.MappingSchema):
     )
 
     planned_date = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='plannedDate',
         preparer=[strip_space],
         validator=date_validator

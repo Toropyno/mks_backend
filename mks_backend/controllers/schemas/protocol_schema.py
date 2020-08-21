@@ -6,7 +6,7 @@ from mks_backend.controllers.schemas.validator_utils import date_validator, uuid
 class ProtocolControllerSchema(colander.MappingSchema):
 
     protocol_num = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='protocolNumber',
         preparer=[strip_space],
         validator=colander.Length(
@@ -18,7 +18,7 @@ class ProtocolControllerSchema(colander.MappingSchema):
     )
 
     protocol_date = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='protocolDate',
         preparer=[strip_space],
         validator=date_validator)
@@ -29,7 +29,7 @@ class ProtocolControllerSchema(colander.MappingSchema):
         validator=colander.Range(min=0, min_err='Неверный вид заседания'))
 
     protocol_name = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='protocolName',
         preparer=[strip_space],
         validator=colander.Length(
@@ -41,7 +41,7 @@ class ProtocolControllerSchema(colander.MappingSchema):
     )
 
     note = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='note',
         preparer=[strip_space],
         validator=colander.Length(
@@ -53,7 +53,7 @@ class ProtocolControllerSchema(colander.MappingSchema):
     )
 
     idfilestorage = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='idFileStorage',
         preparer=[strip_space],
         msg='Недопустимая информация о файле',
@@ -62,7 +62,7 @@ class ProtocolControllerSchema(colander.MappingSchema):
 
 class ProtocolControllerFilterSchema(colander.MappingSchema):
     protocol_num = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='protocolNumber',
         preparer=[strip_space],
         validator=colander.Length(
@@ -81,7 +81,7 @@ class ProtocolControllerFilterSchema(colander.MappingSchema):
     )
 
     protocol_name = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='protocolName',
         preparer=[strip_space],
         validator=colander.Length(
@@ -94,14 +94,14 @@ class ProtocolControllerFilterSchema(colander.MappingSchema):
     )
 
     date_start = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='dateStart',
         preparer=[strip_space],
         validator=date_validator,
         missing=None)
 
     date_end = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='dateEnd',
         preparer=[strip_space],
         validator=date_validator,

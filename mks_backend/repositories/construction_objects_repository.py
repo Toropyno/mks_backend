@@ -35,6 +35,3 @@ class ConstructionObjectRepository:
              'floors_amount': construction_object.floors_amount,
              'construction_stages_id': construction_object.construction_stages_id})
         DBSession.commit()
-
-    def get_construction_object_by_code(self, object_code):
-        return DBSession.query(ConstructionObjects).filter_by(object_code=object_code).first()

@@ -6,7 +6,7 @@ from mks_backend.controllers.schemas.validator_utils import strip_space
 class ObjectCategorySchema(colander.MappingSchema):
 
     fullname = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='fullName',
         preparer=[strip_space],
         validator=colander.Length(
@@ -18,7 +18,7 @@ class ObjectCategorySchema(colander.MappingSchema):
     )
 
     note = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='note',
         preparer=[strip_space],
         validator=colander.Length(

@@ -26,6 +26,3 @@ class ObjectCategoryRepository:
             {'note': object_category.note,
              'fullname': object_category.fullname})
         DBSession.commit()
-
-    def get_object_category_by_fullname(self, fullname):
-        return DBSession.query(ObjectCategories).filter_by(fullname=fullname).first()

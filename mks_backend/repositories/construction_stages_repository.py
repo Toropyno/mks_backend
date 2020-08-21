@@ -26,9 +26,3 @@ class ConstructionStageRepository:
             {'code': construction_stage.code,
              'fullname': construction_stage.fullname})
         DBSession.commit()
-
-    def get_construction_stage_by_code(self, code):
-        return DBSession.query(ConstructionStages).filter_by(code=code).first()
-
-    def get_construction_stage_by_fullname(self, fullname):
-        return DBSession.query(ConstructionStages).filter_by(fullname=fullname).first()
