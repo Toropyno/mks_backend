@@ -5,18 +5,29 @@ class ConstructionObjectSerializer:
 
     def convert_object_to_json(self, construction_object):
         construction_object_dict = {
-            'constructionId': construction_object.construction_id,
+            'projectId': construction_object.construction_id,
             'id': construction_object.construction_objects_id,
             'code': construction_object.object_code,
             'name': construction_object.object_name,
-            'zone': construction_object.zone.fullname,
-            'category': construction_object.object_categories_list.object_categories_instance.fullname,
+            'zone': {
+                'id': construction_object.zone.zones_id,
+                'fullName': construction_object.zone.fullname,
+            },
+            'category': {
+                'id': construction_object.object_categories_list.object_categories_id,
+                'fullName': construction_object.object_categories_list.object_categories_instance.fullname,
+                'note': construction_object.object_categories_list.object_categories_instance.note
+            },
             'plannedDate': self.get_date_string(construction_object.planned_date),
             'weight': construction_object.weight,
             'generalPlanNumber': construction_object.generalplan_number,
             'buildingVolume': float(construction_object.building_volume),
             'floorsAmount': construction_object.floors_amount,
-            'stage': construction_object.construction_stage.fullname,
+            'stage': {
+                'id': construction_object.construction_stage.construction_stages_id,
+                'fullName': construction_object.construction_stage.fullname,
+                'code': construction_object.construction_stage.code
+            },
         }
         return construction_object_dict
 

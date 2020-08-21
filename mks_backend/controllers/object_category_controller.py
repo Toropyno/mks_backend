@@ -8,7 +8,7 @@ from mks_backend.controllers.schemas.object_category_schema import ObjectCategor
 from mks_backend.errors.db_basic_error import DBBasicError
 
 
-class ObjectCategoryController(object):
+class ObjectCategoryController:
 
     def __init__(self, request):
         self.request = request

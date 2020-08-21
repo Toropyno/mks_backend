@@ -13,8 +13,7 @@ class ProtocolControllerSchema(colander.MappingSchema):
             min=1,
             max=20,
             min_err='Слишком короткий номер протокола',
-            max_err='Слишком длинный номер протокола'
-        )
+            max_err='Слишком длинный номер протокола')
     )
 
     protocol_date = colander.SchemaNode(
@@ -26,7 +25,11 @@ class ProtocolControllerSchema(colander.MappingSchema):
     meetings_type_id = colander.SchemaNode(
         colander.Int(),
         name='meeting',
-        validator=colander.Range(min=0, min_err='Неверный вид заседания'))
+        validator=colander.Range(
+            min=0,
+            min_err='Неверный вид заседания'
+        )
+    )
 
     protocol_name = colander.SchemaNode(
         colander.String(),

@@ -8,7 +8,7 @@ from mks_backend.controllers.schemas.zones_schema import ZonesSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 
 
-class ZonesController(object):
+class ZonesController:
 
     def __init__(self, request):
         self.request = request

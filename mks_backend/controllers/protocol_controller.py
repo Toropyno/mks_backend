@@ -8,7 +8,7 @@ from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerFi
 from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSchema
 
 
-class ProtocolController(object):
+class ProtocolController:
 
     def __init__(self, request):
         self.request = request

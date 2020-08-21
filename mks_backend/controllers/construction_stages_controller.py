@@ -8,7 +8,7 @@ from mks_backend.controllers.schemas.construction_stages_schema import Construct
 from mks_backend.errors.db_basic_error import DBBasicError
 
 
-class ConstructionStagesController(object):
+class ConstructionStagesController:
 
     def __init__(self, request):
         self.request = request
