@@ -6,6 +6,8 @@ import colander
 from mks_backend.repositories.construction_categories_repository import ConstructionCategoryRepository
 from mks_backend.repositories.construction_subcategories_repository import ConstructionSubcategoryRepository
 
+strip_space = lambda v: v.strip(' \t\n\r') if v else v
+
 
 def date_validator(node, value):
     try:

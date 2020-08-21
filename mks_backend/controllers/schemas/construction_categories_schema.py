@@ -1,11 +1,11 @@
 import colander
 
-strip_space = lambda v: v.strip(' \t\n\r') if v is not None else v
+from mks_backend.controllers.schemas.validator_utils import strip_space
 
 
 class ConstructionCategoriesSchema(colander.MappingSchema):
     fullname = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         preparer=[strip_space],
         name='fullName',
         validator=colander.Length(
