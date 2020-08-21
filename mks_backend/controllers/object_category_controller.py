@@ -5,6 +5,7 @@ from pyramid.response import Response
 from mks_backend.services.object_category_service import ObjectCategoryService
 from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
 from mks_backend.controllers.schemas.object_category_schema import ObjectCategorySchema
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class ObjectCategoryController(object):
@@ -37,8 +38,10 @@ class ObjectCategoryController(object):
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
         try:
             self.service.add_object_category(object_category)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': object_category.object_categories_id}
 
@@ -59,7 +62,9 @@ class ObjectCategoryController(object):
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
         try:
             self.service.update_object_category(object_category)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': id}

@@ -5,6 +5,7 @@ from pyramid.response import Response
 from mks_backend.services.construction_stage_service import ConstructionStageService
 from mks_backend.serializers.construction_stage_serializer import ConstructionStageSerializer
 from mks_backend.controllers.schemas.construction_stages_schema import ConstructionStagesSchema
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class ConstructionStagesController(object):
@@ -30,8 +31,10 @@ class ConstructionStagesController(object):
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         try:
             self.service.add_construction_stage(construction_stage)
-        except ValueError as error:
-            return Response(status=403, json_body={'error':error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': construction_stage.construction_stages_id}
 
@@ -59,7 +62,9 @@ class ConstructionStagesController(object):
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         try:
             self.service.update_construction_stage(construction_stage)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': id}

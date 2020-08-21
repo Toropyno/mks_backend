@@ -5,6 +5,7 @@ from pyramid.response import Response
 from mks_backend.services.zones_service import ZoneService
 from mks_backend.serializers.zones_serializer import ZoneSerializer
 from mks_backend.controllers.schemas.zones_schema import ZonesSchema
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class ZonesController(object):
@@ -30,8 +31,10 @@ class ZonesController(object):
         zone = self.serializer.convert_schema_to_object(zone_deserialized)
         try:
             self.service.add_zone(zone)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': zone.zones_id}
 
@@ -59,7 +62,9 @@ class ZonesController(object):
         zone = self.serializer.convert_schema_to_object(zone_deserialized)
         try:
             self.service.update_zone(zone)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': id}

@@ -5,6 +5,7 @@ from pyramid.response import Response
 from mks_backend.services.object_categories_list_service import ObjectCategoriesListService
 from mks_backend.serializers.object_categories_list_serializer import ObjectCategoriesListSerializer
 from mks_backend.controllers.schemas.object_categories_list_schema import ObjectCategoriesListSchema
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class ObjectCategoriesListController(object):
@@ -30,8 +31,10 @@ class ObjectCategoriesListController(object):
         object_categories_list = self.serializer.convert_schema_to_object(object_categories_list_deserialized)
         try:
             self.service.add_object_categories_list(object_categories_list)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': object_categories_list.object_categories_list_id}
 
@@ -59,7 +62,9 @@ class ObjectCategoriesListController(object):
         object_categories_list = self.serializer.convert_schema_to_object(object_categories_list_deserialized)
         try:
             self.service.update_object_categories_list(object_categories_list)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': id}

@@ -5,6 +5,7 @@ import colander
 from mks_backend.services.construction_object_service import ConstructionObjectService
 from mks_backend.serializers.construction_object_serializer import ConstructionObjectSerializer
 from mks_backend.controllers.schemas.construction_objects_schema import ConstructionObjectsSchema
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class ConstructionObjectsController(object):
@@ -33,8 +34,10 @@ class ConstructionObjectsController(object):
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
         try:
             self.service.add_construction_object(construction_object)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': construction_object.construction_objects_id}
 
@@ -64,7 +67,9 @@ class ConstructionObjectsController(object):
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
         try:
             self.service.update_construction_object(construction_object)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message})
 
         return {'id': id}

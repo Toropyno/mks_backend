@@ -6,7 +6,7 @@ from mks_backend.controllers.schemas.validator_utils import strip_space
 class ZonesSchema(colander.MappingSchema):
 
     fullname = colander.SchemaNode(
-        colander.String(allow_empty=True),
+        colander.String(),
         name='fullName',
         preparer=[strip_space],
         validator=colander.Length(
