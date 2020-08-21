@@ -4,6 +4,7 @@ from pyramid.response import Response
 from sqlalchemy.exc import IntegrityError
 
 from mks_backend.controllers.schemas.subcategories_list_schema import SubcategoriesListSchema
+from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.subcategories_list_serializer import SubcategoriesListSerializer
 from mks_backend.services.subcategories_list_service import SubcategoriesListService
 
@@ -32,20 +33,20 @@ class SubcategoriesListController:
         subcategories_list = self.serializer.convert_schema_to_object(subcategories_list_deserialized)
         try:
             self.service.add_subcategories_list(subcategories_list)
-        except IntegrityError as uniq_error:
-            uniq_error = uniq_error.args[0]
-            u = ""
-            if "subcategories" in uniq_error:
-                u += " construction_subcategories_id"
-            if "_categories_id" in uniq_error:
-                u += " construction_categories_id"
-            return Response(
-                status=403,
-                json_body={
-                    'error': "Введенный вторичный ключ нарушает ограничение уникальности: " + u + " уже имеется в "
-                                                                                                  "subcategories_list"})
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        # except IntegrityError as uniq_error:
+        #     u = self.service.get_uniq_error_message(uniq_error)
+        #     return Response(
+        #         status=403,
+        #         json_body={
+        #             'error': "Введенный вторичный ключ нарушает ограничение уникальности: " + u + " уже имеется в "
+        #                                                                                           "subcategories_list"})
+        # except ValueError as error:
+        #     return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message
+            })
 
         return {'id': subcategories_list.subcategories_list_id}
 
