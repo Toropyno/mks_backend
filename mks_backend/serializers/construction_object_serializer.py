@@ -5,7 +5,7 @@ class ConstructionObjectSerializer:
 
     def convert_object_to_json(self, construction_object):
         construction_object_dict = {
-            'constructionId': construction_object.construction_id,
+            'projectId': construction_object.construction_id,
             'id': construction_object.construction_objects_id,
             'code': construction_object.object_code,
             'name': construction_object.object_name,

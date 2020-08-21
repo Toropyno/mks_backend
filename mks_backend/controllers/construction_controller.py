@@ -6,6 +6,8 @@ from mks_backend.services.construction_service import ConstructionService
 from mks_backend.serializers.construction_serializer import ConstructionSerializer
 from mks_backend.controllers.schemas.construction_schema import ConstructionSchema
 
+from mks_backend.errors.db_basic_error import DBBasicError
+
 
 class ConstructionController:
 
@@ -45,8 +47,11 @@ class ConstructionController:
         construction = self.service.convert_schema_to_object(construction_deserialized)
         try:
             self.service.add_construction(construction)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message
+            })
 
         return {'id': construction.construction_id}
 
@@ -68,8 +73,11 @@ class ConstructionController:
         new_construction = self.service.convert_schema_to_object(construction_deserialized)
         try:
             self.service.update_construction(new_construction)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message
+            })
 
         return {'id': new_construction.construction_id}
 

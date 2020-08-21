@@ -1,33 +1,6 @@
 import colander
 
-# some shit
-from mks_backend.repositories.construction_categories_repository import ConstructionCategoryRepository
-from mks_backend.repositories.construction_subcategories_repository import ConstructionSubcategoryRepository
-from mks_backend.repositories.commission_repository import CommissionRepository
-from mks_backend.repositories.military_unit_repository import MilitaryUnitRepository
-# end of shit
-
 from mks_backend.controllers.schemas.validator_utils import date_validator
-
-
-def construction_category_validator(node, value):
-    if not ConstructionCategoryRepository.get_construction_category_by_id(value):
-        raise colander.Invalid(node, 'Такой категории для проекта не существует')
-
-
-def construction_subcategory_validator(node, value):
-    if not ConstructionSubcategoryRepository.get_construction_subcategory_by_id(value):
-        raise colander.Invalid(node, 'Такой подкатегории для проекта не существует')
-
-
-def construction_commission_validator(node, value):
-    if not CommissionRepository.get_commission_by_id(value):
-        raise colander.Invalid(node, 'Такой комиссии пока не придумали')
-
-
-def construction_military_unit_validator(node, value):
-    if not MilitaryUnitRepository.get_military_unit_by_id(value):
-        raise colander.Invalid(node, 'Такого военного формирования не существует')
 
 
 class ConstructionSchema(colander.MappingSchema):
@@ -49,14 +22,14 @@ class ConstructionSchema(colander.MappingSchema):
     construction_categories_id = colander.SchemaNode(
         colander.Int(),
         name='category',
-        validator=construction_category_validator,
+        validator=colander.Range(1, 100),
         missing=None
     )
 
     subcategories_list_id = colander.SchemaNode(
         colander.Int(),
         name='subcategory',
-        validator=construction_subcategory_validator,
+        validator=colander.Range(1, 100),
         missing=None
     )
 
@@ -69,13 +42,13 @@ class ConstructionSchema(colander.MappingSchema):
     commission_id = colander.SchemaNode(
         colander.Int(),
         name='commission',
-        validator=construction_commission_validator
+        validator=colander.Range(1, 100)
     )
 
     idMU = colander.SchemaNode(
         colander.Int(),
         name='militaryUnit',
-        validator=construction_military_unit_validator,
+        validator=colander.Range(1, 100),
         missing=None
     )
 
