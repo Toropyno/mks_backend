@@ -7,7 +7,10 @@ class DBBasicError(DBAPIError):
 
         'construction_project_code_key_duplicate': 'Проект с таким кодом уже существует!',
         'commission_code_key_duplicate': 'Комиссия с таким кодом уже существует!',
-        'commission_fullname_key_duplicate': 'Комиссия с таким именем уже существует!',
+        'аа_key_duplicate': 'Комиссия с таким именем уже существует!',
+        'subcategories_list_construction_categories_id_key_duplicate': "Введенный вторичный ключ(и) нарушает "
+                                                                       "ограничение уникальности: введеный id уже "
+                                                                       "имеется в перечне подкатегорий",
         'other_duplicate': 'Какой-то другой дубликат!',
 
         'construction_construction_categories_id_fkey': 'Такой категории проекта не существует!',
@@ -76,4 +79,5 @@ def db_error_handler(func):
             return func(*args, **kwargs)
         except DBAPIError as error:
             raise DBBasicError(error.orig.pgerror)
+
     return wrapper
