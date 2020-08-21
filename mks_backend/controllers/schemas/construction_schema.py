@@ -8,7 +8,8 @@ class ConstructionSchema(colander.MappingSchema):
         colander.String(),
         name='code',
         validator=colander.Length(
-            min=1, max=40,
+            min=1,
+            max=40,
             min_err='Слишком короткий код проекта',
             max_err='Слишком длинный код проекта')
     )
@@ -17,7 +18,8 @@ class ConstructionSchema(colander.MappingSchema):
         colander.String(),
         name='name',
         validator=colander.Length(
-            min=1, max=255,
+            min=1,
+            max=255,
             min_err='Слишком короткое имя проекта',
             max_err='Слишком длинное имя проекта')
     )
@@ -25,14 +27,20 @@ class ConstructionSchema(colander.MappingSchema):
     construction_categories_id = colander.SchemaNode(
         colander.Int(),
         name='category',
-        validator=colander.Range(1, 100),
+        validator=colander.Range(
+            min=0,
+            min_err='Неверный номер категории'
+        ),
         missing=None
     )
 
     subcategories_list_id = colander.SchemaNode(
         colander.Int(),
         name='subcategory',
-        validator=colander.Range(1, 100),
+        validator=colander.Range(
+            min=0,
+            min_err='Неверный номер подкатегории'
+        ),
         missing=None
     )
 
@@ -45,13 +53,19 @@ class ConstructionSchema(colander.MappingSchema):
     commission_id = colander.SchemaNode(
         colander.Int(),
         name='commission',
-        validator=colander.Range(1, 100)
+        validator=colander.Range(
+            min=0,
+            min_err='Неверный номер комиссии'
+        )
     )
 
     idMU = colander.SchemaNode(
         colander.Int(),
         name='militaryUnit',
-        validator=colander.Range(1, 100),
+        validator=colander.Range(
+            min=0,
+            min_err='Неверный номер воинского формирования'
+        ),
         missing=None
     )
 
@@ -64,7 +78,10 @@ class ConstructionSchema(colander.MappingSchema):
     object_amount = colander.SchemaNode(
         colander.Int(),
         name='objectsAmount',
-        validator=colander.Range(min=1)
+        validator=colander.Range(
+            min=1,
+            min_err='Неверное кол-во объектов'
+        )
     )
 
     planned_date = colander.SchemaNode(
