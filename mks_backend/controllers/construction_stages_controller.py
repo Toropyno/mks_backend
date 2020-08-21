@@ -7,7 +7,7 @@ from mks_backend.serializers.construction_stage_serializer import ConstructionSt
 from mks_backend.controllers.schemas.construction_stages_schema import ConstructionStagesSchema
 
 
-class ConstructionStagesController(object):
+class ConstructionStagesController:
 
     def __init__(self, request):
         self.request = request
