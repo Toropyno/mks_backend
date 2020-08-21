@@ -32,10 +32,18 @@ class SubcategoriesListController(object):
         subcategories_list = self.serializer.convert_schema_to_object(subcategories_list_deserialized)
         try:
             self.service.add_subcategories_list(subcategories_list)
-        except IntegrityError:
+        except IntegrityError as uniq_error:
+            uniq_error = uniq_error.args[0]
+            u = ""
+            if "subcategories" in uniq_error:
+                u += " construction_subcategories_id"
+            if "_categories_id" in uniq_error:
+                u += " construction_categories_id"
             return Response(
                 status=403,
-                json_body={'error': "Введенный вторичный ключ нарушает ограничение уникальности"})
+                json_body={
+                    'error': "Введенный вторичный ключ нарушает ограничение уникальности: " + u + " уже имеется в "
+                                                                                                  "subcategories_list"})
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
 
