@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from sqlalchemy.exc import IntegrityError
 
 from mks_backend.controllers.schemas.subcategories_list_schema import SubcategoriesListSchema
 from mks_backend.serializers.subcategories_list_serializer import SubcategoriesListSerializer
@@ -31,6 +32,10 @@ class SubcategoriesListController(object):
         subcategories_list = self.serializer.convert_schema_to_object(subcategories_list_deserialized)
         try:
             self.service.add_subcategories_list(subcategories_list)
+        except IntegrityError:
+            return Response(
+                status=403,
+                json_body={'error': "Введенный вторичный ключ нарушает ограничение уникальности"})
         except ValueError as error:
             return Response(status=403, json_body={'error': error.args[0]})
 
