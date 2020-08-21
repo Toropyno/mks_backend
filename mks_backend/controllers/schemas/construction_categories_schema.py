@@ -11,6 +11,6 @@ class ConstructionCategoriesSchema(colander.MappingSchema):
         validator=colander.Length(
             min=1,
             max=255,
-            min_err='Слишком короткое "полное имя" объекта',
-            max_err='Слишком длинное "полное имя" объекта')
+            min_err='Слишком короткое наименование объекта',
+            max_err='Слишком длинное наименование объекта')
     )

@@ -11,6 +11,6 @@ class ConstructionSubcategoriesSchema(colander.MappingSchema):
         validator=colander.Length(
             min=1,
             max=255,
-            min_err='Слишком короткое "полное имя" подкатегории ИСП',
-            max_err='Слишком длинное "полное имя" подкатегории ИСП')
+            min_err='Слишком короткое наименование подкатегории ИСП',
+            max_err='Слишком длинное наименование подкатегории ИСП')
     )
