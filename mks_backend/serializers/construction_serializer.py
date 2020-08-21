@@ -1,3 +1,6 @@
+from mks_backend.models.construction import Construction
+
+
 class ConstructionSerializer:
 
     def convert_object_to_json(self, construction):
@@ -32,3 +35,20 @@ class ConstructionSerializer:
 
     def get_date_string(self, date):
         return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
+
+    def convert_schema_to_object(self, schema):
+        construction = Construction()
+
+        construction.construction_id = schema.get('id')
+        construction.project_code = schema.get('code')
+        construction.project_name = schema.get('name')
+        construction.construction_categories_id = schema.get('category')
+        construction.subcategories_list_id = schema.get('subcategory')
+        construction.is_critical = schema.get('isCritical')
+        construction.commission_id = schema.get('commission')
+        construction.idMU = schema.get('militaryUnit')
+        construction.contract_date = schema.get('contractDate')
+        construction.planned_date = schema.get('plannedDate')
+        construction.object_amount = schema.get('objectsAmount')
+
+        return construction

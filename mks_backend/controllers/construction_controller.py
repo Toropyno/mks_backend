@@ -44,7 +44,7 @@ class ConstructionController:
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
-        construction = self.service.convert_schema_to_object(construction_deserialized)
+        construction = self.serializer.convert_schema_to_object(construction_deserialized)
         try:
             self.service.add_construction(construction)
         except DBBasicError as error:
@@ -70,7 +70,7 @@ class ConstructionController:
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
-        new_construction = self.service.convert_schema_to_object(construction_deserialized)
+        new_construction = self.serializer.convert_schema_to_object(construction_deserialized)
         try:
             self.service.update_construction(new_construction)
         except DBBasicError as error:

@@ -7,15 +7,18 @@ class ConstructionSchema(colander.MappingSchema):
     project_code = colander.SchemaNode(
         colander.String(),
         name='code',
-        validator=colander.Length(min=1, max=40, min_err='Слишком короткий код проекта',
-                                  max_err='Слишком длинный код проекта')
+        validator=colander.Length(
+            min=1, max=40,
+            min_err='Слишком короткий код проекта',
+            max_err='Слишком длинный код проекта')
     )
 
     project_name = colander.SchemaNode(
         colander.String(),
         name='name',
         validator=colander.Length(
-            min=1, max=255, min_err='Слишком короткое имя проекта',
+            min=1, max=255,
+            min_err='Слишком короткое имя проекта',
             max_err='Слишком длинное имя проекта')
     )
 

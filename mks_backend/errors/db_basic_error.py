@@ -5,11 +5,16 @@ class DBBasicError(DBAPIError):
     codes = {
         'other_error': 'Какая-то другая ошибка с БД!',
 
-        'project_code_duplicate': 'Проект с таким кодом уже существует!',
+        'construction_project_code_key_duplicate': 'Проект с таким кодом уже существует!',
+        'commission_code_key_duplicate': 'Комиссия с таким кодом уже существует!',
+        'commission_fullname_key_duplicate': 'Комиссия с таким именем уже существует!',
         'other_duplicate': 'Какой-то другой дубликат!',
 
-        'construction_categories_id_not_found': 'Такой категории проекта не существует!',
-        'other_not_found': 'Какой-то другой foreign key не найден!',
+        'construction_construction_categories_id_fkey': 'Такой категории проекта не существует!',
+        'construction_subcategories_list_id_fkey': 'Такой подкатегории проекта не существует!',
+        'construction_commission_id_fkey': 'Такой комиссии не существует!',
+        'construction_idMU_fkey': 'Такой воинского формирования не существует!',
+        'other_fkey': 'Какой-то другой foreign key не найден!',
     }
 
     def __init__(self, message):
@@ -40,7 +45,10 @@ class DBBasicError(DBAPIError):
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
             DETAIL:  Key (project_code)=(12345) already exists.
             '''
-            code = pg_error[pg_error.index('(') + 1: pg_error.index(')')] + '_duplicate'
+            start = pg_error.find('constraint') + 12
+            end = pg_error.find('\"', start)
+
+            code = pg_error[start: end] + '_duplicate'
 
             if code not in cls.codes:
                 code = 'other_duplicate'
@@ -50,10 +58,12 @@ class DBBasicError(DBAPIError):
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
-            code = code = pg_error[pg_error.index('(') + 1: pg_error.index(')')] + '_not_found'
+            start = pg_error.find('constraint') + 12
+            end = pg_error.find('\"', start)
+            code = pg_error[start:end]
 
             if code not in cls.codes:
-                code = 'other_not_found'
+                code = 'other_fkey'
         else:
             code = 'other_error'
 
