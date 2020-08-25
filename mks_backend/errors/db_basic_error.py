@@ -2,7 +2,6 @@ from sqlalchemy.exc import DBAPIError
 
 
 class DBBasicError(DBAPIError):
-
     codes = {
         'other_error': 'Ошибка с БД!',
 
@@ -10,10 +9,13 @@ class DBBasicError(DBAPIError):
         'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
         'subcategories_list_key_duplicate': 'Комиссия с указанным именем уже существует!',
 
-        'subcategories_list_construction_categories_id_key_duplicate': "Перечень Подкатегорий с указанной Категорией "
-                                                                       "уже существует!",
-        'subcategories_list_construction_subcategories_id_key_duplicate': "Перечень Подкатегорий с указанной "
-                                                                          "Подкатегорией уже существует!",
+        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным именем уже существует!',
+        'construction_categories_fullname_key_duplicate': 'Категория с указанным именем уже существует!',
+
+        'subcategories_list_construction_categories_id_key_duplicate': 'Перечень Подкатегорий с указанной Категорией '
+                                                                       'уже существует!',
+        'subcategories_list_construction_subcategories_id_key_duplicate': 'Перечень Подкатегорий с указанной '
+                                                                          'Подкатегорией уже существует!',
 
         'other_duplicate': 'Дубликат записи!',
 
@@ -47,6 +49,7 @@ class DBBasicError(DBAPIError):
 
     @classmethod
     def get_error_code(cls, pg_error):
+
         if 'duplicate' in pg_error:
             '''
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
