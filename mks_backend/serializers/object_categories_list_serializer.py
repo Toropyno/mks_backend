@@ -25,6 +25,6 @@ class ObjectCategoriesListSerializer:
         if 'id' in schema:
             object_categories_list.object_categories_list_id = schema['id']
 
-        object_categories_list.zones_id = schema['zoneId']
-        object_categories_list.object_categories_id = schema['objectCategoriesId']
+        object_categories_list.zones_id = schema['zone']
+        object_categories_list.object_categories_id = schema['category']
         return object_categories_list

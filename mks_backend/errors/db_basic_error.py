@@ -17,6 +17,18 @@ class DBBasicError(DBAPIError):
         'subcategories_list_construction_subcategories_id_key_duplicate': 'Перечень Подкатегорий с указанной '
                                                                           'Подкатегорией уже существует!',
 
+        'construction_objects_object_code_key_duplicate': 'Объект строительства с таким кодом уже существует!',
+        'construction_stages_code_key_duplicate': 'Этап строительства с таким кратким наименованием уже существует!',
+        'construction_stages_fullname_key_duplicate': 'Этап строительства с таким полным наименованием уже существует!',
+        'object_categories_list_zones_id_key_duplicate': 'Перечень категорий объектов с указанной зоной военного '
+                                                         'городка уже существует!',
+        'object_categories_list_object_categories_id_key_duplicate': 'Перечень категорий объектов с указанной '
+                                                                     'категорией объекта строительства уже существует!',
+        'object_categories_fullname_key_duplicate': 'Категория объекта строительства с таким наименованием уже '
+                                                    'существует!',
+        'zones_fullname_key_duplicate': 'Зона военного городка с таким наименованием уже существует!',
+
+
         'other_duplicate': 'Дубликат записи!',
 
         'construction_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
@@ -26,6 +38,13 @@ class DBBasicError(DBAPIError):
         'subcategories_list_construction_subcategories_id_fkey': 'Подкатегории проекта с указанным ключом не '
                                                                  'существует!',
         'subcategories_list_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
+        'construction_objects_construction_id_fkey': 'Указанного проекта не существует!',
+        'construction_objects_object_categories_list_id_fkey': 'Указанного перечня категорий объектов не существует!',
+        'construction_objects_zones_id_fkey': 'Указанной зоны военного городка не существует!',
+        'construction_objects_construction_stages_id_fkey': 'Указанного этапа строительства не существует!',
+        'object_categories_list_zones_id_fkey': 'Указанной зоны военного городка не существует!',
+        'object_categories_list_object_categories_id_fkey': 'Указанной категорией объекта строительства не существует!',
+
         'other_fkey': 'Вторичный ключ не найден!',
     }
 
@@ -58,6 +77,7 @@ class DBBasicError(DBAPIError):
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
             DETAIL:  Key (project_code)=(12345) already exists.
             '''
+
             start = pg_error.find('constraint') + 12
             end = pg_error.find('\"', start)
             code = pg_error[start:end] + '_duplicate'
@@ -71,12 +91,14 @@ class DBBasicError(DBAPIError):
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
+
             start = pg_error.find('constraint') + 12
             end = pg_error.find('\"', start)
             code = pg_error[start:end]
 
             if code not in cls.codes:
                 code = 'other_fkey'
+
         else:
             code = 'other_error'
 
@@ -91,3 +113,4 @@ def db_error_handler(func):
             raise DBBasicError(error.orig.pgerror)
 
     return wrapper
+
