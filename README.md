@@ -4,7 +4,7 @@
     
     source env/bin/activate
     
-    initialize_mks_backend_db development.ini
+    initialize_mks_db_db development.ini
     
     pserve development.ini --reload
     
@@ -33,7 +33,7 @@ Activation on Linux:
 
  -  создание таблиц в БД
 
-    initialize_app_db development.ini
+    initialize_mks_db_db development.ini
     
 --------------------------------------------------------------------------------
 
