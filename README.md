@@ -13,6 +13,8 @@
 Activation on Linux:
 --------------------------------------------------------------------------------
 
+-   You need to do:
+
     cd mfo_backend/
 
     sudo apt update && apt -y upgrade
