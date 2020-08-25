@@ -7,7 +7,7 @@ class DBBasicError(DBAPIError):
 
         'construction_project_code_key_duplicate': 'Проект с указанным ключом уже существует!',
         'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
-        'subcategories_list_key_duplicate': 'Комиссия с указанным именем уже существует!',
+        'commission_code_fullname_duplicate': 'Комиссия с указанным именем уже существует!',
 
         'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным именем уже существует!',
         'construction_categories_fullname_key_duplicate': 'Категория с указанным именем уже существует!',
@@ -55,31 +55,28 @@ class DBBasicError(DBAPIError):
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
             DETAIL:  Key (project_code)=(12345) already exists.
             '''
-            code = cls.set_code_from_error(pg_error)
-            code += '_duplicate'
+            start = pg_error.find('constraint') + 12
+            end = pg_error.find('\"', start)
+            code = pg_error[start:end] + '_duplicate'
 
             if code not in cls.codes:
                 code = 'other_duplicate'
         elif 'foreign key' in pg_error:
             '''
             ERROR:  insert or update on table "construction" violates foreign key constraint 
+   
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
-            code = cls.set_code_from_error(pg_error)
+            start = pg_error.find('constraint') + 12
+            end = pg_error.find('\"', start)
+            code = pg_error[start:end]
 
             if code not in cls.codes:
                 code = 'other_fkey'
         else:
             code = 'other_error'
 
-        return code
-
-    @classmethod
-    def set_code_from_error(cls, pg_error):
-        start = pg_error.find('constraint') + 12
-        end = pg_error.find('\"', start)
-        code = pg_error[start:end]
         return code
 
 
