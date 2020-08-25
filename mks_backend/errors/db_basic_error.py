@@ -2,11 +2,6 @@ from sqlalchemy.exc import DBAPIError
 
 
 class DBBasicError(DBAPIError):
-
-    def __init__(self, message):
-        self.code = message
-        self.message = message
-
     codes = {
         'other_error': 'Ошибка с БД!',
 
@@ -27,6 +22,10 @@ class DBBasicError(DBAPIError):
         'construction_idMU_fkey': 'Воинского Формирования с указанным ключом не существует!',
         'other_fkey': 'Вторичный ключ не найден!',
     }
+
+    def __init__(self, message):
+        self.code = message
+        self.message = message
 
     @property
     def message(self):
