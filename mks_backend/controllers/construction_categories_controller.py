@@ -1,8 +1,9 @@
 import colander
-from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.view import view_config
 
 from mks_backend.controllers.schemas.construction_categories_schema import ConstructionCategoriesSchema
+from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.construction_category_serializer import ConstructionCategoriesSerializer
 from mks_backend.services.construction_category_service import ConstructionCategoriesService
 
@@ -31,8 +32,11 @@ class ConstructionCategoryController:
         construction_category = self.serializer.convert_schema_to_object(construction_categories_deserialized)
         try:
             self.service.add_construction_category(construction_category)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message
+            })
 
         return {'id': construction_category.construction_categories_id}
 
@@ -62,7 +66,10 @@ class ConstructionCategoryController:
         construction_category = self.serializer.convert_schema_to_object(construction_categories_deserialized)
         try:
             self.service.update_construction_category(construction_category)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message
+            })
 
         return {'id': id}
