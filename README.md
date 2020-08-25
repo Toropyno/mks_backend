@@ -52,7 +52,7 @@ PostgreSQL installation
 
     sudo -u postgres psql
 
-    CREATE DATABASE mks_backend;
+    CREATE DATABASE mks_db;
 
     \password postgres
     
