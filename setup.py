@@ -31,7 +31,7 @@ setup(
             'main = mks_backend:main',
         ],
         'console_scripts': [
-            'initialize_mks_backend_db=mks_backend.scripts.initialize_db:main',
+            'initialize_mks_db=mks_backend.scripts.initialize_db:main',
         ],
     },
 )

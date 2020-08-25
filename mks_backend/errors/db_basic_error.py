@@ -3,18 +3,27 @@ from sqlalchemy.exc import DBAPIError
 
 class DBBasicError(DBAPIError):
     codes = {
-        'other_error': 'Какая-то другая ошибка с БД!',
+        'other_error': 'Ошибка с БД!',
 
-        'construction_project_code_key_duplicate': 'Проект с таким кодом уже существует!',
-        'commission_code_key_duplicate': 'Комиссия с таким кодом уже существует!',
-        'commission_fullname_key_duplicate': 'Комиссия с таким именем уже существует!',
-        'other_duplicate': 'Какой-то другой дубликат!',
+        'construction_project_code_key_duplicate': 'Проект с указанным ключом уже существует!',
+        'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
+        'commission_code_fullname_duplicate': 'Комиссия с указанным именем уже существует!',
 
-        'construction_construction_categories_id_fkey': 'Такой категории проекта не существует!',
-        'construction_subcategories_list_id_fkey': 'Такой подкатегории проекта не существует!',
-        'construction_commission_id_fkey': 'Такой комиссии не существует!',
-        'construction_idMU_fkey': 'Такой воинского формирования не существует!',
-        'other_fkey': 'Какой-то другой foreign key не найден!',
+        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным именем уже существует!',
+        'construction_categories_fullname_key_duplicate': 'Категория с указанным именем уже существует!',
+
+        'subcategories_list_construction_categories_id_key_duplicate': 'Перечень Подкатегорий с указанной Категорией '
+                                                                       'уже существует!',
+        'subcategories_list_construction_subcategories_id_key_duplicate': 'Перечень Подкатегорий с указанной '
+                                                                          'Подкатегорией уже существует!',
+
+        'other_duplicate': 'Дубликат записи!',
+
+        'construction_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
+        'construction_subcategories_list_id_fkey': 'Подкатегории проекта с указанным ключом не существует!',
+        'construction_commission_id_fkey': 'Комиссии с указанным ключом не существует!',
+        'construction_idMU_fkey': 'Воинского Формирования с указанным ключом не существует!',
+        'other_fkey': 'Вторичный ключ не найден!',
     }
 
     def __init__(self, message):
@@ -40,6 +49,7 @@ class DBBasicError(DBAPIError):
 
     @classmethod
     def get_error_code(cls, pg_error):
+
         if 'duplicate' in pg_error:
             '''
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
@@ -47,14 +57,14 @@ class DBBasicError(DBAPIError):
             '''
             start = pg_error.find('constraint') + 12
             end = pg_error.find('\"', start)
-
-            code = pg_error[start: end] + '_duplicate'
+            code = pg_error[start:end] + '_duplicate'
 
             if code not in cls.codes:
                 code = 'other_duplicate'
         elif 'foreign key' in pg_error:
             '''
             ERROR:  insert or update on table "construction" violates foreign key constraint 
+   
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
@@ -76,4 +86,5 @@ def db_error_handler(func):
             return func(*args, **kwargs)
         except DBAPIError as error:
             raise DBBasicError(error.orig.pgerror)
+
     return wrapper
