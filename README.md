@@ -27,6 +27,8 @@ Activation on Linux:
 
     pip install --upgrade setuptools
     
+    python3 setup.py install
+    
     pip install -e ".[dev]" 
     
 --------------------------------------------------------------------------------
