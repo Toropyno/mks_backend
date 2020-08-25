@@ -2,6 +2,7 @@ from sqlalchemy.exc import DBAPIError
 
 
 class DBBasicError(DBAPIError):
+
     codes = {
         'other_error': 'Ошибка с БД!',
 
