@@ -1,3 +1,4 @@
+from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.construction_categories import ConstructionCategories
 from mks_backend.repositories import DBSession
 
@@ -11,6 +12,7 @@ class ConstructionCategoryRepository:
     def get_all_construction_categories(self):
         return DBSession.query(ConstructionCategories).all()
 
+    @db_error_handler
     def add_construction_category(self, construction_category):
         DBSession.add(construction_category)
         DBSession.commit()
@@ -20,6 +22,7 @@ class ConstructionCategoryRepository:
         DBSession.delete(construction_category)
         DBSession.commit()
 
+    @db_error_handler
     def update_construction_category(self, construction_category):
         DBSession.query(ConstructionCategories).filter_by(
             construction_categories_id=construction_category.construction_categories_id).update(

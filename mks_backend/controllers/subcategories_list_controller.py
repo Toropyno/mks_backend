@@ -3,6 +3,7 @@ from pyramid.view import view_config
 from pyramid.response import Response
 
 from mks_backend.controllers.schemas.subcategories_list_schema import SubcategoriesListSchema
+from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.subcategories_list_serializer import SubcategoriesListSerializer
 from mks_backend.services.subcategories_list_service import SubcategoriesListService
 
@@ -31,8 +32,11 @@ class SubcategoriesListController:
         subcategories_list = self.serializer.convert_schema_to_object(subcategories_list_deserialized)
         try:
             self.service.add_subcategories_list(subcategories_list)
-        except ValueError as error:
-            return Response(status=403, json_body={'error': error.args[0]})
+        except DBBasicError as error:
+            return Response(status=403, json_body={
+                'code': error.code,
+                'message': error.message
+            })
 
         return {'id': subcategories_list.subcategories_list_id}
 
