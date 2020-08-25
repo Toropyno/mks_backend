@@ -56,7 +56,7 @@ class DBBasicError(DBAPIError):
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
             DETAIL:  Key (project_code)=(12345) already exists.
             '''
-            code = cls.get_code_from_error(pg_error)
+            code = cls.set_code_from_error(pg_error)
             code += '_duplicate'
 
             if code not in cls.codes:
@@ -67,7 +67,7 @@ class DBBasicError(DBAPIError):
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
-            code = cls.get_code_from_error(pg_error)
+            code = cls.set_code_from_error(pg_error)
 
             if code not in cls.codes:
                 code = 'other_fkey'
@@ -77,7 +77,7 @@ class DBBasicError(DBAPIError):
         return code
 
     @classmethod
-    def get_code_from_error(cls, pg_error):
+    def set_code_from_error(cls, pg_error):
         start = pg_error.find('constraint') + 12
         end = pg_error.find('\"', start)
         code = pg_error[start:end]
