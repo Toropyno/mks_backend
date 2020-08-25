@@ -2,7 +2,6 @@ from sqlalchemy.exc import DBAPIError
 
 
 class DBBasicError(DBAPIError):
-
     codes = {
         'other_error': 'Ошибка с БД!',
 
@@ -22,11 +21,11 @@ class DBBasicError(DBAPIError):
         'construction_stages_code_key_duplicate': 'Этап строительства с таким кратким наименованием уже существует!',
         'construction_stages_fullname_key_duplicate': 'Этап строительства с таким полным наименованием уже существует!',
         'object_categories_list_zones_id_key_duplicate': 'Перечень категорий объектов с указанной зоной военного '
-                                                     'городка уже существует!',
+                                                         'городка уже существует!',
         'object_categories_list_object_categories_id_key_duplicate': 'Перечень категорий объектов с указанной '
-                                                                 'категорией объекта строительства уже существует!',
+                                                                     'категорией объекта строительства уже существует!',
         'object_categories_fullname_key_duplicate': 'Категория объекта строительства с таким наименованием уже '
-                                                'существует!',
+                                                    'существует!',
         'zones_fullname_key_duplicate': 'Зона военного городка с таким наименованием уже существует!',
 
 
