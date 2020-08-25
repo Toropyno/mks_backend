@@ -1,4 +1,3 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.repositories.subcategories_list_repository import SubcategoriesListRepository
 
 
@@ -10,7 +9,6 @@ class SubcategoriesListService:
     def get_subcategories_list_by_id(self, id):
         return self.repo.get_subcategories_list_by_id(id)
 
-    @db_error_handler
     def add_subcategories_list(self, subcategories_list):
         return self.repo.add_subcategories_list(subcategories_list)
 
