@@ -10,13 +10,13 @@ class DBBasicError(DBAPIError):
         'subcategories_list_key_duplicate': 'Комиссия с указанным именем уже существует!',
         'subcategories_list_construction_categories_id_key_duplicate': "Введенный вторичный ключ(и) нарушает "
                                                                        "ограничение уникальности: введеный id уже "
-                                                                       "имеется в перечне подкатегорий",
+                                                                       "имеется в Перечне Подкатегорий",
         'other_duplicate': 'Дубликат записи!',
 
         'construction_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
         'construction_subcategories_list_id_fkey': 'Подкатегории проекта с указанным ключом не существует!',
         'construction_commission_id_fkey': 'Комиссии с указанным ключом не существует!',
-        'construction_idMU_fkey': 'Воинского формирования с указанным ключом не существует!',
+        'construction_idMU_fkey': 'Воинского Формирования с указанным ключом не существует!',
         'other_fkey': 'Вторичный ключ не найден!',
     }
 
