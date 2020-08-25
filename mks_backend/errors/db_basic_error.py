@@ -36,10 +36,6 @@ class DBBasicError(DBAPIError):
     def code(self):
         return self._code
 
-    @property
-    def field(self):
-        return self._field
-
     @message.setter
     def message(self, pg_error):
         code = self.get_error_code(pg_error)
