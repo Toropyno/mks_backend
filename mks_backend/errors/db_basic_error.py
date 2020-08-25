@@ -2,15 +2,23 @@ from sqlalchemy.exc import DBAPIError
 
 
 class DBBasicError(DBAPIError):
+
+    def __init__(self, message):
+        self.code = message
+        self.message = message
+
     codes = {
         'other_error': 'Ошибка с БД!',
 
         'construction_project_code_key_duplicate': 'Проект с указанным ключом уже существует!',
         'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
         'subcategories_list_key_duplicate': 'Комиссия с указанным именем уже существует!',
-        'subcategories_list_construction_categories_id_key_duplicate': "Введенный вторичный ключ(и) нарушает "
-                                                                       "ограничение уникальности: введеный id уже "
-                                                                       "имеется в Перечне Подкатегорий",
+
+        'subcategories_list_construction_categories_id_key_duplicate': "Перечень Подкатегорий с указанной Категорией "
+                                                                       "уже существует!",
+        'subcategories_list_construction_subcategories_id_key_duplicate': "Перечень Подкатегорий с указанной "
+                                                                          "Подкатегорией уже существует!",
+
         'other_duplicate': 'Дубликат записи!',
 
         'construction_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
@@ -20,10 +28,6 @@ class DBBasicError(DBAPIError):
         'other_fkey': 'Вторичный ключ не найден!',
     }
 
-    def __init__(self, message):
-        self.code = message
-        self.message = message
-
     @property
     def message(self):
         return self._message
@@ -31,6 +35,10 @@ class DBBasicError(DBAPIError):
     @property
     def code(self):
         return self._code
+
+    @property
+    def field(self):
+        return self._field
 
     @message.setter
     def message(self, pg_error):
@@ -48,10 +56,8 @@ class DBBasicError(DBAPIError):
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
             DETAIL:  Key (project_code)=(12345) already exists.
             '''
-            start = pg_error.find('constraint') + 12
-            end = pg_error.find('\"', start)
-
-            code = pg_error[start: end] + '_duplicate'
+            code = cls.get_code_from_error(pg_error)
+            code += '_duplicate'
 
             if code not in cls.codes:
                 code = 'other_duplicate'
@@ -61,15 +67,20 @@ class DBBasicError(DBAPIError):
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
-            start = pg_error.find('constraint') + 12
-            end = pg_error.find('\"', start)
-            code = pg_error[start:end]
+            code = cls.get_code_from_error(pg_error)
 
             if code not in cls.codes:
                 code = 'other_fkey'
         else:
             code = 'other_error'
 
+        return code
+
+    @classmethod
+    def get_code_from_error(cls, pg_error):
+        start = pg_error.find('constraint') + 12
+        end = pg_error.find('\"', start)
+        code = pg_error[start:end]
         return code
 
 
