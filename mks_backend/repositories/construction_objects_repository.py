@@ -1,5 +1,6 @@
 from mks_backend.models.construction_objects import ConstructionObjects
 from mks_backend.repositories import DBSession
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ConstructionObjectRepository:
@@ -11,6 +12,7 @@ class ConstructionObjectRepository:
     def get_all_construction_objects_by_construction_id(self, construction_id):
         return DBSession.query(ConstructionObjects).filter_by(construction_id=construction_id).all()
 
+    @db_error_handler
     def add_construction_object(self, construction_object):
         DBSession.add(construction_object)
         DBSession.commit()
@@ -20,6 +22,7 @@ class ConstructionObjectRepository:
         DBSession.delete(construction_object)
         DBSession.commit()
 
+    @db_error_handler
     def update_construction_object(self, construction_object):
         DBSession.query(ConstructionObjects).filter_by(
             construction_objects_id=construction_object.construction_objects_id).update(
@@ -35,6 +38,3 @@ class ConstructionObjectRepository:
              'floors_amount': construction_object.floors_amount,
              'construction_stages_id': construction_object.construction_stages_id})
         DBSession.commit()
-
-    def get_construction_object_by_code(self, object_code):
-        return DBSession.query(ConstructionObjects).filter_by(object_code=object_code).first()

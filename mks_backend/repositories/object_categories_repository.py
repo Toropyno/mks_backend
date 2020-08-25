@@ -1,5 +1,6 @@
 from mks_backend.models.object_categories import ObjectCategories
 from mks_backend.repositories import DBSession
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ObjectCategoryRepository:
@@ -11,6 +12,7 @@ class ObjectCategoryRepository:
     def get_all_object_categories(self):
         return DBSession.query(ObjectCategories).all()
 
+    @db_error_handler
     def add_object_category(self, object_category):
         DBSession.add(object_category)
         DBSession.commit()
@@ -20,12 +22,10 @@ class ObjectCategoryRepository:
         DBSession.delete(object_category)
         DBSession.commit()
 
+    @db_error_handler
     def update_object_category(self, object_category):
         DBSession.query(ObjectCategories).filter_by(
             object_categories_id=object_category.object_categories_id).update(
             {'note': object_category.note,
              'fullname': object_category.fullname})
         DBSession.commit()
-
-    def get_object_category_by_fullname(self, fullname):
-        return DBSession.query(ObjectCategories).filter_by(fullname=fullname).first()
