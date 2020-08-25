@@ -7,7 +7,7 @@ class DBBasicError(DBAPIError):
 
         'construction_project_code_key_duplicate': 'Проект с таким кодом уже существует!',
         'commission_code_key_duplicate': 'Комиссия с таким кодом уже существует!',
-        'аа_key_duplicate': 'Комиссия с таким именем уже существует!',
+        'subcategories_list_key_duplicate': 'Комиссия с таким именем уже существует!',
         'subcategories_list_construction_categories_id_key_duplicate': "Введенный вторичный ключ(и) нарушает "
                                                                        "ограничение уникальности: введеный id уже "
                                                                        "имеется в перечне подкатегорий",
