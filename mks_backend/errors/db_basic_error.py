@@ -3,21 +3,21 @@ from sqlalchemy.exc import DBAPIError
 
 class DBBasicError(DBAPIError):
     codes = {
-        'other_error': 'Какая-то другая ошибка с БД!',
+        'other_error': 'Ошибка с БД!',
 
-        'construction_project_code_key_duplicate': 'Проект с таким кодом уже существует!',
-        'commission_code_key_duplicate': 'Комиссия с таким кодом уже существует!',
-        'subcategories_list_key_duplicate': 'Комиссия с таким именем уже существует!',
+        'construction_project_code_key_duplicate': 'Проект с указанным ключом уже существует!',
+        'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
+        'subcategories_list_key_duplicate': 'Комиссия с указанным именем уже существует!',
         'subcategories_list_construction_categories_id_key_duplicate': "Введенный вторичный ключ(и) нарушает "
                                                                        "ограничение уникальности: введеный id уже "
                                                                        "имеется в перечне подкатегорий",
-        'other_duplicate': 'Какой-то другой дубликат!',
+        'other_duplicate': 'Дубликат записи!',
 
-        'construction_construction_categories_id_fkey': 'Такой категории проекта не существует!',
-        'construction_subcategories_list_id_fkey': 'Такой подкатегории проекта не существует!',
-        'construction_commission_id_fkey': 'Такой комиссии не существует!',
-        'construction_idMU_fkey': 'Такой воинского формирования не существует!',
-        'other_fkey': 'Какой-то другой foreign key не найден!',
+        'construction_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
+        'construction_subcategories_list_id_fkey': 'Подкатегории проекта с указанным ключом не существует!',
+        'construction_commission_id_fkey': 'Комиссии с указанным ключом не существует!',
+        'construction_idMU_fkey': 'Воинского формирования с указанным ключом не существует!',
+        'other_fkey': 'Вторичный ключ не найден!',
     }
 
     def __init__(self, message):
