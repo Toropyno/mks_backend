@@ -25,6 +25,6 @@ class ConstructionSubcategoryRepository:
     @db_error_handler
     def update_construction_subcategory(self, construction_subcategory):
         DBSession.query(ConstructionSubcategories).filter_by(
-            construction_subcategory_id=construction_subcategory.construction_subcategory_id).update(
+            construction_subcategories_id=construction_subcategory.construction_subcategories_id).update(
             {'fullname': construction_subcategory.fullname})
         DBSession.commit()
