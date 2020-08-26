@@ -8,12 +8,12 @@ class ConstructionCategoriesSerializer:
             'id': construction_category.construction_categories_id,
             'fullName': construction_category.fullname,
 
-            # # id from SubcategoriesList.subcategories_list_id, fullName from ConstructionSubcategories.fullname
-            # 'subcategory': [{
-            #     'id': construction_category.subcategories_list[0].subcategories_list_id,
-            #     'fullName': construction_category.subcategories_list[0].construction_subcategory.fullname
-            # }]
-            # # end
+            # id from SubcategoriesList.subcategories_list_id, fullName from ConstructionSubcategories.fullname
+            'subcategory': [{
+                'id': construction_category.subcategories_list[0].subcategories_list_id,
+                'fullName': construction_category.subcategories_list[0].construction_subcategory.fullname
+            }]
+            # end
         }
         return construction_category_dict
 
