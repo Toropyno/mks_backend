@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, VARCHAR
 from sqlalchemy.orm import relationship
 
-
 from mks_backend.models import Base
 
 
@@ -13,5 +12,6 @@ class ConstructionSubcategories(Base):
 
     subcategories_list = relationship(
         'SubcategoriesList',
-        back_populates='construction_subcategory'
+        back_populates='construction_subcategory',
+        passive_deletes=True
     )
