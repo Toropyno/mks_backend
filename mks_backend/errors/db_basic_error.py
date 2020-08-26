@@ -10,8 +10,8 @@ class DBBasicError(DBAPIError):
         'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
         'commission_fullname_key_duplicate': 'Комиссия с указанным именем уже существует!',
 
-        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным именем уже существует!',
-        'construction_categories_fullname_key_duplicate': 'Категория с указанным именем уже существует!',
+        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным наименованием уже существует!',
+        'construction_categories_fullname_key_duplicate': 'Категория с указанным наименованием уже существует!',
 
         'subcategories_list_unique_duplicate': 'Перечень Подкатегорий с указанными Категорией и Подкатегорией уже '
                                                'существует!',
@@ -27,6 +27,7 @@ class DBBasicError(DBAPIError):
                                                                      'Категорией Объекта Строительства уже существует!',
         'object_categories_fullname_key_duplicate': 'Категория Объекта Строительства с таким наименованием уже '
                                                     'существует!',
+
         'zones_fullname_key_duplicate': 'Зона Военного Городка с таким наименованием уже существует!',
 
         'other_duplicate': 'Дубликат записи!',
@@ -111,4 +112,3 @@ def db_error_handler(func):
             raise DBBasicError(error.orig.pgerror)
 
     return wrapper
-

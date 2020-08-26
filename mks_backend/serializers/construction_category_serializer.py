@@ -13,7 +13,7 @@ class ConstructionCategoriesSerializer:
                 'id': construction_category.subcategories_list[0].subcategories_list_id,
                 'fullName': construction_category.subcategories_list[0].construction_subcategory.fullname
             }]
-            # end of shit
+            # end
         }
         return construction_category_dict
 
