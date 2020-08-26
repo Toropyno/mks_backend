@@ -1,5 +1,6 @@
 from mks_backend.models.construction import Construction
 from mks_backend.repositories import DBSession
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ConstructionRepository:
@@ -10,10 +11,12 @@ class ConstructionRepository:
     def get_construction_by_id(cls, id):
         return DBSession.query(Construction).get(id)
 
+    @db_error_handler
     def add_construction(self, construction):
         DBSession.add(construction)
         DBSession.commit()
 
+    @db_error_handler
     def update_construction(self, construction):
         DBSession.query(Construction).filter_by(construction_id=construction.construction_id).update(
             {'project_code': construction.project_code,

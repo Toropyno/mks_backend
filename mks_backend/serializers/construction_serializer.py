@@ -11,6 +11,10 @@ class ConstructionSerializer:
             'category': {
                 'id': construction.construction_categories.construction_categories_id,
                 'fullName': construction.construction_categories.fullname,
+                'subcategory': [{
+                    'id': construction.construction_categories.subcategories_list[0].subcategories_list_id,
+                    'fullName': construction.construction_categories.subcategories_list[0].construction_subcategory.fullname,
+                }]
             },
             'subcategory': {
                 'id': construction.subcategories_list_id,
@@ -19,6 +23,7 @@ class ConstructionSerializer:
             'isCritical': construction.is_critical,
             'commission': {
                 'id': construction.commission_id,
+                'code': construction.commission.code,
                 'fullName': construction.commission.fullname
             },
             'militaryUnit': {
