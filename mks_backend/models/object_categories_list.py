@@ -22,8 +22,8 @@ class ObjectCategoriesList(Base):
 
     __table_args__ = (
         UniqueConstraint(
-            'construction_categories_id',
-            'construction_subcategories_id',
+            'zones_id',
+            'object_categories_id',
             name='object_categories_list_unique'
         ),
     )
