@@ -12,6 +12,7 @@ class ObjectCategories(Base):
 
     object_categories_list = relationship(
         'ObjectCategoriesList',
-        back_populates='object_categories_instance'
+        back_populates='object_categories_instance',
+        passive_deletes=True
     )
 
