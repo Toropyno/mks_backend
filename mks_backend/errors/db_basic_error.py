@@ -33,7 +33,7 @@ class DBBasicError(DBAPIError):
         'other_duplicate': 'Дубликат записи!',
 
         'construction_construction_categories_id_fkey': 'Категории Проекта с указанным ключом не существует!',
-        'construction_subcategories_list_id_fkey': 'Подкатегории Проекта с указанным ключом не существует!',
+        'construction_subcategories_list_id_fkey': 'Перечня Подкатегорий Проекта с указанным ключом не существует!',
         'construction_commission_id_fkey': 'Комиссии с указанным ключом не существует!',
         'construction_idMU_fkey': 'Воинского Формирования с указанным ключом не существует!',
 
@@ -42,7 +42,7 @@ class DBBasicError(DBAPIError):
         'construction_objects_zones_id_fkey': 'Указанной Зоны Военного Городка не существует!',
         'construction_objects_construction_stages_id_fkey': 'Указанного Этапа Строительства не существует!',
         'object_categories_list_zones_id_fkey': 'Указанной Зоны Военного Городка не существует!',
-        'object_categories_list_object_categories_id_fkey': 'Указанной Категорией Объекта Строительства не существует!',
+        'object_categories_list_object_categories_id_fkey': 'Указанной Категории Объекта Строительства не существует!',
 
         'other_fkey': 'Вторичный ключ не найден!',
     }
