@@ -1,8 +1,13 @@
 from mks_backend.models.construction_stages import ConstructionStages
 
+from mks_backend.errors.serilize_error import serialize_error_handler
+
+
 class ConstructionStageSerializer:
 
-    def convert_object_to_json(self, construction_stage):
+    @classmethod
+    @serialize_error_handler
+    def convert_object_to_json(cls, construction_stage):
         construction_stage_dict = {
             'id': construction_stage.construction_stages_id,
             'code': construction_stage.code,
