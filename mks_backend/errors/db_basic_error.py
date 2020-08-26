@@ -9,8 +9,8 @@ class DBBasicError(DBAPIError):
         'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
         'commission_code_fullname_duplicate': 'Комиссия с указанным именем уже существует!',
 
-        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным именем уже существует!',
-        'construction_categories_fullname_key_duplicate': 'Категория с указанным именем уже существует!',
+        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным наименованием уже существует!',
+        'construction_categories_fullname_key_duplicate': 'Категория с указанным наименованием уже существует!',
 
         'subcategories_list_construction_categories_id_key_duplicate': 'Перечень Подкатегорий с указанной Категорией '
                                                                        'уже существует!',
@@ -28,14 +28,15 @@ class DBBasicError(DBAPIError):
                                                     'существует!',
         'zones_fullname_key_duplicate': 'Зона военного городка с таким наименованием уже существует!',
 
-
         'other_duplicate': 'Дубликат записи!',
 
         'construction_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
-        'construction_subcategories_list_id_fkey': 'Подкатегории проекта с указанным ключом не существует!',
+        'construction_subcategories_list_id_fkey': 'Перечня Подкатегорий с указанным ключом не существует!',
         'construction_commission_id_fkey': 'Комиссии с указанным ключом не существует!',
         'construction_idMU_fkey': 'Воинского Формирования с указанным ключом не существует!',
-
+        'subcategories_list_construction_subcategories_id_fkey': 'Подкатегории проекта с указанным ключом не '
+                                                                 'существует!',
+        'subcategories_list_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
         'construction_objects_construction_id_fkey': 'Указанного проекта не существует!',
         'construction_objects_object_categories_list_id_fkey': 'Указанного перечня категорий объектов не существует!',
         'construction_objects_zones_id_fkey': 'Указанной зоны военного городка не существует!',
@@ -111,4 +112,3 @@ def db_error_handler(func):
             raise DBBasicError(error.orig.pgerror)
 
     return wrapper
-

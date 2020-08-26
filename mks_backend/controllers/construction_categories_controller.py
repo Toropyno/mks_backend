@@ -52,7 +52,6 @@ class ConstructionCategoryController:
         id = self.request.matchdict['id']
         self.service.delete_construction_category_by_id(id)
         return {'id': id}
-        pass
 
     @view_config(route_name='construction_category_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction_category(self):

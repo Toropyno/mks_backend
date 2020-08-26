@@ -3,9 +3,6 @@ from datetime import datetime
 
 import colander
 
-from mks_backend.repositories.construction_categories_repository import ConstructionCategoryRepository
-from mks_backend.repositories.construction_subcategories_repository import ConstructionSubcategoryRepository
-
 strip_space = lambda v: v.strip(' \t\n\r') if v else v
 
 
@@ -21,12 +18,3 @@ def uuid_validator(node, value):
     res = re.match(pattern, value)
     if res is None:
         raise colander.Invalid(node, 'Недопустимая информация о файле')
-
-def construction_category_validator(node, value):
-    if not ConstructionCategoryRepository.get_construction_category_by_id(value):
-        raise colander.Invalid(node, 'Такой категории для проекта не существует')
-
-
-def construction_subcategory_validator(node, value):
-    if not ConstructionSubcategoryRepository.get_construction_subcategory_by_id(value):
-        raise colander.Invalid(node, 'Такой подкатегории для проекта не существует')
