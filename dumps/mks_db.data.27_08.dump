@@ -1,0 +1,312 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.2 (Ubuntu 12.2-4)
+-- Dumped by pg_dump version 12.2 (Ubuntu 12.2-4)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Data for Name: commission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.commission (commission_id, code, fullname) FROM stdin;
+1	1	НДС
+2	2	ОСАГО
+3	3	КАСКО
+\.
+
+
+--
+-- Data for Name: construction_categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.construction_categories (construction_categories_id, fullname) FROM stdin;
+1	Военная база
+2	Наблюдательная база
+3	Исследовательская база
+\.
+
+
+--
+-- Data for Name: construction_subcategories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.construction_subcategories (construction_subcategories_id, fullname) FROM stdin;
+1	Тактическоое значение
+2	Гражданское значение
+\.
+
+
+--
+-- Data for Name: military_unit; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.military_unit ("idMU", "pidMU", "vChNumber", "idNameMU") FROM stdin;
+1	1	MU1	1
+2	2	MU2	2
+3	3	MU3	3
+4	4	MU4	4
+5	5	MU5	5
+6	6	MU6	6
+\.
+
+
+--
+-- Data for Name: subcategories_list; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) FROM stdin;
+1	1	1
+2	2	2
+\.
+
+
+--
+-- Data for Name: construction; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.construction (construction_id, project_code, project_name, construction_categories_id, subcategories_list_id, is_critical, commission_id, "idMU", contract_date, object_amount, planned_date) FROM stdin;
+4	south_base	Южная база	2	2	t	2	5	2020-08-27	1	2020-08-27
+5	nort_west_base	Северо-западная база	2	2	f	3	3	2020-09-01	1	2020-08-31
+2	east_base	Восточная база	1	1	f	1	4	2020-08-26	2	2020-08-24
+6	south_east_base	Юго-восточная база	2	2	t	3	1	2020-09-02	2	2020-09-03
+1	north_base	Северная база	1	1	t	1	1	2020-08-26	4	2020-08-26
+3	west_base	Западная база	1	1	t	2	2	2020-08-26	3	2020-08-27
+\.
+
+
+--
+-- Data for Name: construction_stages; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.construction_stages (construction_stages_id, code, fullname) FROM stdin;
+1	start	Начало строительства
+2	middle	Середина строительства
+3	end	Конец строительства
+\.
+
+
+--
+-- Data for Name: object_categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.object_categories (object_categories_id, fullname, note) FROM stdin;
+2	Гражданские сооружения	Не военные
+1	Военные сооружения	Не гражданские
+\.
+
+
+--
+-- Data for Name: zones; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.zones (zones_id, fullname) FROM stdin;
+1	Пустыня
+2	Тундра
+3	Лес
+4	Горы
+\.
+
+
+--
+-- Data for Name: object_categories_list; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.object_categories_list (object_categories_list_id, zones_id, object_categories_id) FROM stdin;
+1	1	1
+2	2	2
+\.
+
+
+--
+-- Data for Name: construction_objects; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.construction_objects (construction_objects_id, construction_id, object_code, object_name, zones_id, object_categories_list_id, planned_date, weight, generalplan_number, building_volume, floors_amount, construction_stages_id) FROM stdin;
+36	1	KAZARMA1	Казарма	1	2	2020-09-02	60	2	120.000	3	3
+37	1	STOLOVAYA1	Столовая	\N	\N	2020-09-02	30	\N	\N	\N	\N
+38	4	OBSERVE1	Наблюдательный пункт	2	2	2020-08-30	20	\N	\N	2	3
+39	5	OBSERVE2	Наблюдательный пункт	3	2	2020-08-31	30	1	30.000	3	2
+41	2	KAZARMA2	Казарма	4	1	2020-09-24	50	4	120.000	5	1
+43	2	STOLOVAYA2	Столовая	4	2	2020-08-31	60	5	10.000	1	1
+44	6	ROCKETS2	Ракетная установка	3	1	2020-12-10	60	34	15.000	1	1
+45	6	KAZARMA4	Казарма	3	2	2020-11-20	14	35	15.000	6	2
+47	3	ROCKETS8	Ракетная установка	1	1	2020-08-29	30	76	15.000	1	1
+48	3	ROCKETS52	Ракетная установка	1	1	2020-08-30	30	32	30.000	1	2
+46	3	KAZARMA9	Казарма	1	1	2020-09-26	90	23	14.000	3	2
+1	1	HOSPITAL1	Госпиталь	1	2	2020-08-31	5	\N	10076.000	1	2
+2	1	ROCKETS1	Ракетная установка	1	1	2020-08-31	10	1	50.000	1	\N
+\.
+
+
+--
+-- Data for Name: filestorage; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.filestorage (idfilestorage, filename, uri, filesize, "mimeType", "createdOn", description, authorid) FROM stdin;
+b6f52d00-b474-45e7-b2b7-66a2c98ba0f0	Протокол369Q.odt	protocols/download/b6f52d00-b474-45e7-b2b7-66a2c98ba0f0	94	application/vnd.oasis.opendocument.text	2020-08-25 13:21:01.464567+03	file description	1
+8af8e51b-13bb-4645-b578-2a7f489491ce	Протокол253M.pdf	protocols/download/8af8e51b-13bb-4645-b578-2a7f489491ce	12315	application/pdf	2020-08-25 13:21:01.513446+03	file description	1
+0dddfba9-ac76-4c8c-a593-0102fb283985	Протокол334V.odt	protocols/download/0dddfba9-ac76-4c8c-a593-0102fb283985	94	application/vnd.oasis.opendocument.text	2020-08-25 13:21:01.466963+03	file description	1
+ed23a6ba-ceae-48e8-a635-fcaba319b19c	Протокол268V.odt	protocols/download/ed23a6ba-ceae-48e8-a635-fcaba319b19c	94	application/vnd.oasis.opendocument.text	2020-08-25 13:21:01.515544+03	file description	1
+9251ce74-8887-444f-9d54-f1cb0377eec4	Протокол155X.odt	protocols/download/9251ce74-8887-444f-9d54-f1cb0377eec4	94	application/vnd.oasis.opendocument.text	2020-08-25 13:21:01.54835+03	file description	1
+f34d2334-79bf-43b8-a5d1-487c7496964d	Протокол226P.pdf	protocols/download/f34d2334-79bf-43b8-a5d1-487c7496964d	12315	application/pdf	2020-08-25 13:21:01.560926+03	file description	1
+22f22212-cc08-4f74-8841-498fcdf1e33d	Протокол322S.odt	protocols/download/22f22212-cc08-4f74-8841-498fcdf1e33d	94	application/vnd.oasis.opendocument.text	2020-08-25 13:21:01.574391+03	file description	1
+20419695-7fdb-4950-bd5e-de0f5a61e86f	Протокол137O.odt	protocols/download/20419695-7fdb-4950-bd5e-de0f5a61e86f	94	application/vnd.oasis.opendocument.text	2020-08-25 13:21:01.624624+03	file description	1
+8872dfe0-d908-4611-a4c3-42988c884352	Протокол470S.odt	protocols/download/8872dfe0-d908-4611-a4c3-42988c884352	94	application/vnd.oasis.opendocument.text	2020-08-25 13:21:01.640331+03	file description	1
+19e2a3fa-2056-4560-a1ea-b874a47ede4c	Протокол102H.pdf	protocols/download/19e2a3fa-2056-4560-a1ea-b874a47ede4c	12315	application/pdf	2020-08-25 13:21:01.658272+03	file description	1
+cdfdf494-1073-443d-a916-6d4eb6e4730c	Протокол109F.pdf	protocols/download/cdfdf494-1073-443d-a916-6d4eb6e4730c	12313	application/pdf	2020-08-26 10:50:28.677062+03	file description	1
+738671d6-ec10-4f96-bea1-23ef36f0295c	Протокол460M.pdf	protocols/download/738671d6-ec10-4f96-bea1-23ef36f0295c	12315	application/pdf	2020-08-26 10:50:28.718217+03	file description	1
+a03ff813-b3ba-4f64-9116-6fc921bae09b	Протокол362A.odt	protocols/download/a03ff813-b3ba-4f64-9116-6fc921bae09b	94	application/vnd.oasis.opendocument.text	2020-08-26 10:50:28.679705+03	file description	1
+3b306c03-6bad-4b8f-8c66-5e361d85cc51	Протокол292D.pdf	protocols/download/3b306c03-6bad-4b8f-8c66-5e361d85cc51	12313	application/pdf	2020-08-26 10:50:28.720313+03	file description	1
+0c1533cf-3cd0-4b67-b821-8b52d0fcceed	Протокол120T.odt	protocols/download/0c1533cf-3cd0-4b67-b821-8b52d0fcceed	94	application/vnd.oasis.opendocument.text	2020-08-26 10:50:28.754319+03	file description	1
+e0767c85-9616-4c6e-b7bd-c7040c11697d	Протокол331G.odt	protocols/download/e0767c85-9616-4c6e-b7bd-c7040c11697d	94	application/vnd.oasis.opendocument.text	2020-08-26 10:50:28.770126+03	file description	1
+1acaff5c-e8ed-4102-8291-2dac452ecab1	Протокол333T.odt	protocols/download/1acaff5c-e8ed-4102-8291-2dac452ecab1	94	application/vnd.oasis.opendocument.text	2020-08-26 10:50:28.782676+03	file description	1
+89c1d4b4-9581-4248-b5da-f7e3c8f1ed07	Протокол266T.odt	protocols/download/89c1d4b4-9581-4248-b5da-f7e3c8f1ed07	94	application/vnd.oasis.opendocument.text	2020-08-26 10:50:28.795835+03	file description	1
+b9e3644a-60d9-4b83-aae1-b2f4c31f16ed	Протокол171V.pdf	protocols/download/b9e3644a-60d9-4b83-aae1-b2f4c31f16ed	12313	application/pdf	2020-08-26 10:50:28.809447+03	file description	1
+19edeb93-ad67-48e9-8055-605f7b0227cb	Протокол480L.pdf	protocols/download/19edeb93-ad67-48e9-8055-605f7b0227cb	12313	application/pdf	2020-08-26 10:50:28.846983+03	file description	1
+\.
+
+
+--
+-- Data for Name: meeting; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.meeting (meetings_type_id, fullname) FROM stdin;
+1	Заседание
+2	Совещание
+3	Совет
+4	Форум
+5	Пленум
+6	Митинг
+\.
+
+
+--
+-- Data for Name: protocol; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.protocol (protocol_id, protocol_num, protocol_date, meetings_type_id, protocol_name, note, idfilestorage) FROM stdin;
+3	45	2020-08-03	3	Протокол334V	Заметка о протоколе Протокол334V	0dddfba9-ac76-4c8c-a593-0102fb283985
+4	10	2020-08-06	1	Протокол268V	Заметка о протоколе Протокол268V	ed23a6ba-ceae-48e8-a635-fcaba319b19c
+6	88	2020-08-09	3	Протокол226P	Заметка о протоколе Протокол226P	f34d2334-79bf-43b8-a5d1-487c7496964d
+7	53	2020-08-07	1	Протокол137O	Заметка о протоколе Протокол137O	20419695-7fdb-4950-bd5e-de0f5a61e86f
+8	17	2020-08-03	1	Протокол102H	Заметка о протоколе Протокол102H	19e2a3fa-2056-4560-a1ea-b874a47ede4c
+9	81	2020-08-02	6	Протокол109F	Заметка о протоколе Протокол109F	cdfdf494-1073-443d-a916-6d4eb6e4730c
+10	86	2020-08-02	2	Протокол460M	Заметка о протоколе Протокол460M	738671d6-ec10-4f96-bea1-23ef36f0295c
+11	99	2020-08-02	2	Протокол362A	Заметка о протоколе Протокол362A	a03ff813-b3ba-4f64-9116-6fc921bae09b
+12	47	2020-08-08	4	Протокол292D	Заметка о протоколе Протокол292D	3b306c03-6bad-4b8f-8c66-5e361d85cc51
+13	95	2020-08-08	3	Протокол120T	Заметка о протоколе Протокол120T	0c1533cf-3cd0-4b67-b821-8b52d0fcceed
+14	24	2020-08-02	5	Протокол331G	Заметка о протоколе Протокол331G	e0767c85-9616-4c6e-b7bd-c7040c11697d
+16	51	2020-08-03	2	Протокол266T	Заметка о протоколе Протокол266T	89c1d4b4-9581-4248-b5da-f7e3c8f1ed07
+17	93	2020-08-07	2	Протокол480L	Заметка о протоколе Протокол480L	19edeb93-ad67-48e9-8055-605f7b0227cb
+2	70-1	2020-08-08	1	Протокол253M	Заметка о протоколе Протокол253M	8af8e51b-13bb-4645-b578-2a7f489491ce
+1	68	2020-08-01	1	Протокол369Q	Заметка о протоколе Протокол369Q	b6f52d00-b474-45e7-b2b7-66a2c98ba0f0
+\.
+
+
+--
+-- Name: commission_commission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.commission_commission_id_seq', 1, false);
+
+
+--
+-- Name: construction_categories_construction_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.construction_categories_construction_categories_id_seq', 1, false);
+
+
+--
+-- Name: construction_construction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.construction_construction_id_seq', 12, true);
+
+
+--
+-- Name: construction_objects_construction_objects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.construction_objects_construction_objects_id_seq', 48, true);
+
+
+--
+-- Name: construction_stages_construction_stages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.construction_stages_construction_stages_id_seq', 1, false);
+
+
+--
+-- Name: construction_subcategories_construction_subcategories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.construction_subcategories_construction_subcategories_id_seq', 1, false);
+
+
+--
+-- Name: meeting_meetings_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.meeting_meetings_type_id_seq', 1, false);
+
+
+--
+-- Name: military_unit_idMU_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."military_unit_idMU_seq"', 1, false);
+
+
+--
+-- Name: object_categories_list_object_categories_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.object_categories_list_object_categories_list_id_seq', 1, false);
+
+
+--
+-- Name: object_categories_object_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.object_categories_object_categories_id_seq', 1, false);
+
+
+--
+-- Name: protocol_protocol_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.protocol_protocol_id_seq', 17, true);
+
+
+--
+-- Name: subcategories_list_subcategories_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.subcategories_list_subcategories_list_id_seq', 1, false);
+
+
+--
+-- Name: zones_zones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.zones_zones_id_seq', 1, false);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
