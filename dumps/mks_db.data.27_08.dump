@@ -45,6 +45,7 @@ COPY public.construction_categories (construction_categories_id, fullname) FROM 
 COPY public.construction_subcategories (construction_subcategories_id, fullname) FROM stdin;
 1	Тактическоое значение
 2	Гражданское значение
+3	Исследовательское значение
 \.
 
 
@@ -69,6 +70,7 @@ COPY public.military_unit ("idMU", "pidMU", "vChNumber", "idNameMU") FROM stdin;
 COPY public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) FROM stdin;
 1	1	1
 2	2	2
+3	3	3
 \.
 
 

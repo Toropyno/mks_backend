@@ -679,6 +679,7 @@ COPY public.construction_stages (construction_stages_id, code, fullname) FROM st
 COPY public.construction_subcategories (construction_subcategories_id, fullname) FROM stdin;
 1	Тактическоое значение
 2	Гражданское значение
+3	Исследовательское значение
 \.
 
 
@@ -788,6 +789,7 @@ COPY public.protocol (protocol_id, protocol_num, protocol_date, meetings_type_id
 COPY public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) FROM stdin;
 1	1	1
 2	2	2
+3	3	3
 \.
 
 
