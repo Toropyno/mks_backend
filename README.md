@@ -4,6 +4,8 @@
     
     source env/bin/activate
     
+    initialize_mks_db development.ini
+    
     pserve development.ini --reload
     
 --------------------------------------------------------------------------------

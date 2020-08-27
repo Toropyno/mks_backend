@@ -7,41 +7,41 @@ class DBBasicError(DBAPIError):
 
         'construction_project_code_key_duplicate': 'Проект с указанным ключом уже существует!',
         'commission_code_key_duplicate': 'Комиссия с указанным ключом уже существует!',
-        'commission_code_fullname_duplicate': 'Комиссия с указанным именем уже существует!',
+        'commission_fullname_key_duplicate': 'Комиссия с указанным именем уже существует!',
 
-        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным именем уже существует!',
-        'construction_categories_fullname_key_duplicate': 'Категория с указанным именем уже существует!',
+        'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным наименованием уже существует!',
+        'construction_categories_fullname_key_duplicate': 'Категория с указанным наименованием уже существует!',
 
-        'subcategories_list_construction_categories_id_key_duplicate': 'Перечень Подкатегорий с указанной Категорией '
-                                                                       'уже существует!',
-        'subcategories_list_construction_subcategories_id_key_duplicate': 'Перечень Подкатегорий с указанной '
-                                                                          'Подкатегорией уже существует!',
+        'subcategories_list_unique_duplicate': 'Перечень Подкатегорий с указанными Категорией и Подкатегорией уже '
+                                               'существует!',
+        'object_categories_list_unique_duplicate': 'Перечень Категорий Объектов с указанными Зоной Военного Городка и '
+                                                   'Категорией Объектов уже существует!',
 
-        'construction_objects_object_code_key_duplicate': 'Объект строительства с таким кодом уже существует!',
-        'construction_stages_code_key_duplicate': 'Этап строительства с таким кратким наименованием уже существует!',
-        'construction_stages_fullname_key_duplicate': 'Этап строительства с таким полным наименованием уже существует!',
-        'object_categories_list_zones_id_key_duplicate': 'Перечень категорий объектов с указанной зоной военного '
-                                                         'городка уже существует!',
-        'object_categories_list_object_categories_id_key_duplicate': 'Перечень категорий объектов с указанной '
-                                                                     'категорией объекта строительства уже существует!',
-        'object_categories_fullname_key_duplicate': 'Категория объекта строительства с таким наименованием уже '
+        'construction_objects_object_code_key_duplicate': 'Объект Строительства с таким кодом уже существует!',
+        'construction_stages_code_key_duplicate': 'Этап Строительства с таким кратким наименованием уже существует!',
+        'construction_stages_fullname_key_duplicate': 'Этап Строительства с таким полным наименованием уже существует!',
+        'object_categories_list_zones_id_key_duplicate': 'Перечень Категорий Объектов с указанной Зоной Военного '
+                                                         'Городка уже существует!',
+        'object_categories_list_object_categories_id_key_duplicate': 'Перечень Категорий Объектов с указанной '
+                                                                     'Категорией Объекта Строительства уже существует!',
+        'object_categories_fullname_key_duplicate': 'Категория Объекта Строительства с таким наименованием уже '
                                                     'существует!',
-        'zones_fullname_key_duplicate': 'Зона военного городка с таким наименованием уже существует!',
 
+        'zones_fullname_key_duplicate': 'Зона Военного Городка с таким наименованием уже существует!',
 
         'other_duplicate': 'Дубликат записи!',
 
-        'construction_construction_categories_id_fkey': 'Категории проекта с указанным ключом не существует!',
-        'construction_subcategories_list_id_fkey': 'Подкатегории проекта с указанным ключом не существует!',
+        'construction_construction_categories_id_fkey': 'Категории Проекта с указанным ключом не существует!',
+        'construction_subcategories_list_id_fkey': 'Перечня Подкатегорий Проекта с указанным ключом не существует!',
         'construction_commission_id_fkey': 'Комиссии с указанным ключом не существует!',
         'construction_idMU_fkey': 'Воинского Формирования с указанным ключом не существует!',
 
-        'construction_objects_construction_id_fkey': 'Указанного проекта не существует!',
-        'construction_objects_object_categories_list_id_fkey': 'Указанного перечня категорий объектов не существует!',
-        'construction_objects_zones_id_fkey': 'Указанной зоны военного городка не существует!',
-        'construction_objects_construction_stages_id_fkey': 'Указанного этапа строительства не существует!',
-        'object_categories_list_zones_id_fkey': 'Указанной зоны военного городка не существует!',
-        'object_categories_list_object_categories_id_fkey': 'Указанной категорией объекта строительства не существует!',
+        'construction_objects_construction_id_fkey': 'Указанного Проекта не существует!',
+        'construction_objects_object_categories_list_id_fkey': 'Указанного Перечня Категорий Объектов не существует!',
+        'construction_objects_zones_id_fkey': 'Указанной Зоны Военного Городка не существует!',
+        'construction_objects_construction_stages_id_fkey': 'Указанного Этапа Строительства не существует!',
+        'object_categories_list_zones_id_fkey': 'Указанной Зоны Военного Городка не существует!',
+        'object_categories_list_object_categories_id_fkey': 'Указанной Категории Объекта Строительства не существует!',
 
         'other_fkey': 'Вторичный ключ не найден!',
     }
@@ -111,4 +111,3 @@ def db_error_handler(func):
             raise DBBasicError(error.orig.pgerror)
 
     return wrapper
-

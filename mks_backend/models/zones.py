@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, VARCHAR
 from sqlalchemy.orm import relationship
+
 from mks_backend.models import Base
 
 
@@ -16,5 +17,6 @@ class Zones(Base):
 
     object_categories_list = relationship(
         'ObjectCategoriesList',
-        back_populates='zone'
+        back_populates='zone',
+        passive_deletes=True
     )

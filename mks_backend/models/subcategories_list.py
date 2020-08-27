@@ -1,6 +1,10 @@
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import (
+    Column,
+    Integer,
+    ForeignKey,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import relationship
-
 
 from mks_backend.models import Base
 
@@ -11,14 +15,18 @@ class SubcategoriesList(Base):
     subcategories_list_id = Column(Integer, primary_key=True, autoincrement=True)
     construction_categories_id = Column(
         Integer,
-        ForeignKey('construction_categories.construction_categories_id', ondelete='CASCADE'),
-        unique=True,
-        nullable=False)
+        ForeignKey('construction_categories.construction_categories_id', ondelete='CASCADE'), nullable=False)
     construction_subcategories_id = Column(
         Integer,
-        ForeignKey('construction_subcategories.construction_subcategories_id', ondelete='CASCADE'),
-        unique=True,
-        nullable=False)
+        ForeignKey('construction_subcategories.construction_subcategories_id', ondelete='CASCADE'), nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint(
+            'construction_categories_id',
+            'construction_subcategories_id',
+            name='subcategories_list_unique'
+        ),
+    )
 
     construction_category = relationship(
         'ConstructionCategories',
