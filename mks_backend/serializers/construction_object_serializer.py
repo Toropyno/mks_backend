@@ -1,33 +1,39 @@
 from mks_backend.models.construction_objects import ConstructionObjects
 
+from mks_backend.serializers.zones_serializer import ZoneSerializer
+from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
+from mks_backend.serializers.construction_stage_serializer import ConstructionStageSerializer
+
 
 class ConstructionObjectSerializer:
 
     def convert_object_to_json(self, construction_object):
+        zone = ZoneSerializer.convert_object_to_json(construction_object.zone)
+
+        if construction_object.object_categories_list:
+            category = ObjectCategorySerializer.convert_object_to_json(
+                construction_object.object_categories_list.object_categories_instance
+            )
+        else:
+            category = None
+
+        stage = ConstructionStageSerializer.convert_object_to_json(construction_object.construction_stage)
+
+        building_volume = float(construction_object.building_volume) if construction_object.building_volume else None
+
         construction_object_dict = {
             'projectId': construction_object.construction_id,
             'id': construction_object.construction_objects_id,
             'code': construction_object.object_code,
             'name': construction_object.object_name,
-            'zone': {
-                'id': construction_object.zone.zones_id,
-                'fullName': construction_object.zone.fullname,
-            },
-            'category': {
-                'id': construction_object.object_categories_list.object_categories_id,
-                'fullName': construction_object.object_categories_list.object_categories_instance.fullname,
-                'note': construction_object.object_categories_list.object_categories_instance.note
-            },
+            'zone': zone,
+            'category': category,
             'plannedDate': self.get_date_string(construction_object.planned_date),
             'weight': construction_object.weight,
             'generalPlanNumber': construction_object.generalplan_number,
-            'buildingVolume': float(construction_object.building_volume),
+            'buildingVolume': building_volume,
             'floorsAmount': construction_object.floors_amount,
-            'stage': {
-                'id': construction_object.construction_stage.construction_stages_id,
-                'fullName': construction_object.construction_stage.fullname,
-                'code': construction_object.construction_stage.code
-            },
+            'stage': stage,
         }
         return construction_object_dict
 

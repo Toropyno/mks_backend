@@ -1,30 +1,37 @@
 from mks_backend.models.construction import Construction
 
+from mks_backend.serializers.construction_category_serializer import ConstructionCategoriesSerializer
+from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategoriesSerializer
+from mks_backend.serializers.commision_serializer import CommissionSerializer
+from mks_backend.serializers.military_unit_serializer import MilitaryUnitSerializer
+
 
 class ConstructionSerializer:
 
     def convert_object_to_json(self, construction):
+        # return with all subcategories
+        category = ConstructionCategoriesSerializer.convert_object_to_json(construction.construction_categories)
+
+        if construction.subcategories_list:
+            subcategory = ConstructionSubcategoriesSerializer.convert_object_to_json(
+                construction.subcategories_list.construction_subcategory
+            )
+        else:
+            subcategory = None
+
+        commission = CommissionSerializer.convert_object_to_json(construction.commission)
+
+        military_unit = MilitaryUnitSerializer.convert_object_to_json(construction.military_unit)
+
         return {
             'id': construction.construction_id,
             'code': construction.project_code,
             'name': construction.project_name,
-            'category': {
-                'id': construction.construction_categories.construction_categories_id,
-                'fullName': construction.construction_categories.fullname,
-            },
-            'subcategory': {
-                'id': construction.subcategories_list_id,
-                'fullName': construction.subcategories_list.construction_subcategory.fullname,
-            },
+            'category': category,
+            'subcategory': subcategory,
             'isCritical': construction.is_critical,
-            'commission': {
-                'id': construction.commission_id,
-                'fullName': construction.commission.fullname
-            },
-            'militaryUnit': {
-                'id': construction.idMU,
-                'fullName': construction.military_unit.vChNumber
-            },
+            'commission': commission,
+            'militaryUnit': military_unit,
             'contractDate': self.get_date_string(construction.contract_date),
             'objectsAmount': construction.object_amount,
             'plannedDate': self.get_date_string(construction.planned_date),

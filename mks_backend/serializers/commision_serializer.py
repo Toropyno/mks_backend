@@ -2,7 +2,9 @@ from mks_backend.models.commission import Commission
 
 
 class CommissionSerializer:
-    def convert_object_to_json(self, commission):
+
+    @classmethod
+    def convert_object_to_json(cls, commission):
         return {
             'id': commission.commission_id,
             'code': commission.code,

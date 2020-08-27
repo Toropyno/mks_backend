@@ -1,19 +1,23 @@
 from mks_backend.models.construction_categories import ConstructionCategories
 
+from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategoriesSerializer
+
+from mks_backend.errors.serilize_error import serialize_error_handler
+
 
 class ConstructionCategoriesSerializer:
 
-    def convert_object_to_json(self, construction_category):
+    @classmethod
+    @serialize_error_handler
+    def convert_object_to_json(cls, construction_category):
         construction_category_dict = {
             'id': construction_category.construction_categories_id,
             'fullName': construction_category.fullname,
 
-            # id from SubcategoriesList.subcategories_list_id, fullName from ConstructionSubcategories.fullname
-            'subcategory': [{
-                'id': construction_category.subcategories_list[0].subcategories_list_id,
-                'fullName': construction_category.subcategories_list[0].construction_subcategory.fullname
-            }]
-            # end
+            'subcategory': [
+                ConstructionSubcategoriesSerializer.convert_object_to_json(subcategory.construction_subcategory)
+                for subcategory in construction_category.subcategories_list
+            ],
         }
         return construction_category_dict
 

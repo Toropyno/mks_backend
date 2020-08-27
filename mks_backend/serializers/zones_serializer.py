@@ -1,9 +1,13 @@
 from mks_backend.models.zones import Zones
 
+from mks_backend.errors.serilize_error import serialize_error_handler
+
 
 class ZoneSerializer:
 
-    def convert_object_to_json(self, zone):
+    @classmethod
+    @serialize_error_handler
+    def convert_object_to_json(cls, zone):
         zone_dict = {
             'id': zone.zones_id,
             'fullName': zone.fullname,

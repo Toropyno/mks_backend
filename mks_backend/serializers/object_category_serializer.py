@@ -1,8 +1,13 @@
 from mks_backend.models.object_categories import ObjectCategories
 
+from mks_backend.errors.serilize_error import serialize_error_handler
+
+
 class ObjectCategorySerializer:
 
-    def convert_object_to_json(self, object_category):
+    @classmethod
+    @serialize_error_handler
+    def convert_object_to_json(cls, object_category):
         object_category_dict = {
             'id': object_category.object_categories_id,
             'fullName': object_category.fullname,

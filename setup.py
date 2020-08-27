@@ -7,6 +7,7 @@ requires = [
     'pyramid_retry',
     'pyramid_tm',
     'SQLAlchemy',
+    'colander',
     'plaster_pastedeploy',
     'waitress',
     'alembic',

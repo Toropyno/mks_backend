@@ -32,7 +32,7 @@ class ConstructionObjectsSchema(colander.MappingSchema):
         preparer=[strip_space],
         validator=colander.Length(
             min=1,
-            max=40,
+            max=255,
             min_err='Слишком короткое наименование',
             max_err='Слишком длинное наименование'
         )
@@ -91,7 +91,7 @@ class ConstructionObjectsSchema(colander.MappingSchema):
         colander.Decimal(),
         name='buildingVolume',
         validator=colander.Range(
-            min=0,
+            min=1,
             min_err='Недопустимый объем здания'
         ),
         missing=None
@@ -101,7 +101,7 @@ class ConstructionObjectsSchema(colander.MappingSchema):
         colander.Int(),
         name='floorsAmount',
         validator=colander.Range(
-            min=0,
+            min=1,
             min_err='Недопустимое количество этажей'
         ),
         missing=None
