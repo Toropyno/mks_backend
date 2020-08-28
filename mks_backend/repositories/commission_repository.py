@@ -18,8 +18,10 @@ class CommissionRepository:
 
     def update_commission(self, commission):
         DBSession.query(Commission).filter_by(commission_id=commission.commission_id).update(
-            {'fullname': commission.fullname,
-             'code': commission.code}
+            {
+                'fullname': commission.fullname,
+                'code': commission.code
+            }
         )
 
         DBSession.commit()
@@ -27,11 +29,3 @@ class CommissionRepository:
     @classmethod
     def get_commission_by_id(cls, id):
         return DBSession.query(Commission).get(id)
-
-    @classmethod
-    def get_commission_by_code(cls, code):
-        return DBSession.query(Commission).filter_by(code=code).first()
-
-    @classmethod
-    def get_commission_by_fullname(cls, fullname):
-        return DBSession.query(Commission).filter_by(fullname=fullname).first()

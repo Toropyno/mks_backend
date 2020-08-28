@@ -26,12 +26,14 @@ class ProtocolRepository:
 
     def update_protocol(self, protocol):
         DBSession.query(Protocol).filter_by(protocol_id=protocol.protocol_id).update(
-            {'protocol_num': protocol.protocol_num,
-             'protocol_date': protocol.protocol_date,
-             'meetings_type_id': protocol.meetings_type_id,
-             'protocol_name': protocol.protocol_name,
-             'note': protocol.note,
-             'idfilestorage': protocol.idfilestorage})
+            {
+                'protocol_num': protocol.protocol_num,
+                'protocol_date': protocol.protocol_date,
+                'meetings_type_id': protocol.meetings_type_id,
+                'protocol_name': protocol.protocol_name,
+                'note': protocol.note,
+                'idfilestorage': protocol.idfilestorage
+            })
         DBSession.commit()
 
     def filter_protocols(self, params):

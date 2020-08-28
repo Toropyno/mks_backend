@@ -25,5 +25,7 @@ class ZoneRepository:
     @db_error_handler
     def update_zone(self, zone):
         DBSession.query(Zones).filter_by(zones_id=zone.zones_id).update(
-            {'fullname': zone.fullname})
+            {
+                'fullname': zone.fullname
+            })
         DBSession.commit()
