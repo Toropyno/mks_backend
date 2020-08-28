@@ -26,5 +26,8 @@ class ConstructionCategoryRepository:
     def update_construction_category(self, construction_category):
         DBSession.query(ConstructionCategories).filter_by(
             construction_categories_id=construction_category.construction_categories_id).update(
-            {'fullname': construction_category.fullname})
+            {
+                'fullname': construction_category.fullname
+            }
+        )
         DBSession.commit()

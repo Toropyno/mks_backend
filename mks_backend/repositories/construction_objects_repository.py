@@ -26,15 +26,18 @@ class ConstructionObjectRepository:
     def update_construction_object(self, construction_object):
         DBSession.query(ConstructionObjects).filter_by(
             construction_objects_id=construction_object.construction_objects_id).update(
-            {'construction_id': construction_object.construction_id,
-             'object_code': construction_object.object_code,
-             'object_name': construction_object.object_name,
-             'zones_id': construction_object.zones_id,
-             'object_categories_list_id': construction_object.object_categories_list_id,
-             'planned_date': construction_object.planned_date,
-             'weight': construction_object.weight,
-             'generalplan_number': construction_object.generalplan_number,
-             'building_volume': construction_object.building_volume,
-             'floors_amount': construction_object.floors_amount,
-             'construction_stages_id': construction_object.construction_stages_id})
+            {
+                'construction_id': construction_object.construction_id,
+                'object_code': construction_object.object_code,
+                'object_name': construction_object.object_name,
+                'zones_id': construction_object.zones_id,
+                'object_categories_list_id': construction_object.object_categories_list_id,
+                'planned_date': construction_object.planned_date,
+                'weight': construction_object.weight,
+                'generalplan_number': construction_object.generalplan_number,
+                'building_volume': construction_object.building_volume,
+                'floors_amount': construction_object.floors_amount,
+                'construction_stages_id': construction_object.construction_stages_id
+            }
+        )
         DBSession.commit()

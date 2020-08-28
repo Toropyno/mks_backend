@@ -6,7 +6,7 @@ from webob.compat import cgi_FieldStorage
 from sqlalchemy.exc import DatabaseError
 
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
-from mks_backend.repositories.filestorage_hdd import FilestorageHDD, FilestorageException
+from mks_backend.repositories.filestorage_hdd import FilestorageHDD, FilestorageError
 from mks_backend.models.filestorage import Filestorage
 
 
@@ -24,12 +24,12 @@ class FilestorageService:
         file = request_data.get('protocolFile')
 
         if not isinstance(file, cgi_FieldStorage):
-            raise FilestorageException(1)
+            raise FilestorageError(1)
         elif file.limit > 2.6e+7:  # > ~25Mbytes
-            raise FilestorageException(2)
+            raise FilestorageError(2)
         elif '.' not in file.filename or \
                 file.filename.split('.')[1] not in self.ALLOWED_EXTENSIONS:
-            raise FilestorageException(3)
+            raise FilestorageError(3)
 
         id_file_storage = str(uuid4())
         self.hdd.create_file(id_file_storage, file)
@@ -49,7 +49,7 @@ class FilestorageService:
             filename = self.repo.get_filestorage_by_id(id).filename
             filename = urllib_request.quote(filename.encode('utf-8'))
         except DatabaseError:
-            raise FilestorageException(6)
+            raise FilestorageError(6)
 
         path_to_file = self.hdd.get_file(id)
         if path_to_file and filename:
