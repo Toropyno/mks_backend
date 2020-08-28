@@ -29,5 +29,6 @@ class ObjectCategoriesListRepository:
             {
                 'zones_id': object_categories_list.zones_id,
                 'object_categories_id': object_categories_list.object_categories_id
-            })
+            }
+        )
         DBSession.commit()

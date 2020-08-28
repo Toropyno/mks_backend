@@ -17,11 +17,13 @@ class FilestorageController:
             filestorage_id = self.service.create_filestorage(self.request.POST)
             return {'idFileStorage': str(filestorage_id)}
         except FilestorageError as error:
-            return Response(status=403,
-                            json_body={
-                                'error_code': error.code,
-                                'text': error.msg,
-                            })
+            return Response(
+                status=403,
+                json_body={
+                    'error_code': error.code,
+                    'text': error.msg,
+                }
+            )
 
     @view_config(route_name='download_file', request_method='GET')
     def download_file(self):
@@ -30,8 +32,10 @@ class FilestorageController:
             response = self.service.get_file(uuid)
             return response
         except FilestorageError as error:
-            return Response(status=403,
-                            json_body={
-                                'error_code': error.code,
-                                'text': error.msg,
-                            })
+            return Response(
+                status=403,
+                json_body={
+                    'error_code': error.code,
+                    'text': error.msg,
+                }
+            )

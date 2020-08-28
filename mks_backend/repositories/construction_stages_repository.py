@@ -29,5 +29,6 @@ class ConstructionStageRepository:
             {
                 'code': construction_stage.code,
                 'fullname': construction_stage.fullname
-            })
+            }
+        )
         DBSession.commit()

@@ -38,5 +38,6 @@ class ConstructionObjectRepository:
                 'building_volume': construction_object.building_volume,
                 'floors_amount': construction_object.floors_amount,
                 'construction_stages_id': construction_object.construction_stages_id
-            })
+            }
+        )
         DBSession.commit()

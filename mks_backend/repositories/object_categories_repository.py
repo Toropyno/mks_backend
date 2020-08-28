@@ -29,5 +29,6 @@ class ObjectCategoryRepository:
             {
                 'note': object_category.note,
                 'fullname': object_category.fullname
-            })
+            }
+        )
         DBSession.commit()

@@ -28,5 +28,6 @@ class ConstructionSubcategoryRepository:
             construction_subcategories_id=construction_subcategory.construction_subcategories_id).update(
             {
                 'fullname': construction_subcategory.fullname
-            })
+            }
+        )
         DBSession.commit()

@@ -33,7 +33,8 @@ class ProtocolRepository:
                 'protocol_name': protocol.protocol_name,
                 'note': protocol.note,
                 'idfilestorage': protocol.idfilestorage
-            })
+            }
+        )
         DBSession.commit()
 
     def filter_protocols(self, params):

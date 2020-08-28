@@ -27,5 +27,6 @@ class ZoneRepository:
         DBSession.query(Zones).filter_by(zones_id=zone.zones_id).update(
             {
                 'fullname': zone.fullname
-            })
+            }
+        )
         DBSession.commit()
