@@ -35,9 +35,13 @@ class ConstructionObjectsController:
         try:
             self.service.add_construction_object(construction_object)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': construction_object.construction_objects_id}
 
@@ -68,8 +72,12 @@ class ConstructionObjectsController:
         try:
             self.service.update_construction_object(construction_object)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': id}

@@ -32,9 +32,13 @@ class ObjectCategoriesListController:
         try:
             self.service.add_object_categories_list(object_categories_list)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': object_categories_list.object_categories_list_id}
 
@@ -63,8 +67,12 @@ class ObjectCategoriesListController:
         try:
             self.service.update_object_categories_list(object_categories_list)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': id}
