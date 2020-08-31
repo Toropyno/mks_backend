@@ -10,7 +10,7 @@ class ConstructionObjectRepository:
         return DBSession.query(ConstructionObjects).get(id)
 
     def get_all_construction_objects_by_construction_id(self, construction_id):
-        return DBSession.query(ConstructionObjects).filter_by(construction_id=construction_id).all()
+        return DBSession.query(ConstructionObjects).filter_by(construction_id=construction_id).order_by(ConstructionObjects.planned_date).all()
 
     @db_error_handler
     def add_construction_object(self, construction_object):

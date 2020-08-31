@@ -6,7 +6,7 @@ from mks_backend.errors.db_basic_error import db_error_handler
 class ConstructionRepository:
 
     def get_all_constructions(self):
-        return DBSession.query(Construction).all()
+        return DBSession.query(Construction).order_by(Construction.contract_date).all()
 
     def get_construction_by_id(self, id):
         return DBSession.query(Construction).get(id)
@@ -42,4 +42,4 @@ class ConstructionRepository:
     def filter_constructions(self, params):
         constructions = DBSession.query(Construction)
         # add filters from params
-        return constructions.all()
+        return constructions.order_by(Construction.contract_date).all()
