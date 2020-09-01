@@ -10,7 +10,7 @@ class ProtocolRepository:
         return DBSession.query(Protocol).get(id)
 
     def get_all_protocols(self):
-        return DBSession.query(Protocol).all()
+        return DBSession.query(Protocol).order_by(Protocol.protocol_date.desc()).all()
 
     def add_protocol(self, protocol):
         DBSession.add(protocol)
@@ -59,4 +59,4 @@ class ProtocolRepository:
         if date_end:
             protocols = protocols.filter(Protocol.protocol_date <= date_end)
 
-        return protocols.all()
+        return protocols.order_by(Protocol.protocol_date.desc()).all()

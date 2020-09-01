@@ -4,7 +4,7 @@ from pyramid.response import Response
 
 from mks_backend.services.construction_service import ConstructionService
 from mks_backend.serializers.construction_serializer import ConstructionSerializer
-from mks_backend.controllers.schemas.construction_schema import ConstructionSchema
+from mks_backend.controllers.schemas.construction_schema import ConstructionSchema, ConstructionFilterSchema
 
 from mks_backend.errors.db_basic_error import DBBasicError
 
@@ -16,20 +16,17 @@ class ConstructionController:
         self.service = ConstructionService()
         self.serializer = ConstructionSerializer()
         self.schema = ConstructionSchema()
+        self.filter_schema = ConstructionFilterSchema()
 
     @view_config(route_name='constructions', request_method='GET', renderer='json')
     def get_all_constructions(self):
         if self.request.params:
-            constructions = self.service.get_all_constructions()  # TODO: refactor when filtration will be good
-            # params_schema = ConstructionControllerFilterSchema()
-            # try:
-            #     params_deserialized = params_schema.deserialize(self.request.GET)
-            # except colander.Invalid as error:
-            #     return Response(status=403, json_body=error.asdict())
-            # except ValueError as date_parse_error:
-            #     return Response(status=403, json_body=date_parse_error.args)
-            # params = self.service.get_params_from_schema(params_deserialized)
-            # constructions = self.service.filter_constructions(params)
+            try:
+                params_deserialized = self.filter_schema.deserialize(self.request.GET)
+            except colander.Invalid as error:
+                return Response(status=403, json_body=error.asdict())
+
+            constructions = self.service.filter_constructions(params_deserialized)
         else:
             constructions = self.service.get_all_constructions()
 
@@ -48,10 +45,13 @@ class ConstructionController:
         try:
             self.service.add_construction(construction)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message
-            })
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': construction.construction_id}
 
@@ -74,10 +74,13 @@ class ConstructionController:
         try:
             self.service.update_construction(new_construction)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message
-            })
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': new_construction.construction_id}
 

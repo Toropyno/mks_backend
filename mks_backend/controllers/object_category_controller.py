@@ -39,9 +39,13 @@ class ObjectCategoryController:
         try:
             self.service.add_object_category(object_category)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': object_category.object_categories_id}
 
@@ -63,8 +67,12 @@ class ObjectCategoryController:
         try:
             self.service.update_object_category(object_category)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': id}

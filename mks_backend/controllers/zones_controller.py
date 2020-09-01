@@ -32,9 +32,13 @@ class ZonesController:
         try:
             self.service.add_zone(zone)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': zone.zones_id}
 
@@ -63,8 +67,12 @@ class ZonesController:
         try:
             self.service.update_zone(zone)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': id}

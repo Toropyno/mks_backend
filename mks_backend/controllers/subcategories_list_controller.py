@@ -33,10 +33,13 @@ class SubcategoriesListController:
         try:
             self.service.add_subcategories_list(subcategories_list)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message
-            })
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': subcategories_list.subcategories_list_id}
 
