@@ -73,5 +73,3 @@ class ProtocolController:
         new_protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
         new_protocol = self.service.update_protocol(new_protocol)
         return {'id': new_protocol.protocol_id}
-
-

@@ -9,7 +9,8 @@ class CommissionSchema(colander.MappingSchema):
             min=1,
             max=20,
             min_err='Слишком короткий код комиссиии',
-            max_err='Слишком длинный код комиссии')
+            max_err='Слишком длинный код комиссии'
+        )
     )
 
     fullname = colander.SchemaNode(
@@ -19,5 +20,6 @@ class CommissionSchema(colander.MappingSchema):
             min=1,
             max=255,
             min_err='Слишком короткое название комиссии',
-            max_err='Слишком длинное название комиссии')
+            max_err='Слишком длинное название комиссии'
+        )
     )

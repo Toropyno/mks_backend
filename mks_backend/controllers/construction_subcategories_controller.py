@@ -33,10 +33,13 @@ class ConstructionSubcategoryController:
         try:
             self.service.add_construction_subcategory(construction_subcategory)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message
-            })
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': construction_subcategory.construction_subcategories_id}
 
@@ -66,9 +69,12 @@ class ConstructionSubcategoryController:
         try:
             self.service.update_construction_subcategory(construction_subcategory)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message
-            })
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': id}
