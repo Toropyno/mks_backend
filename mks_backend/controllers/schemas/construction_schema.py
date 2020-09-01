@@ -91,3 +91,114 @@ class ConstructionSchema(colander.MappingSchema):
         name='plannedDate',
         validator=date_validator
     )
+
+
+class ConstructionFilterSchema(colander.MappingSchema):
+    project_code = colander.SchemaNode(
+        colander.String(),
+        name='code',
+        validator=colander.Length(
+            min=1,
+            max=40,
+            min_err='Слишком короткий код проекта',
+            max_err='Слишком длинный код проекта'
+        ),
+        missing=None
+    )
+
+    project_name = colander.SchemaNode(
+        colander.String(),
+        name='name',
+        validator=colander.Length(
+            min=1,
+            max=255,
+            min_err='Слишком короткое имя проекта',
+            max_err='Слишком длинное имя проекта'
+        ),
+        missing=None
+    )
+
+    construction_categories_id = colander.SchemaNode(
+        colander.Int(),
+        name='category',
+        validator=colander.Range(
+            min=1,
+            min_err='Неверный номер категории'
+        ),
+        missing=None
+    )
+
+    subcategories_list_id = colander.SchemaNode(
+        colander.Int(),
+        name='subcategory',
+        validator=colander.Range(
+            min=1,
+            min_err='Неверный номер подкатегории'
+        ),
+        missing=None
+    )
+
+    is_critical = colander.SchemaNode(
+        colander.Bool(),
+        name='isCritical',
+        validator=colander.OneOf([True, False]),
+        missing=None
+    )
+
+    commission_id = colander.SchemaNode(
+        colander.Int(),
+        name='commission',
+        validator=colander.Range(
+            min=1,
+            min_err='Неверный номер комиссии'
+        ),
+        missing=None
+    )
+
+    idMU = colander.SchemaNode(
+        colander.Int(),
+        name='militaryUnit',
+        validator=colander.Range(
+            min=1,
+            min_err='Неверный номер воинского формирования'
+        ),
+        missing=None
+    )
+
+    object_amount = colander.SchemaNode(
+        colander.Int(),
+        name='objectsAmount',
+        validator=colander.Range(
+            min=1,
+            min_err='Неверное кол-во объектов'
+        ),
+        missing=None
+    )
+
+    contract_date_start = colander.SchemaNode(
+        colander.String(),
+        name='contractDateStart',
+        validator=date_validator,
+        missing=None
+    )
+
+    contract_date_end = colander.SchemaNode(
+        colander.String(),
+        name='contractDateEnd',
+        validator=date_validator,
+        missing=None
+    )
+
+    planned_date_start = colander.SchemaNode(
+        colander.String(),
+        name='plannedDateStart',
+        validator=date_validator,
+        missing=None
+    )
+
+    planned_date_end = colander.SchemaNode(
+        colander.String(),
+        name='plannedDateEnd',
+        validator=date_validator,
+        missing=None
+    )
