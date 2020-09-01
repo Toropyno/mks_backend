@@ -11,7 +11,8 @@ class ConstructionSchema(colander.MappingSchema):
             min=1,
             max=40,
             min_err='Слишком короткий код проекта',
-            max_err='Слишком длинный код проекта')
+            max_err='Слишком длинный код проекта'
+        )
     )
 
     project_name = colander.SchemaNode(
@@ -21,7 +22,8 @@ class ConstructionSchema(colander.MappingSchema):
             min=1,
             max=255,
             min_err='Слишком короткое имя проекта',
-            max_err='Слишком длинное имя проекта')
+            max_err='Слишком длинное имя проекта'
+        )
     )
 
     construction_categories_id = colander.SchemaNode(

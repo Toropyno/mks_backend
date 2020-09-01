@@ -32,9 +32,13 @@ class ConstructionStagesController:
         try:
             self.service.add_construction_stage(construction_stage)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': construction_stage.construction_stages_id}
 
@@ -63,8 +67,12 @@ class ConstructionStagesController:
         try:
             self.service.update_construction_stage(construction_stage)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message})
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': id}

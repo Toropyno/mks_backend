@@ -12,5 +12,6 @@ class ConstructionCategoriesSchema(colander.MappingSchema):
             min=1,
             max=255,
             min_err='Слишком короткое наименование объекта',
-            max_err='Слишком длинное наименование объекта')
+            max_err='Слишком длинное наименование объекта'
+        )
     )

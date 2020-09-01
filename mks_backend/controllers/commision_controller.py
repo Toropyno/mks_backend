@@ -33,10 +33,13 @@ class CommissionController:
         try:
             self.service.add_commission(commission)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message
-            })
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': commission.commission_id}
 
@@ -58,10 +61,13 @@ class CommissionController:
         try:
             self.service.update_commission(new_commission)
         except DBBasicError as error:
-            return Response(status=403, json_body={
-                'code': error.code,
-                'message': error.message
-            })
+            return Response(
+                status=403,
+                json_body={
+                    'code': error.code,
+                    'message': error.message
+                }
+            )
 
         return {'id': new_commission.commission_id}
 
