@@ -41,5 +41,42 @@ class ConstructionRepository:
 
     def filter_constructions(self, params):
         constructions = DBSession.query(Construction)
-        # add filters from params
+
+        if 'project_code' in params:
+            project_code = params['project_code']
+            constructions = constructions.filter(Construction.project_code.ilike('%{}%'.format(project_code)))
+        if 'project_name' in params:
+            projet_name = params['project_name']
+            constructions = constructions.filter(Construction.project_name.ilike('%{}%'.format(projet_name)))
+        if 'constructions_categories_id' in params:
+            category_id = params['category_id']
+            constructions = constructions.filter_by(construction_categories_id=category_id)
+        if 'subcategories_list_id' in params:
+            subcategories_list_id = params['subcategories_list_id']
+            constructions = constructions.filter_by(subcategories_list_id=subcategories_list_id)
+        if 'is_critical' in params:
+            is_critical = params['is_critical']
+            constructions = constructions.filter_by(is_critical=is_critical)
+        if 'commission_id' in params:
+            commission_id = params['commission_id']
+            constructions = constructions.filter_by(commission_id=commission_id)
+        if 'idMU' in params:
+            idMU = params['idMU']
+            constructions = constructions.filter_by(idMU=idMU)
+        if 'object_amount' in params:
+            object_amount = params['object_amount']
+            constructions = constructions.filter_by(object_amount=object_amount),
+        if 'contract_date_start' in params:
+            contract_date_start = params['contract_date_start']
+            constructions = constructions.filter(Construction.contract_date >= contract_date_start)
+        if 'contract_date_end' in params:
+            contract_date_end = params['contract_date_end']
+            constructions = constructions.filter(Construction.contract_date <= contract_date_end)
+        if 'planned_date_start' in params:
+            planned_date_start = params['planned_date_start']
+            constructions = constructions.filter(Construction.planned_date >= planned_date_start)
+        if 'planned_date_end' in params:
+            planned_date_end = params['planned_date_end']
+            constructions = constructions.filter(Construction.planned_date <= planned_date_end)
+
         return constructions.all()
