@@ -8,25 +8,21 @@ class ZoneSerializer:
     @classmethod
     @serialize_error_handler
     def convert_object_to_json(cls, zone):
-        object_categories = [
-            ObjectCategorySerializer.convert_object_to_json(object_categories_list.object_categories_instance)
-            for object_categories_list in zone.object_categories_list
-        ]
-
-        object_categories_full_names = [(object_category['fullName']) for object_category in object_categories]
-        all = []
+        categories = []
 
         for object_categories_list in zone.object_categories_list:
-            for object_categories_full_name in object_categories_full_names:
-                all.append({
-                    'objectCategoriesListId': object_categories_list.object_categories_list_id,
-                    'objectCategoriesFullName': object_categories_full_name,
-                })
+            object_category = ObjectCategorySerializer.convert_object_to_json(
+                object_categories_list.object_categories_instance
+            )
+            categories.append({
+                'listID': object_categories_list.object_categories_list_id,
+                'fullName': object_category['fullName'],
+            })
 
         zone_dict = {
             'id': zone.zones_id,
             'fullName': zone.fullname,
-            'categories': all,
+            'categories': categories,
         }
         return zone_dict
 
