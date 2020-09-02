@@ -19,7 +19,7 @@ class MilitaryUnitSerializer:
         for military_unit in military_units:
             node = self.convert_object_to_json(military_unit)
             children = self.convert_list_to_json_tree(military_unit.children)
-            if children != []:
+            if children:
                 node['children'] = children
             else:
                 node['children'] = []
