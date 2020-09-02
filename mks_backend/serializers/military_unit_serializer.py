@@ -3,10 +3,12 @@ from mks_backend.errors.serilize_error import serialize_error_handler
 
 class MilitaryUnitSerializer:
 
-    def convert_object_to_json(self, military_unit):
+    @classmethod
+    @serialize_error_handler
+    def convert_object_to_json(cls, military_unit):
         return {
             'id': military_unit.idMU,
-            'fullName': self.get_correct_military_unit_name(military_unit),
+            'fullName': cls.get_correct_military_unit_name(military_unit),
         }
 
     def convert_list_to_json(self, military_units):
@@ -25,8 +27,9 @@ class MilitaryUnitSerializer:
 
         return tree
 
+    @classmethod
     @serialize_error_handler
-    def get_correct_military_unit_name(self, military_unit):
+    def get_correct_military_unit_name(cls, military_unit):
         if military_unit.vChNumber and military_unit.idNameMU:
             return military_unit.vChNumber + ' ' + military_unit.name_military_unit.namemu
         else:
