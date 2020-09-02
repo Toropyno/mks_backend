@@ -5,7 +5,7 @@ from mks_backend.repositories import DBSession
 class MilitaryUnitRepository:
 
     def get_root_military_units(self):
-        return DBSession.query(MilitaryUnit).filter(MilitaryUnit.pidMU == None)
+        return DBSession.query(MilitaryUnit).filter(MilitaryUnit.pidMU==None)
 
     @classmethod
     def get_military_unit_by_id(cls, id):
