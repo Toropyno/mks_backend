@@ -10,12 +10,12 @@ class ZoneSerializer:
     def convert_object_to_json(cls, zone):
         categories = []
 
-        for object_categories_list in zone.object_categories_list:
+        for row in zone.object_categories_list:
             object_category = ObjectCategorySerializer.convert_object_to_json(
-                object_categories_list.object_categories_instance
+                row.object_categories_instance
             )
             categories.append({
-                'listID': object_categories_list.object_categories_list_id,
+                'listID': row.object_categories_list_id,
                 'fullName': object_category['fullName'],
             })
 
