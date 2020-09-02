@@ -42,7 +42,7 @@ class ConstructionService:
 
         params = dict()
         for key, value in params_deserilized.items():
-            if key in case_switcher and value:
+            if key in case_switcher and value is not None:
                 params[case_switcher[key]] = params_deserilized[key]
 
         return params
