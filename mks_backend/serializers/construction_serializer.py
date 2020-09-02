@@ -1,8 +1,7 @@
 from mks_backend.models.construction import Construction
-
+from mks_backend.serializers.commision_serializer import CommissionSerializer
 from mks_backend.serializers.construction_category_serializer import ConstructionCategoriesSerializer
 from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategoriesSerializer
-from mks_backend.serializers.commision_serializer import CommissionSerializer
 from mks_backend.serializers.military_unit_serializer import MilitaryUnitSerializer
 
 
@@ -19,8 +18,12 @@ class ConstructionSerializer:
         else:
             subcategory = None
 
-        commission = CommissionSerializer.convert_object_to_json(construction.commission)
+        subcategories = {
+            'listID': construction.subcategories_list.subcategories_list_id,
+            'fullName': subcategory['fullName'],
+        }
 
+        commission = CommissionSerializer.convert_object_to_json(construction.commission)
         military_unit = MilitaryUnitSerializer.convert_object_to_json(construction.military_unit)
 
         return {
@@ -28,7 +31,7 @@ class ConstructionSerializer:
             'code': construction.project_code,
             'name': construction.project_name,
             'category': category,
-            'subcategory': subcategory,
+            'subcategories': subcategories,
             'isCritical': construction.is_critical,
             'commission': commission,
             'militaryUnit': military_unit,
