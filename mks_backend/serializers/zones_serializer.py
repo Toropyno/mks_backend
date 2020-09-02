@@ -13,14 +13,20 @@ class ZoneSerializer:
             for object_categories_list in zone.object_categories_list
         ]
 
+        object_categories_full_names = [(object_category['fullName']) for object_category in object_categories]
+        all = []
+
+        for object_categories_list in zone.object_categories_list:
+            for object_categories_full_name in object_categories_full_names:
+                all.append({
+                    'objectCategoriesListId': object_categories_list.object_categories_list_id,
+                    'objectCategoriesFullName': object_categories_full_name,
+                })
+
         zone_dict = {
             'id': zone.zones_id,
             'fullName': zone.fullname,
-            # 'objectCategoriesListId': object_categories_list_id,
-            'objectCategoriesFullName': [
-                (object_category['fullName'])
-                for object_category in object_categories
-            ],
+            'categories': all,
         }
         return zone_dict
 
