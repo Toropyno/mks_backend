@@ -3,7 +3,6 @@ from mks_backend.errors.serilize_error import serialize_error_handler
 
 class MilitaryUnitSerializer:
 
-    @serialize_error_handler
     def convert_object_to_json(self, military_unit):
         return {
             'id': military_unit.idMU,
@@ -26,6 +25,7 @@ class MilitaryUnitSerializer:
 
         return tree
 
+    @serialize_error_handler
     def get_correct_military_unit_name(self, military_unit):
         if military_unit.vChNumber and military_unit.idNameMU:
             return military_unit.vChNumber + ' ' + military_unit.name_military_unit.namemu
