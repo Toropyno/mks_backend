@@ -49,23 +49,23 @@ class ConstructionRepository:
             projet_name = params['project_name']
             constructions = constructions.filter(Construction.project_name.ilike('%{}%'.format(projet_name)))
         if 'constructions_categories_id' in params:
-            category_id = params['category_id']
-            constructions = constructions.filter_by(construction_categories_id=category_id)
+            category_id = params['constructions_categories_id']
+            constructions = constructions.filter(Construction.construction_categories_id == category_id)
         if 'subcategories_list_id' in params:
             subcategories_list_id = params['subcategories_list_id']
-            constructions = constructions.filter_by(subcategories_list_id=subcategories_list_id)
+            constructions = constructions.filter(Construction.subcategories_list_id == subcategories_list_id)
         if 'is_critical' in params:
             is_critical = params['is_critical']
-            constructions = constructions.filter_by(is_critical=is_critical)
+            constructions = constructions.filter(Construction.is_critical == is_critical)
         if 'commission_id' in params:
             commission_id = params['commission_id']
-            constructions = constructions.filter_by(commission_id=commission_id)
+            constructions = constructions.filter(Construction.commission_id == commission_id)
         if 'idMU' in params:
             idMU = params['idMU']
-            constructions = constructions.filter_by(idMU=idMU)
+            constructions = constructions.filter(Construction.idMU == idMU)
         if 'object_amount' in params:
             object_amount = params['object_amount']
-            constructions = constructions.filter_by(object_amount=object_amount),
+            constructions = constructions.filter(Construction.object_amount == object_amount)
         if 'contract_date_start' in params:
             contract_date_start = params['contract_date_start']
             constructions = constructions.filter(Construction.contract_date >= contract_date_start)
