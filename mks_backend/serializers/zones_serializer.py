@@ -5,7 +5,7 @@ from mks_backend.models.zones import Zones
 class ZoneSerializer:
 
     @classmethod
-    # @serialize_error_handler
+    @serialize_error_handler
     def convert_object_to_json(cls, zone):
         categories = []
 
