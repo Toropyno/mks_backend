@@ -17,6 +17,13 @@ from mks_backend.models.object_categories_list import ObjectCategoriesList
 from mks_backend.models.subcategories_list import SubcategoriesList
 from mks_backend.models.zones import Zones
 
+from mks_backend.models.military_unit_models.combatarm import Combatarm
+from mks_backend.models.military_unit_models.keyword import Keyword
+from mks_backend.models.military_unit_models.militarycity import MilitaryCity
+from mks_backend.models.military_unit_models.namemilitaryunit import NameMilitaryUnit
+from mks_backend.models.military_unit_models.purposemu import PurposeMU
+from mks_backend.models.military_unit_models.sortarmedforces import SortArmedForces
+
 import os
 import sys
 

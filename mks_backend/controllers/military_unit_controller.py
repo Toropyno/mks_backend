@@ -13,6 +13,6 @@ class MilitaryUnitController:
 
     @view_config(route_name='military_units', request_method='GET', renderer='json')
     def get_all_military_units(self):
-        military_units = self.service.get_all_military_units()
-        json = self.serializer.convert_list_to_json(military_units)
+        root_military_units = self.service.get_root_military_units()
+        json = self.serializer.convert_list_to_json_tree(root_military_units)
         return json
