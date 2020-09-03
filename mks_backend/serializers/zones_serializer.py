@@ -15,7 +15,7 @@ class ZoneSerializer:
                 row.object_categories_instance
             )
             categories.append({
-                'listID': row.object_categories_list_id,
+                'id': row.object_categories_list_id,
                 'fullName': object_category['fullName'],
             })
 
