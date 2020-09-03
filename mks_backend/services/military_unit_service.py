@@ -7,3 +7,6 @@ class MilitaryUnitService:
 
     def get_all_military_units(self):
         return self.repo.get_all_military_units()
+
+    def get_root_military_units(self):
+        return self.repo.get_root_military_units()
