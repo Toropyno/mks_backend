@@ -15,13 +15,12 @@ class ConstructionSerializer:
             construction_subcategory = ConstructionSubcategoriesSerializer.convert_object_to_json(
                 construction.subcategories_list.construction_subcategory
             )
+            subcategory = {
+                'id': construction.subcategories_list.subcategories_list_id,
+                'fullName': construction_subcategory['fullName'],
+            }
         else:
-            construction_subcategory = None
-
-        subcategory = {
-            'listID': construction.subcategories_list.subcategories_list_id,
-            'fullName': construction_subcategory['fullName'],
-        }
+            subcategory = None
 
         commission = CommissionSerializer.convert_object_to_json(construction.commission)
         military_unit = MilitaryUnitSerializer.convert_object_to_json(construction.military_unit)
