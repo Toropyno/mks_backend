@@ -1,3 +1,4 @@
+from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction_repository import ConstructionRepository
 
 
@@ -5,26 +6,26 @@ class ConstructionService:
     def __init__(self):
         self.repo = ConstructionRepository()
 
-    def get_all_constructions(self):
+    def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
 
-    def get_construction_by_id(self, id):
+    def get_construction_by_id(self, id: int) -> Construction:
         return self.repo.get_construction_by_id(id)
 
-    def add_construction(self, construction):
-        return self.repo.add_construction(construction)
+    def add_construction(self, construction: Construction) -> None:
+        self.repo.add_construction(construction)
 
-    def update_construction(self, new_construction):
+    def update_construction(self, new_construction: Construction) -> None:
         self.repo.update_construction(new_construction)
 
-    def delete_construction_by_id(self, id):
+    def delete_construction_by_id(self, id: int) -> None:
         self.repo.delete_construction(id)
 
-    def filter_constructions(self, params):
+    def filter_constructions(self, params: dict) -> list:
         params = self.get_params_from_schema(params)
         return self.repo.filter_constructions(params)
 
-    def get_params_from_schema(self, params_deserilized):
+    def get_params_from_schema(self, params_deserilized: dict) -> dict:
         case_switcher = {
             'code': 'project_code',
             'name': 'project_name',

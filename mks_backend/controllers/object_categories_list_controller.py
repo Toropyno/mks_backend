@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.services.object_categories_list_service import ObjectCategoriesListService
 from mks_backend.serializers.object_categories_list_serializer import ObjectCategoriesListSerializer
@@ -10,7 +11,7 @@ from mks_backend.errors.db_basic_error import DBBasicError
 
 class ObjectCategoriesListController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.service = ObjectCategoriesListService()
         self.serializer = ObjectCategoriesListSerializer()
@@ -19,8 +20,7 @@ class ObjectCategoriesListController:
     @view_config(route_name='object_categories_lists', request_method='GET', renderer='json')
     def get_all_object_categories_lists(self):
         object_categories_lists = self.service.get_all_object_categories_lists()
-        json = self.serializer.convert_list_to_json(object_categories_lists)
-        return json
+        return self.serializer.convert_list_to_json(object_categories_lists)
 
     @view_config(route_name='add_object_categories_list', request_method='POST', renderer='json')
     def add_object_categories_list(self):
@@ -46,8 +46,7 @@ class ObjectCategoriesListController:
     def get_object_categories_list(self):
         id = int(self.request.matchdict['id'])
         object_categories_list = self.service.get_object_categories_list_by_id(id)
-        json = self.serializer.convert_object_to_json(object_categories_list)
-        return json
+        return self.serializer.convert_object_to_json(object_categories_list)
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self):

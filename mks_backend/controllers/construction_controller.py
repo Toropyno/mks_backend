@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.services.construction_service import ConstructionService
 from mks_backend.serializers.construction_serializer import ConstructionSerializer
@@ -11,7 +12,7 @@ from mks_backend.errors.db_basic_error import DBBasicError
 
 class ConstructionController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.service = ConstructionService()
         self.serializer = ConstructionSerializer()
@@ -30,8 +31,7 @@ class ConstructionController:
         else:
             constructions = self.service.get_all_constructions()
 
-        json = self.serializer.convert_list_to_json(constructions)
-        return json
+        return self.serializer.convert_list_to_json(constructions)
 
     @view_config(route_name='add_construction', request_method='POST', renderer='json')
     def add_construction(self):
@@ -88,5 +88,4 @@ class ConstructionController:
     def get_construction(self):
         id = int(self.request.matchdict['id'])
         construction = self.service.get_construction_by_id(id)
-        json = self.serializer.convert_object_to_json(construction)
-        return json
+        return self.serializer.convert_object_to_json(construction)

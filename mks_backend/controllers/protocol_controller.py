@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.serializers.protocol_serializer import ProtocolSerializer
 from mks_backend.services.protocol_service import ProtocolService
@@ -10,7 +11,7 @@ from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSc
 
 class ProtocolController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.serializer = ProtocolSerializer()
         self.service = ProtocolService()
@@ -30,8 +31,7 @@ class ProtocolController:
         else:
             protocols = self.service.get_all_protocols()
 
-        json = self.serializer.convert_list_to_json(protocols)
-        return json
+        return self.serializer.convert_list_to_json(protocols)
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
     def add_protocol(self):
@@ -50,8 +50,7 @@ class ProtocolController:
     def get_protocol(self):
         id = int(self.request.matchdict['id'])
         protocol = self.service.get_protocol_by_id(id)
-        json = self.serializer.convert_object_to_json(protocol)
-        return json
+        return self.serializer.convert_object_to_json(protocol)
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_protocol(self):
@@ -71,5 +70,5 @@ class ProtocolController:
             return Response(status=403, json_body=date_parse_error.args)
         protocol_deserialized['id'] = id
         new_protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
-        new_protocol = self.service.update_protocol(new_protocol)
+        self.service.update_protocol(new_protocol)
         return {'id': new_protocol.protocol_id}

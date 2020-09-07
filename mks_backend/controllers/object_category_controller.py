@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.services.object_category_service import ObjectCategoryService
 from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
@@ -10,7 +11,7 @@ from mks_backend.errors.db_basic_error import DBBasicError
 
 class ObjectCategoryController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.service = ObjectCategoryService()
         self.serializer = ObjectCategorySerializer()
@@ -19,15 +20,13 @@ class ObjectCategoryController:
     @view_config(route_name='object_categories', request_method='GET', renderer='json')
     def get_all_object_categories(self):
         object_categories = self.service.get_all_object_categories()
-        json = self.serializer.convert_list_to_json(object_categories)
-        return json
+        return self.serializer.convert_list_to_json(object_categories)
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='GET', renderer='json')
     def get_object_category(self):
         id = int(self.request.matchdict['id'])
         object_category = self.service.get_object_category_by_id(id)
-        json = self.serializer.convert_object_to_json(object_category)
-        return json
+        return self.serializer.convert_object_to_json(object_category)
 
     @view_config(route_name='add_object_category', request_method='POST', renderer='json')
     def add_object_category(self):

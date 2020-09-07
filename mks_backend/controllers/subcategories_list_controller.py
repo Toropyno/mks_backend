@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.controllers.schemas.subcategories_list_schema import SubcategoriesListSchema
 from mks_backend.errors.db_basic_error import DBBasicError
@@ -10,7 +11,7 @@ from mks_backend.services.subcategories_list_service import SubcategoriesListSer
 
 class SubcategoriesListController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.serializer = SubcategoriesListSerializer()
         self.service = SubcategoriesListService()
@@ -19,8 +20,7 @@ class SubcategoriesListController:
     @view_config(route_name='subcategories_lists', request_method='GET', renderer='json')
     def get_all_subcategories_lists(self):
         subcategories_lists = self.service.get_all_subcategories_lists()
-        json = self.serializer.convert_list_to_json(subcategories_lists)
-        return json
+        return self.serializer.convert_list_to_json(subcategories_lists)
 
     @view_config(route_name='add_subcategories_list', request_method='POST', renderer='json')
     def add_subcategories_list(self):
@@ -47,8 +47,7 @@ class SubcategoriesListController:
     def get_subcategories_list(self):
         id = int(self.request.matchdict['id'])
         subcategories_list = self.service.get_subcategories_list_by_id(id)
-        json = self.serializer.convert_object_to_json(subcategories_list)
-        return json
+        return self.serializer.convert_object_to_json(subcategories_list)
 
     @view_config(route_name='subcategories_list_delete_and_view', request_method='DELETE', renderer='json')
     def delete_subcategories_list(self):

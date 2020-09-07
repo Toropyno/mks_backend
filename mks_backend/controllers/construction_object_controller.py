@@ -1,6 +1,7 @@
+import colander
 from pyramid.view import view_config
 from pyramid.response import Response
-import colander
+from pyramid.request import Request
 
 from mks_backend.services.construction_object_service import ConstructionObjectService
 from mks_backend.serializers.construction_object_serializer import ConstructionObjectSerializer
@@ -10,7 +11,7 @@ from mks_backend.errors.db_basic_error import DBBasicError
 
 class ConstructionObjectsController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.service = ConstructionObjectService()
         self.serializer = ConstructionObjectSerializer()
@@ -20,8 +21,7 @@ class ConstructionObjectsController:
     def get_all_construction_objects_by_construction_id(self):
         construction_id = self.request.matchdict['construction_id']
         construction_objects = self.service.get_all_construction_objects_by_construction_id(construction_id)
-        json = self.serializer.convert_list_to_json(construction_objects)
-        return json
+        return self.serializer.convert_list_to_json(construction_objects)
 
     @view_config(route_name='add_construction_object', request_method='POST', renderer='json')
     def add_construction_object(self):
@@ -49,8 +49,7 @@ class ConstructionObjectsController:
     def get_construction_object(self):
         id = int(self.request.matchdict['id'])
         construction_object = self.service.get_construction_object_by_id(id)
-        json = self.serializer.convert_object_to_json(construction_object)
-        return json
+        return self.serializer.convert_object_to_json(construction_object)
 
     @view_config(route_name='construction_objects_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self):
