@@ -28,12 +28,12 @@ class Construction(Base):
     planned_date = Column(DATE, nullable=False)
 
     construction_categories = relationship(
-        'ConstructionCategories',
+        'ConstructionCategory',
         back_populates='construction'
     )
 
     subcategories_list = relationship(
-        'SubcategoriesList',
+        'SubcategoryList',
         back_populates='construction'
     )
 
@@ -48,7 +48,7 @@ class Construction(Base):
     )
 
     construction_objects = relationship(
-        'ConstructionObjects',
+        'ConstructionObject',
         back_populates='construction',
         passive_deletes=True,
     )
