@@ -5,8 +5,7 @@ from mks_backend.repositories import DBSession
 class MeetingRepository:
 
     def get_meetings_types(self) -> list:
-        meetings_query = DBSession.query(MeetingsType).all()
-        return [{'id': meeting.meetings_type_id, 'fullName': meeting.fullname} for meeting in meetings_query]
+        return DBSession.query(MeetingsType).all()
 
     @classmethod
     def get_meeting_fullname_by_id(cls, id: int) -> str:
