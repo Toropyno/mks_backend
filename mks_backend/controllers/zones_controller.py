@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.services.zones_service import ZoneService
 from mks_backend.serializers.zones_serializer import ZoneSerializer
@@ -10,20 +11,20 @@ from mks_backend.errors.db_basic_error import DBBasicError
 
 class ZonesController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.service = ZoneService()
         self.serializer = ZoneSerializer()
         self.schema = ZonesSchema()
 
     @view_config(route_name='zones', request_method='GET', renderer='json')
-    def get_all_zones(self):
+    def get_all_zones(self) -> list:
         zones = self.service.get_all_zones()
         json = self.serializer.convert_list_to_json(zones)
         return json
 
     @view_config(route_name='add_zone', request_method='POST', renderer='json')
-    def add_zone(self):
+    def add_zone(self) -> dict:
         try:
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
@@ -43,20 +44,20 @@ class ZonesController:
         return {'id': zone.zones_id}
 
     @view_config(route_name='zone_delete_change_and_view', request_method='GET', renderer='json')
-    def get_zone(self):
+    def get_zone(self) -> dict:
         id = self.request.matchdict['id']
         zone = self.service.get_zone_by_id(id)
         json = self.serializer.convert_object_to_json(zone)
         return json
 
     @view_config(route_name='zone_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_zone(self):
+    def delete_zone(self) -> dict:
         id = self.request.matchdict['id']
         self.service.delete_zone_by_id(id)
         return {'id': id}
 
     @view_config(route_name='zone_delete_change_and_view', request_method='PUT', renderer='json')
-    def edit_zone(self):
+    def edit_zone(self) -> dict:
         id = self.request.matchdict['id']
         try:
             zone_deserialized = self.schema.deserialize(self.request.json_body)

@@ -46,29 +46,29 @@ class DBBasicError(DBAPIError):
         'other_fkey': 'Вторичный ключ не найден!',
     }
 
-    def __init__(self, message):
+    def __init__(self, message: str):
         self.code = message
         self.message = message
 
     @property
-    def message(self):
+    def message(self) -> str:
         return self._message
 
     @property
-    def code(self):
+    def code(self) -> str:
         return self._code
 
     @message.setter
-    def message(self, pg_error):
+    def message(self, pg_error: str) -> None:
         code = self.get_error_code(pg_error)
         self._message = self.codes[code]
 
     @code.setter
-    def code(self, pg_error):
+    def code(self, pg_error: str) -> None:
         self._code = self.get_error_code(pg_error)
 
     @classmethod
-    def get_error_code(cls, pg_error):
+    def get_error_code(cls, pg_error: str) -> str:
 
         if 'duplicate' in pg_error:
             '''

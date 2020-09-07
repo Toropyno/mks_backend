@@ -4,7 +4,7 @@ from mks_backend.serializers.zones_serializer import ZoneSerializer
 
 class ObjectCategoriesListSerializer:
 
-    def convert_object_to_json(self, object_categories_list):
+    def convert_object_to_json(self, object_categories_list: ObjectCategoriesList) -> dict:
         zone = ZoneSerializer.convert_object_to_json(object_categories_list.zone)
 
         object_categories_list_dict = {
@@ -17,10 +17,10 @@ class ObjectCategoriesListSerializer:
         }
         return object_categories_list_dict
 
-    def convert_list_to_json(self, object_categories_lists):
+    def convert_list_to_json(self, object_categories_lists: list) -> list:
         return list(map(self.convert_object_to_json, object_categories_lists))
 
-    def convert_schema_to_object(self, schema):
+    def convert_schema_to_object(self, schema: dict) -> ObjectCategoriesList:
         object_categories_list = ObjectCategoriesList()
         if 'id' in schema:
             object_categories_list.object_categories_list_id = schema['id']

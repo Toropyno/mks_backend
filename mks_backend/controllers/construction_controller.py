@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.services.construction_service import ConstructionService
 from mks_backend.serializers.construction_serializer import ConstructionSerializer
@@ -11,7 +12,7 @@ from mks_backend.errors.db_basic_error import DBBasicError
 
 class ConstructionController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.service = ConstructionService()
         self.serializer = ConstructionSerializer()
@@ -19,7 +20,7 @@ class ConstructionController:
         self.filter_schema = ConstructionFilterSchema()
 
     @view_config(route_name='constructions', request_method='GET', renderer='json')
-    def get_all_constructions(self):
+    def get_all_constructions(self) -> list:
         if self.request.params:
             try:
                 params_deserialized = self.filter_schema.deserialize(self.request.GET)
@@ -34,7 +35,7 @@ class ConstructionController:
         return json
 
     @view_config(route_name='add_construction', request_method='POST', renderer='json')
-    def add_construction(self):
+    def add_construction(self) -> dict:
         construction_schema = ConstructionSchema()
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
@@ -56,13 +57,13 @@ class ConstructionController:
         return {'id': construction.construction_id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_construction(self):
+    def delete_construction(self) -> dict:
         id = self.request.matchdict['id']
         self.service.delete_construction_by_id(id)
         return {'id': id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='PUT', renderer='json')
-    def edit_construction(self):
+    def edit_construction(self) -> dict:
         construction_schema = ConstructionSchema()
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
@@ -85,7 +86,7 @@ class ConstructionController:
         return {'id': new_construction.construction_id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='GET', renderer='json')
-    def get_construction(self):
+    def get_construction(self) -> dict:
         id = self.request.matchdict['id']
         construction = self.service.get_construction_by_id(id)
         json = self.serializer.convert_object_to_json(construction)
