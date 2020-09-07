@@ -20,7 +20,7 @@ class ConstructionController:
         self.filter_schema = ConstructionFilterSchema()
 
     @view_config(route_name='constructions', request_method='GET', renderer='json')
-    def get_all_constructions(self) -> list:
+    def get_all_constructions(self):
         if self.request.params:
             try:
                 params_deserialized = self.filter_schema.deserialize(self.request.GET)
@@ -34,7 +34,7 @@ class ConstructionController:
         return self.serializer.convert_list_to_json(constructions)
 
     @view_config(route_name='add_construction', request_method='POST', renderer='json')
-    def add_construction(self) -> dict:
+    def add_construction(self):
         construction_schema = ConstructionSchema()
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
@@ -56,13 +56,13 @@ class ConstructionController:
         return {'id': construction.construction_id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_construction(self) -> dict:
-        id = self.request.matchdict['id']
+    def delete_construction(self):
+        id = int(self.request.matchdict['id'])
         self.service.delete_construction_by_id(id)
         return {'id': id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='PUT', renderer='json')
-    def edit_construction(self) -> dict:
+    def edit_construction(self):
         construction_schema = ConstructionSchema()
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
@@ -85,7 +85,7 @@ class ConstructionController:
         return {'id': new_construction.construction_id}
 
     @view_config(route_name='construction_delete_change_and_view', request_method='GET', renderer='json')
-    def get_construction(self) -> dict:
-        id = self.request.matchdict['id']
+    def get_construction(self):
+        id = int(self.request.matchdict['id'])
         construction = self.service.get_construction_by_id(id)
         return self.serializer.convert_object_to_json(construction)

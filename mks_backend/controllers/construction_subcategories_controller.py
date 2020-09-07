@@ -18,12 +18,12 @@ class ConstructionSubcategoryController:
         self.schema = ConstructionSubcategoriesSchema()
 
     @view_config(route_name='construction_subcategories', request_method='GET', renderer='json')
-    def get_all_construction_subcategories(self)  -> list:
+    def get_all_construction_subcategories(self):
         construction_subcategories = self.service.get_all_construction_subcategories()
         return self.serializer.convert_list_to_json(construction_subcategories)
 
     @view_config(route_name='add_construction_subcategory', request_method='POST', renderer='json')
-    def add_construction_subcategory(self) -> dict:
+    def add_construction_subcategory(self):
         try:
             construction_subcategories_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
@@ -44,20 +44,20 @@ class ConstructionSubcategoryController:
         return {'id': construction_subcategory.construction_subcategories_id}
 
     @view_config(route_name='construction_subcategory_delete_change_and_view', request_method='GET', renderer='json')
-    def get_construction_subcategory(self) -> dict:
-        id = self.request.matchdict['id']
+    def get_construction_subcategory(self):
+        id = int(self.request.matchdict['id'])
         construction_subcategory = self.service.get_construction_subcategory_by_id(id)
         return self.serializer.convert_object_to_json(construction_subcategory)
 
     @view_config(route_name='construction_subcategory_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_construction_subcategory(self) -> dict:
-        id = self.request.matchdict['id']
+    def delete_construction_subcategory(self):
+        id = int(self.request.matchdict['id'])
         self.service.delete_construction_subcategory_by_id(id)
         return {'id': id}
 
     @view_config(route_name='construction_subcategory_delete_change_and_view', request_method='PUT', renderer='json')
-    def edit_construction_subcategory(self) -> dict:
-        id = self.request.matchdict['id']
+    def edit_construction_subcategory(self):
+        id = int(self.request.matchdict['id'])
         try:
             construction_subcategories_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
