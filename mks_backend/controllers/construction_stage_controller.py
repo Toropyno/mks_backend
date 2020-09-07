@@ -18,12 +18,12 @@ class ConstructionStagesController:
         self.schema = ConstructionStagesSchema()
 
     @view_config(route_name='construction_stages', request_method='GET', renderer='json')
-    def get_all_construction_stages(self) -> list:
+    def get_all_construction_stages(self):
         construction_stages = self.service.get_all_construction_stages()
         return self.serializer.convert_list_to_json(construction_stages)
 
     @view_config(route_name='add_construction_stage', request_method='POST', renderer='json')
-    def add_construction_stage(self) -> dict:
+    def add_construction_stage(self):
         try:
             construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
@@ -43,20 +43,20 @@ class ConstructionStagesController:
         return {'id': construction_stage.construction_stages_id}
 
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='GET', renderer='json')
-    def get_construction_stage(self) -> dict:
-        id = self.request.matchdict['id']
+    def get_construction_stage(self):
+        id = int(self.request.matchdict['id'])
         construction_stage = self.service.get_construction_stage_by_id(id)
         return self.serializer.convert_object_to_json(construction_stage)
 
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_construction_object(self) -> dict:
-        id = self.request.matchdict['id']
+    def delete_construction_object(self):
+        id = int(self.request.matchdict['id'])
         self.service.delete_construction_stage_by_id(id)
         return {'id': id}
 
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='PUT', renderer='json')
-    def edit_construction_stage(self) -> dict:
-        id = self.request.matchdict['id']
+    def edit_construction_stage(self):
+        id = int(self.request.matchdict['id'])
         try:
             construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:

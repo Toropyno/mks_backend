@@ -5,18 +5,17 @@ from mks_backend.repositories.filestorage_repository import FilestorageRepositor
 
 class ProtocolRepository:
 
-    @classmethod
-    def get_protocol_by_id(cls, id):
+    def get_protocol_by_id(self, id: int) -> Protocol:
         return DBSession.query(Protocol).get(id)
 
-    def get_all_protocols(self):
+    def get_all_protocols(self) -> list:
         return DBSession.query(Protocol).order_by(Protocol.protocol_date.desc()).all()
 
-    def add_protocol(self, protocol):
+    def add_protocol(self, protocol: Protocol) -> None:
         DBSession.add(protocol)
         DBSession.commit()
 
-    def delete_protocol_by_id_with_filestorage_cascade(self, id):
+    def delete_protocol_by_id_with_filestorage_cascade(self, id: int) -> None:
         protocol = self.get_protocol_by_id(id)
         filestorage_id = protocol.idfilestorage
         DBSession.delete(protocol)
@@ -24,7 +23,7 @@ class ProtocolRepository:
 
         FilestorageRepository.delete_filestorage_by_id(filestorage_id)
 
-    def update_protocol(self, protocol):
+    def update_protocol(self, protocol: Protocol) -> None:
         DBSession.query(Protocol).filter_by(protocol_id=protocol.protocol_id).update(
             {
                 'protocol_num': protocol.protocol_num,
@@ -37,7 +36,7 @@ class ProtocolRepository:
         )
         DBSession.commit()
 
-    def filter_protocols(self, params):
+    def filter_protocols(self, params: dict) -> list:
         meetings_type_id = params.get('meeting')
         protocol_name = params.get('protocolName')
         protocol_num = params.get('protocolNumber')

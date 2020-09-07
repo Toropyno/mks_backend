@@ -18,12 +18,12 @@ class ObjectCategoriesListController:
         self.schema = ObjectCategoriesListSchema()
 
     @view_config(route_name='object_categories_lists', request_method='GET', renderer='json')
-    def get_all_object_categories_lists(self) -> list:
+    def get_all_object_categories_lists(self):
         object_categories_lists = self.service.get_all_object_categories_lists()
         return self.serializer.convert_list_to_json(object_categories_lists)
 
     @view_config(route_name='add_object_categories_list', request_method='POST', renderer='json')
-    def add_object_categories_list(self) -> dict:
+    def add_object_categories_list(self):
         try:
             object_categories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
@@ -43,20 +43,20 @@ class ObjectCategoriesListController:
         return {'id': object_categories_list.object_categories_list_id}
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='GET', renderer='json')
-    def get_object_categories_list(self) -> dict:
-        id = self.request.matchdict['id']
+    def get_object_categories_list(self):
+        id = int(self.request.matchdict['id'])
         object_categories_list = self.service.get_object_categories_list_by_id(id)
         return self.serializer.convert_object_to_json(object_categories_list)
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_construction_object(self) -> dict:
-        id = self.request.matchdict['id']
+    def delete_construction_object(self):
+        id = int(self.request.matchdict['id'])
         self.service.delete_object_categories_list_by_id(id)
         return {'id': id}
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='PUT', renderer='json')
-    def edit_object_categories_list(self) -> dict:
-        id = self.request.matchdict['id']
+    def edit_object_categories_list(self):
+        id = int(self.request.matchdict['id'])
         try:
             object_categories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:

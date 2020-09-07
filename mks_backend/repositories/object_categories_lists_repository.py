@@ -5,25 +5,24 @@ from mks_backend.errors.db_basic_error import db_error_handler
 
 class ObjectCategoriesListRepository:
 
-    @classmethod
-    def get_object_categories_list_by_id(cls, id):
+    def get_object_categories_list_by_id(self, id: int) -> ObjectCategoriesList:
         return DBSession.query(ObjectCategoriesList).get(id)
 
-    def get_all_object_categories_lists(self):
+    def get_all_object_categories_lists(self) -> list:
         return DBSession.query(ObjectCategoriesList).all()
 
     @db_error_handler
-    def add_object_categories_list(self, object_categories_list):
+    def add_object_categories_list(self, object_categories_list: ObjectCategoriesList) -> None:
         DBSession.add(object_categories_list)
         DBSession.commit()
 
-    def delete_object_categories_list_by_id(self, id):
+    def delete_object_categories_list_by_id(self, id: int) -> None:
         object_categories_list = self.get_object_categories_list_by_id(id)
         DBSession.delete(object_categories_list)
         DBSession.commit()
 
     @db_error_handler
-    def update_object_categories_list(self, object_categories_list):
+    def update_object_categories_list(self, object_categories_list: ObjectCategoriesList) -> None:
         DBSession.query(ObjectCategoriesList).filter_by(
             object_categories_list_id=object_categories_list.object_categories_list_id).update(
             {
