@@ -29,7 +29,7 @@ class ObjectCategoriesList(Base):
     )
 
     zone = relationship(
-        'Zones',
+        'Zone',
         back_populates='object_categories_list'
     )
 

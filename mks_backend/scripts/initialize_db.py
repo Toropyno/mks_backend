@@ -15,7 +15,7 @@ from mks_backend.models.military_unit import MilitaryUnit
 from mks_backend.models.object_categories import ObjectCategories
 from mks_backend.models.object_categories_list import ObjectCategoriesList
 from mks_backend.models.subcategories_list import SubcategoriesList
-from mks_backend.models.zones import Zones
+from mks_backend.models.zone import Zone
 
 from mks_backend.models.military_unit_models.combatarm import Combatarm
 from mks_backend.models.military_unit_models.keyword import Keyword

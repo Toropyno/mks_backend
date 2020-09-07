@@ -3,19 +3,19 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.request import Request
 
-from mks_backend.services.zones_service import ZoneService
-from mks_backend.serializers.zones_serializer import ZoneSerializer
-from mks_backend.controllers.schemas.zones_schema import ZonesSchema
+from mks_backend.services.zone_service import ZoneService
+from mks_backend.serializers.zone_serializer import ZoneSerializer
+from mks_backend.controllers.schemas.zones_schema import ZoneSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 
 
-class ZonesController:
+class ZoneController:
 
     def __init__(self, request: Request):
         self.request = request
         self.service = ZoneService()
         self.serializer = ZoneSerializer()
-        self.schema = ZonesSchema()
+        self.schema = ZoneSchema()
 
     @view_config(route_name='zones', request_method='GET', renderer='json')
     def get_all_zones(self):

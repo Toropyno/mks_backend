@@ -1,5 +1,5 @@
 from mks_backend.models.object_categories_list import ObjectCategoriesList
-from mks_backend.serializers.zones_serializer import ZoneSerializer
+from mks_backend.serializers.zone_serializer import ZoneSerializer
 
 
 class ObjectCategoriesListSerializer:

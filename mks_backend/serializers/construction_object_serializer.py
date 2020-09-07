@@ -1,7 +1,7 @@
 from datetime import date as Date
 from mks_backend.models.construction_objects import ConstructionObjects
 
-from mks_backend.serializers.zones_serializer import ZoneSerializer
+from mks_backend.serializers.zone_serializer import ZoneSerializer
 from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
 from mks_backend.serializers.construction_stage_serializer import ConstructionStageSerializer
 

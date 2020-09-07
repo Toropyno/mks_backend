@@ -35,7 +35,7 @@ class ConstructionObjects(Base):
     )
 
     zone = relationship(
-        'Zones',
+        'Zone',
         back_populates='construction_object'
     )
 
