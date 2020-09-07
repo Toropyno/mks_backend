@@ -20,8 +20,7 @@ class SubcategoriesListController:
     @view_config(route_name='subcategories_lists', request_method='GET', renderer='json')
     def get_all_subcategories_lists(self) -> list:
         subcategories_lists = self.service.get_all_subcategories_lists()
-        json = self.serializer.convert_list_to_json(subcategories_lists)
-        return json
+        return self.serializer.convert_list_to_json(subcategories_lists)
 
     @view_config(route_name='add_subcategories_list', request_method='POST', renderer='json')
     def add_subcategories_list(self) -> dict:
@@ -48,8 +47,7 @@ class SubcategoriesListController:
     def get_subcategories_list(self) -> dict:
         id = self.request.matchdict['id']
         subcategories_list = self.service.get_subcategories_list_by_id(id)
-        json = self.serializer.convert_object_to_json(subcategories_list)
-        return json
+        return self.serializer.convert_object_to_json(subcategories_list)
 
     @view_config(route_name='subcategories_list_delete_and_view', request_method='DELETE', renderer='json')
     def delete_subcategories_list(self) -> dict:

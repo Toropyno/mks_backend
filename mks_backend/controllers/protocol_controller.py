@@ -31,8 +31,7 @@ class ProtocolController:
         else:
             protocols = self.service.get_all_protocols()
 
-        json = self.serializer.convert_list_to_json(protocols)
-        return json
+        return self.serializer.convert_list_to_json(protocols)
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
     def add_protocol(self) -> dict:
@@ -51,8 +50,7 @@ class ProtocolController:
     def get_protocol(self) -> dict:
         id = self.request.matchdict['id']
         protocol = self.service.get_protocol_by_id(id)
-        json = self.serializer.convert_object_to_json(protocol)
-        return json
+        return self.serializer.convert_object_to_json(protocol)
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_protocol(self) -> dict:

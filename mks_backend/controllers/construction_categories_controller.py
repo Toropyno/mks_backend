@@ -20,8 +20,7 @@ class ConstructionCategoryController:
     @view_config(route_name='construction_categories', request_method='GET', renderer='json')
     def get_all_construction_categories(self) -> list:
         construction_categories = self.service.get_all_construction_categories()
-        json = self.serializer.convert_list_to_json(construction_categories)
-        return json
+        return self.serializer.convert_list_to_json(construction_categories)
 
     @view_config(route_name='add_construction_category', request_method='POST', renderer='json')
     def add_construction_category(self) -> dict:
@@ -48,8 +47,7 @@ class ConstructionCategoryController:
     def get_construction_category(self) -> dict:
         id = self.request.matchdict['id']
         construction_category = self.service.get_construction_category_by_id(id)
-        json = self.serializer.convert_object_to_json(construction_category)
-        return json
+        return self.serializer.convert_object_to_json(construction_category)
 
     @view_config(route_name='construction_category_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_category(self) -> dict:

@@ -20,15 +20,13 @@ class ObjectCategoryController:
     @view_config(route_name='object_categories', request_method='GET', renderer='json')
     def get_all_object_categories(self) -> list:
         object_categories = self.service.get_all_object_categories()
-        json = self.serializer.convert_list_to_json(object_categories)
-        return json
+        return self.serializer.convert_list_to_json(object_categories)
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='GET', renderer='json')
     def get_object_category(self) -> dict:
         id = self.request.matchdict['id']
         object_category = self.service.get_object_category_by_id(id)
-        json = self.serializer.convert_object_to_json(object_category)
-        return json
+        return self.serializer.convert_object_to_json(object_category)
 
     @view_config(route_name='add_object_category', request_method='POST', renderer='json')
     def add_object_category(self) -> dict:

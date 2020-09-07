@@ -20,8 +20,7 @@ class CommissionController:
     @view_config(route_name='commissions', request_method='GET', renderer='json')
     def get_all_commissions(self) -> list:
         commissions = self.service.get_all_commissions()
-        json = self.serializer.convert_list_to_json(commissions)
-        return json
+        return self.serializer.convert_list_to_json(commissions)
 
     @view_config(route_name='add_commission', request_method='POST', renderer='json')
     def add_commission(self) -> dict:
@@ -76,5 +75,4 @@ class CommissionController:
     def get_commission(self) -> dict:
         id = self.request.matchdict['id']
         commission = self.service.get_commission_by_id(id)
-        json = self.serializer.convert_object_to_json(commission)
-        return json
+        return self.serializer.convert_object_to_json(commission)

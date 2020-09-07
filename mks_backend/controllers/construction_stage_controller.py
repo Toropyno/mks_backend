@@ -20,8 +20,7 @@ class ConstructionStagesController:
     @view_config(route_name='construction_stages', request_method='GET', renderer='json')
     def get_all_construction_stages(self) -> list:
         construction_stages = self.service.get_all_construction_stages()
-        json = self.serializer.convert_list_to_json(construction_stages)
-        return json
+        return self.serializer.convert_list_to_json(construction_stages)
 
     @view_config(route_name='add_construction_stage', request_method='POST', renderer='json')
     def add_construction_stage(self) -> dict:
@@ -47,8 +46,7 @@ class ConstructionStagesController:
     def get_construction_stage(self) -> dict:
         id = self.request.matchdict['id']
         construction_stage = self.service.get_construction_stage_by_id(id)
-        json = self.serializer.convert_object_to_json(construction_stage)
-        return json
+        return self.serializer.convert_object_to_json(construction_stage)
 
     @view_config(route_name='construction_stages_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self) -> dict:

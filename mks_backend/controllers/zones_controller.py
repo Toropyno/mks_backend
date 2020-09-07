@@ -20,8 +20,7 @@ class ZonesController:
     @view_config(route_name='zones', request_method='GET', renderer='json')
     def get_all_zones(self) -> list:
         zones = self.service.get_all_zones()
-        json = self.serializer.convert_list_to_json(zones)
-        return json
+        return self.serializer.convert_list_to_json(zones)
 
     @view_config(route_name='add_zone', request_method='POST', renderer='json')
     def add_zone(self) -> dict:
@@ -47,8 +46,7 @@ class ZonesController:
     def get_zone(self) -> dict:
         id = self.request.matchdict['id']
         zone = self.service.get_zone_by_id(id)
-        json = self.serializer.convert_object_to_json(zone)
-        return json
+        return self.serializer.convert_object_to_json(zone)
 
     @view_config(route_name='zone_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_zone(self) -> dict:

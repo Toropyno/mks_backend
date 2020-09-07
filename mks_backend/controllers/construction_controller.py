@@ -31,8 +31,7 @@ class ConstructionController:
         else:
             constructions = self.service.get_all_constructions()
 
-        json = self.serializer.convert_list_to_json(constructions)
-        return json
+        return self.serializer.convert_list_to_json(constructions)
 
     @view_config(route_name='add_construction', request_method='POST', renderer='json')
     def add_construction(self) -> dict:
@@ -89,5 +88,4 @@ class ConstructionController:
     def get_construction(self) -> dict:
         id = self.request.matchdict['id']
         construction = self.service.get_construction_by_id(id)
-        json = self.serializer.convert_object_to_json(construction)
-        return json
+        return self.serializer.convert_object_to_json(construction)
