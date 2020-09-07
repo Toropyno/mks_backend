@@ -12,7 +12,7 @@ from sqlalchemy.orm import relationship
 from mks_backend.models import Base
 
 
-class ConstructionObjects(Base):
+class ConstructionObject(Base):
 
     __tablename__ = 'construction_objects'
     construction_objects_id = Column(Integer, primary_key=True, autoincrement=True)

@@ -1,19 +1,19 @@
-from mks_backend.models.construction_objects import ConstructionObjects
+from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories import DBSession
 from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ConstructionObjectRepository:
 
-    def get_construction_object_by_id(self, id: int) -> ConstructionObjects:
-        return DBSession.query(ConstructionObjects).get(id)
+    def get_construction_object_by_id(self, id: int) -> ConstructionObject:
+        return DBSession.query(ConstructionObject).get(id)
 
     def get_all_construction_objects_by_construction_id(self, construction_id) -> list:
-        return DBSession.query(ConstructionObjects).filter_by(construction_id=construction_id).\
-            order_by(ConstructionObjects.planned_date).all()
+        return DBSession.query(ConstructionObject).filter_by(construction_id=construction_id).\
+            order_by(ConstructionObject.planned_date).all()
 
     @db_error_handler
-    def add_construction_object(self, construction_object: ConstructionObjects) -> None:
+    def add_construction_object(self, construction_object: ConstructionObject) -> None:
         DBSession.add(construction_object)
         DBSession.commit()
 
@@ -23,8 +23,8 @@ class ConstructionObjectRepository:
         DBSession.commit()
 
     @db_error_handler
-    def update_construction_object(self, construction_object: ConstructionObjects) -> None:
-        DBSession.query(ConstructionObjects).filter_by(
+    def update_construction_object(self, construction_object: ConstructionObject) -> None:
+        DBSession.query(ConstructionObject).filter_by(
             construction_objects_id=construction_object.construction_objects_id).update(
             {
                 'construction_id': construction_object.construction_id,

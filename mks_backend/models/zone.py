@@ -11,7 +11,7 @@ class Zone(Base):
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
 
     construction_object = relationship(
-        'ConstructionObjects',
+        'ConstructionObject',
         back_populates='zone'
     )
 

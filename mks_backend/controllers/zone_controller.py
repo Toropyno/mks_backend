@@ -5,7 +5,7 @@ from pyramid.request import Request
 
 from mks_backend.services.zone_service import ZoneService
 from mks_backend.serializers.zone_serializer import ZoneSerializer
-from mks_backend.controllers.schemas.zones_schema import ZoneSchema
+from mks_backend.controllers.schemas.zone_schema import ZoneSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 
 

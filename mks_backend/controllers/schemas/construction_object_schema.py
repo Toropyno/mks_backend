@@ -3,7 +3,7 @@ import colander
 from mks_backend.controllers.schemas.validator_utils import date_validator, strip_space
 
 
-class ConstructionObjectsSchema(colander.MappingSchema):
+class ConstructionObjectSchema(colander.MappingSchema):
 
     construction_id = colander.SchemaNode(
         colander.Int(),

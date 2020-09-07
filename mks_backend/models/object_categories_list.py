@@ -39,6 +39,6 @@ class ObjectCategoriesList(Base):
     )
 
     construction_object = relationship(
-        'ConstructionObjects',
+        'ConstructionObject',
         back_populates='object_categories_list'
     )

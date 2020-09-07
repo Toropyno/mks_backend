@@ -48,7 +48,7 @@ class Construction(Base):
     )
 
     construction_objects = relationship(
-        'ConstructionObjects',
+        'ConstructionObject',
         back_populates='construction',
         passive_deletes=True,
     )

@@ -1,5 +1,5 @@
 from datetime import date as Date
-from mks_backend.models.construction_objects import ConstructionObjects
+from mks_backend.models.construction_object import ConstructionObject
 
 from mks_backend.serializers.zone_serializer import ZoneSerializer
 from mks_backend.serializers.object_category_serializer import ObjectCategorySerializer
@@ -8,7 +8,7 @@ from mks_backend.serializers.construction_stage_serializer import ConstructionSt
 
 class ConstructionObjectSerializer:
 
-    def convert_object_to_json(self, construction_object: ConstructionObjects) -> dict:
+    def convert_object_to_json(self, construction_object: ConstructionObject) -> dict:
         zone = ZoneSerializer.convert_object_to_json(construction_object.zone)
 
         if construction_object.object_categories_list:
@@ -41,8 +41,8 @@ class ConstructionObjectSerializer:
     def convert_list_to_json(self, construction_objects: list) -> list:
         return list(map(self.convert_object_to_json, construction_objects))
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionObjects:
-        construction_object = ConstructionObjects()
+    def convert_schema_to_object(self, schema: dict) -> ConstructionObject:
+        construction_object = ConstructionObject()
         if 'id' in schema:
             construction_object.construction_objects_id = schema['id']
 

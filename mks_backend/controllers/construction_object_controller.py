@@ -5,17 +5,17 @@ from pyramid.request import Request
 
 from mks_backend.services.construction_object_service import ConstructionObjectService
 from mks_backend.serializers.construction_object_serializer import ConstructionObjectSerializer
-from mks_backend.controllers.schemas.construction_objects_schema import ConstructionObjectsSchema
+from mks_backend.controllers.schemas.construction_object_schema import ConstructionObjectSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 
 
-class ConstructionObjectsController:
+class ConstructionObjectController:
 
     def __init__(self, request: Request):
         self.request = request
         self.service = ConstructionObjectService()
         self.serializer = ConstructionObjectSerializer()
-        self.schema = ConstructionObjectsSchema()
+        self.schema = ConstructionObjectSchema()
 
     @view_config(route_name='construction_objects', request_method='GET', renderer='json')
     def get_all_construction_objects_by_construction_id(self):
