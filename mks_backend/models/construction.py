@@ -28,7 +28,7 @@ class Construction(Base):
     planned_date = Column(DATE, nullable=False)
 
     construction_categories = relationship(
-        'ConstructionCategories',
+        'ConstructionCategory',
         back_populates='construction'
     )
 

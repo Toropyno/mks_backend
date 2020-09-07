@@ -7,7 +7,7 @@ from mks_backend.models.meeting import Meeting
 
 from mks_backend.models.commission import Commission
 from mks_backend.models.construction import Construction
-from mks_backend.models.construction_categories import ConstructionCategories
+from mks_backend.models.construction_category import ConstructionCategory
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.models.construction_stage import ConstructionStage
 from mks_backend.models.construction_subcategory import ConstructionSubcategory
