@@ -3,6 +3,7 @@ from urllib import request as urllib_request
 
 from pyramid.response import FileResponse, Response
 from webob.compat import cgi_FieldStorage
+from webob.multidict import MultiDict
 from sqlalchemy.exc import DatabaseError
 
 from mks_backend.repositories.filestorage_repository import FilestorageRepository
@@ -20,7 +21,7 @@ class FilestorageService:
         self.repo = FilestorageRepository()
         self.hdd = FilestorageHDD()
 
-    def create_filestorage(self, request_data):
+    def create_filestorage(self, request_data: MultiDict) -> str:
         file = request_data.get('protocolFile')
 
         if not isinstance(file, cgi_FieldStorage):
@@ -44,7 +45,7 @@ class FilestorageService:
         self.repo.add_filestorage(filestorage)
         return filestorage.idfilestorage
 
-    def get_file(self, id):
+    def get_file(self, id: int) -> Response:
         try:
             filename = self.repo.get_filestorage_by_id(id).filename
             filename = urllib_request.quote(filename.encode('utf-8'))
@@ -60,7 +61,7 @@ class FilestorageService:
         return response
 
     @classmethod
-    def compare_two_filestorages(cls, new_filestorage, old_filestorage):
-        if new_filestorage != old_filestorage:
-            FilestorageRepository.delete_filestorage_by_id(old_filestorage)
-            FilestorageHDD.delete_by_id(old_filestorage)
+    def compare_two_filestorages(cls, new_filestorage_id: int, old_filestorage_id: int) -> None:
+        if new_filestorage_id != old_filestorage_id:
+            FilestorageRepository.delete_filestorage_by_id(old_filestorage_id)
+            FilestorageHDD.delete_by_id(old_filestorage_id)

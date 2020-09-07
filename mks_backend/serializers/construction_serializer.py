@@ -1,3 +1,4 @@
+from datetime import date as Date
 from mks_backend.models.construction import Construction
 from mks_backend.serializers.commision_serializer import CommissionSerializer
 from mks_backend.serializers.construction_category_serializer import ConstructionCategoriesSerializer
@@ -7,7 +8,7 @@ from mks_backend.serializers.military_unit_serializer import MilitaryUnitSeriali
 
 class ConstructionSerializer:
 
-    def convert_object_to_json(self, construction):
+    def convert_object_to_json(self, construction: Construction) -> dict:
         # return with all subcategories
         category = ConstructionCategoriesSerializer.convert_object_to_json(construction.construction_categories)
 
@@ -39,13 +40,13 @@ class ConstructionSerializer:
             'plannedDate': self.get_date_string(construction.planned_date),
         }
 
-    def convert_list_to_json(self, constructions):
+    def convert_list_to_json(self, constructions: list) -> list:
         return list(map(self.convert_object_to_json, constructions))
 
-    def get_date_string(self, date):
+    def get_date_string(self, date: Date) -> str:
         return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
 
-    def convert_schema_to_object(self, schema):
+    def convert_schema_to_object(self, schema: dict) -> Construction:
         construction = Construction()
 
         construction.construction_id = schema.get('id')

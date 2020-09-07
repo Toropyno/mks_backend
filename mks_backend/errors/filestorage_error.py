@@ -8,6 +8,6 @@ class FilestorageError(Exception):
         6: 'Файл не найден в базе данных!',
     }
 
-    def __init__(self, code):
+    def __init__(self, code: int):
         self.code = code
         self.msg = self.codes[code]

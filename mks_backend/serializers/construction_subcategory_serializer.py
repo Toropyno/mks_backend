@@ -7,17 +7,17 @@ class ConstructionSubcategoriesSerializer:
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, construction_subcategory):
+    def convert_object_to_json(cls, construction_subcategory: ConstructionSubcategories) -> dict:
         construction_subcategory_dict = {
             'id': construction_subcategory.construction_subcategories_id,
             'fullName': construction_subcategory.fullname
         }
         return construction_subcategory_dict
 
-    def convert_list_to_json(self, construction_subcategories_list):
+    def convert_list_to_json(self, construction_subcategories_list: list) -> list:
         return list(map(self.convert_object_to_json, construction_subcategories_list))
 
-    def convert_schema_to_object(self, schema):
+    def convert_schema_to_object(self, schema: dict) -> ConstructionSubcategories:
         construction_subcategories = ConstructionSubcategories()
 
         construction_subcategories.construction_subcategories_id = schema.get('id')

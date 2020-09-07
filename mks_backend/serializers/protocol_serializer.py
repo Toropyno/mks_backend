@@ -1,10 +1,12 @@
+from datetime import date as Date
+
 from mks_backend.repositories.meeting_repository import MeetingRepository
 from mks_backend.models.protocol import Protocol
 
 
 class ProtocolSerializer:
 
-    def convert_object_to_json(self, protocol):
+    def convert_object_to_json(self, protocol: Protocol) -> dict:
         protocol_dict = {
             'protocolId': protocol.protocol_id,
             'protocolNumber': protocol.protocol_num,
@@ -19,13 +21,13 @@ class ProtocolSerializer:
         }
         return protocol_dict
 
-    def get_date_string(self, date):
+    def get_date_string(self, date: Date) -> str:
         return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
 
-    def convert_list_to_json(self, protocols):
+    def convert_list_to_json(self, protocols: list) -> list:
         return list(map(self.convert_object_to_json, protocols))
 
-    def convert_schema_to_object(self, schema_dict):
+    def convert_schema_to_object(self, schema_dict: dict) -> Protocol:
         protocol = Protocol()
         if 'id' in schema_dict:
             protocol.protocol_id = schema_dict['id']

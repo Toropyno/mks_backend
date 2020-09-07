@@ -1,6 +1,7 @@
 import colander
 from pyramid.view import view_config
 from pyramid.response import Response
+from pyramid.request import Request
 
 from mks_backend.serializers.protocol_serializer import ProtocolSerializer
 from mks_backend.services.protocol_service import ProtocolService
@@ -10,13 +11,13 @@ from mks_backend.controllers.schemas.protocol_schema import ProtocolControllerSc
 
 class ProtocolController:
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
         self.serializer = ProtocolSerializer()
         self.service = ProtocolService()
 
     @view_config(route_name='protocols', request_method='GET', renderer='json')
-    def get_all_protocols(self):
+    def get_all_protocols(self) -> list:
         if self.request.params:
             params_schema = ProtocolControllerFilterSchema()
             try:
@@ -30,11 +31,10 @@ class ProtocolController:
         else:
             protocols = self.service.get_all_protocols()
 
-        json = self.serializer.convert_list_to_json(protocols)
-        return json
+        return self.serializer.convert_list_to_json(protocols)
 
     @view_config(route_name='add_protocol', request_method='POST', renderer='json')
-    def add_protocol(self):
+    def add_protocol(self) -> dict:
         protocol_schema = ProtocolControllerSchema()
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
@@ -47,20 +47,19 @@ class ProtocolController:
         return {'id': protocol.protocol_id}
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
-    def get_protocol(self):
+    def get_protocol(self) -> dict:
         id = self.request.matchdict['id']
         protocol = self.service.get_protocol_by_id(id)
-        json = self.serializer.convert_object_to_json(protocol)
-        return json
+        return self.serializer.convert_object_to_json(protocol)
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
-    def delete_protocol(self):
+    def delete_protocol(self) -> dict:
         id = self.request.matchdict['id']
         self.service.delete_protocol_by_id_with_filestorage_cascade(id)
         return {'id': id}
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
-    def edit_protocol(self):
+    def edit_protocol(self) -> dict:
         protocol_schema = ProtocolControllerSchema()
         id = self.request.matchdict['id']
         try:
