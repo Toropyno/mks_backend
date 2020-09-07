@@ -3,19 +3,19 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.request import Request
 
-from mks_backend.controllers.schemas.subcategories_list_schema import SubcategoriesListSchema
+from mks_backend.controllers.schemas.subcategory_list_schema import SubcategoryListSchema
 from mks_backend.errors.db_basic_error import DBBasicError
-from mks_backend.serializers.subcategories_list_serializer import SubcategoriesListSerializer
-from mks_backend.services.subcategories_list_service import SubcategoriesListService
+from mks_backend.serializers.subcategory_list_serializer import SubcategoryListSerializer
+from mks_backend.services.subcategory_list_service import SubcategoryListService
 
 
-class SubcategoriesListController:
+class SubcategoryListController:
 
     def __init__(self, request: Request):
         self.request = request
-        self.serializer = SubcategoriesListSerializer()
-        self.service = SubcategoriesListService()
-        self.schema = SubcategoriesListSchema()
+        self.serializer = SubcategoryListSerializer()
+        self.service = SubcategoryListService()
+        self.schema = SubcategoryListSchema()
 
     @view_config(route_name='subcategories_lists', request_method='GET', renderer='json')
     def get_all_subcategories_lists(self):

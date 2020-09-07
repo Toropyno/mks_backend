@@ -2,7 +2,7 @@ from datetime import date as Date
 from mks_backend.models.construction import Construction
 from mks_backend.serializers.commision_serializer import CommissionSerializer
 from mks_backend.serializers.construction_category_serializer import ConstructionCategoriesSerializer
-from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategoriesSerializer
+from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategorySerializer
 from mks_backend.serializers.military_unit_serializer import MilitaryUnitSerializer
 
 
@@ -13,7 +13,7 @@ class ConstructionSerializer:
         category = ConstructionCategoriesSerializer.convert_object_to_json(construction.construction_categories)
 
         if construction.subcategories_list:
-            construction_subcategory = ConstructionSubcategoriesSerializer.convert_object_to_json(
+            construction_subcategory = ConstructionSubcategorySerializer.convert_object_to_json(
                 construction.subcategories_list.construction_subcategory
             )
             subcategory = {

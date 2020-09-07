@@ -10,11 +10,11 @@ from mks_backend.models.construction import Construction
 from mks_backend.models.construction_categories import ConstructionCategories
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.models.construction_stage import ConstructionStage
-from mks_backend.models.construction_subcategories import ConstructionSubcategories
+from mks_backend.models.construction_subcategory import ConstructionSubcategory
 from mks_backend.models.military_unit import MilitaryUnit
 from mks_backend.models.object_categories import ObjectCategories
 from mks_backend.models.object_categories_list import ObjectCategoriesList
-from mks_backend.models.subcategories_list import SubcategoriesList
+from mks_backend.models.subcategory_list import SubcategoryList
 from mks_backend.models.zone import Zone
 
 from mks_backend.models.military_unit_models.combatarm import Combatarm

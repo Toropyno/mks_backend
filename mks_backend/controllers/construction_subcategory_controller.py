@@ -3,19 +3,19 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.request import Request
 
-from mks_backend.controllers.schemas.construction_subcategories_schema import ConstructionSubcategoriesSchema
+from mks_backend.controllers.schemas.construction_subcategory_schema import ConstructionSubcategorySchema
 from mks_backend.errors.db_basic_error import DBBasicError
-from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategoriesSerializer
-from mks_backend.services.construction_subcategory_service import ConstructionSubcategoriesService
+from mks_backend.serializers.construction_subcategory_serializer import ConstructionSubcategorySerializer
+from mks_backend.services.construction_subcategory_service import ConstructionSubcategoryService
 
 
 class ConstructionSubcategoryController:
 
     def __init__(self, request: Request):
         self.request = request
-        self.serializer = ConstructionSubcategoriesSerializer()
-        self.service = ConstructionSubcategoriesService()
-        self.schema = ConstructionSubcategoriesSchema()
+        self.serializer = ConstructionSubcategorySerializer()
+        self.service = ConstructionSubcategoryService()
+        self.schema = ConstructionSubcategorySchema()
 
     @view_config(route_name='construction_subcategories', request_method='GET', renderer='json')
     def get_all_construction_subcategories(self):

@@ -3,7 +3,7 @@ import colander
 from mks_backend.controllers.schemas.validator_utils import strip_space
 
 
-class ConstructionSubcategoriesSchema(colander.MappingSchema):
+class ConstructionSubcategorySchema(colander.MappingSchema):
     fullname = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

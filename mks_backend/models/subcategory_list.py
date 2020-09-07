@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 from mks_backend.models import Base
 
 
-class SubcategoriesList(Base):
+class SubcategoryList(Base):
 
     __tablename__ = 'subcategories_list'
     subcategories_list_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -34,7 +34,7 @@ class SubcategoriesList(Base):
     )
 
     construction_subcategory = relationship(
-        'ConstructionSubcategories',
+        'ConstructionSubcategory',
         back_populates='subcategories_list',
     )
 

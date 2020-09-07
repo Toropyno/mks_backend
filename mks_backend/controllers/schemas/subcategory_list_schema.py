@@ -1,7 +1,7 @@
 import colander
 
 
-class SubcategoriesListSchema(colander.MappingSchema):
+class SubcategoryListSchema(colander.MappingSchema):
     construction_categories_id = colander.SchemaNode(
         colander.Integer(),
         name='constructionCategoriesId',

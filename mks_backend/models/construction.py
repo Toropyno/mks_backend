@@ -33,7 +33,7 @@ class Construction(Base):
     )
 
     subcategories_list = relationship(
-        'SubcategoriesList',
+        'SubcategoryList',
         back_populates='construction'
     )
 

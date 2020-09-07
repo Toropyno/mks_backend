@@ -11,7 +11,7 @@ class ConstructionCategories(Base):
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
 
     subcategories_list = relationship(
-        'SubcategoriesList',
+        'SubcategoryList',
         back_populates='construction_category',
         passive_deletes=True
     )
