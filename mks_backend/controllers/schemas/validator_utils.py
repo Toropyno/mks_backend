@@ -3,8 +3,6 @@ from datetime import datetime
 
 import colander
 
-strip_space = lambda v: v.strip(' \t\n\r') if v else v
-
 
 def date_validator(node: colander.SchemaNode, value: str) -> None:
     try:
@@ -18,3 +16,9 @@ def uuid_validator(node: colander.SchemaNode, value: str) -> None:
     res = re.match(pattern, value)
     if res is None:
         raise colander.Invalid(node, 'Недопустимая информация о файле')
+
+
+def strip_space(value: str) -> str:
+    if value:
+        value = value.strip(' \t\n\r')
+    return value
