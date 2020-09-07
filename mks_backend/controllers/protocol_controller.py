@@ -48,21 +48,21 @@ class ProtocolController:
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='GET', renderer='json')
     def get_protocol(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         protocol = self.service.get_protocol_by_id(id)
         json = self.serializer.convert_object_to_json(protocol)
         return json
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_protocol(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         self.service.delete_protocol_by_id_with_filestorage_cascade(id)
         return {'id': id}
 
     @view_config(route_name='protocols_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_protocol(self):
         protocol_schema = ProtocolControllerSchema()
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
         except colander.Invalid as error:

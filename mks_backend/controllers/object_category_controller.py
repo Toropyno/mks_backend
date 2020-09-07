@@ -24,7 +24,7 @@ class ObjectCategoryController:
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='GET', renderer='json')
     def get_object_category(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         object_category = self.service.get_object_category_by_id(id)
         json = self.serializer.convert_object_to_json(object_category)
         return json
@@ -51,13 +51,13 @@ class ObjectCategoryController:
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         self.service.delete_object_category_by_id(id)
         return {'id': id}
 
     @view_config(route_name='object_category_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_object_categories_list(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         try:
             object_category_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:

@@ -5,19 +5,19 @@ from mks_backend.errors.db_basic_error import db_error_handler
 
 class ConstructionRepository:
 
-    def get_all_constructions(self):
+    def get_all_constructions(self) -> list:
         return DBSession.query(Construction).order_by(Construction.contract_date).all()
 
-    def get_construction_by_id(self, id):
+    def get_construction_by_id(self, id: int) -> Construction:
         return DBSession.query(Construction).get(id)
 
     @db_error_handler
-    def add_construction(self, construction):
+    def add_construction(self, construction: Construction) -> None:
         DBSession.add(construction)
         DBSession.commit()
 
     @db_error_handler
-    def update_construction(self, construction):
+    def update_construction(self, construction: Construction) -> None:
         DBSession.query(Construction).filter_by(construction_id=construction.construction_id).update(
             {
                 'project_code': construction.project_code,
@@ -34,12 +34,12 @@ class ConstructionRepository:
         )
         DBSession.commit()
 
-    def delete_construction(self, id):
+    def delete_construction(self, id: int) -> None:
         construction = self.get_construction_by_id(id)
         DBSession.delete(construction)
         DBSession.commit()
 
-    def filter_constructions(self, params):
+    def filter_constructions(self, params: dict) -> list:
         constructions = DBSession.query(Construction)
 
         if 'project_code' in params:

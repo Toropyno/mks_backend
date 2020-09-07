@@ -5,26 +5,25 @@ from mks_backend.errors.db_basic_error import db_error_handler
 
 class ConstructionObjectRepository:
 
-    @classmethod
-    def get_construction_object_by_id(cls, id):
+    def get_construction_object_by_id(self, id: int) -> ConstructionObjects:
         return DBSession.query(ConstructionObjects).get(id)
 
-    def get_all_construction_objects_by_construction_id(self, construction_id):
+    def get_all_construction_objects_by_construction_id(self, construction_id) -> list:
         return DBSession.query(ConstructionObjects).filter_by(construction_id=construction_id).\
             order_by(ConstructionObjects.planned_date).all()
 
     @db_error_handler
-    def add_construction_object(self, construction_object):
+    def add_construction_object(self, construction_object: ConstructionObjects) -> None:
         DBSession.add(construction_object)
         DBSession.commit()
 
-    def delete_construction_object_by_id(self, id):
+    def delete_construction_object_by_id(self, id: int) -> None:
         construction_object = self.get_construction_object_by_id(id)
         DBSession.delete(construction_object)
         DBSession.commit()
 
     @db_error_handler
-    def update_construction_object(self, construction_object):
+    def update_construction_object(self, construction_object: ConstructionObjects) -> None:
         DBSession.query(ConstructionObjects).filter_by(
             construction_objects_id=construction_object.construction_objects_id).update(
             {

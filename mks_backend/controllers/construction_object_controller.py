@@ -47,20 +47,20 @@ class ConstructionObjectsController:
 
     @view_config(route_name='construction_objects_delete_change_and_view', request_method='GET', renderer='json')
     def get_construction_object(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         construction_object = self.service.get_construction_object_by_id(id)
         json = self.serializer.convert_object_to_json(construction_object)
         return json
 
     @view_config(route_name='construction_objects_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         self.service.delete_construction_object_by_id(id)
         return {'id': id}
 
     @view_config(route_name='construction_objects_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_construction_object(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         try:
             construction_object_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:

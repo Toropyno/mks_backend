@@ -45,7 +45,7 @@ class CommissionController:
 
     @view_config(route_name='commission_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_commission(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         self.service.delete_commission_by_id(id)
         return {'id': id}
 
@@ -73,7 +73,7 @@ class CommissionController:
 
     @view_config(route_name='commission_delete_change_and_view', request_method='GET', renderer='json')
     def get_commission(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         commission = self.service.get_commission_by_id(id)
         json = self.serializer.convert_object_to_json(commission)
         return json

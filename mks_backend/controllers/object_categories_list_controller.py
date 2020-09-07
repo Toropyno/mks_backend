@@ -44,20 +44,20 @@ class ObjectCategoriesListController:
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='GET', renderer='json')
     def get_object_categories_list(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         object_categories_list = self.service.get_object_categories_list_by_id(id)
         json = self.serializer.convert_object_to_json(object_categories_list)
         return json
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction_object(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         self.service.delete_object_categories_list_by_id(id)
         return {'id': id}
 
     @view_config(route_name='object_categories_list_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_object_categories_list(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         try:
             object_categories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:

@@ -57,7 +57,7 @@ class ConstructionController:
 
     @view_config(route_name='construction_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_construction(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         self.service.delete_construction_by_id(id)
         return {'id': id}
 
@@ -86,7 +86,7 @@ class ConstructionController:
 
     @view_config(route_name='construction_delete_change_and_view', request_method='GET', renderer='json')
     def get_construction(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         construction = self.service.get_construction_by_id(id)
         json = self.serializer.convert_object_to_json(construction)
         return json

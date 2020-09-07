@@ -45,13 +45,13 @@ class SubcategoriesListController:
 
     @view_config(route_name='subcategories_list_delete_and_view', request_method='GET', renderer='json')
     def get_subcategories_list(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         subcategories_list = self.service.get_subcategories_list_by_id(id)
         json = self.serializer.convert_object_to_json(subcategories_list)
         return json
 
     @view_config(route_name='subcategories_list_delete_and_view', request_method='DELETE', renderer='json')
     def delete_subcategories_list(self):
-        id = self.request.matchdict['id']
+        id = int(self.request.matchdict['id'])
         self.service.delete_subcategories_list_by_id(id)
         return {'id': id}
