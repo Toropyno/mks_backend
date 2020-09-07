@@ -3,19 +3,19 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.request import Request
 
-from mks_backend.services.object_categories_list_service import ObjectCategoriesListService
-from mks_backend.serializers.object_categories_list_serializer import ObjectCategoriesListSerializer
-from mks_backend.controllers.schemas.object_categories_list_schema import ObjectCategoriesListSchema
+from mks_backend.services.object_category_list_service import ObjectCategoryListService
+from mks_backend.serializers.object_category_list_serializer import ObjectCategoryListSerializer
+from mks_backend.controllers.schemas.object_category_list_schema import ObjectCategoryListSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 
 
-class ObjectCategoriesListController:
+class ObjectCategoryListController:
 
     def __init__(self, request: Request):
         self.request = request
-        self.service = ObjectCategoriesListService()
-        self.serializer = ObjectCategoriesListSerializer()
-        self.schema = ObjectCategoriesListSchema()
+        self.service = ObjectCategoryListService()
+        self.serializer = ObjectCategoryListSerializer()
+        self.schema = ObjectCategoryListSchema()
 
     @view_config(route_name='object_categories_lists', request_method='GET', renderer='json')
     def get_all_object_categories_lists(self):

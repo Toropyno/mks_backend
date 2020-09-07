@@ -1,18 +1,18 @@
-from mks_backend.models.object_categories import ObjectCategories
+from mks_backend.models.object_category import ObjectCategory
 from mks_backend.repositories import DBSession
 from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ObjectCategoryRepository:
 
-    def get_object_category_by_id(cls, id: int) -> ObjectCategories:
-        return DBSession.query(ObjectCategories).get(id)
+    def get_object_category_by_id(cls, id: int) -> ObjectCategory:
+        return DBSession.query(ObjectCategory).get(id)
 
     def get_all_object_categories(self) -> list:
-        return DBSession.query(ObjectCategories).all()
+        return DBSession.query(ObjectCategory).all()
 
     @db_error_handler
-    def add_object_category(self, object_category: ObjectCategories) -> None:
+    def add_object_category(self, object_category: ObjectCategory) -> None:
         DBSession.add(object_category)
         DBSession.commit()
 
@@ -22,8 +22,8 @@ class ObjectCategoryRepository:
         DBSession.commit()
 
     @db_error_handler
-    def update_object_category(self, object_category: ObjectCategories) -> None:
-        DBSession.query(ObjectCategories).filter_by(
+    def update_object_category(self, object_category: ObjectCategory) -> None:
+        DBSession.query(ObjectCategory).filter_by(
             object_categories_id=object_category.object_categories_id).update(
             {
                 'note': object_category.note,

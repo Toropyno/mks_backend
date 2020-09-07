@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from mks_backend.models import Base
 
 
-class ObjectCategories(Base):
+class ObjectCategory(Base):
 
     __tablename__ = 'object_categories'
     object_categories_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -12,7 +12,7 @@ class ObjectCategories(Base):
     note = Column(VARCHAR(1000))
 
     object_categories_list = relationship(
-        'ObjectCategoriesList',
+        'ObjectCategoryList',
         back_populates='object_categories_instance',
         passive_deletes=True
     )

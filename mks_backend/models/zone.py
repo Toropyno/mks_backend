@@ -16,7 +16,7 @@ class Zone(Base):
     )
 
     object_categories_list = relationship(
-        'ObjectCategoriesList',
+        'ObjectCategoryList',
         back_populates='zone',
         passive_deletes=True
     )

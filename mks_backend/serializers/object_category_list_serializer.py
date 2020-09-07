@@ -1,10 +1,10 @@
-from mks_backend.models.object_categories_list import ObjectCategoriesList
+from mks_backend.models.object_category_list import ObjectCategoryList
 from mks_backend.serializers.zone_serializer import ZoneSerializer
 
 
-class ObjectCategoriesListSerializer:
+class ObjectCategoryListSerializer:
 
-    def convert_object_to_json(self, object_categories_list: ObjectCategoriesList) -> dict:
+    def convert_object_to_json(self, object_categories_list: ObjectCategoryList) -> dict:
         zone = ZoneSerializer.convert_object_to_json(object_categories_list.zone)
 
         object_categories_list_dict = {
@@ -20,8 +20,8 @@ class ObjectCategoriesListSerializer:
     def convert_list_to_json(self, object_categories_lists: list) -> list:
         return list(map(self.convert_object_to_json, object_categories_lists))
 
-    def convert_schema_to_object(self, schema: dict) -> ObjectCategoriesList:
-        object_categories_list = ObjectCategoriesList()
+    def convert_schema_to_object(self, schema: dict) -> ObjectCategoryList:
+        object_categories_list = ObjectCategoryList()
         if 'id' in schema:
             object_categories_list.object_categories_list_id = schema['id']
 

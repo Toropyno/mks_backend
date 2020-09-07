@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 from mks_backend.models import Base
 
 
-class ObjectCategoriesList(Base):
+class ObjectCategoryList(Base):
 
     __tablename__ = 'object_categories_list'
     object_categories_list_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -34,7 +34,7 @@ class ObjectCategoriesList(Base):
     )
 
     object_categories_instance = relationship(
-        'ObjectCategories',
+        'ObjectCategory',
         back_populates='object_categories_list'
     )
 

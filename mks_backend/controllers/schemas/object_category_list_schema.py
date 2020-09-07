@@ -1,7 +1,7 @@
 import colander
 
 
-class ObjectCategoriesListSchema(colander.MappingSchema):
+class ObjectCategoryListSchema(colander.MappingSchema):
 
      zones_id = colander.SchemaNode(
           colander.Int(),
