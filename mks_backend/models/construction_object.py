@@ -45,6 +45,6 @@ class ConstructionObject(Base):
     )
 
     construction_stage = relationship(
-        'ConstructionStages',
+        'ConstructionStage',
         back_populates='construction_object'
     )

@@ -5,17 +5,17 @@ from pyramid.request import Request
 
 from mks_backend.services.construction_stage_service import ConstructionStageService
 from mks_backend.serializers.construction_stage_serializer import ConstructionStageSerializer
-from mks_backend.controllers.schemas.construction_stages_schema import ConstructionStagesSchema
+from mks_backend.controllers.schemas.construction_stage_schema import ConstructionStageSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 
 
-class ConstructionStagesController:
+class ConstructionStageController:
 
     def __init__(self, request: Request):
         self.request = request
         self.service = ConstructionStageService()
         self.serializer = ConstructionStageSerializer()
-        self.schema = ConstructionStagesSchema()
+        self.schema = ConstructionStageSchema()
 
     @view_config(route_name='construction_stages', request_method='GET', renderer='json')
     def get_all_construction_stages(self):
