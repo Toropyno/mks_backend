@@ -23,10 +23,11 @@ class ConstructionCategoryRepository:
 
     @db_error_handler
     def update_construction_category(self, construction_category: ConstructionCategory) -> None:
-        DBSession.query(ConstructionCategory).filter_by(
-            construction_categories_id=construction_category.construction_categories_id).update(
-            {
-                'fullname': construction_category.fullname
-            }
-        )
+        # DBSession.query(ConstructionCategory).filter_by(
+        #     construction_categories_id=construction_category.construction_categories_id).update(
+        #     {
+        #         'fullname': construction_category.fullname
+        #     }
+        # )
+        DBSession.query(ConstructionCategory).update()
         DBSession.commit()

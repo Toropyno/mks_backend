@@ -1,5 +1,7 @@
 from sqlalchemy.exc import DBAPIError
 
+from mks_backend.repositories import DBSession
+
 
 class DBBasicError(DBAPIError):
     codes = {
@@ -108,6 +110,7 @@ def db_error_handler(func):
         try:
             return func(*args, **kwargs)
         except DBAPIError as error:
+            DBSession.rollback()
             raise DBBasicError(error.orig.pgerror)
 
     return wrapper
