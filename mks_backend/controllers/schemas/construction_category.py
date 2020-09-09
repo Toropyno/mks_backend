@@ -21,3 +21,7 @@ class ConstructionCategorySchema(colander.MappingSchema):
             max_err='Слишком длинное наименование объекта'
         )
     )
+
+    subcategory = colander.SchemaNode(
+        colander.List()
+    )

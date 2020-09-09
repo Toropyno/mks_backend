@@ -16,7 +16,7 @@ class ConstructionCategoryService:
     def delete_construction_category_by_id(self, id: int) -> None:
         self.repo.delete_construction_category_by_id(id)
 
-    def update_construction_category(self, construction_category: ConstructionCategory) -> None:
+    def update_construction_category(self, construction_category: dict) -> None:
         self.repo.update_construction_category(construction_category)
 
     def get_all_construction_categories(self) -> list:

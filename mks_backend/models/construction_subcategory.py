@@ -10,8 +10,8 @@ class ConstructionSubcategory(Base):
     construction_subcategories_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
 
-    subcategories_list = relationship(
-        'SubcategoryList',
-        back_populates='construction_subcategory',
-        passive_deletes=True
+    parent = relationship(
+        'ConstructionCategory',
+        secondary='subcategories_list',
+        back_populates='child'
     )

@@ -5,7 +5,8 @@ from mks_backend.repositories import DBSession
 
 class ConstructionSubcategoryRepository:
 
-    def get_construction_subcategory_by_id(self, id: int) -> ConstructionSubcategory:
+    @classmethod
+    def get_construction_subcategory_by_id(cls, id: int) -> ConstructionSubcategory:
         return DBSession.query(ConstructionSubcategory).get(id)
 
     def get_all_construction_subcategories(self) -> list:
