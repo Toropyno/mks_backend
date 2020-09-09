@@ -7,7 +7,8 @@ from mks_backend.services.construction_object import ConstructionObjectService
 from mks_backend.serializers.construction_object import ConstructionObjectSerializer
 from mks_backend.controllers.schemas.construction_object import ConstructionObjectSchema
 from mks_backend.errors.db_basic_error import DBBasicError
-
+from mks_backend.serializers.location import LocationSerializer
+from mks_backend.services.location import LocationService
 
 class ConstructionObjectController:
 
@@ -31,7 +32,11 @@ class ConstructionObjectController:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
+
+        location = LocationSerializer.convert_schema_to_object(construction_object_deserialized)
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
+        construction_object.location = location
+
         try:
             self.service.add_construction_object(construction_object)
         except DBBasicError as error:
@@ -66,8 +71,13 @@ class ConstructionObjectController:
             return Response(status=403, json_body=error.asdict())
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
+
         construction_object_deserialized['id'] = id
+
+        location = LocationSerializer.convert_schema_to_object(construction_object_deserialized)
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
+        construction_object.location = location
+
         try:
             self.service.update_construction_object(construction_object)
         except DBBasicError as error:

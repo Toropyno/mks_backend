@@ -2,6 +2,7 @@ from datetime import date as Date
 from mks_backend.models.construction_object import ConstructionObject
 
 from mks_backend.serializers.zone import ZoneSerializer
+from mks_backend.serializers.location import LocationSerializer
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 
@@ -22,6 +23,8 @@ class ConstructionObjectSerializer:
 
         building_volume = float(construction_object.building_volume) if construction_object.building_volume else None
 
+        location = LocationSerializer.convert_object_to_json(construction_object.location)
+
         construction_object_dict = {
             'projectId': construction_object.construction_id,
             'id': construction_object.construction_objects_id,
@@ -35,6 +38,7 @@ class ConstructionObjectSerializer:
             'buildingVolume': building_volume,
             'floorsAmount': construction_object.floors_amount,
             'stage': stage,
+            'location': location,
         }
         return construction_object_dict
 

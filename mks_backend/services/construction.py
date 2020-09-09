@@ -1,5 +1,6 @@
 from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction import ConstructionRepository
+from mks_backend.services.location import LocationService
 
 
 class ConstructionService:
@@ -13,9 +14,11 @@ class ConstructionService:
         return self.repo.get_construction_by_id(id)
 
     def add_construction(self, construction: Construction) -> None:
+        LocationService.add_location(construction.location)
         self.repo.add_construction(construction)
 
     def update_construction(self, new_construction: Construction) -> None:
+        LocationService.update_location(new_construction.location)
         self.repo.update_construction(new_construction)
 
     def delete_construction_by_id(self, id: int) -> None:
