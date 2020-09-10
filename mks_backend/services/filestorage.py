@@ -57,9 +57,9 @@ class FilestorageService:
         path_to_file = self.hdd.get_file(id)
         if path_to_file and filename:
             response = FileResponse(path_to_file)
-            response.headers['Content-Disposition'] = f"attachment; filename*=UTF-8''{filename}"
+            response.headers['Content-Disposition'] = "attachment; filename*=UTF-8''{}".format(filename)
         else:
-            response = Response(f'Unable to find file with id = {id}')
+            response = Response('Unable to find file with id = {}'.format(id))
         return response
 
     def get_file_info(self, uuid):
@@ -73,12 +73,14 @@ class FilestorageService:
 
         if filesize >= 1024:
             filesize = filesize / 1024
-            filesize = f'{filesize:.1f}Мб'
+            filesize = '{:.1f}Мб'.format(filesize)
         else:
-            filesize = f'{filesize:.1f}Кб'
+            filesize = '{:.1f}Кб'.format(filesize)
 
-        return {'filename': filename,
-                'filesize': filesize}
+        return {
+            'filename': filename,
+            'filesize': filesize
+        }
 
     @classmethod
     def compare_two_filestorages(cls, new_filestorage_id: int, old_filestorage_id: int) -> None:
