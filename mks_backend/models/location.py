@@ -21,7 +21,6 @@ class Location(Base):
     zoom = Column(Integer, nullable=False)
     mark = Column(VARCHAR(32), nullable=False, default='00000000000000000000000000000000')
 
-
     construction = relationship(
         'Construction',
         back_populates='location'
