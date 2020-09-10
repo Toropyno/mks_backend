@@ -13,5 +13,5 @@ class ConstructionSubcategory(Base):
     parent = relationship(
         'ConstructionCategory',
         secondary='subcategories_list',
-        back_populates='child'
+        back_populates='subcategories'
     )

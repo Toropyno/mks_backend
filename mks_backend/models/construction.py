@@ -27,7 +27,7 @@ class Construction(Base):
     object_amount = Column(Integer, CheckConstraint('object_amount>0'), nullable=False)
     planned_date = Column(DATE, nullable=False)
 
-    construction_categories = relationship(
+    construction_category = relationship(
         'ConstructionCategory',
         back_populates='construction'
     )

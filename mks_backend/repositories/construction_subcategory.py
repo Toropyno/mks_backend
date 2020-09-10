@@ -5,12 +5,16 @@ from mks_backend.repositories import DBSession
 
 class ConstructionSubcategoryRepository:
 
-    @classmethod
-    def get_construction_subcategory_by_id(cls, id: int) -> ConstructionSubcategory:
+    def get_construction_subcategory_by_id(self, id: int) -> ConstructionSubcategory:
         return DBSession.query(ConstructionSubcategory).get(id)
 
     def get_all_construction_subcategories(self) -> list:
         return DBSession.query(ConstructionSubcategory).all()
+
+    def get_many_construction_subcategories_by_id(self, ids: list) -> list:
+        return DBSession.query(ConstructionSubcategory).filter(
+            ConstructionSubcategory.construction_subcategories_id.in_(ids)
+        ).all()
 
     @db_error_handler
     def add_construction_subcategory(self, construction_subcategory: ConstructionSubcategory):

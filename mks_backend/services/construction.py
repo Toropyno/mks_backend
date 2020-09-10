@@ -1,10 +1,12 @@
 from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction import ConstructionRepository
+from mks_backend.services.subcategory_list import SubcategoryListService
 
 
 class ConstructionService:
     def __init__(self):
         self.repo = ConstructionRepository()
+        self.subcategory_list_service = SubcategoryListService()
 
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
@@ -21,8 +23,41 @@ class ConstructionService:
     def delete_construction_by_id(self, id: int) -> None:
         self.repo.delete_construction(id)
 
+    def convert_schema_to_object(self, schema: dict) -> Construction:
+        construction = Construction()
+
+        construction.construction_id = schema.get('id')
+        construction.project_code = schema.get('code')
+        construction.project_name = schema.get('name')
+
+        category_id = schema.get('category')
+        construction.construction_categories_id = category_id
+
+        subcategory_id = schema.get('subcategory')
+        if subcategory_id:
+            subcategories_list = self.subcategory_list_service.get_subcategories_list_by_relations(
+                category_id, subcategory_id
+            )
+            construction.subcategories_list_id = subcategories_list.subcategories_list_id
+
+        construction.is_critical = schema.get('isCritical')
+        construction.commission_id = schema.get('commission')
+        construction.idMU = schema.get('militaryUnit')
+        construction.contract_date = schema.get('contractDate')
+        construction.planned_date = schema.get('plannedDate')
+        construction.object_amount = schema.get('objectsAmount')
+
+        return construction
+
     def filter_constructions(self, params: dict) -> list:
         params = self.get_params_from_schema(params)
+
+        if 'subcategories_list_id' in params:
+            # frontend doesn't know about many-to-many and sent category_id and subcategory_id
+            params['subcategories_list_id'] = self.subcategory_list_service.get_subcategories_list_by_relations(
+                params['constructions_categories_id'], params['subcategories_list_id']
+            ).subcategories_list_id
+
         return self.repo.filter_constructions(params)
 
     def get_params_from_schema(self, params_deserilized: dict) -> dict:

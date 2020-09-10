@@ -32,3 +32,7 @@ class SubcategoryList(Base):
         'Construction',
         back_populates='subcategories_list'
     )
+
+    subcategory = relationship(
+        'ConstructionSubcategory'
+    )

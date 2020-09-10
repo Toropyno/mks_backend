@@ -20,3 +20,9 @@ class SubcategoryListRepository:
         subcategories_list = self.get_subcategories_list_by_id(id)
         DBSession.delete(subcategories_list)
         DBSession.commit()
+
+    def get_subcategories_list_by_relations(self, category_id: int, subcategory_id: int) -> SubcategoryList:
+        return DBSession.query(SubcategoryList).filter(
+            SubcategoryList.construction_categories_id == category_id,
+            SubcategoryList.construction_subcategories_id == subcategory_id
+        ).first()

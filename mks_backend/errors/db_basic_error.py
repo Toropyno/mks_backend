@@ -69,8 +69,7 @@ class DBBasicError(DBAPIError):
     def code(self, pg_error: str) -> None:
         self._code = self.get_error_code(pg_error)
 
-    @classmethod
-    def get_error_code(cls, pg_error: str) -> str:
+    def get_error_code(self, pg_error: str) -> str:
 
         if 'duplicate' in pg_error:
             '''
@@ -82,7 +81,7 @@ class DBBasicError(DBAPIError):
             end = pg_error.find('\"', start)
             code = pg_error[start:end] + '_duplicate'
 
-            if code not in cls.codes:
+            if code not in self.codes:
                 code = 'other_duplicate'
         elif 'foreign key' in pg_error:
             '''
@@ -96,7 +95,7 @@ class DBBasicError(DBAPIError):
             end = pg_error.find('\"', start)
             code = pg_error[start:end]
 
-            if code not in cls.codes:
+            if code not in self.codes:
                 code = 'other_fkey'
 
         else:

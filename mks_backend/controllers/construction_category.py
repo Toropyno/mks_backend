@@ -29,7 +29,7 @@ class ConstructionCategoryController:
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
-        construction_category = self.serializer.convert_schema_to_object(construction_categories_deserialized)
+        construction_category = self.service.convert_schema_to_object(construction_categories_deserialized)
         try:
             self.service.add_construction_category(construction_category)
         except DBBasicError as error:
@@ -64,7 +64,7 @@ class ConstructionCategoryController:
             return Response(status=403, json_body=error.asdict())
 
         construction_categories_deserialized['id'] = id
-        construction_category = self.serializer.convert_schema_to_object(construction_categories_deserialized)
+        construction_category = self.service.convert_schema_to_object(construction_categories_deserialized)
         try:
             self.service.update_construction_category(construction_category)
         except DBBasicError as error:

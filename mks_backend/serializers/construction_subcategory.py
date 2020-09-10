@@ -17,8 +17,7 @@ class ConstructionSubcategorySerializer:
     def convert_list_to_json(self, construction_subcategories_list: list) -> list:
         return list(map(self.convert_object_to_json, construction_subcategories_list))
 
-    @classmethod
-    def convert_schema_to_object(cls, schema: dict) -> ConstructionSubcategory:
+    def convert_schema_to_object(self, schema: dict) -> ConstructionSubcategory:
         construction_subcategories = ConstructionSubcategory()
 
         construction_subcategories.construction_subcategories_id = schema.get('id')

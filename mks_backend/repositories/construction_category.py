@@ -22,10 +22,5 @@ class ConstructionCategoryRepository:
         DBSession.commit()
 
     @db_error_handler
-    def update_construction_category(self, schema: dict) -> None:
-        construction_category = self.get_construction_category_by_id(
-            schema['id']
-        )
-        construction_category.fullname = schema['fullname']
-        construction_category.child = schema['childs']
+    def update_construction_category(self, construction_category: ConstructionCategory) -> None:
         DBSession.commit()

@@ -23,5 +23,6 @@ class ConstructionCategorySchema(colander.MappingSchema):
     )
 
     subcategory = colander.SchemaNode(
-        colander.List()
+        colander.List(),
+        missing=None
     )

@@ -12,10 +12,10 @@ class ConstructionCategory(Base):
 
     construction = relationship(
         'Construction',
-        back_populates='construction_categories'
+        back_populates='construction_category'
     )
 
-    child = relationship(
+    subcategories = relationship(
         'ConstructionSubcategory',
         secondary='subcategories_list',
         back_populates='parent'
