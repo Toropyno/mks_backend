@@ -11,7 +11,7 @@ class ConstructionRepository:
     def get_construction_by_id(self, id: int) -> Construction:
         return DBSession.query(Construction).get(id)
 
-
+    @db_error_handler
     def add_construction(self, construction: Construction) -> None:
         DBSession.add(construction)
         DBSession.commit()
