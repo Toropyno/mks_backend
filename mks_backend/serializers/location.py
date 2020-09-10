@@ -20,11 +20,14 @@ class LocationSerializer:
 
     @classmethod
     def convert_schema_to_object(cls, schema: dict) -> Location:
-        location = Location()
-        if 'locationId' in schema:
-            location.id = schema['locationId']
+        if schema['latitude'] and schema['longitude'] and schema['zoom']:
+            location = Location()
+            if 'locationId' in schema:
+                location.id = schema['locationId']
 
-        location.latitude = schema['latitude']
-        location.longitude = schema['longitude']
-        location.zoom = schema['zoom']
+            location.latitude = schema['latitude']
+            location.longitude = schema['longitude']
+            location.zoom = schema['zoom']
+        else:
+            location = None
         return location
