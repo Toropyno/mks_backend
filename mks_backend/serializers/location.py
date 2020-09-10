@@ -4,8 +4,9 @@ from mks_backend.errors.serilize_error import serialize_error_handler
 
 class LocationSerializer:
 
+    @classmethod
     @serialize_error_handler
-    def convert_object_to_json(self, location: Location) -> dict:
+    def convert_object_to_json(cls, location: Location) -> dict:
         return {
             'id': location.id,
             'latitude': location.latitude,
@@ -13,10 +14,12 @@ class LocationSerializer:
             'zoom': location.zoom,
         }
 
-    def convert_list_to_json(self, locations: list) -> list:
-        return list(map(self.convert_object_to_json, locations))
+    @classmethod
+    def convert_list_to_json(cls, locations: list) -> list:
+        return list(map(cls.convert_object_to_json, locations))
 
-    def convert_schema_to_object(self, schema: dict) -> Location:
+    @classmethod
+    def convert_schema_to_object(cls, schema: dict) -> Location:
         location = Location()
         if 'locationId' in schema:
             location.id = schema['locationId']
