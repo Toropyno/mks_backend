@@ -4,7 +4,7 @@ from mks_backend.repositories import DBSession
 
 class LocationRepository:
 
-    def get_locations(self) -> list:
+    def get_all_locations(self) -> list:
         return DBSession.query(Location).all()
 
     def add_location(self, location: Location) -> None:

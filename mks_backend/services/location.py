@@ -7,8 +7,8 @@ class LocationService:
     def __init__(self):
         self.repo = LocationRepository()
 
-    def get_locations(self):
-        return self.repo.get_locations()
+    def get_all_locations(self):
+        return self.repo.get_all_locations()
 
     def add_location(self, location: Location) -> None:
         self.repo.add_location(location)

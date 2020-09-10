@@ -13,6 +13,6 @@ class LocationController:
         self.serializer = LocationSerializer()
 
     @view_config(route_name='locations', request_method='GET', renderer='json')
-    def get_all_military_units(self):
-        locations = self.service.get_locations()
+    def get_all_locations(self):
+        locations = self.service.get_all_locations()
         return self.serializer.convert_list_to_json(locations)
