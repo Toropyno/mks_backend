@@ -4,13 +4,13 @@ from mks_backend.repositories import DBSession
 
 class LocationRepository:
 
-    @classmethod
-    def add_location(cls, location: Location) -> None:
-        DBSession.add(location)
-        DBSession.commit()
+    def get_locations(self) -> list:
+        return DBSession.query(Location).all()
 
-    @classmethod
-    def update_location(cls, location: Location) -> None:
+    def add_location(self, location: Location) -> None:
+        DBSession.add(location)
+
+    def update_location(self, location: Location) -> None:
         DBSession.query(Location).filter_by(id=location.id).update(
             {
                 'longitude': location.longitude,
@@ -18,4 +18,3 @@ class LocationRepository:
                 'zoom': location.zoom
             }
         )
-        DBSession.commit()

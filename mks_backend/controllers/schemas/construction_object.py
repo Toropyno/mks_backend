@@ -151,3 +151,13 @@ class ConstructionObjectSchema(colander.MappingSchema):
         ),
         missing=None
     )
+
+    location_id = colander.SchemaNode(
+        colander.Int(),
+        name='locationId',
+        validator=colander.Range(
+            min=0,
+            min_err='Недопустимое местоположение'
+        ),
+        missing=None
+    )

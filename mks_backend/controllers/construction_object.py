@@ -8,7 +8,7 @@ from mks_backend.serializers.construction_object import ConstructionObjectSerial
 from mks_backend.controllers.schemas.construction_object import ConstructionObjectSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.location import LocationSerializer
-from mks_backend.services.location import LocationService
+
 
 class ConstructionObjectController:
 
@@ -17,6 +17,7 @@ class ConstructionObjectController:
         self.service = ConstructionObjectService()
         self.serializer = ConstructionObjectSerializer()
         self.schema = ConstructionObjectSchema()
+        self.location_serializer = LocationSerializer()
 
     @view_config(route_name='construction_objects', request_method='GET', renderer='json')
     def get_all_construction_objects_by_construction_id(self):
@@ -33,7 +34,7 @@ class ConstructionObjectController:
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
 
-        location = LocationSerializer.convert_schema_to_object(construction_object_deserialized)
+        location = self.location_serializer.convert_schema_to_object(construction_object_deserialized)
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
         construction_object.location = location
 
@@ -74,10 +75,10 @@ class ConstructionObjectController:
 
         construction_object_deserialized['id'] = id
 
-        location = LocationSerializer.convert_schema_to_object(construction_object_deserialized)
+        location = self.location_serializer.convert_schema_to_object(construction_object_deserialized)
         construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
         construction_object.location = location
-
+        construction_object.location_id = location.id
         try:
             self.service.update_construction_object(construction_object)
         except DBBasicError as error:
