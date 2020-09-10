@@ -24,6 +24,8 @@ from mks_backend.models.military_unit_models.namemilitaryunit import NameMilitar
 from mks_backend.models.military_unit_models.purposemu import PurposeMU
 from mks_backend.models.military_unit_models.sortarmedforces import SortArmedForces
 
+from mks_backend.models.location import Location
+
 import os
 import sys
 

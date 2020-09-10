@@ -92,6 +92,51 @@ class ConstructionSchema(colander.MappingSchema):
         validator=date_validator
     )
 
+    latitude = colander.SchemaNode(
+        colander.Float(),
+        name='latitude',
+        validator=colander.Range(
+            min=-90,
+            min_err='Недопустимые координаты объекта',
+            max=90,
+            max_err='Недопустимые координаты объекта',
+        ),
+        missing=None
+    )
+
+    longitude = colander.SchemaNode(
+        colander.Float(),
+        name='longitude',
+        validator=colander.Range(
+            min=-180,
+            min_err='Недопустимые координаты объекта',
+            max=180,
+            max_err='Недопустимые координаты объекта',
+        ),
+        missing=None
+    )
+    zoom = colander.SchemaNode(
+        colander.Int(),
+        name='zoom',
+        validator=colander.Range(
+            min=1,
+            min_err='Недопустимая степень приближения',
+            max=23,
+            max_err='Недопустимая степень приближения',
+        ),
+        missing=None
+    )
+
+    location_id = colander.SchemaNode(
+        colander.Int(),
+        name='locationId',
+        validator=colander.Range(
+            min=0,
+            min_err='Недопустимое местоположение'
+        ),
+        missing=None
+    )
+
 
 class ConstructionFilterSchema(colander.MappingSchema):
     project_code = colander.SchemaNode(

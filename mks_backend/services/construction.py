@@ -1,12 +1,14 @@
 from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction import ConstructionRepository
 from mks_backend.services.subcategory_list import SubcategoryListService
+from mks_backend.services.location import LocationService
 
 
 class ConstructionService:
     def __init__(self):
         self.repo = ConstructionRepository()
         self.subcategory_list_service = SubcategoryListService()
+        self.location_service = LocationService()
 
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
@@ -18,6 +20,7 @@ class ConstructionService:
         self.repo.add_construction(construction)
 
     def update_construction(self, new_construction: Construction) -> None:
+        self.location_service.add_or_update_location(new_construction.location)
         self.repo.update_construction(new_construction)
 
     def delete_construction_by_id(self, id: int) -> None:
@@ -46,6 +49,7 @@ class ConstructionService:
         construction.contract_date = schema.get('contractDate')
         construction.planned_date = schema.get('plannedDate')
         construction.object_amount = schema.get('objectsAmount')
+        construction.location_id = schema.get('locationId')
 
         return construction
 

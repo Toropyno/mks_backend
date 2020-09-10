@@ -6,6 +6,7 @@ from pyramid.request import Request
 from mks_backend.services.construction import ConstructionService
 from mks_backend.serializers.construction import ConstructionSerializer
 from mks_backend.controllers.schemas.construction import ConstructionSchema, ConstructionFilterSchema
+from mks_backend.serializers.location import LocationSerializer
 
 from mks_backend.errors.db_basic_error import DBBasicError
 
@@ -18,6 +19,7 @@ class ConstructionController:
         self.serializer = ConstructionSerializer()
         self.schema = ConstructionSchema()
         self.filter_schema = ConstructionFilterSchema()
+        self.location_serializer = LocationSerializer()
 
     @view_config(route_name='constructions', request_method='GET', renderer='json')
     def get_all_constructions(self):
@@ -41,7 +43,9 @@ class ConstructionController:
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
+        location = self.location_serializer.convert_schema_to_object(construction_deserialized)
         construction = self.service.convert_schema_to_object(construction_deserialized)
+        construction.location = location
         try:
             self.service.add_construction(construction)
         except DBBasicError as error:
@@ -66,11 +70,14 @@ class ConstructionController:
         construction_schema = ConstructionSchema()
         try:
             construction_deserialized = construction_schema.deserialize(self.request.json_body)
-            construction_deserialized['id'] = self.request.matchdict['id']
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
 
+        construction_deserialized['id'] = self.request.matchdict['id']
+
+        location = self.location_serializer.convert_schema_to_object(construction_deserialized)
         new_construction = self.service.convert_schema_to_object(construction_deserialized)
+        new_construction.location = location
         try:
             self.service.update_construction(new_construction)
         except DBBasicError as error:

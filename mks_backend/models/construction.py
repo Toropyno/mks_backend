@@ -26,6 +26,7 @@ class Construction(Base):
     contract_date = Column(DATE, nullable=False)
     object_amount = Column(Integer, CheckConstraint('object_amount>0'), nullable=False)
     planned_date = Column(DATE, nullable=False)
+    location_id = Column(Integer, ForeignKey('location.id'))
 
     construction_category = relationship(
         'ConstructionCategory',
@@ -51,4 +52,9 @@ class Construction(Base):
         'ConstructionObject',
         back_populates='construction',
         passive_deletes=True,
+    )
+
+    location = relationship(
+        'Location',
+        back_populates='construction'
     )

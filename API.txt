@@ -274,3 +274,9 @@ Method: GET
 Description: Get all military_units
 Route: '/military_units'
 Method: GET
+
+# --- locations ---
+
+Description: Get all locations
+Route: '/locations'
+Method: GET

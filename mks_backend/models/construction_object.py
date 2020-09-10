@@ -28,6 +28,7 @@ class ConstructionObject(Base):
     floors_amount = Column(Integer)
     construction_stages_id = Column(Integer, ForeignKey('construction_stages.construction_stages_id',
                                                         ondelete='CASCADE'))
+    location_id = Column(Integer, ForeignKey('location.id'))
 
     construction = relationship(
         'Construction',
@@ -46,5 +47,10 @@ class ConstructionObject(Base):
 
     construction_stage = relationship(
         'ConstructionStage',
+        back_populates='construction_object'
+    )
+
+    location = relationship(
+        'Location',
         back_populates='construction_object'
     )
