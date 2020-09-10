@@ -14,12 +14,11 @@ class LocationSerializer:
             'zoom': location.zoom,
         }
 
-    @classmethod
-    def convert_list_to_json(cls, locations: list) -> list:
-        return list(map(cls.convert_object_to_json, locations))
+    def convert_list_to_json(self, locations: list) -> list:
+        return list(map(self.convert_object_to_json, locations))
 
-    @classmethod
-    def convert_schema_to_object(cls, schema: dict) -> Location:
+
+    def convert_schema_to_object(self, schema: dict) -> Location:
         if schema['latitude'] and schema['longitude'] and schema['zoom']:
             location = Location()
             if 'locationId' in schema:

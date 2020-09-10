@@ -1,6 +1,6 @@
 from mks_backend.serializers.gis import GisSerializer
 
-class GesService:
+class GisService:
 
     def __init__(self):
         self.serializer = GisSerializer()

@@ -78,12 +78,12 @@ class GisSerializer:
         xml_for_one += '<sign_angle alias = "Угол наклона знака">0</sign_angle>',
 
         # базовая информация по объекту
-        xml_for_one += '<name></name>'           # полное наименование
-        xml_for_one += '<label></label>'         # подпись объекта
-        xml_for_one += '<value></value>'         # значащая величина, характерная для объекта
-        xml_for_one += '<operation></operation>' # операция над объектом
-        xml_for_one += '<link></link>'           # ссылка для запроса карточки объекта
-        xml_for_one += '<lifetime></lifetime>'   # время хранения объекта в ГИП в днях
+        xml_for_one += '<name>'+'</name>'           # полное наименование
+        xml_for_one += '<label>'+'</label>'         # подпись объекта
+        xml_for_one += '<value>'+'</value>'         # значащая величина, характерная для объекта
+        xml_for_one += '<operation>'+'</operation>' # операция над объектом: 0 - inserted, 1 - updated, 2 - deleted)
+        xml_for_one += '<link>'+'</link>'           # ссылка для запроса карточки объекта
+        xml_for_one += '<lifetime>'+'</lifetime>'   # время хранения объекта в ГИП в днях
 
         # атрибуты объекта
         xml_for_one += '<attributes>'

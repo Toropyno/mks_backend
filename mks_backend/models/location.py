@@ -16,10 +16,10 @@ class Location(Base):
 
     __tablename__ = 'location'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    latitude = Column(Float)
-    longitude = Column(Float)
-    zoom = Column(Integer)
-    mark = Column(VARCHAR(32))
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    zoom = Column(Integer, nullable=False)
+    mark = Column(VARCHAR(32), nullable=False, default='00000000000000000000000000000000')
 
 
     construction = relationship(

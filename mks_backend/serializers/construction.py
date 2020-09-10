@@ -65,7 +65,6 @@ class ConstructionSerializer:
         construction.contract_date = schema.get('contractDate')
         construction.planned_date = schema.get('plannedDate')
         construction.object_amount = schema.get('objectsAmount')
-
         construction.location_id = schema.get('locationId')
 
         return construction

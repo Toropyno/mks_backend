@@ -61,7 +61,6 @@ class ConstructionObjectSerializer:
         construction_object.building_volume = schema['buildingVolume']
         construction_object.floors_amount = schema['floorsAmount']
         construction_object.construction_stages_id = schema['stage']
-
         construction_object.location_id = schema.get('locationId')
 
         return construction_object
