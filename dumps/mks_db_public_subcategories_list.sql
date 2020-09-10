@@ -1,0 +1,12 @@
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (83, 27, 121);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (86, 25, 117);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (39, 25, 109);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (40, 25, 110);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (41, 25, 111);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (42, 26, 115);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (43, 26, 116);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (44, 28, 113);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (45, 28, 114);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (46, 25, 108);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (48, 24, 108);
+INSERT INTO public.subcategories_list (subcategories_list_id, construction_categories_id, construction_subcategories_id) VALUES (49, 24, 112);
