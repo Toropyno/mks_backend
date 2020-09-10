@@ -28,7 +28,7 @@ class Construction(Base):
     planned_date = Column(DATE, nullable=False)
     location_id = Column(Integer, ForeignKey('location.id'))
 
-    construction_categories = relationship(
+    construction_category = relationship(
         'ConstructionCategory',
         back_populates='construction'
     )

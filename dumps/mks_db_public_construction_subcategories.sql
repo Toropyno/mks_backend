@@ -1,0 +1,13 @@
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (108, 'Учебная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (109, 'Ракетная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (110, 'Танковая подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (111, 'Зенитная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (112, 'Общеобразовательная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (113, 'Лабораторная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (114, 'Экспериментальная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (115, 'Исследовательская подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (116, 'Картографическая подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (117, 'Ядерная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (118, 'Воздушная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (119, 'Разведывательная подкатегория');
+INSERT INTO public.construction_subcategories (construction_subcategories_id, fullname) VALUES (121, 'Наблюдательная подкатегория');
