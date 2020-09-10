@@ -1,9 +1,11 @@
 from datetime import date as Date
+
 from mks_backend.models.construction import Construction
+from mks_backend.serializers.location import LocationSerializer
 from mks_backend.serializers.commision import CommissionSerializer
+from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
-from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 
 
 class ConstructionSerializer:
@@ -26,6 +28,8 @@ class ConstructionSerializer:
         commission = CommissionSerializer.convert_object_to_json(construction.commission)
         military_unit = MilitaryUnitSerializer.convert_object_to_json(construction.military_unit)
 
+        location = LocationSerializer.convert_object_to_json(construction.location)
+
         return {
             'id': construction.construction_id,
             'code': construction.project_code,
@@ -38,6 +42,7 @@ class ConstructionSerializer:
             'contractDate': self.get_date_string(construction.contract_date),
             'objectsAmount': construction.object_amount,
             'plannedDate': self.get_date_string(construction.planned_date),
+            'location': location,
         }
 
     def convert_list_to_json(self, constructions: list) -> list:
@@ -60,5 +65,6 @@ class ConstructionSerializer:
         construction.contract_date = schema.get('contractDate')
         construction.planned_date = schema.get('plannedDate')
         construction.object_amount = schema.get('objectsAmount')
+        construction.location_id = schema.get('locationId')
 
         return construction
