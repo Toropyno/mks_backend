@@ -16,3 +16,8 @@ class ZoneSchema(colander.MappingSchema):
             max_err='Слишком длинное наименование'
         )
     )
+
+    categories = colander.SchemaNode(
+        colander.List(),
+        missing=None
+    )

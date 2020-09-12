@@ -17,7 +17,6 @@ class LocationSerializer:
     def convert_list_to_json(self, locations: list) -> list:
         return list(map(self.convert_object_to_json, locations))
 
-
     def convert_schema_to_object(self, schema: dict) -> Location:
         if schema['latitude'] and schema['longitude'] and schema['zoom']:
             location = Location()
