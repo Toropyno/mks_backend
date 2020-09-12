@@ -14,7 +14,7 @@ class ConstructionObjectSerializer:
 
         if construction_object.object_categories_list:
             category = ObjectCategorySerializer.convert_object_to_json(
-                construction_object.object_categories_list.object_categories_instance
+                construction_object.object_categories_list.object_category
             )
         else:
             category = None
