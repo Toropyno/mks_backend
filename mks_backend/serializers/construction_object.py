@@ -45,25 +45,5 @@ class ConstructionObjectSerializer:
     def convert_list_to_json(self, construction_objects: list) -> list:
         return list(map(self.convert_object_to_json, construction_objects))
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionObject:
-        construction_object = ConstructionObject()
-        if 'id' in schema:
-            construction_object.construction_objects_id = schema['id']
-
-        construction_object.construction_id = schema['projectId']
-        construction_object.object_code = schema['code']
-        construction_object.object_name = schema['name']
-        construction_object.zones_id = schema['zone']
-        construction_object.object_categories_list_id = schema['category']
-        construction_object.planned_date = schema['plannedDate']
-        construction_object.weight = schema['weight']
-        construction_object.generalplan_number = schema['generalPlanNumber']
-        construction_object.building_volume = schema['buildingVolume']
-        construction_object.floors_amount = schema['floorsAmount']
-        construction_object.construction_stages_id = schema['stage']
-        construction_object.location_id = schema.get('locationId')
-
-        return construction_object
-
     def get_date_string(self, date: Date) -> str:
         return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
