@@ -30,4 +30,4 @@ class Protocol(Base):
     )
 
     def __str__(self):
-        return f'id={self.protocol_id}, protocol_number={self.protocol_num}'
+        return 'id={}, protocol_number={}'.format(self.protocol_id, self.protocol_num)

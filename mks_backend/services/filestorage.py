@@ -7,8 +7,10 @@ from webob.multidict import MultiDict
 from sqlalchemy.exc import DatabaseError
 
 from mks_backend.repositories.filestorage import FilestorageRepository
-from mks_backend.repositories.filestorage_hdd import FilestorageHDD, FilestorageError
+from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 from mks_backend.models.filestorage import Filestorage
+
+from mks_backend.errors.filestorage_error import FilestorageError
 
 
 class FilestorageService:
@@ -55,10 +57,30 @@ class FilestorageService:
         path_to_file = self.hdd.get_file(id)
         if path_to_file and filename:
             response = FileResponse(path_to_file)
-            response.headers['Content-Disposition'] = f"attachment; filename*=UTF-8''{filename}"
+            response.headers['Content-Disposition'] = "attachment; filename*=UTF-8''{}".format(filename)
         else:
-            response = Response(f'Unable to find file with id = {id}')
+            response = Response('Unable to find file with id = {}'.format(id))
         return response
+
+    def get_file_info(self, uuid):
+        try:
+            filestorage = self.repo.get_filestorage_by_id(uuid)
+        except DatabaseError:
+            raise FilestorageError(6)
+
+        filename = filestorage.filename
+        filesize = filestorage.filesize / 1024  # to Kbytes
+
+        if filesize >= 1024:
+            filesize = filesize / 1024
+            filesize = '{:.1f}Мб'.format(filesize)
+        else:
+            filesize = '{:.1f}Кб'.format(filesize)
+
+        return {
+            'filename': filename,
+            'filesize': filesize
+        }
 
     @classmethod
     def compare_two_filestorages(cls, new_filestorage_id: int, old_filestorage_id: int) -> None:

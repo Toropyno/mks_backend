@@ -11,8 +11,8 @@ class ObjectCategory(Base):
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
     note = Column(VARCHAR(1000))
 
-    object_categories_list = relationship(
-        'ObjectCategoryList',
-        back_populates='object_categories_instance',
-        passive_deletes=True
+    zones = relationship(
+        'Zone',
+        secondary='object_categories_list',
+        back_populates='object_categories',
     )

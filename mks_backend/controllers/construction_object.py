@@ -35,7 +35,7 @@ class ConstructionObjectController:
             return Response(status=403, json_body=date_parse_error.args)
 
         location = self.location_serializer.convert_schema_to_object(construction_object_deserialized)
-        construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
+        construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
         construction_object.location = location
 
         try:
@@ -76,7 +76,7 @@ class ConstructionObjectController:
         construction_object_deserialized['id'] = id
 
         location = self.location_serializer.convert_schema_to_object(construction_object_deserialized)
-        construction_object = self.serializer.convert_schema_to_object(construction_object_deserialized)
+        construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
         construction_object.location = location
 
         try:

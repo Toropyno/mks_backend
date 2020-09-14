@@ -8,31 +8,15 @@ class ZoneSerializer:
     @classmethod
     @serialize_error_handler
     def convert_object_to_json(cls, zone: Zone) -> dict:
-        categories = []
-
-        for row in zone.object_categories_list:
-            object_category = ObjectCategorySerializer.convert_object_to_json(
-                row.object_categories_instance
-            )
-            categories.append({
-                'id': row.object_categories_list_id,
-                'fullName': object_category['fullName'],
-            })
-
         zone_dict = {
             'id': zone.zones_id,
             'fullName': zone.fullname,
-            'categories': categories,
+            'categories': [
+                ObjectCategorySerializer.convert_object_to_json(category)
+                for category in zone.object_categories
+            ],
         }
         return zone_dict
 
     def convert_list_to_json(self, zones: list) -> list:
         return list(map(self.convert_object_to_json, zones))
-
-    def convert_schema_to_object(self, schema: dict) -> Zone:
-        zone = Zone()
-        if 'id' in schema:
-            zone.zones_id = schema['id']
-
-        zone.fullname = schema['fullName']
-        return zone

@@ -44,9 +44,8 @@ class ConstructionController:
             return Response(status=403, json_body=error.asdict())
 
         location = self.location_serializer.convert_schema_to_object(construction_deserialized)
-        construction = self.serializer.convert_schema_to_object(construction_deserialized)
+        construction = self.service.convert_schema_to_object(construction_deserialized)
         construction.location = location
-
         try:
             self.service.add_construction(construction)
         except DBBasicError as error:
@@ -77,9 +76,8 @@ class ConstructionController:
         construction_deserialized['id'] = self.request.matchdict['id']
 
         location = self.location_serializer.convert_schema_to_object(construction_deserialized)
-        new_construction = self.serializer.convert_schema_to_object(construction_deserialized)
+        new_construction = self.service.convert_schema_to_object(construction_deserialized)
         new_construction.location = location
-
         try:
             self.service.update_construction(new_construction)
         except DBBasicError as error:

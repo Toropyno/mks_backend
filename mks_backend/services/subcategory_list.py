@@ -18,3 +18,6 @@ class SubcategoryListService:
 
     def get_all_subcategories_lists(self) -> list:
         return self.repo.get_all_subcategories_lists()
+
+    def get_subcategories_list_by_relations(self, category_id, subcategory_id):
+        return self.repo.get_subcategories_list_by_relations(category_id, subcategory_id)

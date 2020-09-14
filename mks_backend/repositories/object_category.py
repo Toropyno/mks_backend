@@ -11,6 +11,11 @@ class ObjectCategoryRepository:
     def get_all_object_categories(self) -> list:
         return DBSession.query(ObjectCategory).all()
 
+    def get_many_object_categories_by_id(self, ids: list) -> list:
+        return DBSession.query(ObjectCategory).filter(
+            ObjectCategory.object_categories_id.in_(ids)
+        ).all()
+
     @db_error_handler
     def add_object_category(self, object_category: ObjectCategory) -> None:
         DBSession.add(object_category)

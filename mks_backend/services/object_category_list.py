@@ -21,3 +21,6 @@ class ObjectCategoryListService:
 
     def update_object_categories_list(self, new_object_categories_list: ObjectCategoryList) -> None:
         self.repo.update_object_categories_list(new_object_categories_list)
+
+    def get_object_categories_list_by_relations(self, zone_id, object_category_id) -> ObjectCategoryList:
+        return self.repo.get_object_categories_list_by_relations(zone_id, object_category_id)
