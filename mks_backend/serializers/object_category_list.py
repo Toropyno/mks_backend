@@ -6,8 +6,8 @@ class ObjectCategoryListSerializer:
     def convert_object_to_json(self, object_categories_list: ObjectCategoryList) -> dict:
         object_categories_list_dict = {
             'id': object_categories_list.object_categories_list_id,
-            'zone': object_categories_list.zone.zones_id,
-            'category': object_categories_list.object_category.object_categories_id
+            'zone': object_categories_list.zones_id,
+            'category': object_categories_list.object_categories_id
         }
         return object_categories_list_dict
 
