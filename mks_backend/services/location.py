@@ -17,6 +17,8 @@ class LocationService:
         self.repo.update_location(location)
 
     def add_or_update_location(self, location: Location) -> None:
+        if not location:  # TODO: remove when MIV and IHI will be good
+            return
         if location.id:
             self.update_location(location)
         else:

@@ -19,8 +19,9 @@ class ConstructionObject(Base):
     construction_id = Column(Integer, ForeignKey('construction.construction_id', ondelete='CASCADE'), nullable=False)
     object_code = Column(VARCHAR(40), unique=True, nullable=False)
     object_name = Column(VARCHAR(255), nullable=False)
-    zones_id = Column(Integer, ForeignKey('zones.zones_id'))
-    object_categories_list_id = Column(Integer, ForeignKey('object_categories_list.object_categories_list_id'))
+    zones_id = Column(Integer, ForeignKey('zones.zones_id', ondelete='SET NULL'))
+    object_categories_list_id = Column(Integer, ForeignKey('object_categories_list.object_categories_list_id',
+                                                           ondelete='SET NULL'))
     planned_date = Column(Date, default=func.current_date(), nullable=False)
     weight = Column(Integer, CheckConstraint('weight>0 AND weight<=100'), nullable=False)
     generalplan_number = Column(Integer)

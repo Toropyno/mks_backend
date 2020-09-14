@@ -10,6 +10,9 @@ class ObjectCategoryService:
     def get_all_object_categories(self) -> list:
         return self.repo.get_all_object_categories()
 
+    def get_many_object_categories_by_id(self, ids: list) -> list:
+        return self.repo.get_many_object_categories_by_id(ids)
+
     def get_object_category_by_id(self, id: int) -> ObjectCategory:
         return self.repo.get_object_category_by_id(id)
 

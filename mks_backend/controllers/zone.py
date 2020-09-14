@@ -28,7 +28,7 @@ class ZoneController:
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
-        zone = self.serializer.convert_schema_to_object(zone_deserialized)
+        zone = self.service.convert_schema_to_object(zone_deserialized)
         try:
             self.service.add_zone(zone)
         except DBBasicError as error:
@@ -44,25 +44,25 @@ class ZoneController:
 
     @view_config(route_name='zone_delete_change_and_view', request_method='GET', renderer='json')
     def get_zone(self):
-        id = int(self.request.matchdict['id'])
+        id = self.get_id()
         zone = self.service.get_zone_by_id(id)
         return self.serializer.convert_object_to_json(zone)
 
     @view_config(route_name='zone_delete_change_and_view', request_method='DELETE', renderer='json')
     def delete_zone(self):
-        id = int(self.request.matchdict['id'])
+        id = self.get_id()
         self.service.delete_zone_by_id(id)
         return {'id': id}
 
     @view_config(route_name='zone_delete_change_and_view', request_method='PUT', renderer='json')
     def edit_zone(self):
-        id = int(self.request.matchdict['id'])
+        id = self.get_id()
         try:
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
             return Response(status=403, json_body=error.asdict())
         zone_deserialized['id'] = id
-        zone = self.serializer.convert_schema_to_object(zone_deserialized)
+        zone = self.service.convert_schema_to_object(zone_deserialized)
         try:
             self.service.update_zone(zone)
         except DBBasicError as error:
@@ -75,3 +75,6 @@ class ZoneController:
             )
 
         return {'id': id}
+
+    def get_id(self):
+        return int(self.request.matchdict['id'])

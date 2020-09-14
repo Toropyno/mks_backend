@@ -31,3 +31,9 @@ class ObjectCategoryListRepository:
             }
         )
         DBSession.commit()
+
+    def get_object_categories_list_by_relations(self, zone_id, object_category_id) -> ObjectCategoryList:
+        return DBSession.query(ObjectCategoryList).filter(
+            ObjectCategoryList.zones_id == zone_id,
+            ObjectCategoryList.object_categories_id == object_category_id
+        ).first()

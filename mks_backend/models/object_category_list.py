@@ -28,17 +28,15 @@ class ObjectCategoryList(Base):
         ),
     )
 
-    zone = relationship(
-        'Zone',
-        back_populates='object_categories_list'
-    )
-
-    object_categories_instance = relationship(
-        'ObjectCategory',
-        back_populates='object_categories_list'
-    )
-
     construction_object = relationship(
         'ConstructionObject',
         back_populates='object_categories_list'
+    )
+
+    zone = relationship(
+        'Zone'
+    )
+
+    object_category = relationship(
+        'ObjectCategory',
     )

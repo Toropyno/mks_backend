@@ -18,8 +18,10 @@ class Construction(Base):
     construction_id = Column(Integer, primary_key=True, autoincrement=True)
     project_code = Column(VARCHAR(40), unique=True, nullable=False)
     project_name = Column(VARCHAR(255), nullable=False)
-    construction_categories_id = Column(Integer, ForeignKey('construction_categories.construction_categories_id'))
-    subcategories_list_id = Column(Integer, ForeignKey('subcategories_list.subcategories_list_id'))
+    construction_categories_id = Column(Integer, ForeignKey('construction_categories.construction_categories_id',
+                                                            ondelete='SET NULL'))
+    subcategories_list_id = Column(Integer, ForeignKey('subcategories_list.subcategories_list_id',
+                                                       ondelete='SET NULL'))
     is_critical = Column(Boolean, nullable=False)
     commission_id = Column(Integer, ForeignKey('commission.commission_id', ondelete='CASCADE'), nullable=False)
     idMU = Column(Integer, ForeignKey('military_unit.idMU'))
