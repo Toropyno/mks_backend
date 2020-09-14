@@ -7,6 +7,7 @@ from mks_backend.controllers.schemas.construction_subcategory import Constructio
 from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
 from mks_backend.services.construction_subcategory import ConstructionSubcategoryService
+from mks_backend.errors.colavder_error import get_dictionary_with_errors_correct_format
 
 
 class ConstructionSubcategoryController:
@@ -27,7 +28,7 @@ class ConstructionSubcategoryController:
         try:
             construction_subcategories_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
 
         construction_subcategory = self.serializer.convert_schema_to_object(construction_subcategories_deserialized)
         try:
@@ -61,7 +62,7 @@ class ConstructionSubcategoryController:
         try:
             construction_subcategories_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
 
         construction_subcategories_deserialized['id'] = id
         construction_subcategory = self.serializer.convert_schema_to_object(construction_subcategories_deserialized)

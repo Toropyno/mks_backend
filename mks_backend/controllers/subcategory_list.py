@@ -7,7 +7,7 @@ from mks_backend.controllers.schemas.subcategory_list import SubcategoryListSche
 from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.subcategory_list import SubcategoryListSerializer
 from mks_backend.services.subcategory_list import SubcategoryListService
-
+from mks_backend.errors.colavder_error import get_dictionary_with_errors_correct_format
 
 class SubcategoryListController:
 
@@ -27,7 +27,7 @@ class SubcategoryListController:
         try:
             subcategories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
 
         subcategories_list = self.serializer.convert_schema_to_object(subcategories_list_deserialized)
         try:

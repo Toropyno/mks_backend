@@ -7,6 +7,7 @@ from mks_backend.services.construction_stage import ConstructionStageService
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 from mks_backend.controllers.schemas.construction_stage import ConstructionStageSchema
 from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.errors.colavder_error import get_dictionary_with_errors_correct_format
 
 
 class ConstructionStageController:
@@ -27,7 +28,7 @@ class ConstructionStageController:
         try:
             construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         try:
             self.service.add_construction_stage(construction_stage)
@@ -60,7 +61,7 @@ class ConstructionStageController:
         try:
             construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
         construction_stage_deserialized['id'] = id
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
         try:
