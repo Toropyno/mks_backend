@@ -7,7 +7,7 @@ from mks_backend.services.object_category_list import ObjectCategoryListService
 from mks_backend.serializers.object_category_list import ObjectCategoryListSerializer
 from mks_backend.controllers.schemas.object_category_list import ObjectCategoryListSchema
 from mks_backend.errors.db_basic_error import DBBasicError
-from mks_backend.errors.colavder_error import get_dictionary_with_errors_correct_format
+from mks_backend.errors.colander_error import get_collander_error_dict
 
 
 class ObjectCategoryListController:
@@ -28,7 +28,7 @@ class ObjectCategoryListController:
         try:
             object_categories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         object_categories_list = self.serializer.convert_schema_to_object(object_categories_list_deserialized)
         try:
             self.service.add_object_categories_list(object_categories_list)
@@ -61,7 +61,7 @@ class ObjectCategoryListController:
         try:
             object_categories_list_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         object_categories_list_deserialized['id'] = id
         object_categories_list = self.serializer.convert_schema_to_object(object_categories_list_deserialized)
         try:

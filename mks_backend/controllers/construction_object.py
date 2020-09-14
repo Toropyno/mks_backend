@@ -8,7 +8,7 @@ from mks_backend.serializers.construction_object import ConstructionObjectSerial
 from mks_backend.controllers.schemas.construction_object import ConstructionObjectSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.location import LocationSerializer
-from mks_backend.errors.colavder_error import get_dictionary_with_errors_correct_format
+from mks_backend.errors.colander_error import get_collander_error_dict
 
 
 class ConstructionObjectController:
@@ -31,7 +31,7 @@ class ConstructionObjectController:
         try:
             construction_object_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
 
@@ -70,7 +70,7 @@ class ConstructionObjectController:
         try:
             construction_object_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
 

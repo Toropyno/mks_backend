@@ -7,7 +7,7 @@ from mks_backend.services.commission import CommissionService
 from mks_backend.serializers.commision import CommissionSerializer
 from mks_backend.controllers.schemas.commission import CommissionSchema
 from mks_backend.errors.db_basic_error import DBBasicError
-from mks_backend.errors.colavder_error import get_dictionary_with_errors_correct_format
+from mks_backend.errors.colander_error import get_collander_error_dict
 
 
 class CommissionController:
@@ -28,7 +28,7 @@ class CommissionController:
         try:
             commission_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=get_dictionary_with_errors_correct_format(error.asdict()))
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
 
         commission = self.serializer.convert_schema_to_object(commission_deserialized)
         try:
@@ -56,7 +56,7 @@ class CommissionController:
             commission_deserialized = self.schema.deserialize(self.request.json_body)
             commission_deserialized['id'] = self.request.matchdict['id']
         except colander.Invalid as error:
-            return Response(status=403,json_body=get_dictionary_with_errors_correct_format(error.asdict()))
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
 
         new_commission = self.serializer.convert_schema_to_object(commission_deserialized)
         try:
