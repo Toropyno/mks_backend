@@ -7,6 +7,7 @@ from mks_backend.serializers.protocol import ProtocolSerializer
 from mks_backend.services.protocol import ProtocolService
 from mks_backend.controllers.schemas.protocol import ProtocolControllerFilterSchema
 from mks_backend.controllers.schemas.protocol import ProtocolControllerSchema
+from mks_backend.errors.colander_error import get_collander_error_dict
 
 
 class ProtocolController:
@@ -23,7 +24,7 @@ class ProtocolController:
             try:
                 params_deserialized = params_schema.deserialize(self.request.GET)
             except colander.Invalid as error:
-                return Response(status=403, json_body=error.asdict())
+                return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
             except ValueError as date_parse_error:
                 return Response(status=403, json_body=date_parse_error.args)
             params = self.service.get_params_from_schema(params_deserialized)
@@ -39,7 +40,7 @@ class ProtocolController:
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
         protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
@@ -65,7 +66,7 @@ class ProtocolController:
         try:
             protocol_deserialized = protocol_schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
         protocol_deserialized['id'] = id

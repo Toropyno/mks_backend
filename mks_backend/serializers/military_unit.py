@@ -32,7 +32,17 @@ class MilitaryUnitSerializer:
     @classmethod
     @serialize_error_handler
     def get_correct_military_unit_name(cls, military_unit: MilitaryUnit) -> str:
-        if military_unit.vChNumber and military_unit.idNameMU:
-            return military_unit.vChNumber + ' ' + military_unit.name_military_unit.namemu
+        if military_unit.idPurpose in [130, 140, 150, 160, 310, 410, 510]:
+            name = 'Управление '
+            if military_unit.parent.vChNumber:
+                name += military_unit.parent.vChNumber + ' '
+            name += military_unit.parent.name_military_unit.snamemu
         else:
-            return military_unit.name_military_unit.namemu
+            if military_unit.vChNumber:
+                name = military_unit.vChNumber + ' ' + military_unit.name_military_unit.snamemu
+            else:
+                if military_unit.name_military_unit.snamemu:
+                    name = military_unit.name_military_unit.snamemu
+                else:
+                    name = military_unit.name_military_unit.namemu
+        return name

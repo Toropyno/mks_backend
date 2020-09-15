@@ -7,6 +7,7 @@ from mks_backend.services.object_category import ObjectCategoryService
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.controllers.schemas.object_category import ObjectCategorySchema
 from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.errors.colander_error import get_collander_error_dict
 
 
 class ObjectCategoryController:
@@ -33,7 +34,7 @@ class ObjectCategoryController:
         try:
             object_category_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
         try:
             self.service.add_object_category(object_category)
@@ -60,7 +61,7 @@ class ObjectCategoryController:
         try:
             object_category_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         object_category_deserialized['id'] = id
         object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
         try:

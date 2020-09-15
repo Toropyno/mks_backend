@@ -7,6 +7,7 @@ from mks_backend.services.zone import ZoneService
 from mks_backend.serializers.zone import ZoneSerializer
 from mks_backend.controllers.schemas.zone import ZoneSchema
 from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.errors.colander_error import get_collander_error_dict
 
 
 class ZoneController:
@@ -27,7 +28,7 @@ class ZoneController:
         try:
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         zone = self.service.convert_schema_to_object(zone_deserialized)
         try:
             self.service.add_zone(zone)
@@ -60,7 +61,7 @@ class ZoneController:
         try:
             zone_deserialized = self.schema.deserialize(self.request.json_body)
         except colander.Invalid as error:
-            return Response(status=403, json_body=error.asdict())
+            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
         zone_deserialized['id'] = id
         zone = self.service.convert_schema_to_object(zone_deserialized)
         try:

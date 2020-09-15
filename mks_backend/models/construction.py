@@ -23,7 +23,7 @@ class Construction(Base):
     subcategories_list_id = Column(Integer, ForeignKey('subcategories_list.subcategories_list_id',
                                                        ondelete='SET NULL'))
     is_critical = Column(Boolean, nullable=False)
-    commission_id = Column(Integer, ForeignKey('commission.commission_id', ondelete='CASCADE'), nullable=False)
+    commission_id = Column(Integer, ForeignKey('commission.commission_id', ondelete='SET NULL'), nullable=False)
     idMU = Column(Integer, ForeignKey('military_unit.idMU'))
     contract_date = Column(DATE, nullable=False)
     object_amount = Column(Integer, CheckConstraint('object_amount>0'), nullable=False)
