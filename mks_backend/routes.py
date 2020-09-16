@@ -50,3 +50,8 @@ def includeme(config):
     config.add_route('military_units', '/military_units')
 
     config.add_route('locations', '/locations')
+
+    config.add_route('get_all_object_documents', '/object_document')
+    config.add_route('add_object_document', '/object_document/')
+    config.add_route('get_object_document', '/object_document/{id}')
+    config.add_route('delete_object_document', '/object_document/{id}')

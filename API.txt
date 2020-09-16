@@ -280,3 +280,21 @@ Method: GET
 Description: Get all locations
 Route: '/locations'
 Method: GET
+
+# --- object_document ---
+
+Description: Get all object_document (query parameters for filter)
+Route: '/object_document'
+Method: GET
+
+Description: Add object_document
+Route: '/object_document/'
+Method: POST
+
+Description: Get object_document
+Route: '/object_document/{id}'
+Method: GET
+
+Description: Delete object_document
+Route: '/object_document/{id}'
+Method: DELETE

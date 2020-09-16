@@ -1,5 +1,6 @@
 # Do not delete import models
 from mks_backend.models import Base
+from mks_backend.models.object_document import ObjectDocument
 from mks_backend.models.protocol import Protocol
 
 from mks_backend.models.filestorage import Filestorage
@@ -25,6 +26,7 @@ from mks_backend.models.military_unit_models.purposemu import PurposeMU
 from mks_backend.models.military_unit_models.sortarmedforces import SortArmedForces
 
 from mks_backend.models.location import Location
+
 
 import os
 import sys
