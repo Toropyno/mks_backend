@@ -42,7 +42,7 @@ class ObjectDocumentController:
                 }
             )
 
-        return {'id': object_document.object_document_id}
+        return {'id': object_document.object_documents_id}
 
     @view_config(route_name='get_object_document', request_method='GET', renderer='json')
     def get_object_document(self):
