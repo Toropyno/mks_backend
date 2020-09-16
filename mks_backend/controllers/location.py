@@ -12,7 +12,7 @@ class LocationController:
         self.service = LocationService()
         self.serializer = LocationSerializer()
 
-    @view_config(route_name='locations', request_method='GET', renderer='json')
+    @view_config(route_name='get_locations', renderer='json')
     def get_all_locations(self):
         locations = self.service.get_all_locations()
         return self.serializer.convert_list_to_json(locations)

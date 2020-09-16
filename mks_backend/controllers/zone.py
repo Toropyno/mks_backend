@@ -18,12 +18,12 @@ class ZoneController:
         self.serializer = ZoneSerializer()
         self.schema = ZoneSchema()
 
-    @view_config(route_name='zones', request_method='GET', renderer='json')
+    @view_config(route_name='get_zones', renderer='json')
     def get_all_zones(self):
         zones = self.service.get_all_zones()
         return self.serializer.convert_list_to_json(zones)
 
-    @view_config(route_name='add_zone', request_method='POST', renderer='json')
+    @view_config(route_name='add_zone', renderer='json')
     def add_zone(self):
         try:
             zone_deserialized = self.schema.deserialize(self.request.json_body)
@@ -43,19 +43,19 @@ class ZoneController:
 
         return {'id': zone.zones_id}
 
-    @view_config(route_name='zone_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='get_zone', renderer='json')
     def get_zone(self):
         id = self.get_id()
         zone = self.service.get_zone_by_id(id)
         return self.serializer.convert_object_to_json(zone)
 
-    @view_config(route_name='zone_delete_change_and_view', request_method='DELETE', renderer='json')
+    @view_config(route_name='delete_zone', renderer='json')
     def delete_zone(self):
         id = self.get_id()
         self.service.delete_zone_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='zone_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='edit_zone', renderer='json')
     def edit_zone(self):
         id = self.get_id()
         try:

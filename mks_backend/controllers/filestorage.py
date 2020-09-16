@@ -12,7 +12,7 @@ class FilestorageController:
         self.request = request
         self.service = FilestorageService()
 
-    @view_config(route_name='upload_file', request_method='POST', renderer='json')
+    @view_config(route_name='upload_file', renderer='json')
     def upload_file(self):
         try:
             filestorage_id = self.service.create_filestorage(self.request.POST)
@@ -26,7 +26,7 @@ class FilestorageController:
                 }
             )
 
-    @view_config(route_name='download_file', request_method='GET')
+    @view_config(route_name='download_file')
     def download_file(self):
         uuid = self.request.matchdict['uuid']
         try:
@@ -41,7 +41,7 @@ class FilestorageController:
                 }
             )
 
-    @view_config(route_name='get_file_info', request_method='GET', renderer='json')
+    @view_config(route_name='get_file_info', renderer='json')
     def get_file_info(self):
         uuid = self.request.params.get('idFileStorage')
         try:

@@ -18,12 +18,12 @@ class ConstructionSubcategoryController:
         self.service = ConstructionSubcategoryService()
         self.schema = ConstructionSubcategorySchema()
 
-    @view_config(route_name='construction_subcategories', request_method='GET', renderer='json')
+    @view_config(route_name='get_construction_subcategories', renderer='json')
     def get_all_construction_subcategories(self):
         construction_subcategories = self.service.get_all_construction_subcategories()
         return self.serializer.convert_list_to_json(construction_subcategories)
 
-    @view_config(route_name='add_construction_subcategory', request_method='POST', renderer='json')
+    @view_config(route_name='add_construction_subcategory', renderer='json')
     def add_construction_subcategory(self):
         try:
             construction_subcategories_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,19 +44,19 @@ class ConstructionSubcategoryController:
 
         return {'id': construction_subcategory.construction_subcategories_id}
 
-    @view_config(route_name='construction_subcategory_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='get_construction_subcategory', renderer='json')
     def get_construction_subcategory(self):
         id = int(self.request.matchdict['id'])
         construction_subcategory = self.service.get_construction_subcategory_by_id(id)
         return self.serializer.convert_object_to_json(construction_subcategory)
 
-    @view_config(route_name='construction_subcategory_delete_change_and_view', request_method='DELETE', renderer='json')
+    @view_config(route_name='delete_construction_subcategory', renderer='json')
     def delete_construction_subcategory(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_construction_subcategory_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='construction_subcategory_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='edit_construction_subcategory', renderer='json')
     def edit_construction_subcategory(self):
         id = int(self.request.matchdict['id'])
         try:

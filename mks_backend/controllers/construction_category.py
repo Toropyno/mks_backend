@@ -18,12 +18,12 @@ class ConstructionCategoryController:
         self.service = ConstructionCategoryService()
         self.schema = ConstructionCategorySchema()
 
-    @view_config(route_name='construction_categories', request_method='GET', renderer='json')
+    @view_config(route_name='get_construction_categories', renderer='json')
     def get_all_construction_categories(self):
         construction_categories = self.service.get_all_construction_categories()
         return self.serializer.convert_list_to_json(construction_categories)
 
-    @view_config(route_name='add_construction_category', request_method='POST', renderer='json')
+    @view_config(route_name='add_construction_category', renderer='json')
     def add_construction_category(self):
         try:
             construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,19 +44,19 @@ class ConstructionCategoryController:
 
         return {'id': construction_category.construction_categories_id}
 
-    @view_config(route_name='construction_category_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='get_construction_category', renderer='json')
     def get_construction_category(self):
         id = int(self.request.matchdict['id'])
         construction_category = self.service.get_construction_category_by_id(id)
         return self.serializer.convert_object_to_json(construction_category)
 
-    @view_config(route_name='construction_category_delete_change_and_view', request_method='DELETE', renderer='json')
+    @view_config(route_name='delete_construction_category', renderer='json')
     def delete_construction_category(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_construction_category_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='construction_category_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='edit_construction_category', renderer='json')
     def edit_construction_category(self):
         id = int(self.request.matchdict['id'])
         try:

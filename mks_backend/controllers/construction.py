@@ -22,7 +22,7 @@ class ConstructionController:
         self.filter_schema = ConstructionFilterSchema()
         self.location_serializer = LocationSerializer()
 
-    @view_config(route_name='constructions', request_method='GET', renderer='json')
+    @view_config(route_name='get_constructions', renderer='json')
     def get_all_constructions(self):
         if self.request.params:
             try:
@@ -36,7 +36,7 @@ class ConstructionController:
 
         return self.serializer.convert_list_to_json(constructions)
 
-    @view_config(route_name='add_construction', request_method='POST', renderer='json')
+    @view_config(route_name='add_construction', renderer='json')
     def add_construction(self):
         construction_schema = ConstructionSchema()
         try:
@@ -60,13 +60,13 @@ class ConstructionController:
 
         return {'id': construction.construction_id}
 
-    @view_config(route_name='construction_delete_change_and_view', request_method='DELETE', renderer='json')
+    @view_config(route_name='delete_construction', renderer='json')
     def delete_construction(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_construction_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='construction_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='edit_construction', renderer='json')
     def edit_construction(self):
         construction_schema = ConstructionSchema()
         try:
@@ -92,7 +92,7 @@ class ConstructionController:
 
         return {'id': new_construction.construction_id}
 
-    @view_config(route_name='construction_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='get_construction', renderer='json')
     def get_construction(self):
         id = int(self.request.matchdict['id'])
         construction = self.service.get_construction_by_id(id)
