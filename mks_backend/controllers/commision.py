@@ -18,7 +18,7 @@ class CommissionController:
         self.serializer = CommissionSerializer()
         self.schema = CommissionSchema()
 
-    @view_config(route_name='get_commissions', renderer='json')
+    @view_config(route_name='get_all_commissions', renderer='json')
     def get_all_commissions(self):
         commissions = self.service.get_all_commissions()
         return self.serializer.convert_list_to_json(commissions)

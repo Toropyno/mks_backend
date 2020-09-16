@@ -18,7 +18,7 @@ class ObjectCategoryController:
         self.serializer = ObjectCategorySerializer()
         self.schema = ObjectCategorySchema()
 
-    @view_config(route_name='get_object_categories', renderer='json')
+    @view_config(route_name='get_all_object_categories', renderer='json')
     def get_all_object_categories(self):
         object_categories = self.service.get_all_object_categories()
         return self.serializer.convert_list_to_json(object_categories)

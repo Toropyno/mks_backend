@@ -18,7 +18,7 @@ class ConstructionSubcategoryController:
         self.service = ConstructionSubcategoryService()
         self.schema = ConstructionSubcategorySchema()
 
-    @view_config(route_name='get_construction_subcategories', renderer='json')
+    @view_config(route_name='get_all_construction_subcategories', renderer='json')
     def get_all_construction_subcategories(self):
         construction_subcategories = self.service.get_all_construction_subcategories()
         return self.serializer.convert_list_to_json(construction_subcategories)

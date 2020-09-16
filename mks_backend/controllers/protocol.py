@@ -17,7 +17,7 @@ class ProtocolController:
         self.serializer = ProtocolSerializer()
         self.service = ProtocolService()
 
-    @view_config(route_name='get_protocols', renderer='json')
+    @view_config(route_name='get_all_protocols', renderer='json')
     def get_all_protocols(self):
         if self.request.params:
             params_schema = ProtocolControllerFilterSchema()

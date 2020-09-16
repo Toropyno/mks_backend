@@ -18,7 +18,7 @@ class ZoneController:
         self.serializer = ZoneSerializer()
         self.schema = ZoneSchema()
 
-    @view_config(route_name='get_zones', renderer='json')
+    @view_config(route_name='get_all_zones', renderer='json')
     def get_all_zones(self):
         zones = self.service.get_all_zones()
         return self.serializer.convert_list_to_json(zones)

@@ -18,7 +18,7 @@ class ConstructionCategoryController:
         self.service = ConstructionCategoryService()
         self.schema = ConstructionCategorySchema()
 
-    @view_config(route_name='get_construction_categories', renderer='json')
+    @view_config(route_name='get_all_construction_categories', renderer='json')
     def get_all_construction_categories(self):
         construction_categories = self.service.get_all_construction_categories()
         return self.serializer.convert_list_to_json(construction_categories)

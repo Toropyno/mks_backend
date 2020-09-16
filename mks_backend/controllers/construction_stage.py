@@ -18,7 +18,7 @@ class ConstructionStageController:
         self.serializer = ConstructionStageSerializer()
         self.schema = ConstructionStageSchema()
 
-    @view_config(route_name='get_construction_stages', renderer='json')
+    @view_config(route_name='get_all_construction_stages', renderer='json')
     def get_all_construction_stages(self):
         construction_stages = self.service.get_all_construction_stages()
         return self.serializer.convert_list_to_json(construction_stages)

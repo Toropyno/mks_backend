@@ -22,7 +22,7 @@ class ConstructionController:
         self.filter_schema = ConstructionFilterSchema()
         self.location_serializer = LocationSerializer()
 
-    @view_config(route_name='get_constructions', renderer='json')
+    @view_config(route_name='get_all_constructions', renderer='json')
     def get_all_constructions(self):
         if self.request.params:
             try:
