@@ -1,53 +1,71 @@
 API
 
+# --- filestorage ---
+Description: download file
+Route: '/protocol/download/{uuid}'
+Method: GET
+
+Description: upload file
+Route: '/protocol/upload'
+Method: POST
+
+Description: get file info (uuid in query parameters)
+Route: '/protocol/file_info?idFileStorage='
+Method: GET
+
+# --- meetings ---
+Description: get all meeting types
+Route: 'meeting'
+Method: GET
+
 # --- protocols ---
 
 Description: Get all protocols
-Route: '/protocols'
+Route: '/protocol'
 Method: GET
 
 Description: Get filtered protocols
 Route:
 Method: GET
-# /protocols?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart='Thu Aug 06 2020'&dateEnd='Thu Aug 08 2020'
+# /protocol?meeting=noteddd&protocolNumber=protocolnumssss&protocolName=protocolnameddd&dateStart='Thu Aug 06 2020'&dateEnd='Thu Aug 08 2020'
 
 Description: Get protocol
 Route: '/protocol/{id}'
 Method: GET
 
 Description: Create protocol
-Route: '/protocols/add'
+Route: '/protocol'
 Method: POST
 
 Description: Edit protocol
-Route: '/protocols/{id}'
+Route: '/protocol/{id}'
 Method: PUT
 
 Description: Delete protocol
-Route: '/protocols/{id}'
+Route: '/protocol/{id}'
 Method: DELETE
 
 
 # --- constructions ---
 
 Description: Get all constructions (query parameters for filter)
-Route: '/constructions'
+Route: '/construction'
 Method: GET
 
 Description: Add construction
-Route: '/constructions/add'
+Route: '/construction'
 Method: POST
 
 Description: Delete construction
-Route: '/constructions/{id}'
+Route: '/construction/{id}'
 Method: DELETE
 
 Description: Edit construction
-Route: '/constructions/{id}'
+Route: '/construction/{id}'
 Method: PUT
 
 Description: Get construction
-Route: '/constructions/{id}'
+Route: '/construction/{id}'
 Method: GET
 
 
@@ -61,144 +79,168 @@ Method: GET
 # --- construction_objects ---
 
 Description: Add construction_object
-Route: '/construction_objects/add'
+Route: '/construction_object'
 Method: POST
 
 Description: Get construction_object
-Route: '/construction_objects/{id}'
+Route: '/construction_object/{id}'
 Method: GET
 
 Description: Edit construction_object
-Route: '/construction_objects{id}'
+Route: '/construction_object/{id}'
 Method: PUT
 
 Description: Delete construction_object
-Route: '/construction_objects{id}'
+Route: '/construction_object/{id}'
 Method: DELETE
 
 
 # --- construction_categories ---
 
 Description: Get all construction_categories
-Route: '/construction_categories'
-Method: GET
-
-Description: Get filtered construction_categories
-Route:
+Route: '/construction_category'
 Method: GET
 
 Description: Get construction_category
-Route: '/construction_categories/{id}'
+Route: '/construction_category/{id}'
 Method: GET
 
 Description: Create construction_category
-Route: '/construction_categories/add'
+Route: '/construction_category'
 Method: POST
 
 Description: Edit construction_category
-Route: '/construction_categories/{id}'
+Route: '/construction_category/{id}'
 Method: PUT
 
 Description: Delete construction_categories
-Route: '/construction_categories/{id}'
+Route: '/construction_category/{id}'
 Method: DELETE
-
-
-# --- subcategories_lists ---
-
-Description: Get all subcategories_lists
-Route: '/subcategories_lists'
-Method: GET
-
-Description: Get filtered subcategories_lists
-Route:
-Method: GET
-
-Description: Get subcategories_list
-Route: '/subcategories_lists/{id}'
-Method: GET
-
-Description: Create subcategories_list
-Route: '/subcategories_lists/add'
-Method: POST
-
-Description: Delete subcategories_lists
-Route: '/subcategories_lists/{id}'
-Method: DELETE
-
 
 # --- construction_subcategories ---
 
 Description: Get all construction_subcategories
-Route: '/construction_subcategories'
-Method: GET
-
-Description: Get filtered construction_subcategories
-Route:
+Route: '/construction_subcategory'
 Method: GET
 
 Description: Get construction_subcategory
-Route: '/construction_subcategories/{id}'
+Route: '/construction_subcategory/{id}'
 Method: GET
 
 Description: Create construction_subcategory
-Route: '/construction_subcategories/add'
+Route: '/construction_subcategory'
 Method: POST
 
 Description: Edit construction_subcategory
-Route: '/construction_subcategories/{id}'
+Route: '/construction_subcategory/{id}'
 Method: PUT
 
 Description: Delete construction_subcategories
-Route: '/construction_subcategories/{id}'
+Route: '/construction_subcategory/{id}'
 Method: DELETE
-
 
 # --- construction_stages ---
 
 Description: Get all construction_stages
-Route: '/construction_stages'
+Route: '/construction_stage'
 Method: GET
 
 Description: Add construction_stage
-Route: '/construction_stages/add'
+Route: '/construction_stage'
 Method: POST
 
 Description: Get construction_stage
-Route: '/construction_stages/{id}'
+Route: '/construction_stage/{id}'
 Method: GET
 
 Description: Edit construction_stage
-Route: '/construction_stages{id}'
+Route: '/construction_stage/{id}'
 Method: PUT
 
 Description: Delete construction_stage
-Route: '/construction_stages{id}'
+Route: '/construction_stage/{id}'
 Method: DELETE
 
 
 # --- object_categories ---
 
 Description: Get all object_categories
-Route: '/object_categories'
+Route: '/object_category'
 Method: GET
 
 Description: Add object_categories
-Route: '/object_categories/add'
+Route: '/object_category'
 Method: POST
 
-Description: Get object_categories
-Route: '/object_categories/{id}'
+Description: Get object_category
+Route: '/object_category/{id}'
 Method: GET
 
 Description: Edit object_categories
-Route: '/object_categories{id}'
+Route: '/object_category/{id}'
 Method: PUT
 
 Description: Delete object_categories
-Route: '/object_categories{id}'
+Route: '/object_category/{id}'
 Method: DELETE
 
+# --- zones ---
+
+Description: Get all zones
+Route: '/zone'
+Method: GET
+
+Description: Add zones
+Route: '/zone'
+Method: POST
+
+Description: Get zones
+Route: '/zone/{id}'
+Method: GET
+
+Description: Edit zones
+Route: '/zone/{id}'
+Method: PUT
+
+Description: Delete zones
+Route: '/zone/{id}'
+Method: DELETE
+
+
+# --- commissions ---
+
+Description: Get all commissions (query parameters for filter)
+Route: '/commission'
+Method: GET
+
+Description: Add construction
+Route: '/commission'
+Method: POST
+
+Description: Delete construction
+Route: '/commission/{id}'
+Method: DELETE
+
+Description: Edit construction
+Route: '/commission/{id}'
+Method: PUT
+
+Description: Get construction
+Route: '/commission/{id}'
+Method: GET
+
+
+# --- military_units ---
+
+Description: Get all military_units
+Route: '/military_unit'
+Method: GET
+
+# --- locations ---
+
+Description: Get all locations
+Route: '/location'
+Method: GET
 
 # --- object_categories_lists ---
 
@@ -206,77 +248,8 @@ Description: Get all object_categories_lists
 Route: '/object_categories_lists'
 Method: GET
 
-Description: Add object_categories_lists
-Route: '/object_categories_lists/add'
-Method: POST
+# --- subcategories_lists ---
 
-Description: Get object_categories_lists
-Route: '/object_categories_lists/{id}'
-Method: GET
-
-Description: Edit object_categories_lists
-Route: '/object_categories_lists{id}'
-Method: PUT
-
-Description: Delete object_categories_lists
-Route: '/object_categories_lists{id}'
-Method: DELETE
-
-
-# --- zones ---
-
-Description: Get all zones
-Route: '/zones'
-Method: GET
-
-Description: Add zones
-Route: '/zones/add'
-Method: POST
-
-Description: Get zones
-Route: '/zones/{id}'
-Method: GET
-
-Description: Edit zones
-Route: '/zones/{id}'
-Method: PUT
-
-Description: Delete zones
-Route: '/zones/{id}'
-Method: DELETE
-
-
-# --- commissions ---
-
-Description: Get all commissions (query parameters for filter)
-Route: '/commissions'
-Method: GET
-
-Description: Add construction
-Route: '/commissions/add'
-Method: POST
-
-Description: Delete construction
-Route: '/commissions/{id}'
-Method: DELETE
-
-Description: Edit construction
-Route: '/commissions/{id}'
-Method: PUT
-
-Description: Get construction
-Route: '/commissions/{id}'
-Method: GET
-
-
-# --- military_units ---
-
-Description: Get all military_units
-Route: '/military_units'
-Method: GET
-
-# --- locations ---
-
-Description: Get all locations
-Route: '/locations'
+Description: Get all subcategories_lists
+Route: '/subcategories_lists'
 Method: GET

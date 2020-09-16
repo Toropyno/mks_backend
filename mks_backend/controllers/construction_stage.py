@@ -18,12 +18,12 @@ class ConstructionStageController:
         self.serializer = ConstructionStageSerializer()
         self.schema = ConstructionStageSchema()
 
-    @view_config(route_name='construction_stages', request_method='GET', renderer='json')
+    @view_config(route_name='get_all_construction_stages', renderer='json')
     def get_all_construction_stages(self):
         construction_stages = self.service.get_all_construction_stages()
         return self.serializer.convert_list_to_json(construction_stages)
 
-    @view_config(route_name='add_construction_stage', request_method='POST', renderer='json')
+    @view_config(route_name='add_construction_stage', renderer='json')
     def add_construction_stage(self):
         try:
             construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
@@ -43,19 +43,19 @@ class ConstructionStageController:
 
         return {'id': construction_stage.construction_stages_id}
 
-    @view_config(route_name='construction_stages_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='get_construction_stage', renderer='json')
     def get_construction_stage(self):
         id = int(self.request.matchdict['id'])
         construction_stage = self.service.get_construction_stage_by_id(id)
         return self.serializer.convert_object_to_json(construction_stage)
 
-    @view_config(route_name='construction_stages_delete_change_and_view', request_method='DELETE', renderer='json')
+    @view_config(route_name='delete_construction_stage', renderer='json')
     def delete_construction_object(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_construction_stage_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='construction_stages_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='edit_construction_stage', renderer='json')
     def edit_construction_stage(self):
         id = int(self.request.matchdict['id'])
         try:
