@@ -75,4 +75,3 @@ def includeme(config):
     config.add_route('add_object_document', '/object_document/', request_method='POST')
     config.add_route('get_object_document', '/object_document/{id}', request_method='GET')
     config.add_route('delete_object_document', '/object_document/{id}', request_method='DELETE')
-
