@@ -40,6 +40,42 @@ class ConstructionSerializer:
             'contractDate': self.get_date_string(construction.contract_date),
             'objectsAmount': construction.object_amount,
             'plannedDate': self.get_date_string(construction.planned_date),
+            'constructionType': {
+                'id': 1,
+                'fullName': 'Наименование типа проекта'
+            },
+            'locationType': {
+                'id': 1,
+                'fullName': 'Наименование типа местоположения'
+            },
+            'constructionCompany': {
+                'id': 1,
+                'fullName': 'Название компании-исполнителя'
+            },
+            'oksm': {
+                'id': 1,
+                'fullName': 'Краткое наименование страны по ОКСМ'
+            },
+            'fias': {
+                'subject': {
+                    'id': 1,
+                    'fullName': 'Название субъекта по ФИАС'
+                },
+                'district': {
+                    'id': 11,
+                    'fullName': 'Название района по ФИАС'
+                },
+                'city': {
+                    'id': 17,
+                    'fullName': 'Наименование города по ФИАС'
+                },
+                'locality': {
+                    'id': 1,
+                    'fullName': 'Наименование населенного пункта по ФИАС'
+                }
+            },
+            'address': 'Не формализованный адрес проекта',
+            'note': 'Примечание к проекту',
             'location': location,
         }
 

@@ -29,7 +29,15 @@ class ConstructionRepository:
                 'idMU': construction.idMU,
                 'contract_date': construction.contract_date,
                 'object_amount': construction.object_amount,
-                'planned_date': construction.planned_date
+                'planned_date': construction.planned_date,
+                'location_id': construction.location_id,
+                'construction_types_id': construction.construction_types_id,
+                'location_types_id': construction.location_types_id,
+                'construction_companies_id': construction.construction_companies_id,
+                'oksm_id': construction.oksm_id,
+                'id_fias': construction.id_fias,
+                'address': construction.address,
+                'note': construction.note
             }
         )
         DBSession.commit()
