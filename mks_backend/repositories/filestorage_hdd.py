@@ -8,7 +8,7 @@ from mks_backend.errors.filestorage_error import FilestorageError
 
 
 class FilestorageHDD:
-    PROTOCOL_STORAGE = '/tmp/protocols/'
+    PROTOCOL_STORAGE = '/home/atimchenko/MKS/protocols/'
 
     def create_file(self, id_file_storage: str, file: cgi_FieldStorage) -> None:
         try:
@@ -27,7 +27,7 @@ class FilestorageHDD:
             return 'unknow/type'
 
     def get_file(self, uuid: str) -> str:
-        protocol_file = self.PROTOCOL_STORAGE + uuid
+        protocol_file = os_path.join(self.PROTOCOL_STORAGE, uuid)
         if os_path.exists(protocol_file):
             return protocol_file
         else:
