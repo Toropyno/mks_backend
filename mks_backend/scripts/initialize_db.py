@@ -1,4 +1,30 @@
 # Do not delete import models
+from mks_backend.models import Base
+
+from mks_backend.models.protocol import Protocol
+from mks_backend.models.filestorage import Filestorage
+from mks_backend.models.meeting import Meeting
+
+from mks_backend.models.commission import Commission
+from mks_backend.models.construction import Construction
+from mks_backend.models.construction_category import ConstructionCategory
+from mks_backend.models.construction_object import ConstructionObject
+from mks_backend.models.construction_stage import ConstructionStage
+from mks_backend.models.construction_subcategory import ConstructionSubcategory
+from mks_backend.models.military_unit import MilitaryUnit
+from mks_backend.models.object_category import ObjectCategory
+from mks_backend.models.object_category_list import ObjectCategoryList
+from mks_backend.models.subcategory_list import SubcategoryList
+from mks_backend.models.zone import Zone
+
+from mks_backend.models.military_unit_models.combatarm import Combatarm
+from mks_backend.models.military_unit_models.keyword import Keyword
+from mks_backend.models.military_unit_models.militarycity import MilitaryCity
+from mks_backend.models.military_unit_models.namemilitaryunit import NameMilitaryUnit
+from mks_backend.models.military_unit_models.purposemu import PurposeMU
+from mks_backend.models.military_unit_models.sortarmedforces import SortArmedForces
+
+from mks_backend.models.construction_document import ConstructionDocument
 
 import os
 import sys
