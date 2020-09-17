@@ -1,8 +1,8 @@
-from pyramid.view import view_config
 from pyramid.request import Request
+from pyramid.view import view_config
 
-from mks_backend.services.location import LocationService
 from mks_backend.serializers.location import LocationSerializer
+from mks_backend.services.location import LocationService
 
 
 class LocationController:

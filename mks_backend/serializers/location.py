@@ -1,5 +1,5 @@
-from mks_backend.models.location import Location
 from mks_backend.errors.serilize_error import serialize_error_handler
+from mks_backend.models.location import Location
 
 
 class LocationSerializer:

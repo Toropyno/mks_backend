@@ -3,10 +3,7 @@ from sqlalchemy import (
     Integer,
     Float,
     VARCHAR,
-    ForeignKey,
-    CHAR,
 )
-
 from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base

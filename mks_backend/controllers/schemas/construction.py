@@ -4,6 +4,7 @@ from mks_backend.controllers.schemas.validator_utils import date_validator
 
 
 class ConstructionSchema(colander.MappingSchema):
+
     project_code = colander.SchemaNode(
         colander.String(),
         name='code',
@@ -115,6 +116,7 @@ class ConstructionSchema(colander.MappingSchema):
         ),
         missing=None
     )
+
     zoom = colander.SchemaNode(
         colander.Int(),
         name='zoom',
@@ -139,6 +141,7 @@ class ConstructionSchema(colander.MappingSchema):
 
 
 class ConstructionFilterSchema(colander.MappingSchema):
+
     project_code = colander.SchemaNode(
         colander.String(),
         name='code',

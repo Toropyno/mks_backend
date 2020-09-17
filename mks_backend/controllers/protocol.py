@@ -1,13 +1,13 @@
 import colander
-from pyramid.view import view_config
-from pyramid.response import Response
 from pyramid.request import Request
+from pyramid.response import Response
+from pyramid.view import view_config
 
-from mks_backend.serializers.protocol import ProtocolSerializer
-from mks_backend.services.protocol import ProtocolService
 from mks_backend.controllers.schemas.protocol import ProtocolControllerFilterSchema
 from mks_backend.controllers.schemas.protocol import ProtocolControllerSchema
 from mks_backend.errors.colander_error import get_collander_error_dict
+from mks_backend.serializers.protocol import ProtocolSerializer
+from mks_backend.services.protocol import ProtocolService
 
 
 class ProtocolController:

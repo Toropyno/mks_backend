@@ -6,10 +6,9 @@ from sqlalchemy import (
     VARCHAR,
     TIMESTAMP,
 )
-
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from sqlalchemy.dialects.postgresql import UUID
 
 from mks_backend.models import Base
 

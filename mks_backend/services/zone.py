@@ -1,6 +1,6 @@
 from mks_backend.models.zone import Zone
-from mks_backend.services.object_category import ObjectCategoryService
 from mks_backend.repositories.zone import ZoneRepository
+from mks_backend.services.object_category import ObjectCategoryService
 
 
 class ZoneService:
