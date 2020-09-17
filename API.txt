@@ -189,6 +189,7 @@ Description: Delete object_categories
 Route: '/object_category/{id}'
 Method: DELETE
 
+
 # --- zones ---
 
 Description: Get all zones
@@ -279,5 +280,4 @@ Method: GET
 
 Description: Delete object_document
 Route: '/object_document/{id}'
-Method: DELETE
 
