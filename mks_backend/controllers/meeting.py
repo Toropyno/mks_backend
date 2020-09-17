@@ -12,7 +12,7 @@ class MeetingController:
         self.service = MeetingService()
         self.serializer = MeetingSerializer()
 
-    @view_config(route_name='add_protocol', request_method='GET', renderer='json')
+    @view_config(route_name='get_meetings', renderer='json')
     def get_meetings_types(self):
         meetings = self.service.get_meetings_types()
         return self.serializer.convert_list_to_json(meetings)

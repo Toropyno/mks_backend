@@ -18,12 +18,12 @@ class CommissionController:
         self.serializer = CommissionSerializer()
         self.schema = CommissionSchema()
 
-    @view_config(route_name='commissions', request_method='GET', renderer='json')
+    @view_config(route_name='get_all_commissions', renderer='json')
     def get_all_commissions(self):
         commissions = self.service.get_all_commissions()
         return self.serializer.convert_list_to_json(commissions)
 
-    @view_config(route_name='add_commission', request_method='POST', renderer='json')
+    @view_config(route_name='add_commission', renderer='json')
     def add_commission(self):
         try:
             commission_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,13 +44,13 @@ class CommissionController:
 
         return {'id': commission.commission_id}
 
-    @view_config(route_name='commission_delete_change_and_view', request_method='DELETE', renderer='json')
+    @view_config(route_name='delete_commission', renderer='json')
     def delete_commission(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_commission_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='commission_delete_change_and_view', request_method='PUT', renderer='json')
+    @view_config(route_name='edit_commission', renderer='json')
     def edit_commission(self):
         try:
             commission_deserialized = self.schema.deserialize(self.request.json_body)
@@ -72,7 +72,7 @@ class CommissionController:
 
         return {'id': new_commission.commission_id}
 
-    @view_config(route_name='commission_delete_change_and_view', request_method='GET', renderer='json')
+    @view_config(route_name='get_commission', renderer='json')
     def get_commission(self):
         id = int(self.request.matchdict['id'])
         commission = self.service.get_commission_by_id(id)
