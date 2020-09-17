@@ -32,6 +32,19 @@ class ConstructionService:
         construction.construction_id = schema.get('id')
         construction.project_code = schema.get('code')
         construction.project_name = schema.get('name')
+        construction.is_critical = schema.get('isCritical')
+        construction.commission_id = schema.get('commission')
+        construction.idMU = schema.get('militaryUnit')
+        construction.contract_date = schema.get('contractDate')
+        construction.planned_date = schema.get('plannedDate')
+        construction.object_amount = schema.get('objectsAmount')
+        construction.location_id = schema.get('locationId')
+        construction.construction_types_id = 1  # schema.get('constructionType')
+        construction.location_types_id = 1  # schema.get('locationType')
+        construction.construction_companies_id = 1  # schema.get('constructionCompany')
+        construction.oksm_id = 1  # schema.get('oksm')
+        construction.address = 'Адрес проекта'  # schema.get('address')
+        construction.note = 'Примечание к проекту'  # schema.get('note')
 
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
@@ -43,13 +56,10 @@ class ConstructionService:
             )
             construction.subcategories_list_id = subcategories_list.subcategories_list_id
 
-        construction.is_critical = schema.get('isCritical')
-        construction.commission_id = schema.get('commission')
-        construction.idMU = schema.get('militaryUnit')
-        construction.contract_date = schema.get('contractDate')
-        construction.planned_date = schema.get('plannedDate')
-        construction.object_amount = schema.get('objectsAmount')
-        construction.location_id = schema.get('locationId')
+        fias = schema.get('fias')
+        if fias:
+            # some cool stuff for FIAS
+            construction.id_fias = 1
 
         return construction
 
