@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import date_validator
+from mks_backend.controllers.schemas.validator_utils import date_validator, strip_space
 
 
 class ConstructionSchema(colander.MappingSchema):
@@ -189,6 +189,7 @@ class ConstructionSchema(colander.MappingSchema):
 
     address = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='address',
         validator=colander.Length(
             max=1000,
@@ -199,6 +200,7 @@ class ConstructionSchema(colander.MappingSchema):
 
     note = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='note',
         validator=colander.Length(
             max=1000,
