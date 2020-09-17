@@ -92,6 +92,7 @@ class ConstructionSchema(colander.MappingSchema):
         validator=date_validator
     )
 
+    # ------ location ------
     latitude = colander.SchemaNode(
         colander.Float(),
         name='latitude',
@@ -115,6 +116,7 @@ class ConstructionSchema(colander.MappingSchema):
         ),
         missing=None
     )
+
     zoom = colander.SchemaNode(
         colander.Int(),
         name='zoom',
@@ -133,6 +135,74 @@ class ConstructionSchema(colander.MappingSchema):
         validator=colander.Range(
             min=0,
             min_err='Недопустимое местоположение'
+        ),
+        missing=None
+    )
+    # ----------------------
+
+    construction_types_id = colander.SchemaNode(
+        colander.Int(),
+        name='constructionType',
+        validator=colander.Range(
+            min=0,
+            min_err='Такого типа проекта не существует'
+        )
+    )
+
+    location_types_id = colander.SchemaNode(
+        colander.Int(),
+        name='locationType',
+        validator=colander.Range(
+            min=0,
+            min_err='Такого типа местоположения не существует'
+        ),
+        missing=None
+    )
+
+    construction_companies_id = colander.SchemaNode(
+        colander.Int(),
+        name='constructionCompany',
+        validator=colander.Range(
+            min=0,
+            min_err='Такой компании не существует'
+        )
+    )
+
+    oksm_id = colander.SchemaNode(
+        colander.Int(),
+        name='oksm',
+        validator=colander.Range(
+            min=0,
+            min_err='Такой записи в ОКСМ не существует'
+        ),
+    )
+
+    id_fias = colander.SchemaNode(
+        colander.Int(),
+        name='fias',
+        validator=colander.Range(
+            min=0,
+            min_err='Такой записи не существует в ФИАС'
+        ),
+        missing=None
+    )
+
+    address = colander.SchemaNode(
+        colander.String(),
+        name='address',
+        validator=colander.Length(
+            max=1000,
+            max_err='Слишком длинный адрес'
+        ),
+        missing=None
+    )
+
+    note = colander.SchemaNode(
+        colander.String(),
+        name='note',
+        validator=colander.Length(
+            max=1000,
+            max_err='Слишком длинное примечание'
         ),
         missing=None
     )
