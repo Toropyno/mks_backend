@@ -30,7 +30,9 @@ class ConstructionObject(Base):
     floors_amount = Column(Integer)
     construction_stages_id = Column(Integer, ForeignKey('construction_stages.construction_stages_id',
                                                         ondelete='CASCADE'))
-    location_id = Column(Integer, ForeignKey('location.id'))
+    coordinates_id = Column(Integer, ForeignKey('coordinates.id'))
+    realty_types_id = Column(Integer, ForeignKey('realty_types.id'))
+    fact_date = Column(Date)
 
     construction = relationship(
         'Construction',
@@ -39,6 +41,11 @@ class ConstructionObject(Base):
 
     zone = relationship(
         'Zone',
+        back_populates='construction_object'
+    )
+
+    realty_type = relationship(
+        'RealtyType',
         back_populates='construction_object'
     )
 
@@ -52,8 +59,8 @@ class ConstructionObject(Base):
         back_populates='construction_object'
     )
 
-    location = relationship(
-        'Location',
+    coordinate = relationship(
+        'Coordinate',
         back_populates='construction_object'
     )
 

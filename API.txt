@@ -296,3 +296,11 @@ ConstructionDocument {
             'uploadDate'    String
 }
 
+ConstructionObject {
+
+            ...
+
+            'realtyType'    Integer
+            'factDate'      String
+        }
+

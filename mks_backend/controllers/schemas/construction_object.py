@@ -153,12 +153,30 @@ class ConstructionObjectSchema(colander.MappingSchema):
         missing=None
     )
 
-    location_id = colander.SchemaNode(
+    coordinates_id = colander.SchemaNode(
         colander.Int(),
         name='locationId',
         validator=colander.Range(
             min=0,
             min_err='Недопустимое местоположение'
         ),
+        missing=None
+    )
+
+    realty_types_id = colander.SchemaNode(
+        colander.Int(),
+        name='realtyTypeId',
+        validator=colander.Range(
+            min=0,
+            min_err='Недопустимое значение типа недвижимости'
+        ),
+        missing=None
+    )
+
+    fact_date = colander.SchemaNode(
+        colander.String(),
+        name='factDate',
+        preparer=[strip_space],
+        validator=date_validator,
         missing=None
     )
