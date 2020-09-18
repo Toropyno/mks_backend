@@ -1,8 +1,8 @@
-from pyramid.view import view_config
 from pyramid.request import Request
+from pyramid.view import view_config
 
-from mks_backend.services.military_unit import MilitaryUnitService
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
+from mks_backend.services.military_unit import MilitaryUnitService
 
 
 class MilitaryUnitController:

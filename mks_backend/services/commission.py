@@ -1,6 +1,6 @@
+from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.commission import Commission
 from mks_backend.repositories.commission import CommissionRepository
-from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class CommissionService:

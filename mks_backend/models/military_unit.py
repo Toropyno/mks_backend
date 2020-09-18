@@ -5,7 +5,6 @@ from sqlalchemy import (
     ForeignKey,
     CHAR,
 )
-
 from sqlalchemy.orm import relationship, backref
 
 from mks_backend.models import Base

@@ -264,20 +264,35 @@ Route: '/subcategories_lists'
 Method: GET
 
 
-# --- object_document ---
+# --- construction_document ---
 
-Description: Get all object_document (query parameters for filter)
-Route: '/object_document'
+Description: Get all construction_document (query parameters for filter)
+Route: '/construction_document'
 Method: GET
 
 Description: Add object_document
-Route: '/object_document/'
+Route: '/construction_document/'
 Method: POST
 
 Description: Get object_document
-Route: '/object_document/{id}'
+Route: '/construction_document/{id}'
 Method: GET
 
 Description: Delete object_document
-Route: '/object_document/{id}'
+Route: '/construction_document/{id}'
+
+
+=======================================================================================================================
+
+ConstructionDocument {
+            'id'            Integer
+            'constructionId'Integer
+            'docTypesId'    Integer
+            'docNumber'     String
+            'docDate'       String
+            'docName'       String
+            'note'          String
+            'idFileStorage' String
+            'uploadDate'    String
+}
 

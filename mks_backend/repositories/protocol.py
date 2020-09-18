@@ -15,13 +15,9 @@ class ProtocolRepository:
         DBSession.add(protocol)
         DBSession.commit()
 
-    def delete_protocol_by_id_with_filestorage_cascade(self, id: int) -> None:
-        protocol = self.get_protocol_by_id(id)
-        filestorage_id = protocol.idfilestorage
+    def delete_protocol(self, protocol: Protocol) -> None:
         DBSession.delete(protocol)
         DBSession.commit()
-
-        FilestorageRepository.delete_filestorage_by_id(filestorage_id)
 
     def update_protocol(self, protocol: Protocol) -> None:
         DBSession.query(Protocol).filter_by(protocol_id=protocol.protocol_id).update(

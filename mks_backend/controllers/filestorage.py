@@ -1,6 +1,6 @@
-from pyramid.view import view_config
-from pyramid.response import Response
 from pyramid.request import Request
+from pyramid.response import Response
+from pyramid.view import view_config
 
 from mks_backend.errors.filestorage_error import FilestorageError
 from mks_backend.services.filestorage import FilestorageService

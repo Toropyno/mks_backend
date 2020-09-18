@@ -1,8 +1,8 @@
-from pyramid.view import view_config
 from pyramid.request import Request
+from pyramid.view import view_config
 
-from mks_backend.services.meeting import MeetingService
 from mks_backend.serializers.meeting import MeetingSerializer
+from mks_backend.services.meeting import MeetingService
 
 
 class MeetingController:

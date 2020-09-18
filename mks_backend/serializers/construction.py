@@ -1,11 +1,11 @@
 from datetime import date as Date
 
 from mks_backend.models.construction import Construction
-from mks_backend.serializers.location import LocationSerializer
 from mks_backend.serializers.commision import CommissionSerializer
-from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
+from mks_backend.serializers.location import LocationSerializer
+from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 
 
 class ConstructionSerializer:

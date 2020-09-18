@@ -1,7 +1,7 @@
 from datetime import date as Date
 
-from mks_backend.repositories.meeting import MeetingRepository
 from mks_backend.models.protocol import Protocol
+from mks_backend.repositories.meeting import MeetingRepository
 
 
 class ProtocolSerializer:

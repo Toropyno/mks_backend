@@ -140,6 +140,7 @@ class ConstructionObjectSchema(colander.MappingSchema):
         ),
         missing=None
     )
+
     zoom = colander.SchemaNode(
         colander.Int(),
         name='zoom',
