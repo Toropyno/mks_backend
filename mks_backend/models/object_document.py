@@ -4,7 +4,6 @@ from sqlalchemy import (
     ForeignKey,
     UniqueConstraint,
 )
-from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 
@@ -30,13 +29,4 @@ class ObjectDocument(Base):
             'construction_documents_id',
             name='object_documents_unique'
         ),
-    )
-
-    construction_objects = relationship(
-        'ConstructionObject',
-        back_populates='object_documents'
-    )
-
-    construction_documents = relationship(
-        'ConstructionDocument'
     )
