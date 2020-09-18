@@ -1,5 +1,6 @@
 from mks_backend.models.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_document import ConstructionDocumentRepository
+from mks_backend.repositories.filestorage import FilestorageRepository
 
 
 class ConstructionDocumentService:
@@ -17,7 +18,10 @@ class ConstructionDocumentService:
         self.repo.add_construction_document(construction_document)
 
     def delete_construction_document_by_id_with_filestorage_cascade(self, id: int) -> None:
-        self.repo.delete_construction_document_by_id_with_filestorage_cascade(id)
+        construction_document = self.get_construction_document_by_id(id)
+        file_storage_id = construction_document.idfilestorage
+        self.repo.delete_construction_document(construction_document)
+        FilestorageRepository.delete_filestorage_by_id(file_storage_id)
 
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
         self.repo.update_construction_document(construction_document)

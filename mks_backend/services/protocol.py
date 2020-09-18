@@ -1,4 +1,5 @@
 from mks_backend.models.protocol import Protocol
+from mks_backend.repositories.filestorage import FilestorageRepository
 from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 from mks_backend.repositories.protocol import ProtocolRepository
 from mks_backend.services.filestorage import FilestorageService
@@ -30,10 +31,11 @@ class ProtocolService:
         return new_protocol
 
     def delete_protocol_by_id_with_filestorage_cascade(self, id: int) -> None:
-        filestorage_id = self.repo.get_protocol_by_id(id).idfilestorage
-        FilestorageHDD.delete_by_id(filestorage_id)
+        protocol = self.repo.get_protocol_by_id(id)
+        FilestorageHDD.delete_by_id(protocol.idfilestorage)
 
-        self.repo.delete_protocol_by_id_with_filestorage_cascade(id)
+        self.repo.delete_protocol(protocol)
+        FilestorageRepository.delete_filestorage_by_id(protocol.idfilestorage)
 
     def get_params_from_schema(self, schema_dict: dict) -> dict:
         params = {}

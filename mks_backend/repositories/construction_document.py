@@ -1,7 +1,6 @@
 from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.construction_document import ConstructionDocument
 from mks_backend.repositories import DBSession
-from mks_backend.repositories.filestorage import FilestorageRepository
 
 
 class ConstructionDocumentRepository:
@@ -17,12 +16,9 @@ class ConstructionDocumentRepository:
         DBSession.add(construction_document)
         DBSession.commit()
 
-    def delete_construction_document_by_id_with_filestorage_cascade(self, id: int) -> None:
-        construction_document = self.get_construction_document_by_id(id)
-        file_storage_id = construction_document.idfilestorage
+    def delete_construction_document(self, construction_document: ConstructionDocument) -> None:
         DBSession.delete(construction_document)
         DBSession.commit()
-        FilestorageRepository.delete_filestorage_by_id(file_storage_id)
 
     @db_error_handler
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
