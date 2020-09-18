@@ -1,6 +1,7 @@
 API
 
 # --- filestorage ---
+
 Description: download file
 Route: '/protocol/download/{uuid}'
 Method: GET
@@ -13,10 +14,12 @@ Description: get file info (uuid in query parameters)
 Route: '/protocol/file_info?idFileStorage='
 Method: GET
 
+
 # --- meetings ---
 Description: get all meeting types
 Route: 'meeting'
 Method: GET
+
 
 # --- protocols ---
 
@@ -117,6 +120,7 @@ Description: Delete construction_categories
 Route: '/construction_category/{id}'
 Method: DELETE
 
+
 # --- construction_subcategories ---
 
 Description: Get all construction_subcategories
@@ -138,6 +142,7 @@ Method: PUT
 Description: Delete construction_subcategories
 Route: '/construction_subcategory/{id}'
 Method: DELETE
+
 
 # --- construction_stages ---
 
@@ -183,6 +188,7 @@ Method: PUT
 Description: Delete object_categories
 Route: '/object_category/{id}'
 Method: DELETE
+
 
 # --- zones ---
 
@@ -236,11 +242,13 @@ Description: Get all military_units
 Route: '/military_unit'
 Method: GET
 
+
 # --- locations ---
 
 Description: Get all locations
 Route: '/location'
 Method: GET
+
 
 # --- object_categories_lists ---
 
@@ -248,11 +256,30 @@ Description: Get all object_categories_lists
 Route: '/object_categories_lists'
 Method: GET
 
+
 # --- subcategories_lists ---
 
 Description: Get all subcategories_lists
 Route: '/subcategories_lists'
 Method: GET
+
+
+# --- construction_document ---
+
+Description: Get all construction_document (query parameters for filter)
+Route: '/construction_document'
+Method: GET
+
+Description: Add object_document
+Route: '/construction_document/'
+Method: POST
+
+Description: Get object_document
+Route: '/construction_document/{id}'
+Method: GET
+
+Description: Delete object_document
+Route: '/construction_document/{id}'
 
 
 =======================================================================================================================
@@ -268,3 +295,4 @@ ConstructionDocument {
             'idFileStorage' String
             'uploadDate'    String
 }
+

@@ -13,7 +13,6 @@ from mks_backend.models import Base
 
 
 class Construction(Base):
-
     __tablename__ = 'construction'
     construction_id = Column(Integer, primary_key=True, autoincrement=True)
     project_code = Column(VARCHAR(40), unique=True, nullable=False)
@@ -28,9 +27,11 @@ class Construction(Base):
     contract_date = Column(DATE, nullable=False)
     object_amount = Column(Integer, CheckConstraint('object_amount>0'), nullable=False)
     planned_date = Column(DATE, nullable=False)
-    construction_types_id = Column(Integer, nullable=False, default=1)  # ForeignKey('construction_types.construction_types_id)
+    construction_types_id = Column(Integer, nullable=False,
+                                   default=1)  # ForeignKey('construction_types.construction_types_id)
     location_types_id = Column(Integer)  # ForeignKey('location_types.location_types_id)
-    construction_companies_id = Column(Integer, nullable=False, default=1)  # ForeignKey('construction_companies.construction_companies_id')
+    construction_companies_id = Column(Integer, nullable=False,
+                                       default=1)  # ForeignKey('construction_companies.construction_companies_id')
     oksm_id = Column(Integer, nullable=False, default=1)  # ForeignKey('OKSM.oksm_id')
     id_fias = Column(Integer)  # ForeignKey()
     address = Column(VARCHAR(1000))
@@ -66,4 +67,10 @@ class Construction(Base):
     location = relationship(
         'Location',
         back_populates='construction'
+    )
+
+    documents = relationship(
+        'ConstructionDocument',
+        secondary='object_documents',
+        back_populates='parent'
     )
