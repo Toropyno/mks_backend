@@ -253,3 +253,18 @@ Method: GET
 Description: Get all subcategories_lists
 Route: '/subcategories_lists'
 Method: GET
+
+
+=======================================================================================================================
+
+ConstructionDocument {
+            'id'            Integer
+            'constructionId'Integer
+            'docTypesId'    Integer
+            'docNumber'     String
+            'docDate'       String
+            'docName'       String
+            'note'          String
+            'idFileStorage' String
+            'uploadDate'    String
+}

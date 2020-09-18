@@ -1,14 +1,14 @@
 import colander
-from pyramid.view import view_config
-from pyramid.response import Response
 from pyramid.request import Request
+from pyramid.response import Response
+from pyramid.view import view_config
 
-from mks_backend.services.construction_object import ConstructionObjectService
-from mks_backend.serializers.construction_object import ConstructionObjectSerializer
 from mks_backend.controllers.schemas.construction_object import ConstructionObjectSchema
-from mks_backend.errors.db_basic_error import DBBasicError
-from mks_backend.serializers.location import LocationSerializer
 from mks_backend.errors.colander_error import get_collander_error_dict
+from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.serializers.construction_object import ConstructionObjectSerializer
+from mks_backend.serializers.location import LocationSerializer
+from mks_backend.services.construction_object import ConstructionObjectService
 
 
 class ConstructionObjectController:

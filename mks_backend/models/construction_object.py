@@ -7,8 +7,9 @@ from sqlalchemy import (
     DECIMAL,
     CheckConstraint,
 )
-from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+
 from mks_backend.models import Base
 
 

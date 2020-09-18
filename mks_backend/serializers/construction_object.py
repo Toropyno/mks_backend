@@ -1,10 +1,10 @@
 from datetime import date as Date
-from mks_backend.models.construction_object import ConstructionObject
 
-from mks_backend.serializers.zone import ZoneSerializer
+from mks_backend.models.construction_object import ConstructionObject
+from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 from mks_backend.serializers.location import LocationSerializer
 from mks_backend.serializers.object_category import ObjectCategorySerializer
-from mks_backend.serializers.construction_stage import ConstructionStageSerializer
+from mks_backend.serializers.zone import ZoneSerializer
 
 
 class ConstructionObjectSerializer:

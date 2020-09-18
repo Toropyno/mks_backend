@@ -1,6 +1,5 @@
-from mks_backend.models.object_category import ObjectCategory
-
 from mks_backend.errors.serilize_error import serialize_error_handler
+from mks_backend.models.object_category import ObjectCategory
 
 
 class ObjectCategorySerializer:

@@ -1,6 +1,6 @@
 from mks_backend.models.construction_category import ConstructionCategory
-from mks_backend.services.construction_subcategory import ConstructionSubcategoryService
 from mks_backend.repositories.construction_category import ConstructionCategoryRepository
+from mks_backend.services.construction_subcategory import ConstructionSubcategoryService
 
 
 class ConstructionCategoryService:

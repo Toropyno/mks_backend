@@ -1,5 +1,5 @@
-from pyramid.view import view_config
 from pyramid.request import Request
+from pyramid.view import view_config
 
 from mks_backend.serializers.subcategory_list import SubcategoryListSerializer
 from mks_backend.services.subcategory_list import SubcategoryListService

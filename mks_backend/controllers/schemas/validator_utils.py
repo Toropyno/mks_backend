@@ -4,9 +4,9 @@ from datetime import datetime
 import colander
 
 
-def date_validator(node: colander.SchemaNode, value: str) -> None:
+def date_validator(node: colander.SchemaNode, date: str) -> None:
     try:
-        value = datetime.strptime(value, '%a %b %d %Y')
+        date = datetime.strptime(date, '%a %b %d %Y')
     except ValueError:
         raise colander.Invalid(node, 'Неверный формат даты')
 
@@ -22,3 +22,10 @@ def strip_space(value: str) -> str:
     if value:
         value = value.strip(' \t\n\r')
     return value
+
+
+def timestamp_validator(node: colander.SchemaNode, date_time: str) -> None:
+    try:
+        date_time = datetime.strptime(date_time, '%a %b %d %Y %H:%M:%S')
+    except ValueError:
+        raise colander.Invalid(node, 'Неверный формат даты и времени')

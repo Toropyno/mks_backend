@@ -2,6 +2,7 @@ import colander
 
 
 class CommissionSchema(colander.MappingSchema):
+
     code = colander.SchemaNode(
         colander.String(),
         name='code',

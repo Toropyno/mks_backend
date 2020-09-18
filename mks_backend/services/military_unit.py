@@ -2,6 +2,7 @@ from mks_backend.repositories.military_unit import MilitaryUnitRepository
 
 
 class MilitaryUnitService:
+
     def __init__(self):
         self.repo = MilitaryUnitRepository()
 
