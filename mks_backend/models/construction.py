@@ -13,6 +13,7 @@ from mks_backend.models import Base
 
 
 class Construction(Base):
+
     __tablename__ = 'construction'
     construction_id = Column(Integer, primary_key=True, autoincrement=True)
     project_code = Column(VARCHAR(40), unique=True, nullable=False)
@@ -67,10 +68,4 @@ class Construction(Base):
     location = relationship(
         'Location',
         back_populates='construction'
-    )
-
-    documents = relationship(
-        'ConstructionDocument',
-        secondary='object_documents',
-        back_populates='parent'
     )

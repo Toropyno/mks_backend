@@ -38,7 +38,7 @@ class ConstructionDocument(Base):
     upload_date = Column(TIMESTAMP)
 
     parent = relationship(
-        'Construction',
+        'ConstructionObject',
         secondary='object_documents',
         back_populates='documents'
     )
