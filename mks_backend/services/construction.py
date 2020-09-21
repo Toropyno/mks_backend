@@ -68,7 +68,7 @@ class ConstructionService:
         params = self.get_params_from_schema(params)
 
         if 'subcategories_list_id' in params:
-            # frontend doesn't know about many-to-many and sent category_id and subcategory_id
+            # frontend doesn't know about many-to-many and send category_id and subcategory_id
             params['subcategories_list_id'] = self.subcategory_list_service.get_subcategories_list_by_relations(
                 params['constructions_categories_id'], params['subcategories_list_id']
             ).subcategories_list_id

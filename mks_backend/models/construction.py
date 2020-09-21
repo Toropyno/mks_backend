@@ -38,7 +38,11 @@ class Construction(Base):
         ForeignKey('construction_companies.construction_companies_id', ondelete='CASCADE'),
         nullable=False
     )
-    oksm_id = Column(Integer, nullable=False, default=1)  # ForeignKey('OKSM.oksm_id')
+    oksm_id = Column(
+        Integer,
+        ForeignKey('OKSM.oksm_id'),
+        nullable=False
+    )
     id_fias = Column(Integer)  # ForeignKey()
     address = Column(VARCHAR(1000))
     note = Column(VARCHAR(1000))
@@ -81,4 +85,8 @@ class Construction(Base):
 
     construction_company = relationship(
         'ConstructionCompany'
+    )
+
+    oksm = relationship(
+        'OKSM'
     )
