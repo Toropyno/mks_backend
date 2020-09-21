@@ -14,10 +14,7 @@ class DBBasicError(DBAPIError):
         'construction_subcategories_fullname_key_duplicate': 'Подкатегория с указанным наименованием уже существует!',
         'construction_categories_fullname_key_duplicate': 'Категория с указанным наименованием уже существует!',
 
-        'subcategories_list_unique_duplicate': 'Перечень Подкатегорий с указанными Категорией и Подкатегорией уже '
-                                               'существует!',
-        'object_categories_list_unique_duplicate': 'Перечень Категорий Объектов с указанными Зоной Военного Городка и '
-                                                   'Категорией Объектов уже существует!',
+        'location_types_fullname_key_duplicate': 'Тип местоположения с таким названием уже существует!',
 
         'construction_objects_object_code_key_duplicate': 'Объект Строительства с таким кодом уже существует!',
         'construction_stages_code_key_duplicate': 'Этап Строительства с таким кратким наименованием уже существует!',
