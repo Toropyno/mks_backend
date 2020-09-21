@@ -23,7 +23,7 @@ class OKSMRepository:
 
     @db_error_handler
     def update_oksm(self, new_oksm: OKSM) -> None:
-        old_oksm = self._query.filter_by(oksms_id=new_oksm.oksm_id)
+        old_oksm = self._query.filter_by(oksm_id=new_oksm.oksm_id)
         old_oksm.update(
             {
                 'code': new_oksm.code,
