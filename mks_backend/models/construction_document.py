@@ -42,4 +42,3 @@ class ConstructionDocument(Base):
         secondary='object_documents',
         back_populates='construction_documents'
     )
-
