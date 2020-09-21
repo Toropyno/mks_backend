@@ -3,15 +3,19 @@ from sqlalchemy import (
     Integer,
     ForeignKey,
     Date,
-    DECIMAL, TIMESTAMP,
+    DECIMAL,
+    TIMESTAMP,
+    UniqueConstraint,
+    CheckConstraint,
+    column,
 )
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-
+from sqlalchemy.orm import relationship
 from mks_backend.models import Base
 
 
 class ConstructionProgress(Base):
+
     __tablename__ = 'construction_progress'
     construction_progress_id = Column(Integer, primary_key=True, autoincrement=True)
     construction_objects_id = Column(
@@ -20,8 +24,39 @@ class ConstructionProgress(Base):
         nullable=False,
     )
     reporting_date = Column(Date, nullable=False)
-    readiness = Column(DECIMAL(17, 2), nullable=False)
-    people = Column(Integer, nullable=False)
-    equipment = Column(Integer, nullable=False)
-    progress_statuses_id = Column(Integer, nullable=False)
-    update_datetime = Column(TIMESTAMP, nullable=False)
+    readiness = Column(
+        DECIMAL(17, 2),
+        CheckConstraint(column('(readiness >= 0) && (readiness <= 100)'), nullable=False)
+    )
+    people = Column(
+        Integer,
+        CheckConstraint(column('people >=0'), nullable=False)
+    )
+    equipment = Column(
+        Integer,
+        CheckConstraint(column('equipment >=0'), nullable=False)
+    )
+    # progress_statuses_id = Column(
+    #     Integer,
+    #     ForeignKey('progress_statuses.progress_statuses_id', ondelete='CASCADE'),
+    #     nullable=False,
+    # )
+    update_datetime = Column(TIMESTAMP, default=func.now())
+
+    __table_args__ = (
+        UniqueConstraint(
+            'construction_progress_id',
+            'reporting_date',
+            name='construction_progress_unique'
+        ),
+    )
+
+    construction_object = relationship(
+        'ConstructionObject',
+        back_populates='construction_progress'
+    )
+
+    # progress_statuses = relationship(
+    #     'ProgressStatuses',
+    #     back_populates='construction_progress'
+    # )

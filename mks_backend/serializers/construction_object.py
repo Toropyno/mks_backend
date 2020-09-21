@@ -1,6 +1,5 @@
-from datetime import date as Date
-
 from mks_backend.models.construction_object import ConstructionObject
+from mks_backend.serializers._date_utils import get_date_string
 
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 from mks_backend.serializers.object_category import ObjectCategorySerializer
@@ -50,7 +49,7 @@ class ConstructionObjectSerializer:
             'name': construction_object.object_name,
             'zone': zone,
             'category': category,
-            'plannedDate': self.get_date_string(construction_object.planned_date),
+            'plannedDate': get_date_string(construction_object.planned_date),
             'weight': construction_object.weight,
             'generalPlanNumber': construction_object.generalplan_number,
             'buildingVolume': building_volume,
@@ -58,7 +57,7 @@ class ConstructionObjectSerializer:
             'stage': stage,
             # 'location': coordinate,
             # 'realtyType': realty_type,
-            'factDate': self.get_date_string(construction_object.fact_date),
+            'factDate': get_date_string(construction_object.fact_date),
             # 'constructionProgress': construction_progress,
         }
         return construction_object_dict
@@ -66,5 +65,4 @@ class ConstructionObjectSerializer:
     def convert_list_to_json(self, construction_objects: list) -> list:
         return list(map(self.convert_object_to_json, construction_objects))
 
-    def get_date_string(self, date: Date) -> str:
-        return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
+
