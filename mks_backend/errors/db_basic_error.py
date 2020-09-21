@@ -16,6 +16,8 @@ class DBBasicError(DBAPIError):
 
         'location_types_fullname_key_duplicate': 'Тип местоположения с таким названием уже существует!',
 
+        'construction_companies_unique_duplicate': 'Организация с таким кратким и полным названием уже существует!',
+
         'construction_objects_object_code_key_duplicate': 'Объект Строительства с таким кодом уже существует!',
         'construction_stages_code_key_duplicate': 'Этап Строительства с таким кратким наименованием уже существует!',
         'construction_stages_fullname_key_duplicate': 'Этап Строительства с таким полным наименованием уже существует!',
@@ -79,6 +81,7 @@ class DBBasicError(DBAPIError):
             code = pg_error[start:end] + '_duplicate'
 
             if code not in self.codes:
+                print(code)
                 code = 'other_duplicate'
         elif 'foreign key' in pg_error:
             '''
