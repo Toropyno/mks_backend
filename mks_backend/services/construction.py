@@ -5,6 +5,7 @@ from mks_backend.services.subcategory_list import SubcategoryListService
 
 
 class ConstructionService:
+
     def __init__(self):
         self.repo = ConstructionRepository()
         self.subcategory_list_service = SubcategoryListService()

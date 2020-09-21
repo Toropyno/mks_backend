@@ -68,9 +68,3 @@ class Construction(Base):
         'Location',
         back_populates='construction'
     )
-
-    documents = relationship(
-        'ConstructionDocument',
-        secondary='object_documents',
-        back_populates='parent'
-    )
