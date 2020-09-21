@@ -8,6 +8,7 @@ from mks_backend.serializers.location import LocationSerializer
 from mks_backend.serializers.location_type import LocationTypeSerializer
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.construction_company import ConstructionCompanySerializer
+from mks_backend.serializers.oksm import OKSMSerializer
 
 
 class ConstructionSerializer:
@@ -50,10 +51,7 @@ class ConstructionSerializer:
             'constructionCompany': ConstructionCompanySerializer.convert_object_to_json(
                 construction.construction_company
             ),
-            'oksm': {
-                'id': 1,
-                'fullName': 'Краткое наименование страны по ОКСМ'
-            },
+            'oksm': OKSMSerializer.convert_object_to_json(construction.oksm),
             'fias': {
                 'subject': {
                     'id': 1,
