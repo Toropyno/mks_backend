@@ -1,5 +1,6 @@
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
+from mks_backend.services.construction_document import ConstructionDocumentService
 from mks_backend.services.location import LocationService
 from mks_backend.services.object_category_list import ObjectCategoryListService
 
@@ -10,6 +11,7 @@ class ConstructionObjectService:
         self.repo = ConstructionObjectRepository()
         self.location_service = LocationService()
         self.object_categories_list_service = ObjectCategoryListService()
+        self.construction_document_service = ConstructionDocumentService()
 
     def get_all_construction_objects_by_construction_id(self, construction_id: int) -> list:
         return self.repo.get_all_construction_objects_by_construction_id(construction_id)
@@ -46,12 +48,22 @@ class ConstructionObjectService:
             )
             construction_object.object_categories_list_id = object_categories_list.object_categories_list_id
 
+        construction_documents = schema.get('constructionDocument', [])
+        if construction_documents is not None:
+            construction_documents_ids = list(map(lambda x: x['id'], construction_documents))
+            construction_object.construction_documents = \
+                self.construction_document_service.get_many_construction_documents_by_id(
+                    construction_documents_ids
+                )
+
         construction_object.planned_date = schema.get('plannedDate')
         construction_object.weight = schema.get('weight')
         construction_object.generalplan_number = schema.get('generalPlanNumber')
         construction_object.building_volume = schema.get('buildingVolume')
         construction_object.floors_amount = schema.get('floorsAmount')
         construction_object.construction_stages_id = schema.get('stage')
-        construction_object.location_id = schema.get('locationId')
+        construction_object.coordinates_id = schema.get('locationId')
+        construction_object.realty_types_id = schema.get('realtyTypeId')
+        construction_object.fact_date = schema.get('factDate')
 
         return construction_object
