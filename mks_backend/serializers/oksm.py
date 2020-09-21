@@ -23,7 +23,7 @@ class OKSMSerializer:
     def convert_schema_to_object(self, schema: dict) -> OKSM:
         oksm = OKSM()
 
-        oksm.construction_companies_id = schema.get('id')
+        oksm.oksm_id = schema.get('id')
         oksm.code = schema.get('code')
         oksm.shortname = schema.get('shortName')
         oksm.fullname = schema.get('fullName')
