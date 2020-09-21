@@ -40,6 +40,6 @@ class ConstructionDocument(Base):
     parent = relationship(
         'ConstructionObject',
         secondary='object_documents',
-        back_populates='documents'
+        back_populates='construction_documents'
     )
 
