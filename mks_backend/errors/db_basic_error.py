@@ -81,7 +81,6 @@ class DBBasicError(DBAPIError):
             code = pg_error[start:end] + '_duplicate'
 
             if code not in self.codes:
-                print(code)
                 code = 'other_duplicate'
         elif 'foreign key' in pg_error:
             '''
