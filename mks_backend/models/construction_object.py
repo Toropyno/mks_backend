@@ -34,7 +34,7 @@ class ConstructionObject(Base):
     construction_stages_id = Column(
         Integer,
         ForeignKey('construction_stages.construction_stages_id',
-                   ondelete='CASCADE')
+                   ondelete='SET NULL')
     )
     coordinates_id = Column(Integer, ForeignKey('coordinates.id', ondelete='SET NULL'))
     realty_types_id = Column(Integer, ForeignKey('realty_types.id', ondelete='SET NULL'))
