@@ -71,6 +71,8 @@ def includeme(config):
     config.add_route('get_subcategories_lists', '/subcategories_lists', request_method='GET')
     config.add_route('get_object_categories_lists', '/object_categories_list', request_method='GET')
 
+    config.add_route('get_all_object_documents', '/object_document', request_method='GET')
+
     config.add_route('get_all_construction_documents', '/construction_document', request_method='GET')
     config.add_route('add_construction_document', '/construction_document/', request_method='POST')
     config.add_route('get_construction_document', '/construction_document/{id}', request_method='GET')
