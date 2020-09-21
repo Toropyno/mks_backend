@@ -64,6 +64,11 @@ class ConstructionObject(Base):
         back_populates='construction_object'
     )
 
+    # construction_progress = relationship(
+    #     'ConstructionProgress',
+    #     back_populates='construction_object'
+    # )
+
     documents = relationship(
         'ConstructionDocument',
         secondary='object_documents',

@@ -2,10 +2,11 @@ from datetime import date as Date
 
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
-from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.serializers.zone import ZoneSerializer
-from mks_backend.serializers.realty_type import RealtyTypeSerializer
+# from mks_backend.serializers.coordinate import CoordinateSerializer
+# from mks_backend.serializers.realty_type import RealtyTypeSerializer
+# from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 
 
 class ConstructionObjectSerializer:
@@ -24,9 +25,17 @@ class ConstructionObjectSerializer:
 
         building_volume = float(construction_object.building_volume) if construction_object.building_volume else None
 
-        coordinate = CoordinateSerializer.convert_object_to_json(construction_object.coordinate)
-
-        realty_type = RealtyTypeSerializer.convert_object_to_json(construction_object.realty_type)
+        # coordinate = CoordinateSerializer.convert_object_to_json(construction_object.coordinate)
+        #
+        # realty_type = RealtyTypeSerializer.convert_object_to_json(construction_object.realty_type)
+        #
+        # construction_progress = ConstructionProgress.convert_object_to_json(construction_object.construction_progress)
+        # construction_progress = {
+        #     'readiness': construction_progress.readiness,
+        #     'people': construction_progress.people,
+        #     'equipment': construction_progress.equipment,
+        #     'progressStatusesId': construction_progress.progress_statuses_id,
+        # }
 
         construction_object_dict = {
             'projectId': construction_object.construction_id,
@@ -41,9 +50,10 @@ class ConstructionObjectSerializer:
             'buildingVolume': building_volume,
             'floorsAmount': construction_object.floors_amount,
             'stage': stage,
-            'location': coordinate,
-            'realtyType': realty_type,
-            'factDate':  self.get_date_string(construction_object.fact_date),
+            # 'location': coordinate,
+            # 'realtyType': realty_type,
+            'factDate': self.get_date_string(construction_object.fact_date),
+            # 'constructionProgress': construction_progress,
         }
         return construction_object_dict
 

@@ -302,5 +302,11 @@ ConstructionObject {
 
             'realtyType'    Integer
             'factDate'      String
+            'constructionProgress' constructionProgress {
+                                        readiness             DECIMAL(17,2)
+                                        people                Integer
+                                        equipment             Integer
+                                        progressStatusesId  Integer
+                                    }
         }
 
