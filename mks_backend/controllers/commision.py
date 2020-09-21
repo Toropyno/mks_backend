@@ -1,15 +1,14 @@
-import colander
 from pyramid.request import Request
-from pyramid.response import Response
-from pyramid.view import view_config
+from pyramid.view import view_config, view_defaults
 
 from mks_backend.controllers.schemas.commission import CommissionSchema
-from mks_backend.errors.colander_error import get_collander_error_dict
-from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.commision import CommissionSerializer
 from mks_backend.services.commission import CommissionService
 
+from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 
+
+@view_defaults(renderer='json')
 class CommissionController:
 
     def __init__(self, request: Request):
@@ -18,62 +17,44 @@ class CommissionController:
         self.serializer = CommissionSerializer()
         self.schema = CommissionSchema()
 
-    @view_config(route_name='get_all_commissions', renderer='json')
+    @view_config(route_name='get_all_commissions')
     def get_all_commissions(self):
         commissions = self.service.get_all_commissions()
         return self.serializer.convert_list_to_json(commissions)
 
-    @view_config(route_name='add_commission', renderer='json')
+    @handle_db_error
+    @handle_colander_error
+    @view_config(route_name='add_commission')
     def add_commission(self):
-        try:
-            commission_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
-
+        commission_deserialized = self.schema.deserialize(self.request.json_body)
         commission = self.serializer.convert_schema_to_object(commission_deserialized)
-        try:
-            self.service.add_commission(commission)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
-
+        self.service.add_commission(commission)
         return {'id': commission.commission_id}
 
-    @view_config(route_name='delete_commission', renderer='json')
+    @handle_db_error
+    @view_config(route_name='delete_commission')
     def delete_commission(self):
-        id = int(self.request.matchdict['id'])
+        id = self.get_id()
         self.service.delete_commission_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='edit_commission', renderer='json')
+    @handle_db_error
+    @handle_colander_error
+    @view_config(route_name='edit_commission')
     def edit_commission(self):
-        try:
-            commission_deserialized = self.schema.deserialize(self.request.json_body)
-            commission_deserialized['id'] = self.request.matchdict['id']
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        commission_deserialized = self.schema.deserialize(self.request.json_body)
+        commission_deserialized['id'] = self.request.matchdict['id']
 
         new_commission = self.serializer.convert_schema_to_object(commission_deserialized)
-        try:
-            self.service.update_commission(new_commission)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
-
+        self.service.update_commission(new_commission)
         return {'id': new_commission.commission_id}
 
-    @view_config(route_name='get_commission', renderer='json')
+    @handle_db_error
+    @view_config(route_name='get_commission')
     def get_commission(self):
-        id = int(self.request.matchdict['id'])
+        id = self.get_id()
         commission = self.service.get_commission_by_id(id)
         return self.serializer.convert_object_to_json(commission)
+
+    def get_id(self):
+        return int(self.request.matchdict['id'])

@@ -5,6 +5,7 @@ from mks_backend.serializers.commision import CommissionSerializer
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
 from mks_backend.serializers.location import LocationSerializer
+from mks_backend.serializers.location_type import LocationTypeSerializer
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 
 
@@ -44,10 +45,7 @@ class ConstructionSerializer:
                 'id': 1,
                 'fullName': 'Наименование типа проекта'
             },
-            'locationType': {
-                'id': 1,
-                'fullName': 'Наименование типа местоположения'
-            },
+            'locationType': LocationTypeSerializer.convert_object_to_json(construction.location_type),
             'constructionCompany': {
                 'id': 1,
                 'fullName': 'Название компании-исполнителя'
