@@ -1,14 +1,13 @@
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.serializers._date_utils import get_date_string
+from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.serializers.zone import ZoneSerializer
 # from mks_backend.serializers.coordinate import CoordinateSerializer
 # from mks_backend.serializers.realty_type import RealtyTypeSerializer
-# from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
-#
-# from mks_backend.services.construction_progress import ConstructionProgressService
+from mks_backend.services.construction_progress import ConstructionProgressService
 
 
 class ConstructionObjectSerializer:
@@ -31,15 +30,13 @@ class ConstructionObjectSerializer:
         #
         # realty_type = RealtyTypeSerializer.convert_object_to_json(construction_object.realty_type)
 
-        # construction_progress = ConstructionProgressService.get_construction_progress_for_construction_objects(
-        #     construction_object.construction_progress
-        # )
-        # construction_progress = ConstructionProgressSerializer.convert_object_to_json(construction_progress)
+        progress_for_objects = ConstructionProgressService.get_construction_progress_for_construction_objects()
+        construction_progress = ConstructionProgressSerializer.convert_object_to_json(progress_for_objects)
         # construction_progress = {
-        #     'readiness': construction_progress.readiness,
-        #     'people': construction_progress.people,
-        #     'equipment': construction_progress.equipment,
-        #     'progressStatusesId': construction_progress.progress_statuses_id,
+        #     'readiness': construction_progress['readiness'],
+        #     'people': construction_progress['people'],
+        #     'equipment': construction_progress['equipment]',
+        #     'progressStatusesId': construction_progress['progressStatusesId'],
         # }
 
         construction_object_dict = {
@@ -58,11 +55,9 @@ class ConstructionObjectSerializer:
             # 'location': coordinate,
             # 'realtyType': realty_type,
             'factDate': get_date_string(construction_object.fact_date),
-            # 'constructionProgress': construction_progress,
+            'constructionProgress': construction_progress,
         }
         return construction_object_dict
 
     def convert_list_to_json(self, construction_objects: list) -> list:
         return list(map(self.convert_object_to_json, construction_objects))
-
-

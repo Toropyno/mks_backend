@@ -35,3 +35,6 @@ class ConstructionProgressRepository:
             }
         )
         DBSession.commit()
+
+    def get_construction_progress_for_construction_objects(self) -> ConstructionProgress:
+        return DBSession.query(ConstructionProgress).filter_by(ConstructionProgress.reporting_date).first()
