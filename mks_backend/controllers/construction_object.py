@@ -18,7 +18,7 @@ class ConstructionObjectController:
         self.service = ConstructionObjectService()
         self.serializer = ConstructionObjectSerializer()
         self.schema = ConstructionObjectSchema()
-        self.location_serializer = LocationSerializer()
+        self.coordinate_serializer = LocationSerializer()
 
     @view_config(route_name='get_construction_objects_by_parent', renderer='json')
     def get_all_construction_objects_by_construction_id(self):
@@ -35,9 +35,11 @@ class ConstructionObjectController:
         except ValueError as date_parse_error:
             return Response(status=403, json_body=date_parse_error.args)
 
-        location = self.location_serializer.convert_schema_to_object(construction_object_deserialized)
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
-        construction_object.location = location
+
+        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+            construction_object_deserialized
+        )
 
         try:
             self.service.add_construction_object(construction_object)
@@ -76,9 +78,11 @@ class ConstructionObjectController:
 
         construction_object_deserialized['id'] = id
 
-        location = self.location_serializer.convert_schema_to_object(construction_object_deserialized)
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
-        construction_object.location = location
+
+        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+            construction_object_deserialized
+        )
 
         try:
             self.service.update_construction_object(construction_object)
