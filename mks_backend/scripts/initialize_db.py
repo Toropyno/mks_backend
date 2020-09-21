@@ -26,7 +26,9 @@ from mks_backend.models.military_unit_models.sortarmedforces import SortArmedFor
 
 from mks_backend.models.location import Location
 
+from mks_backend.models.object_document import ObjectDocument
 from mks_backend.models.construction_document import ConstructionDocument
+
 
 import os
 import sys

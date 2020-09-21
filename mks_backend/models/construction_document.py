@@ -7,6 +7,7 @@ from sqlalchemy import (
     ForeignKey,
 )
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 
@@ -35,4 +36,10 @@ class ConstructionDocument(Base):
         nullable=False,
     )
     upload_date = Column(TIMESTAMP)
+
+    parent = relationship(
+        'Construction',
+        secondary='object_documents',
+        back_populates='documents'
+    )
 
