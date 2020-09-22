@@ -212,6 +212,71 @@ Description: Delete zones
 Route: '/zone/{id}'
 Method: DELETE
 
+# --- location_types ---
+
+Description: Get all location_types
+Route: '/location_type'
+Method: GET
+
+Description: Add location_type
+Route: '/location_type'
+Method: POST
+
+Description: Get location_type
+Route: '/location_type/{id}'
+Method: GET
+
+Description: Edit location_type
+Route: '/location_type/{id}'
+Method: PUT
+
+Description: Delete location_type
+Route: '/location_type/{id}'
+Method: DELETE
+
+# --- construction_companies ---
+
+Description: Get all companies
+Route: '/company'
+Method: GET
+
+Description: Add company
+Route: '/company'
+Method: POST
+
+Description: Get company
+Route: '/company/{id}'
+Method: GET
+
+Description: Edit company
+Route: '/company/{id}'
+Method: PUT
+
+Description: Delete company
+Route: '/company/{id}'
+Method: DELETE
+
+# --- oksm ---
+
+Description: Get all oksms
+Route: '/oksm'
+Method: GET
+
+Description: Add oksm
+Route: '/oksm'
+Method: POST
+
+Description: Get oksm
+Route: '/oksm/{id}'
+Method: GET
+
+Description: Edit oksm
+Route: '/oksm/{id}'
+Method: PUT
+
+Description: Delete oksm
+Route: '/oksm/{id}'
+Method: DELETE
 
 # --- commissions ---
 

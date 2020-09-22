@@ -36,7 +36,8 @@ class ConstructionObject(Base):
         ForeignKey('construction_stages.construction_stages_id',
                    ondelete='SET NULL')
     )
-    # coordinates_id = Column(Integer, ForeignKey('coordinates.id', ondelete='SET NULL'))
+
+    coordinates_id = Column(Integer, ForeignKey('location.id', ondelete='SET NULL'))
     # realty_types_id = Column(Integer, ForeignKey('realty_types.id', ondelete='SET NULL'))
     fact_date = Column(Date)
 
@@ -65,8 +66,13 @@ class ConstructionObject(Base):
         back_populates='construction_object'
     )
 
-    # coordinate = relationship(
-    #     'Coordinate',
+    coordinate = relationship(
+        'Location',
+        back_populates='construction_object'
+    )
+
+    # construction_progress = relationship(
+    #     'ConstructionProgress',
     #     back_populates='construction_object'
     # )
 
