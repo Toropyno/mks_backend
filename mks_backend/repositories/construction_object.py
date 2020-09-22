@@ -38,8 +38,8 @@ class ConstructionObjectRepository:
                 'building_volume': construction_object.building_volume,
                 'floors_amount': construction_object.floors_amount,
                 'construction_stages_id': construction_object.construction_stages_id,
-                'coordinates_id': construction_object.coordinates_id,
-                'realty_types_id': construction_object.realty_types_id,
+                # 'coordinates_id': construction_object.coordinates_id,
+                # 'realty_types_id': construction_object.realty_types_id,
                 'fact_date': construction_object.fact_date,
             }
         )

@@ -15,7 +15,7 @@ class ConstructionProgressSerializer:
             'readiness': construction_progress.readiness,
             'people': construction_progress.people,
             'equipment': construction_progress.equipment,
-            'progressStatusesId': construction_progress.progress_statuses_id,
+            # 'progressStatusesId': construction_progress.progress_statuses_id,
             'updateDatetime': get_date_time_string(construction_progress.update_datetime),
         }
         return construction_progress_dict

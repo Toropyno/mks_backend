@@ -24,5 +24,4 @@ class ConstructionProgressService:
         self.repo.update_construction_progress(construction_progress)
 
     def get_construction_progress_for_construction_objects(self) -> ConstructionProgress:
-        construction_progress = self.repo.get_construction_progress_for_construction_objects()
-        return construction_progress
+        return self.repo.get_construction_progress_for_construction_objects()

@@ -30,7 +30,7 @@ class ConstructionProgressController:
         except colander.Invalid as error:
             return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
 
-        construction_progress = self.service.convert_schema_to_object(construction_progress_deserialized)
+        construction_progress = self.serializer.convert_schema_to_object(construction_progress_deserialized)
         try:
             self.service.add_construction_progress(construction_progress)
         except DBBasicError as error:
@@ -42,7 +42,7 @@ class ConstructionProgressController:
                 }
             )
 
-        return {'id': construction_progress.construction_progresses_id}
+        return {'id': construction_progress.construction_progress_id}
 
     @view_config(route_name='get_construction_progress', renderer='json')
     def get_construction_progress(self):

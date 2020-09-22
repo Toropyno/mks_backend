@@ -25,6 +25,7 @@ from mks_backend.models.military_unit_models.purposemu import PurposeMU
 from mks_backend.models.military_unit_models.sortarmedforces import SortArmedForces
 
 from mks_backend.models.location import Location
+from mks_backend.models.location_type import LocationType
 
 from mks_backend.models.object_document import ObjectDocument
 from mks_backend.models.construction_document import ConstructionDocument
