@@ -18,7 +18,7 @@ class ConstructionObjectController:
         self.service = ConstructionObjectService()
         self.serializer = ConstructionObjectSerializer()
         self.schema = ConstructionObjectSchema()
-        self.coordinate_serializer = LocationSerializer()
+        self.location_serializer = LocationSerializer()
 
     @view_config(route_name='get_construction_objects_by_parent', renderer='json')
     def get_all_construction_objects_by_construction_id(self):
@@ -37,7 +37,7 @@ class ConstructionObjectController:
 
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
 
-        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+        construction_object.location = self.location_serializer.convert_schema_to_object(
             construction_object_deserialized
         )
 
@@ -80,7 +80,7 @@ class ConstructionObjectController:
 
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
 
-        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+        construction_object.location = self.location_serializer.convert_schema_to_object(
             construction_object_deserialized
         )
 

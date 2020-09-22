@@ -47,7 +47,7 @@ class ConstructionObjectService:
                 zone_id, object_category_id
             )
             construction_object.object_categories_list_id = object_categories_list.object_categories_list_id
-
+        print('HERER')
         construction_documents = schema.get('constructionDocument', [])
         if construction_documents is not None:
             construction_documents_ids = list(map(lambda x: x['id'], construction_documents))
@@ -62,7 +62,7 @@ class ConstructionObjectService:
         construction_object.building_volume = schema.get('buildingVolume')
         construction_object.floors_amount = schema.get('floorsAmount')
         construction_object.construction_stages_id = schema.get('stage')
-        # construction_object.coordinates_id = schema.get('locationId')
+        construction_object.location_id = schema.get('locationId')
         # construction_object.realty_types_id = schema.get('realtyTypeId')
         construction_object.fact_date = schema.get('factDate')
 

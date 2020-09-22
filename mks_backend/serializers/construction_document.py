@@ -5,16 +5,21 @@ from mks_backend.serializers._date_utils import get_date_string, get_date_time_s
 class ConstructionDocumentSerializer:
 
     def convert_object_to_json(self, construction_document: ConstructionDocument) -> dict:
+
+        upload_date = construction_document.upload_date
+        if upload_date is not None:
+            upload_date = get_date_time_string(upload_date)
+
         return {
             'id': construction_document.construction_documents_id,
             'constructionId': construction_document.construction_id,
-            'docTypesId': construction_document.doctypes_id,
+            # 'docTypesId': construction_document.doctypes_id,
             'docNumber': construction_document.doc_number,
             'docDate': get_date_string(construction_document.doc_date),
             'docName': construction_document.doc_name,
             'note': construction_document.note,
             'idFileStorage': construction_document.idfilestorage,
-            'uploadDate': get_date_time_string(construction_document.upload_date),
+            'uploadDate': upload_date,
         }
 
     def convert_list_to_json(self, construction_document_documents: list) -> list:
@@ -24,7 +29,7 @@ class ConstructionDocumentSerializer:
         construction_document = ConstructionDocument()
         construction_document.construction_documents_id = schema_dict['id']
         construction_document.construction_id = schema_dict['constructionId']
-        construction_document.doctypes_id = schema_dict['docTypesId']
+        # construction_document.doctypes_id = schema_dict['docTypesId']
         construction_document.doc_number = schema_dict['docNumber']
         construction_document.doc_date = schema_dict['docDate']
         construction_document.doc_name = schema_dict['docName']

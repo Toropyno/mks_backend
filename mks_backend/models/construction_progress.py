@@ -26,15 +26,15 @@ class ConstructionProgress(Base):
     reporting_date = Column(Date, nullable=False)
     readiness = Column(
         DECIMAL(17, 2),
-        # CheckConstraint(column('(readiness >= 0) && (readiness <= 100)'), nullable=False)
+        # CheckConstraint('(readiness >= 0) && (readiness <= 100)'), nullable=False
     )
     people = Column(
         Integer,
-        # CheckConstraint(column('people >=0'), nullable=False)
+        # CheckConstraint('people >=0'), nullable=False
     )
     equipment = Column(
         Integer,
-        # CheckConstraint(column('equipment >=0'), nullable=False)
+        # CheckConstraint('equipment >=0'), nullable=False
     )
     # progress_statuses_id = Column(
     #     Integer,
