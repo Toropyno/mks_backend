@@ -53,7 +53,7 @@ class OKSMSchema(colander.MappingSchema):
         validator=colander.Length(
             min=3,
             max=3,
-            min_err='Слишком короткое название alpha2!',
-            max_err='Слишком длинное название alpha2!'
+            min_err='Слишком короткое название alpha3!',
+            max_err='Слишком длинное название alpha3!'
         )
     )
