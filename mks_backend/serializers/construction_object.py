@@ -13,9 +13,6 @@ from mks_backend.services.construction_progress import ConstructionProgressServi
 
 class ConstructionObjectSerializer:
 
-    def __init__(self):
-        self.construction_progress_service = ConstructionProgressService()
-
     def convert_object_to_json(self, construction_object: ConstructionObject) -> dict:
         zone = ZoneSerializer.convert_object_to_json(construction_object.zone)
 
@@ -34,7 +31,7 @@ class ConstructionObjectSerializer:
         #
         # realty_type = RealtyTypeSerializer.convert_object_to_json(construction_object.realty_type)
 
-        construction_progress = self.construction_progress_service.get_construction_progress_for_construction_objects()
+        construction_progress = ConstructionProgressService.get_construction_progress_for_construction_objects()
         if construction_progress is not None:
             construction_progress = {
                 'readiness': construction_progress.readiness,
