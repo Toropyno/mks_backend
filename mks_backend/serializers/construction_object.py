@@ -58,7 +58,7 @@ class ConstructionObjectSerializer:
             'stage': stage,
             # 'location': coordinate,
             # 'realtyType': realty_type,
-            'factDate': self.get_date_string(construction_object.fact_date),
+            # 'factDate': self.get_date_string(construction_object.fact_date),
             # 'constructionProgress': construction_progress,
         }
         return construction_object_dict
