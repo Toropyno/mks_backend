@@ -1,22 +1,22 @@
-from mks_backend.models.location import Location
-from mks_backend.repositories.location import LocationRepository
+from mks_backend.models.coordinate import Coordinate
+from mks_backend.repositories.coordinate import CoordinateRepository
 
 
-class LocationService:
+class CoordinateService:
 
     def __init__(self):
-        self.repo = LocationRepository()
+        self.repo = CoordinateRepository()
 
     def get_all_locations(self):
         return self.repo.get_all_locations()
 
-    def add_location(self, location: Location) -> None:
+    def add_location(self, location: Coordinate) -> None:
         self.repo.add_location(location)
 
-    def update_location(self, location: Location) -> None:
+    def update_location(self, location: Coordinate) -> None:
         self.repo.update_location(location)
 
-    def add_or_update_location(self, location: Location) -> None:
+    def add_or_update_location(self, location: Coordinate) -> None:
         if not location:  # TODO: remove when MIV and IHI will be good
             return
         if location.id:

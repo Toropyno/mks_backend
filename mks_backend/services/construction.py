@@ -1,6 +1,6 @@
 from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction import ConstructionRepository
-from mks_backend.services.location import LocationService
+from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.subcategory_list import SubcategoryListService
 
 
@@ -9,7 +9,7 @@ class ConstructionService:
     def __init__(self):
         self.repo = ConstructionRepository()
         self.subcategory_list_service = SubcategoryListService()
-        self.location_service = LocationService()
+        self.location_service = CoordinateService()
 
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()

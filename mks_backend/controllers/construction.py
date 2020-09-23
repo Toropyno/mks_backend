@@ -5,7 +5,7 @@ from pyramid.view import view_config
 
 from mks_backend.controllers.schemas.construction import ConstructionSchema, ConstructionFilterSchema
 from mks_backend.serializers.construction import ConstructionSerializer
-from mks_backend.serializers.location import LocationSerializer
+from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.services.construction import ConstructionService
 
 from mks_backend.errors.colander_error import get_collander_error_dict
@@ -20,7 +20,7 @@ class ConstructionController:
         self.serializer = ConstructionSerializer()
         self.schema = ConstructionSchema()
         self.filter_schema = ConstructionFilterSchema()
-        self.location_serializer = LocationSerializer()
+        self.location_serializer = CoordinateSerializer()
 
     @view_config(route_name='get_all_constructions', renderer='json')
     def get_all_constructions(self):

@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 from mks_backend.models import Base
 
 
-class Location(Base):
+class Coordinate(Base):
 
     __tablename__ = 'location'
     id = Column(Integer, primary_key=True, autoincrement=True)

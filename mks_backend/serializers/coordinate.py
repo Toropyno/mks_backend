@@ -1,12 +1,12 @@
 from mks_backend.errors.serilize_error import serialize_error_handler
-from mks_backend.models.location import Location
+from mks_backend.models.coordinate import Coordinate
 
 
-class LocationSerializer:
+class CoordinateSerializer:
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, location: Location) -> dict:
+    def convert_object_to_json(cls, location: Coordinate) -> dict:
         return {
             'id': location.id,
             'latitude': location.latitude,
@@ -17,9 +17,9 @@ class LocationSerializer:
     def convert_list_to_json(self, locations: list) -> list:
         return list(map(self.convert_object_to_json, locations))
 
-    def convert_schema_to_object(self, schema: dict) -> Location:
+    def convert_schema_to_object(self, schema: dict) -> Coordinate:
         if schema['latitude'] and schema['longitude'] and schema['zoom']:
-            location = Location()
+            location = Coordinate()
             if 'locationId' in schema:
                 location.id = schema['locationId']
 

@@ -1,16 +1,16 @@
 from pyramid.request import Request
 from pyramid.view import view_config
 
-from mks_backend.serializers.location import LocationSerializer
-from mks_backend.services.location import LocationService
+from mks_backend.serializers.coordinate import CoordinateSerializer
+from mks_backend.services.coordinate import CoordinateService
 
 
-class LocationController:
+class CoordinateController:
 
     def __init__(self, request: Request):
         self.request = request
-        self.service = LocationService()
-        self.serializer = LocationSerializer()
+        self.service = CoordinateService()
+        self.serializer = CoordinateSerializer()
 
     @view_config(route_name='get_locations', renderer='json')
     def get_all_locations(self):
