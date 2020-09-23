@@ -6,14 +6,12 @@ from mks_backend.serializers.construction_stage import ConstructionStageSerializ
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.serializers.zone import ZoneSerializer
 from mks_backend.serializers.location import LocationSerializer
+
+
 # from mks_backend.serializers.realty_type import RealtyTypeSerializer
 
 
 class ConstructionObjectSerializer:
-
-    def __init__(self):
-        self.construction_progress_serializer = ConstructionProgressSerializer()
-        # self.realty_type_service = RealtyTypeSerializer()
 
     def convert_object_to_json(self, construction_object: ConstructionObject) -> dict:
         zone = ZoneSerializer.convert_object_to_json(construction_object.zone)
@@ -31,11 +29,11 @@ class ConstructionObjectSerializer:
 
         location = LocationSerializer.convert_object_to_json(construction_object.location)
         #
-        # realty_type = self.realty_type_service.convert_object_to_json(construction_object.realty_type)
+        # realty_type = RealtyTypeSerializer().convert_object_to_json(construction_object.realty_type)
 
-        construction_progress = construction_object.construction_progress
-        if construction_progress is not None:
-            construction_progress = self.construction_progress_serializer.convert_object_to_json(construction_progress)
+        construction_progress = ConstructionProgressSerializer().convert_object_to_json(
+            construction_object.construction_progress
+        )
 
         fact_date = construction_object.fact_date
         if fact_date is not None:
