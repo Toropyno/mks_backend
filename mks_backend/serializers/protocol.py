@@ -1,6 +1,6 @@
 from mks_backend.models.protocol import Protocol
 from mks_backend.repositories.meeting import MeetingRepository
-from mks_backend.serializers._date_utils import get_date_string
+from mks_backend.serializers.utils.date_and_time import get_date_string
 
 
 class ProtocolSerializer:
@@ -12,7 +12,7 @@ class ProtocolSerializer:
             'protocolDate': get_date_string(protocol.protocol_date),
             'meeting': {
                 'id': protocol.meetings_type_id,
-                'fullName': MeetingRepository.get_meeting_fullname_by_id(protocol.meetings_type_id)
+                'fullName': MeetingRepository.get_meeting_fullname_by_id(protocol.meetings_type_id)  # TODO - fix
             },
             'protocolName': protocol.protocol_name,
             'note': protocol.note,

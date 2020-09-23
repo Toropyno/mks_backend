@@ -1,6 +1,7 @@
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.services.construction_document import ConstructionDocumentService
+from mks_backend.services.construction_progress import ConstructionProgressService
 from mks_backend.services.location import LocationService
 from mks_backend.services.object_category_list import ObjectCategoryListService
 
@@ -12,12 +13,20 @@ class ConstructionObjectService:
         self.location_service = LocationService()
         self.object_categories_list_service = ObjectCategoryListService()
         self.construction_document_service = ConstructionDocumentService()
+        self.construction_progress_service = ConstructionProgressService()
 
     def get_all_construction_objects_by_construction_id(self, construction_id: int) -> list:
-        return self.repo.get_all_construction_objects_by_construction_id(construction_id)
+        construction_objects = self.repo.get_all_construction_objects_by_construction_id(construction_id)
+        for construction_obj in construction_objects:
+            construction_obj.construction_progress = \
+                self.construction_progress_service.get_construction_progress_for_construction_objects()
+        return construction_objects
 
-    def get_construction_object_by_id(self, id: int) -> ConstructionObject:
-        return self.repo.get_construction_object_by_id(id)
+    def get_construction_object(self, id: int) -> ConstructionObject:
+        construction_object = self.repo.get_construction_object_by_id(id)
+        construction_object.construction_progress = \
+            self.construction_progress_service.get_construction_progress_for_construction_objects()
+        return construction_object
 
     def add_construction_object(self, construction_object: ConstructionObject) -> None:
         self.repo.add_construction_object(construction_object)
@@ -67,3 +76,4 @@ class ConstructionObjectService:
         construction_object.fact_date = schema.get('factDate')
 
         return construction_object
+

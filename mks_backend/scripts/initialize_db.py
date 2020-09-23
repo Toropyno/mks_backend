@@ -16,7 +16,6 @@ from mks_backend.models.object_category import ObjectCategory
 from mks_backend.models.object_category_list import ObjectCategoryList
 from mks_backend.models.subcategory_list import SubcategoryList
 from mks_backend.models.zone import Zone
-from mks_backend.models.location_type import LocationType
 from mks_backend.models.construction_company import ConstructionCompany
 from mks_backend.models.oksm import OKSM
 from mks_backend.models.construction_type import ConstructionType

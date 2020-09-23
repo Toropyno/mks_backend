@@ -1,5 +1,5 @@
 from mks_backend.models.construction_document import ConstructionDocument
-from mks_backend.serializers._date_utils import get_date_string, get_date_time_string
+from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
 
 
 class ConstructionDocumentSerializer:

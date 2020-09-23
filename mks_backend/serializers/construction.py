@@ -1,5 +1,5 @@
 from mks_backend.models.construction import Construction
-from mks_backend.serializers._date_utils import get_date_string
+from mks_backend.serializers.utils.date_and_time import get_date_string
 from mks_backend.serializers.commision import CommissionSerializer
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer

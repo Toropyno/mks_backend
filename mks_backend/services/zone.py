@@ -37,7 +37,6 @@ class ZoneService:
             zone.object_categories = self.object_categories_service.get_many_object_categories_by_id(
                 categories_ids
             )
-            print(zone.object_categories)
 
         zone.fullname = schema.get('fullName')
         return zone
