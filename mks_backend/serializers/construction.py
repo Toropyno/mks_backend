@@ -8,6 +8,7 @@ from mks_backend.serializers.location_type import LocationTypeSerializer
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.construction_company import ConstructionCompanySerializer
 from mks_backend.serializers.oksm import OKSMSerializer
+from mks_backend.serializers.construction_type import ConstructionTypeSerializer
 
 
 class ConstructionSerializer:
@@ -25,11 +26,6 @@ class ConstructionSerializer:
         else:
             subcategory = None
 
-        commission = CommissionSerializer.convert_object_to_json(construction.commission)
-        military_unit = MilitaryUnitSerializer.convert_object_to_json(construction.military_unit)
-
-        location = LocationSerializer.convert_object_to_json(construction.location)
-
         return {
             'id': construction.construction_id,
             'code': construction.project_code,
@@ -37,20 +33,27 @@ class ConstructionSerializer:
             'category': category,
             'subcategory': subcategory,
             'isCritical': construction.is_critical,
-            'commission': commission,
-            'militaryUnit': military_unit,
+            'commission': CommissionSerializer.convert_object_to_json(
+                construction.commission
+            ),
+            'militaryUnit': MilitaryUnitSerializer.convert_object_to_json(
+                construction.military_unit
+            ),
             'contractDate': get_date_string(construction.contract_date),
             'objectsAmount': construction.object_amount,
             'plannedDate': get_date_string(construction.planned_date),
-            'constructionType': {
-                'id': 1,
-                'fullName': 'Наименование типа проекта'
-            },
-            'locationType': LocationTypeSerializer.convert_object_to_json(construction.location_type),
+            'constructionType': ConstructionTypeSerializer.convert_object_to_json(
+                construction.type
+            ),
+            'locationType': LocationTypeSerializer.convert_object_to_json(
+                construction.location_type
+            ),
             'constructionCompany': ConstructionCompanySerializer.convert_object_to_json(
                 construction.construction_company
             ),
-            'oksm': OKSMSerializer.convert_object_to_json(construction.oksm),
+            'oksm': OKSMSerializer.convert_object_to_json(
+                construction.oksm
+            ),
             'fias': {
                 'subject': {
                     'id': 1,
@@ -71,7 +74,9 @@ class ConstructionSerializer:
             },
             'address': 'Не формализованный адрес проекта',
             'note': 'Примечание к проекту',
-            'location': location,
+            'location': LocationSerializer.convert_object_to_json(
+                construction.location
+            ),
         }
 
     def convert_list_to_json(self, constructions: list) -> list:

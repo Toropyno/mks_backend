@@ -28,7 +28,11 @@ class Construction(Base):
     contract_date = Column(DATE, nullable=False)
     object_amount = Column(Integer, CheckConstraint('object_amount>0'), nullable=False)
     planned_date = Column(DATE, nullable=False)
-    construction_types_id = Column(Integer, nullable=False, default=1)  # ForeignKey('construction_types.construction_types_id)
+    construction_types_id = Column(
+        Integer,
+        ForeignKey('construction_types.construction_types_id'),
+        nullable=False
+    )
     location_types_id = Column(
         Integer,
         ForeignKey('location_types.location_types_id', ondelete='SET NULL')
@@ -89,4 +93,8 @@ class Construction(Base):
 
     oksm = relationship(
         'OKSM'
+    )
+
+    type = relationship(
+        'ConstructionType'
     )

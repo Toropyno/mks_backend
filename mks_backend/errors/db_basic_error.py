@@ -29,6 +29,7 @@ class DBBasicError(DBAPIError):
                                                     'существует!',
 
         'zones_fullname_key_duplicate': 'Зона Военного Городка с таким наименованием уже существует!',
+        'construction_types_fullname_key_duplicate': 'Такой тип проекта уже существует!',
 
         'other_duplicate': 'Дубликат записи!',
 

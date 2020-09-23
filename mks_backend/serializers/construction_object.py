@@ -64,6 +64,7 @@ class ConstructionObjectSerializer:
             # 'realtyType': realty_type,
             'factDate': fact_date,
             'constructionProgress': construction_progress,
+
         }
         return construction_object_dict
 
