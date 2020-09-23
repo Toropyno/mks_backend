@@ -47,7 +47,7 @@ class ConstructionObjectService:
                 zone_id, object_category_id
             )
             construction_object.object_categories_list_id = object_categories_list.object_categories_list_id
-        print('HERER')
+
         construction_documents = schema.get('constructionDocument', [])
         if construction_documents is not None:
             construction_documents_ids = list(map(lambda x: x['id'], construction_documents))

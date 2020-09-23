@@ -2,6 +2,7 @@ from mks_backend.models.construction_progress import ConstructionProgress
 from mks_backend.repositories.construction_progress import ConstructionProgressRepository
 from datetime import datetime
 
+
 class ConstructionProgressService:
 
     def __init__(self):
