@@ -4,17 +4,17 @@ from mks_backend.repositories import DBSession
 
 class CoordinateRepository:
 
-    def get_all_locations(self) -> list:
+    def get_all_coordinates(self) -> list:
         return DBSession.query(Coordinate).all()
 
-    def add_location(self, location: Coordinate) -> None:
-        DBSession.add(location)
+    def add_coordinate(self, coordinate: Coordinate) -> None:
+        DBSession.add(coordinate)
 
-    def update_location(self, location: Coordinate) -> None:
-        DBSession.query(Coordinate).filter_by(id=location.id).update(
+    def update_coordinate(self, coordinate: Coordinate) -> None:
+        DBSession.query(Coordinate).filter_by(coordinates_id=coordinate.coordinates_id).update(
             {
-                'longitude': location.longitude,
-                'latitude': location.latitude,
-                'zoom': location.zoom
+                'longitude': coordinate.longitude,
+                'latitude': coordinate.latitude,
+                'zoom': coordinate.zoom
             }
         )

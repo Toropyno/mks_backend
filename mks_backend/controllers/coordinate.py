@@ -12,7 +12,7 @@ class CoordinateController:
         self.service = CoordinateService()
         self.serializer = CoordinateSerializer()
 
-    @view_config(route_name='get_locations', renderer='json')
-    def get_all_locations(self):
-        locations = self.service.get_all_locations()
-        return self.serializer.convert_list_to_json(locations)
+    @view_config(route_name='get_coordinates', renderer='json')
+    def get_all_coordinates(self):
+        coordinates = self.service.get_all_coordinates()
+        return self.serializer.convert_list_to_json(coordinates)

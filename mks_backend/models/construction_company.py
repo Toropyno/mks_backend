@@ -9,6 +9,7 @@ from mks_backend.models import Base
 
 
 class ConstructionCompany(Base):
+
     __tablename__ = 'construction_companies'
     construction_companies_id = Column(Integer, primary_key=True)
     shortname = Column(VARCHAR(100), nullable=False)

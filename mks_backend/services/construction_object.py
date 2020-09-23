@@ -9,7 +9,7 @@ class ConstructionObjectService:
 
     def __init__(self):
         self.repo = ConstructionObjectRepository()
-        self.location_service = CoordinateService()
+        self.coordinate_service = CoordinateService()
         self.object_categories_list_service = ObjectCategoryListService()
         self.construction_document_service = ConstructionDocumentService()
 
@@ -26,7 +26,7 @@ class ConstructionObjectService:
         self.repo.delete_construction_object_by_id(id)
 
     def update_construction_object(self, new_construction_object: ConstructionObject) -> None:
-        self.location_service.add_or_update_location(new_construction_object.location)
+        self.coordinate_service.add_or_update_coordinate(new_construction_object.coordinate)
         self.repo.update_construction_object(new_construction_object)
 
     def convert_schema_to_object(self, schema: dict) -> ConstructionObject:
@@ -62,7 +62,7 @@ class ConstructionObjectService:
         construction_object.building_volume = schema.get('buildingVolume')
         construction_object.floors_amount = schema.get('floorsAmount')
         construction_object.construction_stages_id = schema.get('stage')
-        construction_object.coordinates_id = schema.get('locationId')
+        construction_object.coordinates_id = schema.get('coordinateId')
         construction_object.realty_types_id = schema.get('realtyTypeId')
         construction_object.fact_date = schema.get('factDate')
 

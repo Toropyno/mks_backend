@@ -66,7 +66,7 @@ def includeme(config):
 
     config.add_route('get_military_units', '/military_unit', request_method='GET')
 
-    config.add_route('get_locations', '/location', request_method='GET')
+    config.add_route('get_coordinates', '/coordinate', request_method='GET')
 
     config.add_route('get_subcategories_lists', '/subcategories_lists', request_method='GET')
     config.add_route('get_object_categories_lists', '/object_categories_list', request_method='GET')

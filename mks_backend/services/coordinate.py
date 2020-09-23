@@ -7,19 +7,19 @@ class CoordinateService:
     def __init__(self):
         self.repo = CoordinateRepository()
 
-    def get_all_locations(self):
-        return self.repo.get_all_locations()
+    def get_all_coordinates(self):
+        return self.repo.get_all_coordinates()
 
-    def add_location(self, location: Coordinate) -> None:
-        self.repo.add_location(location)
+    def add_coordinate(self, coordinate: Coordinate) -> None:
+        self.repo.add_coordinate(coordinate)
 
-    def update_location(self, location: Coordinate) -> None:
-        self.repo.update_location(location)
+    def update_coordinate(self, coordinate: Coordinate) -> None:
+        self.repo.update_coordinate(coordinate)
 
-    def add_or_update_location(self, location: Coordinate) -> None:
-        if not location:  # TODO: remove when MIV and IHI will be good
+    def add_or_update_coordinate(self, coordinate: Coordinate) -> None:
+        if not coordinate:  # TODO: remove when MIV and IHI will be good
             return
-        if location.id:
-            self.update_location(location)
+        if coordinate.coordinates_id:
+            self.update_coordinate(coordinate)
         else:
-            self.add_location(location)
+            self.add_coordinate(coordinate)

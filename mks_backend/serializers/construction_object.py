@@ -56,7 +56,7 @@ class ConstructionObjectSerializer:
             'buildingVolume': building_volume,
             'floorsAmount': construction_object.floors_amount,
             'stage': stage,
-            # 'location': coordinate,
+            # 'coordinate': coordinate,
             # 'realtyType': realty_type,
             # 'factDate': self.get_date_string(construction_object.fact_date),
             # 'constructionProgress': construction_progress,

@@ -3,6 +3,7 @@ from mks_backend.repositories.construction_type import ConstructionTypeRepositor
 
 
 class ConstructionTypeService:
+
     def __init__(self):
         self.repo = ConstructionTypeRepository()
 

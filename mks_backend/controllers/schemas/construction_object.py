@@ -155,7 +155,7 @@ class ConstructionObjectSchema(colander.MappingSchema):
 
     coordinates_id = colander.SchemaNode(
         colander.Int(),
-        name='locationId',
+        name='coordinateId',
         validator=colander.Range(
             min=0,
             min_err='Недопустимое местоположение'

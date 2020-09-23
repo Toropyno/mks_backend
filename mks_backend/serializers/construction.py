@@ -75,8 +75,8 @@ class ConstructionSerializer:
             },
             'address': 'Не формализованный адрес проекта',
             'note': 'Примечание к проекту',
-            'location': CoordinateSerializer.convert_object_to_json(
-                construction.location
+            'coordinate': CoordinateSerializer.convert_object_to_json(
+                construction.coordinate
             ),
         }
 

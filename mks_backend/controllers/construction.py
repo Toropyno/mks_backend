@@ -20,7 +20,7 @@ class ConstructionController:
         self.serializer = ConstructionSerializer()
         self.schema = ConstructionSchema()
         self.filter_schema = ConstructionFilterSchema()
-        self.location_serializer = CoordinateSerializer()
+        self.coordinate_serializer = CoordinateSerializer()
 
     @view_config(route_name='get_all_constructions', renderer='json')
     def get_all_constructions(self):
@@ -44,9 +44,9 @@ class ConstructionController:
         except colander.Invalid as error:
             return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
 
-        location = self.location_serializer.convert_schema_to_object(construction_deserialized)
+        coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
         construction = self.service.convert_schema_to_object(construction_deserialized)
-        construction.location = location
+        construction.coordinate = coordinate
         try:
             self.service.add_construction(construction)
         except DBBasicError as error:
@@ -76,9 +76,9 @@ class ConstructionController:
 
         construction_deserialized['id'] = self.request.matchdict['id']
 
-        location = self.location_serializer.convert_schema_to_object(construction_deserialized)
+        coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
         new_construction = self.service.convert_schema_to_object(construction_deserialized)
-        new_construction.location = location
+        new_construction.coordinate = coordinate
         try:
             self.service.update_construction(new_construction)
         except DBBasicError as error:
