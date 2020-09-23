@@ -50,7 +50,7 @@ class Construction(Base):
     id_fias = Column(Integer)  # ForeignKey()
     address = Column(VARCHAR(1000))
     note = Column(VARCHAR(1000))
-    coordinates_id = Column(Integer, ForeignKey('coordinates.id'))
+    coordinates_id = Column(Integer, ForeignKey('coordinates.coordinates_id'))
 
     construction_category = relationship(
         'ConstructionCategory',

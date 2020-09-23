@@ -5,7 +5,7 @@ from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.serializers.zone import ZoneSerializer
-# from mks_backend.serializers.coordinate import CoordinateSerializer
+from mks_backend.serializers.coordinate import CoordinateSerializer
 # from mks_backend.serializers.realty_type import RealtyTypeSerializer
 # from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 #
@@ -28,7 +28,7 @@ class ConstructionObjectSerializer:
 
         building_volume = float(construction_object.building_volume) if construction_object.building_volume else None
 
-        # coordinate = CoordinateSerializer.convert_object_to_json(construction_object.coordinate)
+        coordinate = CoordinateSerializer.convert_object_to_json(construction_object.coordinate)
         #
         # realty_type = RealtyTypeSerializer.convert_object_to_json(construction_object.realty_type)
 
@@ -56,7 +56,7 @@ class ConstructionObjectSerializer:
             'buildingVolume': building_volume,
             'floorsAmount': construction_object.floors_amount,
             'stage': stage,
-            # 'coordinate': coordinate,
+            'coordinate': coordinate,
             # 'realtyType': realty_type,
             # 'factDate': self.get_date_string(construction_object.fact_date),
             # 'constructionProgress': construction_progress,
