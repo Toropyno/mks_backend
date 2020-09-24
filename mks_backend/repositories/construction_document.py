@@ -26,7 +26,7 @@ class ConstructionDocumentRepository:
             construction_documents_id=construction_document.construction_documents_id).update(
             {
                 'construction_id': construction_document.construction_id,
-                'doctypes_id': construction_document.doctypes_id,
+                # 'doctypes_id': construction_document.doctypes_id,
                 'doc_number': construction_document.doc_number,
                 'doc_date': construction_document.doc_date,
                 'doc_name': construction_document.doc_name,

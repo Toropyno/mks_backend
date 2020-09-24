@@ -9,6 +9,7 @@ from mks_backend.controllers.schemas.validator_utils import (
 
 
 class ConstructionDocumentSchema(colander.MappingSchema):
+
     construction_id = colander.SchemaNode(
         colander.Int(),
         name='constructionId',
@@ -18,14 +19,14 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         )
     )
 
-    doctypes_id = colander.SchemaNode(
-        colander.Int(),
-        name='doctypeId',
-        validator=colander.Range(
-            min=0,
-            min_err='Неверный номер Типа Документов'
-        )
-    )
+    # doctypes_id = colander.SchemaNode(
+    #     colander.Int(),
+    #     name='doctypeId',
+    #     validator=colander.Range(
+    #         min=0,
+    #         min_err='Неверный номер Типа Документов'
+    #     )
+    # )
 
     doc_number = colander.SchemaNode(
         colander.String(),
