@@ -5,6 +5,7 @@ from pyramid.request import Request
 
 from mks_backend.controllers.schemas.construction_progress import ConstructionProgressSchema
 from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 from mks_backend.services.construction_progress import ConstructionProgressService
 from mks_backend.errors.colander_error import get_collander_error_dict
@@ -23,25 +24,14 @@ class ConstructionProgressController:
         construction_progresses = self.service.get_all_construction_progresses()
         return self.serializer.convert_list_to_json(construction_progresses)
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='add_construction_progress', renderer='json')
     def add_construction_progress(self):
-        try:
-            construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
 
         construction_progress = self.serializer.convert_schema_to_object(construction_progress_deserialized)
-        try:
-            self.service.add_construction_progress(construction_progress)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
-
+        self.service.add_construction_progress(construction_progress)
         return {'id': construction_progress.construction_progress_id}
 
     @view_config(route_name='get_construction_progress', renderer='json')
@@ -56,25 +46,15 @@ class ConstructionProgressController:
         self.service.delete_construction_progress_by_id(id)
         return {'id': id}
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='edit_construction_progress', renderer='json')
     def edit_construction_progress(self):
         id = int(self.request.matchdict['id'])
-        try:
-            construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
 
         construction_progress_deserialized['id'] = id
         construction_progress = self.serializer.convert_schema_to_object(construction_progress_deserialized)
-        try:
-            self.service.update_construction_progress(construction_progress)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
 
+        self.service.update_construction_progress(construction_progress)
         return {'id': id}
