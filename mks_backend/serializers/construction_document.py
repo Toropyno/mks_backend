@@ -1,7 +1,7 @@
 from datetime import date as Date
 from datetime import datetime as DateTime
 
-from mks_backend.models.construction_document import ConstructionDocument
+from mks_backend.models.documents.construction_document import ConstructionDocument
 
 
 class ConstructionDocumentSerializer:

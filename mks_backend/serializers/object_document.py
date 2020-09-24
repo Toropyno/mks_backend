@@ -1,4 +1,4 @@
-from mks_backend.models.object_document import ObjectDocument
+from mks_backend.models.documents.object_document import ObjectDocument
 
 
 class ObjectDocumentSerializer:

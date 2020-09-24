@@ -1,4 +1,4 @@
-from mks_backend.models.construction_document import ConstructionDocument
+from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_document import ConstructionDocumentRepository
 from mks_backend.repositories.filestorage import FilestorageRepository
 

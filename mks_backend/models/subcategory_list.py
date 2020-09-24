@@ -15,10 +15,14 @@ class SubcategoryList(Base):
     subcategories_list_id = Column(Integer, primary_key=True, autoincrement=True)
     construction_categories_id = Column(
         Integer,
-        ForeignKey('construction_categories.construction_categories_id', ondelete='CASCADE'), nullable=False)
+        ForeignKey('construction_categories.construction_categories_id', ondelete='CASCADE'),
+        nullable=False
+    )
     construction_subcategories_id = Column(
         Integer,
-        ForeignKey('construction_subcategories.construction_subcategories_id', ondelete='CASCADE'), nullable=False)
+        ForeignKey('construction_subcategories.construction_subcategories_id', ondelete='CASCADE'),
+        nullable=False
+    )
 
     __table_args__ = (
         UniqueConstraint(
