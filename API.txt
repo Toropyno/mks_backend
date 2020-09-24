@@ -347,6 +347,24 @@ Description: Delete construction_document
 Route: '/construction_document/{id}'
 
 
+# --- construction_progress ---
+
+Description: Get all construction_progress (query parameters for filter)
+Route: '/construction_progress'
+Method: GET
+
+Description: Add construction_progress
+Route: '/construction_progress/'
+Method: POST
+
+Description: Get construction_progress
+Route: '/construction_progress/{id}'
+Method: GET
+
+Description: Delete construction_progress
+Route: '/construction_progress/{id}'
+
+
 =======================================================================================================================
 
 ConstructionDocument {
@@ -373,5 +391,17 @@ ConstructionObject {
                                         equipment             Integer
                                         progressStatusesId  Integer
                                     }
-        }
+}
+
+ConstructionProgress {
+    id                        Integer
+    constructionObjectsId     Integer
+    reportingDate             String
+    readiness                 DECIMAL(17, 2)
+    people                    Integer
+    equipment                 Integer
+    progressStatusesId        Integer
+    updateDatetime            String
+
+}
 

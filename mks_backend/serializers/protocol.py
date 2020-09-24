@@ -1,7 +1,6 @@
-from datetime import date as Date
-
 from mks_backend.models.protocol import Protocol
 from mks_backend.repositories.meeting import MeetingRepository
+from mks_backend.serializers.utils.date_and_time import get_date_string
 
 
 class ProtocolSerializer:
@@ -10,19 +9,16 @@ class ProtocolSerializer:
         protocol_dict = {
             'protocolId': protocol.protocol_id,
             'protocolNumber': protocol.protocol_num,
-            'protocolDate': self.get_date_string(protocol.protocol_date),
+            'protocolDate': get_date_string(protocol.protocol_date),
             'meeting': {
                 'id': protocol.meetings_type_id,
-                'fullName': MeetingRepository.get_meeting_fullname_by_id(protocol.meetings_type_id)
+                'fullName': MeetingRepository.get_meeting_fullname_by_id(protocol.meetings_type_id)  # TODO - fix
             },
             'protocolName': protocol.protocol_name,
             'note': protocol.note,
             'idFileStorage': protocol.idfilestorage
         }
         return protocol_dict
-
-    def get_date_string(self, date: Date) -> str:
-        return str(date.year) + ',' + str(date.month) + ',' + str(date.day)
 
     def convert_list_to_json(self, protocols: list) -> list:
         return list(map(self.convert_object_to_json, protocols))

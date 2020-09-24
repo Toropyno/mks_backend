@@ -21,11 +21,11 @@ class ConstructionDocument(Base):
         ForeignKey('construction.construction_id', ondelete='CASCADE'),
         nullable=False,
     )
-    doctypes_id = Column(
-        Integer,
-        # ForeignKey('doctypes.doctypes_id', ondelete='CASCADE'),
-        nullable=False,
-    )
+    # doctypes_id = Column(
+    #     Integer,
+    #     ForeignKey('doctypes.doctypes_id', ondelete='CASCADE'),
+    #     nullable=False,
+    # )
     doc_number = Column(VARCHAR(40), nullable=False)
     doc_date = Column(DATE, nullable=False)
     doc_name = Column(VARCHAR(255))

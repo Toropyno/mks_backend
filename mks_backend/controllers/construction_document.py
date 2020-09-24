@@ -30,7 +30,7 @@ class ConstructionDocumentController:
         except colander.Invalid as error:
             return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
 
-        construction_document = self.service.convert_schema_to_object(construction_document_deserialized)
+        construction_document = self.serializer.convert_schema_to_object(construction_document_deserialized)
         try:
             self.service.add_construction_document(construction_document)
         except DBBasicError as error:

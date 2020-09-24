@@ -25,5 +25,5 @@ class Coordinate(Base):
 
     construction_object = relationship(
         'ConstructionObject',
-        back_populates='coordinate'
+        back_populates='location'
     )

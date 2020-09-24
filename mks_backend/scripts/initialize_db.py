@@ -16,7 +16,6 @@ from mks_backend.models.object_category import ObjectCategory
 from mks_backend.models.object_category_list import ObjectCategoryList
 from mks_backend.models.subcategory_list import SubcategoryList
 from mks_backend.models.zone import Zone
-from mks_backend.models.location_type import LocationType
 from mks_backend.models.construction_company import ConstructionCompany
 from mks_backend.models.oksm import OKSM
 from mks_backend.models.construction_type import ConstructionType
@@ -29,10 +28,12 @@ from mks_backend.models.military_unit_models.purposemu import PurposeMU
 from mks_backend.models.military_unit_models.sortarmedforces import SortArmedForces
 
 from mks_backend.models.coordinate import Coordinate
+from mks_backend.models.location_type import LocationType
 
 from mks_backend.models.object_document import ObjectDocument
 from mks_backend.models.construction_document import ConstructionDocument
 
+from mks_backend.models.construction_progress import ConstructionProgress
 
 import os
 import sys

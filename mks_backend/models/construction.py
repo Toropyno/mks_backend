@@ -26,7 +26,11 @@ class Construction(Base):
     commission_id = Column(Integer, ForeignKey('commission.commission_id', ondelete='SET NULL'), nullable=False)
     idMU = Column(Integer, ForeignKey('military_unit.idMU'))
     contract_date = Column(DATE, nullable=False)
-    object_amount = Column(Integer, CheckConstraint('object_amount>0'), nullable=False)
+    object_amount = Column(
+        Integer,
+        CheckConstraint('object_amount>0'),
+        nullable=False
+    )
     planned_date = Column(DATE, nullable=False)
     construction_types_id = Column(
         Integer,
