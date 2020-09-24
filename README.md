@@ -7,7 +7,6 @@
     initialize_mks_db development.ini
     
     pserve development.ini --reload
-    
 --------------------------------------------------------------------------------
 
 Activation on Linux:

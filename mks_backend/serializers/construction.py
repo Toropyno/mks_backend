@@ -1,6 +1,5 @@
-from datetime import date as Date
-
 from mks_backend.models.construction import Construction
+from mks_backend.serializers.utils.date_and_time import get_date_string
 from mks_backend.serializers.commision import CommissionSerializer
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
@@ -40,9 +39,9 @@ class ConstructionSerializer:
             'militaryUnit': MilitaryUnitSerializer.convert_object_to_json(
                 construction.military_unit
             ),
-            'contractDate': self.get_date_string(construction.contract_date),
+            'contractDate': get_date_string(construction.contract_date),
             'objectsAmount': construction.object_amount,
-            'plannedDate': self.get_date_string(construction.planned_date),
+            'plannedDate': get_date_string(construction.planned_date),
             'constructionType': ConstructionTypeSerializer.convert_object_to_json(
                 construction.type
             ),
@@ -82,6 +81,3 @@ class ConstructionSerializer:
 
     def convert_list_to_json(self, constructions: list) -> list:
         return list(map(self.convert_object_to_json, constructions))
-
-    def get_date_string(self, date: Date) -> str:
-        return str(date.year) + ',' + str(date.month) + ',' + str(date.day)

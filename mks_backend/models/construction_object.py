@@ -17,17 +17,28 @@ class ConstructionObject(Base):
 
     __tablename__ = 'construction_objects'
     construction_objects_id = Column(Integer, primary_key=True, autoincrement=True)
-    construction_id = Column(Integer, ForeignKey('construction.construction_id', ondelete='CASCADE'), nullable=False)
+    construction_id = Column(
+        Integer,
+        ForeignKey('construction.construction_id', ondelete='CASCADE'),
+        nullable=False
+    )
     object_code = Column(VARCHAR(40), unique=True, nullable=False)
     object_name = Column(VARCHAR(255), nullable=False)
-    zones_id = Column(Integer, ForeignKey('zones.zones_id', ondelete='SET NULL'))
+    zones_id = Column(
+        Integer,
+        ForeignKey('zones.zones_id', ondelete='SET NULL')
+    )
     object_categories_list_id = Column(
         Integer,
         ForeignKey('object_categories_list.object_categories_list_id',
                    ondelete='SET NULL')
     )
     planned_date = Column(Date, default=func.current_date(), nullable=False)
-    weight = Column(Integer, CheckConstraint('weight>0 AND weight<=100'), nullable=False)
+    weight = Column(
+        Integer,
+        CheckConstraint('weight>0 AND weight<=100'),
+        nullable=False
+    )
     generalplan_number = Column(Integer)
     building_volume = Column(DECIMAL(17, 3))
     floors_amount = Column(Integer)
@@ -36,8 +47,14 @@ class ConstructionObject(Base):
         ForeignKey('construction_stages.construction_stages_id',
                    ondelete='SET NULL')
     )
-    coordinates_id = Column(Integer, ForeignKey('location.id', ondelete='SET NULL'))
-    # realty_types_id = Column(Integer, ForeignKey('realty_types.id', ondelete='SET NULL'))
+    location_id = Column(
+        Integer,
+        ForeignKey('location.id', ondelete='SET NULL')
+    )
+    # realty_types_id = Column(
+    # Integer,
+    # ForeignKey('realty_types.id', ondelete='SET NULL')
+    # )
     fact_date = Column(Date)
 
     construction = relationship(
@@ -65,15 +82,15 @@ class ConstructionObject(Base):
         back_populates='construction_object'
     )
 
-    coordinate = relationship(
+    location = relationship(
         'Location',
         back_populates='construction_object'
     )
 
-    # construction_progress = relationship(
-    #     'ConstructionProgress',
-    #     back_populates='construction_object'
-    # )
+    construction_progress = relationship(
+        'ConstructionProgress',
+        back_populates='construction_object'
+    )
 
     documents = relationship(
         'ConstructionDocument',

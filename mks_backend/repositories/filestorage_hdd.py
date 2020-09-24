@@ -8,7 +8,7 @@ from mks_backend.errors.filestorage_error import FilestorageError
 
 
 class FilestorageHDD:
-    PROTOCOL_STORAGE = '/home/atimchenko/MKS/protocols/'
+    PROTOCOL_STORAGE = '/home/user/PycharmProjects/mks_backend/protocols/'
 
     def create_file(self, id_file_storage: str, file: cgi_FieldStorage) -> None:
         try:
