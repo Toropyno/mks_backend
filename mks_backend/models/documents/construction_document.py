@@ -42,3 +42,8 @@ class ConstructionDocument(Base):
         secondary='object_documents',
         back_populates='documents'
     )
+
+    # doc_type = relationship(
+    #     'DocType',
+    #     back_populates='construction_documents'
+    # )

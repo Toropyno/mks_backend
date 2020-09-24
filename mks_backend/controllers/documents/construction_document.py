@@ -6,8 +6,8 @@ from pyramid.request import Request
 from mks_backend.controllers.schemas.construction_document import ConstructionDocumentSchema
 from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
-from mks_backend.serializers.construction_document import ConstructionDocumentSerializer
-from mks_backend.services.construction_document import ConstructionDocumentService
+from mks_backend.serializers.documents.construction_document import ConstructionDocumentSerializer
+from mks_backend.services.documents.construction_document import ConstructionDocumentService
 from mks_backend.errors.colander_error import get_collander_error_dict
 
 

@@ -1,6 +1,6 @@
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
-from mks_backend.services.construction_document import ConstructionDocumentService
+from mks_backend.services.documents.construction_document import ConstructionDocumentService
 from mks_backend.services.construction_progress import ConstructionProgressService
 from mks_backend.services.location import LocationService
 from mks_backend.services.object_category_list import ObjectCategoryListService

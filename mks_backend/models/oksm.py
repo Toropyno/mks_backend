@@ -9,6 +9,7 @@ from mks_backend.models import Base
 
 
 class OKSM(Base):
+
     __tablename__ = 'OKSM'
 
     oksm_id = Column(Integer, primary_key=True)

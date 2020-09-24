@@ -32,7 +32,7 @@ from mks_backend.models.location_type import LocationType
 
 from mks_backend.models.documents.object_document import ObjectDocument
 from mks_backend.models.documents.construction_document import ConstructionDocument
-# from mks_backend.models.documents.doc_type import DocType
+from mks_backend.models.documents.doc_type import DocType
 
 from mks_backend.models.construction_progress import ConstructionProgress
 
