@@ -37,6 +37,7 @@ from mks_backend.models.documents.construction_document import ConstructionDocum
 from mks_backend.models.documents.doc_type import DocType
 
 from mks_backend.models.construction_progress import ConstructionProgress
+from mks_backend.models.measure_unit import MeasureUnit
 
 import os
 import sys
