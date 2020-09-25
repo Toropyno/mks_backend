@@ -1,9 +1,8 @@
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
-from mks_backend.services.construction_document import ConstructionDocumentService
+from mks_backend.services.documents.construction_document import ConstructionDocumentService
 from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.construction_progress import ConstructionProgressService
-
 from mks_backend.services.object_category_list import ObjectCategoryListService
 
 
@@ -18,9 +17,6 @@ class ConstructionObjectService:
 
     def get_all_construction_objects_by_construction_id(self, construction_id: int) -> list:
         construction_objects = self.repo.get_all_construction_objects_by_construction_id(construction_id)
-        # for construction_obj in construction_objects:
-        #     construction_obj.construction_progress = \
-        #         self.construction_progress_service.get_construction_progress_for_construction_objects()
         return construction_objects
 
     def get_construction_object(self, id: int) -> ConstructionObject:
@@ -41,9 +37,8 @@ class ConstructionObjectService:
 
     def convert_schema_to_object(self, schema: dict) -> ConstructionObject:
         construction_object = ConstructionObject()
-        if 'id' in schema:
-            construction_object.construction_objects_id = schema.get('id')
 
+        construction_object.construction_objects_id = schema.get('id')
         construction_object.construction_id = schema.get('projectId')
         construction_object.object_code = schema.get('code')
         construction_object.object_name = schema.get('name')
@@ -77,4 +72,3 @@ class ConstructionObjectService:
         construction_object.fact_date = schema.get('factDate')
 
         return construction_object
-

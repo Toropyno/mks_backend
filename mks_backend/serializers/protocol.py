@@ -25,12 +25,13 @@ class ProtocolSerializer:
 
     def convert_schema_to_object(self, schema_dict: dict) -> Protocol:
         protocol = Protocol()
-        if 'id' in schema_dict:
-            protocol.protocol_id = schema_dict['id']
-        protocol.protocol_num = schema_dict['protocolNumber']
-        protocol.protocol_date = schema_dict['protocolDate']
-        protocol.meetings_type_id = schema_dict['meeting']
-        protocol.protocol_name = schema_dict['protocolName']
-        protocol.note = schema_dict['note']
-        protocol.idfilestorage = schema_dict['idFileStorage']
+
+        protocol.protocol_id = schema_dict.get('id')
+        protocol.protocol_num = schema_dict.get('protocolNumber')
+        protocol.protocol_date = schema_dict.get('protocolDate')
+        protocol.meetings_type_id = schema_dict.get('meeting')
+        protocol.protocol_name = schema_dict.get('protocolName')
+        protocol.note = schema_dict.get('note')
+        protocol.idfilestorage = schema_dict.get('idFileStorage')
+
         return protocol

@@ -29,16 +29,14 @@ class ConstructionProgressSerializer:
 
     def convert_schema_to_object(self, schema: dict) -> ConstructionProgress:
         construction_progress = ConstructionProgress()
-        if 'id' in schema:
-            construction_progress.construction_progress_id = schema['id']
 
-        construction_progress.construction_objects_id = schema['constructionObjects']
-        construction_progress.reporting_date = schema['reportingDate']
-        construction_progress.readiness = schema['readiness']
-        construction_progress.people = schema['people']
-        construction_progress.equipment = schema['equipment']
-        # construction_progress.progress_statuses_id = schema['progressStatusesId']
+        construction_progress.construction_progress_id = schema.get('id')
+        construction_progress.construction_objects_id = schema.get('constructionObjects')
+        construction_progress.reporting_date = schema.get('reportingDate')
+        construction_progress.readiness = schema.get('readiness')
+        construction_progress.people = schema.get('people')
+        construction_progress.equipment = schema.get('equipment')
+        # construction_progress.progress_statuses_id = schema.get('progressStatusesId')
 
         construction_progress.update_datetime = datetime.now()
-
         return construction_progress

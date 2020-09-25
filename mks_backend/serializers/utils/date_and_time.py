@@ -7,5 +7,5 @@ def get_date_string(date: Date) -> str:
 
 
 def get_date_time_string(date_time: DateTime) -> str:
-    return str(date_time.year) + ',' + str(date_time.month) + ',' + str(date_time.day) + \
+    return str(date_time.day) + '.' + str(date_time.month) + '.' + str(date_time.year) + \
            ' ' + str(date_time.hour) + ':' + str(date_time.minute) + ':' + str(date_time.second)

@@ -1,14 +1,10 @@
-import colander
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.request import Request
 
 from mks_backend.controllers.schemas.construction_progress import ConstructionProgressSchema
-from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 from mks_backend.services.construction_progress import ConstructionProgressService
-from mks_backend.errors.colander_error import get_collander_error_dict
 
 
 class ConstructionProgressController:

@@ -9,6 +9,7 @@ from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.serializers.realty_type import RealtyTypeSerializer
 
 
+
 class ConstructionObjectSerializer:
 
     def convert_object_to_json(self, construction_object: ConstructionObject) -> dict:
@@ -22,6 +23,20 @@ class ConstructionObjectSerializer:
             category = None
 
         building_volume = float(construction_object.building_volume) if construction_object.building_volume else None
+
+        # construction_progress = ConstructionProgressSerializer().convert_object_to_json(
+        #     construction_object.construction_progress[len(construction_object.construction_progress) - 1]
+        # )
+
+        construction_progress = {
+            "id": 1,
+            "constructionObjects": 8,
+            "reportingDate": "2021,10,25",
+            "readiness": 10.7,
+            "people": 330,
+            "equipment": 500,
+            "updateDatetime": "25.9.2020 15:32:18"
+        }
 
         fact_date = construction_object.fact_date
         if fact_date is not None:
@@ -49,10 +64,7 @@ class ConstructionObjectSerializer:
                 construction_object.realty_type
             ),
             'factDate': fact_date,
-            'constructionProgress': ConstructionProgressSerializer().convert_object_to_json(
-                construction_object.construction_progress
-            ),
-
+            'constructionProgress': construction_progress,
         }
         return construction_object_dict
 
