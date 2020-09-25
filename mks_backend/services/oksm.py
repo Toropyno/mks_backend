@@ -3,6 +3,7 @@ from mks_backend.repositories.oksm import OKSMRepository
 
 
 class OKSMService:
+
     def __init__(self):
         self.repo = OKSMRepository()
 

@@ -30,7 +30,7 @@ class ConstructionRepository:
                 'contract_date': construction.contract_date,
                 'object_amount': construction.object_amount,
                 'planned_date': construction.planned_date,
-                'location_id': construction.location_id,
+                'coordinates_id': construction.coordinates_id,
                 'construction_types_id': construction.construction_types_id,
                 'location_types_id': construction.location_types_id,
                 'construction_companies_id': construction.construction_companies_id,
