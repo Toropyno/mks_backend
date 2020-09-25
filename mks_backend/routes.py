@@ -20,7 +20,7 @@ def includeme(config):
     config.add_route('edit_construction', '/construction/{id}', request_method='PUT')
     config.add_route('get_construction', '/construction/{id}', request_method='GET')
 
-    config.add_route('get_construction_objects_by_parent', 'construction/construction_objects/{construction_id}',
+    config.add_route('get_construction_objects_by_parent', 'construction/{construction_id}/construction_objects',
                      request_method='GET')
 
     config.add_route('add_construction_object', '/construction_object', request_method='POST')
@@ -108,4 +108,10 @@ def includeme(config):
     config.add_route('delete_construction_type', '/construction_type/{id}', request_method='DELETE')
     config.add_route('edit_construction_type', '/construction_type/{id}', request_method='PUT')
     config.add_route('get_construction_type', '/construction_type/{id}', request_method='GET')
+
+    config.add_route('get_all_realty_types', '/realty_type', request_method='GET')
+    config.add_route('add_realty_type', '/realty_type', request_method='POST')
+    config.add_route('delete_realty_type', '/realty_type/{id}', request_method='DELETE')
+    config.add_route('edit_realty_type', '/realty_type/{id}', request_method='PUT')
+    config.add_route('get_realty_type', '/realty_type/{id}', request_method='GET')
 

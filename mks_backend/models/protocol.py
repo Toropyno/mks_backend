@@ -18,10 +18,18 @@ class Protocol(Base):
     protocol_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     protocol_num = Column(VARCHAR(20), nullable=False)
     protocol_date = Column(Date, nullable=False, default=func.current_date())
-    meetings_type_id = Column(Integer, ForeignKey('meeting.meetings_type_id'))
     protocol_name = Column(VARCHAR(255), nullable=False)
     note = Column(VARCHAR(2000))
-    idfilestorage = Column(UUID, ForeignKey('filestorage.idfilestorage', ondelete='CASCADE'))
+
+    meetings_type_id = Column(
+        Integer,
+        ForeignKey('meeting.meetings_type_id')
+    )
+
+    idfilestorage = Column(
+        UUID,
+        ForeignKey('filestorage.idfilestorage', ondelete='CASCADE')
+    )
 
     filestorage = relationship(
         'Filestorage',

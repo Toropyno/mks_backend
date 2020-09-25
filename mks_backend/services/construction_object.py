@@ -73,8 +73,7 @@ class ConstructionObjectService:
         construction_object.floors_amount = schema.get('floorsAmount')
         construction_object.construction_stages_id = schema.get('stage')
         construction_object.coordinates_id = schema.get('coordinateId')
-        # construction_object.realty_types_id = schema.get('realtyTypeId')
-
+        construction_object.realty_types_id = schema.get('realtyTypeId')
         construction_object.fact_date = schema.get('factDate')
 
         return construction_object
