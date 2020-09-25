@@ -29,6 +29,7 @@ class Construction(Base):
         Integer,
         ForeignKey('construction_categories.construction_categories_id', ondelete='SET NULL')
     )
+
     subcategories_list_id = Column(
         Integer,
         ForeignKey('subcategories_list.subcategories_list_id', ondelete='SET NULL')

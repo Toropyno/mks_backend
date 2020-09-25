@@ -16,13 +16,17 @@ from mks_backend.models import Base
 class ConstructionProgress(Base):
 
     __tablename__ = 'construction_progress'
-    construction_progress_id = Column(Integer, primary_key=True, autoincrement=True)
-    construction_objects_id = Column(
-        Integer,
-        ForeignKey('construction_objects.construction_objects_id', ondelete='CASCADE'),
-        nullable=False,
+    __table_args__ = (
+        UniqueConstraint(
+            'construction_progress_id',
+            'reporting_date',
+            name='construction_progress_unique'
+        ),
     )
+    construction_progress_id = Column(Integer, primary_key=True, autoincrement=True)
     reporting_date = Column(Date, nullable=False)
+    update_datetime = Column(TIMESTAMP, default=func.now())
+
     readiness = Column(
         DECIMAL(17, 2),
         CheckConstraint('(readiness>=0) AND (readiness<=100)'),
@@ -38,20 +42,18 @@ class ConstructionProgress(Base):
         CheckConstraint('equipment>=0'),
         nullable=False
     )
+
+    construction_objects_id = Column(
+        Integer,
+        ForeignKey('construction_objects.construction_objects_id', ondelete='CASCADE'),
+        nullable=False,
+    )
+
     # progress_statuses_id = Column(
     #     Integer,
     #     ForeignKey('progress_statuses.progress_statuses_id', ondelete='CASCADE'),
     #     nullable=False,
     # )
-    update_datetime = Column(TIMESTAMP, default=func.now())
-
-    __table_args__ = (
-        UniqueConstraint(
-            'construction_progress_id',
-            'reporting_date',
-            name='construction_progress_unique'
-        ),
-    )
 
     construction_object = relationship(
         'ConstructionObject',
