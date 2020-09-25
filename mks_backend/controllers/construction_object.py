@@ -20,7 +20,6 @@ class ConstructionObjectController:
         self.schema = ConstructionObjectSchema()
         self.coordinate_serializer = CoordinateSerializer()
 
-
     @view_config(route_name='get_construction_objects_by_parent', renderer='json')
     def get_all_construction_objects_by_construction_id(self):
         construction_id = self.request.matchdict['construction_id']

@@ -43,11 +43,11 @@ class RealtyTypeController:
     @view_config(route_name='edit_realty_type')
     def edit_realty_type(self):
         realty_type_deserialized = self.schema.deserialize(self.request.json_body)
-        realty_type_deserialized['id'] = self.request.matchdict['id']
+        realty_type_deserialized['id'] = self.get_id()
 
         new_realty_type = self.serializer.convert_schema_to_object(realty_type_deserialized)
         self.service.update_realty_type(new_realty_type)
-        return {'id': new_realty_type.realty_types_id}
+        return {'id': self.get_id()}
 
     @view_config(route_name='get_realty_type')
     def get_realty_type(self):
@@ -55,5 +55,5 @@ class RealtyTypeController:
         realty_type = self.service.get_realty_type_by_id(id)
         return self.serializer.convert_object_to_json(realty_type)
 
-    def get_id(self):
+    def get_id(self) -> int:
         return int(self.request.matchdict['id'])

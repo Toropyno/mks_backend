@@ -153,7 +153,7 @@ class ConstructionObjectSchema(colander.MappingSchema):
         missing=None
     )
 
-    location_id = colander.SchemaNode(
+    coordinates_id = colander.SchemaNode(
         colander.Int(),
         name='coordinateId',
         validator=colander.Range(

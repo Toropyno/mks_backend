@@ -93,7 +93,7 @@ class ConstructionSchema(colander.MappingSchema):
         validator=date_validator
     )
 
-    # ------ location ------
+    # ------ coordinate ------
     latitude = colander.SchemaNode(
         colander.Float(),
         name='latitude',
