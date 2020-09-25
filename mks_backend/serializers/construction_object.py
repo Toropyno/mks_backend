@@ -29,9 +29,19 @@ class ConstructionObjectSerializer:
         #
         # realty_type = RealtyTypeSerializer().convert_object_to_json(construction_object.realty_type)
 
-        construction_progress = ConstructionProgressSerializer().convert_object_to_json(
-            construction_object.construction_progress[len(construction_object.construction_progress) - 1]
-        )
+        # construction_progress = ConstructionProgressSerializer().convert_object_to_json(
+        #     construction_object.construction_progress[len(construction_object.construction_progress) - 1]
+        # )
+
+        construction_progress = {
+            "id": 1,
+            "constructionObjects": 8,
+            "reportingDate": "2021,10,25",
+            "readiness": 10.7,
+            "people": 330,
+            "equipment": 500,
+            "updateDatetime": "25.9.2020 15:32:18"
+        }
 
         fact_date = construction_object.fact_date
         if fact_date is not None:

@@ -45,5 +45,5 @@ class ConstructionDocument(Base):
 
     doc_type = relationship(
         'DocType',
-        back_populates='construction_documents'
+        back_populates='documents'
     )
