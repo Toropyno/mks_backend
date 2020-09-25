@@ -6,7 +6,8 @@ from mks_backend.serializers.construction_stage import ConstructionStageSerializ
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.serializers.zone import ZoneSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
-# from mks_backend.serializers.realty_type import RealtyTypeSerializer
+from mks_backend.serializers.realty_type import RealtyTypeSerializer
+
 
 
 class ConstructionObjectSerializer:
@@ -21,13 +22,7 @@ class ConstructionObjectSerializer:
         else:
             category = None
 
-        stage = ConstructionStageSerializer.convert_object_to_json(construction_object.construction_stage)
-
         building_volume = float(construction_object.building_volume) if construction_object.building_volume else None
-
-        coordinate = CoordinateSerializer.convert_object_to_json(construction_object.coordinate)
-        #
-        # realty_type = RealtyTypeSerializer().convert_object_to_json(construction_object.realty_type)
 
         # construction_progress = ConstructionProgressSerializer().convert_object_to_json(
         #     construction_object.construction_progress[len(construction_object.construction_progress) - 1]
@@ -59,9 +54,15 @@ class ConstructionObjectSerializer:
             'generalPlanNumber': construction_object.generalplan_number,
             'buildingVolume': building_volume,
             'floorsAmount': construction_object.floors_amount,
-            'stage': stage,
-            'coordinate': coordinate,
-            # 'realtyType': realty_type,
+            'stage': ConstructionStageSerializer.convert_object_to_json(
+                construction_object.construction_stage
+            ),
+            'coordinate': CoordinateSerializer.convert_object_to_json(
+                construction_object.coordinate
+            ),
+            'realtyType': RealtyTypeSerializer.convert_object_to_json(
+                construction_object.realty_type
+            ),
             'factDate': fact_date,
             'constructionProgress': construction_progress,
         }

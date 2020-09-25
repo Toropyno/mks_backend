@@ -43,7 +43,7 @@ class ConstructionTypeController:
     @view_config(route_name='edit_construction_type')
     def edit_construction_type(self):
         construction_type_deserialized = self.schema.deserialize(self.request.json_body)
-        construction_type_deserialized['id'] = self.request.matchdict['id']
+        construction_type_deserialized['id'] = self.get_id()
 
         new_construction_type = self.serializer.convert_schema_to_object(construction_type_deserialized)
         self.service.update_construction_type(new_construction_type)
@@ -55,5 +55,5 @@ class ConstructionTypeController:
         construction_type = self.service.get_construction_type_by_id(id)
         return self.serializer.convert_object_to_json(construction_type)
 
-    def get_id(self):
+    def get_id(self) -> int:
         return int(self.request.matchdict['id'])
