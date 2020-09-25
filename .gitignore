@@ -6,4 +6,3 @@ build/
 dist/
 /alembic.ini
 /alembic/
-/protocols

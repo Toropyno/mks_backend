@@ -24,7 +24,7 @@ class DocType(Base):
         ),
     )
 
-    # documents = relationship(
-    #     'ConstructionDocument',
-    #     back_populates='doc_type'
-    # )
+    documents = relationship(
+        'ConstructionDocument',
+        back_populates='doc_type'
+    )

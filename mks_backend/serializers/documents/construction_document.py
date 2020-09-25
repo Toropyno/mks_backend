@@ -10,7 +10,7 @@ class ConstructionDocumentSerializer:
         return {
             'id': construction_document.construction_documents_id,
             'constructionId': construction_document.construction_id,
-            # 'docTypesId': construction_document.doctypes_id,
+            'docTypesId': construction_document.doctypes_id,
             'docNumber': construction_document.doc_number,
             'docDate': get_date_string(construction_document.doc_date),
             'docName': construction_document.doc_name,
