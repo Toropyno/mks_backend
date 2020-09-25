@@ -13,7 +13,7 @@ class MeasureUnitSchema(colander.MappingSchema):
             min=1,
             max=20,
             min_err='Слишком короткий код единиц измерения',
-            max_err='Слишком длинный код'
+            max_err='Слишком длинный код единиц измерения'
         )
     )
 
