@@ -38,7 +38,7 @@ class ConstructionObjectController:
 
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
 
-        construction_object.location = self.location_serializer.convert_schema_to_object(
+        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
             construction_object_deserialized
         )
 
@@ -81,7 +81,7 @@ class ConstructionObjectController:
 
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
 
-        construction_object.location = self.location_serializer.convert_schema_to_object(
+        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
             construction_object_deserialized
         )
 

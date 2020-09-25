@@ -18,15 +18,15 @@ class ConstructionObjectService:
 
     def get_all_construction_objects_by_construction_id(self, construction_id: int) -> list:
         construction_objects = self.repo.get_all_construction_objects_by_construction_id(construction_id)
-        for construction_obj in construction_objects:
-            construction_obj.construction_progress = \
-                self.construction_progress_service.get_construction_progress_for_construction_objects()
+        # for construction_obj in construction_objects:
+        #     construction_obj.construction_progress = \
+        #         self.construction_progress_service.get_construction_progress_for_construction_objects()
         return construction_objects
 
     def get_construction_object(self, id: int) -> ConstructionObject:
         construction_object = self.repo.get_construction_object_by_id(id)
-        construction_object.construction_progress = \
-            self.construction_progress_service.get_construction_progress_for_construction_objects()
+        # construction_object.construction_progress = \
+        #     self.construction_progress_service.get_construction_progress_for_construction_objects()
         return construction_object
 
     def add_construction_object(self, construction_object: ConstructionObject) -> None:
@@ -73,8 +73,7 @@ class ConstructionObjectService:
         construction_object.floors_amount = schema.get('floorsAmount')
         construction_object.construction_stages_id = schema.get('stage')
         construction_object.coordinates_id = schema.get('coordinateId')
-        # construction_object.realty_types_id = schema.get('realtyTypeId')
-
+        construction_object.realty_types_id = schema.get('realtyTypeId')
         construction_object.fact_date = schema.get('factDate')
 
         return construction_object
