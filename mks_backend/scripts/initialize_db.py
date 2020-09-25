@@ -20,6 +20,7 @@ from mks_backend.models.construction_company import ConstructionCompany
 from mks_backend.models.oksm import OKSM
 from mks_backend.models.construction_type import ConstructionType
 from mks_backend.models.realty_type import RealtyType
+from mks_backend.models.work_type import WorkType
 
 from mks_backend.models.military_unit_models.combatarm import Combatarm
 from mks_backend.models.military_unit_models.keyword import Keyword
