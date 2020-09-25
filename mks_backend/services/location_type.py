@@ -3,6 +3,7 @@ from mks_backend.repositories.location_type import LocationTypeRepository
 
 
 class LocationTypeService:
+
     def __init__(self):
         self.repo = LocationTypeRepository()
 

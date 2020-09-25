@@ -93,7 +93,7 @@ class ConstructionSchema(colander.MappingSchema):
         validator=date_validator
     )
 
-    # ------ location ------
+    # ------ coordinate ------
     latitude = colander.SchemaNode(
         colander.Float(),
         name='latitude',
@@ -130,9 +130,9 @@ class ConstructionSchema(colander.MappingSchema):
         missing=None
     )
 
-    location_id = colander.SchemaNode(
+    coordinate_id = colander.SchemaNode(
         colander.Int(),
-        name='locationId',
+        name='coordinateId',
         validator=colander.Range(
             min=0,
             min_err='Недопустимое местоположение'

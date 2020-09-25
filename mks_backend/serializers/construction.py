@@ -3,7 +3,7 @@ from mks_backend.serializers.utils.date_and_time import get_date_string
 from mks_backend.serializers.commision import CommissionSerializer
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
-from mks_backend.serializers.location import LocationSerializer
+from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.serializers.location_type import LocationTypeSerializer
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.construction_company import ConstructionCompanySerializer
@@ -74,8 +74,8 @@ class ConstructionSerializer:
             },
             'address': 'Не формализованный адрес проекта',
             'note': 'Примечание к проекту',
-            'location': LocationSerializer.convert_object_to_json(
-                construction.location
+            'coordinate': CoordinateSerializer.convert_object_to_json(
+                construction.coordinate
             ),
         }
 
