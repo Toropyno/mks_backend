@@ -44,5 +44,5 @@ class ObjectCategoryList(Base):
     )
 
     object_category = relationship(
-        'ObjectCategory',
+        'ObjectCategory'
     )

@@ -24,23 +24,24 @@ class ConstructionObjectRepository:
 
     @db_error_handler
     def update_construction_object(self, construction_object: ConstructionObject) -> None:
-        DBSession.query(ConstructionObject).filter_by(
-            construction_objects_id=construction_object.construction_objects_id).update(
-            {
-                'construction_id': construction_object.construction_id,
-                'object_code': construction_object.object_code,
-                'object_name': construction_object.object_name,
-                'zones_id': construction_object.zones_id,
-                'object_categories_list_id': construction_object.object_categories_list_id,
-                'planned_date': construction_object.planned_date,
-                'weight': construction_object.weight,
-                'generalplan_number': construction_object.generalplan_number,
-                'building_volume': construction_object.building_volume,
-                'floors_amount': construction_object.floors_amount,
-                'construction_stages_id': construction_object.construction_stages_id,
-                'coordinates_id': construction_object.coordinates_id,
-                'realty_types_id': construction_object.realty_types_id,
-                'fact_date': construction_object.fact_date,
-            }
-        )
         DBSession.commit()
+        # DBSession.query(ConstructionObject).filter_by(
+        #     construction_objects_id=construction_object.construction_objects_id).update(
+        #     {
+        #         'construction_id': construction_object.construction_id,
+        #         'object_code': construction_object.object_code,
+        #         'object_name': construction_object.object_name,
+        #         'zones_id': construction_object.zones_id,
+        #         'object_categories_list_id': construction_object.object_categories_list_id,
+        #         'planned_date': construction_object.planned_date,
+        #         'weight': construction_object.weight,
+        #         'generalplan_number': construction_object.generalplan_number,
+        #         'building_volume': construction_object.building_volume,
+        #         'floors_amount': construction_object.floors_amount,
+        #         'construction_stages_id': construction_object.construction_stages_id,
+        #         'coordinates_id': construction_object.coordinates_id,
+        #         'realty_types_id': construction_object.realty_types_id,
+        #         'fact_date': construction_object.fact_date,
+        #     }
+        # )
+        # DBSession.commit()

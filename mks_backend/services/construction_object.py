@@ -3,6 +3,7 @@ from mks_backend.repositories.construction_object import ConstructionObjectRepos
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.construction_progress import ConstructionProgressService
+from mks_backend.services.filestorage import FilestorageService
 from mks_backend.services.object_category_list import ObjectCategoryListService
 
 
@@ -14,6 +15,7 @@ class ConstructionObjectService:
         self.object_categories_list_service = ObjectCategoryListService()
         self.construction_document_service = ConstructionDocumentService()
         self.construction_progress_service = ConstructionProgressService()
+        self.file_storage_service = FilestorageService()
 
     def get_all_construction_objects_by_construction_id(self, construction_id: int) -> list:
         construction_objects = self.repo.get_all_construction_objects_by_construction_id(construction_id)
@@ -36,9 +38,12 @@ class ConstructionObjectService:
         self.repo.update_construction_object(new_construction_object)
 
     def convert_schema_to_object(self, schema: dict) -> ConstructionObject:
-        construction_object = ConstructionObject()
+        construction_object_id = schema.get('id')
+        if construction_object_id:
+            construction_object = self.get_construction_object(construction_object_id)
+        else:
+            construction_object = ConstructionObject()
 
-        construction_object.construction_objects_id = schema.get('id')
         construction_object.construction_id = schema.get('projectId')
         construction_object.object_code = schema.get('code')
         construction_object.object_name = schema.get('name')
@@ -53,12 +58,20 @@ class ConstructionObjectService:
             )
             construction_object.object_categories_list_id = object_categories_list.object_categories_list_id
 
-        construction_documents = schema.get('constructionDocument', [])
+        construction_documents = schema.get('documents', [])
         if construction_documents is not None:
             construction_documents_ids = list(map(lambda x: x['id'], construction_documents))
-            construction_object.construction_documents = \
+            construction_object.documents = \
                 self.construction_document_service.get_many_construction_documents_by_id(
                     construction_documents_ids
+                )
+
+        file_storage = schema.get('files', [])
+        if file_storage is not None:
+            file_storage_ids = list(map(lambda x: x['id'], file_storage))
+            construction_object.file_storage = \
+                self.file_storage_service.get_many_file_storages_by_id(
+                    file_storage_ids
                 )
 
         construction_object.planned_date = schema.get('plannedDate')

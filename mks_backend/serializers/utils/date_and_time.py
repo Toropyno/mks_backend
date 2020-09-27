@@ -9,3 +9,8 @@ def get_date_string(date: Date) -> str:
 def get_date_time_string(date_time: DateTime) -> str:
     return str(date_time.day) + '.' + str(date_time.month) + '.' + str(date_time.year) + \
            ' ' + str(date_time.hour) + ':' + str(date_time.minute) + ':' + str(date_time.second)
+
+
+def get_date_time_zone(date_time: DateTime) -> str:
+    date_time_zone = get_date_time_string(date_time)
+    return date_time_zone + ' ' + str(date_time.tzinfo)

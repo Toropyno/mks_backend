@@ -2,15 +2,13 @@ from datetime import datetime
 
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
+from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
-from mks_backend.services.filestorage import FilestorageService
 
 
 class ConstructionDocumentSerializer:
 
     def convert_object_to_json(self, construction_document: ConstructionDocument) -> dict:
-        file_info = FilestorageService().get_file_info(construction_document.idfilestorage)
-
         return {
             'id': construction_document.construction_documents_id,
             'constructionId': construction_document.construction_id,
@@ -20,11 +18,7 @@ class ConstructionDocumentSerializer:
             'docName': construction_document.doc_name,
             'note': construction_document.note,
             'uploadDate': get_date_time_string(construction_document.upload_date),
-            'file': {
-                'name': file_info.get('filename'),
-                'size': file_info.get('filesize'),
-                'idFileStorage': construction_document.idfilestorage,
-            }
+            'file': FileStorageSerializer().convert_file_info_to_json(construction_document.idfilestorage),
         }
 
     def convert_list_to_json(self, construction_document_documents: list) -> list:

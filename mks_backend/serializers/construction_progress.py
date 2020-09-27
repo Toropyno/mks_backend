@@ -1,7 +1,8 @@
-from mks_backend.errors.serilize_error import serialize_error_handler
 from mks_backend.models.construction_progress import ConstructionProgress
 from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
 from datetime import datetime
+
+from mks_backend.errors.serilize_error import serialize_error_handler
 
 
 class ConstructionProgressSerializer:

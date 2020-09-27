@@ -86,3 +86,6 @@ class FilestorageService:
         if new_filestorage_id != old_filestorage_id:
             FilestorageRepository.delete_filestorage_by_id(old_filestorage_id)
             FilestorageHDD.delete_by_id(old_filestorage_id)
+
+    def get_many_file_storages_by_id(self, ids: list) -> list:
+        return self.repo.get_many_file_storages_by_id(ids)

@@ -1,13 +1,12 @@
 from mks_backend.models.construction_object import ConstructionObject
-
-from mks_backend.serializers.utils.date_and_time import get_date_string
-from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
-from mks_backend.serializers.object_category import ObjectCategorySerializer
-from mks_backend.serializers.zone import ZoneSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
+from mks_backend.serializers.documents.construction_document import ConstructionDocumentSerializer
+from mks_backend.serializers.filestorage import FileStorageSerializer
+from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.serializers.realty_type import RealtyTypeSerializer
-
+from mks_backend.serializers.utils.date_and_time import get_date_string
+from mks_backend.serializers.zone import ZoneSerializer
 
 
 class ConstructionObjectSerializer:
@@ -32,10 +31,10 @@ class ConstructionObjectSerializer:
             "id": 1,
             "constructionObjects": 8,
             "reportingDate": "2021,10,25",
-            "readiness": 10.7,
+            "readiness": 10.17,
             "people": 330,
-            "equipment": 500,
-            "updateDatetime": "25.9.2020 15:32:18"
+            "equipment": 700,
+            "updateDatetime": "28.9.2020 15:32:18"
         }
 
         fact_date = construction_object.fact_date
@@ -65,6 +64,14 @@ class ConstructionObjectSerializer:
             ),
             'factDate': fact_date,
             'constructionProgress': construction_progress,
+            'documents': [
+                ConstructionDocumentSerializer.convert_object_to_json(document)
+                for document in construction_object.documents
+            ],
+            'file_storage': [
+                FileStorageSerializer.convert_object_to_json(file_storage)
+                for file_storage in construction_object.file_storage
+            ]
         }
         return construction_object_dict
 

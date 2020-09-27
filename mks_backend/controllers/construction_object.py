@@ -77,7 +77,6 @@ class ConstructionObjectController:
             return Response(status=403, json_body=date_parse_error.args)
 
         construction_object_deserialized['id'] = id
-
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
 
         construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(

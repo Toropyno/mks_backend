@@ -6,8 +6,8 @@ from sqlalchemy import (
     VARCHAR,
     UniqueConstraint,
 )
-
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from mks_backend.models import Base
@@ -41,3 +41,11 @@ class ObjectFile(Base):
 
     upload_date = Column(TIMESTAMP, default=func.now(), nullable=False)
     note = Column(VARCHAR(1000))
+
+    file_storage = relationship(
+        'Filestorage'
+    )
+
+    construction_object = relationship(
+        'ConstructionObject'
+    )

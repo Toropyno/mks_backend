@@ -50,3 +50,8 @@ class ConstructionDocument(Base):
         'DocType',
         back_populates='documents'
     )
+
+    file_storage = relationship(
+        'Filestorage',
+        back_populates='document'
+    )

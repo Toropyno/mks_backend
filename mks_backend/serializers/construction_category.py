@@ -1,6 +1,7 @@
-from mks_backend.errors.serilize_error import serialize_error_handler
 from mks_backend.models.construction_category import ConstructionCategory
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
+
+from mks_backend.errors.serilize_error import serialize_error_handler
 
 
 class ConstructionCategorySerializer:
@@ -11,7 +12,6 @@ class ConstructionCategorySerializer:
         construction_category_dict = {
             'id': construction_category.construction_categories_id,
             'fullName': construction_category.fullname,
-
             'subcategory': [
                 ConstructionSubcategorySerializer.convert_object_to_json(subcategory)
                 for subcategory in construction_category.subcategories
