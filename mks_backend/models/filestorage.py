@@ -14,7 +14,6 @@ from mks_backend.models import Base
 
 
 class Filestorage(Base):
-
     __tablename__ = 'filestorage'
     idfilestorage = Column(UUID(as_uuid=True), primary_key=True, default=uuid4, nullable=False)
     filename = Column(VARCHAR(255), nullable=False)
@@ -28,5 +27,11 @@ class Filestorage(Base):
     protocols = relationship(
         'Protocol',
         back_populates='filestorage',
+        passive_deletes=True
+    )
+
+    object_files = relationship(
+        'ObjectFile',
+        back_populates='file_storage',
         passive_deletes=True
     )
