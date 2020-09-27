@@ -16,6 +16,7 @@ from mks_backend.models import Base
 class ConstructionProgress(Base):
 
     __tablename__ = 'construction_progress'
+
     __table_args__ = (
         UniqueConstraint(
             'construction_progress_id',

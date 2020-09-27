@@ -1,7 +1,6 @@
 from mks_backend.errors.serilize_error import serialize_error_handler
 from mks_backend.models.object_file import ObjectFile
 from mks_backend.serializers.utils.date_and_time import get_date_time_string
-from datetime import datetime
 
 
 class ObjectFileSerializer:
@@ -20,14 +19,3 @@ class ObjectFileSerializer:
 
     def convert_list_to_json(self, object_files_list: list) -> list:
         return list(map(self.convert_object_to_json, object_files_list))
-
-    def convert_schema_to_object(self, schema: dict) -> ObjectFile:
-        object_file = ObjectFile()
-
-        object_file.object_files_id = schema.get('id')
-        object_file.idfilestorage = schema.get('idFileStorage')
-        object_file.construction_objects_id = schema.get('constructionObjects')
-        object_file.note = schema.get('note')
-
-        object_file.upload_date = datetime.now()
-        return object_file

@@ -14,6 +14,7 @@ from mks_backend.models import Base
 
 
 class ConstructionObject(Base):
+
     __tablename__ = 'construction_objects'
     construction_objects_id = Column(Integer, primary_key=True, autoincrement=True)
     object_code = Column(VARCHAR(40), unique=True, nullable=False)
@@ -94,15 +95,15 @@ class ConstructionObject(Base):
         back_populates='construction_object'
     )
 
-    object_files = relationship(
-        'ObjectFile',
-        back_populates='construction_object',
-        passive_deletes=True
-    )
-
     documents = relationship(
         'ConstructionDocument',
         secondary='object_documents',
+        back_populates='parent'
+    )
+
+    file_storage = relationship(
+        'Filestorage',
+        secondary='object_files',
         back_populates='parent'
     )
 

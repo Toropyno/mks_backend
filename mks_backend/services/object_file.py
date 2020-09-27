@@ -20,3 +20,5 @@ class ObjectFileService:
         object_file = self.get_object_file_by_id(id)
         self.repo.delete_object_file(object_file)
 
+    def get_object_file_by_relations(self, file_storage_id: int, construction_objects_id: int) -> ObjectFile:
+        return self.repo.get_object_file_by_relations(file_storage_id, construction_objects_id)

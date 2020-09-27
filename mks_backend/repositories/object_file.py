@@ -19,3 +19,9 @@ class ObjectFileRepository:
     def delete_object_file(self, object_file: ObjectFile) -> None:
         DBSession.delete(object_file)
         DBSession.commit()
+
+    def get_object_file_by_relations(self, file_storage_id: int, construction_objects_id: int):
+        return DBSession.query(ObjectFile).filter(
+            ObjectFile.idfilestorage == file_storage_id,
+            ObjectFile.construction_objects_id == construction_objects_id
+        ).first()
