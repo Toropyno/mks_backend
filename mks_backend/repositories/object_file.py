@@ -8,7 +8,7 @@ class ObjectFileRepository:
     def get_object_file_by_id(self, id: int) -> ObjectFile:
         return DBSession.query(ObjectFile).get(id)
 
-    def get_all_object_files(self) -> list:
+    def get_fields_all_object_files(self) -> list:
         return DBSession.query(ObjectFile).order_by(ObjectFile.upload_date).all()
 
     @db_error_handler

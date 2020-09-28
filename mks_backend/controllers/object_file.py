@@ -13,6 +13,6 @@ class ObjectFileController:
         self.service = ObjectFileService()
 
     @view_config(route_name='get_all_object_files', renderer='json')
-    def get_all_object_files(self):
-        object_files = self.service.get_all_object_files()
+    def get_fields_all_object_files(self):
+        object_files = self.service.get_fields_all_object_files()
         return self.serializer.convert_list_to_json(object_files)
