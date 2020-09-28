@@ -365,6 +365,24 @@ Description: Delete construction_progress
 Route: '/construction_progress/{id}'
 
 
+# --- doc_type ---
+
+Description: Get all doc_type (query parameters for filter)
+Route: '/doc_type'
+Method: GET
+
+Description: Add doc_type
+Route: '/doc_type/'
+Method: POST
+
+Description: Get doc_type
+Route: '/doc_type/{id}'
+Method: GET
+
+Description: Delete doc_type
+Route: '/doc_type/{id}'
+
+
 =======================================================================================================================
 
 ConstructionDocument {
