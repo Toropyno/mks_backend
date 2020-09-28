@@ -15,17 +15,11 @@ class ConstructionProgressController:
         self.service = ConstructionProgressService()
         self.schema = ConstructionProgressSchema()
 
-    @view_config(route_name='get_all_construction_progresses', renderer='json')
-    def get_all_construction_progresses(self):
-        construction_progresses = self.service.get_all_construction_progresses()
-        return self.serializer.convert_list_to_json(construction_progresses)
-
     @handle_db_error
     @handle_colander_error
     @view_config(route_name='add_construction_progress', renderer='json')
     def add_construction_progress(self):
         construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
-
         construction_progress = self.serializer.convert_schema_to_object(construction_progress_deserialized)
         self.service.add_construction_progress(construction_progress)
         return {'id': construction_progress.construction_progress_id}
@@ -54,3 +48,15 @@ class ConstructionProgressController:
 
         self.service.update_construction_progress(construction_progress)
         return {'id': id}
+
+    @view_config(route_name='get_all_construction_progresses_by_object', renderer='json')
+    def get_all_construction_progresses_by_object(self):
+        object_id = int(self.request.matchdict['id'])
+        construction_progresses = self.service.get_all_construction_progresses_by_object(object_id)
+        return self.serializer.convert_list_to_json(construction_progresses)
+
+    @view_config(route_name='get_last_construction_progress_by_object', renderer='json')
+    def get_last_construction_progress_by_object(self):
+        object_id = int(self.request.matchdict['id'])
+        construction_progress = self.service.get_last_construction_progress_by_object(object_id)
+        return self.serializer.convert_object_to_json(construction_progress)

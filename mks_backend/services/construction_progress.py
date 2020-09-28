@@ -7,9 +7,6 @@ class ConstructionProgressService:
     def __init__(self):
         self.repo = ConstructionProgressRepository()
 
-    def get_all_construction_progresses(self) -> list:
-        return self.repo.get_all_construction_progresses()
-
     def get_construction_progress_by_id(self, id: int) -> ConstructionProgress:
         return self.repo.get_construction_progress_by_id(id)
 
@@ -23,3 +20,8 @@ class ConstructionProgressService:
     def update_construction_progress(self, construction_progress: ConstructionProgress) -> None:
         self.repo.update_construction_progress(construction_progress)
 
+    def get_all_construction_progresses_by_object(self, objects_id: int):
+        self.repo.get_all_construction_progresses_by_object(objects_id)
+
+    def get_last_construction_progress_by_object(self, objects_id: int):
+        self.repo.get_last_construction_progress_by_object(objects_id)

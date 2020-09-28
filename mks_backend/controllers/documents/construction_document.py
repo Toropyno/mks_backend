@@ -21,18 +21,6 @@ class ConstructionDocumentController:
         construction_documents = self.service.get_all_construction_documents()
         return self.serializer.convert_list_to_json(construction_documents)
 
-    @view_config(route_name='get_construction_documents_by_object', renderer='json')
-    def get_construction_documents_by_object(self):
-        object_id = int(self.request.matchdict['id'])
-        construction_documents = self.service.get_construction_documents_by_object(object_id)
-        return self.serializer.convert_list_to_json(construction_documents)
-
-    @view_config(route_name='get_construction_documents_by_construction', renderer='json')
-    def get_construction_documents_by_construction(self):
-        construction_id = int(self.request.matchdict['id'])
-        construction_documents = self.service.get_construction_documents_by_construction(construction_id)
-        return self.serializer.convert_list_to_json(construction_documents)
-
     @handle_db_error
     @handle_colander_error
     @view_config(route_name='add_construction_document', renderer='json')
@@ -64,3 +52,16 @@ class ConstructionDocumentController:
         construction_document = self.serializer.convert_schema_to_object(construction_document_deserialized)
         self.service.update_construction_document(construction_document)
         return {'id': id}
+
+    @view_config(route_name='get_construction_documents_by_object', renderer='json')
+    def get_construction_documents_by_object(self):
+        object_id = int(self.request.matchdict['id'])
+        construction_documents = self.service.get_construction_documents_by_object(object_id)
+        return self.serializer.convert_list_to_json(construction_documents)
+
+    @view_config(route_name='get_construction_documents_by_construction', renderer='json')
+    def get_construction_documents_by_construction(self):
+        construction_id = int(self.request.matchdict['id'])
+        construction_documents = self.service.get_construction_documents_by_construction(construction_id)
+        return self.serializer.convert_list_to_json(construction_documents)
+
