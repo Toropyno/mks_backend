@@ -336,7 +336,7 @@ Route: '/construction_document'
 Method: GET
 
 Description: Add construction_document
-Route: '/construction_document/'
+Route: '/construction_document'
 Method: POST
 
 Description: Get construction_document
@@ -354,7 +354,7 @@ Route: '/construction_progress'
 Method: GET
 
 Description: Add construction_progress
-Route: '/construction_progress/'
+Route: '/construction_progress'
 Method: POST
 
 Description: Get construction_progress
@@ -372,7 +372,7 @@ Route: '/doc_type'
 Method: GET
 
 Description: Add doc_type
-Route: '/doc_type/'
+Route: '/doc_type'
 Method: POST
 
 Description: Get doc_type
@@ -417,6 +417,9 @@ ConstructionObject {
                                         equipment             Integer
                                         progressStatusesId  Integer
                                     }
+
+            'documents':    [ConstructionDocument{}, ConstructionDocument{}, ...],
+            'files':        [Filestorage{}, Filestorage{}, ...]
 }
 
 ConstructionProgress {
