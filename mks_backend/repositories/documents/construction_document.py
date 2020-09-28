@@ -41,3 +41,6 @@ class ConstructionDocumentRepository:
             }
         )
         DBSession.commit()
+
+    def get_construction_documents_by_construction(self, construction_id: int) -> list:
+        DBSession.query(ConstructionDocument).filter_by(construction_id=construction_id).all()

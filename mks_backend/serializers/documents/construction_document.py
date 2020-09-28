@@ -21,8 +21,8 @@ class ConstructionDocumentSerializer:
             'file': FileStorageSerializer().convert_file_info_to_json(construction_document.idfilestorage),
         }
 
-    def convert_list_to_json(self, construction_document_documents: list) -> list:
-        return list(map(self.convert_object_to_json, construction_document_documents))
+    def convert_list_to_json(self, construction_documents: list) -> list:
+        return list(map(self.convert_object_to_json, construction_documents))
 
     def convert_schema_to_object(self, schema_dict: dict) -> ConstructionDocument:
         construction_document = ConstructionDocument()

@@ -21,11 +21,14 @@ class ConstructionObjectService:
         construction_objects = self.repo.get_all_construction_objects_by_construction_id(construction_id)
         return construction_objects
 
-    def get_construction_object(self, id: int) -> ConstructionObject:
+    def get_construction_object_by_id(self, id: int):
         construction_object = self.repo.get_construction_object_by_id(id)
-        # construction_object.construction_progress = \
-        #     self.construction_progress_service.get_construction_progress_for_construction_objects()
-        return construction_object
+        if construction_object:
+            return construction_object
+        return []
+
+    # construction_object.construction_progress = \
+    #     self.construction_progress_service.get_construction_progress_for_construction_objects()
 
     def add_construction_object(self, construction_object: ConstructionObject) -> None:
         self.repo.add_construction_object(construction_object)
@@ -40,7 +43,7 @@ class ConstructionObjectService:
     def convert_schema_to_object(self, schema: dict) -> ConstructionObject:
         construction_object_id = schema.get('id')
         if construction_object_id:
-            construction_object = self.get_construction_object(construction_object_id)
+            construction_object = self.get_construction_object_by_id(construction_object_id)
         else:
             construction_object = ConstructionObject()
 

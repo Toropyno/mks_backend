@@ -39,6 +39,5 @@ class Filestorage(Base):
 
     document = relationship(
         'ConstructionDocument',
-        back_populates='file_storage',
-        passive_deletes=True
+        back_populates='file_storage'
     )

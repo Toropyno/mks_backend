@@ -41,6 +41,13 @@ class ConstructionObjectSerializer:
         if fact_date is not None:
             fact_date = get_date_string(fact_date)
 
+        construction_documents = construction_object.documents
+        if construction_documents is not None:
+            construction_documents = [
+                ConstructionDocumentSerializer.convert_object_to_json(document)
+                for document in construction_documents
+            ]
+
         construction_object_dict = {
             'projectId': construction_object.construction_id,
             'id': construction_object.construction_objects_id,
@@ -64,10 +71,7 @@ class ConstructionObjectSerializer:
             ),
             'factDate': fact_date,
             'constructionProgress': construction_progress,
-            'documents': [
-                ConstructionDocumentSerializer.convert_object_to_json(document)
-                for document in construction_object.documents
-            ],
+            'documents': construction_documents,
             'file_storage': [
                 FileStorageSerializer.convert_object_to_json(file_storage)
                 for file_storage in construction_object.file_storage

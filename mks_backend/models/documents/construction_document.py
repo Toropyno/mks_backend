@@ -36,8 +36,7 @@ class ConstructionDocument(Base):
 
     idfilestorage = Column(
         UUID,
-        ForeignKey('filestorage.idfilestorage', ondelete='CASCADE'),
-        nullable=False,
+        ForeignKey('filestorage.idfilestorage', ondelete='SET NULL'),
     )
 
     parent = relationship(

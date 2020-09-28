@@ -79,7 +79,8 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='idFileStorage',
         msg='Недопустимая информация о файле',
-        validator=uuid_validator
+        validator=uuid_validator,
+        missing=None
     )
 
     upload_date = colander.SchemaNode(
