@@ -1,8 +1,8 @@
 from pyramid.request import Request
 from pyramid.view import view_config
 
-from mks_backend.serializers.object_document import ObjectDocumentSerializer
-from mks_backend.services.object_document import ObjectDocumentService
+from mks_backend.serializers.documents.object_document import ObjectDocumentSerializer
+from mks_backend.services.documents.object_document import ObjectDocumentService
 
 
 class ObjectDocumentController:

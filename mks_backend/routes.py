@@ -109,6 +109,12 @@ def includeme(config):
     config.add_route('edit_construction_type', '/construction_type/{id}', request_method='PUT')
     config.add_route('get_construction_type', '/construction_type/{id}', request_method='GET')
 
+    config.add_route('get_all_doc_types', '/doc_type', request_method='GET')
+    config.add_route('add_doc_type', '/doc_type', request_method='POST')
+    config.add_route('delete_doc_type', '/doc_type/{id}', request_method='DELETE')
+    config.add_route('edit_doc_type', '/doc_type/{id}', request_method='PUT')
+    config.add_route('get_doc_type', '/doc_type/{id}', request_method='GET')
+
     config.add_route('get_all_realty_types', '/realty_type', request_method='GET')
     config.add_route('add_realty_type', '/realty_type', request_method='POST')
     config.add_route('delete_realty_type', '/realty_type/{id}', request_method='DELETE')
@@ -121,3 +127,8 @@ def includeme(config):
     config.add_route('edit_work_type', '/work_type/{id}', request_method='PUT')
     config.add_route('get_work_type', '/work_type/{id}', request_method='GET')
 
+    config.add_route('get_all_measure_units', '/measure_unit', request_method='GET')
+    config.add_route('add_measure_unit', '/measure_unit', request_method='POST')
+    config.add_route('delete_measure_unit', '/measure_unit/{id}', request_method='DELETE')
+    config.add_route('edit_measure_unit', '/measure_unit/{id}', request_method='PUT')
+    config.add_route('get_measure_unit', '/measure_unit/{id}', request_method='GET')

@@ -1,5 +1,5 @@
 from mks_backend.errors.db_basic_error import db_error_handler
-from mks_backend.models.object_document import ObjectDocument
+from mks_backend.models.documents.object_document import ObjectDocument
 from mks_backend.repositories import DBSession
 
 

@@ -1,5 +1,5 @@
-from mks_backend.models.object_document import ObjectDocument
-from mks_backend.repositories.object_document import ObjectDocumentRepository
+from mks_backend.models.documents.object_document import ObjectDocument
+from mks_backend.repositories.documents.object_document import ObjectDocumentRepository
 
 
 class ObjectDocumentService:

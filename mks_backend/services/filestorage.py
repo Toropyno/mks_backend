@@ -38,7 +38,7 @@ class FilestorageService:
 
         filestorage = Filestorage(idfilestorage=id_file_storage,
                                   filename=file.filename,
-                                  uri='protocols/download/' + id_file_storage,
+                                  uri='protocol/download/' + id_file_storage,
                                   filesize=file.limit,
                                   mimeType=self.hdd.guess_mime_type(file.filename),
                                   description='file description',

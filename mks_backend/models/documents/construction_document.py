@@ -27,11 +27,12 @@ class ConstructionDocument(Base):
         ForeignKey('construction.construction_id', ondelete='CASCADE'),
         nullable=False,
     )
-    # doctypes_id = Column(
-    #     Integer,
-    #     ForeignKey('doctypes.doctypes_id', ondelete='CASCADE'),
-    #     nullable=False,
-    # )
+
+    doctypes_id = Column(
+        Integer,
+        ForeignKey('doctypes.doctypes_id', ondelete='CASCADE'),
+        nullable=False,
+    )
 
     idfilestorage = Column(
         UUID,
@@ -42,5 +43,10 @@ class ConstructionDocument(Base):
     parent = relationship(
         'ConstructionObject',
         secondary='object_documents',
+        back_populates='documents'
+    )
+
+    doc_type = relationship(
+        'DocType',
         back_populates='documents'
     )

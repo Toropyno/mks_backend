@@ -32,10 +32,12 @@ from mks_backend.models.military_unit_models.sortarmedforces import SortArmedFor
 from mks_backend.models.coordinate import Coordinate
 from mks_backend.models.location_type import LocationType
 
-from mks_backend.models.object_document import ObjectDocument
-from mks_backend.models.construction_document import ConstructionDocument
+from mks_backend.models.documents.object_document import ObjectDocument
+from mks_backend.models.documents.construction_document import ConstructionDocument
+from mks_backend.models.documents.doc_type import DocType
 
 from mks_backend.models.construction_progress import ConstructionProgress
+from mks_backend.models.measure_unit import MeasureUnit
 
 import os
 import sys

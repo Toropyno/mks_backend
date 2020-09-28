@@ -370,13 +370,21 @@ Route: '/construction_progress/{id}'
 ConstructionDocument {
             'id'            Integer
             'constructionId'Integer
-            'docTypesId'    Integer
+            'docType'{
+                            "id"        Integer
+                            "code"      String
+                            "fullName"  String
+                        }
             'docNumber'     String
             'docDate'       String
             'docName'       String
             'note'          String
-            'idFileStorage' String
             'uploadDate'    String
+            'file' {
+                    'name'          String
+                    'size'          String
+                    'idFileStorage' String
+            }
 }
 
 ConstructionObject {
