@@ -26,6 +26,12 @@ class ConstructionObjectController:
         construction_objects = self.service.get_all_construction_objects_by_construction_id(construction_id)
         return self.serializer.convert_list_to_json(construction_objects)
 
+    @view_config(route_name='get_construction_object', renderer='json')
+    def get_construction_object_by_id(self):
+        id = int(self.request.matchdict['id'])
+        construction_object = self.service.get_construction_object_by_id(id)
+        return self.serializer.convert_object_to_json(construction_object)
+
     @view_config(route_name='add_construction_object', renderer='json')
     def add_construction_object(self):
         try:
@@ -53,12 +59,6 @@ class ConstructionObjectController:
             )
 
         return {'id': construction_object.construction_objects_id}
-
-    @view_config(route_name='get_construction_object', renderer='json')
-    def get_construction_object_by_id(self):
-        id = int(self.request.matchdict['id'])
-        construction_object = self.service.get_construction_object_by_id(id)
-        return self.serializer.convert_object_to_json(construction_object)
 
     @view_config(route_name='delete_construction_object', renderer='json')
     def delete_construction_object(self):

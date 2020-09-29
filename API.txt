@@ -365,10 +365,6 @@ Description: Get all construction_progresses by object
 Route: 'construction_object/{id}/construction_progresses'
 Method: GET
 
-Description: Get last construction_progress by object
-Route: 'construction_object/{id}/construction_progress'
-Method: GET
-
 Description: Add construction_progress
 Route: '/construction_progress'
 Method: POST

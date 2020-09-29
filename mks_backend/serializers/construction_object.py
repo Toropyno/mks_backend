@@ -26,16 +26,10 @@ class ConstructionObjectSerializer:
         if fact_date is not None:
             fact_date = get_date_string(fact_date)
 
-        # construction_progress = ConstructionProgressSerializer().convert_object_to_json(construction_object.construction_progress)
-
-        construction_progress = {
-            "constructionObjects": 6,
-            "reportingDate": "2030,8,30",
-            "readiness": 78.14,
-            "people": 1000,
-            "equipment": 450,
-            "updateDatetime": "29.9.2020 9:44:21"
-        }
+        construction_progress = construction_object.construction_progress
+        if construction_progress is not None:
+            construction_progress = construction_progress[len(construction_progress)-1]
+            construction_progress = ConstructionProgressSerializer().convert_object_to_json(construction_progress)
 
         construction_object_dict = {
             'projectId': construction_object.construction_id,
