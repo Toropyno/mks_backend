@@ -110,3 +110,8 @@ class ConstructionObject(Base):
     realty_type = relationship(
         'RealtyType',
     )
+
+    worklist = relationship(
+        'WorkList',
+        back_populates='construction_object'
+    )

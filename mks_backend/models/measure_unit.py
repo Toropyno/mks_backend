@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, VARCHAR, UniqueConstraint
-from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 
@@ -19,10 +18,3 @@ class MeasureUnit(Base):
     unit_id = Column(Integer, primary_key=True)
     unit_code = Column(VARCHAR(20), nullable=False)
     unit_name = Column(VARCHAR(255), nullable=False)
-
-    # works_list = relationship(
-    #     'WorksList',
-    #     back_populates='measure_unit'
-    # )
-
-
