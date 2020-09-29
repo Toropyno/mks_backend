@@ -8,7 +8,7 @@ class ZoneSerializer:
     @classmethod
     @serialize_error_handler
     def convert_object_to_json(cls, zone: Zone) -> dict:
-        zone_dict = {
+        return {
             'id': zone.zones_id,
             'fullName': zone.fullname,
             'categories': [
@@ -16,7 +16,6 @@ class ZoneSerializer:
                 for category in zone.object_categories
             ],
         }
-        return zone_dict
 
     def convert_list_to_json(self, zones: list) -> list:
         return list(map(self.convert_object_to_json, zones))
