@@ -42,7 +42,7 @@ class WorkList(Base):
 
     end_date = Column(
         DATE,
-        CheckConstraint('end_date>begin_date'),
+        CheckConstraint('end_date>=begin_date'),
         nullable=False
     )
 
