@@ -18,7 +18,7 @@ class ConstructionDocumentSerializer:
             'docName': construction_document.doc_name,
             'note': construction_document.note,
             'uploadDate': get_date_time_string(construction_document.upload_date),
-            'file': FileStorageSerializer().convert_file_info_to_json(construction_document.idfilestorage),
+            'file': FileStorageSerializer.convert_file_info_to_json(construction_document.idfilestorage),
         }
 
     def convert_list_to_json(self, construction_documents: list) -> list:
