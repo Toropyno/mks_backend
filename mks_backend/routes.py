@@ -20,8 +20,11 @@ def includeme(config):
     config.add_route('edit_construction', '/construction/{id}', request_method='PUT')
     config.add_route('get_construction', '/construction/{id}', request_method='GET')
 
-    config.add_route('get_construction_objects_by_parent', 'construction/{construction_id}/construction_objects',
-                     request_method='GET')
+    config.add_route(
+        'get_construction_objects_by_parent',
+        'construction/{construction_id}/construction_objects',
+        request_method='GET'
+    )
 
     config.add_route('add_construction_object', '/construction_object', request_method='POST')
     config.add_route('delete_construction_object', '/construction_object/{id}', request_method='DELETE')
@@ -132,3 +135,13 @@ def includeme(config):
     config.add_route('delete_measure_unit', '/measure_unit/{id}', request_method='DELETE')
     config.add_route('edit_measure_unit', '/measure_unit/{id}', request_method='PUT')
     config.add_route('get_measure_unit', '/measure_unit/{id}', request_method='GET')
+
+    config.add_route(
+        'get_work_list_for_construction_object',
+        '/construction_object/{id}/work_list',
+        request_method='GET'
+    )
+    config.add_route('add_work_list', '/work_list', request_method='POST')
+    config.add_route('delete_work_list', '/work_list/{id}', request_method='DELETE')
+    config.add_route('edit_work_list', '/work_list/{id}', request_method='PUT')
+    config.add_route('get_work_list', '/work_list/{id}', request_method='GET')

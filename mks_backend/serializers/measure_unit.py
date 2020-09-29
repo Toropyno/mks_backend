@@ -3,11 +3,12 @@ from mks_backend.models.measure_unit import MeasureUnit
 
 class MeasureUnitSerializer:
 
-    def convert_object_to_json(self, measure_unit: MeasureUnit) -> dict:
+    @classmethod
+    def convert_object_to_json(cls, measure_unit: MeasureUnit) -> dict:
         measure_unit_dict = {
             'id': measure_unit.unit_id,
             'code': measure_unit.unit_code,
-            'name': measure_unit.unit_name
+            'fullName': measure_unit.unit_name
         }
         return measure_unit_dict
 
