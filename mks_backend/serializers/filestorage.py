@@ -18,18 +18,19 @@ class FileStorageSerializer:
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, file_storage: Filestorage) -> dict:
-        file_info = FilestorageService().get_file_info(file_storage.idfilestorage)
+    def convert_object_to_json(cls, filestorage: Filestorage) -> dict:
+        file_info = FilestorageService().get_file_info(filestorage.idfilestorage)
+        print(get_date_time_zone(filestorage.createdOn))
         return {
-            'id': file_storage.idfilestorage,
+            'id': filestorage.idfilestorage,
             'fileName': file_info.get('filename'),
-            'uri': file_storage.uri,
+            'uri': filestorage.uri,
             'size': file_info.get('filesize'),
-            'mimeType': file_storage.mimeType,
-            'createdOn': get_date_time_zone(file_storage.createdOn),
-            # 'description': file_storage.description,
-            # 'authorId': file_storage.authorid,
+            'mimeType': filestorage.mimeType,
+            'createdOn': get_date_time_zone(filestorage.createdOn),
+            # 'description': filestorage.description,
+            # 'authorId': filestorage.authorid,
         }
 
-    def convert_list_to_json(self, file_storages: list) -> list:
-        return list(map(self.convert_object_to_json, file_storages))
+    def convert_list_to_json(self, filestorages: list) -> list:
+        return list(map(self.convert_object_to_json, filestorages))
