@@ -21,6 +21,12 @@ class ConstructionDocumentController:
         construction_documents = self.service.get_all_construction_documents()
         return self.serializer.convert_list_to_json(construction_documents)
 
+    @view_config(route_name='get_construction_document', renderer='json')
+    def get_construction_document(self):
+        id = int(self.request.matchdict['id'])
+        construction_document = self.service.get_construction_document_by_id(id)
+        return self.serializer.convert_object_to_json(construction_document)
+
     @handle_db_error
     @handle_colander_error
     @view_config(route_name='add_construction_document', renderer='json')
@@ -29,12 +35,6 @@ class ConstructionDocumentController:
         construction_document = self.serializer.convert_schema_to_object(construction_document_deserialized)
         self.service.add_construction_document(construction_document)
         return {'id': construction_document.construction_documents_id}
-
-    @view_config(route_name='get_construction_document', renderer='json')
-    def get_construction_document(self):
-        id = int(self.request.matchdict['id'])
-        construction_document = self.service.get_construction_document_by_id(id)
-        return self.serializer.convert_object_to_json(construction_document)
 
     @view_config(route_name='delete_construction_document', renderer='json')
     def delete_construction_document(self):
