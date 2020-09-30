@@ -1,6 +1,5 @@
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
-from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.construction_progress import ConstructionProgressService
@@ -17,7 +16,6 @@ class ConstructionObjectService:
         self.construction_document_service = ConstructionDocumentService()
         self.progress_service = ConstructionProgressService()
         self.file_storage_service = FilestorageService()
-        self.progress_serializer = ConstructionProgressSerializer
 
     def get_all_construction_objects_by_construction_id(self, construction_id: int) -> list:
         construction_objects = self.repo.get_all_construction_objects_by_construction_id(construction_id)

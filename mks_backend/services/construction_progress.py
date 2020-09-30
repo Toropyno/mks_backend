@@ -21,7 +21,8 @@ class ConstructionProgressService:
         self.repo.update_construction_progress(construction_progress)
 
     def get_all_construction_progresses_by_object(self, objects_id: int):
-        return self.repo.get_all_construction_progresses_by_object(objects_id)
+        construction_progresses = self.repo.get_all_construction_progresses_by_object(objects_id)
+        return construction_progresses
 
     def get_last_construction_progress_by_object(self, objects_id: int):
         return self.repo.get_last_construction_progress_by_object(objects_id)

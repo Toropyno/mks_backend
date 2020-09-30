@@ -53,7 +53,8 @@ class ConstructionProgressController:
     def get_all_construction_progresses_by_object(self):
         object_id = int(self.request.matchdict['id'])
         construction_progresses = self.service.get_all_construction_progresses_by_object(object_id)
-        return self.serializer.convert_list_to_json(construction_progresses)
+        construction_progresses = self.serializer.convert_list_to_json(construction_progresses)
+        return construction_progresses
 
     @view_config(route_name='get_last_construction_progress_by_object', renderer='json')
     def get_last_construction_progress_by_object(self):

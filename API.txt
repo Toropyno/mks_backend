@@ -14,8 +14,13 @@ Description: get file info (uuid in query parameters)
 Route: '/protocol/file_info?idFileStorage='
 Method: GET
 
+Description: get filestorages for construction_object
+Route: 'construction_object/{id}/filestorages'
+Method: GET
+
 
 # --- meetings ---
+
 Description: get all meeting types
 Route: 'meeting'
 Method: GET
@@ -424,39 +429,39 @@ Route: '/measure_unit/{id}'
 =====================================================================================================
 
 ConstructionDocument {
-            'id'            Integer
-            'constructionId'Integer
-            'docType'{
-                            "id"        Integer
-                            "code"      String
-                            "fullName"  String
-                        }
-            'docNumber'     String
-            'docDate'       String
-            'docName'       String
-            'note'          String
-            'uploadDate'    String
-            'file' {
-                    'name'          String
-                    'size'          String
-                    'idFileStorage' String
-            }
+    'id'            Integer
+    'constructionId'Integer
+    'docType'{
+                "id"        Integer
+                "code"      String
+                "fullName"  String
+                }
+    'docNumber'     String
+    'docDate'       String
+    'docName'       String
+    'note'          String
+    'uploadDate'    String
+    'file' {
+            'name'          String
+            'size'          String
+            'idFileStorage' String
+    }
 }
 
 ConstructionObject {
 
-            ...
+    ...
 
-            'realtyType'            Integer
-            'factDate'              String
-            'constructionProgress'  constructionProgress {
-                                                    readiness             DECIMAL(17,2)
-                                                    people                Integer
-                                                    equipment             Integer
-                                                    progressStatusesId    Integer
-                                     }
-            'documents':    [ConstructionDocument{}, ConstructionDocument{}, ...],
-            'files':        [Filestorage{}, Filestorage{}, ...]
+    'realtyType'            Integer
+    'factDate'              String
+    'constructionProgress'  {
+            readiness             DECIMAL(17,2)
+            people                Integer
+            equipment             Integer
+            progressStatusesId    Integer
+    }
+    'documents':    [ConstructionDocument{}, ConstructionDocument{}, ...],
+    'files':        [Filestorage{}, Filestorage{}, ...]
 }
 
 ConstructionProgress {
@@ -472,9 +477,9 @@ ConstructionProgress {
 }
 
 MeasureUnit {
-            id   Integer
-            code String
-            name String
+    id          Integer
+    code        String
+    name        String
 }
 
 DocType {
