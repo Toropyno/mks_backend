@@ -18,8 +18,8 @@ class ConstructionCategorySchema(colander.MappingSchema):
         validator=colander.Length(
             min=1,
             max=255,
-            min_err='Слишком короткое наименование объекта',
-            max_err='Слишком длинное наименование объекта'
+            min_err='Слишком короткое наименование категории проекта',
+            max_err='Слишком длинное наименование категории проекта'
         )
     )
 

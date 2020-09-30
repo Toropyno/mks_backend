@@ -4,6 +4,7 @@ from mks_backend.repositories.commission import CommissionRepository
 
 
 class CommissionService:
+
     def __init__(self):
         self.repo = CommissionRepository()
 

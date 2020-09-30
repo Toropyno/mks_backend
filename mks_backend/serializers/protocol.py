@@ -6,7 +6,7 @@ from mks_backend.serializers.utils.date_and_time import get_date_string
 class ProtocolSerializer:
 
     def convert_object_to_json(self, protocol: Protocol) -> dict:
-        protocol_dict = {
+        return {
             'protocolId': protocol.protocol_id,
             'protocolNumber': protocol.protocol_num,
             'protocolDate': get_date_string(protocol.protocol_date),
@@ -18,7 +18,6 @@ class ProtocolSerializer:
             'note': protocol.note,
             'idFileStorage': protocol.idfilestorage
         }
-        return protocol_dict
 
     def convert_list_to_json(self, protocols: list) -> list:
         return list(map(self.convert_object_to_json, protocols))

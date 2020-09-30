@@ -17,3 +17,8 @@ class FilestorageRepository:
         filestorage = cls.get_filestorage_by_id(id)
         DBSession.delete(filestorage)
         DBSession.commit()
+
+    def get_many_file_storages_by_id(self, ids: list) -> list:
+        return DBSession.query(Filestorage).filter(
+            Filestorage.file_storages_id.in_(ids)
+        ).all()

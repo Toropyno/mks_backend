@@ -4,12 +4,11 @@ from mks_backend.models.documents.doc_type import DocType
 class DocTypeSerializer:
 
     def convert_object_to_json(self, doc_type: DocType) -> dict:
-        doc_type_dict = {
+        return {
             'id': doc_type.doctypes_id,
             'code': doc_type.code,
             'fullName': doc_type.fullname
         }
-        return doc_type_dict
 
     def convert_list_to_json(self, doc_type_list: list) -> list:
         return list(map(self.convert_object_to_json, doc_type_list))

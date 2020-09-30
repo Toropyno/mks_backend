@@ -5,12 +5,15 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 
+from sqlalchemy.orm import relationship
+
 from mks_backend.models import Base
 
 
 class ObjectDocument(Base):
 
     __tablename__ = 'object_documents'
+
     __table_args__ = (
         UniqueConstraint(
             'construction_objects_id',
@@ -30,4 +33,12 @@ class ObjectDocument(Base):
         Integer,
         ForeignKey('construction_documents.construction_documents_id', ondelete='CASCADE'),
         nullable=False,
+    )
+
+    document = relationship(
+        'ConstructionDocument'
+    )
+
+    construction_object = relationship(
+        'ConstructionObject'
     )

@@ -6,10 +6,12 @@ from sqlalchemy.exc import DatabaseError
 from webob.compat import cgi_FieldStorage
 from webob.multidict import MultiDict
 
-from mks_backend.errors.filestorage_error import FilestorageError
 from mks_backend.models.filestorage import Filestorage
+from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.filestorage import FilestorageRepository
 from mks_backend.repositories.filestorage_hdd import FilestorageHDD
+
+from mks_backend.errors.filestorage_error import FilestorageError
 
 
 class FilestorageService:
@@ -21,6 +23,7 @@ class FilestorageService:
     def __init__(self):
         self.repo = FilestorageRepository()
         self.hdd = FilestorageHDD()
+        self.repo_object = ConstructionObjectRepository()
 
     def create_filestorage(self, request_data: MultiDict) -> str:
         file = request_data.get('protocolFile')
@@ -61,6 +64,7 @@ class FilestorageService:
             response = Response('Unable to find file with id = {}'.format(id))
         return response
 
+    @classmethod
     def get_file_info(self, uuid):
         try:
             filestorage = self.repo.get_filestorage_by_id(uuid)
@@ -86,3 +90,14 @@ class FilestorageService:
         if new_filestorage_id != old_filestorage_id:
             FilestorageRepository.delete_filestorage_by_id(old_filestorage_id)
             FilestorageHDD.delete_by_id(old_filestorage_id)
+
+    def get_many_file_storages_by_id(self, ids: list) -> list:
+        return self.repo.get_many_file_storages_by_id(ids)
+
+    def get_filestorages_by_object(self, object_id: int) -> list:
+        filestorages = []
+        construction_object = self.repo_object.get_construction_object_by_id(object_id)
+        if construction_object:
+            if construction_object.documents:
+                filestorages = [doc.file_storage for doc in construction_object.documents if doc.file_storage]
+        return filestorages

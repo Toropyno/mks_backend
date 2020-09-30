@@ -2,8 +2,10 @@ from pyramid.request import Request
 from pyramid.response import Response
 from pyramid.view import view_config
 
-from mks_backend.errors.filestorage_error import FilestorageError
+from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.services.filestorage import FilestorageService
+
+from mks_backend.errors.filestorage_error import FilestorageError
 
 
 class FilestorageController:
@@ -11,6 +13,7 @@ class FilestorageController:
     def __init__(self, request: Request):
         self.request = request
         self.service = FilestorageService()
+        self.serializer = FileStorageSerializer()
 
     @view_config(route_name='upload_file', renderer='json')
     def upload_file(self):
@@ -54,3 +57,9 @@ class FilestorageController:
                     'text': error.msg,
                 }
             )
+
+    @view_config(route_name='get_filestorages_by_object', renderer='json')
+    def get_filestorages_by_object(self):
+        object_id = int(self.request.matchdict['id'])
+        filestorages = self.service.get_filestorages_by_object(object_id)
+        return self.serializer.convert_list_to_json(filestorages)

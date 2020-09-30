@@ -30,3 +30,14 @@ class Filestorage(Base):
         back_populates='filestorage',
         passive_deletes=True
     )
+
+    parent = relationship(
+        'ConstructionObject',
+        secondary='object_files',
+        back_populates='file_storage'
+    )
+
+    document = relationship(
+        'ConstructionDocument',
+        back_populates='file_storage'
+    )

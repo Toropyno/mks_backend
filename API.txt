@@ -14,8 +14,13 @@ Description: get file info (uuid in query parameters)
 Route: '/protocol/file_info?idFileStorage='
 Method: GET
 
+Description: get filestorages for construction_object
+Route: 'construction_object/{id}/filestorages'
+Method: GET
+
 
 # --- meetings ---
+
 Description: get all meeting types
 Route: 'meeting'
 Method: GET
@@ -212,6 +217,7 @@ Description: Delete zones
 Route: '/zone/{id}'
 Method: DELETE
 
+
 # --- location_types ---
 
 Description: Get all location_types
@@ -233,6 +239,7 @@ Method: PUT
 Description: Delete location_type
 Route: '/location_type/{id}'
 Method: DELETE
+
 
 # --- construction_companies ---
 
@@ -256,6 +263,7 @@ Description: Delete company
 Route: '/company/{id}'
 Method: DELETE
 
+
 # --- oksm ---
 
 Description: Get all oksms
@@ -278,9 +286,10 @@ Description: Delete oksm
 Route: '/oksm/{id}'
 Method: DELETE
 
+
 # --- commissions ---
 
-Description: Get all commissions (query parameters for filter)
+Description: Get all commissions
 Route: '/commission'
 Method: GET
 
@@ -331,12 +340,20 @@ Method: GET
 
 # --- construction_document ---
 
-Description: Get all construction_document (query parameters for filter)
+Description: Get all construction_documents by construction
+Route: 'construction/{id}/construction_documents'
+Method: GET
+
+Description: Get all construction_documents by object
+Route: 'construction_object/{id}/construction_documents'
+Method: GET
+
+Description: Get all construction_document
 Route: '/construction_document'
 Method: GET
 
 Description: Add construction_document
-Route: '/construction_document/'
+Route: '/construction_document'
 Method: POST
 
 Description: Get construction_document
@@ -349,12 +366,12 @@ Route: '/construction_document/{id}'
 
 # --- construction_progress ---
 
-Description: Get all construction_progress (query parameters for filter)
-Route: '/construction_progress'
+Description: Get all construction_progresses by object
+Route: 'construction_object/{id}/construction_progresses'
 Method: GET
 
 Description: Add construction_progress
-Route: '/construction_progress/'
+Route: '/construction_progress'
 Method: POST
 
 Description: Get construction_progress
@@ -365,40 +382,86 @@ Description: Delete construction_progress
 Route: '/construction_progress/{id}'
 
 
-=======================================================================================================================
+# --- doc_type ---
+
+Description: Get all doc_type
+Route: '/doc_type'
+Method: GET
+
+Description: Add doc_type
+Route: '/doc_type'
+Method: POST
+
+Description: Get doc_type
+Route: '/doc_type/{id}'
+Method: GET
+
+Description: Delete doc_type
+Route: '/doc_type/{id}'
+
+
+# ---object_file---
+
+Description: Get all object_file
+Route: '/object_file'
+Method: GET
+
+
+# --- measure_unit ---
+
+Description: Get all measure_unit
+Route: '/measure_unit'
+Method: GET
+
+Description: Add measure_unit
+Route: '/measure_unit'
+Method: POST
+
+Description: Get measure_unit
+Route: '/measure_unit/{id}'
+Method: GET
+
+Description: Delete measure_unit
+Route: '/measure_unit/{id}'
+
+
+
+=====================================================================================================
 
 ConstructionDocument {
-            'id'            Integer
-            'constructionId'Integer
-            'docType'{
-                            "id"        Integer
-                            "code"      String
-                            "fullName"  String
-                        }
-            'docNumber'     String
-            'docDate'       String
-            'docName'       String
-            'note'          String
-            'uploadDate'    String
-            'file' {
-                    'name'          String
-                    'size'          String
-                    'idFileStorage' String
-            }
+    'id'            Integer
+    'constructionId'Integer
+    'docType'{
+                "id"        Integer
+                "code"      String
+                "fullName"  String
+                }
+    'docNumber'     String
+    'docDate'       String
+    'docName'       String
+    'note'          String
+    'uploadDate'    String
+    'file' {
+            'name'          String
+            'size'          String
+            'idFileStorage' String
+    }
 }
 
 ConstructionObject {
 
-            ...
+    ...
 
-            'realtyType'    Integer
-            'factDate'      String
-            'constructionProgress' constructionProgress {
-                                        readiness             DECIMAL(17,2)
-                                        people                Integer
-                                        equipment             Integer
-                                        progressStatusesId  Integer
-                                    }
+    'realtyType'            Integer
+    'factDate'              String
+    'constructionProgress'  {
+            readiness             DECIMAL(17,2)
+            people                Integer
+            equipment             Integer
+            progressStatusesId    Integer
+    }
+    'documents':    [ConstructionDocument{}, ConstructionDocument{}, ...],
+    'files':        [Filestorage{}, Filestorage{}, ...]
 }
 
 ConstructionProgress {
@@ -413,3 +476,14 @@ ConstructionProgress {
 
 }
 
+MeasureUnit {
+    id          Integer
+    code        String
+    name        String
+}
+
+DocType {
+    id          Integer
+    code        String
+    fullName    String
+}

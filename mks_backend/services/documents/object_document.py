@@ -19,5 +19,5 @@ class ObjectDocumentService:
     def get_all_object_documents(self) -> list:
         return self.repo.get_all_object_documents()
 
-    def get_object_document_by_relations(self, construction_objects_id, construction_documents_id):
+    def get_object_document_by_relations(self, construction_objects_id: int, construction_documents_id: int):
         return self.repo.get_object_document_by_relations(construction_objects_id, construction_documents_id)

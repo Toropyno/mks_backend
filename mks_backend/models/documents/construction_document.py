@@ -36,8 +36,7 @@ class ConstructionDocument(Base):
 
     idfilestorage = Column(
         UUID,
-        ForeignKey('filestorage.idfilestorage', ondelete='CASCADE'),
-        nullable=False,
+        ForeignKey('filestorage.idfilestorage', ondelete='SET NULL'),
     )
 
     parent = relationship(
@@ -49,4 +48,9 @@ class ConstructionDocument(Base):
     doc_type = relationship(
         'DocType',
         back_populates='documents'
+    )
+
+    file_storage = relationship(
+        'Filestorage',
+        back_populates='document'
     )

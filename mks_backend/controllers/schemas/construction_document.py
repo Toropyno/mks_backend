@@ -15,7 +15,7 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         name='constructionId',
         validator=colander.Range(
             min=0,
-            min_err='Неверный номер Проекта'
+            min_err='Неверный номер проекта'
         )
     )
 
@@ -24,7 +24,7 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         name='docTypesId',
         validator=colander.Range(
             min=0,
-            min_err='Неверный номер Типа Документов'
+            min_err='Неверный номер типа документов'
         )
     )
 
@@ -79,7 +79,8 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='idFileStorage',
         msg='Недопустимая информация о файле',
-        validator=uuid_validator
+        validator=uuid_validator,
+        missing=None
     )
 
     upload_date = colander.SchemaNode(

@@ -101,6 +101,12 @@ class ConstructionObject(Base):
         back_populates='parent'
     )
 
+    file_storage = relationship(
+        'Filestorage',
+        secondary='object_files',
+        back_populates='parent'
+    )
+
     realty_type = relationship(
         'RealtyType',
     )

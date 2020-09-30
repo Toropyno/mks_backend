@@ -4,6 +4,10 @@ def includeme(config):
     config.add_route('upload_file', '/protocol/upload', request_method='POST')
     config.add_route('get_file_info', '/protocol/file_info', request_method='GET')
 
+    config.add_route('get_filestorages_by_object',
+                     'construction_object/{id}/filestorages',
+                     request_method='GET')
+
     config.add_route('get_meetings', '/meeting', request_method='GET')
 
     config.add_route('get_all_protocols', '/protocol', request_method='GET')
@@ -76,14 +80,25 @@ def includeme(config):
 
     config.add_route('get_all_object_documents', '/object_document', request_method='GET')
 
+    config.add_route('get_construction_documents_by_construction',
+                     'construction/{id}/construction_documents',
+                     request_method='GET')
+    config.add_route('get_construction_documents_by_object',
+                     'construction_object/{id}/construction_documents',
+                     request_method='GET')
     config.add_route('get_all_construction_documents', '/construction_document', request_method='GET')
-    config.add_route('add_construction_document', '/construction_document/', request_method='POST')
     config.add_route('get_construction_document', '/construction_document/{id}', request_method='GET')
+    config.add_route('add_construction_document', '/construction_document', request_method='POST')
     config.add_route('edit_construction_document', '/construction_document/{id}', request_method='PUT')
     config.add_route('delete_construction_document', '/construction_document/{id}', request_method='DELETE')
 
-    config.add_route('get_all_construction_progresses', '/construction_progress', request_method='GET')
-    config.add_route('add_construction_progress', '/construction_progress/', request_method='POST')
+    config.add_route('get_all_construction_progresses_by_object',
+                     'construction_object/{id}/construction_progresses',
+                     request_method='GET')
+    config.add_route('get_last_construction_progress_by_object',
+                     'construction_object/{id}/construction_progress',
+                     request_method='GET')
+    config.add_route('add_construction_progress', '/construction_progress', request_method='POST')
     config.add_route('get_construction_progress', '/construction_progress/{id}', request_method='GET')
     config.add_route('edit_construction_progress', '/construction_progress/{id}', request_method='PUT')
     config.add_route('delete_construction_progress', '/construction_progress/{id}', request_method='DELETE')
@@ -136,6 +151,8 @@ def includeme(config):
     config.add_route('edit_measure_unit', '/measure_unit/{id}', request_method='PUT')
     config.add_route('get_measure_unit', '/measure_unit/{id}', request_method='GET')
 
+    config.add_route('get_all_object_files', '/object_file', request_method='GET')
+
     config.add_route(
         'get_work_list_for_construction_object',
         '/construction_object/{id}/work_list',
@@ -145,3 +162,4 @@ def includeme(config):
     config.add_route('delete_work_list', '/work_list/{id}', request_method='DELETE')
     config.add_route('edit_work_list', '/work_list/{id}', request_method='PUT')
     config.add_route('get_work_list', '/work_list/{id}', request_method='GET')
+

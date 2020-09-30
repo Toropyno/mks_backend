@@ -11,6 +11,11 @@ class ConstructionDocumentRepository:
     def get_all_construction_documents(self) -> list:
         return DBSession.query(ConstructionDocument).all()
 
+    def get_many_construction_documents_by_id(self, ids: list) -> list:
+        return DBSession.query(ConstructionDocument).filter(
+            ConstructionDocument.construction_documents_id.in_(ids)
+        ).all()
+
     @db_error_handler
     def add_construction_document(self, construction_document: ConstructionDocument) -> None:
         DBSession.add(construction_document)
@@ -37,6 +42,5 @@ class ConstructionDocumentRepository:
         )
         DBSession.commit()
 
-    def get_many_construction_documents_by_id(self, ids: list) -> list:
-        return DBSession.query(ConstructionDocument).filter(
-            ConstructionDocument.construction_documents_id.in_(ids)).all()
+    def get_construction_documents_by_construction(self, construction_id: int) -> list:
+        return DBSession.query(ConstructionDocument).filter_by(construction_id=construction_id).all()
