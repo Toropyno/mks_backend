@@ -28,7 +28,7 @@ class ConstructionObjectSerializer:
 
         construction_progress = construction_object.construction_progress
         if construction_progress:
-            construction_progress = construction_progress[len(construction_progress)-1]
+            construction_progress = construction_progress[len(construction_progress) - 1]
             construction_progress = ConstructionProgressSerializer().convert_object_to_json(construction_progress)
 
         construction_object = {
