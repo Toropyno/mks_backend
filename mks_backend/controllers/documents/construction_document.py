@@ -28,7 +28,9 @@ class ConstructionDocumentController:
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
         construction_document = self.service.get_construction_document_by_id(id)
-        file_info = self.service_filestorage.get_file_info(str(construction_document.idfilestorage))
+        file_info = None
+        if construction_document.idfilestorage:
+            file_info = self.service_filestorage.get_file_info(str(construction_document.idfilestorage))
         return self.serializer.convert_object_to_json(construction_document, file_info)
 
     @handle_db_error
