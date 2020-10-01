@@ -2,7 +2,6 @@ from mks_backend.models.documents.construction_document import ConstructionDocum
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
 from mks_backend.repositories.filestorage import FilestorageRepository
-from mks_backend.serializers.filestorage import FileStorageSerializer
 
 
 class ConstructionDocumentService:

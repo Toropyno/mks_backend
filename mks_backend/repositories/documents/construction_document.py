@@ -1,3 +1,5 @@
+from sqlalchemy import desc
+
 from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories import DBSession
@@ -9,7 +11,7 @@ class ConstructionDocumentRepository:
         return DBSession.query(ConstructionDocument).get(id)
 
     def get_all_construction_documents(self) -> list:
-        return DBSession.query(ConstructionDocument).all()
+        return DBSession.query(ConstructionDocument).order_by(ConstructionDocument.doc_date).all()
 
     def get_many_construction_documents_by_id(self, ids: list) -> list:
         return DBSession.query(ConstructionDocument).filter(
@@ -43,4 +45,6 @@ class ConstructionDocumentRepository:
         DBSession.commit()
 
     def get_construction_documents_by_construction(self, construction_id: int) -> list:
-        return DBSession.query(ConstructionDocument).filter_by(construction_id=construction_id).all()
+        return DBSession.query(ConstructionDocument).filter_by(construction_id=construction_id).order_by(
+            ConstructionDocument.doc_date
+        ).all()

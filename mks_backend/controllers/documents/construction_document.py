@@ -6,6 +6,7 @@ from mks_backend.serializers.documents.construction_document import Construction
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
+from mks_backend.services.filestorage import FilestorageService
 
 
 class ConstructionDocumentController:
@@ -15,17 +16,20 @@ class ConstructionDocumentController:
         self.serializer = ConstructionDocumentSerializer()
         self.service = ConstructionDocumentService()
         self.schema = ConstructionDocumentSchema()
+        self.service_filestorage = FilestorageService()
 
     @view_config(route_name='get_all_construction_documents', renderer='json')
     def get_all_construction_documents(self):
         construction_documents = self.service.get_all_construction_documents()
-        return self.serializer.convert_list_to_json(construction_documents)
+        documents = self.get_construction_documents(construction_documents)
+        return documents
 
     @view_config(route_name='get_construction_document', renderer='json')
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
         construction_document = self.service.get_construction_document_by_id(id)
-        return self.serializer.convert_object_to_json(construction_document)
+        file_info = self.service_filestorage.get_file_info(str(construction_document.idfilestorage))
+        return self.serializer.convert_object_to_json(construction_document, file_info)
 
     @handle_db_error
     @handle_colander_error
@@ -57,11 +61,21 @@ class ConstructionDocumentController:
     def get_construction_documents_by_object(self):
         object_id = int(self.request.matchdict['id'])
         construction_documents = self.service.get_construction_documents_by_object(object_id)
-        return self.serializer.convert_list_to_json(construction_documents)
+        documents = self.get_construction_documents(construction_documents)
+        return documents
 
     @view_config(route_name='get_construction_documents_by_construction', renderer='json')
     def get_construction_documents_by_construction(self):
         construction_id = int(self.request.matchdict['id'])
         construction_documents = self.service.get_construction_documents_by_construction(construction_id)
-        return self.serializer.convert_list_to_json(construction_documents)
+        documents = self.get_construction_documents(construction_documents)
+        return documents
 
+    def get_construction_documents(self, construction_documents):
+        documents = []
+        for doc in construction_documents:
+            file_info = None
+            if doc.idfilestorage:
+                file_info = self.service_filestorage.get_file_info(str(doc.idfilestorage))
+            documents.append(self.serializer.convert_object_to_json(doc, file_info))
+        return documents
