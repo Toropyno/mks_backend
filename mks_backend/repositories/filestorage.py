@@ -20,5 +20,5 @@ class FilestorageRepository:
 
     def get_many_file_storages_by_id(self, ids: list) -> list:
         return DBSession.query(Filestorage).filter(
-            Filestorage.file_storages_id.in_(ids)
+            Filestorage.idfilestorage.in_(ids)
         ).all()

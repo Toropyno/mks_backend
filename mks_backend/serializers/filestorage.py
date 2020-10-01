@@ -9,9 +9,9 @@ class FileStorageSerializer:
     @classmethod
     @serialize_error_handler
     def convert_file_info_to_json(cls, id) -> dict:
-        file_info = FilestorageService.get_file_info(id)
+        file_info = FilestorageService().get_file_info(str(id))
         return {
-            'idFileStorage': id,
+            'idFileStorage': str(id),
             'name': file_info.get('filename'),
             'size': file_info.get('filesize'),
         }
@@ -19,7 +19,7 @@ class FileStorageSerializer:
     @classmethod
     @serialize_error_handler
     def convert_object_to_json(cls, filestorage: Filestorage) -> dict:
-        file_info = FilestorageService.get_file_info(filestorage.idfilestorage)
+        file_info = FilestorageService().get_file_info(str(filestorage.idfilestorage))
         return {
             'id': str(filestorage.idfilestorage),
             'fileName': file_info.get('filename'),

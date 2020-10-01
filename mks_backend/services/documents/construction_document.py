@@ -2,6 +2,7 @@ from mks_backend.models.documents.construction_document import ConstructionDocum
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
 from mks_backend.repositories.filestorage import FilestorageRepository
+from mks_backend.serializers.filestorage import FileStorageSerializer
 
 
 class ConstructionDocumentService:
@@ -43,3 +44,9 @@ class ConstructionDocumentService:
         if construction_documents:
             return construction_documents
         return []
+
+    # def get_field_file_info(self, document_idfilestorage):
+    #     file_info = None
+    #     if document_idfilestorage:
+    #         file_info = FileStorageSerializer().convert_file_info_to_json(str(document_idfilestorage))
+    #     return file_info

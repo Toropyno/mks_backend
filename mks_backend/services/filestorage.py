@@ -64,7 +64,6 @@ class FilestorageService:
             response = Response('Unable to find file with id = {}'.format(id))
         return response
 
-    @classmethod
     def get_file_info(self, uuid):
         try:
             filestorage = self.repo.get_filestorage_by_id(uuid)
