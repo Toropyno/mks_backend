@@ -2,6 +2,7 @@ import colander
 
 
 class ConstructionTypeSchema(colander.MappingSchema):
+
     fullname = colander.SchemaNode(
         colander.String(),
         name='fullName',
