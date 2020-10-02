@@ -2,17 +2,24 @@ from datetime import datetime
 
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
-from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
 
 
 class ConstructionDocumentSerializer:
 
-    def convert_object_to_json(self, construction_document: ConstructionDocument) -> dict:
-        file = None
-        idfilestorage = construction_document.idfilestorage
-        if idfilestorage:
-            file = FileStorageSerializer.convert_file_info_to_json(str(idfilestorage))
+    def convert_object_to_json(self, construction_document: ConstructionDocument, file_info=None) -> dict:
+        upload_date = None
+
+        if construction_document.idfilestorage:
+            if file_info:
+                file_info = {
+                    'idFileStorage': construction_document.idfilestorage,
+                    'name': file_info.get('filename'),
+                    'size': file_info.get('filesize'),
+                }
+            upload_date = construction_document.upload_date
+            if upload_date:
+                upload_date = get_date_time_string(upload_date)
 
         return {
             'id': construction_document.construction_documents_id,
@@ -22,8 +29,8 @@ class ConstructionDocumentSerializer:
             'docDate': get_date_string(construction_document.doc_date),
             'docName': construction_document.doc_name,
             'note': construction_document.note,
-            'uploadDate': self.get_upload_date(construction_document),
-            'file': file,
+            'uploadDate': upload_date,
+            'file': file_info,
         }
 
     def convert_list_to_json(self, construction_documents: list) -> list:
@@ -31,7 +38,7 @@ class ConstructionDocumentSerializer:
 
     def convert_schema_to_object(self, schema_dict: dict) -> ConstructionDocument:
         construction_document = ConstructionDocument()
-        self.update_idfilestorage(construction_document, schema_dict)
+        construction_document = self.update_idfilestorage(construction_document, schema_dict)
 
         construction_document.construction_documents_id = schema_dict.get('id')
         construction_document.construction_id = schema_dict.get('constructionId')
@@ -47,9 +54,4 @@ class ConstructionDocumentSerializer:
         if construction_document.idfilestorage != schema_dict.get('idFileStorage'):
             construction_document.idfilestorage = schema_dict.get('idFileStorage')
             construction_document.upload_date = datetime.now()
-
-    def get_upload_date(self, construction_document):
-        upload_date = construction_document.upload_date
-        if upload_date:
-            upload_date = get_date_time_string(upload_date)
-        return upload_date
+        return construction_document

@@ -62,4 +62,14 @@ class FilestorageController:
     def get_filestorages_by_object(self):
         object_id = int(self.request.matchdict['id'])
         filestorages = self.service.get_filestorages_by_object(object_id)
-        return self.serializer.convert_list_to_json(filestorages)
+        file_storages = self.get_file_storages(filestorages)
+        return file_storages
+
+    def get_file_storages(self, filestorages):
+        file_storages = []
+        for file_st in filestorages:
+            file_info = None
+            if file_st.idfilestorage:
+                file_info = self.service.get_file_info(str(file_st.idfilestorage))
+            file_storages.append(self.serializer.convert_object_to_json(file_st, file_info))
+        return file_storages
