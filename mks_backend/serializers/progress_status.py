@@ -10,7 +10,7 @@ class ProgressStatusSerializer:
     def convert_object_to_json(cls, progress_status: ProgressStatus) -> dict:
         return {
             'id': progress_status.progress_statuses_id,
-            'code': progress_status.fullname,
+            'fullName': progress_status.fullname,
         }
 
     def convert_list_to_json(self, progress_statuses: list) -> list:
