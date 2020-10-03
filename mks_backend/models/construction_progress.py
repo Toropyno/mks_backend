@@ -50,18 +50,18 @@ class ConstructionProgress(Base):
         nullable=False,
     )
 
-    # progress_statuses_id = Column(
-    #     Integer,
-    #     ForeignKey('progress_statuses.progress_statuses_id', ondelete='CASCADE'),
-    #     nullable=False,
-    # )
+    progress_statuses_id = Column(
+        Integer,
+        ForeignKey('progress_statuses.progress_statuses_id', ondelete='CASCADE'),
+        nullable=False,
+    )
 
     construction_object = relationship(
         'ConstructionObject',
         back_populates='construction_progress'
     )
 
-    # progress_statuses = relationship(
-    #     'ProgressStatuses',
-    #     back_populates='construction_progress'
-    # )
+    progress_statuses = relationship(
+        'ProgressStatuses',
+        back_populates='construction_progress'
+    )

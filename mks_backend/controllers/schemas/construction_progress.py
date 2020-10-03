@@ -49,14 +49,14 @@ class ConstructionProgressSchema(colander.MappingSchema):
         )
     )
 
-    # progress_statuses_id = colander.SchemaNode(
-    #     colander.Int(),
-    #     name='progressStatuses',
-    #     validator=colander.Range(
-    #         min=0,
-    #         min_err='Недопустимое значение статуса хода работ'
-    #     )
-    # )
+    progress_statuses_id = colander.SchemaNode(
+        colander.Int(),
+        name='progressStatuses',
+        validator=colander.Range(
+            min=0,
+            min_err='Недопустимое значение статуса хода работ'
+        )
+    )
 
     update_datetime = colander.SchemaNode(
         colander.String(),
