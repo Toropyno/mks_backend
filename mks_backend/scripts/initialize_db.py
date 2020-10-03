@@ -41,8 +41,8 @@ from mks_backend.models.construction_progress import ConstructionProgress
 from mks_backend.models.measure_unit import MeasureUnit
 
 from mks_backend.models.object_file import ObjectFile
-
 from mks_backend.models.trips.leadership_position import LeadershipPosition
+from mks_backend.models.contract_status import ContractStatus
 
 import os
 import sys

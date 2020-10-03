@@ -425,6 +425,23 @@ Description: Delete measure_unit
 Route: '/measure_unit/{id}'
 
 
+# --- contract_status ---
+
+Description: Get all contract_statuses
+Route: '/contract_status'
+Method: GET
+
+Description: Add contract_status
+Route: '/contract_status'
+Method: POST
+
+Description: Get contract_status
+Route: '/contract_status/{id}'
+Method: GET
+
+Description: Delete contract_status
+Route: '/contract_status/{id}'
+
 
 =====================================================================================================
 
@@ -485,5 +502,10 @@ MeasureUnit {
 DocType {
     id          Integer
     code        String
+    fullName    String
+}
+
+ContractStatus {
+    id          Integer
     fullName    String
 }
