@@ -443,6 +443,24 @@ Description: Delete element_type
 Route: '/element_type/{id}'
 
 
+# --- progress_status ---
+
+Description: Get all progress_statuses
+Route: '/progress_status'
+Method: GET
+
+Description: Add progress_status
+Route: '/progress_status'
+Method: POST
+
+Description: Get progress_status
+Route: '/progress_status/{id}'
+Method: GET
+
+Description: Delete progress_status
+Route: '/progress_status/{id}'
+
+
 =====================================================================================================
 
 ConstructionDocument {
@@ -506,6 +524,11 @@ DocType {
 }
 
 ElementType {
+    id          Integer
+    fullName    String
+}
+
+ProgressStatus {
     id          Integer
     fullName    String
 }
