@@ -17,7 +17,9 @@ class WorkList(Base):
     """
     Перечень проводимых работ
     """
+
     __tablename__ = 'works_list'
+
     __table_args__ = (
         UniqueConstraint(
             'construction_objects_id',
@@ -27,7 +29,14 @@ class WorkList(Base):
     )
 
     works_list_id = Column(Integer, primary_key=True)
-    element_types_id = Column(Integer)  # backlog MKSBRYANS-177
+
+    element_types_id = Column(
+        Integer,
+        ForeignKey('element_types.element_types_id', ondelete='CASCADE'),
+        unique=True,
+        nullable=False
+    )
+
     element_description = Column(VARCHAR(500), nullable=True)
     begin_date = Column(DATE, nullable=False)
     work_description = Column(VARCHAR(500), nullable=True)
@@ -89,4 +98,9 @@ class WorkList(Base):
     construction_object = relationship(
         'ConstructionObject',
         back_populates='worklist'
+    )
+
+    element_type = relationship(
+        'ElementType',
+        back_populates='works_list'
     )

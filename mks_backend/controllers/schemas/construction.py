@@ -7,6 +7,7 @@ class ConstructionSchema(colander.MappingSchema):
 
     project_code = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='code',
         validator=colander.Length(
             min=1,
@@ -18,6 +19,7 @@ class ConstructionSchema(colander.MappingSchema):
 
     project_name = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='name',
         validator=colander.Length(
             min=1,
@@ -74,6 +76,7 @@ class ConstructionSchema(colander.MappingSchema):
 
     contract_date = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='contractDate',
         validator=date_validator
     )
@@ -89,6 +92,7 @@ class ConstructionSchema(colander.MappingSchema):
 
     planned_date = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='plannedDate',
         validator=date_validator
     )
@@ -215,6 +219,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
 
     project_code = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='code',
         validator=colander.Length(
             min=1,
@@ -227,6 +232,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
 
     project_name = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='name',
         validator=colander.Length(
             min=1,
@@ -296,6 +302,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
 
     contract_date_start = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='contractDateStart',
         validator=date_validator,
         missing=None
@@ -303,6 +310,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
 
     contract_date_end = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='contractDateEnd',
         validator=date_validator,
         missing=None
@@ -310,6 +318,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
 
     planned_date_start = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='plannedDateStart',
         validator=date_validator,
         missing=None
@@ -317,6 +326,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
 
     planned_date_end = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='plannedDateEnd',
         validator=date_validator,
         missing=None
