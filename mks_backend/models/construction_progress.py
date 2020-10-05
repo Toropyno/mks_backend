@@ -33,11 +33,13 @@ class ConstructionProgress(Base):
         CheckConstraint('(readiness>=0) AND (readiness<=100)'),
         nullable=False
     )
+
     people = Column(
         Integer,
         CheckConstraint('people>=0'),
         nullable=False
     )
+
     equipment = Column(
         Integer,
         CheckConstraint('equipment>=0'),
@@ -62,6 +64,6 @@ class ConstructionProgress(Base):
     )
 
     progress_statuses = relationship(
-        'ProgressStatuses',
+        'ProgressStatus',
         back_populates='construction_progress'
     )
