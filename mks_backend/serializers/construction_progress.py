@@ -1,4 +1,5 @@
 from mks_backend.models.construction_progress import ConstructionProgress
+from mks_backend.serializers.progress_status import ProgressStatusSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
 from datetime import datetime
 
@@ -12,6 +13,8 @@ class ConstructionProgressSerializer:
     def convert_object_to_json(cls, construction_progress: ConstructionProgress) -> dict:
         readiness = float(construction_progress.readiness) if construction_progress.readiness else None
 
+        progress_status = ProgressStatusSerializer.convert_object_to_json(construction_progress.progress_status)
+
         return {
             'id': construction_progress.construction_progress_id,
             'constructionObjects': construction_progress.construction_objects_id,
@@ -19,7 +22,7 @@ class ConstructionProgressSerializer:
             'readiness': readiness,
             'people': construction_progress.people,
             'equipment': construction_progress.equipment,
-            'progressStatuses': construction_progress.progress_statuses_id,
+            'progressStatus': progress_status,
             'updateDatetime': get_date_time_string(construction_progress.update_datetime),
         }
 
@@ -35,7 +38,7 @@ class ConstructionProgressSerializer:
         construction_progress.readiness = schema.get('readiness')
         construction_progress.people = schema.get('people')
         construction_progress.equipment = schema.get('equipment')
-        construction_progress.progress_statuses_id = schema.get('progressStatuses')
+        construction_progress.progress_statuses_id = schema.get('progressStatus')
 
         construction_progress.update_datetime = datetime.now()
         return construction_progress
