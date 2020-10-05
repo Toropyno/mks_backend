@@ -6,8 +6,3 @@ class MeetingRepository:
 
     def get_meetings_types(self) -> list:
         return DBSession.query(Meeting).all()
-
-    @classmethod
-    def get_meeting_fullname_by_id(cls, id: int) -> str:
-        meeting = DBSession.query(Meeting).get(id)
-        return meeting.fullname

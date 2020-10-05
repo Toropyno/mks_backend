@@ -20,7 +20,6 @@ class LeadershipPositionController:
     @view_config(route_name='get_all_leadership_positions')
     def get_all_leadership_positions(self):
         leadership_positions = self.service.get_all_leadership_positions()
-        print(leadership_positions[0])
         return self.serializer.convert_list_to_json(leadership_positions)
 
     @handle_db_error
@@ -54,7 +53,7 @@ class LeadershipPositionController:
     def get_leadership_position(self):
         id = self.get_id()
         leadership_position = self.service.get_leadership_position_by_id(id)
-        return self.serializer.convert_object_to_json(leadership_position)
+        return self.serializer.to_json(leadership_position)
 
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])
