@@ -21,6 +21,7 @@ from mks_backend.models.oksm import OKSM
 from mks_backend.models.construction_type import ConstructionType
 from mks_backend.models.realty_type import RealtyType
 from mks_backend.models.work_type import WorkType
+from mks_backend.models.work_list import WorkList
 
 from mks_backend.models.military_unit_models.combatarm import Combatarm
 from mks_backend.models.military_unit_models.keyword import Keyword
@@ -37,9 +38,11 @@ from mks_backend.models.documents.construction_document import ConstructionDocum
 from mks_backend.models.documents.doc_type import DocType
 
 from mks_backend.models.construction_progress import ConstructionProgress
+from mks_backend.models.progress_status import ProgressStatus
 from mks_backend.models.measure_unit import MeasureUnit
-
 from mks_backend.models.object_file import ObjectFile
+
+from mks_backend.models.trips.leadership_position import LeadershipPosition
 
 import os
 import sys
