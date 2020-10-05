@@ -1,26 +1,35 @@
 from mks_backend.models.protocol import Protocol
-from mks_backend.repositories.meeting import MeetingRepository
+from mks_backend.serializers.meeting import MeetingSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string
+
+from mks_backend.errors.serilize_error import serialize_error_handler
 
 
 class ProtocolSerializer:
+
+    def convert_list_to_json(self, protocols: list) -> list:
+        return list(map(self.convert_object_to_json, protocols))
 
     def convert_object_to_json(self, protocol: Protocol) -> dict:
         return {
             'protocolId': protocol.protocol_id,
             'protocolNumber': protocol.protocol_num,
             'protocolDate': get_date_string(protocol.protocol_date),
-            'meeting': {
-                'id': protocol.meetings_type_id,
-                'fullName': MeetingRepository.get_meeting_fullname_by_id(protocol.meetings_type_id)  # TODO - fix
-            },
+            'meeting': MeetingSerializer.convert_object_to_json(
+                protocol.meeting
+            ),
             'protocolName': protocol.protocol_name,
             'note': protocol.note,
             'idFileStorage': protocol.idfilestorage
         }
 
-    def convert_list_to_json(self, protocols: list) -> list:
-        return list(map(self.convert_object_to_json, protocols))
+    @classmethod
+    @serialize_error_handler
+    def to_short_json(cls, protocol: Protocol):
+        return {
+            'protocolId': protocol.protocol_id,
+            'protocolName': protocol.protocol_name
+        }
 
     def convert_schema_to_object(self, schema_dict: dict) -> Protocol:
         protocol = Protocol()

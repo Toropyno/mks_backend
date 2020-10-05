@@ -30,18 +30,18 @@ class WorkList(Base):
 
     works_list_id = Column(Integer, primary_key=True)
 
+    element_description = Column(VARCHAR(500), nullable=True)
+    begin_date = Column(DATE, nullable=False)
+    work_description = Column(VARCHAR(500), nullable=True)
+    relevance_date = Column(DATE, nullable=False)
+    note = Column(VARCHAR(1000), nullable=True)
+
     element_types_id = Column(
         Integer,
         ForeignKey('element_types.element_types_id', ondelete='CASCADE'),
         unique=True,
         nullable=False
     )
-
-    element_description = Column(VARCHAR(500), nullable=True)
-    begin_date = Column(DATE, nullable=False)
-    work_description = Column(VARCHAR(500), nullable=True)
-    relevance_date = Column(DATE, nullable=False)
-    note = Column(VARCHAR(1000), nullable=True)
 
     weight = Column(
         Integer,

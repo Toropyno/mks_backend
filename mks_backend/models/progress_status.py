@@ -16,5 +16,5 @@ class ProgressStatus(Base):
 
     construction_progress = relationship(
         'ConstructionProgress',
-        back_populates='progress_statuses'
+        back_populates='progress_status'
     )
