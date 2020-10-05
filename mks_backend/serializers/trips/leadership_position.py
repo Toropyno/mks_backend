@@ -7,7 +7,7 @@ class LeadershipPositionSerializer:
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, leadership_position: LeadershipPosition) -> dict:
+    def to_json(cls, leadership_position: LeadershipPosition) -> dict:
         return {
             'id': leadership_position.leadership_positions_id,
             'code': leadership_position.code,
@@ -15,7 +15,7 @@ class LeadershipPositionSerializer:
         }
 
     def convert_list_to_json(self, leadership_positions: list) -> list:
-        return list(map(self.convert_object_to_json, leadership_positions))
+        return list(map(self.to_json, leadership_positions))
 
     def convert_schema_to_object(self, schema: dict) -> LeadershipPosition:
         leadership_position = LeadershipPosition()

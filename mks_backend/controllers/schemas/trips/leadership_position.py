@@ -1,6 +1,6 @@
 import colander
 
-from build.lib.mks_backend.controllers.schemas.validator_utils import strip_space
+from mks_backend.controllers.schemas.validator_utils import strip_space
 
 
 class LeadershipPositionSchema(colander.MappingSchema):

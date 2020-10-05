@@ -12,7 +12,9 @@ class WorkListSerializer:
         return {
             'id': work_list.works_list_id,
             'constructionObject': work_list.construction_objects_id,
-            'element': ElementTypeSerializer.convert_object_to_json(work_list.element_type),
+            'element': ElementTypeSerializer.convert_object_to_json(
+                work_list.element_type
+            ),
             'elementDescription': work_list.element_description,
             'weight': work_list.weight,
             'beginDate': get_date_string(work_list.begin_date),

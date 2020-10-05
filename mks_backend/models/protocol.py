@@ -31,10 +31,17 @@ class Protocol(Base):
         ForeignKey('filestorage.idfilestorage', ondelete='CASCADE')
     )
 
+    meeting = relationship(
+        'Meeting'
+    )
+
     filestorage = relationship(
         'Filestorage',
         back_populates='protocols'
     )
 
     def __str__(self):
-        return 'id={}, protocol_number={}'.format(self.protocol_id, self.protocol_num)
+        return 'id={id}, protocol_number={number}'.format(
+            id=self.protocol_id,
+            number=self.protocol_num
+        )
