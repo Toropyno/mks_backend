@@ -3,7 +3,8 @@ from mks_backend.models.element_type import ElementType
 
 class ElementTypeSerializer:
 
-    def convert_object_to_json(self, element_type: ElementType) -> dict:
+    @classmethod
+    def convert_object_to_json(cls, element_type: ElementType) -> dict:
         return {
             'id': element_type.element_types_id,
             'fullName': element_type.fullname,
