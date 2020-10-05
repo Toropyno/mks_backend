@@ -38,11 +38,13 @@ from mks_backend.models.documents.construction_document import ConstructionDocum
 from mks_backend.models.documents.doc_type import DocType
 
 from mks_backend.models.construction_progress import ConstructionProgress
+from mks_backend.models.progress_status import ProgressStatus
 from mks_backend.models.measure_unit import MeasureUnit
-
 from mks_backend.models.object_file import ObjectFile
 from mks_backend.models.trips.leadership_position import LeadershipPosition
 from mks_backend.models.contract_status import ContractStatus
+from mks_backend.models.element_type import ElementType
+
 
 import os
 import sys

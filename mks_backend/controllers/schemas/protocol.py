@@ -65,6 +65,7 @@ class ProtocolControllerSchema(colander.MappingSchema):
 
 
 class ProtocolControllerFilterSchema(colander.MappingSchema):
+
     protocol_num = colander.SchemaNode(
         colander.String(),
         name='protocolNumber',

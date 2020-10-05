@@ -15,8 +15,10 @@ class MeasureUnitSerializer:
         return list(map(self.convert_object_to_json, measure_unit_list))
 
     def convert_schema_to_object(self, schema: dict) -> MeasureUnit:
-        measure_units = MeasureUnit()
-        measure_units.unit_id = schema.get('id')
-        measure_units.unit_code = schema.get('code')
-        measure_units.unit_name = schema.get('name')
-        return measure_units
+        measure_unit = MeasureUnit()
+
+        measure_unit.unit_id = schema.get('id')
+        measure_unit.unit_code = schema.get('code')
+        measure_unit.unit_name = schema.get('name')
+
+        return measure_unit
