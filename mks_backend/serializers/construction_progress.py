@@ -19,7 +19,7 @@ class ConstructionProgressSerializer:
             'readiness': readiness,
             'people': construction_progress.people,
             'equipment': construction_progress.equipment,
-            'progressStatusesId': construction_progress.progress_statuses_id,
+            'progressStatuses': construction_progress.progress_statuses_id,
             'updateDatetime': get_date_time_string(construction_progress.update_datetime),
         }
 
@@ -35,7 +35,7 @@ class ConstructionProgressSerializer:
         construction_progress.readiness = schema.get('readiness')
         construction_progress.people = schema.get('people')
         construction_progress.equipment = schema.get('equipment')
-        construction_progress.progress_statuses_id = schema.get('progressStatusesId')
+        construction_progress.progress_statuses_id = schema.get('progressStatuses')
 
         construction_progress.update_datetime = datetime.now()
         return construction_progress
