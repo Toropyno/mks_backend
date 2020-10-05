@@ -425,6 +425,24 @@ Description: Delete measure_unit
 Route: '/measure_unit/{id}'
 
 
+# --- progress_status ---
+
+Description: Get all progress_statuses
+Route: '/progress_status'
+Method: GET
+
+Description: Add progress_status
+Route: '/progress_status'
+Method: POST
+
+Description: Get progress_status
+Route: '/progress_status/{id}'
+Method: GET
+
+Description: Delete progress_status
+Route: '/progress_status/{id}'
+
+
 
 =====================================================================================================
 
@@ -485,5 +503,10 @@ MeasureUnit {
 DocType {
     id          Integer
     code        String
+    fullName    String
+}
+
+ProgressStatus {
+    id          Integer
     fullName    String
 }
