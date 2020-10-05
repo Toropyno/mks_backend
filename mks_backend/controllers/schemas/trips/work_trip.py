@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import date_validator
+from mks_backend.controllers.schemas.validator_utils import date_validator, strip_space
 
 
 class WorkTripSchema(colander.MappingSchema):
@@ -13,6 +13,7 @@ class WorkTripSchema(colander.MappingSchema):
 
     trip_name = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='name',
         validator=colander.Length(
             max=255,
@@ -22,6 +23,7 @@ class WorkTripSchema(colander.MappingSchema):
 
     escort_officer = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='escortOfficer',
         validator=colander.Length(
             max=100,
@@ -44,5 +46,6 @@ class WorkTripSchema(colander.MappingSchema):
         validator=colander.Range(
             min=0,
             min_err='Такого протокола не существует'
-        )
+        ),
+        missing=None
     )
