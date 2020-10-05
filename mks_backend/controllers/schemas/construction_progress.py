@@ -60,6 +60,7 @@ class ConstructionProgressSchema(colander.MappingSchema):
 
     update_datetime = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='updateDatetime',
         validator=date_validator,
         missing=None

@@ -1,4 +1,5 @@
 from mks_backend.models.work_list import WorkList
+from mks_backend.serializers.element_type import ElementTypeSerializer
 
 from mks_backend.serializers.measure_unit import MeasureUnitSerializer
 from mks_backend.serializers.work_type import WorkTypeSerializer
@@ -11,10 +12,9 @@ class WorkListSerializer:
         return {
             'id': work_list.works_list_id,
             'constructionObject': work_list.construction_objects_id,
-            'element': {
-                'id': work_list.element_types_id,
-                'fullName': 'Название типа конструктивного элемента',
-            },
+            'element': ElementTypeSerializer.convert_object_to_json(
+                work_list.element_type
+            ),
             'elementDescription': work_list.element_description,
             'weight': work_list.weight,
             'beginDate': get_date_string(work_list.begin_date),

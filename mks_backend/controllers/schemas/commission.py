@@ -1,10 +1,13 @@
 import colander
 
+from mks_backend.controllers.schemas.validator_utils import strip_space
+
 
 class CommissionSchema(colander.MappingSchema):
 
     code = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='code',
         validator=colander.Length(
             min=1,
@@ -16,6 +19,7 @@ class CommissionSchema(colander.MappingSchema):
 
     fullname = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='fullName',
         validator=colander.Length(
             min=1,

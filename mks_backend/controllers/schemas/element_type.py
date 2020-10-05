@@ -3,7 +3,7 @@ import colander
 from mks_backend.controllers.schemas.validator_utils import strip_space
 
 
-class RealtyTypeSchema(colander.MappingSchema):
+class ElementTypeSchema(colander.MappingSchema):
 
     fullname = colander.SchemaNode(
         colander.String(),
@@ -12,7 +12,7 @@ class RealtyTypeSchema(colander.MappingSchema):
         validator=colander.Length(
             min=1,
             max=255,
-            min_err='Слишком короткое наименование типа недвижимости',
-            max_err='Слишком длинное наименование типа недвижимости'
+            min_err='Слишком короткое название типа элементов',
+            max_err='Слишком длинное название типа элементов'
         )
     )

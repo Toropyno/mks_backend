@@ -34,3 +34,9 @@ class VisitedObject(Base):
         ForeignKey('construction.construction_id', ondelete='CASCADE'),
         nullable=False
     )
+
+    def __str__(self):
+        return 'Посещенный объект construction_id={c_id}, поездка work_trip_id={w_id}'.format(
+            c_id=self.construction_id,
+            w_id=self.work_trips_id
+        )

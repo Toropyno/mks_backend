@@ -1,9 +1,13 @@
 import colander
 
+from mks_backend.controllers.schemas.validator_utils import strip_space
+
 
 class OKSMSchema(colander.MappingSchema):
+
     code = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='code',
         validator=colander.Length(
             min=3,
@@ -15,6 +19,7 @@ class OKSMSchema(colander.MappingSchema):
 
     shortname = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='shortName',
         validator=colander.Length(
             min=1,
@@ -26,6 +31,7 @@ class OKSMSchema(colander.MappingSchema):
 
     fullname = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='fullName',
         validator=colander.Length(
             min=1,
@@ -38,6 +44,7 @@ class OKSMSchema(colander.MappingSchema):
 
     alpha2 = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='alpha2',
         validator=colander.Length(
             min=2,
@@ -49,6 +56,7 @@ class OKSMSchema(colander.MappingSchema):
 
     alpha3 = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='alpha3',
         validator=colander.Length(
             min=3,

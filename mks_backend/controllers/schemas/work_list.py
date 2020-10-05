@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import date_validator
+from mks_backend.controllers.schemas.validator_utils import date_validator, strip_space
 
 
 class WorkListSchema(colander.MappingSchema):
@@ -28,6 +28,7 @@ class WorkListSchema(colander.MappingSchema):
 
     element_description = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='elementDescription',
         validator=colander.Length(
             min=1,
@@ -39,12 +40,14 @@ class WorkListSchema(colander.MappingSchema):
 
     begin_date = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='beginDate',
         validator=date_validator
     )
 
     end_date = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='endDate',
         validator=date_validator
     )
@@ -84,6 +87,7 @@ class WorkListSchema(colander.MappingSchema):
 
     work_description = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='workDescription',
         validator=colander.Length(
             max=500,
@@ -94,6 +98,7 @@ class WorkListSchema(colander.MappingSchema):
 
     note = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='note',
         validator=colander.Length(
             max=1000,
@@ -104,6 +109,7 @@ class WorkListSchema(colander.MappingSchema):
 
     relevance_date = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='relevanceDate',
         validator=date_validator
     )
