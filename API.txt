@@ -425,6 +425,24 @@ Description: Delete measure_unit
 Route: '/measure_unit/{id}'
 
 
+# --- element_type ---
+
+Description: Get all element_type
+Route: '/element_type'
+Method: GET
+
+Description: Add element_type
+Route: '/element_type'
+Method: POST
+
+Description: Get element_type
+Route: '/element_type/{id}'
+Method: GET
+
+Description: Delete element_type
+Route: '/element_type/{id}'
+
+
 # --- progress_status ---
 
 Description: Get all progress_statuses
@@ -441,7 +459,6 @@ Method: GET
 
 Description: Delete progress_status
 Route: '/progress_status/{id}'
-
 
 
 =====================================================================================================
@@ -503,6 +520,11 @@ MeasureUnit {
 DocType {
     id          Integer
     code        String
+    fullName    String
+}
+
+ElementType {
+    id          Integer
     fullName    String
 }
 
