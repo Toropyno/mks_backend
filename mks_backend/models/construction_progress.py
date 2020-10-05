@@ -33,11 +33,13 @@ class ConstructionProgress(Base):
         CheckConstraint('(readiness>=0) AND (readiness<=100)'),
         nullable=False
     )
+
     people = Column(
         Integer,
         CheckConstraint('people>=0'),
         nullable=False
     )
+
     equipment = Column(
         Integer,
         CheckConstraint('equipment>=0'),
@@ -50,18 +52,18 @@ class ConstructionProgress(Base):
         nullable=False,
     )
 
-    # progress_statuses_id = Column(
-    #     Integer,
-    #     ForeignKey('progress_statuses.progress_statuses_id', ondelete='CASCADE'),
-    #     nullable=False,
-    # )
+    progress_statuses_id = Column(
+        Integer,
+        ForeignKey('progress_statuses.progress_statuses_id', ondelete='CASCADE'),
+        nullable=False,
+    )
 
     construction_object = relationship(
         'ConstructionObject',
         back_populates='construction_progress'
     )
 
-    # progress_statuses = relationship(
-    #     'ProgressStatuses',
-    #     back_populates='construction_progress'
-    # )
+    progress_status = relationship(
+        'ProgressStatus',
+        back_populates='construction_progress'
+    )
