@@ -42,5 +42,8 @@ DB_ERROR_CODES = {
         'object_categories_list_zones_id_fkey': 'Указанной Зоны Военного Городка не существует!',
         'object_categories_list_object_categories_id_fkey': 'Указанной Категории Объекта Строительства не существует!',
 
+        'work_trips_leadership_positions_id_fkey': 'Такой должности не существует!',
+        'work_trips_protocol_id_fkey': 'Такого протокола не существует!',
+
         'other_fkey': 'Вторичный ключ не найден!',
 }

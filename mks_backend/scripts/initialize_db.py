@@ -42,6 +42,7 @@ from mks_backend.models.progress_status import ProgressStatus
 from mks_backend.models.measure_unit import MeasureUnit
 from mks_backend.models.object_file import ObjectFile
 
+from mks_backend.models.trips.work_trip import WorkTrip
 from mks_backend.models.trips.leadership_position import LeadershipPosition
 
 import os
