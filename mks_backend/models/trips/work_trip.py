@@ -45,8 +45,7 @@ class WorkTrip(Base):
 
     constructions = relationship(
         'Construction',
-        secondary='visited_objects',
-        lazy='joined'
+        secondary='visited_objects'
     )
 
     def __str__(self):
