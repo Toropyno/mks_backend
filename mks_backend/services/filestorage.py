@@ -100,3 +100,9 @@ class FilestorageService:
             if construction_object.documents:
                 filestorages = [doc.file_storage for doc in construction_object.documents if doc.file_storage]
         return filestorages
+
+    def get_file_info_if_idfilestorage(self, idfilestorage):
+        file_info = None
+        if idfilestorage:
+            file_info = self.get_file_info(str(idfilestorage))
+        return file_info

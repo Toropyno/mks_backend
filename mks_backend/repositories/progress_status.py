@@ -25,6 +25,6 @@ class ProgressStatusRepository:
     def update_progress_status(self, progress_status: ProgressStatus) -> None:
         DBSession.query(ProgressStatus).filter_by(progress_statuses_id=progress_status.progress_statuses_id).update(
             {
-                'fullName': progress_status.fullname,
+                'fullname': progress_status.fullname,
             }
         )

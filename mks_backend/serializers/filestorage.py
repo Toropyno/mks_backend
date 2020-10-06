@@ -21,3 +21,12 @@ class FileStorageSerializer:
 
     def convert_list_to_json(self, filestorages: list) -> list:
         return list(map(self.convert_object_to_json, filestorages))
+
+    @classmethod
+    def convert_file_info_with_idfilestorage(cls, idfilestorage, file_info):
+        if file_info:
+            return {
+                'idFileStorage': idfilestorage,
+                'name': file_info.get('filename'),
+                'size': file_info.get('filesize'),
+            }
