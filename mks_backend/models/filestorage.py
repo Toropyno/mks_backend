@@ -38,5 +38,6 @@ class Filestorage(Base):
 
     object_files = relationship(
         'ObjectFile',
-        back_populates='file_storage'
+        back_populates='file_storage',
+        passive_deletes=True,
     )

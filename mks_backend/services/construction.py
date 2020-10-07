@@ -1,5 +1,10 @@
+from datetime import datetime
+
 from mks_backend.models.construction import Construction
+from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction import ConstructionRepository
+from mks_backend.services.construction_object import ConstructionObjectService
+from mks_backend.services.construction_progress import ConstructionProgressService
 from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.subcategory_list import SubcategoryListService
 
@@ -10,6 +15,7 @@ class ConstructionService:
         self.repo = ConstructionRepository()
         self.subcategory_list_service = SubcategoryListService()
         self.coordinate_service = CoordinateService()
+        self.construction_progress_service = ConstructionProgressService()
 
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
@@ -97,3 +103,60 @@ class ConstructionService:
                 params[case_switcher[key]] = params_deserilized[key]
 
         return params
+
+    def get_construction_objects_calculated(self, id: int) -> dict:
+        construction_objects = ConstructionObjectService().get_all_construction_objects_by_construction_id(id)
+        now_year = datetime.now().year
+        count_planned_this_year = 0
+        actually_entered = 0
+        entered_additionally = 0
+        readiness = 0
+        workers = 0
+        equipment = 0
+
+        for co in construction_objects:
+            count_planned_this_year += self.get_count_planned_this_year(co, now_year)
+            actually_entered += self.get_actually_entered(co, now_year)
+            entered_additionally += self.get_entered_additionally(co, now_year)
+
+            progress = self.get_progress_calculated(co)
+            readiness += progress.get('readiness')
+            workers += progress.get('workers')
+            equipment += progress.get('equipment')
+
+        return {
+            'buildingCommissioningPlanCurrentYear': count_planned_this_year,
+            'actuallyEntered': actually_entered,
+            'restOfTheEntry': abs(count_planned_this_year - actually_entered),
+            'enteredAdditionally': entered_additionally,
+            'percentagePhysicalReadiness': readiness,
+            'workers': workers,
+            'equipment': equipment,
+        }
+
+    def get_entered_additionally(self, co, now_year):
+        if (co.planned_date != now_year) & (co.fact_date == now_year):
+            return 1
+        return 0
+
+    def get_actually_entered(self, co, now_year):
+        if (co.planned_date == now_year) & (co.fact_date == now_year):
+            return 1
+        return 0
+
+    def get_count_planned_this_year(self, co, now_year):
+        if (co.planned_date == now_year):
+            return 1
+        return 0
+
+    def get_progress_calculated(self, co):
+        last_construction_progress = \
+            self.construction_progress_service.get_construction_progress_by_object_last_reporting_date(
+                co.id
+            )
+
+        return {
+            'readiness': last_construction_progress * co.weight * 0.01,
+            'workers': last_construction_progress.people,
+            'equipment': last_construction_progress.equipment,
+        }

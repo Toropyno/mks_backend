@@ -112,5 +112,6 @@ class ConstructionObject(Base):
 
     object_files = relationship(
         'ObjectFile',
-        back_populates='construction_object'
+        back_populates='construction_object',
+        passive_deletes=True,
     )
