@@ -21,11 +21,8 @@ class WorkTripController:
     @handle_colander_error
     @view_config(route_name='get_all_work_trips')
     def get_all_work_trips(self):
-        if self.request.params:
-            params_deserialized = self.filter_schema.deserialize(self.request.params)
-            work_trips = self.service.get_filtered_work_trips(params_deserialized)
-        else:
-            work_trips = self.service.get_all_work_trips()
+        filter_params = self.filter_schema.deserialize(self.request.params)
+        work_trips = self.service.get_work_trips(filter_params)
         return self.serializer.convert_list_to_json(work_trips)
 
     @handle_db_error

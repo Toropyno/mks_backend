@@ -22,7 +22,14 @@ class WorkTripService:
     def delete_work_trip_by_id(self, id: int) -> None:
         self.repo.delete_work_trip_by_id(id)
 
-    def get_filtered_work_trips(self, params_deserialized: dict) -> list:
+    def get_work_trips(self, filter_params=None):
+        if filter_params:
+            params = self.switch_case(filter_params)
+            return self.repo.get_filtered_work_trips(params)
+        else:
+            return self.repo.get_all_work_trips()
+
+    def switch_case(self, filter_params: dict) -> dict:
         case_switcher = {
             'tripName': 'trip_name',
             'tripDateStart': 'trip_date_start',
@@ -41,8 +48,9 @@ class WorkTripService:
         }
 
         params = dict()
-        for key, value in params_deserialized.items():
+        for key, value in filter_params.items():
             if key in case_switcher and value is not None:
-                params[case_switcher[key]] = params_deserialized[key]
+                params[case_switcher[key]] = filter_params[key]
 
-        return self.repo.get_filtered_work_trips(params)
+        return params
+
