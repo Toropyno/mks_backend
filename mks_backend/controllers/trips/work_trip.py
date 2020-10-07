@@ -1,7 +1,7 @@
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from mks_backend.controllers.schemas.trips.work_trip import WorkTripSchema
+from mks_backend.controllers.schemas.trips.work_trip import WorkTripSchema, WorkTripFilterSchema
 from mks_backend.serializers.trips.work_trip import WorkTripSerializer
 from mks_backend.services.trips.work_trip import WorkTripService
 
@@ -16,10 +16,13 @@ class WorkTripController:
         self.service = WorkTripService()
         self.serializer = WorkTripSerializer()
         self.schema = WorkTripSchema()
+        self.filter_schema = WorkTripFilterSchema()
 
+    @handle_colander_error
     @view_config(route_name='get_all_work_trips')
     def get_all_work_trips(self):
-        work_trips = self.service.get_all_work_trips()
+        filter_params = self.filter_schema.deserialize(self.request.params)
+        work_trips = self.service.get_work_trips(filter_params)
         return self.serializer.convert_list_to_json(work_trips)
 
     @handle_db_error
