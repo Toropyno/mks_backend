@@ -106,3 +106,6 @@ class FilestorageService:
         if idfilestorage:
             file_info = self.get_file_info(str(idfilestorage))
         return file_info
+
+    def get_filestorage_by_id(self, id: int) -> Filestorage:
+        return self.repo.get_filestorage_by_id(str(id))

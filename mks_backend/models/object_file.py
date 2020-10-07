@@ -43,9 +43,11 @@ class ObjectFile(Base):
     note = Column(VARCHAR(1000))
 
     file_storage = relationship(
-        'Filestorage'
+        'Filestorage',
+        back_populates='object_files'
     )
 
     construction_object = relationship(
-        'ConstructionObject'
+        'ConstructionObject',
+        back_populates='object_files'
     )

@@ -157,6 +157,10 @@ def includeme(config):
     config.add_route('get_measure_unit', '/measure_unit/{id}', request_method='GET')
 
     config.add_route('get_all_object_files', '/object_file', request_method='GET')
+    config.add_route('add_object_file', '/object_file', request_method='POST')
+    config.add_route('delete_object_file', '/object_file/{id}', request_method='DELETE')
+    config.add_route('edit_object_file', '/object_file/{id}', request_method='PUT')
+    config.add_route('get_object_file', '/object_file/{id}', request_method='GET')
 
     config.add_route(
         'get_work_list_for_construction_object',
@@ -197,3 +201,5 @@ def includeme(config):
     config.add_route('delete_work_trip', '/work_trip/{id}', request_method='DELETE')
     config.add_route('edit_work_trip', '/work_trip/{id}', request_method='PUT')
     config.add_route('get_work_trip', '/work_trip/{id}', request_method='GET')
+
+    config.add_route('get_all_filestorages', '/filestorage', request_method='GET')  # for front - Remove

@@ -70,7 +70,7 @@ class ConstructionObjectSchema(colander.MappingSchema):
         colander.Int(),
         name='weight',
         validator=colander.Range(
-            min=0,
+            min=1,
             max=100,
             min_err='Вес объекта не может быть отрицательным',
             max_err='Слишком большой вес объекта'
