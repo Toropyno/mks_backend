@@ -3,6 +3,7 @@ from pyramid.view import view_config, view_defaults
 
 from mks_backend.controllers.schemas.object_file import ObjectFileSchema
 from mks_backend.serializers.object_file import ObjectFileSerializer
+from mks_backend.services.filestorage import FilestorageService
 from mks_backend.services.object_file import ObjectFileService
 
 from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
@@ -16,11 +17,13 @@ class ObjectFileController:
         self.service = ObjectFileService()
         self.serializer = ObjectFileSerializer()
         self.schema = ObjectFileSchema()
+        self.service_filestorage = FilestorageService()
 
     @view_config(route_name='get_all_object_files')
     def get_all_object_files(self):
         object_files = self.service.get_all_object_files()
-        return self.serializer.convert_list_to_json(object_files)
+        obj_files = self.get_object_files_with_file_info(object_files)
+        return obj_files
 
     @handle_db_error
     @handle_colander_error
@@ -58,4 +61,19 @@ class ObjectFileController:
     def get_object_file(self):
         id = int(self.request.matchdict['id'])
         object_file = self.service.get_object_file_by_id(id)
-        return self.serializer.convert_object_to_json(object_file)
+        file_info = self.service_filestorage.get_file_info_if_idfilestorage(object_file.idfilestorage)
+        return self.serializer.convert_object_to_json(object_file, file_info)
+
+    @view_config(route_name='get_object_files_by_object', renderer='json')
+    def get_object_files_by_object(self):
+        object_id = int(self.request.matchdict['id'])
+        object_files = self.service.get_object_files_by_object(object_id)
+        obj_files = self.get_object_files_with_file_info(object_files)
+        return obj_files
+
+    def get_object_files_with_file_info(self, object_files):
+        obj_files = []
+        for obj in object_files:
+            file_info = self.service_filestorage.get_file_info_if_idfilestorage(obj.idfilestorage)
+            obj_files.append(self.serializer.convert_object_to_json(obj, file_info))
+        return obj_files

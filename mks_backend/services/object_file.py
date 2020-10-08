@@ -1,5 +1,6 @@
 from mks_backend.models.object_file import ObjectFile
 from mks_backend.repositories.object_file import ObjectFileRepository
+from mks_backend.services.construction_object import ConstructionObjectService
 from mks_backend.services.filestorage import FilestorageService
 
 
@@ -8,6 +9,7 @@ class ObjectFileService:
     def __init__(self):
         self.repo = ObjectFileRepository()
         self.service_filestorage = FilestorageService()
+        self.service_object = ConstructionObjectService()
 
     def get_fields_all_object_files(self) -> list:
         return self.repo.get_fields_all_object_files()
@@ -30,3 +32,8 @@ class ObjectFileService:
     def set_upload_date(self, object_file_deserialized):
         filestorage = self.service_filestorage.get_filestorage_by_id(object_file_deserialized['idFileStorage'])
         object_file_deserialized['uploadDate'] = filestorage.createdOn
+
+    def get_object_files_by_object(self, object_id: int) -> list:
+        construction_object = self.service_object.get_construction_object_by_id(object_id)
+        if construction_object:
+            return construction_object.object_files

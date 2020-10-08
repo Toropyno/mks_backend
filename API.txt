@@ -421,7 +421,7 @@ Method: POST
 
 {
     "idFileStorage": "497d437f-d374-4e22-b056-789bc36edf89",
-    "constructionObjects": 15,
+    "constructionObjectId": 15,
     "note": "...This is description for ObjectFile"
 }
 
@@ -435,9 +435,42 @@ Method: PUT
 
 {
     "idFileStorage": "497d437f-d374-4e22-b056-789bc36edf89",
-    "constructionObjects": 15,
+    "constructionObjectId": 15,
     "note": "...This is description for ObjectFile"
 }
+
+---
+
+---GET by object
+
+Description: Get object_files by object
+Route: 'construction_object/{id}/object_files'
+Method: GET
+
+[
+    {
+        "id": 10,
+        "file": {
+            "idFileStorage": "011cd637-1b9e-4c0d-ac8e-9bae4d57ef24",
+            "name": "ATT00001 (3).txt",
+            "size": "1.10Кб"
+        },
+        "constructionObjectId": 1,
+        "uploadDate": "29.09.2020 18:18:47",
+        "note": "description"
+    },
+    {
+        "id": 15,
+        "file": {
+            "idFileStorage": "26b55623-f6c2-4e04-9f0d-0342495ff980",
+            "name": "ATT00001 (3).txt",
+            "size": "1.10Кб"
+        },
+        "constructionObjectId": 1,
+        "uploadDate": "06.10.2020 14:58:22",
+        "note": "This is description"
+    }
+]
 
 ---
 

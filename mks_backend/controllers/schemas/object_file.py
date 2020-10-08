@@ -7,7 +7,7 @@ class ObjectFileSchema(colander.MappingSchema):
 
     construction_objects_id = colander.SchemaNode(
         colander.Int(),
-        name='constructionObjects',
+        name='constructionObjectId',
         validator=colander.Range(
             min=0,
             min_err='Недопустимое значение объекта'
