@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
 from mks_backend.serializers.filestorage import FileStorageSerializer
@@ -30,6 +32,6 @@ class ConstructionDocumentSerializer:
     def convert_list_to_json(self, construction_documents: list) -> list:
         return list(map(self.convert_object_to_json, construction_documents))
 
-    def get_upload_date(self, upload_date):
+    def get_upload_date(self, upload_date: datetime) -> str:
         if upload_date:
             return get_date_time_string(upload_date)

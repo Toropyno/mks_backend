@@ -10,7 +10,6 @@ from mks_backend.services.construction import ConstructionService
 
 from mks_backend.errors.colander_error import get_collander_error_dict
 from mks_backend.errors.db_basic_error import DBBasicError
-from mks_backend.services.construction_object import ConstructionObjectService
 
 
 class ConstructionController:
@@ -22,7 +21,6 @@ class ConstructionController:
         self.schema = ConstructionSchema()
         self.filter_schema = ConstructionFilterSchema()
         self.coordinate_serializer = CoordinateSerializer()
-        self.object_service = ConstructionObjectService()
 
     @view_config(route_name='get_all_constructions', renderer='json')
     def get_all_constructions(self):
@@ -98,5 +96,8 @@ class ConstructionController:
     def get_construction(self):
         id = int(self.request.matchdict['id'])
         construction = self.service.get_construction_by_id(id)
-        object_calc = self.object_service.get_construction_objects_calculated(id)
-        return self.serializer.convert_object_to_json(construction, object_calc)
+
+        objects_calculated = self.service.get_construction_objects_calculated_for_construction(id)
+
+        return self.serializer.convert_object_calculated_to_json(construction, objects_calculated)
+

@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from mks_backend.models.object_file import ObjectFile
 from mks_backend.serializers.utils.date_and_time import get_date_time_string
 
@@ -14,7 +12,7 @@ class ObjectFileSerializer:
         return {
             'id': object_file.object_files_id,
             'idFileStorage': str(object_file.idfilestorage),
-            'constructionObjects': object_file.construction_objects_id,
+            'constructionObjectId': object_file.construction_objects_id,
             'uploadDate': get_date_time_string(object_file.upload_date),
             'note': object_file.note,
         }
@@ -27,7 +25,7 @@ class ObjectFileSerializer:
 
         object_file.object_files_id = schema.get('id')
         object_file.idfilestorage = schema.get('idFileStorage')
-        object_file.construction_objects_id = schema.get('constructionObjects')
+        object_file.construction_objects_id = schema.get('constructionObjectId')
         object_file.upload_date = schema.get('uploadDate')
         object_file.note = schema.get('note')
 

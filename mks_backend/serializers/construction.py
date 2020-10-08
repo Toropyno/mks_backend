@@ -13,7 +13,7 @@ from mks_backend.serializers.construction_type import ConstructionTypeSerializer
 
 class ConstructionSerializer:
 
-    def convert_object_to_json(self, construction: Construction, object_calc=None) -> dict:
+    def convert_object_to_json(self, construction: Construction) -> dict:
         # return with all subcategories
         category = ConstructionCategorySerializer.convert_object_to_json(
             construction.construction_category
@@ -25,23 +25,6 @@ class ConstructionSerializer:
             )
         else:
             subcategory = None
-
-        if object_calc:
-            plan = object_calc.get('plan'),
-            actually = object_calc.get('actually'),
-            difference = object_calc.get('difference'),
-            entered = object_calc.get('entered'),
-            readiness = object_calc.get('readiness'),
-            workers = object_calc.get('workers'),
-            equipment = object_calc.get('equipment')
-        else:
-            plan = 0,
-            actually = 0
-            difference = 0
-            entered = 0
-            readiness = 0
-            workers = 0
-            equipment = 0
 
         return {
             'id': construction.construction_id,
@@ -65,14 +48,6 @@ class ConstructionSerializer:
             'contractDate': get_date_string(construction.contract_date),
             'objectsAmount': construction.object_amount,
             'plannedDate': get_date_string(construction.planned_date),
-
-            'plan': plan,
-            'actually': actually,
-            'difference': difference,
-            'entered': entered,
-            'readiness': readiness,
-            'workers': workers,
-            'equipment': equipment,
 
             'oksm': OKSMSerializer.convert_object_to_json(
                 construction.oksm
@@ -107,3 +82,33 @@ class ConstructionSerializer:
 
     def convert_list_to_json(self, constructions: list) -> list:
         return list(map(self.convert_object_to_json, constructions))
+
+    def convert_object_calculated_to_json(self, construction: Construction, objects_calculated=None) -> dict:
+        construction = self.convert_object_to_json(construction)
+
+        if objects_calculated:
+            plan = objects_calculated.get('plan'),
+            actually = objects_calculated.get('actually'),
+            difference = objects_calculated.get('difference'),
+            entered_additionally = objects_calculated.get('entered_additionally'),
+            readiness = objects_calculated.get('readiness'),
+            workers = objects_calculated.get('workers'),
+            equipment = objects_calculated.get('equipment')
+        else:
+            plan = 0,
+            actually = 0
+            difference = 0
+            entered_additionally = 0
+            readiness = 0
+            workers = 0
+            equipment = 0
+
+        construction['plan'] = plan
+        construction['actually'] = actually
+        construction['difference'] = difference
+        construction['enteredAdditionally'] = entered_additionally
+        construction['readiness'] = readiness
+        construction['workers'] = workers
+        construction['equipment'] = equipment
+
+        return construction

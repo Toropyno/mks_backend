@@ -1,8 +1,9 @@
 from sqlalchemy import desc
 
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.construction_progress import ConstructionProgress
 from mks_backend.repositories import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ConstructionProgressRepository:
@@ -46,6 +47,3 @@ class ConstructionProgressRepository:
     def get_construction_progress_by_object_last_reporting_date(self, object_id: int) -> ConstructionProgress:
         return DBSession.query(ConstructionProgress).filter_by(construction_objects_id=object_id). \
             order_by(desc(ConstructionProgress.reporting_date)).first()
-
-    def get_all_construction_progress(self) -> list:  # for front - Remove
-        return DBSession.query(ConstructionProgress).all()
