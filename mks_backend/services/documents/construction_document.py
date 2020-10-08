@@ -3,6 +3,7 @@ from datetime import datetime
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
+from mks_backend.services.filestorage import FilestorageService
 
 
 class ConstructionDocumentService:
@@ -10,6 +11,7 @@ class ConstructionDocumentService:
     def __init__(self):
         self.repo = ConstructionDocumentRepository()
         self.repo_object = ConstructionObjectRepository()
+        self.service_filestorage = FilestorageService()
 
     def get_all_construction_documents(self) -> list:
         return self.repo.get_all_construction_documents()
@@ -23,7 +25,7 @@ class ConstructionDocumentService:
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
         self.repo.update_construction_document(construction_document)
 
-    def delete_construction_document_by_id_with_filestorage_cascade(self, id: int) -> None:
+    def delete_construction_document_by_id(self, id: int) -> None:
         construction_document = self.get_construction_document_by_id(id)
         self.repo.delete_construction_document(construction_document)
 
@@ -73,3 +75,9 @@ class ConstructionDocumentService:
             if schema_idfilestorage:
                 construction_document.upload_date = datetime.now()
         return construction_document
+
+    def set_upload_date(self, construction_document_deserialized, old_construction_document):
+        construction_document_deserialized['uploadDate'] = old_construction_document.upload_date
+
+    def get_construction_documents_idfilestorage(self, doc):
+        return self.service_filestorage.get_file_info_if_idfilestorage(doc.idfilestorage)
