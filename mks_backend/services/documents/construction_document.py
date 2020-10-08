@@ -23,7 +23,7 @@ class ConstructionDocumentService:
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
         self.repo.update_construction_document(construction_document)
 
-    def delete_construction_document_by_id_with_filestorage_cascade(self, id: int) -> None:
+    def delete_construction_document_by_id(self, id: int) -> None:
         construction_document = self.get_construction_document_by_id(id)
         self.repo.delete_construction_document(construction_document)
 

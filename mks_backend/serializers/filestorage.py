@@ -6,7 +6,7 @@ from mks_backend.serializers.utils.date_and_time import get_date_time_zone
 class FileStorageSerializer:
 
     @classmethod
-    # @serialize_error_handler
+    @serialize_error_handler
     def convert_object_to_json(cls, filestorage: Filestorage, file_info=None) -> dict:
         return {
             'id': str(filestorage.idfilestorage),

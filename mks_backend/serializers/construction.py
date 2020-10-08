@@ -13,7 +13,7 @@ from mks_backend.serializers.construction_type import ConstructionTypeSerializer
 
 class ConstructionSerializer:
 
-    def convert_object_to_json(self, construction: Construction, object_calc=None) -> dict:
+    def convert_object_to_json(self, construction: Construction, objects_calculated=None) -> dict:
         # return with all subcategories
         category = ConstructionCategorySerializer.convert_object_to_json(
             construction.construction_category
@@ -26,19 +26,19 @@ class ConstructionSerializer:
         else:
             subcategory = None
 
-        if object_calc:
-            plan = object_calc.get('plan'),
-            actually = object_calc.get('actually'),
-            difference = object_calc.get('difference'),
-            entered = object_calc.get('entered'),
-            readiness = object_calc.get('readiness'),
-            workers = object_calc.get('workers'),
-            equipment = object_calc.get('equipment')
+        if objects_calculated:
+            plan = objects_calculated.get('plan'),
+            actually = objects_calculated.get('actually'),
+            difference = objects_calculated.get('difference'),
+            entered_additionally = objects_calculated.get('entered_additionally'),
+            readiness = objects_calculated.get('readiness'),
+            workers = objects_calculated.get('workers'),
+            equipment = objects_calculated.get('equipment')
         else:
             plan = 0,
             actually = 0
             difference = 0
-            entered = 0
+            entered_additionally = 0
             readiness = 0
             workers = 0
             equipment = 0
@@ -69,7 +69,7 @@ class ConstructionSerializer:
             'plan': plan,
             'actually': actually,
             'difference': difference,
-            'entered': entered,
+            'enteredAdditionally': entered_additionally,
             'readiness': readiness,
             'workers': workers,
             'equipment': equipment,

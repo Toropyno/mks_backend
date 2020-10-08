@@ -87,21 +87,22 @@ class ConstructionObjectService:
         return construction_object
 
     def get_construction_objects_calculated(self, id: int) -> dict:
-        construction_objects = self.get_all_construction_objects_by_construction_id(id)
-        now_year = datetime.now().year
         plan = 0
         actually = 0
-        entered = 0
+        entered_additionally = 0
         readiness = 0
         workers = 0
         equipment = 0
 
-        for co in construction_objects:
-            plan += self.get_count_planned_this_year(co, now_year)
-            actually += self.get_actually_entered(co, now_year)
-            entered += self.get_entered_additionally(co, now_year)
+        now_year = datetime.now().year
+        construction_objects = self.get_all_construction_objects_by_construction_id(id)
 
-            progress = self.get_progress_calculated(co)
+        for constr_object in construction_objects:
+            plan += get_count_planned_this_year(constr_object.planned_date.year, now_year)
+            actually += get_actually_entered(constr_object, now_year)
+            entered_additionally += get_entered_additionally(constr_object, now_year)
+
+            progress = self.get_progress_calculated(constr_object)
             if progress:
                 readiness += progress.get('readiness')
                 workers += progress.get('workers')
@@ -111,40 +112,45 @@ class ConstructionObjectService:
             'plan': plan,
             'actually': actually,
             'difference': abs(plan - actually),
-            'entered': entered,
+            'entered_additionally': entered_additionally,
             'readiness': readiness,
             'workers': workers,
             'equipment': equipment,
         }
 
-    def get_entered_additionally(self, co, now_year):
-        co.fact_date = co.planned_date  # remove after added fact_date in frontend
-
-        if co.fact_date:
-            if (co.planned_date.year != now_year) & (co.fact_date.year == now_year):
-                return 1
-        return 0
-
-    def get_actually_entered(self, co, now_year):
-        co.fact_date = co.planned_date  # remove after added fact_date in frontend
-
-        if co.fact_date:
-            if (co.planned_date.year == now_year) & (co.fact_date.year == now_year):
-                return 1
-        return 0
-
-    def get_count_planned_this_year(self, co, now_year):
-        if (co.planned_date.year == now_year):
-            return 1
-        return 0
-
-    def get_progress_calculated(self, co):
+    def get_progress_calculated(self, constr_object):
         last_construction_progress = self.progress_service.get_construction_progress_by_object_last_reporting_date(
-            co.construction_objects_id
+            constr_object.construction_objects_id
         )
         if last_construction_progress:
             return {
-                'readiness': float(last_construction_progress.readiness) * 0.01 * co.weight,
+                'readiness': float(last_construction_progress.readiness) * 0.01 * constr_object.weight,
                 'workers': last_construction_progress.people,
                 'equipment': last_construction_progress.equipment,
             }
+
+
+def get_count_planned_this_year(planned_year, now_year):
+    if planned_year == now_year:
+        return 1
+    return 0
+
+
+def get_actually_entered(constr_object, now_year):
+    constr_object.fact_date = constr_object.planned_date
+    # remove co.fact_date = co.planned_date, after added fact_date in frontend
+
+    if constr_object.fact_date:
+        if (constr_object.planned_date.year == now_year) & (constr_object.fact_date.year == now_year):
+            return 1
+    return 0
+
+
+def get_entered_additionally(constr_object, now_year):
+    constr_object.fact_date = constr_object.planned_date
+    # remove co.fact_date = co.planned_date, after added fact_date in frontend
+
+    if constr_object.fact_date:
+        if (constr_object.planned_date.year != now_year) & (constr_object.fact_date.year == now_year):
+            return 1
+    return 0

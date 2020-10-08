@@ -45,7 +45,7 @@ class ConstructionDocumentController:
     @view_config(route_name='delete_construction_document', renderer='json')
     def delete_construction_document(self):
         id = int(self.request.matchdict['id'])
-        self.service.delete_construction_document_by_id_with_filestorage_cascade(id)
+        self.service.delete_construction_document_by_id(id)
         return {'id': id}
 
     @handle_db_error
