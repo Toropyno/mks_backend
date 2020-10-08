@@ -21,3 +21,36 @@ class WorkTripService:
 
     def delete_work_trip_by_id(self, id: int) -> None:
         self.repo.delete_work_trip_by_id(id)
+
+    def get_work_trips(self, filter_params=None):
+        if filter_params:
+            params = self.switch_case(filter_params)
+            return self.repo.get_filtered_work_trips(params)
+        else:
+            return self.repo.get_all_work_trips()
+
+    def switch_case(self, filter_params: dict) -> dict:
+        case_switcher = {
+            'tripName': 'trip_name',
+            'tripDateStart': 'trip_date_start',
+            'tripDateEnd': 'trip_date_end',
+            'leadershipPosition': 'leadership_positions_id',
+            'escortOfficer': 'escort_officer',
+
+            'haveProtocol': 'have_protocol',
+            'protocolDateStart': 'protocol_date_start',
+            'protocolDateEnd': 'protocol_date_end',
+            'protocolNumber': 'protocol_num',
+
+            'projectCode': 'project_code',
+            'isCritical': 'is_critical',
+            'fiasSubject': 'fias_subject',
+        }
+
+        params = dict()
+        for key, value in filter_params.items():
+            if key in case_switcher and value is not None:
+                params[case_switcher[key]] = filter_params[key]
+
+        return params
+

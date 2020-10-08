@@ -43,6 +43,11 @@ class WorkTrip(Base):
         'Protocol',
     )
 
+    constructions = relationship(
+        'Construction',
+        secondary='visited_objects'
+    )
+
     def __str__(self):
         return 'Поездка руководства id={id}, name={name}, leader={leader}, protocol={protocol}'.format(
             id=self.work_trips_id,
