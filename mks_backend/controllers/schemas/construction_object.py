@@ -165,7 +165,7 @@ class ConstructionObjectSchema(colander.MappingSchema):
 
     realty_types_id = colander.SchemaNode(
         colander.Int(),
-        name='realtyTypeId',
+        name='realtyType',
         validator=colander.Range(
             min=0,
             min_err='Недопустимое значение типа недвижимости'

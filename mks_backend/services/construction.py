@@ -1,5 +1,6 @@
 from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction import ConstructionRepository
+from mks_backend.services.construction_object import ConstructionObjectService
 from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.subcategory_list import SubcategoryListService
 
@@ -10,6 +11,7 @@ class ConstructionService:
         self.repo = ConstructionRepository()
         self.subcategory_list_service = SubcategoryListService()
         self.coordinate_service = CoordinateService()
+        self.object_service = ConstructionObjectService()
 
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
@@ -97,3 +99,6 @@ class ConstructionService:
                 params[case_switcher[key]] = params_deserilized[key]
 
         return params
+
+    def get_construction_objects_calculated_for_construction(self, id):
+        return self.object_service.get_construction_objects_calculated(id)

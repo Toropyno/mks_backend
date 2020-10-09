@@ -37,8 +37,8 @@ class MeetingController:
         self.service.delete_meeting_type_by_id(id)
         return {'id': id}
 
-    # @handle_db_error
-    # @handle_colander_error
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='edit_meeting_type')
     def edit_meeting_type(self):
         id = self.request.matchdict['id']

@@ -3,12 +3,12 @@ from datetime import datetime as DateTime
 
 
 def get_date_string(date: Date) -> str:
-    return date.strftime("%Y,%m,%d")
+    return date.strftime('%Y,%m,%d')
 
 
 def get_date_time_string(date_time: DateTime) -> str:
-    return date_time.strftime("%d.%m.%Y %H:%M:%S")
+    return date_time.strftime('%d.%m.%Y %H:%M:%S')
 
 
 def get_date_time_zone(date_time: DateTime) -> str:
-    return date_time.strftime("%d.%m.%Y %H:%M:%S %Z")
+    return date_time.strftime('%d.%m.%Y %H:%M:%S %Z')

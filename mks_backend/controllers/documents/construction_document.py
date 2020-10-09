@@ -26,7 +26,7 @@ class ConstructionDocumentController:
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
         construction_document = self.service.get_construction_document_by_id(id)
-        file_info = self.service.get_construction_documents_idfilestorage(construction_document)
+        file_info = self.service.get_file_info_by_idfilestorage(construction_document.idfilestorage)
         return self.serializer.convert_object_to_json(construction_document, file_info)
 
     @handle_db_error
@@ -80,9 +80,9 @@ class ConstructionDocumentController:
         documents = self.get_construction_documents_with_file_info(construction_documents)
         return documents
 
-    def get_construction_documents_with_file_info(self, construction_documents):
+    def get_construction_documents_with_file_info(self, construction_documents) -> list:
         documents = []
         for doc in construction_documents:
-            file_info = self.service.get_construction_documents_idfilestorage(doc)
+            file_info = self.service.get_file_info_by_idfilestorage(doc.idfilestorage)
             documents.append(self.serializer.convert_object_to_json(doc, file_info))
         return documents

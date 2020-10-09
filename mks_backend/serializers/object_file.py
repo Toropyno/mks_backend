@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from mks_backend.models.object_file import ObjectFile
 from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_time_string
@@ -18,7 +16,7 @@ class ObjectFileSerializer:
         )
         return {
             'id': object_file.object_files_id,
-            "file": file_info,
+            'file': file_info,
             'constructionObjectId': object_file.construction_objects_id,
             'uploadDate': get_date_time_string(object_file.upload_date),
             'note': object_file.note,

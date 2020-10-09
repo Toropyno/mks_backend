@@ -29,7 +29,6 @@ class RealtyTypeRepository:
                 'fullname': new_realty_type.fullname,
             }
         )
-
         DBSession.commit()
 
     def get_realty_type_by_id(self, id: int) -> RealtyType:

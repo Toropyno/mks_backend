@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID
 
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
@@ -79,5 +80,6 @@ class ConstructionDocumentService:
     def set_upload_date(self, construction_document_deserialized, old_construction_document):
         construction_document_deserialized['uploadDate'] = old_construction_document.upload_date
 
-    def get_construction_documents_idfilestorage(self, doc):
-        return self.service_filestorage.get_file_info_if_idfilestorage(doc.idfilestorage)
+    def get_file_info_by_idfilestorage(self, idfilestorage: UUID) -> dict:
+        return self.service_filestorage.get_file_info_if_idfilestorage(idfilestorage)
+
