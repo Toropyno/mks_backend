@@ -19,10 +19,32 @@ Route: 'construction_object/{id}/filestorages'
 Method: GET
 
 
-# --- meetings ---
+# --- meeting ---
 
-Description: get all meeting types
-Route: 'meeting'
+Description: Get all meeting
+Route: '/meeting_type'
+Method: GET
+
+Description: Add meeting
+Route: '/meeting_type'
+Method: POST
+
+{
+    "fullName": "full name 1"
+}
+
+---
+
+Description: Delete meeting
+Route: '/meeting_type/{id}'
+Method: DELETE
+
+Description: Edit meeting
+Route: '/meeting_type/{id}'
+Method: PUT
+
+Description: Get meeting
+Route: '/meeting_type/{id}'
 Method: GET
 
 

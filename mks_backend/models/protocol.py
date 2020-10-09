@@ -32,7 +32,8 @@ class Protocol(Base):
     )
 
     meeting = relationship(
-        'Meeting'
+        'Meeting',
+        back_populates='protocols'
     )
 
     filestorage = relationship(
