@@ -38,8 +38,8 @@ class ObjectFileSchema(colander.MappingSchema):
         validator=colander.Length(
             min=1,
             max=1000,
-            min_err='Слишком короткое наименование',
-            max_err='Слишком длинное наименование'
+            min_err='Слишком короткое примечание',
+            max_err='Слишком длинное примечание'
         ),
         missing=None
     )

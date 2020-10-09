@@ -11,14 +11,11 @@ class ObjectFileService:
         self.service_filestorage = FilestorageService()
         self.service_object = ConstructionObjectService()
 
-    def get_fields_all_object_files(self) -> list:
-        return self.repo.get_fields_all_object_files()
+    def get_all_object_files(self) -> list:
+        return self.repo.get_all_object_files()
 
     def get_object_file_by_id(self, id: int) -> ObjectFile:
         return self.repo.get_object_file_by_id(id)
-
-    def get_all_object_files(self) -> list:
-        return self.repo.get_fields_all_object_files()
 
     def add_object_file(self, object_file: ObjectFile) -> None:
         self.repo.add_object_file(object_file)

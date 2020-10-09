@@ -6,7 +6,6 @@ from mks_backend.serializers.documents.construction_document import Construction
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
-from mks_backend.services.filestorage import FilestorageService
 
 
 class ConstructionDocumentController:
@@ -16,7 +15,6 @@ class ConstructionDocumentController:
         self.serializer = ConstructionDocumentSerializer()
         self.service = ConstructionDocumentService()
         self.schema = ConstructionDocumentSchema()
-        self.service_filestorage = FilestorageService()
 
     @view_config(route_name='get_all_construction_documents', renderer='json')
     def get_all_construction_documents(self):
@@ -28,7 +26,7 @@ class ConstructionDocumentController:
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
         construction_document = self.service.get_construction_document_by_id(id)
-        file_info = self.service_filestorage.get_file_info_if_idfilestorage(construction_document.idfilestorage)
+        file_info = self.service.get_construction_documents_idfilestorage(construction_document)
         return self.serializer.convert_object_to_json(construction_document, file_info)
 
     @handle_db_error
@@ -58,7 +56,7 @@ class ConstructionDocumentController:
         old_construction_document = self.service.get_construction_document_by_id(id)
 
         construction_document_deserialized['id'] = id
-        construction_document_deserialized['uploadDate'] = old_construction_document.upload_date
+        self.service.set_upload_date(construction_document_deserialized, old_construction_document)
 
         construction_document = self.service.convert_schema_to_object(
             construction_document_deserialized,
@@ -85,6 +83,6 @@ class ConstructionDocumentController:
     def get_construction_documents_with_file_info(self, construction_documents):
         documents = []
         for doc in construction_documents:
-            file_info = self.service_filestorage.get_file_info_if_idfilestorage(doc.idfilestorage)
+            file_info = self.service.get_construction_documents_idfilestorage(doc)
             documents.append(self.serializer.convert_object_to_json(doc, file_info))
         return documents

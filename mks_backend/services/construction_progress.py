@@ -29,6 +29,3 @@ class ConstructionProgressService:
 
     def get_construction_progress_by_object_last_reporting_date(self, objects_id: int):
         return self.repo.get_construction_progress_by_object_last_reporting_date(objects_id)
-
-    def get_all_construction_progress(self) -> list:  # for front - Remove
-        return self.repo.get_all_construction_progress()
