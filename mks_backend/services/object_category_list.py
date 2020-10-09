@@ -13,14 +13,5 @@ class ObjectCategoryListService:
     def get_object_categories_list_by_id(self, id: int) -> ObjectCategoryList:
         return self.repo.get_object_categories_list_by_id(id)
 
-    def add_object_categories_list(self, object_categories_list: ObjectCategoryList) -> None:
-        self.repo.add_object_categories_list(object_categories_list)
-
-    def delete_object_categories_list_by_id(self, id: int) -> None:
-        self.repo.delete_object_categories_list_by_id(id)
-
-    def update_object_categories_list(self, new_object_categories_list: ObjectCategoryList) -> None:
-        self.repo.update_object_categories_list(new_object_categories_list)
-
     def get_object_categories_list_by_relations(self, zone_id, object_category_id) -> ObjectCategoryList:
         return self.repo.get_object_categories_list_by_relations(zone_id, object_category_id)

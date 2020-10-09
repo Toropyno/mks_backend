@@ -33,7 +33,7 @@ class ProgressStatusController:
 
     @view_config(route_name='delete_progress_status')
     def delete_progress_status(self):
-        id = self.get_id()
+        id = self.request.matchdict['id']
         self.service.delete_progress_status_by_id(id)
         return {'id': id}
 
@@ -41,18 +41,16 @@ class ProgressStatusController:
     @handle_colander_error
     @view_config(route_name='edit_progress_status')
     def edit_progress_status(self):
+        id = self.request.matchdict['id']
         progress_status_deserialized = self.schema.deserialize(self.request.json_body)
-        progress_status_deserialized['id'] = self.get_id()
-
+        progress_status_deserialized['id'] = id
         new_progress_status = self.serializer.convert_schema_to_object(progress_status_deserialized)
         self.service.update_progress_status(new_progress_status)
-        return {'id': new_progress_status.progress_statuses_id}
+        return {'id': id}
 
     @view_config(route_name='get_progress_status')
     def get_progress_status(self):
-        id = self.get_id()
+        id = self.request.matchdict['id']
         progress_status = self.service.get_progress_status_by_id(id)
         return self.serializer.convert_object_to_json(progress_status)
 
-    def get_id(self):
-        return int(self.request.matchdict['id'])

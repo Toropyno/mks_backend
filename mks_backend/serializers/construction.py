@@ -30,11 +30,17 @@ class ConstructionSerializer:
             'id': construction.construction_id,
             'code': construction.project_code,
             'name': construction.project_name,
+            'constructionType': ConstructionTypeSerializer.convert_object_to_json(
+                construction.type
+            ),
             'category': category,
             'subcategory': subcategory,
             'isCritical': construction.is_critical,
             'commission': CommissionSerializer.convert_object_to_json(
                 construction.commission
+            ),
+            'constructionCompany': ConstructionCompanySerializer.convert_object_to_json(
+                construction.construction_company
             ),
             'militaryUnit': MilitaryUnitSerializer.convert_object_to_json(
                 construction.military_unit
@@ -42,17 +48,12 @@ class ConstructionSerializer:
             'contractDate': get_date_string(construction.contract_date),
             'objectsAmount': construction.object_amount,
             'plannedDate': get_date_string(construction.planned_date),
-            'constructionType': ConstructionTypeSerializer.convert_object_to_json(
-                construction.type
+
+            'oksm': OKSMSerializer.convert_object_to_json(
+                construction.oksm
             ),
             'locationType': LocationTypeSerializer.convert_object_to_json(
                 construction.location_type
-            ),
-            'constructionCompany': ConstructionCompanySerializer.convert_object_to_json(
-                construction.construction_company
-            ),
-            'oksm': OKSMSerializer.convert_object_to_json(
-                construction.oksm
             ),
             'fias': {
                 'subject': {
@@ -81,3 +82,33 @@ class ConstructionSerializer:
 
     def convert_list_to_json(self, constructions: list) -> list:
         return list(map(self.convert_object_to_json, constructions))
+
+    def convert_object_calculated_to_json(self, construction: Construction, objects_calculated=None) -> dict:
+        construction = self.convert_object_to_json(construction)
+
+        if objects_calculated:
+            plan = objects_calculated.get('plan'),
+            actually = objects_calculated.get('actually'),
+            difference = objects_calculated.get('difference'),
+            entered_additionally = objects_calculated.get('entered_additionally'),
+            readiness = objects_calculated.get('readiness'),
+            workers = objects_calculated.get('workers'),
+            equipment = objects_calculated.get('equipment')
+        else:
+            plan = 0,
+            actually = 0
+            difference = 0
+            entered_additionally = 0
+            readiness = 0
+            workers = 0
+            equipment = 0
+
+        construction['plan'] = plan
+        construction['actually'] = actually
+        construction['difference'] = difference
+        construction['enteredAdditionally'] = entered_additionally
+        construction['readiness'] = readiness
+        construction['workers'] = workers
+        construction['equipment'] = equipment
+
+        return construction

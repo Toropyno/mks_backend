@@ -406,6 +406,40 @@ Description: Get all object_file
 Route: '/object_file'
 Method: GET
 
+Description: Get object_file
+Route: '/object_file/{id}'
+Method: GET
+
+Description: Delete object_file
+Route: '/object_file/{id}'
+
+---POST
+
+Description: Add object_file
+Route: '/object_file'
+Method: POST
+
+{
+    "idFileStorage": "497d437f-d374-4e22-b056-789bc36edf89",
+    "constructionObjects": 15,
+    "note": "...This is description for ObjectFile"
+}
+
+---
+
+---PUT
+
+Description: Edit object_file
+Route: '/object_file/{id}'
+Method: PUT
+
+{
+    "idFileStorage": "497d437f-d374-4e22-b056-789bc36edf89",
+    "constructionObjects": 15,
+    "note": "...This is description for ObjectFile"
+}
+
+---
 
 # --- measure_unit ---
 
@@ -554,4 +588,11 @@ ElementType {
 ProgressStatus {
     id          Integer
     fullName    String
+}
+
+ObjectFile {
+    idFileStorage       String
+    constructionObjects Integer
+    note                String
+    uploadDate          String
 }

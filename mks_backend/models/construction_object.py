@@ -101,12 +101,6 @@ class ConstructionObject(Base):
         back_populates='parent'
     )
 
-    file_storage = relationship(
-        'Filestorage',
-        secondary='object_files',
-        back_populates='parent'
-    )
-
     realty_type = relationship(
         'RealtyType',
     )
@@ -114,4 +108,10 @@ class ConstructionObject(Base):
     worklist = relationship(
         'WorkList',
         back_populates='construction_object'
+    )
+
+    object_files = relationship(
+        'ObjectFile',
+        back_populates='construction_object',
+        passive_deletes=True,
     )

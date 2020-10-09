@@ -11,11 +11,22 @@ class ObjectFileSerializer:
     def convert_object_to_json(cls, object_file: ObjectFile) -> dict:
         return {
             'id': object_file.object_files_id,
-            'idFileStorage': object_file.idfilestorage,
-            'constructionObjects': object_file.construction_objects_id,
+            'idFileStorage': str(object_file.idfilestorage),
+            'constructionObjectId': object_file.construction_objects_id,
             'uploadDate': get_date_time_string(object_file.upload_date),
-            'note': object_file.upload_date,
+            'note': object_file.note,
         }
 
     def convert_list_to_json(self, object_files_list: list) -> list:
         return list(map(self.convert_object_to_json, object_files_list))
+
+    def convert_schema_to_object(self, schema: dict) -> ObjectFile:
+        object_file = ObjectFile()
+
+        object_file.object_files_id = schema.get('id')
+        object_file.idfilestorage = schema.get('idFileStorage')
+        object_file.construction_objects_id = schema.get('constructionObjectId')
+        object_file.upload_date = schema.get('uploadDate')
+        object_file.note = schema.get('note')
+
+        return object_file

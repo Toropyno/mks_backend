@@ -103,6 +103,11 @@ def includeme(config):
     config.add_route('edit_construction_progress', '/construction_progress/{id}', request_method='PUT')
     config.add_route('delete_construction_progress', '/construction_progress/{id}', request_method='DELETE')
 
+    config.add_route('get_all_construction_progresses',
+                     '/construction_progress',
+                     request_method='GET'
+                     )  # for front - Remove
+
     config.add_route('get_all_location_types', '/location_type', request_method='GET')
     config.add_route('add_location_type', '/location_type', request_method='POST')
     config.add_route('delete_location_type', '/location_type/{id}', request_method='DELETE')
@@ -152,6 +157,10 @@ def includeme(config):
     config.add_route('get_measure_unit', '/measure_unit/{id}', request_method='GET')
 
     config.add_route('get_all_object_files', '/object_file', request_method='GET')
+    config.add_route('add_object_file', '/object_file', request_method='POST')
+    config.add_route('delete_object_file', '/object_file/{id}', request_method='DELETE')
+    config.add_route('edit_object_file', '/object_file/{id}', request_method='PUT')
+    config.add_route('get_object_file', '/object_file/{id}', request_method='GET')
 
     config.add_route(
         'get_work_list_for_construction_object',

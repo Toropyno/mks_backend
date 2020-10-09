@@ -1,4 +1,9 @@
-from sqlalchemy import Column, Integer, VARCHAR, UniqueConstraint
+from sqlalchemy import (
+    Column,
+    Integer,
+    VARCHAR,
+    UniqueConstraint
+)
 
 from mks_backend.models import Base
 

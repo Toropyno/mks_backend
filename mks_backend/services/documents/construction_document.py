@@ -1,7 +1,10 @@
+from datetime import datetime
+from uuid import UUID
+
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
-from mks_backend.repositories.filestorage import FilestorageRepository
+from mks_backend.services.filestorage import FilestorageService
 
 
 class ConstructionDocumentService:
@@ -9,6 +12,7 @@ class ConstructionDocumentService:
     def __init__(self):
         self.repo = ConstructionDocumentRepository()
         self.repo_object = ConstructionObjectRepository()
+        self.service_filestorage = FilestorageService()
 
     def get_all_construction_documents(self) -> list:
         return self.repo.get_all_construction_documents()
@@ -22,12 +26,9 @@ class ConstructionDocumentService:
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
         self.repo.update_construction_document(construction_document)
 
-    def delete_construction_document_by_id_with_filestorage_cascade(self, id: int) -> None:
+    def delete_construction_document_by_id(self, id: int) -> None:
         construction_document = self.get_construction_document_by_id(id)
-        file_storage_id = construction_document.idfilestorage
         self.repo.delete_construction_document(construction_document)
-        if file_storage_id:
-            FilestorageRepository.delete_filestorage_by_id(file_storage_id)
 
     def get_many_construction_documents_by_id(self, ids: list) -> list:
         return self.repo.get_many_construction_documents_by_id(ids)
@@ -43,3 +44,41 @@ class ConstructionDocumentService:
         if construction_documents:
             return construction_documents
         return []
+
+    def set_upload_date_now(self, construction_document_deserialized):
+        construction_document_deserialized['uploadDate'] = datetime.now()
+
+    def convert_schema_to_object(self, schema_dict: dict, old_idfilestorage=None) -> ConstructionDocument:
+        construction_document = ConstructionDocument()
+
+        construction_document.idfilestorage = schema_dict.get('idFileStorage')
+        construction_document.upload_date = schema_dict.get('uploadDate')
+        if old_idfilestorage:
+            construction_document = self.update_idfilestorage_with_upload_date(construction_document, old_idfilestorage)
+
+        construction_document.construction_documents_id = schema_dict.get('id')
+        construction_document.construction_id = schema_dict.get('constructionId')
+        construction_document.doctypes_id = schema_dict.get('docTypesId')
+        construction_document.doc_number = schema_dict.get('docNumber')
+        construction_document.doc_date = schema_dict.get('docDate')
+        construction_document.doc_name = schema_dict.get('docName')
+        construction_document.note = schema_dict.get('note')
+
+        return construction_document
+
+    def update_idfilestorage_with_upload_date(self, construction_document, old_idfilestorage):
+        schema_idfilestorage = construction_document.idfilestorage
+        if old_idfilestorage:
+            if str(old_idfilestorage) != str(schema_idfilestorage):
+                construction_document.idfilestorage = schema_idfilestorage
+                construction_document.upload_date = datetime.now()
+        else:
+            if schema_idfilestorage:
+                construction_document.upload_date = datetime.now()
+        return construction_document
+
+    def set_upload_date(self, construction_document_deserialized, old_construction_document):
+        construction_document_deserialized['uploadDate'] = old_construction_document.upload_date
+
+    def get_file_info_by_idfilestorage(self, idfilestorage: UUID) -> dict:
+        return self.service_filestorage.get_file_info_if_idfilestorage(idfilestorage)

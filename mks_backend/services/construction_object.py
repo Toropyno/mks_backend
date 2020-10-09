@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
@@ -83,3 +85,72 @@ class ConstructionObjectService:
         construction_object.fact_date = schema.get('factDate')
 
         return construction_object
+
+    def get_construction_objects_calculated(self, id: int) -> dict:
+        plan = 0
+        actually = 0
+        entered_additionally = 0
+        readiness = 0
+        workers = 0
+        equipment = 0
+
+        now_year = datetime.now().year
+        construction_objects = self.get_all_construction_objects_by_construction_id(id)
+
+        for constr_object in construction_objects:
+            plan += check_planned_year_is_now_year(constr_object.planned_date.year, now_year)
+            actually += check_actually_entered(constr_object, now_year)
+            entered_additionally += check_entered_additionally(constr_object, now_year)
+
+            progress = self.get_progress_calculated(constr_object)
+            if progress:
+                readiness += progress.get('readiness')
+                workers += progress.get('workers')
+                equipment += progress.get('equipment')
+
+        return {
+            'plan': plan,
+            'actually': actually,
+            'difference': abs(plan - actually),
+            'entered_additionally': entered_additionally,
+            'readiness': readiness,
+            'workers': workers,
+            'equipment': equipment,
+        }
+
+    def get_progress_calculated(self, constr_object):
+        last_construction_progress = self.progress_service.get_construction_progress_by_object_last_reporting_date(
+            constr_object.construction_objects_id
+        )
+        if last_construction_progress:
+            return {
+                'readiness': float(last_construction_progress.readiness) * 0.01 * constr_object.weight,
+                'workers': last_construction_progress.people,
+                'equipment': last_construction_progress.equipment,
+            }
+
+
+def check_planned_year_is_now_year(planned_year, now_year):
+    if planned_year == now_year:
+        return 1
+    return 0
+
+
+def check_actually_entered(constr_object, now_year):
+    constr_object.fact_date = constr_object.planned_date
+    # remove co.fact_date = co.planned_date, after added fact_date in frontend
+
+    if constr_object.fact_date:
+        if (constr_object.planned_date.year == now_year) and (constr_object.fact_date.year == now_year):
+            return 1
+    return 0
+
+
+def check_entered_additionally(constr_object, now_year):
+    constr_object.fact_date = constr_object.planned_date
+    # remove co.fact_date = co.planned_date, after added fact_date in frontend
+
+    if constr_object.fact_date:
+        if (constr_object.planned_date.year != now_year) and (constr_object.fact_date.year == now_year):
+            return 1
+    return 0
