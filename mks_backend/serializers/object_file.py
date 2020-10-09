@@ -1,4 +1,5 @@
 from mks_backend.models.object_file import ObjectFile
+from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_time_string
 
 from mks_backend.errors.serilize_error import serialize_error_handler
@@ -8,10 +9,14 @@ class ObjectFileSerializer:
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, object_file: ObjectFile) -> dict:
+    def convert_object_to_json(cls, object_file: ObjectFile, file_info=None) -> dict:
+        file_info = FileStorageSerializer.convert_file_info_with_idfilestorage(
+            object_file.idfilestorage,
+            file_info,
+        )
         return {
             'id': object_file.object_files_id,
-            'idFileStorage': str(object_file.idfilestorage),
+            'file': file_info,
             'constructionObjectId': object_file.construction_objects_id,
             'uploadDate': get_date_time_string(object_file.upload_date),
             'note': object_file.note,

@@ -82,3 +82,4 @@ class ConstructionDocumentService:
 
     def get_file_info_by_idfilestorage(self, idfilestorage: UUID) -> dict:
         return self.service_filestorage.get_file_info_if_idfilestorage(idfilestorage)
+

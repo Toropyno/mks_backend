@@ -19,10 +19,32 @@ Route: 'construction_object/{id}/filestorages'
 Method: GET
 
 
-# --- meetings ---
+# --- meeting ---
 
-Description: get all meeting types
-Route: 'meeting'
+Description: Get all meetings
+Route: '/meeting_type'
+Method: GET
+
+Description: Add meeting
+Route: '/meeting_type'
+Method: POST
+
+{
+    "fullName": "full name 1"
+}
+
+---
+
+Description: Delete meeting
+Route: '/meeting_type/{id}'
+Method: DELETE
+
+Description: Edit meeting
+Route: '/meeting_type/{id}'
+Method: PUT
+
+Description: Get meeting
+Route: '/meeting_type/{id}'
 Method: GET
 
 
@@ -86,17 +108,56 @@ Method: GET
 
 # --- construction_objects ---
 
+---POST
+
 Description: Add construction_object
 Route: '/construction_object'
 Method: POST
+
+{
+   "projectId": "27",
+    "code": "24442",
+    "name": "24442",
+    "zone": 1,
+    "category": 1,
+    "plannedDate": "Thu Aug 22 2024",
+    "weight": 44,
+    "generalPlanNumber": "1",
+    "buildingVolume": 1,
+    "floorsAmount": 1,
+    "stage": 3,
+    "realtyType": 1
+}
+
+---
 
 Description: Get construction_object
 Route: '/construction_object/{id}'
 Method: GET
 
+--- PUT
+
 Description: Edit construction_object
 Route: '/construction_object/{id}'
 Method: PUT
+
+{
+    "projectId": 28,
+    "code": "95587",
+    "name": "95587",
+    "zone": 2,
+    "category": 4,
+    "plannedDate": "Thu Aug 11 2021",
+    "weight": 11,
+    "generalPlanNumber": 11,
+    "buildingVolume": 11.0,
+    "floorsAmount": 1,
+    "stage": 3,
+    "realtyType": 1,
+    "constructionProgress": 27
+}
+
+---
 
 Description: Delete construction_object
 Route: '/construction_object/{id}'
@@ -421,7 +482,7 @@ Method: POST
 
 {
     "idFileStorage": "497d437f-d374-4e22-b056-789bc36edf89",
-    "constructionObjects": 15,
+    "constructionObjectId": 15,
     "note": "...This is description for ObjectFile"
 }
 
@@ -435,9 +496,42 @@ Method: PUT
 
 {
     "idFileStorage": "497d437f-d374-4e22-b056-789bc36edf89",
-    "constructionObjects": 15,
+    "constructionObjectId": 15,
     "note": "...This is description for ObjectFile"
 }
+
+---
+
+---GET by object
+
+Description: Get object_files by object
+Route: 'construction_object/{id}/object_files'
+Method: GET
+
+[
+    {
+        "id": 10,
+        "file": {
+            "idFileStorage": "011cd637-1b9e-4c0d-ac8e-9bae4d57ef24",
+            "name": "ATT00001 (3).txt",
+            "size": "1.10Кб"
+        },
+        "constructionObjectId": 1,
+        "uploadDate": "29.09.2020 18:18:47",
+        "note": "description"
+    },
+    {
+        "id": 15,
+        "file": {
+            "idFileStorage": "26b55623-f6c2-4e04-9f0d-0342495ff980",
+            "name": "ATT00001 (3).txt",
+            "size": "1.10Кб"
+        },
+        "constructionObjectId": 1,
+        "uploadDate": "06.10.2020 14:58:22",
+        "note": "This is description"
+    }
+]
 
 ---
 

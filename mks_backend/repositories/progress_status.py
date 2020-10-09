@@ -28,3 +28,4 @@ class ProgressStatusRepository:
                 'fullname': progress_status.fullname,
             }
         )
+        DBSession.commit()

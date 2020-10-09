@@ -96,8 +96,5 @@ class ConstructionController:
     def get_construction(self):
         id = int(self.request.matchdict['id'])
         construction = self.service.get_construction_by_id(id)
-
         objects_calculated = self.service.get_construction_objects_calculated_for_construction(id)
-
         return self.serializer.convert_object_calculated_to_json(construction, objects_calculated)
-
