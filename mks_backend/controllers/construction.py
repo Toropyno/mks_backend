@@ -33,8 +33,11 @@ class ConstructionController:
             constructions = self.service.filter_constructions(params_deserialized)
         else:
             constructions = self.service.get_all_constructions()
-
-        return self.serializer.convert_list_to_json(constructions)
+        constructions_arr = []
+        for consr in constructions:
+            objects_calculated = self.service.get_construction_objects_calculated_for_construction(consr.construction_id)
+            constructions_arr.append(self.serializer.convert_object_calculated_to_json(consr, objects_calculated))
+        return constructions_arr
 
     @view_config(route_name='add_construction', renderer='json')
     def add_construction(self):

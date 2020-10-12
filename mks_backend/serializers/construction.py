@@ -73,7 +73,7 @@ class ConstructionSerializer:
                     'fullName': 'Наименование населенного пункта по ФИАС'
                 }
             },
-            'address': 'Не формализованный адрес проекта',
+            'address': 'Неформализованный адрес проекта',
             'note': 'Примечание к проекту',
             'coordinate': CoordinateSerializer.convert_object_to_json(
                 construction.coordinate
@@ -87,12 +87,12 @@ class ConstructionSerializer:
         construction = self.convert_object_to_json(construction)
 
         if objects_calculated:
-            plan = objects_calculated.get('plan'),
-            actually = objects_calculated.get('actually'),
-            difference = objects_calculated.get('difference'),
-            entered_additionally = objects_calculated.get('entered_additionally'),
-            readiness = objects_calculated.get('readiness'),
-            workers = objects_calculated.get('workers'),
+            plan = objects_calculated.get('plan')
+            actually = objects_calculated.get('actually')
+            difference = objects_calculated.get('difference')
+            entered_additionally = objects_calculated.get('entered_additionally')
+            readiness = objects_calculated.get('readiness')
+            workers = objects_calculated.get('workers')
             equipment = objects_calculated.get('equipment')
         else:
             plan = 0,
