@@ -4,12 +4,12 @@ from pyramid.response import Response
 from pyramid.view import view_config
 
 from mks_backend.controllers.schemas.construction import ConstructionSchema, ConstructionFilterSchema
+from mks_backend.errors.colander_error import get_collander_error_dict
+from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 from mks_backend.serializers.construction import ConstructionSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.services.construction import ConstructionService
-
-from mks_backend.errors.colander_error import get_collander_error_dict
-from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class ConstructionController:
@@ -35,32 +35,23 @@ class ConstructionController:
             constructions = self.service.get_all_constructions()
         constructions_arr = []
         for consr in constructions:
-            objects_calculated = self.service.get_construction_objects_calculated_for_construction(consr.construction_id)
+            objects_calculated = self.service.get_construction_objects_calculated_for_construction(
+                consr.construction_id)
             constructions_arr.append(self.serializer.convert_object_calculated_to_json(consr, objects_calculated))
         return constructions_arr
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='add_construction', renderer='json')
     def add_construction(self):
         construction_schema = ConstructionSchema()
-        try:
-            construction_deserialized = construction_schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        construction_deserialized = construction_schema.deserialize(self.request.json_body)
 
         coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
         construction = self.service.convert_schema_to_object(construction_deserialized)
         construction.coordinate = coordinate
-        try:
-            self.service.add_construction(construction)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
 
+        self.service.add_construction(construction)
         return {'id': construction.construction_id}
 
     @view_config(route_name='delete_construction', renderer='json')
