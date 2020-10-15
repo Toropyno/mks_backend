@@ -2,9 +2,9 @@ from datetime import datetime
 
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
-from mks_backend.services.documents.construction_document import ConstructionDocumentService
-from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.construction_progress import ConstructionProgressService
+from mks_backend.services.coordinate import CoordinateService
+from mks_backend.services.documents.construction_document import ConstructionDocumentService
 from mks_backend.services.filestorage import FilestorageService
 from mks_backend.services.object_category_list import ObjectCategoryListService
 
@@ -113,7 +113,7 @@ class ConstructionObjectService:
             'actually': actually,
             'difference': abs(plan - actually),
             'entered_additionally': entered_additionally,
-            'readiness': readiness,
+            'readiness': format(readiness, '.3f'),
             'workers': workers,
             'equipment': equipment,
         }
