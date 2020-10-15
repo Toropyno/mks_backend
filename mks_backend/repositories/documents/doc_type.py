@@ -6,7 +6,7 @@ from mks_backend.repositories import DBSession
 class DocTypeRepository:
 
     def get_all_doc_types(self) -> list:
-        return DBSession.query(DocType).all()
+        return DBSession.query(DocType).order_by(DocType.fullname).all()
 
     @db_error_handler
     def add_doc_type(self, doc_type: DocType) -> None:

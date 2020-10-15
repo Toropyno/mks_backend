@@ -9,7 +9,7 @@ class ConstructionStageRepository:
         return DBSession.query(ConstructionStage).get(id)
 
     def get_all_construction_stages(self) -> list:
-        return DBSession.query(ConstructionStage).all()
+        return DBSession.query(ConstructionStage).order_by(ConstructionStage.fullname).all()
 
     @db_error_handler
     def add_construction_stage(self, construction_stage: ConstructionStage) -> None:
