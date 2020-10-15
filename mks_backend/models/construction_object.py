@@ -92,7 +92,8 @@ class ConstructionObject(Base):
 
     construction_progress = relationship(
         'ConstructionProgress',
-        back_populates='construction_object'
+        back_populates='construction_object',
+        passive_deletes=True
     )
 
     documents = relationship(
