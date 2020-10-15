@@ -10,7 +10,7 @@ class ConstructionTypeRepository:
         self._query = DBSession.query(ConstructionType)
 
     def get_all_construction_types(self) -> list:
-        return self._query.all()
+        return self._query.order_by(ConstructionType.fullname).all()
 
     @db_error_handler
     def add_construction_type(self, construction_type: ConstructionType) -> None:

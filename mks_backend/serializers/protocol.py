@@ -28,7 +28,9 @@ class ProtocolSerializer:
     def to_short_json(cls, protocol: Protocol):
         return {
             'protocolId': protocol.protocol_id,
-            'protocolName': protocol.protocol_name
+            'protocolName': protocol.protocol_name,
+            'protocolNumber': protocol.protocol_num,
+            'protocolDate': get_date_string(protocol.protocol_date),
         }
 
     def convert_schema_to_object(self, schema_dict: dict) -> Protocol:

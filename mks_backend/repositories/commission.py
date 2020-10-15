@@ -5,7 +5,7 @@ from mks_backend.repositories import DBSession
 class CommissionRepository:
 
     def get_all_commissions(self) -> list:
-        return DBSession.query(Commission).all()
+        return DBSession.query(Commission).order_by(Commission.fullname).all()
 
     def add_commission(self, commission: Commission) -> None:
         DBSession.add(commission)

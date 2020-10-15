@@ -10,7 +10,7 @@ class LocationTypeRepository:
         self._query = DBSession.query(LocationType)
 
     def get_all_location_types(self) -> list:
-        return self._query.all()
+        return self._query.order_by(LocationType.fullname).all()
 
     @db_error_handler
     def add_location_type(self, location_type: LocationType) -> None:
