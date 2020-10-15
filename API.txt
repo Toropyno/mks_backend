@@ -607,12 +607,6 @@ Description: Delete progress_status
 Route: '/progress_status/{id}'
 
 
-# --- FIAS ---
-
-Route: '/fias/{text}'
-Method: GET
-
-
 =====================================================================================================
 
 ConstructionDocument {

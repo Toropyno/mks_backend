@@ -194,14 +194,3 @@ def includeme(config):
     config.add_route('delete_meeting_type', '/meeting_type/{id}', request_method='DELETE')
     config.add_route('edit_meeting_type', '/meeting_type/{id}', request_method='PUT')
     config.add_route('get_meeting_type', '/meeting_type/{id}', request_method='GET')
-
-    config.add_route('get_fias', '/fias/{text}', request_method='GET')
-    config.add_route('get_subject', '/fias/subject/{text}', request_method='GET')
-    config.add_route('get_district', '/fias/district/{text}', request_method='GET')
-    config.add_route('get_city', '/fias/city/{text}', request_method='GET')
-
-    config.add_route('add_fias', '/fias', request_method='POST')
-    config.add_route('delete_fias', '/fias/{id}', request_method='DELETE')
-    config.add_route('edit_fias', '/fias/{id}', request_method='PUT')
-
-
