@@ -607,6 +607,21 @@ Description: Delete progress_status
 Route: '/progress_status/{id}'
 
 
+# --- FIAS ---
+
+Description: Get subject
+Route: '/fias/subject/{text}'
+Method: GET
+
+Description: Get district
+Route: '/fias/district/{text}'
+Method: GET
+
+Description: Get city
+Route: '/fias/city/{text}'
+Method: GET
+
+
 =====================================================================================================
 
 ConstructionDocument {
