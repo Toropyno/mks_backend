@@ -609,15 +609,16 @@ Route: '/progress_status/{id}'
 
 # --- FIAS ---
 
-Description: Get subject
+Description: Get subjects
 Route: '/fias/subject/{text}'
 Method: GET
 
-Description: Get district
+Description: Get districts
 Route: '/fias/district/{text}'
 Method: GET
 
-Description: Get city
+Description: Get cities
+
 Route: '/fias/city/{text}'
 Method: GET
 

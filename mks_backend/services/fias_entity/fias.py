@@ -1,3 +1,18 @@
+class FIASService:
+
+    def __init__(self):
+        self.text = ''
+
+    def set_text(self, text):
+        self.text = text
+
+    def append_address_if_in_row_address(self, row_address, socr_name, suitable_addresses):
+        if socr_name in row_address:
+            address = get_address_ending_with_socr_name(row_address, socr_name)
+            if socr_name + self.text.lower() in address.lower():
+                append_address(address, suitable_addresses)
+
+
 def get_addresses_from_responce(responce) -> list:
     try:
         return [rr['text'] for rr in responce.json()]
@@ -33,10 +48,10 @@ def get_address_ending_with_socr_name(row_address, socr_name):
     return address
 
 
-def reversed_address(addresses):
+def get_reversed_address(addresses):
     reversed_addresses = []
-    gluing = ''
     for address in addresses:
+        gluing = ''
         address_split_reversed = address.split(', ')[::-1]
         for addr in address_split_reversed:
             gluing += addr + ', '
@@ -44,5 +59,6 @@ def reversed_address(addresses):
     return reversed_addresses
 
 
-class FIASService:
-    pass
+def append_address(address, suitable_addresses):
+    if address not in suitable_addresses:
+        suitable_addresses.append(address)
