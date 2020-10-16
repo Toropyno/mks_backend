@@ -1,10 +1,10 @@
 from pyramid.request import Request
 from pyramid.view import view_config
 
-from mks_backend.controllers.schemas.protocol import ProtocolControllerFilterSchema
-from mks_backend.controllers.schemas.protocol import ProtocolControllerSchema
-from mks_backend.serializers.protocol import ProtocolSerializer
-from mks_backend.services.protocol import ProtocolService
+from mks_backend.controllers.schemas.protocols.protocol import ProtocolControllerFilterSchema
+from mks_backend.controllers.schemas.protocols.protocol import ProtocolControllerSchema
+from mks_backend.serializers.protocols.protocol import ProtocolSerializer
+from mks_backend.services.protocols.protocol import ProtocolService
 
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 
