@@ -1,5 +1,5 @@
-from mks_backend.models.protocol import Protocol
-from mks_backend.serializers.meeting import MeetingSerializer
+from mks_backend.models.protocols.protocol import Protocol
+from mks_backend.serializers.protocols.meeting import MeetingSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
 from mks_backend.errors.serilize_error import serialize_error_handler

@@ -1,4 +1,4 @@
-from mks_backend.models.protocol import Protocol
+from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.repositories import DBSession
 
 

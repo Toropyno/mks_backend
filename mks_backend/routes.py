@@ -1,5 +1,4 @@
 def includeme(config):
-    # protocols
     config.add_route('download_file', '/protocol/download/{uuid}', request_method='GET')
     config.add_route('upload_file', '/protocol/upload', request_method='POST')
     config.add_route('get_file_info', '/protocol/file_info', request_method='GET')
@@ -7,13 +6,6 @@ def includeme(config):
     config.add_route('get_filestorages_by_object',
                      'construction_object/{id}/filestorages',
                      request_method='GET')
-
-    config.add_route('get_all_protocols', '/protocol', request_method='GET')
-    config.add_route('add_protocol', '/protocol', request_method='POST')
-    config.add_route('delete_protocol', '/protocol/{id}', request_method='DELETE')
-    config.add_route('edit_protocol', '/protocol/{id}', request_method='PUT')
-    config.add_route('get_protocol', '/protocol/{id}', request_method='GET')
-    # ----------------------------------------------------------------------
 
     # ISP
     config.add_route('get_all_constructions', '/construction', request_method='GET')
@@ -188,9 +180,3 @@ def includeme(config):
     config.add_route('delete_contract_status', '/contract_status/{id}', request_method='DELETE')
     config.add_route('edit_contract_status', '/contract_status/{id}', request_method='PUT')
     config.add_route('get_contract_status', '/contract_status/{id}', request_method='GET')
-
-    config.add_route('get_all_meeting_types', '/meeting_type', request_method='GET')
-    config.add_route('add_meeting_type', '/meeting_type', request_method='POST')
-    config.add_route('delete_meeting_type', '/meeting_type/{id}', request_method='DELETE')
-    config.add_route('edit_meeting_type', '/meeting_type/{id}', request_method='PUT')
-    config.add_route('get_meeting_type', '/meeting_type/{id}', request_method='GET')
