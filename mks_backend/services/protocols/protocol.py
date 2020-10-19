@@ -1,4 +1,4 @@
-from mks_backend.models.protocol import Protocol
+from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.repositories.filestorage import FilestorageRepository
 from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 from mks_backend.repositories.protocol import ProtocolRepository
@@ -28,7 +28,6 @@ class ProtocolService:
 
         self.repo.update_protocol(new_protocol)
         FilestorageService.compare_two_filestorages(new_idfilestorage, old_idfilestorage)
-        return new_protocol
 
     def delete_protocol_by_id_with_filestorage_cascade(self, id: int) -> None:
         protocol = self.repo.get_protocol_by_id(id)

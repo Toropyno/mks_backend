@@ -7,10 +7,10 @@ from mks_backend.services.fias_entity.fias import (
 class SubjectService:
 
     def __init__(self):
-        self.text = ''
+        self.search_subject = ''
 
-    def set_text(self, text):
-        self.text = text
+    def set_search_subject(self, search_subject):
+        self.search_subject = search_subject
 
     def get_subjects(self, addresses):
         subjects = []
@@ -25,5 +25,5 @@ class SubjectService:
     def append_subject_if_in_row_address(self, row_address, socr_name, subjects):
         if socr_name in row_address:
             subj = get_by_socr_name(row_address, socr_name)
-            if socr_name + self.text.lower() in subj.lower():
+            if socr_name + self.search_subject.lower() in subj.lower():
                 append_address(subj, subjects)

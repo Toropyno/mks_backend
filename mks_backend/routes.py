@@ -1,5 +1,4 @@
 def includeme(config):
-    # protocols
     config.add_route('download_file', '/protocol/download/{uuid}', request_method='GET')
     config.add_route('upload_file', '/protocol/upload', request_method='POST')
     config.add_route('get_file_info', '/protocol/file_info', request_method='GET')
@@ -7,13 +6,6 @@ def includeme(config):
     config.add_route('get_filestorages_by_object',
                      'construction_object/{id}/filestorages',
                      request_method='GET')
-
-    config.add_route('get_all_protocols', '/protocol', request_method='GET')
-    config.add_route('add_protocol', '/protocol', request_method='POST')
-    config.add_route('delete_protocol', '/protocol/{id}', request_method='DELETE')
-    config.add_route('edit_protocol', '/protocol/{id}', request_method='PUT')
-    config.add_route('get_protocol', '/protocol/{id}', request_method='GET')
-    # ----------------------------------------------------------------------
 
     # ISP
     config.add_route('get_all_constructions', '/construction', request_method='GET')
@@ -189,20 +181,14 @@ def includeme(config):
     config.add_route('edit_contract_status', '/contract_status/{id}', request_method='PUT')
     config.add_route('get_contract_status', '/contract_status/{id}', request_method='GET')
 
-    config.add_route('get_all_meeting_types', '/meeting_type', request_method='GET')
-    config.add_route('add_meeting_type', '/meeting_type', request_method='POST')
-    config.add_route('delete_meeting_type', '/meeting_type/{id}', request_method='DELETE')
-    config.add_route('edit_meeting_type', '/meeting_type/{id}', request_method='PUT')
-    config.add_route('get_meeting_type', '/meeting_type/{id}', request_method='GET')
-
     config.add_route('get_fias', '/fias/{text}', request_method='GET')
-
     config.add_route('get_subjects', '/fias/subject/{text}', request_method='GET')
     config.add_route('get_districts', '/fias/district/{text}', request_method='GET')
     config.add_route('get_cities', '/fias/city/{text}', request_method='GET')
     config.add_route('get_localities', '/fias/locality/{text}', request_method='GET')
-    config.add_route('get_streets_houses', '/fias/street_house/{text}', request_method='GET')
+    config.add_route('get_remaining_addresses', '/fias/remaining_address/{text}', request_method='GET')
 
     config.add_route('add_fias', '/fias', request_method='POST')
     config.add_route('delete_fias', '/fias/{id}', request_method='DELETE')
     config.add_route('edit_fias', '/fias/{id}', request_method='PUT')
+

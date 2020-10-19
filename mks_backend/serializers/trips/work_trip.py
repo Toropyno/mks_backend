@@ -2,7 +2,7 @@ from mks_backend.models.trips.work_trip import WorkTrip
 
 from mks_backend.serializers.utils.date_and_time import get_date_string
 from mks_backend.serializers.trips.leadership_position import LeadershipPositionSerializer
-from mks_backend.serializers.protocol import ProtocolSerializer
+from mks_backend.serializers.protocols.protocol import ProtocolSerializer
 
 from mks_backend.errors.serilize_error import serialize_error_handler
 

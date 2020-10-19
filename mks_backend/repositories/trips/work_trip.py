@@ -1,5 +1,5 @@
 from mks_backend.models.trips.work_trip import WorkTrip
-from mks_backend.models.protocol import Protocol
+from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.construction import Construction
 from mks_backend.models.trips.visited_object import VisitedObject
 from mks_backend.repositories import DBSession

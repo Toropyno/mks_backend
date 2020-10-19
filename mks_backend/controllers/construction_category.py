@@ -1,13 +1,11 @@
-import colander
 from pyramid.request import Request
-from pyramid.response import Response
 from pyramid.view import view_config
 
 from mks_backend.controllers.schemas.construction_category import ConstructionCategorySchema
-from mks_backend.errors.colander_error import get_collander_error_dict
-from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
 from mks_backend.services.construction_category import ConstructionCategoryService
+
+from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
 
 
 class ConstructionCategoryController:
@@ -23,24 +21,14 @@ class ConstructionCategoryController:
         construction_categories = self.service.get_all_construction_categories()
         return self.serializer.convert_list_to_json(construction_categories)
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='add_construction_category', renderer='json')
     def add_construction_category(self):
-        try:
-            construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
 
         construction_category = self.service.convert_schema_to_object(construction_categories_deserialized)
-        try:
-            self.service.add_construction_category(construction_category)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
+        self.service.add_construction_category(construction_category)
 
         return {'id': construction_category.construction_categories_id}
 
@@ -56,25 +44,13 @@ class ConstructionCategoryController:
         self.service.delete_construction_category_by_id(id)
         return {'id': id}
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='edit_construction_category', renderer='json')
     def edit_construction_category(self):
-        id = int(self.request.matchdict['id'])
-        try:
-            construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
+        construction_categories_deserialized['id'] = int(self.request.matchdict['id'])
 
-        construction_categories_deserialized['id'] = id
         construction_category = self.service.convert_schema_to_object(construction_categories_deserialized)
-        try:
-            self.service.update_construction_category(construction_category)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
-
+        self.service.update_construction_category(construction_category)
         return {'id': id}

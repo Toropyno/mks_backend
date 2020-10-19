@@ -1,21 +1,21 @@
 class FIASService:
 
     def __init__(self):
-        self.text = ''
+        self.search_address = ''
 
-    def set_text(self, text):
-        self.text = text
+    def set_search_address(self, search_address):
+        self.search_address = search_address
 
     def append_address_if_in_row_address(self, row_address, socr_name, suitable_addresses):
         if socr_name in row_address:
             address = get_address_ending_with_socr_name(row_address, socr_name)
-            if socr_name + self.text.lower() in address.lower():
+            if socr_name + self.search_address.lower() in address.lower():
                 append_address(address, suitable_addresses)
 
 
-def get_addresses_from_responce(responce) -> list:
+def get_addresses_from_response(response) -> list:
     try:
-        return [rr['text'] for rr in responce.json()]
+        return [rr['text'] for rr in response.json()]
     except TypeError:
         return [
             {'status': 403},

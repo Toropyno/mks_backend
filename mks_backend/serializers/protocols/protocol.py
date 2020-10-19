@@ -1,5 +1,5 @@
-from mks_backend.models.protocol import Protocol
-from mks_backend.serializers.meeting import MeetingSerializer
+from mks_backend.models.protocols.protocol import Protocol
+from mks_backend.serializers.protocols.meeting import MeetingSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
 from mks_backend.errors.serilize_error import serialize_error_handler
@@ -28,7 +28,9 @@ class ProtocolSerializer:
     def to_short_json(cls, protocol: Protocol):
         return {
             'protocolId': protocol.protocol_id,
-            'protocolName': protocol.protocol_name
+            'protocolName': protocol.protocol_name,
+            'protocolNumber': protocol.protocol_num,
+            'protocolDate': get_date_string(protocol.protocol_date),
         }
 
     def convert_schema_to_object(self, schema_dict: dict) -> Protocol:

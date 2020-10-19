@@ -10,18 +10,18 @@ from mks_backend.services.fias_entity.fias import (
 class CityLocalityService:
 
     def __init__(self):
-        self.text = ''
+        self.search_address = ''
         self.socr_names = []
         self.service_fias = FIASService()
 
-    def set_text(self, text):
-        self.text = text
+    def set_search_address(self, search_address):
+        self.search_address = search_address
 
     def set_socr_names(self, socr_names):
         self.socr_names = socr_names
 
     def get_search_text(self, district, subject):
-        search_text = self.text
+        search_text = self.search_address
         if district is not None:
             search_text = subject + ', ' + district + ', ' + search_text
         elif subject is not None:
@@ -31,7 +31,7 @@ class CityLocalityService:
     def get_cities_or_localities(self, addresses, district, subject):
         cities_or_localities = []
         if subject is None:
-            self.service_fias.set_text(self.text)
+            self.service_fias.set_search_address(self.search_address)
             for row_address in addresses:
                 for c_l in self.socr_names:
                     self.service_fias.append_address_if_in_row_address(row_address, c_l, cities_or_localities)
@@ -53,11 +53,11 @@ class CityLocalityService:
                                                                         subject):
         if (socr_name in row_address) and (subject in row_address):
             c_or_l = get_address_ending_with_socr_name(row_address, socr_name)
-            if socr_name + self.text.lower() in c_or_l.lower():
+            if socr_name + self.search_address.lower() in c_or_l.lower():
                 append_address(c_or_l, cities_localities)
 
     def append_city_if_in_row_address(self, row_address, socr_name, cities_localities, subject, district):
         if (socr_name in row_address) and (subject in row_address) and (district in row_address):
             c_or_l = get_by_socr_name(row_address, socr_name)
-            if socr_name + self.text.lower() in c_or_l.lower():
+            if socr_name + self.search_address.lower() in c_or_l.lower():
                 append_address(c_or_l, cities_localities)
