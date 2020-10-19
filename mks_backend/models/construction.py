@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -8,6 +10,7 @@ from sqlalchemy import (
     CheckConstraint,
 )
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from mks_backend.models import Base
 
@@ -128,3 +131,56 @@ class Construction(Base):
     type = relationship(
         'ConstructionType'
     )
+
+    # --------- calculated_fields --------- #
+
+    @hybrid_property
+    def plan(self):
+        plan = 0
+        now_year = datetime.now().year
+        for construction_object in self.construction_objects:
+            plan += 1 if construction_object.planned_date.year == now_year else 0
+        return plan
+
+    @hybrid_property
+    def actually(self):
+        actually = 0
+        now_year = datetime.now().year
+        for construction_object in self.construction_objects:
+            if construction_object.planned_date.year == construction_object.fact_date.year == now_year:
+                actually += 1
+        return actually
+
+    @hybrid_property
+    def difference(self):
+        return abs(self.plan - self.actually)
+
+    @hybrid_property
+    def entered_additionally(self):
+        entered_additionally = 0
+        now_year = datetime.now().year
+        for construction_object in self.construction_objects:
+            if construction_object.fact_date.year == now_year != construction_object.planned_date.year:
+                entered_additionally += 1
+        return entered_additionally
+
+    @hybrid_property
+    def readiness(self):
+        readiness = 0
+        for construction_object in self.construction_objects:
+            readiness += construction_object.readiness
+        return readiness
+
+    @hybrid_property
+    def workers(self):
+        workers = 0
+        for construction_object in self.construction_objects:
+            workers += construction_object.workers
+        return workers
+
+    @hybrid_property
+    def equipment(self):
+        equipment = 0
+        for construction_object in self.construction_objects:
+            equipment += construction_object.equipment
+        return equipment

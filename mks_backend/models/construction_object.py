@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -9,6 +11,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from mks_backend.models import Base
 
@@ -116,3 +119,32 @@ class ConstructionObject(Base):
         back_populates='construction_object',
         passive_deletes=True,
     )
+
+    # --------- calculated_fields --------- #
+
+    @hybrid_property
+    def last_report(self):
+        if self.construction_progress:
+            return max(self.construction_progress, key=lambda x: x.reporting_date)
+
+    @hybrid_property
+    def readiness(self):
+        if self.last_report:
+            return self.last_report.readiness * Decimal(self.weight) * Decimal(0.01)
+        else:
+            return 0
+
+    @hybrid_property
+    def workers(self):
+        if self.last_report:
+            return self.last_report.people
+        else:
+            return 0
+
+    @hybrid_property
+    def equipment(self):
+        if self.last_report:
+            return self.last_report.equipment
+        else:
+            return 0
+
