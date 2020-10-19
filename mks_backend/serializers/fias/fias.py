@@ -1,4 +1,4 @@
-from mks_backend.models.fias.fias import FIAS
+from mks_backend.models.fias import FIAS
 
 
 class FIASSerializer:

@@ -618,9 +618,18 @@ Route: '/fias/district/{text}'
 Method: GET
 
 Description: Get cities
-
 Route: '/fias/city/{text}'
 Method: GET
+
+Description: Get localities
+Route: '/fias/locality/{text}'
+Method: GET
+
+Description: Get streets and houses
+Route: '/fias/street_house/{text}'
+Method: GET
+
+
 
 
 =====================================================================================================

@@ -19,7 +19,9 @@ class CityLocalityController:
 
     @view_config(route_name='get_localities')
     def get_localities(self):
-        return self.get_cities_or_localities(['пгт. ', 'пгт ', 'п. ', 'п ', 'д.', 'д ', 'с. ', 'с ', 'п. им.', 'п им '])
+        return self.get_cities_or_localities(
+            ['пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ', ' x ', ' тер ']
+        )
 
     def get_cities_or_localities(self, socr_names):
         self.service.set_socr_names(socr_names)

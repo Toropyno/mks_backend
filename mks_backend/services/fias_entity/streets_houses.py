@@ -1,0 +1,62 @@
+from mks_backend.services.fias_entity.fias import (
+    FIASService, append_address,
+)
+
+
+class StreetHouseService:
+
+    def __init__(self):
+        self.text = ''
+        self.service_fias = FIASService()
+
+    def set_text(self, text):
+        self.text = text
+
+    def get_search_text(self, address):
+        search_text = self.text
+
+        city = address.get('city')
+        locality = address.get('locality')
+        subject = address.get('subject')
+        district = address.get('district')
+
+        if district is None:
+            district = ''
+        if locality is None:
+            search_text = subject + ', ' + district + ', ' + city + ', ' + self.text
+        elif city is None:
+            search_text = subject + ', ' + district + ', ' + locality + ', ' + self.text
+        else:
+            search_text = subject + ', ' + district + ', ' + city + ', ' + locality + ', ' + self.text
+
+        return search_text
+
+    def get_streets_houses(self, addresses):
+        streets_houses = []
+        for row_address in addresses:
+            self.append_streets_houses_if_in_row_address(row_address, 'ул ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'ул. ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'пер ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'пер. ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'ш ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'ш. ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'кв-л ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'тер ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'тер. ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'мкр ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'мкр. ', streets_houses)
+            self.append_streets_houses_if_in_row_address(row_address, 'пр-кт ', streets_houses)
+        return streets_houses
+
+    def append_streets_houses_if_in_row_address(self, row_address, socr_name, streets_houses):
+        address = get_streets_houses_by_socr_name(row_address, socr_name)
+        if address:
+            if socr_name + self.text.lower() in address.lower():
+                append_address(address, streets_houses)
+
+
+def get_streets_houses_by_socr_name(row_address, socr_name):
+    try:
+        return row_address[row_address.index(socr_name):]
+    except ValueError:
+        return ''

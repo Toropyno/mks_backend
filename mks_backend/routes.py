@@ -201,6 +201,7 @@ def includeme(config):
     config.add_route('get_districts', '/fias/district/{text}', request_method='GET')
     config.add_route('get_cities', '/fias/city/{text}', request_method='GET')
     config.add_route('get_localities', '/fias/locality/{text}', request_method='GET')
+    config.add_route('get_streets_houses', '/fias/street_house/{text}', request_method='GET')
 
     config.add_route('add_fias', '/fias', request_method='POST')
     config.add_route('delete_fias', '/fias/{id}', request_method='DELETE')
