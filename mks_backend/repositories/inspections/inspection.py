@@ -1,5 +1,6 @@
-from mks_backend.models.inspections.inspection import Inspection
+from typing import List
 
+from mks_backend.models.inspections.inspection import Inspection
 from mks_backend.repositories import DBSession
 
 from mks_backend.errors.db_basic_error import db_error_handler
@@ -10,7 +11,7 @@ class InspectionRepository:
     def __init__(self):
         self._query = DBSession.query(Inspection)
 
-    def get_all_inspections(self) -> list:
+    def get_all_inspections(self) -> List[Inspection]:
         return self._query.all()
 
     @db_error_handler
@@ -41,6 +42,6 @@ class InspectionRepository:
     def get_inspection_by_id(self, id: int) -> Inspection:
         return self._query.get(id)
 
-    def get_filtered_inspections(self, params: dict) -> list:
+    def get_filtered_inspections(self, params: dict) -> List[Inspection]:
         # TODO: rework with MKSBRYANS-227
         return self._query.all()
