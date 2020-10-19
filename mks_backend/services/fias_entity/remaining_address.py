@@ -33,19 +33,10 @@ class RemainingAddressService:
 
     def get_streets_houses(self, addresses):
         streets_houses = []
+        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', ' тер. ', 'мкр ', 'мкр. ', 'пр-кт ']
         for row_address in addresses:
-            self.append_streets_houses_if_in_row_address(row_address, 'ул ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'ул. ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'пер ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'пер. ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'ш ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'ш. ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'кв-л ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'тер ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'тер. ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'мкр ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'мкр. ', streets_houses)
-            self.append_streets_houses_if_in_row_address(row_address, 'пр-кт ', streets_houses)
+            for socr in socr_names:
+                self.append_streets_houses_if_in_row_address(row_address, socr, streets_houses)
         return streets_houses
 
     def append_streets_houses_if_in_row_address(self, row_address, socr_name, streets_houses):

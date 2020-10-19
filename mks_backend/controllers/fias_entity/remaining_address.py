@@ -17,8 +17,8 @@ class RemainingAddressController:
     @view_config(route_name='get_remaining_addresses')
     def get_remaining_addresses(self):
         """
-        Get remaining_address: 'ул ', 'ул. ', ' пер ', ' пер. ', ' ш ', ' ш. ', ' кв-л ', ' тер ', 'мкр ', ' тер. ',
-                                'мкр. ', 'пр-кт '
+        Get remaining_address: 'ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', ' тер. ', 'мкр ', 'мкр. ',
+                                'пр-кт '
         """
         text = self.request.matchdict['text']
         self.service.set_text(text)
@@ -28,10 +28,6 @@ class RemainingAddressController:
         district = fias.district
         city = fias.city
         locality = fias.locality
-        # subject = 'обл Белгородская'
-        # district = 'р-н Белгородский'
-        # city = 'пгт Разумное'
-        # locality = None
 
         if city or locality is not None:
             search_text = self.service.get_search_text(
