@@ -21,7 +21,7 @@ class ConstructionSerializer:
         else:
             subcategory = None
 
-        return {
+        construction_json = {
             'id': construction.construction_id,
             'code': construction.project_code,
             'name': construction.project_name,
@@ -75,16 +75,10 @@ class ConstructionSerializer:
             'coordinate': CoordinateSerializer.convert_object_to_json(
                 construction.coordinate
             ),
-
-            # --------- calculated_fields --------- #
-            'plan': construction.plan,
-            'actually': construction.actually,
-            'difference': construction.difference,
-            'enteredAdditionally': construction.entered_additionally,
-            'readiness': format(construction.readiness, '.3f'),
-            'workers': construction.workers,
-            'equipment': construction.equipment,
         }
+
+        construction_json.update(construction.calculated_fields)
+        return construction_json
 
     def convert_list_to_json(self, constructions: list) -> list:
         return list(map(self.to_json, constructions))
