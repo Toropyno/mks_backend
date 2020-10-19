@@ -49,6 +49,8 @@ from mks_backend.models.trips.visited_object import VisitedObject
 from mks_backend.models.contract_status import ContractStatus
 from mks_backend.models.element_type import ElementType
 
+from mks_backend.models.inspections.inspection import Inspection
+
 
 import os
 import sys
