@@ -616,14 +616,34 @@ Method: GET
 Description: Get districts
 Route: '/fias/district/{text}'
 Method: GET
+{
+    "subject": "обл Белгородская"
+}
+{}
 
 Description: Get cities
 Route: '/fias/city/{text}'
 Method: GET
+{
+    "subject": "обл Белгородская",
+    "district": "р-н Белгородский"
+}
+{
+    "subject": "обл Белгородская"
+}
+{}
 
 Description: Get localities
 Route: '/fias/locality/{text}'
 Method: GET
+{
+    "subject": "обл Белгородская",
+    "district": "р-н Белгородский"
+}
+{
+    "subject": "обл Белгородская"
+}
+{}
 
 Description: Get remaining_addresses
 Route: '/fias/remaining_address/{text}'
@@ -631,7 +651,12 @@ Method: GET
 {
     "subject": "обл Белгородская",
     "district": "р-н Белгородский",
-    "city": "пгт Разумное"
+    "locality": "пгт Разумное"
+}
+{
+    "subject": "обл Белгородская",
+    "district": "р-н Белгородский",
+    "city": "г. Белгород"
 }
 
 

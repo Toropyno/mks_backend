@@ -1,52 +1,55 @@
-from mks_backend.services.fias_entity.fias import (
-    FIASService, append_address,
-)
+from mks_backend.models.fias import FIAS
+from mks_backend.services.fias_entity.fias import FIASService, append_address
 
 
 class RemainingAddressService:
 
     def __init__(self):
-        self.text = ''
+        self.search_rem_address = ''
+        self.remaining_addresses = []
         self.service_fias = FIASService()
 
-    def set_text(self, text):
-        self.text = text
+    def set_search_rem_address(self, search_rem_address: str) -> None:
+        self.search_rem_address = search_rem_address
 
-    def get_search_text(self, address):
-        search_text = self.text
-
-        city = address.get('city')
-        locality = address.get('locality')
-        subject = address.get('subject')
-        district = address.get('district')
+    def get_search_text(self, fias: FIAS) -> str:
+        city = fias.city
+        locality = fias.locality
+        subject = fias.subject
+        district = fias.district
 
         if district is None:
             district = ''
-        if locality is None:
-            search_text = subject + ', ' + district + ', ' + city + ', ' + self.text
-        elif city is None:
-            search_text = subject + ', ' + district + ', ' + locality + ', ' + self.text
-        else:
-            search_text = subject + ', ' + district + ', ' + city + ', ' + locality + ', ' + self.text
 
+        search_text = subject + ', ' + district + ', '
+
+        if locality is None:
+            search_text += city
+        elif city is None:
+            search_text += locality
+        else:
+            search_text += city + ', ' + locality
+
+        search_text += ', ' + self.search_rem_address
         return search_text
 
-    def get_streets_houses(self, addresses):
-        streets_houses = []
-        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', ' тер. ', 'мкр ', 'мкр. ', 'пр-кт ']
+    def get_remaining_addresses(self, addresses: list) -> list:
+        self.remaining_addresses = []
+        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', ' тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
+                      'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ']
         for row_address in addresses:
             for socr in socr_names:
-                self.append_streets_houses_if_in_row_address(row_address, socr, streets_houses)
-        return streets_houses
+                self.append_remaining_address_if_in_row_address(row_address, socr)
+        return self.remaining_addresses
 
-    def append_streets_houses_if_in_row_address(self, row_address, socr_name, streets_houses):
-        address = get_streets_houses_by_socr_name(row_address, socr_name)
+    def append_remaining_address_if_in_row_address(self, row_address: str, socr_name: str) -> None:
+        address = get_remaining_address_by_socr_name(row_address, socr_name)
         if address:
-            if socr_name + self.text.lower() in address.lower():
-                append_address(address, streets_houses)
+            if socr_name + self.search_rem_address.lower() in address.lower():
+                append_address(address, self.remaining_addresses)
 
 
-def get_streets_houses_by_socr_name(row_address, socr_name):
+def get_remaining_address_by_socr_name(row_address: str, socr_name: str) -> str:
     try:
         return row_address[row_address.index(socr_name):]
     except ValueError:

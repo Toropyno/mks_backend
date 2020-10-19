@@ -19,15 +19,9 @@ class DistrictController:
         """
         Get districts: 'р-н ', 'район ', ' у '
         """
-        search_district = self.request.matchdict['text']
-        self.service.set_search_district(search_district)
-        search_text = search_district
+        self.service.set_search_district(self.request.matchdict['text'])
+        fias_post = self.fias_controller.get_fias_serialized()
 
-        fias = self.fias_controller.get_fias_serialized()
-        subject = fias.subject
-
-        if subject is not None:
-            search_text = subject + ', ' + search_text
+        search_text = self.service.get_search_text(fias_post.subject)
         addresses = get_addresses_from_response(get_fias_response(search_text))
-
-        return self.service.get_districts(addresses, subject)
+        return self.service.get_districts(addresses, fias_post.subject)

@@ -18,26 +18,14 @@ class RemainingAddressController:
     def get_remaining_addresses(self):
         """
         Get remaining_address: 'ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', ' тер. ', 'мкр ', 'мкр. ',
-                                'пр-кт '
+                                'пр-кт ', 'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. '
         """
-        text = self.request.matchdict['text']
-        self.service.set_text(text)
+        search_rem_address = self.request.matchdict['text']
+        self.service.set_search_rem_address(search_rem_address)
 
         fias = self.fias_controller.get_fias_serialized()
-        subject = fias.subject
-        district = fias.district
-        city = fias.city
-        locality = fias.locality
-
-        if city or locality is not None:
-            search_text = self.service.get_search_text(
-                {
-                    'subject': subject,
-                    'district': district,
-                    'city': city,
-                    'locality': locality,
-                }
-            )
+        if fias.city or fias.locality is not None:
+            search_text = self.service.get_search_text(fias)
 
             addresses = get_addresses_from_response(get_fias_response(search_text))
-            return self.service.get_streets_houses(addresses)
+            return self.service.get_remaining_addresses(addresses)

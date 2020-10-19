@@ -16,22 +16,23 @@ class CityLocalityController:
 
     @view_config(route_name='get_cities')
     def get_cities(self):
-        return self.get_cities_or_localities(['г.', 'г ', ' город '])
+        self.service.set_socr_names(
+            ['г. ', 'г ', ' город ']
+        )
+        return self.get_cities_or_localities()
 
     @view_config(route_name='get_localities')
     def get_localities(self):
-        return self.get_cities_or_localities(
-            ['пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ', ' x ', ' тер ']
+        self.service.set_socr_names(
+            ['пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ', ' x ', ' тер ',
+             'рп ', 'рп. ']
         )
+        return self.get_cities_or_localities()
 
-    def get_cities_or_localities(self, socr_names):
-        self.service.set_socr_names(socr_names)
+    def get_cities_or_localities(self) -> list:
         self.service.set_search_address(self.request.matchdict['text'])
+        fias_post = self.fias_controller.get_fias_serialized()
 
-        fias = self.fias_controller.get_fias_serialized()
-        subject = fias.subject
-        district = fias.district
-
-        search_text = self.service.get_search_text(district, subject)
+        search_text = self.service.get_search_text(fias_post)
         addresses = get_addresses_from_response(get_fias_response(search_text))
-        return self.service.get_cities_or_localities(addresses, district, subject)
+        return self.service.get_cities_or_localities(addresses, fias_post)

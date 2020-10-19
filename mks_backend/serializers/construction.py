@@ -1,14 +1,14 @@
 from mks_backend.models.construction import Construction
-from mks_backend.serializers.utils.date_and_time import get_date_string
 from mks_backend.serializers.commision import CommissionSerializer
 from mks_backend.serializers.construction_category import ConstructionCategorySerializer
+from mks_backend.serializers.construction_company import ConstructionCompanySerializer
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
+from mks_backend.serializers.construction_type import ConstructionTypeSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.serializers.location_type import LocationTypeSerializer
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
-from mks_backend.serializers.construction_company import ConstructionCompanySerializer
 from mks_backend.serializers.oksm import OKSMSerializer
-from mks_backend.serializers.construction_type import ConstructionTypeSerializer
+from mks_backend.serializers.utils.date_and_time import get_date_string
 
 
 class ConstructionSerializer:
@@ -56,22 +56,12 @@ class ConstructionSerializer:
                 construction.location_type
             ),
             'fias': {
-                'subject': {
-                    'id': 1,
-                    'fullName': 'Название субъекта по ФИАС'
-                },
-                'district': {
-                    'id': 11,
-                    'fullName': 'Название района по ФИАС'
-                },
-                'city': {
-                    'id': 17,
-                    'fullName': 'Наименование города по ФИАС'
-                },
-                'locality': {
-                    'id': 1,
-                    'fullName': 'Наименование населенного пункта по ФИАС'
-                }
+                'id': 77777,
+                'subject': 'Название субъекта по ФИАС',
+                'district': 'Название района по ФИАС',
+                'city': 'Наименование города по ФИАС',
+                'locality': 'Наименование населенного пункта по ФИАС',
+                'remaining_address': 'Улица, мкр. по ФИАС'
             },
             'address': 'Неформализованный адрес проекта',
             'note': 'Примечание к проекту',

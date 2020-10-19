@@ -8,22 +8,21 @@ class SubjectService:
 
     def __init__(self):
         self.search_subject = ''
+        self.subjects = []
 
-    def set_search_subject(self, search_subject):
+    def set_search_subject(self, search_subject: str) -> None:
         self.search_subject = search_subject
 
-    def get_subjects(self, addresses):
-        subjects = []
+    def get_subjects(self, addresses: list) -> list:
+        self.subjects = []
+        socr_names = ['обл. ', 'обл ', 'Респ. ', 'Респ ', 'край ']
         for row_address in addresses:
-            self.append_subject_if_in_row_address(row_address, 'обл. ', subjects)
-            self.append_subject_if_in_row_address(row_address, 'обл ', subjects)
-            self.append_subject_if_in_row_address(row_address, 'Респ. ', subjects)
-            self.append_subject_if_in_row_address(row_address, 'Респ ', subjects)
-            self.append_subject_if_in_row_address(row_address, 'край ', subjects)
-        return subjects
+            for socr in socr_names:
+                self.append_subject_if_in_row_address(row_address, socr)
+        return self.subjects
 
-    def append_subject_if_in_row_address(self, row_address, socr_name, subjects):
-        if socr_name in row_address:
-            subj = get_by_socr_name(row_address, socr_name)
-            if socr_name + self.search_subject.lower() in subj.lower():
-                append_address(subj, subjects)
+    def append_subject_if_in_row_address(self, row_address: str, socr_name: str) -> None:
+        if socr_name + self.search_subject.lower() in row_address.lower():
+            subject = get_by_socr_name(row_address, socr_name)
+            if socr_name + self.search_subject.lower() in subject.lower():
+                append_address(subject, self.subjects)
