@@ -13,12 +13,7 @@ from mks_backend.serializers.construction_type import ConstructionTypeSerializer
 
 class ConstructionSerializer:
 
-    def convert_object_to_json(self, construction: Construction) -> dict:
-        # return with all subcategories
-        category = ConstructionCategorySerializer.convert_object_to_json(
-            construction.construction_category
-        )
-
+    def to_json(self, construction: Construction) -> dict:
         if construction.subcategories_list:
             subcategory = ConstructionSubcategorySerializer.convert_object_to_json(
                 construction.subcategories_list.subcategory
@@ -33,7 +28,9 @@ class ConstructionSerializer:
             'constructionType': ConstructionTypeSerializer.convert_object_to_json(
                 construction.type
             ),
-            'category': category,
+            'category': ConstructionCategorySerializer.to_short_json(
+                construction.construction_category
+            ),
             'subcategory': subcategory,
             'isCritical': construction.is_critical,
             'commission': CommissionSerializer.convert_object_to_json(
@@ -90,4 +87,4 @@ class ConstructionSerializer:
         }
 
     def convert_list_to_json(self, constructions: list) -> list:
-        return list(map(self.convert_object_to_json, constructions))
+        return list(map(self.to_json, constructions))
