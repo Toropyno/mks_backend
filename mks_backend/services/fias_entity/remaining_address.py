@@ -3,7 +3,7 @@ from mks_backend.services.fias_entity.fias import (
 )
 
 
-class StreetHouseService:
+class RemainingAddressService:
 
     def __init__(self):
         self.text = ''

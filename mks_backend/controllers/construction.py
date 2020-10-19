@@ -23,14 +23,11 @@ class ConstructionController:
         self.filter_schema = ConstructionFilterSchema()
         self.coordinate_serializer = CoordinateSerializer()
 
+    @handle_colander_error
     @view_config(route_name='get_all_constructions', renderer='json')
     def get_all_constructions(self):
         if self.request.params:
-            try:
-                params_deserialized = self.filter_schema.deserialize(self.request.GET)
-            except colander.Invalid as error:
-                return Response(status=403, json_body=error.asdict())
-
+            params_deserialized = self.filter_schema.deserialize(self.request.GET)
             constructions = self.service.filter_constructions(params_deserialized)
         else:
             constructions = self.service.get_all_constructions()
@@ -61,30 +58,18 @@ class ConstructionController:
         self.service.delete_construction_by_id(id)
         return {'id': id}
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='edit_construction', renderer='json')
     def edit_construction(self):
-        construction_schema = ConstructionSchema()
-        try:
-            construction_deserialized = construction_schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
-
+        construction_deserialized = self.schema.deserialize(self.request.json_body)
         construction_deserialized['id'] = self.request.matchdict['id']
 
         coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
         new_construction = self.service.convert_schema_to_object(construction_deserialized)
         new_construction.coordinate = coordinate
-        try:
-            self.service.update_construction(new_construction)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
 
+        self.service.update_construction(new_construction)
         return {'id': new_construction.construction_id}
 
     @view_config(route_name='get_construction', renderer='json')

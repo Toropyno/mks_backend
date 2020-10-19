@@ -10,7 +10,7 @@ class ConstructionCompanyRepository:
         self._query = DBSession.query(ConstructionCompany)
 
     def get_all_construction_companies(self) -> list:
-        return self._query.all()
+        return self._query.order_by(ConstructionCompany.fullname).all()
 
     @db_error_handler
     def add_construction_company(self, construction_company: ConstructionCompany) -> None:

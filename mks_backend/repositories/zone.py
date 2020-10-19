@@ -9,7 +9,7 @@ class ZoneRepository:
         return DBSession.query(Zone).get(id)
 
     def get_all_zones(self) -> list:
-        return DBSession.query(Zone).all()
+        return DBSession.query(Zone).order_by(Zone.fullname).all()
 
     @db_error_handler
     def add_zone(self, zone: Zone) -> None:

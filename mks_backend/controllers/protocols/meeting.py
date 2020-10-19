@@ -1,9 +1,9 @@
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from mks_backend.controllers.schemas.meeting import MeetingSchema
-from mks_backend.serializers.meeting import MeetingSerializer
-from mks_backend.services.meeting import MeetingService
+from mks_backend.controllers.schemas.protocols.meeting import MeetingSchema
+from mks_backend.serializers.protocols.meeting import MeetingSerializer
+from mks_backend.services.protocols.meeting import MeetingService
 
 from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
 

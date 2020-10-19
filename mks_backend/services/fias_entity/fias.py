@@ -13,9 +13,9 @@ class FIASService:
                 append_address(address, suitable_addresses)
 
 
-def get_addresses_from_responce(responce) -> list:
+def get_addresses_from_response(response) -> list:
     try:
-        return [rr['text'] for rr in responce.json()]
+        return [rr['text'] for rr in response.json()]
     except TypeError:
         return [
             {'status': 403},

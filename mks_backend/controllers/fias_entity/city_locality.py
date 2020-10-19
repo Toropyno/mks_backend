@@ -1,9 +1,9 @@
 from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
-from mks_backend.controllers.fias_entity.fias import get_fias_response
+from mks_backend.controllers.fias_entity.fias import get_fias_response, FIASController
 from mks_backend.services.fias_entity.city_locality import CityLocalityService
-from mks_backend.services.fias_entity.fias import get_addresses_from_responce
+from mks_backend.services.fias_entity.fias import get_addresses_from_response
 
 
 @view_defaults(renderer='json')
@@ -12,6 +12,7 @@ class CityLocalityController:
     def __init__(self, request: Request):
         self.request = request
         self.service = CityLocalityService()
+        self.fias_controller = FIASController(self.request)
 
     @view_config(route_name='get_cities')
     def get_cities(self):
@@ -26,8 +27,13 @@ class CityLocalityController:
     def get_cities_or_localities(self, socr_names):
         self.service.set_socr_names(socr_names)
         self.service.set_text(self.request.matchdict['text'])
-        subject = None
-        district = None
+
+        fias = self.fias_controller.get_fias_serialized()
+        subject = fias.subject
+        district = fias.district
+        # subject = None
+        # district = None
+
         search_text = self.service.get_search_text(district, subject)
-        addresses = get_addresses_from_responce(get_fias_response(search_text))
+        addresses = get_addresses_from_response(get_fias_response(search_text))
         return self.service.get_cities_or_localities(addresses, district, subject)

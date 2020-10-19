@@ -42,12 +42,12 @@ class ConstructionService:
         construction.planned_date = schema.get('plannedDate')
         construction.object_amount = schema.get('objectsAmount')
         construction.coordinates_id = schema.get('coordinateId')
-        construction.construction_types_id = 1  # schema.get('constructionType')
-        construction.location_types_id = 1  # schema.get('locationType')
-        construction.construction_companies_id = 1  # schema.get('constructionCompany')
-        construction.oksm_id = 1  # schema.get('oksm')
+        construction.construction_types_id = schema.get('constructionType')
+        construction.location_types_id = schema.get('locationType')
+        construction.construction_companies_id = schema.get('constructionCompany')
+        construction.oksm_id = schema.get('oksm')
         construction.address = 'Адрес проекта'  # schema.get('address')
-        construction.note = 'Примечание к проекту'  # schema.get('note')
+        construction.note = schema.get('note')
 
         category_id = schema.get('category')
         construction.construction_categories_id = category_id

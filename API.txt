@@ -625,11 +625,14 @@ Description: Get localities
 Route: '/fias/locality/{text}'
 Method: GET
 
-Description: Get streets and houses
-Route: '/fias/street_house/{text}'
+Description: Get remaining_addresses
+Route: '/fias/remaining_address/{text}'
 Method: GET
-
-
+{
+    "subject": "обл Белгородская",
+    "district": "р-н Белгородский",
+    "city": "пгт Разумное"
+}
 
 
 =====================================================================================================
@@ -714,4 +717,13 @@ ObjectFile {
     constructionObjects Integer
     note                String
     uploadDate          String
+}
+
+FIAS {
+    id                  Integer
+    subject             String
+    district            String
+    city                String
+    locality            String
+    remainingAddress    String
 }
