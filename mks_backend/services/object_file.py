@@ -26,8 +26,8 @@ class ObjectFileService:
     def delete_object_file_by_id(self, id: int) -> None:
         self.repo.delete_object_file_by_id(id)
 
-    def get_file_info_if_idfilestorage(self, object_file):
-        return self.service_filestorage.get_file_info_if_idfilestorage(object_file.idfilestorage)
+    def get_file_info_if_idfilestorage(self, idfilestorage):
+        return self.service_filestorage.get_file_info_if_idfilestorage(idfilestorage)
 
     def set_upload_date(self, object_file_deserialized):
         filestorage = self.service_filestorage.get_filestorage_by_id(object_file_deserialized['idFileStorage'])
