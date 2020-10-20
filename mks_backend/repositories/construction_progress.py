@@ -43,7 +43,3 @@ class ConstructionProgressRepository:
     def get_last_construction_progress_by_object(self, object_id: int) -> ConstructionProgress:
         return DBSession.query(ConstructionProgress).filter_by(construction_objects_id=object_id). \
             order_by(desc(ConstructionProgress.update_datetime)).first()
-
-    def get_construction_progress_by_object_last_reporting_date(self, object_id: int) -> ConstructionProgress:
-        return DBSession.query(ConstructionProgress).filter_by(construction_objects_id=object_id). \
-            order_by(desc(ConstructionProgress.reporting_date)).first()

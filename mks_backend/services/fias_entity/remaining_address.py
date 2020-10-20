@@ -35,7 +35,7 @@ class RemainingAddressService:
 
     def get_remaining_addresses(self, addresses: list) -> list:
         self.remaining_addresses = []
-        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', ' тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
+        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
                       'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ']
         for row_address in addresses:
             for socr in socr_names:

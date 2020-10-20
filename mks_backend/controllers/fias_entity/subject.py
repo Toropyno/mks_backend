@@ -16,7 +16,7 @@ class SubjectController:
     @view_config(route_name='get_subjects')
     def get_subjects(self):
         """
-        Get subjects: 'обл. ', 'обл', 'Респ. ', 'Респ', 'край '
+        Get subjects: 'обл. ', 'обл ', 'Респ. ', 'Респ ', 'край '
         """
         search_subject = self.request.matchdict['text']
         self.service.set_search_subject(search_subject)

@@ -24,7 +24,7 @@ class DistrictService:
 
     def get_districts(self, addresses: list, subject: str) -> list:
         self.districts = []
-        socr_names = ['р-н ', 'район ', ' у ']
+        socr_names = ['р-н ', 'район ', 'у ']
 
         if subject is None:
             self.service_fias.set_search_address(self.search_district)

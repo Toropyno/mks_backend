@@ -99,6 +99,3 @@ class ConstructionService:
                 params[case_switcher[key]] = params_deserilized[key]
 
         return params
-
-    def get_construction_objects_calculated_for_construction(self, id):
-        return self.object_service.get_construction_objects_calculated(id)

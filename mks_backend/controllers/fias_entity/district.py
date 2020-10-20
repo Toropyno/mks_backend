@@ -17,7 +17,7 @@ class DistrictController:
     @view_config(route_name='get_districts')
     def get_districts(self):
         """
-        Get districts: 'р-н ', 'район ', ' у '
+        Get districts: 'р-н ', 'район ', 'у '
         """
         self.service.set_search_district(self.request.matchdict['text'])
         fias_post = self.fias_controller.get_fias_serialized()

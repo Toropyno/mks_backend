@@ -64,4 +64,4 @@ class ConstructionObjectController:
         )
 
         self.service.update_construction_object(construction_object)
-        return {'id': id}
+        return {'id': construction_object.construction_objects_id}
