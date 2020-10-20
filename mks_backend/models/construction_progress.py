@@ -49,7 +49,7 @@ class ConstructionProgress(Base):
     construction_objects_id = Column(
         Integer,
         ForeignKey('construction_objects.construction_objects_id', ondelete='CASCADE'),
-        nullable=False,
+        nullable=False
     )
 
     progress_statuses_id = Column(
