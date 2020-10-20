@@ -107,11 +107,13 @@ class ProtocolControllerFilterSchema(colander.MappingSchema):
         name='dateStart',
         preparer=[strip_space],
         validator=date_validator,
-        missing=None)
+        missing=None
+    )
 
     date_end = colander.SchemaNode(
         colander.String(),
         name='dateEnd',
         preparer=[strip_space],
         validator=date_validator,
-        missing=None)
+        missing=None
+    )

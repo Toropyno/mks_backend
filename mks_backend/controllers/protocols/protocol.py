@@ -16,7 +16,7 @@ class ProtocolController:
         self.serializer = ProtocolSerializer()
         self.service = ProtocolService()
         self.schema = ProtocolControllerSchema()
-        self.filter_schema = ProtocolControllerSchema()
+        self.filter_schema = ProtocolControllerFilterSchema()
 
     @handle_db_error
     @handle_colander_error
