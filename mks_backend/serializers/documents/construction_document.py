@@ -8,15 +8,7 @@ from mks_backend.serializers.utils.date_and_time import get_date_string, get_dat
 
 class ConstructionDocumentSerializer:
 
-    def convert_object_to_json(self, construction_document: ConstructionDocument, file_info=None) -> dict:
-        upload_date = None
-        if construction_document.idfilestorage:
-            file_info = FileStorageSerializer.convert_file_info_with_idfilestorage(
-                construction_document.idfilestorage,
-                file_info,
-            )
-            upload_date = self.get_upload_date(construction_document.upload_date)
-
+    def convert_object_to_json(self, construction_document: ConstructionDocument) -> dict:
         return {
             'id': construction_document.construction_documents_id,
             'constructionId': construction_document.construction_id,
@@ -25,13 +17,11 @@ class ConstructionDocumentSerializer:
             'docDate': get_date_string(construction_document.doc_date),
             'docName': construction_document.doc_name,
             'note': construction_document.note,
-            'uploadDate': upload_date,
-            'file': file_info,
+            'uploadDate': get_date_time_string(construction_document.upload_date),
+            'file': FileStorageSerializer.to_json(
+                construction_document.file_storage
+            ),
         }
 
     def convert_list_to_json(self, construction_documents: list) -> list:
         return list(map(self.convert_object_to_json, construction_documents))
-
-    def get_upload_date(self, upload_date: datetime) -> str:
-        if upload_date:
-            return get_date_time_string(upload_date)

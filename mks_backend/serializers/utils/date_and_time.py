@@ -8,7 +8,8 @@ def get_date_string(date: Date) -> str:
 
 
 def get_date_time_string(date_time: DateTime) -> str:
-    return date_time.strftime('%d.%m.%Y %H:%M:%S')
+    if date_time:
+        return date_time.strftime('%d.%m.%Y %H:%M:%S')
 
 
 def get_date_time_zone(date_time: DateTime) -> str:

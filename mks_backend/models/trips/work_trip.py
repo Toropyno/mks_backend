@@ -49,9 +49,8 @@ class WorkTrip(Base):
     )
 
     def __str__(self):
-        return 'Поездка руководства id={id}, name={name}, leader={leader}, protocol={protocol}'.format(
+        return 'Поездка руководства id={id}, name={name}, leader={leader}'.format(
             id=self.work_trips_id,
             name=self.trip_name,
             leader=self.leadership_position.fullname,
-            protocol=self.protocol.protocol_name
         )
