@@ -35,7 +35,7 @@ class InspectionController:
 
     @view_config(route_name='delete_inspection')
     def delete_inspection(self):
-        id = self.get_id()
+        id = int(self.request.matchdict['id'])
         self.service.delete_inspection_by_id(id)
         return {'id': id}
 
@@ -44,7 +44,7 @@ class InspectionController:
     @view_config(route_name='edit_inspection')
     def edit_inspection(self):
         inspection_deserialized = self.schema.deserialize(self.request.json_body)
-        inspection_deserialized['id'] = self.get_id()
+        inspection_deserialized['id'] = int(self.request.matchdict['id'])
 
         new_inspection = self.serializer.convert_schema_to_object(inspection_deserialized)
         self.service.update_inspection(new_inspection)
@@ -52,9 +52,6 @@ class InspectionController:
 
     @view_config(route_name='get_inspection')
     def get_inspection(self):
-        id = self.get_id()
+        id = int(self.request.matchdict['id'])
         inspection = self.service.get_inspection_by_id(id)
         return self.serializer.to_json(inspection)
-
-    def get_id(self) -> int:
-        return int(self.request.matchdict['id'])

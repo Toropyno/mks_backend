@@ -1,3 +1,5 @@
+from typing import List
+
 from mks_backend.models.inspections.inspection import Inspection
 from mks_backend.repositories.inspections.inspection import InspectionRepository
 
@@ -7,7 +9,7 @@ class InspectionService:
     def __init__(self):
         self.repo = InspectionRepository()
 
-    def get_all_inspections(self) -> list:
+    def get_all_inspections(self) -> List[Inspection]:
         return self.repo.get_all_inspections()
 
     def get_inspection_by_id(self, id: int) -> Inspection:
@@ -22,7 +24,7 @@ class InspectionService:
     def delete_inspection_by_id(self, id: int) -> None:
         self.repo.delete_inspection_by_id(id)
 
-    def get_inspections(self, filter_params=None):
+    def get_inspections(self, filter_params=None) -> List[Inspection]:
         if filter_params:
             params = self.switch_case(filter_params)
             return self.repo.get_filtered_inspections(params)

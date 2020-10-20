@@ -1,5 +1,6 @@
-from mks_backend.models.inspections.inspection import Inspection
+from typing import List
 
+from mks_backend.models.inspections.inspection import Inspection
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
 from mks_backend.errors.serilize_error import serialize_error_handler
@@ -18,7 +19,7 @@ class InspectionSerializer:
             'result': inspection.insp_result,
         }
 
-    def convert_list_to_json(self, inspections: list) -> list:
+    def convert_list_to_json(self, inspections: List[Inspection]) -> list:
         return list(map(self.to_json, inspections))
 
     def convert_schema_to_object(self, schema: dict) -> Inspection:

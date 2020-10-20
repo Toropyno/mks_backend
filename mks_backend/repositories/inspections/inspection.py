@@ -25,9 +25,7 @@ class InspectionRepository:
 
     @db_error_handler
     def update_inspection(self, new_inspection: Inspection) -> None:
-        old_inspection = self._query.filter(
-            Inspection.inspections_id == new_inspection.inspections_id
-        )
+        old_inspection = self._query.filter(Inspection.inspections_id == new_inspection.inspections_id)
         old_inspection.update(
             {
                 'insp_date': new_inspection.insp_date,

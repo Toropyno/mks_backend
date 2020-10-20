@@ -1,3 +1,6 @@
+import os
+import sys
+
 # Do not delete import models
 from mks_backend.models import Base
 
@@ -50,10 +53,6 @@ from mks_backend.models.contract_status import ContractStatus
 from mks_backend.models.element_type import ElementType
 
 from mks_backend.models.inspections.inspection import Inspection
-
-
-import os
-import sys
 
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
