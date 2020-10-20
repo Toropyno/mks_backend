@@ -685,8 +685,8 @@ ProgressStatus {
 }
 
 ObjectFile {
-    idFileStorage       String
-    constructionObjects Integer
-    note                String
-    uploadDate          String
+    idFileStorage        String
+    constructionObjectId Integer
+    note                 String
+    uploadDate           String
 }

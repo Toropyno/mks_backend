@@ -86,5 +86,20 @@ class ConstructionRepository:
         if 'planned_date_end' in params:
             planned_date_end = params['planned_date_end']
             constructions = constructions.filter(Construction.planned_date <= planned_date_end)
+        if 'construction_types_id' in params:
+            types_id = params['construction_types_id']
+            constructions = constructions.filter(Construction.construction_types_id == types_id)
+        if 'construction_companies_id' in params:
+            companies_id = params['construction_companies_id']
+            constructions = constructions.filter(Construction.construction_companies_id == companies_id)
+        if 'location_types_id' in params:
+            location_types_id = params['location_types_id']
+            constructions = constructions.filter(Construction.location_types_id == location_types_id)
+        if 'oksm_id' in params:
+            oksm_id = params['oksm_id']
+            constructions = constructions.filter(Construction.oksm_id == oksm_id)
+        if 'address' in params:
+            address = params['address']
+            constructions = constructions.filter(Construction.address == address)
 
         return constructions.order_by(Construction.contract_date).all()

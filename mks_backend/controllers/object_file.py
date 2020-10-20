@@ -59,7 +59,7 @@ class ObjectFileController:
     def get_object_file(self):
         id = int(self.request.matchdict['id'])
         object_file = self.service.get_object_file_by_id(id)
-        file_info = self.service.get_file_info_if_idfilestorage(object_file)
+        file_info = self.service.get_file_info_if_idfilestorage(object_file.idfilestorage)
         return self.serializer.convert_object_to_json(object_file, file_info)
 
     @view_config(route_name='get_object_files_by_object', renderer='json')
@@ -72,6 +72,6 @@ class ObjectFileController:
     def get_object_files_with_file_info(self, object_files):
         obj_files = []
         for obj in object_files:
-            file_info = self.service.get_file_info_if_idfilestorage(obj)
+            file_info = self.service.get_file_info_if_idfilestorage(obj.idfilestorage)
             obj_files.append(self.serializer.convert_object_to_json(obj, file_info))
         return obj_files
