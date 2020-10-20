@@ -42,12 +42,12 @@ class ConstructionService:
         construction.planned_date = schema.get('plannedDate')
         construction.object_amount = schema.get('objectsAmount')
         construction.coordinates_id = schema.get('coordinateId')
-        construction.construction_types_id = 1  # schema.get('constructionType')
-        construction.location_types_id = 1  # schema.get('locationType')
-        construction.construction_companies_id = 1  # schema.get('constructionCompany')
-        construction.oksm_id = 1  # schema.get('oksm')
-        construction.address = 'Адрес проекта'  # schema.get('address')
-        construction.note = 'Примечание к проекту'  # schema.get('note')
+        construction.construction_types_id = schema.get('constructionType')
+        construction.location_types_id = schema.get('locationType')
+        construction.construction_companies_id = schema.get('constructionCompany')
+        construction.oksm_id = schema.get('oksm')
+        construction.address = schema.get('address')
+        construction.note = schema.get('note')
 
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
@@ -91,6 +91,11 @@ class ConstructionService:
             'contractDateEnd': 'contract_date_end',
             'plannedDateStart': 'planned_date_start',
             'plannedDateEnd': 'planned_date_end',
+            'constructionType': 'construction_types_id',
+            'constructionCompany': 'construction_companies_id',
+            'locationType': 'location_types_id',
+            'oksm': 'oksm_id',
+            'address': 'address',
         }
 
         params = dict()
@@ -99,6 +104,3 @@ class ConstructionService:
                 params[case_switcher[key]] = params_deserilized[key]
 
         return params
-
-    def get_construction_objects_calculated_for_construction(self, id):
-        return self.object_service.get_construction_objects_calculated(id)

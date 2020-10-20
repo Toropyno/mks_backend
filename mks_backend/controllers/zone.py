@@ -1,13 +1,11 @@
-import colander
 from pyramid.request import Request
-from pyramid.response import Response
 from pyramid.view import view_config
 
 from mks_backend.controllers.schemas.zone import ZoneSchema
-from mks_backend.errors.colander_error import get_collander_error_dict
-from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.zone import ZoneSerializer
 from mks_backend.services.zone import ZoneService
+
+from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
 
 
 class ZoneController:
@@ -23,24 +21,14 @@ class ZoneController:
         zones = self.service.get_all_zones()
         return self.serializer.convert_list_to_json(zones)
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='add_zone', renderer='json')
     def add_zone(self):
-        try:
-            zone_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        zone_deserialized = self.schema.deserialize(self.request.json_body)
         zone = self.service.convert_schema_to_object(zone_deserialized)
-        try:
-            self.service.add_zone(zone)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
 
+        self.service.add_zone(zone)
         return {'id': zone.zones_id}
 
     @view_config(route_name='get_zone', renderer='json')
@@ -55,26 +43,15 @@ class ZoneController:
         self.service.delete_zone_by_id(id)
         return {'id': id}
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='edit_zone', renderer='json')
     def edit_zone(self):
-        id = self.get_id()
-        try:
-            zone_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
-        zone_deserialized['id'] = id
-        zone = self.service.convert_schema_to_object(zone_deserialized)
-        try:
-            self.service.update_zone(zone)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
+        zone_deserialized = self.schema.deserialize(self.request.json_body)
+        zone_deserialized['id'] = self.get_id()
 
+        zone = self.service.convert_schema_to_object(zone_deserialized)
+        self.service.update_zone(zone)
         return {'id': id}
 
     def get_id(self):

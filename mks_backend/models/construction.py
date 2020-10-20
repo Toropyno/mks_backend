@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -8,6 +10,7 @@ from sqlalchemy import (
     CheckConstraint,
 )
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from mks_backend.models import Base
 
@@ -128,3 +131,38 @@ class Construction(Base):
     type = relationship(
         'ConstructionType'
     )
+
+    # --------- calculated_fields --------- #
+
+    @hybrid_property
+    def calculated_fields(self):
+        plan = 0
+        actually = 0
+        entered_additionally = 0
+        readiness = 0
+        workers = 0
+        equipment = 0
+        now_year = datetime.now().year
+
+        for construction_object in self.construction_objects:
+            if construction_object.planned_date.year == now_year:
+                plan += 1
+            if construction_object.planned_date.year == construction_object.fact_date.year == now_year:
+                actually += 1
+            if construction_object.fact_date.year == now_year != construction_object.planned_date.year:
+                entered_additionally += 1
+
+            readiness += construction_object.readiness
+            workers += construction_object.workers
+            equipment += construction_object.equipment
+        difference = plan - actually
+
+        return {
+            'plan': plan,
+            'actually': actually,
+            'difference': difference,
+            'enteredAdditionally': entered_additionally,
+            'readiness': format(readiness, '.3f'),
+            'workers': workers,
+            'equipment': equipment,
+        }

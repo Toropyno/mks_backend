@@ -9,7 +9,7 @@ class ProgressStatusRepository:
         return DBSession.query(ProgressStatus).get(id)
 
     def get_all_progress_statuses(self) -> list:
-        return DBSession.query(ProgressStatus).all()
+        return DBSession.query(ProgressStatus).order_by(ProgressStatus.fullname).all()
 
     @db_error_handler
     def add_progress_status(self, progress_status: ProgressStatus) -> None:

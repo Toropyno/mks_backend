@@ -10,7 +10,7 @@ class OKSMRepository:
         self._query = DBSession.query(OKSM)
 
     def get_all_oksms(self) -> list:
-        return self._query.all()
+        return self._query.order_by(OKSM.code).all()
 
     @db_error_handler
     def add_oksm(self, oksm: OKSM) -> None:

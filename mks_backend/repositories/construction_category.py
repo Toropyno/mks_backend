@@ -9,7 +9,7 @@ class ConstructionCategoryRepository:
         return DBSession.query(ConstructionCategory).get(id)
 
     def get_all_construction_categories(self) -> list:
-        return DBSession.query(ConstructionCategory).all()
+        return DBSession.query(ConstructionCategory).order_by(ConstructionCategory.fullname).all()
 
     @db_error_handler
     def add_construction_category(self, construction_category: ConstructionCategory) -> None:

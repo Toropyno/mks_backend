@@ -9,7 +9,7 @@ class ObjectCategoryRepository:
         return DBSession.query(ObjectCategory).get(id)
 
     def get_all_object_categories(self) -> list:
-        return DBSession.query(ObjectCategory).all()
+        return DBSession.query(ObjectCategory).order_by(ObjectCategory.fullname).all()
 
     def get_many_object_categories_by_id(self, ids: list) -> list:
         return DBSession.query(ObjectCategory).filter(

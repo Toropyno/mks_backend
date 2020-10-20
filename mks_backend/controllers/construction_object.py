@@ -1,14 +1,12 @@
-import colander
 from pyramid.request import Request
-from pyramid.response import Response
 from pyramid.view import view_config
 
 from mks_backend.controllers.schemas.construction_object import ConstructionObjectSchema
-from mks_backend.errors.colander_error import get_collander_error_dict
-from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.construction_object import ConstructionObjectSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.services.construction_object import ConstructionObjectService
+
+from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 
 
 class ConstructionObjectController:
@@ -32,32 +30,18 @@ class ConstructionObjectController:
         construction_object = self.service.get_construction_object_by_id(id)
         return self.serializer.convert_object_to_json(construction_object)
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='add_construction_object', renderer='json')
     def add_construction_object(self):
-        try:
-            construction_object_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
-
+        construction_object_deserialized = self.schema.deserialize(self.request.json_body)
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
 
         construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
             construction_object_deserialized
         )
 
-        try:
-            self.service.add_construction_object(construction_object)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
-
+        self.service.add_construction_object(construction_object)
         return {'id': construction_object.construction_objects_id}
 
     @view_config(route_name='delete_construction_object', renderer='json')
@@ -66,32 +50,18 @@ class ConstructionObjectController:
         self.service.delete_construction_object_by_id(id)
         return {'id': id}
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='edit_construction_object', renderer='json')
     def edit_construction_object(self):
-        id = int(self.request.matchdict['id'])
-        try:
-            construction_object_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
-        except ValueError as date_parse_error:
-            return Response(status=403, json_body=date_parse_error.args)
+        construction_object_deserialized = self.schema.deserialize(self.request.json_body)
+        construction_object_deserialized['id'] = int(self.request.matchdict['id'])
 
-        construction_object_deserialized['id'] = id
         construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
 
         construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
             construction_object_deserialized
         )
 
-        try:
-            self.service.update_construction_object(construction_object)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
-
-        return {'id': id}
+        self.service.update_construction_object(construction_object)
+        return {'id': construction_object.construction_objects_id}

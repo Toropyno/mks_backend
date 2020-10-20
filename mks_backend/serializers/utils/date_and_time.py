@@ -3,7 +3,8 @@ from datetime import datetime as DateTime
 
 
 def get_date_string(date: Date) -> str:
-    return date.strftime('%Y,%m,%d')
+    if date:
+        return date.strftime('%Y,%m,%d')
 
 
 def get_date_time_string(date_time: DateTime) -> str:
