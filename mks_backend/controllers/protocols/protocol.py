@@ -16,14 +16,14 @@ class ProtocolController:
         self.serializer = ProtocolSerializer()
         self.service = ProtocolService()
         self.schema = ProtocolControllerSchema()
+        self.filter_schema = ProtocolControllerSchema()
 
     @handle_db_error
     @handle_colander_error
     @view_config(route_name='get_all_protocols', renderer='json')
     def get_all_protocols(self):
         if self.request.params:
-            params_schema = ProtocolControllerFilterSchema()
-            params_deserialized = params_schema.deserialize(self.request.GET)
+            params_deserialized = self.filter_schema.deserialize(self.request.GET)
             params = self.service.get_params_from_schema(params_deserialized)
             protocols = self.service.filter_protocols(params)
         else:
