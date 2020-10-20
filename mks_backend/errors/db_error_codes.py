@@ -47,5 +47,8 @@ DB_ERROR_CODES = {
         'work_trips_leadership_positions_id_fkey': 'Такой должности не существует!',
         'work_trips_protocol_id_fkey': 'Такого протокола не существует!',
 
+        'inspection_objects_construction_id_fkey': 'Такого проверенного объекта строительства не существует!',
+        'visited_objects_construction_id_fkey': 'Такого посещенного объекта строительства не существует!',
+
         'other_fkey': 'Вторичный ключ не найден!',
 }

@@ -4,7 +4,6 @@ from sqlalchemy import (
     ForeignKey,
     PrimaryKeyConstraint,
 )
-from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 
