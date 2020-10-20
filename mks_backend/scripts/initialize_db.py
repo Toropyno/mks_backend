@@ -1,9 +1,12 @@
+import os
+import sys
+
 # Do not delete import models
 from mks_backend.models import Base
 
-from mks_backend.models.protocol import Protocol
+from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.filestorage import Filestorage
-from mks_backend.models.meeting import Meeting
+from mks_backend.models.protocols.meeting import Meeting
 
 from mks_backend.models.commission import Commission
 from mks_backend.models.construction import Construction
@@ -49,9 +52,7 @@ from mks_backend.models.trips.visited_object import VisitedObject
 from mks_backend.models.contract_status import ContractStatus
 from mks_backend.models.element_type import ElementType
 
-
-import os
-import sys
+from mks_backend.models.inspections.inspection import Inspection
 
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config

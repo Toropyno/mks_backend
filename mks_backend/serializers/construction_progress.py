@@ -11,18 +11,14 @@ class ConstructionProgressSerializer:
     @classmethod
     @serialize_error_handler
     def convert_object_to_json(cls, construction_progress: ConstructionProgress) -> dict:
-        readiness = float(construction_progress.readiness) if construction_progress.readiness else None
-
-        progress_status = ProgressStatusSerializer.convert_object_to_json(construction_progress.progress_status)
-
         return {
             'id': construction_progress.construction_progress_id,
             'constructionObjects': construction_progress.construction_objects_id,
             'reportingDate': get_date_string(construction_progress.reporting_date),
-            'readiness': readiness,
+            'readiness': format(construction_progress.readiness, '.3f'),
             'people': construction_progress.people,
             'equipment': construction_progress.equipment,
-            'progressStatus': progress_status,
+            'progressStatus': ProgressStatusSerializer.convert_object_to_json(construction_progress.progress_status),
             'updateDatetime': get_date_time_string(construction_progress.update_datetime),
         }
 

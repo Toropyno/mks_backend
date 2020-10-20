@@ -10,7 +10,7 @@ class RealtyTypeRepository:
         self._query = DBSession.query(RealtyType)
 
     def get_all_realty_types(self) -> list:
-        return self._query.all()
+        return self._query.order_by(RealtyType.fullname).all()
 
     @db_error_handler
     def add_realty_type(self, realty_type: RealtyType) -> None:

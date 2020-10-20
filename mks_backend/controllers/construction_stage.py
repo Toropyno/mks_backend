@@ -1,13 +1,11 @@
-import colander
 from pyramid.request import Request
-from pyramid.response import Response
 from pyramid.view import view_config
 
 from mks_backend.controllers.schemas.construction_stage import ConstructionStageSchema
-from mks_backend.errors.colander_error import get_collander_error_dict
-from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 from mks_backend.services.construction_stage import ConstructionStageService
+
+from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
 
 
 class ConstructionStageController:
@@ -23,24 +21,14 @@ class ConstructionStageController:
         construction_stages = self.service.get_all_construction_stages()
         return self.serializer.convert_list_to_json(construction_stages)
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='add_construction_stage', renderer='json')
     def add_construction_stage(self):
-        try:
-            construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
+        construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
         construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
-        try:
-            self.service.add_construction_stage(construction_stage)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
 
+        self.service.add_construction_stage(construction_stage)
         return {'id': construction_stage.construction_stages_id}
 
     @view_config(route_name='get_construction_stage', renderer='json')
@@ -55,24 +43,13 @@ class ConstructionStageController:
         self.service.delete_construction_stage_by_id(id)
         return {'id': id}
 
+    @handle_db_error
+    @handle_colander_error
     @view_config(route_name='edit_construction_stage', renderer='json')
     def edit_construction_stage(self):
-        id = int(self.request.matchdict['id'])
-        try:
-            construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
-        except colander.Invalid as error:
-            return Response(status=403, json_body=get_collander_error_dict(error.asdict()))
-        construction_stage_deserialized['id'] = id
-        construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
-        try:
-            self.service.update_construction_stage(construction_stage)
-        except DBBasicError as error:
-            return Response(
-                status=403,
-                json_body={
-                    'code': error.code,
-                    'message': error.message
-                }
-            )
+        construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
+        construction_stage_deserialized['id'] = int(self.request.matchdict['id'])
 
+        construction_stage = self.serializer.convert_schema_to_object(construction_stage_deserialized)
+        self.service.update_construction_stage(construction_stage)
         return {'id': id}

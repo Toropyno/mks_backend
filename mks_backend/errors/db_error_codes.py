@@ -28,6 +28,8 @@ DB_ERROR_CODES = {
         'leadership_positions_code_key_duplicate': 'Должность с таким кодом уже существует!',
         'leadership_positions_fullname_key_duplicate': 'Должность с таким наименованием уже существует!',
 
+        'inspection_unique_duplicate': 'Поездка с такой датой и наименованием уже существует!',
+
         'other_duplicate': 'Дубликат записи!',
 
         'construction_construction_categories_id_fkey': 'Категории Проекта с указанным ключом не существует!',
@@ -44,6 +46,9 @@ DB_ERROR_CODES = {
 
         'work_trips_leadership_positions_id_fkey': 'Такой должности не существует!',
         'work_trips_protocol_id_fkey': 'Такого протокола не существует!',
+
+        'inspection_objects_construction_id_fkey': 'Такого проверенного объекта строительства не существует!',
+        'visited_objects_construction_id_fkey': 'Такого посещенного объекта строительства не существует!',
 
         'other_fkey': 'Вторичный ключ не найден!',
 }

@@ -1,4 +1,4 @@
-from mks_backend.models.meeting import Meeting
+from mks_backend.models.protocols.meeting import Meeting
 from mks_backend.repositories.meeting import MeetingRepository
 
 

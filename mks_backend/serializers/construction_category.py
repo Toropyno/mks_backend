@@ -18,5 +18,13 @@ class ConstructionCategorySerializer:
             ],
         }
 
+    @classmethod
+    @serialize_error_handler
+    def to_short_json(cls, construction_category: ConstructionCategory) -> dict:
+        return {
+            'id': construction_category.construction_categories_id,
+            'fullName': construction_category.fullname
+        }
+
     def convert_list_to_json(self, construction_categories_list: list) -> list:
         return list(map(self.convert_object_to_json, construction_categories_list))
