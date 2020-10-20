@@ -21,7 +21,7 @@ class ConstructionSerializer:
         else:
             subcategory = None
 
-        json = {
+        construction_json = {
             'id': construction.construction_id,
             'code': construction.project_code,
             'name': construction.project_name,
@@ -77,8 +77,8 @@ class ConstructionSerializer:
             ),
         }
 
-        json.update(construction.calculated_fields)
-        return json
+        construction_json.update(construction.calculated_fields)
+        return construction_json
 
     def convert_list_to_json(self, constructions: list) -> list:
         return list(map(self.to_json, constructions))
