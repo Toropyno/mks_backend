@@ -13,9 +13,6 @@ class DistrictService:
         self.service_fias = FIASService()
         self.districts = []
 
-    def set_search_district(self, search_district: str) -> None:
-        self.search_district = search_district
-
     def get_search_text(self, subject: str) -> str:
         search_text = self.search_district
         if subject is not None:
@@ -27,7 +24,7 @@ class DistrictService:
         socr_names = ['р-н ', 'район ', 'у ']
 
         if subject is None:
-            self.service_fias.set_search_address(self.search_district)
+            self.service_fias.search_address = self.search_district
             for row_address in addresses:
                 for socr in socr_names:
                     self.service_fias.append_address_if_in_row_address(row_address, socr, self.districts)

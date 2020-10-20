@@ -1,10 +1,9 @@
-import requests
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
-from requests import Response
 
 from mks_backend.controllers.schemas.fias import FIASSchema
 from mks_backend.models.fias import FIAS
+from mks_backend.repositories.fias_entity.api import get_fias_response
 from mks_backend.serializers.fias import FIASSerializer
 from mks_backend.services.fias_entity.fias import get_addresses_from_response, FIASService
 
@@ -28,19 +27,4 @@ class FIASController:
         return self.serializer.convert_schema_to_object(fias_deserialized)
 
 
-def get_fias_response(search_text: str) -> Response:
-    return requests.get(
-        url='http://172.23.137.67/fiasapi/find/' + search_text + '?suggests=15',
-        headers={
-            'Authorization': 'Basic dXNlcjoxMTExMTExMQ=='
-        },
-    )
 
-
-def get_by_AOID_response(aoid: str) -> Response:
-    return requests.get(
-        url='http://172.23.137.67/fiasapi/expand/' + aoid,
-        headers={
-            'Authorization': 'Basic dXNlcjoxMTExMTExMQ=='
-        },
-    )

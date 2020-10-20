@@ -10,9 +10,6 @@ class SubjectService:
         self.search_subject = ''
         self.subjects = []
 
-    def set_search_subject(self, search_subject: str) -> None:
-        self.search_subject = search_subject
-
     def get_subjects(self, addresses: list) -> list:
         self.subjects = []
         socr_names = ['обл. ', 'обл ', 'Респ. ', 'Респ ', 'край ']

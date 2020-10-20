@@ -9,9 +9,6 @@ class RemainingAddressService:
         self.remaining_addresses = []
         self.service_fias = FIASService()
 
-    def set_search_rem_address(self, search_rem_address: str) -> None:
-        self.search_rem_address = search_rem_address
-
     def get_search_text(self, fias: FIAS) -> str:
         city = fias.city
         locality = fias.locality
