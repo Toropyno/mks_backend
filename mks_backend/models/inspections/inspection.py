@@ -8,6 +8,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
+from mks_backend.models.construction import Construction
 
 
 class Inspection(Base):
@@ -28,6 +29,13 @@ class Inspection(Base):
     insp_name = Column(VARCHAR(255), nullable=False)
     inspector = Column(VARCHAR(100), nullable=False)
     insp_result = Column(VARCHAR(2000), nullable=True)
+
+    # --------- relationships --------- #
+
+    constructions = relationship(
+        Construction,
+        secondary='inspection_objects'
+    )
 
     def __str__(self):
         return 'Проверка id={id}, name={name}'.format(
