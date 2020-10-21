@@ -14,7 +14,7 @@ class CityLocalityService:
         self.search_address = ''
         self.socr_names = []
         self.cities_or_localities = []
-        self.service_fias = FIASService()
+        self.service_FIAS = FIASService()
 
     def get_search_text(self, fias: FIAS) -> str:
         search_text = self.search_address
@@ -27,14 +27,19 @@ class CityLocalityService:
             search_text = subject + ', ' + search_text
         return search_text
 
-    def get_cities_or_localities(self, addresses: list, fias: FIAS) -> list:
+    def get_cities_or_localities(self, fias: FIAS) -> list:
         self.cities_or_localities = []
 
+        search_text = self.get_search_text(fias)
+        addresses = self.service_FIAS.get_addresses_from_response(search_text)
+        if not addresses:
+            return []
+
         if fias.subject is None:
-            self.service_fias.search_address = self.search_address
+            self.service_FIAS.search_address = self.search_address
             for row_address in addresses:
                 for c_l in self.socr_names:
-                    self.service_fias.append_address_if_in_row_address(row_address, c_l, self.cities_or_localities)
+                    self.service_FIAS.append_address_if_in_row_address(row_address, c_l, self.cities_or_localities)
             self.cities_or_localities = get_reversed_addresses(self.cities_or_localities)
 
         elif fias.district is None:

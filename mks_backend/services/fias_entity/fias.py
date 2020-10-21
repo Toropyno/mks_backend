@@ -1,5 +1,6 @@
 from requests import Response
 
+from mks_backend.errors.response_error import response_error_handler
 from mks_backend.repositories.fias_entity.api import FIASAPIRepository
 
 
@@ -15,23 +16,17 @@ class FIASService:
             if socr_name + self.search_address.lower() in address.lower():
                 append_address(address, suitable_addresses)
 
+    def get_addresses_from_response(self, search_text: str) -> list:
+        fias_response = self.get_fias_response(search_text)
+        return extract_addresses(fias_response)
+
     def get_fias_response(self, search_text: str) -> Response:
         return self.repository.get_fias_response(search_text)
 
 
-def get_addresses_from_response(response: Response) -> list:
-    try:
-        return [rr['text'] for rr in response.json()]
-    except TypeError:
-        return [
-            {'status': 403},
-            {
-                'json_body': {
-                    'code': 'text_short',
-                    'message': 'Слишком короткий текст'
-                }
-            }
-        ]
+@response_error_handler
+def extract_addresses(response: Response) -> list:
+    return [rr['text'] for rr in response.json()]
 
 
 def get_by_socr_name(row_address: str, socr_name: str) -> str:
