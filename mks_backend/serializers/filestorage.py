@@ -9,26 +9,12 @@ class FileStorageSerializer:
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, filestorage: Filestorage, file_info=None) -> dict:
+    def to_json(cls, filestorage: Filestorage):
         return {
-            'id': str(filestorage.idfilestorage),
-            'fileName': file_info.get('filename'),
-            'uri': filestorage.uri,
-            'size': file_info.get('filesize'),
-            'mimeType': filestorage.mimeType,
-            'createdOn': get_date_time_zone(filestorage.createdOn),
-            'description': filestorage.description,
-            'authorId': filestorage.authorid,
+            'idFileStorage': str(filestorage.idfilestorage),
+            'name': filestorage.filename,
+            'size': filestorage.size,
         }
 
     def convert_list_to_json(self, filestorages: list) -> list:
-        return list(map(self.convert_object_to_json, filestorages))
-
-    @classmethod
-    def convert_file_info_with_idfilestorage(cls, idfilestorage: UUID, file_info: dict) -> dict:
-        if file_info:
-            return {
-                'idFileStorage': idfilestorage,
-                'name': file_info.get('filename'),
-                'size': file_info.get('filesize'),
-            }
+        return list(map(self.to_json, filestorages))

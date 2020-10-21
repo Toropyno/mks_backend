@@ -9,14 +9,12 @@ class ObjectFileSerializer:
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, object_file: ObjectFile, file_info=None) -> dict:
-        file_info = FileStorageSerializer.convert_file_info_with_idfilestorage(
-            object_file.idfilestorage,
-            file_info,
-        )
+    def convert_object_to_json(cls, object_file: ObjectFile) -> dict:
         return {
             'id': object_file.object_files_id,
-            'file': file_info,
+            'file': FileStorageSerializer.to_json(
+                object_file.file_storage
+            ),
             'constructionObjectId': object_file.construction_objects_id,
             'uploadDate': get_date_time_string(object_file.upload_date),
             'note': object_file.note,

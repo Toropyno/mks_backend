@@ -4,14 +4,10 @@ from mks_backend.serializers.utils.date_and_time import get_date_string
 from mks_backend.serializers.trips.leadership_position import LeadershipPositionSerializer
 from mks_backend.serializers.protocols.protocol import ProtocolSerializer
 
-from mks_backend.errors.serilize_error import serialize_error_handler
-
 
 class WorkTripSerializer:
 
-    @classmethod
-    @serialize_error_handler
-    def to_json(cls, work_trip: WorkTrip) -> dict:
+    def to_json(self, work_trip: WorkTrip) -> dict:
         return {
             'id': work_trip.work_trips_id,
             'date': get_date_string(work_trip.trip_date),
@@ -20,7 +16,7 @@ class WorkTripSerializer:
             'leadershipPosition': LeadershipPositionSerializer.to_json(
                 work_trip.leadership_position
             ),
-            'protocol': ProtocolSerializer.to_short_json(
+            'protocol': ProtocolSerializer.convert_object_to_json(
                 work_trip.protocol
             )
         }
