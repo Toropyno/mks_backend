@@ -183,7 +183,8 @@ def includeme(config):
     config.add_route('get_localities', '/fias/locality/{text}', request_method='GET')
     config.add_route('get_remaining_addresses', '/fias/remaining_address/{text}', request_method='GET')
 
+    config.add_route('get_final_fias_address', '/fias/final_address/{text}', request_method='GET')
+
     config.add_route('add_fias', '/fias', request_method='POST')
     config.add_route('delete_fias', '/fias/{id}', request_method='DELETE')
     config.add_route('edit_fias', '/fias/{id}', request_method='PUT')
-

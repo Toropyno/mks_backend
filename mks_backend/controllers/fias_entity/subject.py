@@ -1,7 +1,7 @@
 from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
-from mks_backend.services.fias_entity.fias import get_addresses_from_response, FIASService
+from mks_backend.services.fias_entity.fias import FIASService
 from mks_backend.services.fias_entity.subject import SubjectService
 
 
@@ -21,5 +21,5 @@ class SubjectController:
         search_subject = self.request.matchdict['text']
         self.service.search_subject = search_subject
 
-        addresses = get_addresses_from_response(self.service_FIAS.get_fias_response(search_subject))
+        addresses = self.service_FIAS.get_addresses_from_response(self.service_FIAS.get_fias_response(search_subject))
         return self.service.get_subjects(addresses)

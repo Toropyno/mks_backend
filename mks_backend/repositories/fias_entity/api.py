@@ -7,10 +7,11 @@ class FIASAPIRepository:
     def __init__(self):
         self.authorization_FIAS_in_DEV = 'Basic dXNlcjoxMTExMTExMQ=='
         self.authorization_FIAS_in_INT = ''
+        self.number_responses = 15
 
     def get_fias_response(self, search_text: str) -> Response:
         return requests.get(
-            url='http://172.23.137.67/fiasapi/find/' + search_text + '?suggests=15',
+            url='http://172.23.137.67/fiasapi/find/' + search_text + '?suggests=' + str(self.number_responses),
             headers={
                 'Authorization': self.authorization_FIAS_in_DEV
             },
