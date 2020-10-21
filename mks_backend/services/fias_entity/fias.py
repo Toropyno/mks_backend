@@ -1,16 +1,22 @@
 from requests import Response
 
+from mks_backend.repositories.fias_entity.api import FIASAPIRepository
+
 
 class FIASService:
 
     def __init__(self):
         self.search_address = ''
+        self.repository = FIASAPIRepository()
 
     def append_address_if_in_row_address(self, row_address: str, socr_name: str, suitable_addresses: list) -> None:
         if socr_name + self.search_address.lower() in row_address.lower():
             address = get_address_ending_with_socr_name(row_address, socr_name)
             if socr_name + self.search_address.lower() in address.lower():
                 append_address(address, suitable_addresses)
+
+    def get_fias_response(self, search_text: str) -> Response:
+        return self.repository.get_fias_response(search_text)
 
 
 def get_addresses_from_response(response: Response) -> list:
