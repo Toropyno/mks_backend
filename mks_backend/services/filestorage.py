@@ -25,6 +25,9 @@ class FilestorageService:
         self.hdd = FilestorageHDD()
         self.repo_object = ConstructionObjectRepository()
 
+    def get_filestorage_by_id(self, id):
+        return self.repo.get_filestorage_by_id(id)
+
     def create_filestorage(self, request_data: MultiDict) -> str:
         file = request_data.get('protocolFile')
 
@@ -64,26 +67,6 @@ class FilestorageService:
             response = Response('Unable to find file with id = {}'.format(id))
         return response
 
-    def get_file_info(self, uuid):
-        try:
-            filestorage = self.repo.get_filestorage_by_id(uuid)
-        except DatabaseError:
-            raise FilestorageError(6)
-
-        filename = filestorage.filename
-        filesize = filestorage.filesize / 1024  # to Kbytes
-
-        if filesize >= 1024:
-            filesize = filesize / 1024
-            filesize = '{:.1f}Мб'.format(filesize)
-        else:
-            filesize = '{:.1f}Кб'.format(filesize)
-
-        return {
-            'filename': filename,
-            'filesize': filesize
-        }
-
     @classmethod
     def compare_two_filestorages(cls, new_filestorage_id: int, old_filestorage_id: int) -> None:
         if new_filestorage_id != old_filestorage_id:
@@ -94,18 +77,5 @@ class FilestorageService:
         return self.repo.get_many_file_storages_by_id(ids)
 
     def get_filestorages_by_object(self, object_id: int) -> list:
-        filestorages = []
         construction_object = self.repo_object.get_construction_object_by_id(object_id)
-        if construction_object:
-            if construction_object.documents:
-                filestorages = [doc.file_storage for doc in construction_object.documents if doc.file_storage]
-        return filestorages
-
-    def get_file_info_if_idfilestorage(self, idfilestorage: UUID) -> dict:
-        file_info = None
-        if idfilestorage:
-            file_info = self.get_file_info(str(idfilestorage))
-        return file_info
-
-    def get_filestorage_by_id(self, id: int) -> Filestorage:
-        return self.repo.get_filestorage_by_id(str(id))
+        return [doc.file_storage for doc in construction_object.documents if doc.file_storage]

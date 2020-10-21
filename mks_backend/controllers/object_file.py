@@ -20,8 +20,7 @@ class ObjectFileController:
     @view_config(route_name='get_all_object_files')
     def get_all_object_files(self):
         object_files = self.service.get_all_object_files()
-        obj_files = self.get_object_files_with_file_info(object_files)
-        return obj_files
+        return self.serializer.convert_list_to_json(object_files)
 
     @handle_db_error
     @handle_colander_error
@@ -59,19 +58,10 @@ class ObjectFileController:
     def get_object_file(self):
         id = int(self.request.matchdict['id'])
         object_file = self.service.get_object_file_by_id(id)
-        file_info = self.service.get_file_info_if_idfilestorage(object_file.idfilestorage)
-        return self.serializer.convert_object_to_json(object_file, file_info)
+        return self.serializer.convert_object_to_json(object_file)
 
     @view_config(route_name='get_object_files_by_object', renderer='json')
     def get_object_files_by_object(self):
         object_id = int(self.request.matchdict['id'])
         object_files = self.service.get_object_files_by_object(object_id)
-        obj_files = self.get_object_files_with_file_info(object_files)
-        return obj_files
-
-    def get_object_files_with_file_info(self, object_files):
-        obj_files = []
-        for obj in object_files:
-            file_info = self.service.get_file_info_if_idfilestorage(obj.idfilestorage)
-            obj_files.append(self.serializer.convert_object_to_json(obj, file_info))
-        return obj_files
+        return self.serializer.convert_list_to_json(object_files)
