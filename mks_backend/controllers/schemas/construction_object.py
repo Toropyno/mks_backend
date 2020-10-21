@@ -180,13 +180,3 @@ class ConstructionObjectSchema(colander.MappingSchema):
         validator=date_validator,
         missing=None
     )
-
-    documents = colander.SchemaNode(
-        colander.List(),
-        missing=None
-    )
-
-    files = colander.SchemaNode(
-        colander.List(),
-        missing=None
-    )

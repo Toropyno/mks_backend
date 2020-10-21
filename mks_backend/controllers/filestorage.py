@@ -1,5 +1,6 @@
 from pyramid.request import Request
 from pyramid.view import view_config
+from pyramid.response import FileResponse
 
 from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.services.filestorage import FilestorageService
@@ -17,14 +18,18 @@ class FilestorageController:
     @handle_filestorage_error
     @view_config(route_name='upload_file', renderer='json')
     def upload_file(self):
-        filestorage_id = self.service.create_filestorage(self.request.POST)
-        return {'idFileStorage': str(filestorage_id)}
+        file = self.request.POST.get('file')
+        filestorage_id = self.service.create_filestorage(file)
+        return {'idFileStorage': filestorage_id}
 
     @handle_filestorage_error
     @view_config(route_name='download_file')
     def download_file(self):
         uuid = self.request.matchdict['uuid']
-        response = self.service.get_file(uuid)
+        filename, path_to_file = self.service.get_file(uuid)
+
+        response = FileResponse(path_to_file)
+        response.headers['Content-Disposition'] = "attachment; filename*=UTF-8''{}".format(filename)
         return response
 
     @handle_filestorage_error

@@ -9,10 +9,22 @@ from mks_backend.errors.filestorage_error import FilestorageError
 
 class FilestorageHDD:
     PROTOCOL_STORAGE = '/home/atimchenko/MKS/protocols/'
+    ALLOWED_EXTENSIONS = [
+        'doc', 'docx', 'docm',
+        'pdf', 'odt', 'txt',
+    ]
 
     def create_file(self, id_file_storage: str, file: cgi_FieldStorage) -> None:
+        if not isinstance(file, cgi_FieldStorage):
+            raise FilestorageError(1)
+        elif file.limit > 2.6e+7:  # > ~25Mbytes
+            raise FilestorageError(2)
+        elif '.' not in file.filename or \
+                file.filename.split('.')[1] not in self.ALLOWED_EXTENSIONS:
+            raise FilestorageError(3)
+
+        file_path = os_path.join(self.PROTOCOL_STORAGE, id_file_storage)
         try:
-            file_path = os_path.join(self.PROTOCOL_STORAGE, id_file_storage)
             with open(file_path, 'wb') as output_file:
                 copyfileobj(file.file, output_file)
         except OSError:
