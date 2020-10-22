@@ -6,7 +6,7 @@ from sqlalchemy import (
     VARCHAR,
 )
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.sql import func
+from sqlalchemy import func
 from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
