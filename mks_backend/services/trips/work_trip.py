@@ -1,3 +1,5 @@
+from typing import List
+
 from mks_backend.models.trips.work_trip import WorkTrip
 from mks_backend.repositories.trips.work_trip import WorkTripRepository
 
@@ -7,7 +9,7 @@ class WorkTripService:
     def __init__(self):
         self.repo = WorkTripRepository()
 
-    def get_all_work_trips(self) -> list:
+    def get_all_work_trips(self) -> List[WorkTrip]:
         return self.repo.get_all_work_trips()
 
     def get_work_trip_by_id(self, id: int) -> WorkTrip:
@@ -22,7 +24,7 @@ class WorkTripService:
     def delete_work_trip_by_id(self, id: int) -> None:
         self.repo.delete_work_trip_by_id(id)
 
-    def get_work_trips(self, filter_params=None):
+    def get_work_trips(self, filter_params=None) -> List[WorkTrip]:
         if filter_params:
             params = self.switch_case(filter_params)
             return self.repo.get_filtered_work_trips(params)

@@ -29,6 +29,7 @@ DB_ERROR_CODES = {
         'leadership_positions_fullname_key_duplicate': 'Должность с таким наименованием уже существует!',
 
         'inspection_unique_duplicate': 'Поездка с такой датой и наименованием уже существует!',
+        'inspection_files_pkey_duplicate': 'Такой файл проверки уже существует!',
 
         'other_duplicate': 'Дубликат записи!',
 
