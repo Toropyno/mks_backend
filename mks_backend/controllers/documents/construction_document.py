@@ -32,7 +32,6 @@ class ConstructionDocumentController:
     @view_config(route_name='add_construction_document', renderer='json')
     def add_construction_document(self):
         construction_document_deserialized = self.schema.deserialize(self.request.json_body)
-        self.service.set_upload_date_now(construction_document_deserialized)
         construction_document = self.service.convert_schema_to_object(construction_document_deserialized)
 
         self.service.add_construction_document(construction_document)

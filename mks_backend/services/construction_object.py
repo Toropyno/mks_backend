@@ -65,4 +65,20 @@ class ConstructionObjectService:
             )
             construction_object.object_categories_list_id = object_categories_list.object_categories_list_id
 
+        construction_documents = schema.get('documents')
+        if construction_documents:
+            construction_documents_ids = list(map(lambda x: x['id'], construction_documents))
+            construction_object.documents = \
+                self.construction_document_service.get_many_construction_documents_by_id(
+                    construction_documents_ids
+                )
+
+        file_storage = schema.get('files')
+        if file_storage:
+            file_storage_ids = list(map(lambda x: x['id'], file_storage))
+            construction_object.file_storage = \
+                self.file_storage_service.get_many_file_storages_by_id(
+                    file_storage_ids
+                )
+
         return construction_object
