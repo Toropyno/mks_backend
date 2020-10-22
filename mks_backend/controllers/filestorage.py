@@ -26,7 +26,8 @@ class FilestorageController:
     @view_config(route_name='download_file')
     def download_file(self):
         uuid = self.request.matchdict['uuid']
-        filename, path_to_file = self.service.get_file(uuid)
+        filename = self.service.get_filename(uuid)
+        path_to_file = self.service.get_path_to_file(uuid)
 
         response = FileResponse(path_to_file)
         response.headers['Content-Disposition'] = "attachment; filename*=UTF-8''{}".format(filename)

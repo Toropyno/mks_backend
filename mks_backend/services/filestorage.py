@@ -38,15 +38,16 @@ class FilestorageService:
 
         return id_file_storage
 
-    def get_file(self, id: str) -> tuple:
+    def get_filename(self, id: str) -> tuple:
         filestorage = self.repo.get_filestorage_by_id(id)
         if not filestorage:
             raise FilestorageError(6)
 
-        filename = urllib_request.quote(filestorage.filename.encode('utf-8'))
-        path_to_file = self.hdd.get_file(id)
+        return urllib_request.quote(filestorage.filename.encode('utf-8'))
 
-        return filename, path_to_file
+    def get_path_to_file(self, id: str) -> str:
+        path_to_file = self.hdd.get_path_to_file(id)
+        return path_to_file
 
     def compare_two_filestorages(self, new_filestorage_id: str, old_filestorage_id: str) -> None:
         if new_filestorage_id != old_filestorage_id:

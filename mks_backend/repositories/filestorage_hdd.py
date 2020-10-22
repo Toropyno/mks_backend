@@ -38,7 +38,7 @@ class FilestorageHDD:
         else:
             return 'unknow/type'
 
-    def get_file(self, uuid: str) -> str:
+    def get_path_to_file(self, uuid: str) -> str:
         protocol_file = os_path.join(self.FILE_STORAGE, uuid)
         if os_path.exists(protocol_file):
             return protocol_file
