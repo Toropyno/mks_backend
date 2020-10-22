@@ -48,7 +48,7 @@ class ConstructionService:
         construction.oksm_id = schema.get('oksm')
         construction.address = schema.get('address')
         construction.note = schema.get('note')
-
+        construction.id_fias = schema.get('fias')
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
 
@@ -58,11 +58,6 @@ class ConstructionService:
                 category_id, subcategory_id
             )
             construction.subcategories_list_id = subcategories_list.subcategories_list_id
-
-        fias = schema.get('fias')
-        if fias:
-            # some cool stuff for FIAS
-            construction.id_fias = 1
 
         return construction
 
@@ -104,3 +99,6 @@ class ConstructionService:
                 params[case_switcher[key]] = params_deserilized[key]
 
         return params
+
+    def get_constructions_by_id_fias(self, id_fias: int) -> list:
+        return self.repo.get_constructions_by_id_fias(id_fias)

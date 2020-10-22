@@ -13,4 +13,4 @@ class FIAS(Base):
     city = Column(VARCHAR(100))
     locality = Column(VARCHAR(100))
     remaining_address = Column(VARCHAR(100))
-    aoid = Column(VARCHAR(100))
+    aoid = Column(VARCHAR(100), unique=True, nullable=True)

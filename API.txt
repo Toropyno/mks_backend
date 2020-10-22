@@ -755,4 +755,5 @@ FIAS {
     city                String
     locality            String
     remainingAddress    String
+    aoid                String
 }

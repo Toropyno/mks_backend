@@ -1,5 +1,5 @@
 from mks_backend.models.fias import FIAS
-from mks_backend.services.fias_entity.fias import FIASService
+from mks_backend.services.fias_entity.api import FIASAPIService
 from mks_backend.services.fias_entity.utils import append_address
 
 
@@ -8,13 +8,13 @@ class RemainingAddressService:
     def __init__(self):
         self.search_rem_address = ''
         self.remaining_addresses = []
-        self.service_FIAS = FIASService()
+        self.service_api = FIASAPIService()
 
     def get_remaining_addresses(self, fias: FIAS) -> list:
         self.remaining_addresses = []
 
         search_text = self.get_search_text(fias)
-        addresses = self.service_FIAS.get_addresses_from_response(search_text)
+        addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
             return []
 

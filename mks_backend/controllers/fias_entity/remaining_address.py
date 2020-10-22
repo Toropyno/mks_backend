@@ -1,6 +1,7 @@
 from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
+from mks_backend.controllers.fias_entity.api import FIASAPIController
 from mks_backend.controllers.fias_entity.fias import FIASController
 from mks_backend.services.fias_entity.remaining_address import RemainingAddressService
 

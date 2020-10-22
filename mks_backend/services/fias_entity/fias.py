@@ -1,45 +1,39 @@
-from requests import Response
-
 from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.fias import FIAS
-from mks_backend.repositories.fias_entity.api import FIASAPIRepository
-from mks_backend.services.fias_entity.utils import extract_addresses, get_addresses_with_AOID, \
-    get_address_ending_with_socr_name, append_address
+from mks_backend.repositories.fias_entity.fias import FIASRepository
+from mks_backend.services.construction import ConstructionService
 
 
 class FIASService:
 
     def __init__(self):
-        self.search_address = ''
-        self.repo = FIASAPIRepository()
-
-    def append_address_if_in_row_address(self, row_address: str, socr_name: str, suitable_addresses: list) -> None:
-        if socr_name + self.search_address.lower() in row_address.lower():
-            address = get_address_ending_with_socr_name(row_address, socr_name)
-            if socr_name + self.search_address.lower() in address.lower():
-                append_address(address, suitable_addresses)
-
-    def get_addresses_from_response(self, search_text: str) -> list:
-        fias_response = self.get_fias_response(search_text)
-        return extract_addresses(fias_response)
-
-    def get_AOID(self, search_address: str) -> str:
-        return self.get_final_fias_address(search_address).get('AOID')
-
-    def get_final_fias_address(self, search_address: str) -> dict:
-        fias_response = self.get_final_fias_response(search_address)
-        return get_addresses_with_AOID(fias_response)[0]
-
-    def get_final_fias_response(self, search_text: str) -> Response:
-        number_responses = self.repo.number_responses
-        self.repo.number_responses = 1
-        fias_response = self.get_fias_response(search_text)
-        self.repo.number_responses = number_responses
-        return fias_response
-
-    def get_fias_response(self, search_text: str) -> Response:
-        return self.repo.get_fias_response(search_text)
+        self.repo = FIASRepository()
+        self.service_construction = ConstructionService()
 
     @db_error_handler
     def add_fias(self, fias: FIAS) -> None:
         self.repo.add_fias(fias)
+
+    def get_all_fiases(self) -> list:
+        return self.repo.get_all_fiases()
+
+    def get_fias_by_id(self, id: int) -> FIAS:
+        return self.repo.get_fias_by_id(id)
+
+    def get_fias_by_aoid(self, aoid: str) -> FIAS:
+        return self.repo.get_fias_by_aoid(aoid)
+
+    def delete_fias_by_id(self, id: int) -> None:
+        self.repo.delete_fias_by_id(id)
+
+    def delete_last_fias_by_id_and_construction_id(self, id: int, construction_id: int) -> None:
+        allowed = self.check_for_links_in_constructions(id, construction_id)
+        if allowed:
+            self.repo.delete_fias_by_id(id)
+
+    def check_for_links_in_constructions(self, id: int, construction_id: int) -> bool:
+        constructions = self.service_construction.get_constructions_by_id_fias(id)
+        if len(constructions) == 1 and (constructions[0].construction_id == construction_id):
+            return True
+        else:
+            return False

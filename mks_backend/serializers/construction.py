@@ -5,6 +5,7 @@ from mks_backend.serializers.construction_company import ConstructionCompanySeri
 from mks_backend.serializers.construction_subcategory import ConstructionSubcategorySerializer
 from mks_backend.serializers.construction_type import ConstructionTypeSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
+from mks_backend.serializers.fias import FIASSerializer
 from mks_backend.serializers.location_type import LocationTypeSerializer
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.oksm import OKSMSerializer
@@ -52,14 +53,9 @@ class ConstructionSerializer:
             'locationType': LocationTypeSerializer.convert_object_to_json(
                 construction.location_type
             ),
-            'fias': {
-                'id': 77777,
-                'subject': 'Название субъекта по ФИАС',
-                'district': 'Название района по ФИАС',
-                'city': 'Наименование города по ФИАС',
-                'locality': 'Наименование населенного пункта по ФИАС',
-                'remaining_address': 'Улица, мкр. по ФИАС'
-            },
+            'fias': FIASSerializer.convert_object_to_json(
+                construction.fias
+            ),
             'address': 'Неформализованный адрес проекта',
             'note': 'Примечание к проекту',
             'coordinate': CoordinateSerializer.convert_object_to_json(

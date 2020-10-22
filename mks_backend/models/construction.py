@@ -9,8 +9,8 @@ from sqlalchemy import (
     DATE,
     CheckConstraint,
 )
-from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 
@@ -24,7 +24,6 @@ class Construction(Base):
     contract_date = Column(DATE, nullable=False)
     is_critical = Column(Boolean, nullable=False)
     planned_date = Column(DATE, nullable=False)
-    id_fias = Column(Integer)  # ForeignKey()
     address = Column(VARCHAR(1000))
     note = Column(VARCHAR(1000))
 
@@ -83,6 +82,11 @@ class Construction(Base):
         ForeignKey('coordinates.coordinates_id')
     )
 
+    id_fias = Column(
+        Integer,
+        ForeignKey('fias.id', ondelete='SET NULL')
+    )
+
     # --------- relationships --------- #
 
     construction_category = relationship(
@@ -130,6 +134,10 @@ class Construction(Base):
 
     type = relationship(
         'ConstructionType'
+    )
+
+    fias = relationship(
+        'FIAS'
     )
 
     # --------- calculated_fields --------- #
