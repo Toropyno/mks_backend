@@ -4,7 +4,8 @@ from pyramid.view import view_config, view_defaults
 from mks_backend.controllers.schemas.fias import FIASSchema
 from mks_backend.models.fias import FIAS
 from mks_backend.serializers.fias import FIASSerializer
-from mks_backend.services.fias_entity.fias import FIASService, get_search_address
+from mks_backend.services.fias_entity.fias import FIASService
+from mks_backend.services.fias_entity.utils import get_search_address
 
 
 @view_defaults(renderer='json')
@@ -35,15 +36,14 @@ class FIASController:
                     }
                 }
             ]
-        fias.aoid = self.service.get_AOID(search_address)
 
+        fias.aoid = self.service.get_AOID(search_address)
         self.service.add_fias(fias)
 
     @view_config(route_name='get_final_fias_address')
     def get_final_fias_address(self):
         fias = self.get_fias_serialized()
         search_address = get_search_address(fias)
-
         return self.service.get_final_fias_address(search_address)
 
     def get_fias_serialized(self) -> FIAS:

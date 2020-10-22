@@ -1,8 +1,7 @@
 from mks_backend.services.fias_entity.fias import (
-    append_address,
-    get_by_socr_name,
     FIASService,
 )
+from mks_backend.services.fias_entity.utils import get_by_socr_name, append_address
 
 
 class SubjectService:

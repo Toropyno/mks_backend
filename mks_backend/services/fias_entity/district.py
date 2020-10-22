@@ -1,9 +1,7 @@
 from mks_backend.services.fias_entity.fias import (
     FIASService,
-    get_reversed_addresses,
-    get_by_socr_name,
-    append_address,
 )
+from mks_backend.services.fias_entity.utils import get_by_socr_name, append_address, get_reversed_addresses
 
 
 class DistrictService:

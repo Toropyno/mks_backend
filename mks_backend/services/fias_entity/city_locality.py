@@ -1,11 +1,10 @@
 from mks_backend.models.fias import FIAS
 from mks_backend.services.fias_entity.fias import (
-    get_address_ending_with_socr_name,
-    append_address,
-    get_by_socr_name,
-    get_reversed_addresses,
     FIASService,
 )
+from mks_backend.services.fias_entity.utils import get_by_socr_name, get_address_ending_with_socr_name, \
+    append_address, \
+    get_reversed_addresses
 
 
 class CityLocalityService:

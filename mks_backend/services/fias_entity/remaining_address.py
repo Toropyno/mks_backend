@@ -1,5 +1,6 @@
 from mks_backend.models.fias import FIAS
-from mks_backend.services.fias_entity.fias import FIASService, append_address
+from mks_backend.services.fias_entity.fias import FIASService
+from mks_backend.services.fias_entity.utils import append_address
 
 
 class RemainingAddressService:
