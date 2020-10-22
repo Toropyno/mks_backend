@@ -9,6 +9,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from mks_backend.models import Base
 
@@ -41,3 +42,15 @@ class Filestorage(Base):
         back_populates='file_storage',
         passive_deletes=True,
     )
+
+    @hybrid_property
+    def size(self):
+        filesize = self.filesize / 1024  # to Kbytes
+
+        if filesize >= 1024:
+            filesize = filesize / 1024
+            filesize = '{:.1f}Мб'.format(filesize)
+        else:
+            filesize = '{:.1f}Кб'.format(filesize)
+
+        return filesize

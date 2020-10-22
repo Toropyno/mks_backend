@@ -18,8 +18,7 @@ class FIASController:
 
     @view_config(route_name='get_fias')
     def get_fias(self):
-        search_address = self.request.matchdict['text']
-        return self.service.get_addresses_from_response(self.service.get_fias_response(search_address))
+        return self.service.get_addresses_from_response(self.request.matchdict['text'])
 
     @view_config(route_name='add_fias')
     def add_fias(self):

@@ -1,5 +1,6 @@
 from requests import Response
 
+from mks_backend.errors.response_error import response_error_handler
 from mks_backend.models.fias import FIAS
 from mks_backend.repositories.fias_entity.api import FIASAPIRepository
 
@@ -15,6 +16,10 @@ class FIASService:
             address = get_address_ending_with_socr_name(row_address, socr_name)
             if socr_name + self.search_address.lower() in address.lower():
                 append_address(address, suitable_addresses)
+
+    def get_addresses_from_response(self, search_text: str) -> list:
+        fias_response = self.get_fias_response(search_text)
+        return extract_addresses(fias_response)
 
     def get_fias_response(self, search_text: str) -> Response:
         return self.repository.get_fias_response(search_text)
@@ -32,35 +37,17 @@ class FIASService:
 
     def get_final_fias_address(self, search_address: str) -> dict:
         fias_response = self.get_final_fias_response(search_address)
-        return self.get_addresses_with_AOID(fias_response)[0]
+        return get_addresses_with_AOID(fias_response)[0]
 
-    def get_addresses_from_response(self, response: Response) -> list:
-        try:
-            return [rr['text'] for rr in response.json()]
-        except TypeError:
-            return [
-                {'status': 403},
-                {
-                    'json_body': {
-                        'code': 'text_short',
-                        'message': 'Слишком короткий текст'
-                    }
-                }
-            ]
 
-    def get_addresses_with_AOID(self, response: Response) -> list:
-        try:
-            return [{'text': rr['text'], 'AOID': rr['aoid']} for rr in response.json()]
-        except TypeError:
-            return [
-                {'status': 403},
-                {
-                    'json_body': {
-                        'code': 'text_short',
-                        'message': 'Слишком короткий текст'
-                    }
-                }
-            ]
+@response_error_handler
+def extract_addresses(response: Response) -> list:
+    return [resp['text'] for resp in response.json()]
+
+
+@response_error_handler
+def get_addresses_with_AOID(response: Response) -> list:
+    return [{'text': resp['text'], 'AOID': resp['aoid']} for resp in response.json()]
 
 
 def get_by_socr_name(row_address: str, socr_name: str) -> str:

@@ -1,6 +1,7 @@
 from mks_backend.services.fias_entity.fias import (
     append_address,
     get_by_socr_name,
+    FIASService,
 )
 
 
@@ -9,14 +10,25 @@ class SubjectService:
     def __init__(self):
         self.search_subject = ''
         self.subjects = []
+        self.service_FIAS = FIASService()
 
-    def get_subjects(self, addresses: list) -> list:
+    def get_subjects(self) -> list:
         self.subjects = []
+
+        addresses = self.get_addresses_from_response()
+        if not addresses:
+            return []
+
         socr_names = ['обл. ', 'обл ', 'Респ. ', 'Респ ', 'край ']
+
         for row_address in addresses:
             for socr in socr_names:
                 self.append_subject_if_in_row_address(row_address, socr)
+
         return self.subjects
+
+    def get_addresses_from_response(self):
+        return self.service_FIAS.get_addresses_from_response(self.search_subject)
 
     def append_subject_if_in_row_address(self, row_address: str, socr_name: str) -> None:
         if socr_name + self.search_subject.lower() in row_address.lower():

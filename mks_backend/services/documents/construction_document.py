@@ -79,7 +79,3 @@ class ConstructionDocumentService:
 
     def set_upload_date(self, construction_document_deserialized, old_construction_document):
         construction_document_deserialized['uploadDate'] = old_construction_document.upload_date
-
-    def get_file_info_by_idfilestorage(self, idfilestorage: UUID) -> dict:
-        return self.service_filestorage.get_file_info_if_idfilestorage(idfilestorage)
-

@@ -7,7 +7,23 @@ class RemainingAddressService:
     def __init__(self):
         self.search_rem_address = ''
         self.remaining_addresses = []
-        self.service_fias = FIASService()
+        self.service_FIAS = FIASService()
+
+    def get_remaining_addresses(self, fias: FIAS) -> list:
+        self.remaining_addresses = []
+
+        search_text = self.get_search_text(fias)
+        addresses = self.service_FIAS.get_addresses_from_response(search_text)
+        if not addresses:
+            return []
+
+        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
+                      'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ']
+
+        for row_address in addresses:
+            for socr in socr_names:
+                self.append_remaining_address_if_in_row_address(row_address, socr)
+        return self.remaining_addresses
 
     def get_search_text(self, fias: FIAS) -> str:
         city = fias.city
@@ -29,15 +45,6 @@ class RemainingAddressService:
 
         search_text += ', ' + self.search_rem_address
         return search_text
-
-    def get_remaining_addresses(self, addresses: list) -> list:
-        self.remaining_addresses = []
-        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
-                      'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ']
-        for row_address in addresses:
-            for socr in socr_names:
-                self.append_remaining_address_if_in_row_address(row_address, socr)
-        return self.remaining_addresses
 
     def append_remaining_address_if_in_row_address(self, row_address: str, socr_name: str) -> None:
         address = get_remaining_address_by_socr_name(row_address, socr_name)

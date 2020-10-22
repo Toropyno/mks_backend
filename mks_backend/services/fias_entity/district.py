@@ -10,24 +10,24 @@ class DistrictService:
 
     def __init__(self):
         self.search_district = ''
-        self.service_fias = FIASService()
+        self.districts = []
+        self.service_FIAS = FIASService()
+
+    def get_districts(self, subject: str) -> list:
         self.districts = []
 
-    def get_search_text(self, subject: str) -> str:
-        search_text = self.search_district
-        if subject is not None:
-            search_text = subject + ', ' + search_text
-        return search_text
+        search_text = self.get_search_text(subject)
+        addresses = self.service_FIAS.get_addresses_from_response(search_text)
+        if not addresses:
+            return []
 
-    def get_districts(self, addresses: list, subject: str) -> list:
-        self.districts = []
         socr_names = ['р-н ', 'район ', 'у ']
 
         if subject is None:
-            self.service_fias.search_address = self.search_district
+            self.service_FIAS.search_address = self.search_district
             for row_address in addresses:
                 for socr in socr_names:
-                    self.service_fias.append_address_if_in_row_address(row_address, socr, self.districts)
+                    self.service_FIAS.append_address_if_in_row_address(row_address, socr, self.districts)
             self.districts = get_reversed_addresses(self.districts)
 
         else:
@@ -36,6 +36,12 @@ class DistrictService:
                     self.append_district_if_in_row_address(row_address, socr, subject)
 
         return self.districts
+
+    def get_search_text(self, subject: str) -> str:
+        search_text = self.search_district
+        if subject is not None:
+            search_text = subject + ', ' + search_text
+        return search_text
 
     def append_district_if_in_row_address(self, row_address: str, socr_name: str, subject: str) -> None:
         if (socr_name + self.search_district.lower() in row_address.lower()) and (
