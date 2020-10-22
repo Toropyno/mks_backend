@@ -1,6 +1,6 @@
+from typing import List
+
 from mks_backend.models.protocols.protocol import Protocol
-from mks_backend.repositories.filestorage import FilestorageRepository
-from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 from mks_backend.repositories.protocol import ProtocolRepository
 from mks_backend.services.filestorage import FilestorageService
 
@@ -9,6 +9,16 @@ class ProtocolService:
 
     def __init__(self):
         self.repo = ProtocolRepository()
+        self.filestorage_service = FilestorageService()
+
+    def get_protocols(self, filter_params=None) -> List[Protocol]:
+        if not filter_params:
+            protocols = self.repo.get_all_protocols()
+        else:
+            filter_params = self.switch_case(filter_params)
+            protocols = self.filter_protocols(filter_params)
+
+        return protocols
 
     def get_all_protocols(self) -> list:
         return self.repo.get_all_protocols()
@@ -27,27 +37,27 @@ class ProtocolService:
         new_idfilestorage = new_protocol.idfilestorage
 
         self.repo.update_protocol(new_protocol)
-        FilestorageService.compare_two_filestorages(new_idfilestorage, old_idfilestorage)
+        self.filestorage_service.compare_two_filestorages(new_idfilestorage, old_idfilestorage)
 
     def delete_protocol_by_id_with_filestorage_cascade(self, id: int) -> None:
         protocol = self.repo.get_protocol_by_id(id)
-        FilestorageHDD.delete_by_id(protocol.idfilestorage)
-
         self.repo.delete_protocol(protocol)
-        FilestorageRepository.delete_filestorage_by_id(protocol.idfilestorage)
+        self.filestorage_service.delete_filestorage_by_id(protocol.idfilestorage)
 
-    def get_params_from_schema(self, schema_dict: dict) -> dict:
-        params = {}
-        if 'dateStart' in schema_dict:
-            params['dateStart'] = schema_dict['dateStart']
-        if 'dateEnd' in schema_dict:
-            params['dateEnd'] = schema_dict['dateEnd']
-        if 'protocolNumber' in schema_dict:
-            params['protocolNumber'] = schema_dict['protocolNumber']
-        if 'meeting' in schema_dict:
-            params['meeting'] = schema_dict['meeting']
-        if 'protocolName' in schema_dict:
-            params['protocolName'] = schema_dict['protocolName']
+    def switch_case(self, filter_params: dict) -> dict:
+        case_switcher = {
+            'dateStart': 'date_start',
+            'dateEnd': 'date_end',
+            'protocolNumber': 'protocol_number',
+            'meeting': 'meeting',
+            'protocolName': 'protocol_name',
+        }
+
+        params = dict()
+        for key, value in filter_params.items():
+            if key in case_switcher and value is not None:
+                params[case_switcher[key]] = filter_params[key]
+
         return params
 
     def filter_protocols(self, params: dict) -> list:

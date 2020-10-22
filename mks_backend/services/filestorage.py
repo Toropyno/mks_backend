@@ -48,11 +48,9 @@ class FilestorageService:
 
         return filename, path_to_file
 
-    @classmethod
-    def compare_two_filestorages(cls, new_filestorage_id: int, old_filestorage_id: int) -> None:
+    def compare_two_filestorages(self, new_filestorage_id: str, old_filestorage_id: str) -> None:
         if new_filestorage_id != old_filestorage_id:
-            FilestorageRepository.delete_filestorage_by_id(old_filestorage_id)
-            FilestorageHDD.delete_by_id(old_filestorage_id)
+            self.delete_filestorage_by_id(old_filestorage_id)
 
     def get_many_file_storages_by_id(self, ids: list) -> list:
         return self.repo.get_many_file_storages_by_id(ids)
@@ -60,3 +58,7 @@ class FilestorageService:
     def get_filestorages_by_object(self, object_id: int) -> list:
         construction_object = self.repo_object.get_construction_object_by_id(object_id)
         return [doc.file_storage for doc in construction_object.documents if doc.file_storage]
+
+    def delete_filestorage_by_id(self, id: str) -> None:
+        self.hdd.delete_by_id(id)
+        self.repo.delete_filestorage_by_id(id)
