@@ -2,6 +2,7 @@ from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction import ConstructionRepository
 from mks_backend.services.construction_object import ConstructionObjectService
 from mks_backend.services.coordinate import CoordinateService
+from mks_backend.services.fias_entity.fias import FIASService
 from mks_backend.services.subcategory_list import SubcategoryListService
 
 
@@ -12,6 +13,7 @@ class ConstructionService:
         self.subcategory_list_service = SubcategoryListService()
         self.coordinate_service = CoordinateService()
         self.object_service = ConstructionObjectService()
+        self.service_FIAS = FIASService()
 
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
@@ -23,11 +25,18 @@ class ConstructionService:
         self.repo.add_construction(construction)
 
     def update_construction(self, new_construction: Construction) -> None:
+        id_fias = new_construction.id_fias
         self.coordinate_service.add_or_update_coordinate(new_construction.coordinate)
         self.repo.update_construction(new_construction)
 
+        self.service_FIAS.delete_unnecessary_fias(id_fias)
+
     def delete_construction_by_id(self, id: int) -> None:
-        self.repo.delete_construction(id)
+        construction = self.get_construction_by_id(id)
+        id_fias = construction.id_fias
+        self.repo.delete_construction(construction)
+
+        self.service_FIAS.delete_unnecessary_fias(id_fias)
 
     def convert_schema_to_object(self, schema: dict) -> Construction:
         construction = Construction()

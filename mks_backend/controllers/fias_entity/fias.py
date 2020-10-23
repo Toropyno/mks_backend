@@ -2,12 +2,15 @@ from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
 from mks_backend.controllers.schemas.fias import FIASSchema
-from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 from mks_backend.models.fias import FIAS
 from mks_backend.serializers.fias import FIASSerializer
 from mks_backend.services.fias_entity.api import FIASAPIService
 from mks_backend.services.fias_entity.fias import FIASService
 from mks_backend.services.fias_entity.utils import get_search_address
+
+
+from mks_backend.errors.fias_error import get_fias_error_dict
+from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')
@@ -28,25 +31,16 @@ class FIASController:
 
         search_address = get_search_address(fias)
         if search_address == '':
-            return [
-                {'status': 403},
-                {
-                    'json_body': {
-                        'code': 'not_full_address',
-                        'message': 'Адрес заполнен не полностью'
-                    }
-                }
-            ]
+            return get_fias_error_dict()
 
-        aoid = self.service_api.get_AOID(search_address)
+        final_fias = self.service_api.get_final_fias(search_address)
 
-        fias_db = self.service.get_fias_by_aoid(aoid)
+        fias_db = self.service.get_fias_by_aoid(final_fias.aoid)
         if not fias_db:
-            fias.aoid = aoid
-            self.service.add_fias(fias)
-            return {'id': fias.id}
+            self.service.add_fias(final_fias)
+            return {'final_fias': final_fias}
 
-        return {'id': fias_db.id}
+        return {'final_fias': fias_db}
 
     @handle_db_error
     @view_config(route_name='get_fias')
@@ -60,14 +54,6 @@ class FIASController:
     def get_all_fiases(self):
         fiases = self.service.get_all_fiases()
         return self.serializer.convert_list_to_json(fiases)
-
-    @handle_db_error
-    @view_config(route_name='delete_fias')
-    def delete_fias(self):
-        id = int(self.request.matchdict['id'])
-        construction_id = int(self.request.matchdict['constructionId'])
-        self.service.delete_last_fias_by_id_and_construction_id(id, construction_id)
-        return {'id': id}
 
     def get_fias_serialized(self) -> FIAS:
         fias_deserialized = self.schema.deserialize(self.request.json_body)

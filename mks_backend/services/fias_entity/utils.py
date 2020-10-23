@@ -64,5 +64,6 @@ def get_search_address(fias: FIAS) -> str:
         fias.locality = ''
     if not fias.remaining_address:
         fias.remaining_address = ''
-    search_address = fias.subject + ', ' + fias.district + ', ' + fias.city + ', ' + fias.locality + ', ' + fias.remaining_address
+    search_address = \
+        fias.subject + ', ' + fias.district + ', ' + fias.city + ', ' + fias.locality + ', ' + fias.remaining_address
     return search_address

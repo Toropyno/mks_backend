@@ -191,5 +191,4 @@ def includeme(config):
 
     config.add_route('get_all_fiases', '/fias', request_method='GET')
     config.add_route('add_fias', '/fias', request_method='POST')
-    config.add_route('delete_fias', '/fias/{constructionId}/{id}', request_method='DELETE')
     config.add_route('get_fias', '/fias/{id}', request_method='GET')

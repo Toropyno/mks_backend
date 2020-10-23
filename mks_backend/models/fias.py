@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, VARCHAR
+from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 
@@ -14,3 +15,8 @@ class FIAS(Base):
     locality = Column(VARCHAR(100))
     remaining_address = Column(VARCHAR(100))
     aoid = Column(VARCHAR(100), unique=True, nullable=True)
+
+    constructions = relationship(
+        'Construction',
+        back_populates='fias'
+    )

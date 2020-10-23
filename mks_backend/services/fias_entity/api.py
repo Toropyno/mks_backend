@@ -1,5 +1,6 @@
 from requests import Response
 
+from mks_backend.models.fias import FIAS
 from mks_backend.repositories.fias_entity.api import FIASAPIRepository
 from mks_backend.services.fias_entity.utils import (
     extract_addresses,
@@ -25,8 +26,14 @@ class FIASAPIService:
         fias_response = self.get_fias_response(search_text)
         return extract_addresses(fias_response)
 
-    def get_AOID(self, search_address: str) -> str:
-        return self.get_final_fias_address(search_address).get('AOID')
+    def get_final_fias(self, search_address: str) -> str:
+        final_fias = FIAS()
+        final_fias.aoid = self.get_final_fias_address(search_address).get('AOID')
+        response = self.repo.get_by_AOID_response(final_fias.aoid).get('text')
+        addr = []
+        for resp in response:
+            addr.append(resp.get('formalname'))
+        return final_fias
 
     def get_final_fias_address(self, search_address: str) -> dict:
         fias_response = self.get_final_fias_response(search_address)

@@ -137,7 +137,8 @@ class Construction(Base):
     )
 
     fias = relationship(
-        'FIAS'
+        'FIAS',
+        back_populates='constructions'
     )
 
     # --------- calculated_fields --------- #
