@@ -32,6 +32,19 @@ class InspectionService:
             return self.repo.get_all_inspections()
 
     def switch_case(self, filter_params: dict) -> dict:
-        # TODO: rework with MKSBRYANS-227
-        return filter_params
+        case_switcher = {
+            'dateStart': 'date_start',
+            'dateEnd': 'date_end',
+            'name': 'name',
+            'inspector': 'inspector',
+            'haveFile': 'have_file',
+            'haveInspectedObjects': 'have_inspected_objects',
+            'constructionCode': 'construction_code'
+            # TODO: add FIAS Subject field
+        }
 
+        params = dict()
+        for key in filter_params:
+            params[case_switcher[key]] = filter_params[key]
+
+        return params

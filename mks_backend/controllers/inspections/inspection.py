@@ -1,7 +1,7 @@
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from mks_backend.controllers.schemas.inspections.inspection import InspectionSchema
+from mks_backend.controllers.schemas.inspections.inspection import InspectionSchema, InspectionFilterSchema
 from mks_backend.serializers.inspections.inspection import InspectionSerializer
 from mks_backend.services.inspections.inspection import InspectionService
 
@@ -16,11 +16,13 @@ class InspectionController:
         self.service = InspectionService()
         self.serializer = InspectionSerializer()
         self.schema = InspectionSchema()
+        self.filter_schema = InspectionFilterSchema()
 
     @handle_colander_error
     @view_config(route_name='get_all_inspections')
     def get_all_inspections(self):
-        inspections = self.service.get_inspections()
+        filter_params = self.filter_schema.deserialize(self.request.GET)
+        inspections = self.service.get_inspections(filter_params)
         return self.serializer.convert_list_to_json(inspections)
 
     @handle_db_error

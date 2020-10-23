@@ -37,6 +37,10 @@ class Inspection(Base):
         secondary='inspection_objects'
     )
 
+    files = relationship(
+        'InspectionFile'
+    )
+
     def __str__(self):
         return 'Проверка id={id}, name={name}'.format(
             id=self.inspections_id,
