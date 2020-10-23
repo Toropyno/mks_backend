@@ -38,5 +38,6 @@ class InspectionFile(Base):
     )
 
     inspection = relationship(
-        'Inspection'
+        'Inspection',
+        back_populates='files'
     )
