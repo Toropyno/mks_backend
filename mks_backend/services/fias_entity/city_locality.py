@@ -1,19 +1,30 @@
 from mks_backend.models.fias import FIAS
-from mks_backend.services.fias_entity.api import (
-    FIASAPIService,
-)
-from mks_backend.services.fias_entity.utils import get_by_socr_name, get_address_ending_with_socr_name, \
-    append_address, \
+from mks_backend.services.fias_entity.api import FIASAPIService
+
+from mks_backend.services.fias_entity.utils import (
+    get_by_socr_name,
+    get_address_ending_with_socr_name,
+    append_address,
     get_reversed_addresses
+)
 
 
 class CityLocalityService:
+    CITY_SORC_NAMES = ['г. ', 'г ', 'город ']
+    LOCALITY_SORC_NAMES = ['пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ',
+                           'х ', 'х. ', 'рп ', 'рп. ']
 
     def __init__(self):
         self.search_address = ''
         self.socr_names = []
         self.cities_or_localities = []
         self.service_api = FIASAPIService()
+
+    def set_sity_socr_names(self):
+        self.socr_names = self.CITY_SORC_NAMES
+
+    def set_locality_socr_names(self):
+        self.socr_names = self.LOCALITY_SORC_NAMES
 
     def get_search_text(self, fias: FIAS) -> str:
         search_text = self.search_address

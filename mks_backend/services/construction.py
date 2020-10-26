@@ -36,7 +36,8 @@ class ConstructionService:
         id_fias = construction.id_fias
         self.repo.delete_construction(construction)
 
-        self.service_FIAS.delete_unnecessary_fias(id_fias)
+        if id_fias:
+            self.service_FIAS.delete_unnecessary_fias(id_fias)
 
     def convert_schema_to_object(self, schema: dict) -> Construction:
         construction = Construction()

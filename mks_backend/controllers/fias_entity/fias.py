@@ -2,15 +2,11 @@ from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
 from mks_backend.controllers.schemas.fias import FIASSchema
+from mks_backend.errors.fias_error import get_addition_fias_error_dict, get_remaining_address_error_dict
+from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 from mks_backend.models.fias import FIAS
 from mks_backend.serializers.fias import FIASSerializer
-from mks_backend.services.fias_entity.api import FIASAPIService
 from mks_backend.services.fias_entity.fias import FIASService
-from mks_backend.services.fias_entity.utils import get_search_address
-
-
-from mks_backend.errors.fias_error import get_fias_error_dict
-from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')
@@ -21,26 +17,26 @@ class FIASController:
         self.schema = FIASSchema()
         self.service = FIASService()
         self.serializer = FIASSerializer()
-        self.service_api = FIASAPIService()
 
     @handle_db_error
     @handle_colander_error
     @view_config(route_name='add_fias')
     def add_fias(self):
         fias = self.get_fias_serialized()
+        fias = self.service.add_address_fias(fias)
+        if not fias:
+            return get_addition_fias_error_dict()
+        return self.serializer.convert_object_to_json(fias)
 
-        search_address = get_search_address(fias)
-        if search_address == '':
-            return get_fias_error_dict()
-
-        final_fias = self.service_api.get_final_fias(search_address)
-
-        fias_db = self.service.get_fias_by_aoid(final_fias.aoid)
-        if not fias_db:
-            self.service.add_fias(final_fias)
-            return {'final_fias': final_fias}
-
-        return {'final_fias': fias_db}
+    @handle_db_error
+    @handle_colander_error
+    @view_config(route_name='get_split_full_fias')
+    def get_split_full_fias(self):
+        full_fias = self.get_full_fias_serialized()
+        split_full_fias = self.service.get_split_full_fias(full_fias)
+        if not split_full_fias:
+            return get_remaining_address_error_dict()
+        return self.serializer.convert_object_to_json(split_full_fias)
 
     @handle_db_error
     @view_config(route_name='get_fias')
@@ -59,5 +55,9 @@ class FIASController:
         fias_deserialized = self.schema.deserialize(self.request.json_body)
         return self.serializer.convert_schema_to_object(fias_deserialized)
 
-    def get_id(self):
+    def get_id(self) -> int:
         return int(self.request.matchdict['id'])
+
+    def get_full_fias_serialized(self) -> str:
+        fias_deserialized = self.schema.deserialize(self.request.json_body)
+        return self.serializer.convert_full_fias(fias_deserialized)

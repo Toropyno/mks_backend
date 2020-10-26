@@ -17,10 +17,10 @@ class FIASAPIRepository:
             },
         )
 
-    def get_by_AOID_response(self, aoid: str) -> Response:
+    def get_by_aoid_response(self, aoid: str) -> Response:
         return requests.get(
             url='http://172.23.137.67/fiasapi/expand/' + aoid,
             headers={
-                'Authorization': self.AUTHORIZATION_FIAS_in_INT
+                'Authorization': self.AUTHORIZATION_FIAS_in_DEV
             },
         )

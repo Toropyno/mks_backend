@@ -10,8 +10,8 @@ def extract_addresses(response: Response) -> list:
 
 
 @fias_error_handler
-def get_addresses_with_AOID(response: Response) -> list:
-    return [{'text': resp['text'], 'AOID': resp['aoid']} for resp in response.json()]
+def extract_addresses_with_aoid(response: Response) -> list:
+    return [{'text': resp['text'], 'aoid': resp['aoid']} for resp in response.json()]
 
 
 def get_by_socr_name(row_address: str, socr_name: str) -> str:
@@ -51,7 +51,7 @@ def get_reversed_addresses(addresses: list) -> list:
 
 
 def get_search_address(fias: FIAS) -> str:
-    if fias.city is None and fias.locality is None:
+    if (fias.city is None and fias.locality is None) or not fias.remaining_address:
         return ''
 
     if not fias.subject:

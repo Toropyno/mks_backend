@@ -16,7 +16,8 @@ class FIASAPIController:
 
     @view_config(route_name='get_fias_search')
     def get_fias_search(self):
-        return self.service.get_addresses_from_response(self.request.matchdict['text'])
+        search_address = self.controller_FIAS.get_full_fias_serialized()
+        return self.service.get_addresses_from_response(search_address)
 
     @view_config(route_name='get_final_fias_address')
     def get_final_fias_address(self):

@@ -5,6 +5,19 @@ from mks_backend.controllers.schemas.validator_utils import strip_space
 
 class FIASSchema(colander.MappingSchema):
 
+    full_fias = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='fullFias',
+        validator=colander.Length(
+            min=1,
+            max=300,
+            min_err='Слишком короткий адрес',
+            max_err='Слишком длинный адрес'
+        ),
+        missing=None
+    )
+
     subject = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

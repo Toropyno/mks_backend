@@ -31,3 +31,6 @@ class FIASSerializer:
         fias.remaining_address = schema.get('remainingAddress')
 
         return fias
+
+    def convert_full_fias(self, schema: dict) -> str:
+        return schema.get('fullFias').replace('/', ' ')

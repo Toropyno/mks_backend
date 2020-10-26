@@ -607,13 +607,24 @@ Description: Delete progress_status
 Route: '/progress_status/{id}'
 
 
-# --- FIAS ---
+# --- FIAS_API ---
 
-Description: Get subjects
+
+---subject-hints--
+
+Description: Get hints subjects
 Route: '/fias/subject/{text}'
 Method: GET
 
-Description: Get districts
+---
+
+'обл. ', 'обл ', 'Респ. ', 'Респ ', 'край '
+
+---
+
+---district-hints--
+
+Description: Get hints districts
 Route: '/fias/district/{text}'
 Method: GET
 {
@@ -621,7 +632,16 @@ Method: GET
 }
 {}
 
-Description: Get cities
+---
+
+'р-н ', 'район ', 'у '
+
+---
+
+
+---city-hints--
+
+Description: Get hints cities
 Route: '/fias/city/{text}'
 Method: GET
 {
@@ -633,7 +653,16 @@ Method: GET
 }
 {}
 
-Description: Get localities
+---
+
+'г. ', 'г ', 'город '
+
+---
+
+
+---locality-hints--
+
+Description: Get hints localities
 Route: '/fias/locality/{text}'
 Method: GET
 {
@@ -645,7 +674,17 @@ Method: GET
 }
 {}
 
-Description: Get remaining_addresses
+---
+
+'пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ',
+'х ', 'х. ', 'рп ', 'рп. '
+
+---
+
+
+---remaining_address-hints--
+
+Description: Get hints remaining_addresses
 Route: '/fias/remaining_address/{text}'
 Method: GET
 {
@@ -662,6 +701,41 @@ Method: GET
     "subject": "обл Белгородская",
     "city": "г Белгород"
 }
+
+---
+
+'ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
+'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ', 'мост ', 'снт '
+
+---
+
+Description: Get fias search
+Route: '/fias_search'
+Method: GET
+
+Description: Get final address
+Route: '/fias/final_address/{text}'
+Method: GET
+
+
+# --- FIAS ---
+
+Description: Get get split full fias. Parses one line with an address into separate region, district, city, street
+Route: '/fias/full'
+Method: GET
+
+
+Description: Get all fiases
+Route: '/fias'
+Method: GET
+
+Description: Get fias by id
+Route: '/fias/{id}'
+Method: GET
+
+Description: Add fias
+Route: '/fias'
+Method: POST
 
 
 =====================================================================================================

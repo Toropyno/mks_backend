@@ -5,6 +5,7 @@ from mks_backend.services.fias_entity.utils import get_by_socr_name, append_addr
 
 
 class SubjectService:
+    SORC_NAMES = ['обл. ', 'обл ', 'Респ. ', 'Респ ', 'край ']
 
     def __init__(self):
         self.search_subject = ''
@@ -18,10 +19,8 @@ class SubjectService:
         if not addresses:
             return []
 
-        socr_names = ['обл. ', 'обл ', 'Респ. ', 'Респ ', 'край ']
-
         for row_address in addresses:
-            for socr in socr_names:
+            for socr in self.SORC_NAMES:
                 self.append_subject_if_in_row_address(row_address, socr)
 
         return self.subjects

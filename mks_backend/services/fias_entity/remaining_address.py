@@ -4,6 +4,8 @@ from mks_backend.services.fias_entity.utils import append_address
 
 
 class RemainingAddressService:
+    SORC_NAMES = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
+                  'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ', 'мост ', 'снт ']
 
     def __init__(self):
         self.search_rem_address = ''
@@ -18,11 +20,8 @@ class RemainingAddressService:
         if not addresses:
             return []
 
-        socr_names = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
-                      'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ']
-
         for row_address in addresses:
-            for socr in socr_names:
+            for socr in self.SORC_NAMES:
                 self.append_remaining_address_if_in_row_address(row_address, socr)
         return self.remaining_addresses
 
@@ -31,6 +30,9 @@ class RemainingAddressService:
         locality = fias.locality
         subject = fias.subject
         district = fias.district
+
+        if subject is None:
+            subject = ''
 
         if district is None:
             district = ''

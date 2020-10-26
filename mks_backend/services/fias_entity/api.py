@@ -1,10 +1,8 @@
 from requests import Response
 
-from mks_backend.models.fias import FIAS
 from mks_backend.repositories.fias_entity.api import FIASAPIRepository
 from mks_backend.services.fias_entity.utils import (
     extract_addresses,
-    get_addresses_with_AOID,
     get_address_ending_with_socr_name,
     append_address
 )
@@ -22,29 +20,23 @@ class FIASAPIService:
             if socr_name + self.search_address.lower() in address.lower():
                 append_address(address, suitable_addresses)
 
-    def get_addresses_from_response(self, search_text: str) -> list:
-        fias_response = self.get_fias_response(search_text)
+    def get_addresses_from_response(self, search_address: str) -> list:
+        fias_response = self.get_fias_response(search_address)
         return extract_addresses(fias_response)
 
-    def get_final_fias(self, search_address: str) -> str:
-        final_fias = FIAS()
-        final_fias.aoid = self.get_final_fias_address(search_address).get('AOID')
-        response = self.repo.get_by_AOID_response(final_fias.aoid).get('text')
-        addr = []
-        for resp in response:
-            addr.append(resp.get('formalname'))
-        return final_fias
+    def get_aoid(self, search_address: str) -> str:
+        final_address = self.get_final_fias_address(search_address)
+        final_address = final_address[0]
+        return final_address.get('aoid')
 
     def get_final_fias_address(self, search_address: str) -> dict:
-        fias_response = self.get_final_fias_response(search_address)
-        return get_addresses_with_AOID(fias_response)[0]
-
-    def get_final_fias_response(self, search_text: str) -> Response:
         number_responses = self.repo.number_responses
         self.repo.number_responses = 1
-        fias_response = self.get_fias_response(search_text)
-        self.repo.number_responses = number_responses
-        return fias_response
 
-    def get_fias_response(self, search_text: str) -> Response:
-        return self.repo.get_fias_response(search_text)
+        fias_response = self.get_fias_response(search_address)
+
+        self.repo.number_responses = number_responses
+        return fias_response.json()
+
+    def get_fias_response(self, search_address: str) -> Response:
+        return self.repo.get_fias_response(search_address)

@@ -184,10 +184,11 @@ def includeme(config):
     config.add_route('get_localities', '/fias/locality/{text}', request_method='GET')
     config.add_route('get_remaining_addresses', '/fias/remaining_address/{text}', request_method='GET')
 
-    config.add_route('get_fias_search', '/fias_search/{text}', request_method='GET')
+    config.add_route('get_fias_search', '/fias_search', request_method='GET')
     config.add_route('get_final_fias_address', '/fias/final_address/{text}', request_method='GET')
 
     # FIAS
+    config.add_route('get_split_full_fias', '/fias/full', request_method='GET')
 
     config.add_route('get_all_fiases', '/fias', request_method='GET')
     config.add_route('add_fias', '/fias', request_method='POST')
