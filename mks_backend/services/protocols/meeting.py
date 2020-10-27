@@ -1,5 +1,5 @@
 from mks_backend.models.protocols.meeting import Meeting
-from mks_backend.repositories.meeting import MeetingRepository
+from mks_backend.repositories.protocols.meeting import MeetingRepository
 
 
 class MeetingService:

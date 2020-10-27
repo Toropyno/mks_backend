@@ -1,4 +1,4 @@
-from mks_backend.models.element_type import ElementType
+from mks_backend.models.work_list.element_type import ElementType
 
 
 class ElementTypeSerializer:

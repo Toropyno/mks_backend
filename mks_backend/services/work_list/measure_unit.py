@@ -1,5 +1,5 @@
-from mks_backend.models.measure_unit import MeasureUnit
-from mks_backend.repositories.measure_unit import MeasureUnitRepository
+from mks_backend.models.work_list.measure_unit import MeasureUnit
+from mks_backend.repositories.work_list.measure_unit import MeasureUnitRepository
 
 
 class MeasureUnitService:

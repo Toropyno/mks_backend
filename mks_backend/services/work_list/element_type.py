@@ -1,5 +1,5 @@
-from mks_backend.models.element_type import ElementType
-from mks_backend.repositories.element_type import ElementTypeRepository
+from mks_backend.models.work_list.element_type import ElementType
+from mks_backend.repositories.work_list.element_type import ElementTypeRepository
 
 
 class ElementTypeService:

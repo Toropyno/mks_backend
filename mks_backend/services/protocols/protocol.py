@@ -1,7 +1,7 @@
 from typing import List
 
 from mks_backend.models.protocols.protocol import Protocol
-from mks_backend.repositories.protocol import ProtocolRepository
+from mks_backend.repositories.protocols.protocol import ProtocolRepository
 from mks_backend.services.filestorage import FilestorageService
 
 

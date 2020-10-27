@@ -1,9 +1,9 @@
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from mks_backend.controllers.schemas.work_type import WorkTypeSchema
-from mks_backend.serializers.work_type import WorkTypeSerializer
-from mks_backend.services.work_type import WorkTypeService
+from mks_backend.controllers.schemas.work_list.work_type import WorkTypeSchema
+from mks_backend.serializers.work_list.work_type import WorkTypeSerializer
+from mks_backend.services.work_list.work_type import WorkTypeService
 
 from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
 

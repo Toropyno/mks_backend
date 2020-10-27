@@ -1,5 +1,5 @@
-from mks_backend.models.work_list import WorkList
-from mks_backend.repositories.work_list import WorkListRepository
+from mks_backend.models.work_list.work_list import WorkList
+from mks_backend.repositories.work_list.work_list import WorkListRepository
 
 
 class WorkListService:

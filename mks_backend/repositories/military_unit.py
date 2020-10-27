@@ -1,4 +1,4 @@
-from mks_backend.models.military_unit import MilitaryUnit
+from mks_backend.models.military_unit.military_unit import MilitaryUnit
 from mks_backend.repositories import DBSession
 
 
