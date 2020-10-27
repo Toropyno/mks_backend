@@ -45,7 +45,7 @@ class FilestorageHDD:
         else:
             raise FilestorageError(5)
 
-    def delete_by_id(self, id: str) -> None:
-        path_to_file = self.FILE_STORAGE + id
+    def delete_by_id(self, uuid: str) -> None:
+        path_to_file = os_path.join(self.FILE_STORAGE, uuid)
         if os_path.exists(path_to_file):
             os_remove(path_to_file)

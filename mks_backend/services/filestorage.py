@@ -61,5 +61,4 @@ class FilestorageService:
         return [doc.file_storage for doc in construction_object.documents if doc.file_storage]
 
     def delete_filestorage_by_id(self, id: str) -> None:
-        self.hdd.delete_by_id(id)
         self.repo.delete_filestorage_by_id(id)
