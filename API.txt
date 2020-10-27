@@ -624,9 +624,9 @@ Method: GET
 
 ---district-hints--
 
-Description: Get hints districts
+Description: hints districts
 Route: '/fias/district/{text}'
-Method: GET
+Method: POST
 {
     "subject": "обл Белгородская"
 }
@@ -641,9 +641,9 @@ Method: GET
 
 ---city-hints--
 
-Description: Get hints cities
+Description: hints cities
 Route: '/fias/city/{text}'
-Method: GET
+Method: POST
 {
     "subject": "обл Белгородская",
     "district": "р-н Белгородский"
@@ -662,9 +662,9 @@ Method: GET
 
 ---locality-hints--
 
-Description: Get hints localities
+Description: hints localities
 Route: '/fias/locality/{text}'
-Method: GET
+Method: POST
 {
     "subject": "обл Белгородская",
     "district": "р-н Белгородский"
@@ -684,23 +684,70 @@ Method: GET
 
 ---remaining_address-hints--
 
-Description: Get hints remaining_addresses
+Description: hints remaining_addresses
 Route: '/fias/remaining_address/{text}'
-Method: GET
+Method: POST
+
 {
     "subject": "обл Белгородская",
     "district": "р-н Белгородский",
     "locality": "пгт Разумное"
 }
+
 {
     "subject": "обл Белгородская",
     "district": "р-н Белгородский",
     "city": "г. Белгород"
 }
+
 {
     "subject": "обл Белгородская",
     "city": "г Белгород"
 }
+
+
+If the street consists of several parts.
+example:
+
+fias/remaining_address/забор
+{
+    "subject": "обл Московская",
+    "district": null,
+    "city": "г Домодедово",
+    "locality": null,
+    "remainingAddress": "мкр. Востряково"
+}
+response->
+[
+    "ул Заборье",
+    "проезд Заборьевский",
+    "ул Заборьевская",
+    "ул владение СНТ Новое Заборье"
+]
+
+
+fias/remaining_address/забор
+{
+    "subject": "обл Московская",
+    "district": null,
+    "city": "г Домодедово",
+    "locality": null,
+    "remainingAddress": null
+}
+response->
+[
+    "тер СНТ Заборье-Судаково",
+    "ул Заборье",
+    "мкр. Востряково, ул Заборье",
+    "мкр. Востряково, проезд Заборьевский",
+    "проезд Заборьевский",
+    "ул Заборьевская",
+    "мкр. Востряково, ул Заборьевская",
+    "ул владение СНТ Новое Заборье",
+    "мкр. Востряково, ул владение СНТ Новое Заборье",
+    "тер. СНТ Заборье"
+]
+
 
 ---
 
@@ -709,12 +756,14 @@ Method: GET
 
 ---
 
-Description: Get fias search
+Description: hints for full_fias search (for the address that the user enters in one line)
 Route: '/fias_search'
-Method: GET
+Method: POST
 
-Description: Get final address
-Route: '/fias/final_address/{text}'
+Description: Get final address.
+             Should be sent here after the user has filled in all the address fields.
+             The result will need to be displayed in full in the fullFias field.
+Route: '/fias/final_address'
 Method: GET
 
 

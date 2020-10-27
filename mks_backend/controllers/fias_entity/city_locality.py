@@ -13,16 +13,16 @@ class CityLocalityController:
         self.service = CityLocalityService()
         self.controller_FIAS = FIASController(self.request)
 
-    @view_config(route_name='get_cities')
-    def get_cities(self):
+    @view_config(route_name='cities_hints')
+    def cities_hints(self):
         """
             cities: 'г. ', 'г ', 'город '
         """
         self.service.set_sity_socr_names()
         return self.get_cities_or_localities()
 
-    @view_config(route_name='get_localities')
-    def get_localities(self):
+    @view_config(route_name='localities_hints')
+    def localities_hints(self):
         """
             localities: 'пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ',
                         'х ', 'х. ', 'рп ', 'рп. '

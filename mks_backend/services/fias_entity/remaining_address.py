@@ -15,15 +15,17 @@ class RemainingAddressService:
     def get_remaining_addresses(self, fias: FIAS) -> list:
         self.remaining_addresses = []
 
+        if fias.remaining_address is None:
+            fias.remaining_address = ''
+
         search_text = self.get_search_text(fias)
-        print(search_text)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
             return []
 
         for row_address in addresses:
             for socr in self.SORC_NAMES:
-                self.append_remaining_address_if_in_row_address(row_address, socr)
+                self.append_remaining_address_if_in_row_address(row_address, socr, fias.remaining_address)
         return self.remaining_addresses
 
     def get_search_text(self, fias: FIAS) -> str:
@@ -32,9 +34,6 @@ class RemainingAddressService:
         subject = fias.subject
         district = fias.district
         remaining_addresses = fias.remaining_address
-
-        if remaining_addresses is None:
-            remaining_addresses = ''
 
         if subject is None:
             subject = ''
@@ -54,15 +53,21 @@ class RemainingAddressService:
         search_text += ', ' + remaining_addresses + ' ' + self.search_rem_address
         return search_text
 
-    def append_remaining_address_if_in_row_address(self, row_address: str, socr_name: str) -> None:
+    def append_remaining_address_if_in_row_address(self, row_address: str, socr_name: str,
+                                                   remaining_address: str) -> None:
+
         address = get_remaining_address_by_socr_name(row_address, socr_name)
 
         if address:
-            if ', ' in address:
-                composite_streets = address.split(', ')
-                address = composite_streets[0] + ', ...'
+            if remaining_address:
+                address = address.replace(remaining_address + ', ', '')
 
-            if socr_name + self.search_rem_address.lower() in address.lower():
+            if ', ' in address:
+                address = address.split(', ')
+                address = address[0] + ', '
+
+            if socr_name in address.lower() and self.search_rem_address.lower() in address.lower() \
+                    and address.replace(', ', '') not in remaining_address:
                 append_address(address, self.remaining_addresses)
 
 

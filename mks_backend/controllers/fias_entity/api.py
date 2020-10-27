@@ -12,12 +12,12 @@ class FIASAPIController:
     def __init__(self, request: Request):
         self.request = request
         self.service = FIASAPIService()
-        self.controller_FIAS = FIASController()
+        self.controller_FIAS = FIASController(self.request)
 
-    @view_config(route_name='get_fias_search')
-    def get_fias_search(self):
-        search_address = self.controller_FIAS.get_full_fias_serialized()
-        return self.service.get_addresses_from_response(search_address)
+    @view_config(route_name='fias_search_hints')
+    def fias_search_hints(self):
+        full_fias = self.controller_FIAS.get_full_fias_serialized()
+        return self.service.get_fias_search(full_fias)
 
     @view_config(route_name='get_final_fias_address')
     def get_final_fias_address(self):

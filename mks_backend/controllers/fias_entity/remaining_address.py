@@ -14,8 +14,8 @@ class RemainingAddressController:
         self.service = RemainingAddressService()
         self.controller_FIAS = FIASController(self.request)
 
-    @view_config(route_name='get_remaining_addresses')
-    def get_remaining_addresses(self):
+    @view_config(route_name='remaining_addresses_hints')
+    def remaining_addresses_hints(self):
         """
             remaining_address: 'ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ',
                                'пр-кт ', 'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ',

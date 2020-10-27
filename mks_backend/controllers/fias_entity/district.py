@@ -13,8 +13,8 @@ class DistrictController:
         self.service = DistrictService()
         self.controller_FIAS = FIASController(self.request)
 
-    @view_config(route_name='get_districts')
-    def get_districts(self):
+    @view_config(route_name='districts_hints')
+    def districts_hints(self):
         """
         districts: 'р-н ', 'район ', 'у '
         """

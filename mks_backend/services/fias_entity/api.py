@@ -14,6 +14,15 @@ class FIASAPIService:
         self.search_address = ''
         self.repo = FIASAPIRepository()
 
+    def get_fias_search(self, full_fias):
+        number_responses = self.repo.number_responses
+        self.repo.number_responses = 5
+
+        fias_response = self.get_addresses_from_response(full_fias)
+
+        self.repo.number_responses = number_responses
+        return fias_response
+
     def append_address_if_in_row_address(self, row_address: str, socr_name: str, suitable_addresses: list) -> None:
         if socr_name + self.search_address.lower() in row_address.lower():
             address = get_address_ending_with_socr_name(row_address, socr_name)

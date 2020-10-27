@@ -157,12 +157,12 @@ def includeme(config):
     # FIAS_API
 
     config.add_route('get_subjects', '/fias/subject/{text}', request_method='GET')
-    config.add_route('get_districts', '/fias/district/{text}', request_method='GET')
-    config.add_route('get_cities', '/fias/city/{text}', request_method='GET')
-    config.add_route('get_localities', '/fias/locality/{text}', request_method='GET')
-    config.add_route('get_remaining_addresses', '/fias/remaining_address/{text}', request_method='GET')
+    config.add_route('districts_hints', '/fias/district/{text}', request_method='POST')
+    config.add_route('cities_hints', '/fias/city/{text}', request_method='POST')
+    config.add_route('localities_hints', '/fias/locality/{text}', request_method='POST')
+    config.add_route('remaining_addresses_hints', '/fias/remaining_address/{text}', request_method='POST')
 
-    config.add_route('get_fias_search', '/fias_search', request_method='GET')
+    config.add_route('fias_search_hints', '/fias_search', request_method='POST')
     config.add_route('get_final_fias_address', '/fias/final_address/{text}', request_method='GET')
 
     # FIAS
