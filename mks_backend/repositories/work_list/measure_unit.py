@@ -1,5 +1,5 @@
 from mks_backend.errors.db_basic_error import db_error_handler
-from mks_backend.models.measure_unit import MeasureUnit
+from mks_backend.models.work_list.measure_unit import MeasureUnit
 from mks_backend.repositories import DBSession
 
 

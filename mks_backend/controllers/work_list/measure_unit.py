@@ -1,10 +1,10 @@
 from pyramid.view import view_config
 from pyramid.request import Request
 
-from mks_backend.controllers.schemas.measure_unit import MeasureUnitSchema
+from mks_backend.controllers.schemas.work_list.measure_unit import MeasureUnitSchema
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
-from mks_backend.serializers.measure_unit import MeasureUnitSerializer
-from mks_backend.services.measure_unit import MeasureUnitService
+from mks_backend.serializers.work_list.measure_unit import MeasureUnitSerializer
+from mks_backend.services.work_list.measure_unit import MeasureUnitService
 
 
 class MeasureUnitController:

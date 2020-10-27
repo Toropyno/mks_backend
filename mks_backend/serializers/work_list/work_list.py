@@ -1,8 +1,8 @@
-from mks_backend.models.work_list import WorkList
-from mks_backend.serializers.element_type import ElementTypeSerializer
+from mks_backend.models.work_list.work_list import WorkList
+from mks_backend.serializers.work_list.element_type import ElementTypeSerializer
 
-from mks_backend.serializers.measure_unit import MeasureUnitSerializer
-from mks_backend.serializers.work_type import WorkTypeSerializer
+from mks_backend.serializers.work_list.measure_unit import MeasureUnitSerializer
+from mks_backend.serializers.work_list.work_type import WorkTypeSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
 

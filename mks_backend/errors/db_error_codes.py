@@ -33,6 +33,8 @@ DB_ERROR_CODES = {
 
         'other_duplicate': 'Дубликат записи!',
 
+        'protocol_meetings_type_id_fkey': ' Такого типа засдения не существует!',
+
         'construction_construction_categories_id_fkey': 'Категории Проекта с указанным ключом не существует!',
         'construction_subcategories_list_id_fkey': 'Перечня Подкатегорий Проекта с указанным ключом не существует!',
         'construction_commission_id_fkey': 'Комиссии с указанным ключом не существует!',
