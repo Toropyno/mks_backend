@@ -29,9 +29,15 @@ DB_ERROR_CODES = {
         'leadership_positions_fullname_key_duplicate': 'Должность с таким наименованием уже существует!',
 
         'inspection_unique_duplicate': 'Поездка с такой датой и наименованием уже существует!',
+
         'fias_aoid_key_duplicate': 'FIAS с таким кодом уже существует!',
 
+        'inspection_files_pkey_duplicate': 'Такой файл проверки уже существует!',
+
+
         'other_duplicate': 'Дубликат записи!',
+
+        'protocol_meetings_type_id_fkey': ' Такого типа засдения не существует!',
 
         'construction_construction_categories_id_fkey': 'Категории Проекта с указанным ключом не существует!',
         'construction_subcategories_list_id_fkey': 'Перечня Подкатегорий Проекта с указанным ключом не существует!',

@@ -16,6 +16,7 @@ class RemainingAddressService:
         self.remaining_addresses = []
 
         search_text = self.get_search_text(fias)
+        print(search_text)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
             return []
@@ -30,6 +31,10 @@ class RemainingAddressService:
         locality = fias.locality
         subject = fias.subject
         district = fias.district
+        remaining_addresses = fias.remaining_address
+
+        if remaining_addresses is None:
+            remaining_addresses = ''
 
         if subject is None:
             subject = ''
@@ -46,12 +51,17 @@ class RemainingAddressService:
         else:
             search_text += city + ', ' + locality
 
-        search_text += ', ' + self.search_rem_address
+        search_text += ', ' + remaining_addresses + ' ' + self.search_rem_address
         return search_text
 
     def append_remaining_address_if_in_row_address(self, row_address: str, socr_name: str) -> None:
         address = get_remaining_address_by_socr_name(row_address, socr_name)
+
         if address:
+            if ', ' in address:
+                composite_streets = address.split(', ')
+                address = composite_streets[0] + ', ...'
+
             if socr_name + self.search_rem_address.lower() in address.lower():
                 append_address(address, self.remaining_addresses)
 

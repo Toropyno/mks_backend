@@ -22,13 +22,8 @@ class ProtocolController:
     @handle_colander_error
     @view_config(route_name='get_all_protocols', renderer='json')
     def get_all_protocols(self):
-        if self.request.params:
-            params_deserialized = self.filter_schema.deserialize(self.request.GET)
-            params = self.service.get_params_from_schema(params_deserialized)
-            protocols = self.service.filter_protocols(params)
-        else:
-            protocols = self.service.get_all_protocols()
-
+        filter_params = self.filter_schema.deserialize(self.request.GET)
+        protocols = self.service.get_protocols(filter_params)
         return self.serializer.convert_list_to_json(protocols)
 
     @handle_db_error

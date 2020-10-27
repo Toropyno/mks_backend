@@ -156,10 +156,12 @@ class Construction(Base):
         for construction_object in self.construction_objects:
             if construction_object.planned_date.year == now_year:
                 plan += 1
-            if construction_object.planned_date.year == construction_object.fact_date.year == now_year:
-                actually += 1
-            if construction_object.fact_date.year == now_year != construction_object.planned_date.year:
-                entered_additionally += 1
+
+            if construction_object.fact_date:
+                if construction_object.planned_date.year == construction_object.fact_date.year == now_year:
+                    actually += 1
+                if construction_object.fact_date.year == now_year != construction_object.planned_date.year:
+                    entered_additionally += 1
 
             readiness += construction_object.readiness
             workers += construction_object.workers

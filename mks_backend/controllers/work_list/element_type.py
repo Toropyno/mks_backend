@@ -1,10 +1,10 @@
 from pyramid.request import Request
 from pyramid.view import view_config
 
-from mks_backend.controllers.schemas.element_type import ElementTypeSchema
+from mks_backend.controllers.schemas.work_list.element_type import ElementTypeSchema
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
-from mks_backend.serializers.element_type import ElementTypeSerializer
-from mks_backend.services.element_type import ElementTypeService
+from mks_backend.serializers.work_list.element_type import ElementTypeSerializer
+from mks_backend.services.work_list.element_type import ElementTypeService
 
 
 class ElementTypeController:

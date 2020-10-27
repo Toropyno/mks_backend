@@ -45,14 +45,11 @@ class ConstructionDocumentService:
             return construction_documents
         return []
 
-    def set_upload_date_now(self, construction_document_deserialized):
-        construction_document_deserialized['uploadDate'] = datetime.now()
-
     def convert_schema_to_object(self, schema_dict: dict, old_idfilestorage=None) -> ConstructionDocument:
         construction_document = ConstructionDocument()
 
         construction_document.idfilestorage = schema_dict.get('idFileStorage')
-        construction_document.upload_date = schema_dict.get('uploadDate')
+        construction_document.upload_date = datetime.now()
         if old_idfilestorage:
             construction_document = self.update_idfilestorage_with_upload_date(construction_document, old_idfilestorage)
 

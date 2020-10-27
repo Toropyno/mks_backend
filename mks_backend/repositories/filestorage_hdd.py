@@ -8,11 +8,23 @@ from mks_backend.errors.filestorage_error import FilestorageError
 
 
 class FilestorageHDD:
-    PROTOCOL_STORAGE = '/home/atimchenko/MKS/protocols/'
+    FILE_STORAGE = '/home/atimchenko/MKS/filestorage/'
+    ALLOWED_EXTENSIONS = [
+        'doc', 'docx', 'docm',
+        'pdf', 'odt', 'txt',
+    ]
 
     def create_file(self, id_file_storage: str, file: cgi_FieldStorage) -> None:
+        if not isinstance(file, cgi_FieldStorage):
+            raise FilestorageError(1)
+        elif file.limit > 2.6e+7:  # > ~25Mbytes
+            raise FilestorageError(2)
+        elif '.' not in file.filename or \
+                file.filename.split('.')[1] not in self.ALLOWED_EXTENSIONS:
+            raise FilestorageError(3)
+
+        file_path = os_path.join(self.FILE_STORAGE, id_file_storage)
         try:
-            file_path = os_path.join(self.PROTOCOL_STORAGE, id_file_storage)
             with open(file_path, 'wb') as output_file:
                 copyfileobj(file.file, output_file)
         except OSError:
@@ -26,15 +38,14 @@ class FilestorageHDD:
         else:
             return 'unknow/type'
 
-    def get_file(self, uuid: str) -> str:
-        protocol_file = os_path.join(self.PROTOCOL_STORAGE, uuid)
+    def get_path_to_file(self, uuid: str) -> str:
+        protocol_file = os_path.join(self.FILE_STORAGE, uuid)
         if os_path.exists(protocol_file):
             return protocol_file
         else:
             raise FilestorageError(5)
 
-    @classmethod
-    def delete_by_id(cls, id) -> None:
-        path_to_file = cls.PROTOCOL_STORAGE + id
+    def delete_by_id(self, uuid: str) -> None:
+        path_to_file = os_path.join(self.FILE_STORAGE, uuid)
         if os_path.exists(path_to_file):
             os_remove(path_to_file)

@@ -61,7 +61,8 @@ class ProtocolControllerSchema(colander.MappingSchema):
         name='idFileStorage',
         preparer=[strip_space],
         msg='Недопустимая информация о файле',
-        validator=uuid_validator)
+        validator=uuid_validator
+    )
 
 
 class ProtocolControllerFilterSchema(colander.MappingSchema):

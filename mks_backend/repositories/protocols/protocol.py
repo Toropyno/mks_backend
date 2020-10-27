@@ -1,15 +1,21 @@
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.repositories import DBSession
 
+from mks_backend.errors.db_basic_error import db_error_handler
+
 
 class ProtocolRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(Protocol)
+
     def get_protocol_by_id(self, id: int) -> Protocol:
-        return DBSession.query(Protocol).get(id)
+        return self._query.get(id)
 
     def get_all_protocols(self) -> list:
-        return DBSession.query(Protocol).order_by(Protocol.protocol_date.desc()).all()
+        return self._query.order_by(Protocol.protocol_date.desc()).all()
 
+    @db_error_handler
     def add_protocol(self, protocol: Protocol) -> None:
         DBSession.add(protocol)
         DBSession.commit()
@@ -19,7 +25,7 @@ class ProtocolRepository:
         DBSession.commit()
 
     def update_protocol(self, protocol: Protocol) -> None:
-        DBSession.query(Protocol).filter_by(protocol_id=protocol.protocol_id).update(
+        self._query.filter_by(protocol_id=protocol.protocol_id).update(
             {
                 'protocol_num': protocol.protocol_num,
                 'protocol_date': protocol.protocol_date,
@@ -33,15 +39,15 @@ class ProtocolRepository:
 
     def filter_protocols(self, params: dict) -> list:
         meetings_type_id = params.get('meeting')
-        protocol_name = params.get('protocolName')
-        protocol_num = params.get('protocolNumber')
-        date_start = params.get('dateStart')
-        date_end = params.get('dateEnd')
+        protocol_name = params.get('protocol_name')
+        protocol_num = params.get('protocol_number')
+        date_start = params.get('date_start')
+        date_end = params.get('date_end')
 
-        protocols = DBSession.query(Protocol)
+        protocols = self._query
 
         if meetings_type_id:
-            protocols = protocols.filter_by(meetings_type_id=meetings_type_id)
+            protocols = protocols.filter(Protocol.meetings_type_id == meetings_type_id)
         if protocol_name:
             protocol_name = '%' + protocol_name + '%'
             protocols = protocols.filter(Protocol.protocol_name.ilike(protocol_name))

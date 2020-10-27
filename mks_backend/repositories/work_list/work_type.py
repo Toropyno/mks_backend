@@ -1,4 +1,4 @@
-from mks_backend.models.work_type import WorkType
+from mks_backend.models.work_list.work_type import WorkType
 from mks_backend.repositories import DBSession
 
 from mks_backend.errors.db_basic_error import db_error_handler
