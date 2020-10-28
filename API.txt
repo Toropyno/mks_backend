@@ -624,7 +624,7 @@ Method: GET
 
 ---district-hints--
 
-Description: hints districts
+Description: Create hints districts
 Route: '/fias/district/{text}'
 Method: POST
 {
@@ -641,7 +641,7 @@ Method: POST
 
 ---city-hints--
 
-Description: hints cities
+Description: Create hints cities
 Route: '/fias/city/{text}'
 Method: POST
 {
@@ -662,7 +662,7 @@ Method: POST
 
 ---locality-hints--
 
-Description: hints localities
+Description: Create hints localities
 Route: '/fias/locality/{text}'
 Method: POST
 {
@@ -684,7 +684,7 @@ Method: POST
 
 ---remaining_address-hints--
 
-Description: hints remaining_addresses
+Description: Create hints remaining_addresses
 Route: '/fias/remaining_address/{text}'
 Method: POST
 
@@ -707,7 +707,7 @@ Method: POST
 
 
 If the street consists of several parts.
-example:
+Example:
 
 fias/remaining_address/забор
 {
@@ -756,7 +756,7 @@ response->
 
 ---
 
-Description: hints for full_fias search (for the address that the user enters in one line)
+Description: Create hints for full_fias (for the address that the user enters in one line).
 Route: '/fias_search'
 Method: POST
 
@@ -765,14 +765,25 @@ Description: Get final address.
              The result will need to be displayed in full in the fullFias field.
 Route: '/fias/final_address'
 Method: GET
+{
+    "subject": "обл Московская",
+    "district": null,
+    "city": "г Домодедово",
+    "locality": null,
+    "remainingAddress": "мкр. Востряково тер владение СНТ Востряково-ЗИЛ"
+}
+
+Description: Get get split full fias. Parses one line with an address into separate region, district, city, street.
+Route: '/fias/full'
+Method: GET
 
 
 # --- FIAS ---
 
-Description: Get get split full fias. Parses one line with an address into separate region, district, city, street
-Route: '/fias/full'
-Method: GET
 
+Description: Add fias
+Route: '/fias'
+Method: POST
 
 Description: Get all fiases
 Route: '/fias'
@@ -782,9 +793,7 @@ Description: Get fias by id
 Route: '/fias/{id}'
 Method: GET
 
-Description: Add fias
-Route: '/fias'
-Method: POST
+
 
 
 =====================================================================================================
@@ -879,4 +888,8 @@ FIAS {
     locality            String
     remainingAddress    String
     aoid                String
+}
+
+FIASAPI {
+    fullFias            String
 }

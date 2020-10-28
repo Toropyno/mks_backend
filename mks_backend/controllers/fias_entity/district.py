@@ -13,11 +13,11 @@ class DistrictController:
         self.service = DistrictService()
         self.controller_FIAS = FIASController(self.request)
 
-    @view_config(route_name='districts_hints')
-    def districts_hints(self):
+    @view_config(route_name='create_districts_hints')
+    def create_districts_hints(self):
         """
         districts: 'р-н ', 'район ', 'у '
         """
         self.service.search_district = self.request.matchdict['text']
         fias_post = self.controller_FIAS.get_fias_serialized()
-        return self.service.get_districts(fias_post.subject)
+        return self.service.create_districts_hints(fias_post.subject)

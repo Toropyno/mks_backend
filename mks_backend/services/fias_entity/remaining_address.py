@@ -1,18 +1,17 @@
 from mks_backend.models.fias import FIAS
+from mks_backend.services.fias_entity import REMAINING_SORC_NAMES
 from mks_backend.services.fias_entity.api import FIASAPIService
 from mks_backend.services.fias_entity.utils import append_address
 
 
 class RemainingAddressService:
-    SORC_NAMES = ['ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ', 'пр-кт ',
-                  'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ', 'мост ', 'снт ']
 
     def __init__(self):
         self.search_rem_address = ''
         self.remaining_addresses = []
         self.service_api = FIASAPIService()
 
-    def get_remaining_addresses(self, fias: FIAS) -> list:
+    def create_remaining_addresses_hints(self, fias: FIAS) -> list:
         self.remaining_addresses = []
 
         if fias.remaining_address is None:
@@ -24,7 +23,7 @@ class RemainingAddressService:
             return []
 
         for row_address in addresses:
-            for socr in self.SORC_NAMES:
+            for socr in REMAINING_SORC_NAMES:
                 self.append_remaining_address_if_in_row_address(row_address, socr, fias.remaining_address)
         return self.remaining_addresses
 

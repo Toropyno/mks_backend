@@ -4,7 +4,6 @@ from requests import Response
 
 class FIASAPIRepository:
     AUTHORIZATION_FIAS_in_DEV = 'Basic dXNlcjoxMTExMTExMQ=='
-    AUTHORIZATION_FIAS_in_INT = ''
 
     def __init__(self):
         self.number_responses = 15

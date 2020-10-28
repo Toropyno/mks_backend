@@ -156,18 +156,18 @@ def includeme(config):
 
     # FIAS_API
 
-    config.add_route('get_subjects', '/fias/subject/{text}', request_method='GET')
-    config.add_route('districts_hints', '/fias/district/{text}', request_method='POST')
-    config.add_route('cities_hints', '/fias/city/{text}', request_method='POST')
-    config.add_route('localities_hints', '/fias/locality/{text}', request_method='POST')
-    config.add_route('remaining_addresses_hints', '/fias/remaining_address/{text}', request_method='POST')
+    config.add_route('get_subjects_hints', '/fias/subject/{text}', request_method='GET')
+    config.add_route('create_districts_hints', '/fias/district/{text}', request_method='POST')
+    config.add_route('create_cities_hints', '/fias/city/{text}', request_method='POST')
+    config.add_route('create_localities_hints', '/fias/locality/{text}', request_method='POST')
+    config.add_route('create_remaining_addresses_hints', '/fias/remaining_address/{text}', request_method='POST')
 
-    config.add_route('fias_search_hints', '/fias_search', request_method='POST')
-    config.add_route('get_final_fias_address', '/fias/final_address/{text}', request_method='GET')
+    config.add_route('get_final_address', '/fias/final_address', request_method='POST')
+    config.add_route('create_full_fias_hints', '/fias_search', request_method='POST')
+    config.add_route('split_full_fias', '/fias/full', request_method='POST')
 
     # FIAS
-    config.add_route('get_split_full_fias', '/fias/full', request_method='GET')
 
-    config.add_route('get_all_fiases', '/fias', request_method='GET')
     config.add_route('add_fias', '/fias', request_method='POST')
+    config.add_route('get_all_fiases', '/fias', request_method='GET')
     config.add_route('get_fias', '/fias/{id}', request_method='GET')

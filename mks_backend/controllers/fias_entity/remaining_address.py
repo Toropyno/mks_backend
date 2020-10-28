@@ -14,8 +14,8 @@ class RemainingAddressController:
         self.service = RemainingAddressService()
         self.controller_FIAS = FIASController(self.request)
 
-    @view_config(route_name='remaining_addresses_hints')
-    def remaining_addresses_hints(self):
+    @view_config(route_name='create_remaining_addresses_hints')
+    def create_remaining_addresses_hints(self):
         """
             remaining_address: 'ул ', 'ул. ', 'пер ', 'пер. ', 'ш ', 'ш. ', 'кв-л ', 'тер ', 'тер. ', 'мкр ', 'мкр. ',
                                'пр-кт ', 'б-р ', 'б-р. ', 'проезд ', 'проезд. ', 'туп ', 'туп. ', 'пл ', 'пл. ',
@@ -26,6 +26,6 @@ class RemainingAddressController:
         fias_post = self.controller_FIAS.get_fias_serialized()
 
         if fias_post.city is not None or fias_post.locality is not None:
-            return self.service.get_remaining_addresses(fias_post)
+            return self.service.create_remaining_addresses_hints(fias_post)
         else:
             return get_locality_error_dict()

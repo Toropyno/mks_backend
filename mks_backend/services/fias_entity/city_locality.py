@@ -1,4 +1,5 @@
 from mks_backend.models.fias import FIAS
+from mks_backend.services.fias_entity import CITY_SORC_NAMES, LOCALITY_SORC_NAMES
 from mks_backend.services.fias_entity.api import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import (
@@ -10,9 +11,6 @@ from mks_backend.services.fias_entity.utils import (
 
 
 class CityLocalityService:
-    CITY_SORC_NAMES = ['г. ', 'г ', 'город ']
-    LOCALITY_SORC_NAMES = ['пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ',
-                           'х ', 'х. ', 'рп ', 'рп. ']
 
     def __init__(self):
         self.search_address = ''
@@ -21,15 +19,18 @@ class CityLocalityService:
         self.service_api = FIASAPIService()
 
     def set_sity_socr_names(self):
-        self.socr_names = self.CITY_SORC_NAMES
+        self.socr_names = CITY_SORC_NAMES
 
     def set_locality_socr_names(self):
-        self.socr_names = self.LOCALITY_SORC_NAMES
+        self.socr_names = LOCALITY_SORC_NAMES
 
     def get_search_text(self, fias: FIAS) -> str:
         search_text = self.search_address
         subject = fias.subject
         district = fias.district
+
+        if district is None and subject is None:
+            return search_text
 
         if district is not None:
             search_text = subject + ', ' + district + ', ' + search_text
@@ -37,7 +38,7 @@ class CityLocalityService:
             search_text = subject + ', ' + search_text
         return search_text
 
-    def get_cities_or_localities(self, fias: FIAS) -> list:
+    def create_cities_or_localities_hints(self, fias: FIAS) -> list:
         self.cities_or_localities = []
 
         search_text = self.get_search_text(fias)

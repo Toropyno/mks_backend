@@ -15,8 +15,7 @@ class FIASRepository:
         return DBSession.query(FIAS).all()
 
     def delete_fias_by_id(self, id: int) -> None:
-        fias = self.get_fias_by_id(id)
-        DBSession.delete(fias)
+        DBSession.delete(self.get_fias_by_id(id))
         DBSession.commit()
 
     def get_fias_by_aoid(self, aoid: str) -> FIAS:

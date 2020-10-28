@@ -13,24 +13,24 @@ class CityLocalityController:
         self.service = CityLocalityService()
         self.controller_FIAS = FIASController(self.request)
 
-    @view_config(route_name='cities_hints')
-    def cities_hints(self):
+    @view_config(route_name='create_cities_hints')
+    def create_cities_hints(self):
         """
             cities: 'г. ', 'г ', 'город '
         """
         self.service.set_sity_socr_names()
-        return self.get_cities_or_localities()
+        return self.create_cities_or_localities_hints()
 
-    @view_config(route_name='localities_hints')
-    def localities_hints(self):
+    @view_config(route_name='create_localities_hints')
+    def create_localities_hints(self):
         """
             localities: 'пгт. ', 'пгт ', 'п. ', 'п ', 'д. ', 'д ', 'с. ', 'с ', 'п. им. ', 'п им ', 'ст-ца ',
                         'х ', 'х. ', 'рп ', 'рп. '
         """
         self.service.set_locality_socr_names()
-        return self.get_cities_or_localities()
+        return self.create_cities_or_localities_hints()
 
-    def get_cities_or_localities(self) -> list:
+    def create_cities_or_localities_hints(self) -> list:
         self.service.search_address = self.request.matchdict['text']
         fias_post = self.controller_FIAS.get_fias_serialized()
-        return self.service.get_cities_or_localities(fias_post)
+        return self.service.create_cities_or_localities_hints(fias_post)

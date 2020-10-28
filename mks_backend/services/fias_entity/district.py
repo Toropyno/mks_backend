@@ -1,3 +1,4 @@
+from mks_backend.services.fias_entity import DISTRICT_SORC_NAMES
 from mks_backend.services.fias_entity.api import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import (
@@ -8,14 +9,13 @@ from mks_backend.services.fias_entity.utils import (
 
 
 class DistrictService:
-    SORC_NAMES = ['р-н ', 'район ', 'у ']
 
     def __init__(self):
         self.search_district = ''
         self.districts = []
         self.service_api = FIASAPIService()
 
-    def get_districts(self, subject: str) -> list:
+    def create_districts_hints(self, subject: str) -> list:
         self.districts = []
 
         search_text = self.get_search_text(subject)
@@ -26,13 +26,13 @@ class DistrictService:
         if subject is None:
             self.service_api.search_address = self.search_district
             for row_address in addresses:
-                for socr in self.SORC_NAMES:
+                for socr in DISTRICT_SORC_NAMES:
                     self.service_api.append_address_if_in_row_address(row_address, socr, self.districts)
             self.districts = get_reversed_addresses(self.districts)
 
         else:
             for row_address in addresses:
-                for socr in self.SORC_NAMES:
+                for socr in DISTRICT_SORC_NAMES:
                     self.append_district_if_in_row_address(row_address, socr, subject)
 
         return self.districts
