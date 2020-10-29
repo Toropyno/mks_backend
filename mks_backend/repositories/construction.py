@@ -102,6 +102,3 @@ class ConstructionRepository:
             constructions = constructions.filter(Construction.address == address)
 
         return constructions.order_by(Construction.contract_date).all()
-
-    def get_constructions_by_id_fias(self, id_fias: int) -> list:
-        return DBSession.query(Construction).filter(Construction.id_fias == id_fias).all()

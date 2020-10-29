@@ -1,10 +1,9 @@
-from mks_backend.errors.db_basic_error import db_error_handler
-
 from mks_backend.models.fias import FIAS
 from mks_backend.repositories.fias_entity.api import FIASAPIRepository
 from mks_backend.repositories.fias_entity.fias import FIASRepository
 from mks_backend.services.fias_entity.api import FIASAPIService
-from mks_backend.services.fias_entity.utils import get_search_address
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class FIASService:
@@ -14,19 +13,12 @@ class FIASService:
         self.service_api = FIASAPIService()
         self.repo_api = FIASAPIRepository()
 
-    def add_address_fias(self, fias):
-        search_address = get_search_address(fias)
-        if search_address == '':
-            return
-
-        aoid = self.get_aoid(search_address)
-        if not aoid:
+    def add_address_fias(self, fias: FIAS):
+        if not fias.aoid:
             return None
 
-        fias_db = self.get_fias_by_aoid(aoid)
-
+        fias_db = self.get_fias_by_aoid(fias.aoid)
         if not fias_db:
-            fias.aoid = aoid
             self.add_fias(fias)
         else:
             fias = fias_db
@@ -39,9 +31,6 @@ class FIASService:
     @db_error_handler
     def add_fias(self, fias: FIAS) -> None:
         self.repo.add_fias(fias)
-
-    def get_all_fiases(self) -> list:
-        return self.repo.get_all_fiases()
 
     def get_fias_by_id(self, id: int) -> FIAS:
         return self.repo.get_fias_by_id(id)
@@ -61,5 +50,5 @@ class FIASService:
         else:
             return False
 
-    def get_aoid(self, search_address: str) -> str:
-        return self.service_api.get_aoid(search_address)
+    def get_aoid(self, search_address: str, end_text: str) -> str:
+        return self.service_api.get_aoid(search_address, end_text)

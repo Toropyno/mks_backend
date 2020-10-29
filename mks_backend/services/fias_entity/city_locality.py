@@ -1,12 +1,13 @@
 from mks_backend.models.fias import FIAS
-from mks_backend.services.fias_entity import CITY_SORC_NAMES, LOCALITY_SORC_NAMES
+from mks_backend.services.fias_entity import CITY_SOCR_NAMES, LOCALITY_SOCR_NAMES
 from mks_backend.services.fias_entity.api import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import (
     get_by_socr_name,
     get_address_ending_with_socr_name,
     append_address,
-    get_reversed_addresses
+    get_reversed_addresses,
+    get_search_address
 )
 
 
@@ -18,25 +19,19 @@ class CityLocalityService:
         self.cities_or_localities = []
         self.service_api = FIASAPIService()
 
-    def set_sity_socr_names(self):
-        self.socr_names = CITY_SORC_NAMES
+    def set_sity_socr_names(self) -> None:
+        self.socr_names = CITY_SOCR_NAMES
 
-    def set_locality_socr_names(self):
-        self.socr_names = LOCALITY_SORC_NAMES
+    def set_locality_socr_names(self) -> None:
+        self.socr_names = LOCALITY_SOCR_NAMES
 
     def get_search_text(self, fias: FIAS) -> str:
         search_text = self.search_address
-        subject = fias.subject
-        district = fias.district
 
-        if district is None and subject is None:
+        if fias.district is None and fias.subject is None:
             return search_text
 
-        if district is not None:
-            search_text = subject + ', ' + district + ', ' + search_text
-        elif subject is not None:
-            search_text = subject + ', ' + search_text
-        return search_text
+        return get_search_address(fias) + ', ' + search_text
 
     def create_cities_or_localities_hints(self, fias: FIAS) -> list:
         self.cities_or_localities = []
@@ -67,18 +62,18 @@ class CityLocalityService:
         return self.cities_or_localities
 
     def append_with_subject_district_if_in_row_address(self, row_address: str, socr_name: str, subject: str) -> None:
-        if (socr_name + self.search_address.lower() in row_address.lower()) and (
+        if (socr_name.lower() + self.search_address.lower() in row_address.lower()) and (
                 subject.lower() in row_address.lower()):
 
             c_or_l = get_address_ending_with_socr_name(row_address, socr_name)
-            if socr_name + self.search_address.lower() in c_or_l.lower():
+            if socr_name.lower() + self.search_address.lower() in c_or_l.lower():
                 append_address(c_or_l, self.cities_or_localities)
 
     def append_city_or_locality_if_in_row_address(self, row_address: str, socr_name: str, fias: FIAS) -> None:
-        if (socr_name + self.search_address.lower() in row_address.lower()) and (
+        if (socr_name.lower() + self.search_address.lower() in row_address.lower()) and (
                 fias.subject.lower() in row_address.lower()) and (
                 fias.district.lower() in row_address.lower()):
 
             c_or_l = get_by_socr_name(row_address, socr_name)
-            if socr_name + self.search_address.lower() in c_or_l.lower():
+            if socr_name.lower() + self.search_address.lower() in c_or_l.lower():
                 append_address(c_or_l, self.cities_or_localities)

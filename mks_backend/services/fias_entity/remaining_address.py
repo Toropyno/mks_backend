@@ -1,5 +1,5 @@
 from mks_backend.models.fias import FIAS
-from mks_backend.services.fias_entity import REMAINING_SORC_NAMES
+from mks_backend.services.fias_entity import REMAINING_SOCR_NAMES
 from mks_backend.services.fias_entity.api import FIASAPIService
 from mks_backend.services.fias_entity.utils import append_address
 
@@ -12,6 +12,9 @@ class RemainingAddressService:
         self.service_api = FIASAPIService()
 
     def create_remaining_addresses_hints(self, fias: FIAS) -> list:
+        if not (fias.city is not None or fias.locality is not None):
+            return []
+
         self.remaining_addresses = []
 
         if fias.remaining_address is None:
@@ -23,7 +26,7 @@ class RemainingAddressService:
             return []
 
         for row_address in addresses:
-            for socr in REMAINING_SORC_NAMES:
+            for socr in REMAINING_SOCR_NAMES:
                 self.append_remaining_address_if_in_row_address(row_address, socr, fias.remaining_address)
         return self.remaining_addresses
 
@@ -32,7 +35,7 @@ class RemainingAddressService:
         locality = fias.locality
         subject = fias.subject
         district = fias.district
-        remaining_addresses = fias.remaining_address
+        remaining_address = fias.remaining_address
 
         if subject is None:
             subject = ''
@@ -49,29 +52,40 @@ class RemainingAddressService:
         else:
             search_text += city + ', ' + locality
 
-        search_text += ', ' + remaining_addresses + ' ' + self.search_rem_address
+        search_text += ', ' + remaining_address + ' ' + self.search_rem_address
         return search_text
 
     def append_remaining_address_if_in_row_address(self, row_address: str, socr_name: str,
                                                    remaining_address: str) -> None:
 
-        address = get_remaining_address_by_socr_name(row_address, socr_name)
+        address = self.get_remaining_address_by_socr_name(row_address, socr_name)
 
-        if address:
-            if remaining_address:
-                address = address.replace(remaining_address + ', ', '')
+        if socr_name.lower() in address.lower() and self.search_rem_address.lower() in address.lower() \
+                and address.replace(', ', '') not in remaining_address:
+            append_address(address, self.remaining_addresses)
 
-            if ', ' in address:
-                address = address.split(', ')
-                address = address[0] + ', '
+    def get_remaining_address_by_socr_name(self, row_address: str, socr_name: str) -> str:
+        try:
+            index_start = row_address.index(socr_name)
+            remaining_address = row_address[index_start:]
+        except ValueError:
+            return ''
 
-            if socr_name in address.lower() and self.search_rem_address.lower() in address.lower() \
-                    and address.replace(', ', '') not in remaining_address:
-                append_address(address, self.remaining_addresses)
+        if ', ' in remaining_address:
+            remaining_address = remaining_address.split(', ')
+            remaining_address = remaining_address[0]
+        if socr_name.lower() in remaining_address.lower() and \
+                self.search_rem_address.lower() in remaining_address.lower():
+            try:
+                index_end = row_address.index(socr_name, 0, -1) - 2
+                index_start = row_address.rindex(', ', 0, index_end) + 2
 
+                for socr in REMAINING_SOCR_NAMES:
+                    if socr in row_address[index_start: index_end]:
+                        address = row_address[index_start: index_end] + ', ' + remaining_address
+                        remaining_address = address
 
-def get_remaining_address_by_socr_name(row_address: str, socr_name: str) -> str:
-    try:
-        return row_address[row_address.index(socr_name):]
-    except ValueError:
-        return ''
+            except ValueError:
+                return remaining_address
+
+        return remaining_address

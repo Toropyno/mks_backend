@@ -1,4 +1,4 @@
-from mks_backend.services.fias_entity import DISTRICT_SORC_NAMES
+from mks_backend.services.fias_entity import DISTRICT_SOCR_NAMES
 from mks_backend.services.fias_entity.api import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import (
@@ -26,13 +26,13 @@ class DistrictService:
         if subject is None:
             self.service_api.search_address = self.search_district
             for row_address in addresses:
-                for socr in DISTRICT_SORC_NAMES:
+                for socr in DISTRICT_SOCR_NAMES:
                     self.service_api.append_address_if_in_row_address(row_address, socr, self.districts)
             self.districts = get_reversed_addresses(self.districts)
 
         else:
             for row_address in addresses:
-                for socr in DISTRICT_SORC_NAMES:
+                for socr in DISTRICT_SOCR_NAMES:
                     self.append_district_if_in_row_address(row_address, socr, subject)
 
         return self.districts
@@ -44,9 +44,9 @@ class DistrictService:
         return search_text
 
     def append_district_if_in_row_address(self, row_address: str, socr_name: str, subject: str) -> None:
-        if (socr_name + self.search_district.lower() in row_address.lower()) and (
+        if (socr_name.lower() + self.search_district.lower() in row_address.lower()) and (
                 subject.lower() in row_address.lower()):
 
             district = get_by_socr_name(row_address, socr_name)
-            if socr_name + self.search_district.lower() in district.lower():
+            if socr_name.lower() + self.search_district.lower() in district.lower():
                 append_address(district, self.districts)

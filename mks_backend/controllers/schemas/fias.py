@@ -69,9 +69,21 @@ class FIASSchema(colander.MappingSchema):
         missing=None
     )
 
+    aoid = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='aoid',
+        validator=colander.Length(
+            min=1,
+            max=100,
+            min_err='Слишком короткий aoid',
+            max_err='Слишком длинный aoid'
+        ),
+        missing=None
+    )
+
 
 class FIASAPISchema(colander.MappingSchema):
-
     full_fias = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

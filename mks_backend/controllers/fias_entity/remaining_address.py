@@ -2,8 +2,9 @@ from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
 from mks_backend.controllers.fias_entity.fias import FIASController
-from mks_backend.errors.fias_error import get_locality_error_dict
 from mks_backend.services.fias_entity.remaining_address import RemainingAddressService
+
+from mks_backend.errors.fias_error import get_locality_error, fias_error_handler
 
 
 @view_defaults(renderer='json')
@@ -14,6 +15,7 @@ class RemainingAddressController:
         self.service = RemainingAddressService()
         self.controller_FIAS = FIASController(self.request)
 
+    @fias_error_handler
     @view_config(route_name='create_remaining_addresses_hints')
     def create_remaining_addresses_hints(self):
         """
@@ -25,7 +27,8 @@ class RemainingAddressController:
 
         fias_post = self.controller_FIAS.get_fias_serialized()
 
-        if fias_post.city is not None or fias_post.locality is not None:
-            return self.service.create_remaining_addresses_hints(fias_post)
+        remaining_addresses = self.service.create_remaining_addresses_hints(fias_post)
+        if remaining_addresses:
+            return remaining_addresses
         else:
-            return get_locality_error_dict()
+            return get_locality_error()

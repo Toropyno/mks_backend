@@ -165,6 +165,7 @@ def includeme(config):
     config.add_route('get_final_address', '/fias/final_address', request_method='POST')
     config.add_route('create_full_fias_hints', '/fias_search', request_method='POST')
     config.add_route('split_full_fias', '/fias/full', request_method='POST')
+    config.add_route('split_fields', '/fias/fields', request_method='POST')
 
     # FIAS
 

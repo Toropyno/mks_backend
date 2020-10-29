@@ -109,6 +109,3 @@ class ConstructionService:
                 params[case_switcher[key]] = params_deserilized[key]
 
         return params
-
-    def get_constructions_by_id_fias(self, id_fias: int) -> list:
-        return self.repo.get_constructions_by_id_fias(id_fias)

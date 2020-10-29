@@ -2,11 +2,12 @@ from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
 from mks_backend.controllers.schemas.fias import FIASSchema
-from mks_backend.errors.fias_error import get_addition_fias_error_dict
-from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 from mks_backend.models.fias import FIAS
 from mks_backend.serializers.fias.fias import FIASSerializer
 from mks_backend.services.fias_entity.fias import FIASService
+
+from mks_backend.errors.fias_error import get_aoid_error
+from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')
@@ -25,7 +26,7 @@ class FIASController:
         fias = self.get_fias_serialized()
         fias = self.service.add_address_fias(fias)
         if not fias:
-            return get_addition_fias_error_dict()
+            return get_aoid_error()
         return self.serializer.convert_object_to_json(fias)
 
     @handle_db_error
@@ -35,17 +36,9 @@ class FIASController:
         fias = self.service.get_fias_by_id(id)
         return self.serializer.convert_object_to_json(fias)
 
-    @handle_db_error
-    @view_config(route_name='get_all_fiases')
-    def get_all_fiases(self):
-        fiases = self.service.get_all_fiases()
-        return self.serializer.convert_list_to_json(fiases)
-
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])
 
     def get_fias_serialized(self) -> FIAS:
         fias_deserialized = self.schema.deserialize(self.request.json_body)
         return self.serializer.convert_schema_to_object(fias_deserialized)
-
-
