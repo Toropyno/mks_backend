@@ -42,12 +42,12 @@ def append_address(address: str, suitable_addresses: list) -> None:
 def get_reversed_addresses(addresses: list) -> list:
     reversed_addresses = []
     for address in addresses:
-        gluing = reversed_address(address)
+        gluing = turn_over_address(address)
         reversed_addresses.append(gluing)
     return reversed_addresses
 
 
-def reversed_address(address: str) -> str:
+def turn_over_address(address: str) -> str:
     gluing = ''
     address_split_reversed = address.split(', ')[::-1]
     for addr in address_split_reversed:
@@ -74,7 +74,7 @@ def get_search_address(fias: FIAS) -> str:
 
 def get_end_text_for_split(full_fias: str) -> str:
     try:
-        start_index = full_fias.rindex(', ', 0, -1) + 2
+        start_index = full_fias.rindex(', ') + 2
         end_text = full_fias[start_index:len(full_fias)]
     except ValueError:
         end_text = full_fias[:]

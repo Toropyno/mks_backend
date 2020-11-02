@@ -14,7 +14,7 @@ class SubjectService:
     def get_subjects_hints(self) -> list:
         self.subjects = []
 
-        addresses = self.get_addresses_from_response()
+        addresses = self.get_addresses_from_fias_api()
         if not addresses:
             return []
 
@@ -24,7 +24,7 @@ class SubjectService:
 
         return self.subjects
 
-    def get_addresses_from_response(self) -> list:
+    def get_addresses_from_fias_api(self) -> list:
         return self.service_api.get_addresses_from_response(self.search_subject)
 
     def append_subject_if_in_row_address(self, row_address: str, socr_name: str) -> None:

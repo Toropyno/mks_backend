@@ -170,5 +170,4 @@ def includeme(config):
     # FIAS
 
     config.add_route('add_fias', '/fias', request_method='POST')
-    config.add_route('get_all_fiases', '/fias', request_method='GET')
     config.add_route('get_fias', '/fias/{id}', request_method='GET')
