@@ -8,15 +8,15 @@ class SubjectService:
 
     def __init__(self):
         self.search_subject = ''
-        self.subjects = []
+        self.subjects = set()
         self.service_api = FIASAPIService()
 
-    def get_subjects_hints(self) -> list:
-        self.subjects = []
+    def get_subjects_hints(self) -> set:
+        self.subjects = set()
 
-        addresses = self.get_addresses_from_response()
+        addresses = self.get_addresses_from_fias_api()
         if not addresses:
-            return []
+            return set()
 
         for row_address in addresses:
             for socr in SUBJECT_SOCR_NAMES:
@@ -24,7 +24,7 @@ class SubjectService:
 
         return self.subjects
 
-    def get_addresses_from_response(self) -> list:
+    def get_addresses_from_fias_api(self) -> list:
         return self.service_api.get_addresses_from_response(self.search_subject)
 
     def append_subject_if_in_row_address(self, row_address: str, socr_name: str) -> None:

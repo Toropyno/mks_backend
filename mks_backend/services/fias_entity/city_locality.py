@@ -16,7 +16,7 @@ class CityLocalityService:
     def __init__(self):
         self.search_address = ''
         self.socr_names = []
-        self.cities_or_localities = []
+        self.cities_or_localities = set()
         self.service_api = FIASAPIService()
 
     def set_sity_socr_names(self) -> None:
@@ -33,13 +33,13 @@ class CityLocalityService:
 
         return get_search_address(fias) + ', ' + search_text
 
-    def create_cities_or_localities_hints(self, fias: FIAS) -> list:
-        self.cities_or_localities = []
+    def create_cities_or_localities_hints(self, fias: FIAS) -> set:
+        self.cities_or_localities = set()
 
         search_text = self.get_search_text(fias)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
-            return []
+            return set()
 
         if fias.subject is None:
             self.service_api.search_address = self.search_address

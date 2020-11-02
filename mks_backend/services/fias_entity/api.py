@@ -27,7 +27,7 @@ class FIASAPIService:
         self.search_address = ''
         self.repo = FIASAPIRepository()
 
-    def append_address_if_in_row_address(self, row_address: str, socr_name: str, suitable_addresses: list) -> None:
+    def append_address_if_in_row_address(self, row_address: str, socr_name: str, suitable_addresses: set) -> None:
         if socr_name.lower() + self.search_address.lower() in row_address.lower():
             address = get_address_ending_with_socr_name(row_address, socr_name)
             if socr_name.lower() + self.search_address.lower() in address.lower():

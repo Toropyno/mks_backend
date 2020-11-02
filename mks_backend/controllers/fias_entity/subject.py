@@ -19,4 +19,4 @@ class SubjectController:
         subjects: 'обл. ', 'обл ', 'Респ. ', 'Респ ', 'край '
         """
         self.service.search_subject = self.request.matchdict['text']
-        return self.service.get_subjects_hints()
+        return list(self.service.get_subjects_hints())

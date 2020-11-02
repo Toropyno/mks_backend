@@ -12,16 +12,16 @@ class DistrictService:
 
     def __init__(self):
         self.search_district = ''
-        self.districts = []
+        self.districts = set()
         self.service_api = FIASAPIService()
 
-    def create_districts_hints(self, subject: str) -> list:
-        self.districts = []
+    def create_districts_hints(self, subject: str) -> set:
+        self.districts = set()
 
         search_text = self.get_search_text(subject)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
-            return []
+            return set()
 
         if subject is None:
             self.service_api.search_address = self.search_district

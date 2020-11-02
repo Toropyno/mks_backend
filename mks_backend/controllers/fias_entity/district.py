@@ -22,4 +22,4 @@ class DistrictController:
         """
         self.service.search_district = self.request.matchdict['text']
         fias_post = self.controller_FIAS.get_fias_serialized()
-        return self.service.create_districts_hints(fias_post.subject)
+        return list(self.service.create_districts_hints(fias_post.subject))

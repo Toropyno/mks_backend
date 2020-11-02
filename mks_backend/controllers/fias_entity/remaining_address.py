@@ -29,6 +29,6 @@ class RemainingAddressController:
 
         remaining_addresses = self.service.create_remaining_addresses_hints(fias_post)
         if remaining_addresses:
-            return remaining_addresses
+            return list(remaining_addresses)
         else:
             return get_locality_error()

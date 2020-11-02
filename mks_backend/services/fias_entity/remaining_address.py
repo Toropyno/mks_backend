@@ -8,14 +8,14 @@ class RemainingAddressService:
 
     def __init__(self):
         self.search_rem_address = ''
-        self.remaining_addresses = []
+        self.remaining_addresses = set()
         self.service_api = FIASAPIService()
 
-    def create_remaining_addresses_hints(self, fias: FIAS) -> list:
+    def create_remaining_addresses_hints(self, fias: FIAS) -> set:
         if not (fias.city is not None or fias.locality is not None):
-            return []
+            return set()
 
-        self.remaining_addresses = []
+        self.remaining_addresses = set()
 
         if fias.remaining_address is None:
             fias.remaining_address = ''
@@ -23,7 +23,7 @@ class RemainingAddressService:
         search_text = self.get_search_text(fias)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
-            return []
+            return set()
 
         for row_address in addresses:
             for socr in REMAINING_SOCR_NAMES:

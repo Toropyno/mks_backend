@@ -1,16 +1,16 @@
-from requests.models import Response
+from requests.models import Response as response_py
 
 from mks_backend.errors.fias_error import fias_error_handler
 from mks_backend.models.fias import FIAS
 
 
 @fias_error_handler
-def extract_addresses(response: Response) -> list:
+def extract_addresses(response: response_py) -> list:
     return [resp.get('text') for resp in response.json()]
 
 
 @fias_error_handler
-def extract_addresses_with_aoid(response: Response) -> list:
+def extract_addresses_with_aoid(response: response_py) -> list:
     return [{'text': resp.get('text'), 'aoid': resp.get('aoid')} for resp in response.json()]
 
 
@@ -34,20 +34,19 @@ def get_address_ending_with_socr_name(row_address: str, socr_name: str) -> str:
     return address
 
 
-def append_address(address: str, suitable_addresses: list) -> None:
-    if address not in suitable_addresses:
-        suitable_addresses.append(address)
+def append_address(address: str, suitable_addresses: set) -> None:
+    suitable_addresses.add(address)
 
 
-def get_reversed_addresses(addresses: list) -> list:
-    reversed_addresses = []
+def get_reversed_addresses(addresses: set) -> set:
+    reversed_addresses = set()
     for address in addresses:
-        gluing = reversed_address(address)
-        reversed_addresses.append(gluing)
+        gluing = turn_over_address(address)
+        reversed_addresses.add(gluing)
     return reversed_addresses
 
 
-def reversed_address(address: str) -> str:
+def turn_over_address(address: str) -> str:
     gluing = ''
     address_split_reversed = address.split(', ')[::-1]
     for addr in address_split_reversed:
@@ -74,7 +73,7 @@ def get_search_address(fias: FIAS) -> str:
 
 def get_end_text_for_split(full_fias: str) -> str:
     try:
-        start_index = full_fias.rindex(', ', 0, -1) + 2
+        start_index = full_fias.rindex(', ') + 2
         end_text = full_fias[start_index:len(full_fias)]
     except ValueError:
         end_text = full_fias[:]

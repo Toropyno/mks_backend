@@ -36,4 +36,4 @@ class CityLocalityController:
     def create_cities_or_localities_hints(self) -> list:
         self.service.search_address = self.request.matchdict['text']
         fias_post = self.controller_FIAS.get_fias_serialized()
-        return self.service.create_cities_or_localities_hints(fias_post)
+        return list(self.service.create_cities_or_localities_hints(fias_post))

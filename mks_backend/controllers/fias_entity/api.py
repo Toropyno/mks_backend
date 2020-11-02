@@ -6,7 +6,7 @@ from mks_backend.controllers.schemas.fias import FIASAPISchema
 from mks_backend.serializers.fias.api import FIASAPISerializer
 from mks_backend.serializers.fias.fias import FIASSerializer
 from mks_backend.services.fias_entity.api import FIASAPIService
-from mks_backend.services.fias_entity.utils import reversed_address
+from mks_backend.services.fias_entity.utils import turn_over_address
 
 from mks_backend.errors.fias_error import (
     get_remaining_address_error,
@@ -33,7 +33,7 @@ class FIASAPIController:
     @fias_error_handler
     @view_config(route_name='split_fields')
     def split_fields(self):
-        full_fias = reversed_address(self.get_full_fias_serialized())
+        full_fias = turn_over_address(self.get_full_fias_serialized())
         if ', ' not in full_fias:
             return {'oneField': full_fias}
         split_full_fias = self.service.split_fias(full_fias)
