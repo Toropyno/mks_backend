@@ -1,7 +1,9 @@
 from mks_backend.services.fias_entity import SUBJECT_SOCR_NAMES
-from mks_backend.services.fias_entity.api import FIASAPIService
+from mks_backend.services.fias_entity.address import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import get_by_socr_name, append_address
+
+from mks_backend.errors.fias_error import FIASError, fias_error_handler
 
 
 class SubjectService:
@@ -11,12 +13,13 @@ class SubjectService:
         self.subjects = set()
         self.service_api = FIASAPIService()
 
+    @fias_error_handler
     def get_subjects_hints(self) -> set:
         self.subjects = set()
 
         addresses = self.get_addresses_from_fias_api()
         if not addresses:
-            return set()
+            raise FIASError('cannotFindAddress')
 
         for row_address in addresses:
             for socr in SUBJECT_SOCR_NAMES:

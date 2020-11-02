@@ -1,7 +1,9 @@
 from mks_backend.models.fias import FIAS
 from mks_backend.services.fias_entity import REMAINING_SOCR_NAMES
-from mks_backend.services.fias_entity.api import FIASAPIService
+from mks_backend.services.fias_entity.address import FIASAPIService
 from mks_backend.services.fias_entity.utils import append_address
+
+from mks_backend.errors.fias_error import FIASError, fias_error_handler
 
 
 class RemainingAddressService:
@@ -11,9 +13,10 @@ class RemainingAddressService:
         self.remaining_addresses = set()
         self.service_api = FIASAPIService()
 
+    @fias_error_handler
     def create_remaining_addresses_hints(self, fias: FIAS) -> set:
         if not (fias.city is not None or fias.locality is not None):
-            return set()
+            raise FIASError('notFindCityLocality')
 
         self.remaining_addresses = set()
 
@@ -23,7 +26,7 @@ class RemainingAddressService:
         search_text = self.get_search_text(fias)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
-            return set()
+            raise FIASError('cannotFindAddress')
 
         for row_address in addresses:
             for socr in REMAINING_SOCR_NAMES:

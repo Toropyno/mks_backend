@@ -1,11 +1,13 @@
 from mks_backend.services.fias_entity import DISTRICT_SOCR_NAMES
-from mks_backend.services.fias_entity.api import FIASAPIService
+from mks_backend.services.fias_entity.address import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import (
     get_by_socr_name,
     append_address,
     get_reversed_addresses
 )
+
+from mks_backend.errors.fias_error import fias_error_handler, FIASError
 
 
 class DistrictService:
@@ -15,13 +17,14 @@ class DistrictService:
         self.districts = set()
         self.service_api = FIASAPIService()
 
+    @fias_error_handler
     def create_districts_hints(self, subject: str) -> set:
         self.districts = set()
 
         search_text = self.get_search_text(subject)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
-            return set()
+            raise FIASError('cannotFindAddress')
 
         if subject is None:
             self.service_api.search_address = self.search_district

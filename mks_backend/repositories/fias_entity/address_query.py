@@ -1,5 +1,5 @@
 import requests
-from requests import Response
+from requests import Response as ResponsePY
 
 
 class FIASAPIRepository:
@@ -8,7 +8,7 @@ class FIASAPIRepository:
     def __init__(self):
         self.suggests = 15
 
-    def get_fias_response(self, search_text: str) -> Response:
+    def get_fias_response(self, search_text: str) -> ResponsePY:
         return requests.get(
             url='http://172.23.137.67/fiasapi/find/' + search_text + '?suggests=' + str(self.suggests),
             headers={
@@ -16,7 +16,7 @@ class FIASAPIRepository:
             },
         )
 
-    def get_details_by_aoid(self, aoid: str) -> Response:
+    def get_details_by_aoid(self, aoid: str) -> ResponsePY:
         return requests.get(
             url='http://172.23.137.67/fiasapi/expand/' + aoid,
             headers={

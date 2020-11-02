@@ -4,6 +4,7 @@ from mks_backend.controllers.schemas.validator_utils import strip_space, uuid_va
 
 
 class FIASSchema(colander.MappingSchema):
+
     subject = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
@@ -80,6 +81,7 @@ class FIASSchema(colander.MappingSchema):
 
 
 class FIASAPISchema(colander.MappingSchema):
+
     full_fias = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

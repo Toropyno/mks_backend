@@ -1,4 +1,4 @@
-from requests import Response
+from requests import Response as ResponsePY
 
 from mks_backend.services.fias_entity.utils import (
     extract_addresses,
@@ -18,7 +18,9 @@ from mks_backend.services.fias_entity import (
 )
 
 from mks_backend.models.fias import FIAS
-from mks_backend.repositories.fias_entity.api import FIASAPIRepository
+from mks_backend.repositories.fias_entity.address_query import FIASAPIRepository
+
+from mks_backend.errors.fias_error import FIASError, fias_error_handler
 
 
 class FIASAPIService:
@@ -33,13 +35,13 @@ class FIASAPIService:
             if socr_name.lower() + self.search_address.lower() in address.lower():
                 append_address(address, suitable_addresses)
 
+    @fias_error_handler
     def split_fias(self, full_fias: str) -> FIAS:
         fias = FIAS()
 
         # Ошибка от стороннего fiasapi: 'Не найдено вариантов 'обл Московская''
         if full_fias == 'обл Московская':
             fias.subject = 'обл Московская'
-            fias.aoid = 'd286798f-0849-4a7c-8e78-33c88dc964c6'
             return fias
         #
 
@@ -47,14 +49,14 @@ class FIASAPIService:
         aoid = self.get_aoid(full_fias, end_text)
 
         if not aoid:
-            return fias
+            raise FIASError('cannotFindAddress')
 
-        fias.aoid = aoid
         address_by_aoid = self.repo.get_details_by_aoid(aoid).json()
         fill_in_all_fields(address_by_aoid, fias)
 
         return fias
 
+    @fias_error_handler
     def get_final_address(self, fias: FIAS) -> dict:
         end_text = get_end_text(fias)
         search_address = get_search_address(fias)
@@ -64,6 +66,7 @@ class FIASAPIService:
             'aoid': aoid
         }
 
+    @fias_error_handler
     def create_full_fias_hints(self, full_fias: str) -> list:
         number_responses = self.repo.suggests
         self.repo.suggests = 5
@@ -113,7 +116,7 @@ class FIASAPIService:
         self.repo.suggests = number_responses
         return fias_response.json()
 
-    def get_fias_response(self, search_address: str) -> Response:
+    def get_fias_response(self, search_address: str) -> ResponsePY:
         return self.repo.get_fias_response(search_address)
 
 

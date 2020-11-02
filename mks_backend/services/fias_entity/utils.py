@@ -1,7 +1,8 @@
 from requests.models import Response as response_py
 
-from mks_backend.errors.fias_error import fias_error_handler
 from mks_backend.models.fias import FIAS
+
+from mks_backend.errors.fias_error import fias_error_handler
 
 
 @fias_error_handler

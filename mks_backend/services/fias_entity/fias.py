@@ -1,9 +1,10 @@
 from mks_backend.models.fias import FIAS
-from mks_backend.repositories.fias_entity.api import FIASAPIRepository
+from mks_backend.repositories.fias_entity.address_query import FIASAPIRepository
 from mks_backend.repositories.fias_entity.fias import FIASRepository
-from mks_backend.services.fias_entity.api import FIASAPIService
+from mks_backend.services.fias_entity.address import FIASAPIService
 
 from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors.fias_error import FIASError
 
 
 class FIASService:
@@ -15,7 +16,7 @@ class FIASService:
 
     def add_address_fias(self, fias: FIAS):
         if not fias.aoid:
-            return None
+            raise FIASError('notFindAOID')
 
         fias_db = self.get_fias_by_aoid(fias.aoid)
         if not fias_db:

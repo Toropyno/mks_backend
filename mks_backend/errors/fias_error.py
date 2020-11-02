@@ -1,6 +1,18 @@
 from pyramid.response import Response
 
 
+class FIASError(Exception):
+    codes = {
+        'cannotFindAddress': 'Адрес не найден',
+        'notFindAOID': 'Не заполнен aoid',
+        'notFindCityLocality': 'Адрес не найден: необходимы город или поселение',
+    }
+
+    def __init__(self, code: str):
+        self.code = code
+        self.msg = self.codes[code]
+
+
 def fias_error_handler(func):
     def wrapper(*args, **kwargs):
         try:
@@ -8,57 +20,17 @@ def fias_error_handler(func):
 
         except TypeError:
             return Response(
-                status=403,
+                status=100,
                 json_body=get_extract_addresses_error()
             )
 
         except KeyError:
             return Response(
-                status=403,
+                status=100,
                 json_body=get_fiasapi_search_error()
             )
 
     return wrapper
-
-
-def get_addition_fias_error() -> Response:
-    body = {'code': 'notFullAddress', 'message': 'Адрес заполнен не полностью'}
-    return Response(
-        status=403,
-        json_body=body
-    )
-
-
-def get_locality_error() -> Response:
-    body = {'code': 'notFindCityLocality', 'message': 'Заполните город или поселение'}
-    return Response(
-        status=403,
-        json_body=body
-    )
-
-
-def get_remaining_address_error() -> Response:
-    body = {'code': 'notFindStreet', 'message': 'Не заполнена улица'}
-    return Response(
-        status=403,
-        json_body=body
-    )
-
-
-def get_aoid_error() -> Response:
-    body = {'code': 'notFindAOID', 'message': 'Не заполнен aoid'}
-    return Response(
-        status=403,
-        json_body=body
-    )
-
-
-def get_cannot_find_address_error() -> Response:
-    body = {'code': 'cannotFindAddress', 'message': 'Адрес не найден'}
-    return Response(
-        status=403,
-        json_body=body
-    )
 
 
 def get_fiasapi_search_error() -> dict:

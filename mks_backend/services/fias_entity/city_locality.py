@@ -1,6 +1,6 @@
 from mks_backend.models.fias import FIAS
 from mks_backend.services.fias_entity import CITY_SOCR_NAMES, LOCALITY_SOCR_NAMES
-from mks_backend.services.fias_entity.api import FIASAPIService
+from mks_backend.services.fias_entity.address import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import (
     get_by_socr_name,
@@ -9,6 +9,8 @@ from mks_backend.services.fias_entity.utils import (
     get_reversed_addresses,
     get_search_address
 )
+
+from mks_backend.errors.fias_error import fias_error_handler, FIASError
 
 
 class CityLocalityService:
@@ -33,13 +35,14 @@ class CityLocalityService:
 
         return get_search_address(fias) + ', ' + search_text
 
+    @fias_error_handler
     def create_cities_or_localities_hints(self, fias: FIAS) -> set:
         self.cities_or_localities = set()
 
         search_text = self.get_search_text(fias)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
-            return set()
+            raise FIASError('cannotFindAddress')
 
         if fias.subject is None:
             self.service_api.search_address = self.search_address
