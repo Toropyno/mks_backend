@@ -8,6 +8,7 @@ from mks_backend.controllers.trips.routes import include_trips
 from mks_backend.controllers.protocols.routes import include_protocols
 from mks_backend.controllers.inspections.routes import include_inspections
 from mks_backend.controllers.work_list.routes import include_work_list
+from mks_backend.controllers.organizations.routes import include_organizations
 
 
 def main(global_config, **settings):
@@ -20,5 +21,6 @@ def main(global_config, **settings):
     config.include(include_protocols)
     config.include(include_inspections)
     config.include(include_work_list)
+    config.include(include_organizations)
     config.scan()
     return config.make_wsgi_app()
