@@ -6,6 +6,8 @@ class FIASError(Exception):
         'cannotFindAddress': 'Адрес не найден',
         'notFindAOID': 'Не заполнен aoid',
         'notFindCityLocality': 'Адрес не найден: необходимы город или поселение',
+        'notFilledAddress': 'Не заполнен адрес',
+        'extractAddressesError': 'Не удалось извлечь адреса из ответа стороннего fiasapi'
     }
 
     def __init__(self, code: str):
@@ -18,24 +20,13 @@ def fias_error_handler(func):
         try:
             return func(*args, **kwargs)
 
-        except TypeError:
+        except AttributeError:
             return Response(
-                status=100,
-                json_body=get_extract_addresses_error()
-            )
-
-        except KeyError:
-            return Response(
-                status=100,
-                json_body=get_fiasapi_search_error()
+                status=403,
+                json_body={
+                    'code': 'fiasapiCannotFindSentence',
+                    'message': 'Ошибка от стороннего fiasapi: Не найдено вариантов',
+                }
             )
 
     return wrapper
-
-
-def get_fiasapi_search_error() -> dict:
-    return {'code': 'fiasapiCannotFindSentence', 'message': 'Ошибка от стороннего fiasapi: Не найдено вариантов'}
-
-
-def get_extract_addresses_error() -> dict:
-    return {'code': 'extractAddressesError', 'message': 'Не удалось извлечь адреса из ответа стороннего fiasapi'}

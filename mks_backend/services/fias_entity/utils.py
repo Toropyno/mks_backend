@@ -1,18 +1,11 @@
-from requests.models import Response as response_py
-
 from mks_backend.models.fias import FIAS
 
 from mks_backend.errors.fias_error import fias_error_handler
 
 
 @fias_error_handler
-def extract_addresses(response: response_py) -> list:
-    return [resp.get('text') for resp in response.json()]
-
-
-@fias_error_handler
-def extract_addresses_with_aoid(response: response_py) -> list:
-    return [{'text': resp.get('text'), 'aoid': resp.get('aoid')} for resp in response.json()]
+def extract_addresses(response: list) -> list:
+    return [resp.get('text') for resp in response]
 
 
 def get_by_socr_name(row_address: str, socr_name: str) -> str:
@@ -33,10 +26,6 @@ def get_address_ending_with_socr_name(row_address: str, socr_name: str) -> str:
     except ValueError:
         address = row_address
     return address
-
-
-def append_address(address: str, suitable_addresses: set) -> None:
-    suitable_addresses.add(address)
 
 
 def get_reversed_addresses(addresses: set) -> set:
@@ -75,7 +64,7 @@ def get_search_address(fias: FIAS) -> str:
 def get_end_text_for_split(full_fias: str) -> str:
     try:
         start_index = full_fias.rindex(', ') + 2
-        end_text = full_fias[start_index:len(full_fias)]
+        end_text = full_fias[start_index:]
     except ValueError:
         end_text = full_fias[:]
     return end_text

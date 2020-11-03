@@ -1,10 +1,9 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import strip_space, uuid_validator
+from mks_backend.controllers.schemas.validator_utils import strip_space, uuid_aoid_validator
 
 
 class FIASSchema(colander.MappingSchema):
-
     subject = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
@@ -72,16 +71,13 @@ class FIASSchema(colander.MappingSchema):
 
     aoid = colander.SchemaNode(
         colander.String(),
-        preparer=[strip_space],
         name='aoid',
-        msg='Недопустимая информация о aoid',
-        validator=uuid_validator,
+        validator=uuid_aoid_validator,
         missing=None
     )
 
 
 class FIASAPISchema(colander.MappingSchema):
-
     full_fias = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

@@ -6,7 +6,6 @@ from mks_backend.controllers.schemas.fias import FIASAPISchema
 from mks_backend.serializers.fias.address import FIASAPISerializer
 from mks_backend.serializers.fias.fias import FIASSerializer
 from mks_backend.services.fias_entity.address import FIASAPIService
-from mks_backend.services.fias_entity.utils import turn_over_address
 
 from mks_backend.errors.handle_controller_error import handle_colander_error
 
@@ -26,18 +25,16 @@ class FIASAPIController:
     @handle_colander_error
     @view_config(route_name='split_fields')
     def split_fields(self):
-        full_fias = turn_over_address(self.get_full_fias_serialized())
-        if ', ' not in full_fias:
-            return {'oneField': full_fias}
-        split_full_fias = self.service.split_fias(full_fias)
+        full_fias_serialized = self.get_full_fias_serialized()
+        split_full_fias = self.service.get_split_fields(full_fias_serialized)
         return self.serializer_FIAS.convert_object_to_json(split_full_fias)
 
     @handle_colander_error
-    @view_config(route_name='get_final_address')
-    def get_final_address(self):
+    @view_config(route_name='create_final_address')
+    def create_final_address(self):
         fias = self.controller_FIAS.get_fias_serialized()
-        final_fias_address = self.service.get_final_address(fias)
-        return {'finalAddress': final_fias_address}
+        final_fias_address = self.service.create_final_address(fias)
+        return final_fias_address
 
     @handle_colander_error
     @view_config(route_name='create_full_fias_hints')
@@ -50,7 +47,7 @@ class FIASAPIController:
     def split_full_fias(self):
         split_full_fias = self.service.split_fias(self.get_full_fias_serialized())
         final_fias_address = self.serializer_FIAS.convert_object_to_json(split_full_fias)
-        return {'finalAddress': final_fias_address}
+        return final_fias_address
 
     def get_full_fias_serialized(self) -> str:
         fias_deserialized = self.schema.deserialize(self.request.json_body)

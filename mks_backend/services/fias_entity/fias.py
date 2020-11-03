@@ -3,7 +3,6 @@ from mks_backend.repositories.fias_entity.address_query import FIASAPIRepository
 from mks_backend.repositories.fias_entity.fias import FIASRepository
 from mks_backend.services.fias_entity.address import FIASAPIService
 
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.errors.fias_error import FIASError
 
 
@@ -15,8 +14,7 @@ class FIASService:
         self.repo_api = FIASAPIRepository()
 
     def add_address_fias(self, fias: FIAS):
-        if not fias.aoid:
-            raise FIASError('notFindAOID')
+        self.check_filling_fields(fias)
 
         fias_db = self.get_fias_by_aoid(fias.aoid)
         if not fias_db:
@@ -29,7 +27,6 @@ class FIASService:
     def get_fias_by_aoid(self, aoid: str) -> FIAS:
         return self.repo.get_fias_by_aoid(aoid)
 
-    @db_error_handler
     def add_fias(self, fias: FIAS) -> None:
         self.repo.add_fias(fias)
 
@@ -44,6 +41,9 @@ class FIASService:
         if allowed:
             self.repo.delete_fias_by_id(id)
 
+    def get_aoid(self, search_address: str, end_text: str) -> str:
+        return self.service_api.get_aoid(search_address, end_text)
+
     def check_for_links_in_constructions(self, id: int) -> bool:
         fias = self.get_fias_by_id(id)
         if not fias.constructions:
@@ -51,5 +51,8 @@ class FIASService:
         else:
             return False
 
-    def get_aoid(self, search_address: str, end_text: str) -> str:
-        return self.service_api.get_aoid(search_address, end_text)
+    def check_filling_fields(self, fias: FIAS) -> None:
+        if not fias.aoid:
+            raise FIASError('notFindAOID')
+        if not fias.subject and not fias.district and not fias.city and not fias.locality:
+            raise FIASError('notFilledAddress')
