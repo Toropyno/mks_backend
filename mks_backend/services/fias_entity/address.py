@@ -1,12 +1,9 @@
-from requests import Response
-
 from mks_backend.services.fias_entity.utils import (
     extract_addresses,
     get_address_ending_with_socr_name,
-    append_address,
     get_search_address,
     get_end_text_for_split,
-    get_end_text,
+    get_end_text, turn_over_address,
 )
 
 from mks_backend.services.fias_entity import (
@@ -18,7 +15,9 @@ from mks_backend.services.fias_entity import (
 )
 
 from mks_backend.models.fias import FIAS
-from mks_backend.repositories.fias_entity.api import FIASAPIRepository
+from mks_backend.repositories.fias_entity.address_query import FIASAPIRepository
+
+from mks_backend.errors.fias_error import FIASError, fias_error_handler
 
 
 class FIASAPIService:
@@ -27,35 +26,30 @@ class FIASAPIService:
         self.search_address = ''
         self.repo = FIASAPIRepository()
 
-    def append_address_if_in_row_address(self, row_address: str, socr_name: str, suitable_addresses: list) -> None:
+    def append_address_if_in_row_address(self, row_address: str, socr_name: str, suitable_addresses: set) -> None:
         if socr_name.lower() + self.search_address.lower() in row_address.lower():
             address = get_address_ending_with_socr_name(row_address, socr_name)
             if socr_name.lower() + self.search_address.lower() in address.lower():
-                append_address(address, suitable_addresses)
+                suitable_addresses.add(address)
 
+    @fias_error_handler
     def split_fias(self, full_fias: str) -> FIAS:
         fias = FIAS()
-
-        # Ошибка от стороннего fiasapi: 'Не найдено вариантов 'обл Московская''
-        if full_fias == 'обл Московская':
-            fias.subject = 'обл Московская'
-            fias.aoid = 'd286798f-0849-4a7c-8e78-33c88dc964c6'
-            return fias
-        #
 
         end_text = get_end_text_for_split(full_fias)
         aoid = self.get_aoid(full_fias, end_text)
 
         if not aoid:
-            return fias
+            raise FIASError('cannotFindAddress')
 
         fias.aoid = aoid
-        address_by_aoid = self.repo.get_details_by_aoid(aoid).json()
+        address_by_aoid = self.get_details_by_aoid(aoid)
         fill_in_all_fields(address_by_aoid, fias)
 
         return fias
 
-    def get_final_address(self, fias: FIAS) -> dict:
+    @fias_error_handler
+    def create_final_address(self, fias: FIAS) -> dict:
         end_text = get_end_text(fias)
         search_address = get_search_address(fias)
         aoid = self.get_aoid(search_address, end_text)
@@ -64,6 +58,7 @@ class FIASAPIService:
             'aoid': aoid
         }
 
+    @fias_error_handler
     def create_full_fias_hints(self, full_fias: str) -> list:
         number_responses = self.repo.suggests
         self.repo.suggests = 5
@@ -72,6 +67,15 @@ class FIASAPIService:
 
         self.repo.suggests = number_responses
         return fias_response
+
+    def get_split_fields(self, full_fias_serialized: str) -> FIAS:
+        full_fias = turn_over_address(full_fias_serialized)
+        if ', ' not in full_fias:
+            split_full_fias = full_fias
+        else:
+            split_full_fias = self.split_fias(full_fias)
+            split_full_fias.aoid = None
+        return split_full_fias
 
     def get_addresses_from_response(self, search_address: str) -> list:
         fias_response = self.get_fias_response(search_address)
@@ -91,15 +95,15 @@ class FIASAPIService:
             elif search_address in resp.get('text'):
                 response = resp
 
-        if response:
+        if not full_resp:
             full_resp = response
 
         aoid = ''
         aoid_response = full_resp.get('aoid')
-        address_by_aoid = self.repo.get_details_by_aoid(aoid_response).json()
+        address_by_aoid = self.get_details_by_aoid(aoid_response)
 
         for row in address_by_aoid:
-            if end_text in (row.get('shortname') + ' ' + row.get('formalname')):
+            if end_text == (row.get('shortname') + ' ' + row.get('formalname')):
                 aoid = row.get('aoid')
 
         return aoid
@@ -111,10 +115,22 @@ class FIASAPIService:
         fias_response = self.get_fias_response(search_address)
 
         self.repo.suggests = number_responses
-        return fias_response.json()
+        return fias_response
 
-    def get_fias_response(self, search_address: str) -> Response:
-        return self.repo.get_fias_response(search_address)
+    def get_fias_response(self, search_address: str) -> list:
+        fias_response = self.repo.get_fias_response(search_address).json()
+        check_extract_addresses_error(fias_response)
+        return fias_response
+
+    def get_details_by_aoid(self, aoid: str) -> list:
+        details_by_aoid = self.repo.get_details_by_aoid(aoid).json()
+        check_extract_addresses_error(details_by_aoid)
+        return details_by_aoid
+
+
+def check_extract_addresses_error(fias_response: list) -> None:
+    if type(fias_response) != list:
+        raise FIASError('extractAddressesError')
 
 
 def fill_in_all_fields(address_by_aoid: list, fias: FIAS) -> None:

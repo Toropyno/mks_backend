@@ -11,11 +11,19 @@ def date_validator(node: colander.SchemaNode, date: str) -> None:
         raise colander.Invalid(node, 'Неверный формат даты')
 
 
-def uuid_validator(node: colander.SchemaNode, value: str) -> None:
+def uuid_file_validator(node: colander.SchemaNode, value: str) -> None:
+    uuid_validator('Недопустимая информация о файле', node, value)
+
+
+def uuid_aoid_validator(node: colander.SchemaNode, value: str) -> None:
+    uuid_validator('Недопустимая информация о aoid', node, value)
+
+
+def uuid_validator(message, node, value):
     pattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
     res = re.match(pattern, value)
     if res is None:
-        raise colander.Invalid(node, 'Недопустимая информация о файле')
+        raise colander.Invalid(node, message)
 
 
 def strip_space(value: str) -> str:
