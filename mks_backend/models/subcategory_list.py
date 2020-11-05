@@ -20,6 +20,7 @@ class SubcategoryList(Base):
             name='subcategories_list_unique'
         ),
     )
+
     subcategories_list_id = Column(Integer, primary_key=True, autoincrement=True)
 
     construction_categories_id = Column(

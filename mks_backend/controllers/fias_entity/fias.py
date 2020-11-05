@@ -6,7 +6,6 @@ from mks_backend.models.fias import FIAS
 from mks_backend.serializers.fias.fias import FIASSerializer
 from mks_backend.services.fias_entity.fias import FIASService
 
-from mks_backend.errors.fias_error import get_aoid_error
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 
 
@@ -25,8 +24,6 @@ class FIASController:
     def add_fias(self):
         fias = self.get_fias_serialized()
         fias = self.service.add_address_fias(fias)
-        if not fias:
-            return get_aoid_error()
         return self.serializer.convert_object_to_json(fias)
 
     @handle_db_error

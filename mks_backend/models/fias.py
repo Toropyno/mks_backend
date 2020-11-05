@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, VARCHAR
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import UUID
 
 from mks_backend.models import Base
 
@@ -14,7 +15,7 @@ class FIAS(Base):
     city = Column(VARCHAR(100))
     locality = Column(VARCHAR(100))
     remaining_address = Column(VARCHAR(100))
-    aoid = Column(VARCHAR(100), unique=True, nullable=True)
+    aoid = Column(UUID, unique=True, nullable=True)
 
     constructions = relationship(
         'Construction',

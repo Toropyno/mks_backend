@@ -1,14 +1,15 @@
 from mks_backend.models.fias import FIAS
 from mks_backend.services.fias_entity import CITY_SOCR_NAMES, LOCALITY_SOCR_NAMES
-from mks_backend.services.fias_entity.api import FIASAPIService
+from mks_backend.services.fias_entity.address import FIASAPIService
 
 from mks_backend.services.fias_entity.utils import (
     get_by_socr_name,
     get_address_ending_with_socr_name,
-    append_address,
     get_reversed_addresses,
     get_search_address
 )
+
+from mks_backend.errors.fias_error import fias_error_handler, FIASError
 
 
 class CityLocalityService:
@@ -16,10 +17,10 @@ class CityLocalityService:
     def __init__(self):
         self.search_address = ''
         self.socr_names = []
-        self.cities_or_localities = []
+        self.cities_or_localities = set()
         self.service_api = FIASAPIService()
 
-    def set_sity_socr_names(self) -> None:
+    def set_city_socr_names(self) -> None:
         self.socr_names = CITY_SOCR_NAMES
 
     def set_locality_socr_names(self) -> None:
@@ -33,13 +34,14 @@ class CityLocalityService:
 
         return get_search_address(fias) + ', ' + search_text
 
+    @fias_error_handler
     def create_cities_or_localities_hints(self, fias: FIAS) -> list:
-        self.cities_or_localities = []
+        self.cities_or_localities = set()
 
         search_text = self.get_search_text(fias)
         addresses = self.service_api.get_addresses_from_response(search_text)
         if not addresses:
-            return []
+            raise FIASError('cannotFindAddress')
 
         if fias.subject is None:
             self.service_api.search_address = self.search_address
@@ -59,7 +61,7 @@ class CityLocalityService:
                 for c_l in self.socr_names:
                     self.append_city_or_locality_if_in_row_address(row_address, c_l, fias)
 
-        return self.cities_or_localities
+        return list(self.cities_or_localities)
 
     def append_with_subject_district_if_in_row_address(self, row_address: str, socr_name: str, subject: str) -> None:
         if (socr_name.lower() + self.search_address.lower() in row_address.lower()) and (
@@ -67,7 +69,7 @@ class CityLocalityService:
 
             c_or_l = get_address_ending_with_socr_name(row_address, socr_name)
             if socr_name.lower() + self.search_address.lower() in c_or_l.lower():
-                append_address(c_or_l, self.cities_or_localities)
+                self.cities_or_localities.add(c_or_l)
 
     def append_city_or_locality_if_in_row_address(self, row_address: str, socr_name: str, fias: FIAS) -> None:
         if (socr_name.lower() + self.search_address.lower() in row_address.lower()) and (
@@ -76,4 +78,4 @@ class CityLocalityService:
 
             c_or_l = get_by_socr_name(row_address, socr_name)
             if socr_name.lower() + self.search_address.lower() in c_or_l.lower():
-                append_address(c_or_l, self.cities_or_localities)
+                self.cities_or_localities.add(c_or_l)
