@@ -165,3 +165,9 @@ def includeme(config):
     config.add_route('delete_fias', '/fias/{id}', request_method='DELETE')
     config.add_route('edit_fias', '/fias/{id}', request_method='PUT')
 
+    config.add_route('get_all_organization_documents', '/organization_document', request_method='GET')
+    config.add_route('get_organization_document', '/organization_document/{id}', request_method='GET')
+    config.add_route('add_organization_document', '/organization_document', request_method='POST')
+    config.add_route('edit_organization_document', '/organization_document/{id}', request_method='PUT')
+    config.add_route('delete_organization_document', '/organization_document/{id}', request_method='DELETE')
+

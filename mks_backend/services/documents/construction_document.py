@@ -1,10 +1,9 @@
 from datetime import datetime
-from uuid import UUID
 
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
-from mks_backend.services.filestorage import FilestorageService
+from mks_backend.services.documents.upload_date_utils import update_idfilestorage_with_upload_date
 
 
 class ConstructionDocumentService:
@@ -12,7 +11,6 @@ class ConstructionDocumentService:
     def __init__(self):
         self.repo = ConstructionDocumentRepository()
         self.repo_object = ConstructionObjectRepository()
-        self.service_filestorage = FilestorageService()
 
     def get_all_construction_documents(self) -> list:
         return self.repo.get_all_construction_documents()
@@ -51,7 +49,7 @@ class ConstructionDocumentService:
         construction_document.idfilestorage = schema_dict.get('idFileStorage')
         construction_document.upload_date = datetime.now()
         if old_idfilestorage:
-            construction_document = self.update_idfilestorage_with_upload_date(construction_document, old_idfilestorage)
+            construction_document = update_idfilestorage_with_upload_date(construction_document, old_idfilestorage)
 
         construction_document.construction_documents_id = schema_dict.get('id')
         construction_document.construction_id = schema_dict.get('constructionId')
@@ -62,17 +60,3 @@ class ConstructionDocumentService:
         construction_document.note = schema_dict.get('note')
 
         return construction_document
-
-    def update_idfilestorage_with_upload_date(self, construction_document, old_idfilestorage):
-        schema_idfilestorage = construction_document.idfilestorage
-        if old_idfilestorage:
-            if str(old_idfilestorage) != str(schema_idfilestorage):
-                construction_document.idfilestorage = schema_idfilestorage
-                construction_document.upload_date = datetime.now()
-        else:
-            if schema_idfilestorage:
-                construction_document.upload_date = datetime.now()
-        return construction_document
-
-    def set_upload_date(self, construction_document_deserialized, old_construction_document):
-        construction_document_deserialized['uploadDate'] = old_construction_document.upload_date

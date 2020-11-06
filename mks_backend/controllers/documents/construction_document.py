@@ -6,6 +6,7 @@ from mks_backend.serializers.documents.construction_document import Construction
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
+from mks_backend.services.documents.upload_date_utils import set_upload_date
 
 
 class ConstructionDocumentController:
@@ -53,7 +54,7 @@ class ConstructionDocumentController:
         old_construction_document = self.service.get_construction_document_by_id(id)
 
         construction_document_deserialized['id'] = id
-        self.service.set_upload_date(construction_document_deserialized, old_construction_document)
+        set_upload_date(construction_document_deserialized, old_construction_document)
 
         construction_document = self.service.convert_schema_to_object(
             construction_document_deserialized,

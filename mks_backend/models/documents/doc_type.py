@@ -12,6 +12,7 @@ from mks_backend.models import Base
 class DocType(Base):
 
     __tablename__ = 'doctypes'
+
     doctypes_id = Column(Integer, primary_key=True)
     code = Column(VARCHAR(40), nullable=False)
     fullname = Column(VARCHAR(255), nullable=False)
@@ -24,7 +25,14 @@ class DocType(Base):
         ),
     )
 
+    # --------- relationships --------- #
+
     documents = relationship(
         'ConstructionDocument',
+        back_populates='doc_type'
+    )
+
+    organization_document = relationship(
+        'OrganizationDocument',
         back_populates='doc_type'
     )

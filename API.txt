@@ -664,42 +664,60 @@ Method: GET
 }
 
 
+# --- organization_document ---
+
+Description: Get all organization_document
+Route: '/organization_document'
+Method: GET
+
+Description: Add organization_document
+Route: '/organization_document'
+Method: POST
+
+Description: Get organization_document
+Route: '/organization_document/{id}'
+Method: GET
+
+Description: Delete organization_document
+Route: '/organization_document/{id}'
+
+
 =====================================================================================================
 
 ConstructionDocument {
-    'id'            Integer
-    'constructionId'Integer
-    'docType'{
-                "id"        Integer
-                "code"      String
-                "fullName"  String
+    id             Integer
+    constructionId Integer
+    docType     {
+                    id        Integer
+                    code      String
+                    fullName  String
                 }
-    'docNumber'     String
-    'docDate'       String
-    'docName'       String
-    'note'          String
-    'uploadDate'    String
-    'file' {
-            'name'          String
-            'size'          String
-            'idFileStorage' String
-    }
+    docNumber     String
+    docDate       String
+    docName       String
+    note          String
+    uploadDate    String
+    file        {
+                    name          String
+                    size          String
+                    idFileStorage String
+                }
 }
 
 ConstructionObject {
 
     ...
 
-    'realtyType'            Integer
-    'factDate'              String
-    'constructionProgress'  {
+    realtyType            Integer
+    factDate              String
+    constructionProgress  {
             readiness             DECIMAL(17,2)
             people                Integer
             equipment             Integer
             progressStatusesId    Integer
     }
-    'documents':    [ConstructionDocument{}, ConstructionDocument{}, ...],
-    'files':        [Filestorage{}, Filestorage{}, ...]
+    documents:    [ConstructionDocument{}, ConstructionDocument{}, ...],
+    files:        [Filestorage{}, Filestorage{}, ...]
 }
 
 ConstructionProgress {
@@ -755,4 +773,24 @@ FIAS {
     city                String
     locality            String
     remainingAddress    String
+}
+
+OrganizationDocument {
+    id            Integer
+    docNumber     String
+    docDate       String
+    docName       String
+    note          String
+    uploadDate    String
+    organization Organization
+    docType     {
+                    id        Integer
+                    code      String
+                    fullName  String
+                }
+    file        {
+                    name          String
+                    size          String
+                    idFileStorage String
+                }
 }

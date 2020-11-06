@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
 from mks_backend.serializers.filestorage import FileStorageSerializer
