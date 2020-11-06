@@ -48,7 +48,7 @@ class Organization(Base):
     # --------- hybrid_properties --------- #
 
     @hybrid_property
-    def childs(self) -> list:
+    def children(self) -> list:
         """
         Sorting within the parent is performed by the field "par_number".
         For the same number (or not specified) sorting by the name of a node in the tree.

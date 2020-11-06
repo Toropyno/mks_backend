@@ -26,3 +26,24 @@ class OrganizationHistorySerializer:
 
     def convert_list_to_json(self, rootes):
         return list(map(self.to_json, rootes))
+
+    def to_mapped_object(self, history_record: dict, organization_uuid: str = None):
+        if not history_record.get('organizationId'):
+            # case when we create organization for the first time
+            history_record['organizationId'] = organization_uuid
+
+        history_record = OrganizationHistory(
+            shortname=history_record.get('shortname'),
+            fullname=history_record.get('fullname'),
+            address_legal=history_record.get('addressLegal'),
+            address_actual=history_record.get('addressActual'),
+            functions=history_record.get('functions'),
+            inn=history_record.get('inn'),
+            kpp=history_record.get('kpp'),
+            ogrn=history_record.get('ogrn'),
+            begin_date=history_record.get('beginDate'),
+            end_date=history_record.get('endDate'),
+            organizations_id=history_record.get('organizationId')
+        )
+
+        return history_record

@@ -1,7 +1,7 @@
 import colander
 
 from mks_backend.controllers.schemas.organizations.organization_history import OrganizationHistorySchema
-from mks_backend.controllers.schemas.validator_utils import organization_parent_uuid
+from mks_backend.controllers.schemas.validator_utils import organization_parent_uuid, organization_uuid
 
 
 class OrganizationSchema(colander.MappingSchema):
@@ -24,8 +24,23 @@ class OrganizationSchema(colander.MappingSchema):
     )
 
     org_sign = colander.SchemaNode(
-        colander.Boolean(),
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
         name='isLegal'
     )
 
     history = OrganizationHistorySchema()
+
+
+class OrganizationPatchSchema(colander.MappingSchema):
+
+    organization_uuid = colander.SchemaNode(
+        colander.String(),
+        name='organizationId',
+        validator=organization_uuid
+    )
+
+    new_parent_uuid = colander.SchemaNode(
+        colander.String(),
+        name='parentId',
+        validator=organization_parent_uuid
+    )

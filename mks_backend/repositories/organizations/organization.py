@@ -13,13 +13,16 @@ class OrganisationRepository:
         rootes = self._query.filter(Organization.parent_organizations_id == None).all()
         return sorted(rootes, key=lambda root: root.shortname)
 
-    def get_organization(self, uuid: str) -> Organization:
+    def get(self, uuid: str) -> Organization:
         return self._query.get(uuid)
 
-    def delete_organization(self, organization_uuid: str):
+    def delete(self, organization_uuid: str):
         self._query.filter(Organization.organizations_id == organization_uuid).delete()
         DBSession.commit()
 
-    def add_organization(self, organization: Organization):
+    def add(self, organization: Organization):
         DBSession.add(organization)
+        DBSession.commit()
+
+    def update(self):
         DBSession.commit()

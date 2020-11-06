@@ -29,6 +29,7 @@ def uuid_file_validator(node: colander.SchemaNode, value: str) -> None:
 
 def uuid_validator(value: str) -> Optional[re.Match]:
     pattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+    re.compile(pattern)
     return re.match(pattern, value)
 
 

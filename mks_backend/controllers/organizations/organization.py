@@ -3,7 +3,7 @@ from pyramid.view import view_config, view_defaults
 
 from mks_backend.services.organizations.organization import OrganisationService
 from mks_backend.serializers.organizations.organization import OrganizationSerializer
-from mks_backend.controllers.schemas.organizations.organization import OrganizationSchema
+from mks_backend.controllers.schemas.organizations.organization import OrganizationSchema, OrganizationPatchSchema
 
 from mks_backend.errors.handle_controller_error import handle_colander_error
 
@@ -14,8 +14,9 @@ class OrganizationController:
     def __init__(self, request: Request):
         self.request = request
         self.service = OrganisationService()
-        self.schema = OrganizationSchema()
         self.serializer = OrganizationSerializer()
+        self.schema = OrganizationSchema()
+        self.patch_schema = OrganizationPatchSchema()
 
     @view_config(route_name='get_organizations_tree')
     def get_organizations_tree(self):
@@ -38,3 +39,10 @@ class OrganizationController:
 
         self.service.delete_organization(organization_uuid, new_parent_uuid)
         return {'organizationId': organization_uuid}
+
+    @view_config(route_name='move_organization')
+    def move_organization(self):
+        move_params = self.patch_schema.deserialize(self.request.json_body)
+
+        self.service.set_node_new_parent(move_params['organizationId'], move_params['parentId'])
+        return move_params

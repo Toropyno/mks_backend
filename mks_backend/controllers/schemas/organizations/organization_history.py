@@ -106,5 +106,3 @@ class OrganizationHistorySchema(colander.MappingSchema):
         validator=organization_uuid,
         missing=None
     )
-
-
