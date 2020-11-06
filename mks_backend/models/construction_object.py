@@ -19,6 +19,7 @@ from mks_backend.models import Base
 class ConstructionObject(Base):
 
     __tablename__ = 'construction_objects'
+
     construction_objects_id = Column(Integer, primary_key=True, autoincrement=True)
     object_code = Column(VARCHAR(40), unique=True, nullable=False)
     object_name = Column(VARCHAR(255), nullable=False)
@@ -34,6 +35,12 @@ class ConstructionObject(Base):
         nullable=False
     )
 
+    weight = Column(
+        Integer,
+        CheckConstraint('weight>0 AND weight<=100'),
+        nullable=False
+    )
+    
     zones_id = Column(
         Integer,
         ForeignKey('zones.zones_id', ondelete='SET NULL')
@@ -42,12 +49,6 @@ class ConstructionObject(Base):
     object_categories_list_id = Column(
         Integer,
         ForeignKey('object_categories_list.object_categories_list_id', ondelete='SET NULL')
-    )
-
-    weight = Column(
-        Integer,
-        CheckConstraint('weight>0 AND weight<=100'),
-        nullable=False
     )
 
     construction_stages_id = Column(
@@ -147,4 +148,3 @@ class ConstructionObject(Base):
             return self.last_report.equipment
         else:
             return 0
-

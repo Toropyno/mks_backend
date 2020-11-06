@@ -24,6 +24,7 @@ class ConstructionProgress(Base):
             name='construction_progress_unique'
         ),
     )
+
     construction_progress_id = Column(Integer, primary_key=True, autoincrement=True)
     reporting_date = Column(Date, nullable=False)
     update_datetime = Column(TIMESTAMP, default=func.now())
@@ -57,6 +58,8 @@ class ConstructionProgress(Base):
         ForeignKey('progress_statuses.progress_statuses_id', ondelete='CASCADE'),
         nullable=False,
     )
+
+    # --------- relationships --------- #
 
     construction_object = relationship(
         'ConstructionObject',

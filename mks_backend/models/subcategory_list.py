@@ -35,6 +35,8 @@ class SubcategoryList(Base):
         nullable=False
     )
 
+    # --------- relationships --------- #
+
     construction = relationship(
         'Construction',
         back_populates='subcategories_list'
