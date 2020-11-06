@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import uuid_validator, strip_space
+from mks_backend.controllers.schemas.validator_utils import uuid_file_validator, strip_space
 
 
 class InspectionFileSchema(colander.MappingSchema):
@@ -28,6 +28,5 @@ class InspectionFileSchema(colander.MappingSchema):
         colander.String(),
         name='idFileStorage',
         preparer=[strip_space],
-        msg='Недопустимая информация о файле',
-        validator=uuid_validator
+        validator=uuid_file_validator
     )
