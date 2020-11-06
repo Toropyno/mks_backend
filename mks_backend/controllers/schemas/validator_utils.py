@@ -17,6 +17,11 @@ def organization_parent_uuid(node: colander.SchemaNode, value: str):
         raise colander.Invalid(node, 'Такой организации-родителя не существует')
 
 
+def organization_uuid(node: colander.SchemaNode, value: str):
+    if uuid_validator(value) is None:
+        raise colander.Invalid(node, 'Такой организации не существует')
+
+
 def uuid_file_validator(node: colander.SchemaNode, value: str) -> None:
     if uuid_validator(value) is None:
         raise colander.Invalid(node, 'Недопустимая информация о файле')

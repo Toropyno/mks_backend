@@ -1,4 +1,4 @@
-from mks_backend.models.organizations.organizations_history import OrganizationHistory
+from mks_backend.models.organizations.organization_history import OrganizationHistory
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
 

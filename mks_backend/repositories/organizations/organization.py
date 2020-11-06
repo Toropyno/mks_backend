@@ -19,3 +19,7 @@ class OrganisationRepository:
     def delete_organization(self, organization_uuid: str):
         self._query.filter(Organization.organizations_id == organization_uuid).delete()
         DBSession.commit()
+
+    def add_organization(self, organization: Organization):
+        DBSession.add(organization)
+        DBSession.commit()

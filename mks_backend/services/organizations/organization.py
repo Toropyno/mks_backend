@@ -21,3 +21,6 @@ class OrganisationService:
 
         new_parent.sub_organizations.extend(old_parent.sub_organizations)
         old_parent.sub_organizations.clear()
+
+    def add_organization(self, organization: Organization) -> None:
+        self.repo.add_organization(organization)

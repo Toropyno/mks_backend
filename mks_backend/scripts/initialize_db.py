@@ -55,7 +55,7 @@ from mks_backend.models.work_list.element_type import ElementType
 from mks_backend.models.inspections.inspection import Inspection
 
 from mks_backend.models.organizations.organization import Organization
-from mks_backend.models.organizations.organizations_history import OrganizationHistory
+from mks_backend.models.organizations.organization_history import OrganizationHistory
 
 
 from pyramid.paster import get_appsettings, setup_logging

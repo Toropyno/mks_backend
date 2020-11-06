@@ -3,6 +3,9 @@ from pyramid.view import view_config, view_defaults
 
 from mks_backend.services.organizations.organization import OrganisationService
 from mks_backend.serializers.organizations.organization import OrganizationSerializer
+from mks_backend.controllers.schemas.organizations.organization import OrganizationSchema
+
+from mks_backend.errors.handle_controller_error import handle_colander_error
 
 
 @view_defaults(renderer='json')
@@ -11,12 +14,22 @@ class OrganizationController:
     def __init__(self, request: Request):
         self.request = request
         self.service = OrganisationService()
+        self.schema = OrganizationSchema()
         self.serializer = OrganizationSerializer()
 
     @view_config(route_name='get_organizations_tree')
     def get_organizations_tree(self):
         rootes = self.service.get_rootes()
         return self.serializer.to_json_tree(rootes)
+
+    @handle_colander_error
+    @view_config(route_name='add_organization')
+    def add_organization(self):
+        organization_deserialized = self.schema.deserialize(self.request.json_body)
+        organization = self.serializer.to_mapped_object(organization_deserialized)
+
+        self.service.add_organization(organization)
+        return {'organizationId': organization.organizations_id}
 
     @view_config(route_name='delete_organization')
     def delete_organization(self):

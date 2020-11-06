@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from mks_backend.models import Base
-from mks_backend.models.organizations.organizations_history import OrganizationHistory
+from mks_backend.models.organizations.organization_history import OrganizationHistory
 
 
 class Organization(Base):

@@ -35,9 +35,9 @@ class OrganizationHistory(Base):
     address_actual = Column(VARCHAR(1000), nullable=True)
     functions = Column(VARCHAR(2000), nullable=True)
 
-    inn = Column(VARCHAR(1000), nullable=True)
-    kpp = Column(VARCHAR(1000), nullable=True)
-    ogrn = Column(VARCHAR(1000), nullable=True)
+    inn = Column(VARCHAR(20), nullable=True)
+    kpp = Column(VARCHAR(20), nullable=True)
+    ogrn = Column(VARCHAR(20), nullable=True)
 
     begin_date = Column(DATE, nullable=False)
     end_date = Column(DATE, CheckConstraint('end_date <= begin_date'), nullable=True)
