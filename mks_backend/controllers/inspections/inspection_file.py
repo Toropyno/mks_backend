@@ -26,7 +26,7 @@ class InspectionFileController:
     @handle_db_error
     @handle_colander_error
     @view_config(route_name='add_inspection_file')
-    def add_inspection(self):
+    def add_inspection_file(self):
         inspection_deserialized = self.schema.deserialize(self.request.json_body)
         inspection = self.serializer.to_object(inspection_deserialized)
 

@@ -7,7 +7,7 @@ class InspectionFileSchema(colander.MappingSchema):
 
     inspection_id = colander.SchemaNode(
         colander.Int(),
-        name='inspection',
+        name='inspectionId',
         validator=colander.Range(
             min=0,
             min_err='Такой проверки не существует'
@@ -21,7 +21,8 @@ class InspectionFileSchema(colander.MappingSchema):
         validator=colander.Length(
             max=2000,
             max_err='Недопустимое примечание'
-        )
+        ),
+        missing=None
     )
 
     idfilestorage = colander.SchemaNode(
