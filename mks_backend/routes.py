@@ -153,21 +153,3 @@ def includeme(config):
     config.add_route('delete_contract_status', '/contract_status/{id}', request_method='DELETE')
     config.add_route('edit_contract_status', '/contract_status/{id}', request_method='PUT')
     config.add_route('get_contract_status', '/contract_status/{id}', request_method='GET')
-
-    # FIAS address queries
-
-    config.add_route('get_subjects_hints', '/fias/subject/{text}', request_method='GET')
-    config.add_route('create_districts_hints', '/fias/district/{text}', request_method='POST')
-    config.add_route('create_cities_hints', '/fias/city/{text}', request_method='POST')
-    config.add_route('create_localities_hints', '/fias/locality/{text}', request_method='POST')
-    config.add_route('create_remaining_addresses_hints', '/fias/remaining_address/{text}', request_method='POST')
-
-    config.add_route('create_final_address', '/fias/final_address', request_method='POST')
-    config.add_route('create_full_fias_hints', '/fias_search', request_method='POST')
-    config.add_route('split_full_fias', '/fias/full', request_method='POST')
-    config.add_route('split_fields', '/fias/fields', request_method='POST')
-
-    # FIAS
-
-    config.add_route('add_fias', '/fias', request_method='POST')
-    config.add_route('get_fias', '/fias/{id}', request_method='GET')

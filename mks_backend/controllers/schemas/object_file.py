@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import strip_space, uuid_file_validator, timestamp_validator
+from mks_backend.controllers.schemas.validator_utils import strip_space, uuid_validator, timestamp_validator
 
 
 class ObjectFileSchema(colander.MappingSchema):
@@ -19,7 +19,7 @@ class ObjectFileSchema(colander.MappingSchema):
         name='idFileStorage',
         preparer=[strip_space],
         msg='Недопустимая информация о файле',
-        validator=uuid_file_validator
+        validator=uuid_validator
     )
 
     upload_date = colander.SchemaNode(

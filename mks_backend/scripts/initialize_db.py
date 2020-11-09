@@ -54,8 +54,6 @@ from mks_backend.models.work_list.element_type import ElementType
 
 from mks_backend.models.inspections.inspection import Inspection
 
-from mks_backend.models.fias import FIAS
-
 
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config

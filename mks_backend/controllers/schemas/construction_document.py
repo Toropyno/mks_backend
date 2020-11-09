@@ -3,7 +3,7 @@ import colander
 from mks_backend.controllers.schemas.validator_utils import (
     strip_space,
     date_validator,
-    uuid_file_validator,
+    uuid_validator,
     timestamp_validator,
 )
 
@@ -79,7 +79,7 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='idFileStorage',
         msg='Недопустимая информация о файле',
-        validator=uuid_file_validator,
+        validator=uuid_validator,
         missing=None
     )
 

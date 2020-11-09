@@ -2,7 +2,6 @@ from mks_backend.models.construction import Construction
 from mks_backend.repositories.construction import ConstructionRepository
 from mks_backend.services.construction_object import ConstructionObjectService
 from mks_backend.services.coordinate import CoordinateService
-from mks_backend.services.fias_entity.fias import FIASService
 from mks_backend.services.subcategory_list import SubcategoryListService
 
 
@@ -13,7 +12,6 @@ class ConstructionService:
         self.subcategory_list_service = SubcategoryListService()
         self.coordinate_service = CoordinateService()
         self.object_service = ConstructionObjectService()
-        self.service_FIAS = FIASService()
 
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
@@ -25,19 +23,11 @@ class ConstructionService:
         self.repo.add_construction(construction)
 
     def update_construction(self, new_construction: Construction) -> None:
-        id_fias = new_construction.id_fias
         self.coordinate_service.add_or_update_coordinate(new_construction.coordinate)
         self.repo.update_construction(new_construction)
 
-        self.service_FIAS.delete_unnecessary_fias(id_fias)
-
     def delete_construction_by_id(self, id: int) -> None:
-        construction = self.get_construction_by_id(id)
-        id_fias = construction.id_fias
-        self.repo.delete_construction(construction)
-
-        if id_fias:
-            self.service_FIAS.delete_unnecessary_fias(id_fias)
+        self.repo.delete_construction(id)
 
     def convert_schema_to_object(self, schema: dict) -> Construction:
         construction = Construction()
@@ -58,7 +48,6 @@ class ConstructionService:
         construction.oksm_id = schema.get('oksm')
         construction.address = schema.get('address')
         construction.note = schema.get('note')
-        construction.id_fias = schema.get('fias')
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
 
@@ -68,6 +57,11 @@ class ConstructionService:
                 category_id, subcategory_id
             )
             construction.subcategories_list_id = subcategories_list.subcategories_list_id
+
+        fias = schema.get('fias')
+        if fias:
+            # some cool stuff for FIAS
+            construction.id_fias = 1
 
         return construction
 
