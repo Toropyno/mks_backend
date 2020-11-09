@@ -1,7 +1,6 @@
 from uuid import uuid4
 
 from mks_backend.models.organizations.organization import Organization
-from mks_backend.models.organizations.organization_history import OrganizationHistory
 from mks_backend.serializers.organizations.organization_history import OrganizationHistorySerializer
 
 
@@ -12,7 +11,7 @@ class OrganizationSerializer:
 
     def to_json(self, node: Organization):
         return {
-            'id': node.organizations_id,
+            'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
             'shortname': node.actual.shortname,
             'fullname': node.actual.fullname,

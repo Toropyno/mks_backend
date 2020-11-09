@@ -12,7 +12,12 @@ class OrganisationService:
     def add_organization(self, organization: Organization) -> None:
         self.repo.add(organization)
 
-    def delete_organization(self, organization_uuid: str, new_parent_uuid=None) -> None:
+    def delete_organization(self, organization_uuid: str, new_parent_uuid: str = None) -> None:
+        """
+        Deletion can be done in two strategies: SOFT and HARD.
+        SOFT: all children will get a new parent.
+        HARD: all children of the node will be deleted.
+        """
         if new_parent_uuid:
             self.set_children_new_parent(organization_uuid, new_parent_uuid)
 
@@ -35,4 +40,4 @@ class OrganisationService:
         organization = self.repo.get(organization_uuid)
         organization.parent_organizations_id = new_parent_uuid
 
-        self.repo.update()
+        self.repo.update(organization)

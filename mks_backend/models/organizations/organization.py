@@ -10,7 +10,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from mks_backend.models import Base
+from mks_backend.models import Base, ORGANIZATION_SCHEMA
 from mks_backend.models.organizations.organization_history import OrganizationHistory
 
 
@@ -19,7 +19,7 @@ class Organization(Base):
     Организации
     """
     __tablename__ = 'organizations'
-    __table_args__ = {'schema': 'organization'}
+    __table_args__ = {'schema': ORGANIZATION_SCHEMA}
 
     organizations_id = Column(UUID, primary_key=True, default=uuid4)
     parent_organizations_id = Column(UUID, ForeignKey(organizations_id, ondelete='CASCADE'), nullable=True)

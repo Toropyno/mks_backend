@@ -31,6 +31,8 @@ DB_ERROR_CODES = {
         'inspection_unique_duplicate': 'Поездка с такой датой и наименованием уже существует!',
         'inspection_files_pkey_duplicate': 'Такой файл проверки уже существует!',
 
+        'organizations_history_ak_duplicate': 'Запись с таким id организации и датой начала уже существует!',
+
         'other_duplicate': 'Дубликат записи!',
 
         'protocol_meetings_type_id_fkey': ' Такого типа засдения не существует!',
@@ -53,5 +55,12 @@ DB_ERROR_CODES = {
         'inspection_objects_construction_id_fkey': 'Такого проверенного объекта строительства не существует!',
         'visited_objects_construction_id_fkey': 'Такого посещенного объекта строительства не существует!',
 
+        'organizations_parent_organizations_id_fkey': 'Такой организации-родителя не существует!',
+
         'other_fkey': 'Вторичный ключ не найден!',
+
+        'organization_nf': 'Такой организации не существует!',
+        'organization_history_nf': 'Такой реквизит не найден!',
+
+        'organization_history_delete_limit': 'Нельзя удалить единственный реквизит!'
 }
