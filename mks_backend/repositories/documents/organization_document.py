@@ -30,7 +30,7 @@ class OrganizationDocumentRepository:
                 'upload_date': organization_document.upload_date,
                 'doc_date': organization_document.doc_date,
                 'doc_number': organization_document.doc_number,
-                'organization': organization_document.organizations_id,
+                'organizations_id': organization_document.organizations_id,
                 'doctypes_id': organization_document.doctypes_id,
                 'idfilestorage': organization_document.idfilestorage,
             }

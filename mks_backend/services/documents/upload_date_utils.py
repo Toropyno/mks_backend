@@ -1,17 +1,15 @@
 from datetime import datetime
 
 
-def update_idfilestorage_with_upload_date(construction_document, old_idfilestorage):
-    schema_idfilestorage = construction_document.idfilestorage
-    if old_idfilestorage:
-        if str(old_idfilestorage) != str(schema_idfilestorage):
-            construction_document.idfilestorage = schema_idfilestorage
-            construction_document.upload_date = datetime.now()
+def set_upload_date(document_deserialized, old_document):
+    document_deserialized['uploadDate'] = old_document.upload_date
+
+
+def set_upload_date_by_idfilestorage(document, old_document):
+    if not document.idfilestorage:
+        document.upload_date = None
+    elif (not old_document and document.idfilestorage) or \
+            (str(old_document.idfilestorage) != str(document.idfilestorage)):
+        document.upload_date = datetime.now()
     else:
-        if schema_idfilestorage:
-            construction_document.upload_date = datetime.now()
-    return construction_document
-
-
-def set_upload_date(construction_document_deserialized, old_construction_document):
-    construction_document_deserialized['uploadDate'] = old_construction_document.upload_date
+        document.upload_date = old_document.upload_date

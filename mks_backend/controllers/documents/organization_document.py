@@ -1,7 +1,7 @@
 from pyramid.view import view_config
 from pyramid.request import Request
 
-from mks_backend.controllers.schemas.organization_document import OrganizationDocumentSchema
+from mks_backend.controllers.schemas.documents.organization_document import OrganizationDocumentSchema
 from mks_backend.serializers.documents.organization_document import OrganizationDocumentSerializer
 from mks_backend.services.documents.organization_document import OrganizationDocumentService
 

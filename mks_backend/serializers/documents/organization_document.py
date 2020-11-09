@@ -9,14 +9,13 @@ class OrganizationDocumentSerializer:
     def convert_object_to_json(self, organization_document: OrganizationDocument) -> dict:
         return {
             'id': organization_document.organization_documents_id,
-            'docName': organization_document.doc_name,
-            'note': organization_document.note,
-            'uploadDate': get_date_time_string(organization_document.upload_date),
+            'docType': DocTypeSerializer().convert_object_to_json(organization_document.doc_type),
             'docDate': get_date_string(organization_document.doc_date),
             'docNumber': organization_document.doc_number,
-            # 'organization': OrganizationSerializer().convert_object_to_json(organization_document.organization),
-            'docType': DocTypeSerializer().convert_object_to_json(organization_document.doc_type),
+            'docName': organization_document.doc_name,
+            'note': organization_document.note,
             'file': FileStorageSerializer.to_json(organization_document.file_storage),
+            'uploadDate': get_date_time_string(organization_document.upload_date),
         }
 
     def convert_list_to_json(self, organization_documents: list) -> list:

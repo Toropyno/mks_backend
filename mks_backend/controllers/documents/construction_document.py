@@ -1,7 +1,7 @@
 from pyramid.view import view_config
 from pyramid.request import Request
 
-from mks_backend.controllers.schemas.construction_document import ConstructionDocumentSchema
+from mks_backend.controllers.schemas.documents.construction_document import ConstructionDocumentSchema
 from mks_backend.serializers.documents.construction_document import ConstructionDocumentSerializer
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 
@@ -58,7 +58,7 @@ class ConstructionDocumentController:
 
         construction_document = self.service.convert_schema_to_object(
             construction_document_deserialized,
-            old_construction_document.idfilestorage
+            old_construction_document
         )
 
         self.service.update_construction_document(construction_document)

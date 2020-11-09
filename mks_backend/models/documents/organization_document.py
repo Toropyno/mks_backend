@@ -38,7 +38,6 @@ class OrganizationDocument(Base):
 
     organizations_id = Column(
         UUID,
-        ForeignKey('organizations.organizations_id', ondelete='CASCADE'),
         unique=True,
         nullable=False
     )
@@ -57,14 +56,9 @@ class OrganizationDocument(Base):
 
     # --------- relationships --------- #
 
-    filestorage = relationship(
+    file_storage = relationship(
         'Filestorage',
         back_populates='organization_documents'
-    )
-
-    organization = relationship(
-        'Organization',
-        back_populates='organization_document'
     )
 
     doc_type = relationship(

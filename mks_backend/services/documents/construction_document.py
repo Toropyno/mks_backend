@@ -1,9 +1,7 @@
-from datetime import datetime
-
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
-from mks_backend.services.documents.upload_date_utils import update_idfilestorage_with_upload_date
+from mks_backend.services.documents.upload_date_utils import set_upload_date_by_idfilestorage
 
 
 class ConstructionDocumentService:
@@ -43,13 +41,11 @@ class ConstructionDocumentService:
             return construction_documents
         return []
 
-    def convert_schema_to_object(self, schema_dict: dict, old_idfilestorage=None) -> ConstructionDocument:
+    def convert_schema_to_object(self, schema_dict: dict, old_construction_document=None) -> ConstructionDocument:
         construction_document = ConstructionDocument()
 
         construction_document.idfilestorage = schema_dict.get('idFileStorage')
-        construction_document.upload_date = datetime.now()
-        if old_idfilestorage:
-            construction_document = update_idfilestorage_with_upload_date(construction_document, old_idfilestorage)
+        set_upload_date_by_idfilestorage(construction_document, old_construction_document)
 
         construction_document.construction_documents_id = schema_dict.get('id')
         construction_document.construction_id = schema_dict.get('constructionId')

@@ -46,7 +46,7 @@ class Filestorage(Base):
 
     organization_documents = relationship(
         'OrganizationDocument',
-        back_populates='filestorage',
+        back_populates='file_storage',
         passive_deletes=True
     )
 
