@@ -29,3 +29,4 @@ def timestamp_validator(node: colander.SchemaNode, date_time: str) -> None:
         date_time = datetime.strptime(date_time, '%a %b %d %Y %H:%M:%S')
     except ValueError:
         raise colander.Invalid(node, 'Неверный формат даты и времени')
+

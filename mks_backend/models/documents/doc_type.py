@@ -13,10 +13,6 @@ class DocType(Base):
 
     __tablename__ = 'doctypes'
 
-    doctypes_id = Column(Integer, primary_key=True)
-    code = Column(VARCHAR(40), nullable=False)
-    fullname = Column(VARCHAR(255), nullable=False)
-
     __table_args__ = (
         UniqueConstraint(
             'code',
@@ -25,14 +21,13 @@ class DocType(Base):
         ),
     )
 
+    doctypes_id = Column(Integer, primary_key=True)
+    code = Column(VARCHAR(40), nullable=False)
+    fullname = Column(VARCHAR(255), nullable=False)
+
     # --------- relationships --------- #
 
     documents = relationship(
         'ConstructionDocument',
-        back_populates='doc_type'
-    )
-
-    organization_document = relationship(
-        'OrganizationDocument',
         back_populates='doc_type'
     )

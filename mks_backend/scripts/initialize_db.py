@@ -1,7 +1,6 @@
 import os
 import sys
 
-
 # Do not delete import models
 from mks_backend.models import Base, DBSession
 
@@ -53,11 +52,11 @@ from mks_backend.models.work_list.element_type import ElementType
 from mks_backend.models.inspections.inspection import Inspection
 from mks_backend.models.documents.organization_document import OrganizationDocument
 
-
 from mks_backend.models import Base, DBSession
 
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
+from sqlalchemy import schema
 
 
 def usage(argv):
@@ -75,4 +74,5 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
+    schema.MetaData.create_all(engine)
     Base.metadata.create_all(engine)

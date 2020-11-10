@@ -16,6 +16,7 @@ class OrganizationDocumentSerializer:
             'note': organization_document.note,
             'file': FileStorageSerializer.to_json(organization_document.file_storage),
             'uploadDate': get_date_time_string(organization_document.upload_date),
+            'organizationId': organization_document.organizations_id,
         }
 
     def convert_list_to_json(self, organization_documents: list) -> list:

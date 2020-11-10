@@ -21,6 +21,7 @@ class ObjectDocument(Base):
             name='object_documents_unique'
         ),
     )
+
     object_documents_id = Column(Integer, primary_key=True, autoincrement=True)
 
     construction_objects_id = Column(
@@ -34,6 +35,8 @@ class ObjectDocument(Base):
         ForeignKey('construction_documents.construction_documents_id', ondelete='CASCADE'),
         nullable=False,
     )
+
+    # --------- relationships --------- #
 
     document = relationship(
         'ConstructionDocument'

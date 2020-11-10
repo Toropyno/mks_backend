@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import (
     strip_space,
     date_validator,
     uuid_validator,
-    timestamp_validator,
 )
 
 
@@ -12,7 +11,7 @@ class OrganizationDocumentSchema(colander.MappingSchema):
 
     doctypes_id = colander.SchemaNode(
         colander.Int(),
-        name='docTypesId',
+        name='docTypeId',
         validator=colander.Range(
             min=0,
             min_err='Неверный номер типа документов'
@@ -74,19 +73,10 @@ class OrganizationDocumentSchema(colander.MappingSchema):
         missing=None
     )
 
-    upload_date = colander.SchemaNode(
-        colander.String(),
-        preparer=[strip_space],
-        name='uploadDate',
-        msg='Недопустимая информация о дате загрузки',
-        validator=timestamp_validator,
-        missing=None
-    )
-
     organizations_id = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
-        name='organizationsId',
+        name='organizationId',
         msg='Недопустимая информация об организации',
         validator=uuid_validator
     )

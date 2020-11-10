@@ -26,11 +26,14 @@ class InspectionFile(Base):
         ForeignKey(Filestorage.idfilestorage, ondelete='CASCADE'),
         primary_key=True
     )
+
     inspections_id = Column(
         Integer,
         ForeignKey(Inspection.inspections_id, ondelete='CASCADE'),
         nullable=False
     )
+
+    # --------- relationships --------- #
 
     file_storage = relationship(
         'Filestorage',

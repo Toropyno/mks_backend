@@ -44,12 +44,6 @@ class Filestorage(Base):
         passive_deletes=True
     )
 
-    organization_documents = relationship(
-        'OrganizationDocument',
-        back_populates='file_storage',
-        passive_deletes=True
-    )
-
     @hybrid_property
     def size(self):
         filesize = self.filesize / 1024  # to Kbytes
