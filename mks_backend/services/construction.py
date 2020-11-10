@@ -48,7 +48,6 @@ class ConstructionService:
         construction.oksm_id = schema.get('oksm')
         construction.address = schema.get('address')
         construction.note = schema.get('note')
-
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
 

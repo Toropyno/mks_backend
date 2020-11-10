@@ -9,8 +9,8 @@ from sqlalchemy import (
     DATE,
     CheckConstraint,
 )
-from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
 
@@ -18,6 +18,7 @@ from mks_backend.models import Base
 class Construction(Base):
 
     __tablename__ = 'construction'
+
     construction_id = Column(Integer, primary_key=True, autoincrement=True)
     project_code = Column(VARCHAR(40), unique=True, nullable=False)
     project_name = Column(VARCHAR(255), nullable=False)

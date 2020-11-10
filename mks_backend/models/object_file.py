@@ -42,6 +42,8 @@ class ObjectFile(Base):
     upload_date = Column(TIMESTAMP, default=func.now(), nullable=False)
     note = Column(VARCHAR(1000))
 
+    # --------- relationships --------- #
+
     file_storage = relationship(
         'Filestorage',
         back_populates='object_files'

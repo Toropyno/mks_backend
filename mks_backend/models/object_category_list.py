@@ -34,6 +34,8 @@ class ObjectCategoryList(Base):
         nullable=False
     )
 
+    # --------- relationships --------- #
+
     construction_object = relationship(
         'ConstructionObject',
         back_populates='object_categories_list'
