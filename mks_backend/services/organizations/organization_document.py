@@ -1,5 +1,5 @@
-from mks_backend.models.documents.organization_document import OrganizationDocument
-from mks_backend.repositories.documents.organization_document import OrganizationDocumentRepository
+from mks_backend.models.organizations.organization_document import OrganizationDocument
+from mks_backend.repositories.organizations.organization_document import OrganizationDocumentRepository
 
 from mks_backend.services.documents.upload_date_utils import set_upload_date_by_idfilestorage
 

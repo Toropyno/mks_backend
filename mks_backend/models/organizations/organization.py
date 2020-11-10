@@ -45,6 +45,11 @@ class Organization(Base):
         remote_side=organizations_id,
     )
 
+    organization_documents = relationship(
+        'OrganizationDocument',
+        back_populates='organization'
+    )
+
     # --------- hybrid_properties --------- #
 
     @hybrid_property

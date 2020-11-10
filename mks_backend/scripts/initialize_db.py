@@ -1,6 +1,9 @@
 import os
 import sys
 
+import os
+import sys
+
 # Do not delete import models
 from mks_backend.models import Base, DBSession
 
@@ -44,17 +47,19 @@ from mks_backend.models.construction_progress import ConstructionProgress
 from mks_backend.models.progress_status import ProgressStatus
 from mks_backend.models.work_list.measure_unit import MeasureUnit
 from mks_backend.models.object_file import ObjectFile
+
 from mks_backend.models.trips.work_trip import WorkTrip
 from mks_backend.models.trips.leadership_position import LeadershipPosition
 from mks_backend.models.trips.visited_object import VisitedObject
+
 from mks_backend.models.contract_status import ContractStatus
 from mks_backend.models.work_list.element_type import ElementType
+
 from mks_backend.models.inspections.inspection import Inspection
 
-from mks_backend.models.documents.organization_document import OrganizationDocument
 from mks_backend.models.organizations.organization import Organization
 from mks_backend.models.organizations.organization_history import OrganizationHistory
-
+from mks_backend.models.organizations.organization_document import OrganizationDocument
 
 from mks_backend.models import Base, DBSession
 from pyramid.paster import get_appsettings, setup_logging
