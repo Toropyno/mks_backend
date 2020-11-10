@@ -2,8 +2,8 @@ from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
 from mks_backend.controllers.schemas.documents.organization_document import OrganizationDocumentSchema
-from mks_backend.serializers.documents.organization_document import OrganizationDocumentSerializer
-from mks_backend.services.documents.organization_document import OrganizationDocumentService
+from mks_backend.serializers.organizations.organization_document import OrganizationDocumentSerializer
+from mks_backend.services.organizations.organization_document import OrganizationDocumentService
 
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 

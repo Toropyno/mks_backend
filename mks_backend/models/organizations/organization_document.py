@@ -19,7 +19,6 @@ class OrganizationDocument(Base):
     __tablename__ = 'organization_documents'
 
     __table_args__ = (
-        {'schema': ORGANIZATION_SCHEMA},
         UniqueConstraint(
             'organizations_id',
             'doctypes_id',
@@ -27,6 +26,7 @@ class OrganizationDocument(Base):
             'doc_number',
             name='organization_documents_unique'
         ),
+        {'schema': ORGANIZATION_SCHEMA},
     )
 
     organization_documents_id = Column(Integer, primary_key=True, schema='ORGANIZATIONS')
@@ -62,4 +62,9 @@ class OrganizationDocument(Base):
 
     doc_type = relationship(
         'DocType'
+    )
+
+    organization = relationship(
+        'Organization',
+        back_populates='organization_documents'
     )

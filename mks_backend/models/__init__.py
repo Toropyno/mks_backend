@@ -6,3 +6,8 @@ Base = declarative_base()
 DBSession = scoped_session(sessionmaker())
 
 ORGANIZATION_SCHEMA = 'organization'
+
+SCHEMAS = (
+    ORGANIZATION_SCHEMA,
+)
+

@@ -1,4 +1,4 @@
-from mks_backend.models.documents.organization_document import OrganizationDocument
+from mks_backend.models.organizations.organization_document import OrganizationDocument
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
 from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
