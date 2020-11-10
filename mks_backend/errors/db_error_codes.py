@@ -124,6 +124,7 @@ DB_ERROR_CODES = {
     'combatarm_pkey_duplicate': 'Род Войск с указанным ключом уже существует!',
     'military_unit_pkey_duplicate': 'Воинское Формирование с указанным ключом уже существует!',
 
+    'organizations_history_ak_duplicate': 'Запись с таким id организации и датой начала уже существует!',
     'other_duplicate': 'Дубликат записи!',
 
     'protocol_meetings_type_id_fkey': 'Указанного Типа Заседания не существует!',
@@ -189,5 +190,11 @@ DB_ERROR_CODES = {
     'construction_documents_doctypes_id_id_fkey': 'Указанных Типов Документов не существует!',
     'construction_documents_idfilestorage_fkey': 'Указанноого Файла не существует!',
 
+    'organizations_parent_organizations_id_fkey': 'Такой организации-родителя не существует!',
+
     'other_fkey': 'Вторичный ключ не найден!',
+
+    'organization_nf': 'Такой организации не существует!',
+    'organization_history_nf': 'Такой реквизит не найден!',
+    'organization_history_delete_limit': 'Нельзя удалить единственный реквизит!'
 }

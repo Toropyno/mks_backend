@@ -20,43 +20,47 @@ class DBBasicError(DBAPIError):
         return self._code
 
     @message.setter
-    def message(self, pg_error: str) -> None:
-        code = self.get_error_code(pg_error)
+    def message(self, error_raw: str) -> None:
+        code = self.get_error_code(error_raw)
         self._message = self.codes[code]
 
     @code.setter
-    def code(self, pg_error: str) -> None:
-        self._code = self.get_error_code(pg_error)
+    def code(self, error_raw: str) -> None:
+        self._code = self.get_error_code(error_raw)
 
-    def get_error_code(self, pg_error: str) -> str:
+    def get_error_code(self, error_raw: str) -> str:
 
-        if 'duplicate' in pg_error:
+        if 'duplicate' in error_raw:
             '''
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
             DETAIL:  Key (project_code)=(12345) already exists.
             '''
 
-            start = pg_error.find('constraint') + 12
-            end = pg_error.find('\"', start)
-            code = pg_error[start:end] + '_duplicate'
+            start = error_raw.find('constraint') + len('constraint "')
+            end = error_raw.find('"', start)
+            code = error_raw[start:end] + '_duplicate'
 
             if code not in self.codes:
                 code = 'other_duplicate'
-        elif 'foreign key' in pg_error:
+        elif 'foreign key' in error_raw:
             '''
-            ERROR:  insert or update on table "construction" violates foreign key constraint 
-   
+            ERROR:  insert or update on table "construction" violates foreign key constraint    
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
 
-            start = pg_error.find('constraint') + 12
-            end = pg_error.find('\"', start)
-            code = pg_error[start:end]
+            start = error_raw.find('constraint') + len('constraint "')
+            end = error_raw.find('"', start)
+            code = error_raw[start:end]
 
             if code not in self.codes:
                 code = 'other_fkey'
-
+        elif 'nf' in error_raw:
+            # entity not found in db
+            code = error_raw
+        elif 'limit' in error_raw:
+            # logical limit for entity exceeded
+            code = error_raw
         else:
             code = 'other_error'
 
