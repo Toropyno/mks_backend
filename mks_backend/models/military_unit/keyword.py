@@ -7,6 +7,7 @@ from mks_backend.models import Base
 class Keyword(Base):
 
     __tablename__ = 'keyword'
+
     idkeyword = Column(Integer, primary_key=True, autoincrement=True)
     namekeyword = Column(VARCHAR(50), nullable=False)
 

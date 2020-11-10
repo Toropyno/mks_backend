@@ -20,6 +20,7 @@ class SubcategoryList(Base):
             name='subcategories_list_unique'
         ),
     )
+
     subcategories_list_id = Column(Integer, primary_key=True, autoincrement=True)
 
     construction_categories_id = Column(
@@ -33,6 +34,8 @@ class SubcategoryList(Base):
         ForeignKey('construction_subcategories.construction_subcategories_id', ondelete='CASCADE'),
         nullable=False
     )
+
+    # --------- relationships --------- #
 
     construction = relationship(
         'Construction',

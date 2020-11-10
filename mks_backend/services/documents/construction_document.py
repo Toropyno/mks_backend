@@ -1,5 +1,4 @@
 from datetime import datetime
-from uuid import UUID
 
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_object import ConstructionObjectRepository

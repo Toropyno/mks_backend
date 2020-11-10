@@ -7,6 +7,7 @@ from mks_backend.models import Base
 class PurposeMU(Base):
 
     __tablename__ = 'purposemu'
+
     idpurpose = Column(Integer, primary_key=True, autoincrement=True)
     namepurpose = Column(VARCHAR(100), nullable=False)
 

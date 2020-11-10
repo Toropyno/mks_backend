@@ -12,6 +12,7 @@ from mks_backend.models import Base
 class Coordinate(Base):
 
     __tablename__ = 'coordinates'
+
     coordinates_id = Column(Integer, primary_key=True, autoincrement=True)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)

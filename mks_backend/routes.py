@@ -153,15 +153,3 @@ def includeme(config):
     config.add_route('delete_contract_status', '/contract_status/{id}', request_method='DELETE')
     config.add_route('edit_contract_status', '/contract_status/{id}', request_method='PUT')
     config.add_route('get_contract_status', '/contract_status/{id}', request_method='GET')
-
-    config.add_route('get_fias', '/fias/{text}', request_method='GET')
-    config.add_route('get_subjects', '/fias/subject/{text}', request_method='GET')
-    config.add_route('get_districts', '/fias/district/{text}', request_method='GET')
-    config.add_route('get_cities', '/fias/city/{text}', request_method='GET')
-    config.add_route('get_localities', '/fias/locality/{text}', request_method='GET')
-    config.add_route('get_remaining_addresses', '/fias/remaining_address/{text}', request_method='GET')
-
-    config.add_route('add_fias', '/fias', request_method='POST')
-    config.add_route('delete_fias', '/fias/{id}', request_method='DELETE')
-    config.add_route('edit_fias', '/fias/{id}', request_method='PUT')
-
