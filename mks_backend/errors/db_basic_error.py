@@ -36,22 +36,21 @@ class DBBasicError(DBAPIError):
             DETAIL:  Key (project_code)=(12345) already exists.
             '''
 
-            start = error_raw.find('constraint') + 12
-            end = error_raw.find('\"', start)
+            start = error_raw.find('constraint') + len('constraint "')
+            end = error_raw.find('"', start)
             code = error_raw[start:end] + '_duplicate'
 
             if code not in self.codes:
                 code = 'other_duplicate'
         elif 'foreign key' in error_raw:
             '''
-            ERROR:  insert or update on table "construction" violates foreign key constraint 
-   
+            ERROR:  insert or update on table "construction" violates foreign key constraint    
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''
 
-            start = error_raw.find('constraint') + 12
-            end = error_raw.find('\"', start)
+            start = error_raw.find('constraint') + len('constraint "')
+            end = error_raw.find('"', start)
             code = error_raw[start:end]
 
             if code not in self.codes:

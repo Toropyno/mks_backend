@@ -1,5 +1,4 @@
-import re
-from typing import Optional
+from uuid import UUID
 from datetime import datetime
 
 import colander
@@ -7,30 +6,33 @@ import colander
 
 def date_validator(node: colander.SchemaNode, date: str) -> None:
     try:
-        date = datetime.strptime(date, '%a %b %d %Y')
+        datetime.strptime(date, '%a %b %d %Y')
     except ValueError:
         raise colander.Invalid(node, 'Неверный формат даты')
 
 
 def organization_parent_uuid(node: colander.SchemaNode, value: str):
-    if uuid_validator(value) is None:
+    if not is_uuid(value):
         raise colander.Invalid(node, 'Такой организации-родителя не существует')
 
 
 def organization_uuid(node: colander.SchemaNode, value: str):
-    if uuid_validator(value) is None:
+    if not is_uuid(value):
         raise colander.Invalid(node, 'Такой организации не существует')
 
 
 def uuid_file_validator(node: colander.SchemaNode, value: str) -> None:
-    if uuid_validator(value) is None:
+    if not is_uuid(value):
         raise colander.Invalid(node, 'Недопустимая информация о файле')
 
 
-def uuid_validator(value: str):
-    pattern = '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[4][0-9a-fA-F]{3}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
-    re.compile(pattern)
-    return re.match(pattern, value)
+def is_uuid(value: str) -> bool:
+    try:
+        UUID(value)
+    except ValueError:
+        return False
+    else:
+        return True
 
 
 def strip_space(value: str) -> str:
@@ -41,7 +43,7 @@ def strip_space(value: str) -> str:
 
 def timestamp_validator(node: colander.SchemaNode, date_time: str) -> None:
     try:
-        date_time = datetime.strptime(date_time, '%a %b %d %Y %H:%M:%S')
+        datetime.strptime(date_time, '%a %b %d %Y %H:%M:%S')
     except ValueError:
         raise colander.Invalid(node, 'Неверный формат даты и времени')
 

@@ -20,7 +20,7 @@ class InspectionFileSchema(colander.MappingSchema):
         preparer=[strip_space],
         validator=colander.Length(
             max=2000,
-            max_err='Недопустимое примечание'
+            max_err='Превышена максимальная длинна примечания'
         ),
         missing=None
     )
