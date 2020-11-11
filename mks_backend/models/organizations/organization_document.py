@@ -29,7 +29,7 @@ class OrganizationDocument(Base):
         {'schema': ORGANIZATION_SCHEMA},
     )
 
-    organization_documents_id = Column(Integer, primary_key=True, schema='ORGANIZATIONS')
+    organization_documents_id = Column(Integer, primary_key=True)
     doc_name = Column(VARCHAR(255))
     note = Column(VARCHAR(1000))
     upload_date = Column(TIMESTAMP, default=func.now())

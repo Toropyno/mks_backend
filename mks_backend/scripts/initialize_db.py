@@ -1,8 +1,12 @@
 import os
 import sys
 
+from mks_backend.models import Base, DBSession, ORGANIZATION_SCHEMA, SCHEMAS
+from pyramid.paster import get_appsettings, setup_logging
+from sqlalchemy import engine_from_config
+from sqlalchemy.schema import CreateSchema
+
 # Do not delete import models
-from mks_backend.models import Base, DBSession
 
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.filestorage import Filestorage
@@ -56,11 +60,6 @@ from mks_backend.models.organizations.organization import Organization
 from mks_backend.models.organizations.organization_history import OrganizationHistory
 from mks_backend.models.organizations.organization_document import OrganizationDocument
 
-from mks_backend.models import Base, DBSession
-from pyramid.paster import get_appsettings, setup_logging
-from sqlalchemy import engine_from_config
-from sqlalchemy import schema
-
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -77,5 +76,11 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
-    schema.MetaData.create_all(engine)
+    create_schemas(engine)
     Base.metadata.create_all(engine)
+
+
+def create_schemas(engine):
+    for schema in SCHEMAS:
+        if not engine.dialect.has_schema(engine, schema):
+            engine.execute(CreateSchema(schema))
