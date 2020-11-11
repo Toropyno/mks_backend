@@ -11,7 +11,7 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 
-from mks_backend.models import Base
+from mks_backend.models import Base, ORGANIZATION_SCHEMA
 
 
 class OrganizationDocument(Base):
@@ -26,26 +26,26 @@ class OrganizationDocument(Base):
             'doc_number',
             name='organization_documents_unique'
         ),
+        {'schema': ORGANIZATION_SCHEMA},
     )
 
-    organization_documents_id = Column(Integer, primary_key=True)
+    organization_documents_id = Column(Integer, primary_key=True, schema='ORGANIZATIONS')
     doc_name = Column(VARCHAR(255))
     note = Column(VARCHAR(1000))
     upload_date = Column(TIMESTAMP, default=func.now())
 
-    doc_date = Column(DATE, unique=True, nullable=False)
-    doc_number = Column(VARCHAR(40), unique=True)
+    doc_date = Column(DATE, nullable=False)
+    doc_number = Column(VARCHAR(40))
 
     organizations_id = Column(
         UUID,
-        unique=True,
+        ForeignKey('{schema}.organizations.organizations_id'.format(schema=ORGANIZATION_SCHEMA), ondelete='CASCADE'),
         nullable=False
     )
 
     doctypes_id = Column(
         Integer,
         ForeignKey('doctypes.doctypes_id', ondelete='CASCADE'),
-        unique=True,
         nullable=False
     )
 
@@ -57,11 +57,14 @@ class OrganizationDocument(Base):
     # --------- relationships --------- #
 
     file_storage = relationship(
-        'Filestorage',
-        back_populates='organization_documents'
+        'Filestorage'
     )
 
     doc_type = relationship(
-        'DocType',
-        back_populates='organization_document'
+        'DocType'
+    )
+
+    organization = relationship(
+        'Organization',
+        back_populates='organization_documents'
     )

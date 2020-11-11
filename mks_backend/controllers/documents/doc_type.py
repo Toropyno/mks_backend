@@ -1,4 +1,4 @@
-from pyramid.view import view_config
+from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
 from mks_backend.controllers.schemas.doc_type import DocTypeSchema
@@ -7,6 +7,7 @@ from mks_backend.serializers.documents.doc_type import DocTypeSerializer
 from mks_backend.services.documents.doc_type import DocTypeService
 
 
+@view_defaults(renderer='json')
 class DocTypeController:
 
     def __init__(self, request: Request):
@@ -15,14 +16,14 @@ class DocTypeController:
         self.service = DocTypeService()
         self.schema = DocTypeSchema()
 
-    @view_config(route_name='get_all_doc_types', renderer='json')
+    @view_config(route_name='get_all_doc_types')
     def get_all_doc_types(self):
         doc_types = self.service.get_all_doc_types()
         return self.serializer.convert_list_to_json(doc_types)
 
     @handle_db_error
     @handle_colander_error
-    @view_config(route_name='add_doc_type', renderer='json')
+    @view_config(route_name='add_doc_type')
     def add_doc_type(self):
         doc_type_deserialized = self.schema.deserialize(self.request.json_body)
 
@@ -30,13 +31,13 @@ class DocTypeController:
         self.service.add_doc_type(doc_type)
         return {'id': doc_type.doctypes_id}
 
-    @view_config(route_name='get_doc_type', renderer='json')
+    @view_config(route_name='get_doc_type')
     def get_doc_type(self):
         id = int(self.request.matchdict['id'])
         doc_type = self.service.get_doc_type_by_id(id)
         return self.serializer.convert_object_to_json(doc_type)
 
-    @view_config(route_name='delete_doc_type', renderer='json')
+    @view_config(route_name='delete_doc_type')
     def delete_doc_type(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_doc_type_by_id(id)
@@ -44,7 +45,7 @@ class DocTypeController:
 
     @handle_db_error
     @handle_colander_error
-    @view_config(route_name='edit_doc_type', renderer='json')
+    @view_config(route_name='edit_doc_type')
     def edit_doc_type(self):
         id = int(self.request.matchdict['id'])
         doc_type_deserialized = self.schema.deserialize(self.request.json_body)

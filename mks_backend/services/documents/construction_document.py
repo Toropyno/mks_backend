@@ -23,8 +23,7 @@ class ConstructionDocumentService:
         self.repo.update_construction_document(construction_document)
 
     def delete_construction_document_by_id(self, id: int) -> None:
-        construction_document = self.get_construction_document_by_id(id)
-        self.repo.delete_construction_document(construction_document)
+        self.repo.delete_construction_document(id)
 
     def get_many_construction_documents_by_id(self, ids: list) -> list:
         return self.repo.get_many_construction_documents_by_id(ids)

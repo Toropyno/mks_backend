@@ -1,4 +1,4 @@
-from mks_backend.models.documents.organization_document import OrganizationDocument
+from mks_backend.models.organizations.organization_document import OrganizationDocument
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
 from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
@@ -16,6 +16,7 @@ class OrganizationDocumentSerializer:
             'note': organization_document.note,
             'file': FileStorageSerializer.to_json(organization_document.file_storage),
             'uploadDate': get_date_time_string(organization_document.upload_date),
+            'organizationId': organization_document.organizations_id,
         }
 
     def convert_list_to_json(self, organization_documents: list) -> list:

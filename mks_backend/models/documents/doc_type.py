@@ -31,8 +31,3 @@ class DocType(Base):
         'ConstructionDocument',
         back_populates='doc_type'
     )
-
-    organization_document = relationship(
-        'OrganizationDocument',
-        back_populates='doc_type'
-    )
