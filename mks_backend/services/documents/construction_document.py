@@ -1,7 +1,7 @@
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.repositories.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
-from mks_backend.services.documents.upload_date_utils import set_upload_date_by_idfilestorage
+from mks_backend.services.documents.upload_date import UploadDateService
 
 
 class ConstructionDocumentService:
@@ -9,6 +9,7 @@ class ConstructionDocumentService:
     def __init__(self):
         self.repo = ConstructionDocumentRepository()
         self.repo_object = ConstructionObjectRepository()
+        self.date_service = UploadDateService()
 
     def get_all_construction_documents(self) -> list:
         return self.repo.get_all_construction_documents()
@@ -40,11 +41,11 @@ class ConstructionDocumentService:
             return construction_documents
         return []
 
-    def convert_schema_to_object(self, schema_dict: dict, old_construction_document=None) -> ConstructionDocument:
+    def convert_schema_to_object(self, schema_dict: dict) -> ConstructionDocument:
         construction_document = ConstructionDocument()
 
         construction_document.idfilestorage = schema_dict.get('idFileStorage')
-        set_upload_date_by_idfilestorage(construction_document, old_construction_document)
+        self.date_service.set_upload_date_by_idfilestorage(construction_document)
 
         construction_document.construction_documents_id = schema_dict.get('id')
         construction_document.construction_id = schema_dict.get('constructionId')
