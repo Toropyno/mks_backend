@@ -59,6 +59,8 @@ class ConstructionProgress(Base):
         nullable=False,
     )
 
+    # --------- relationships --------- #
+
     construction_object = relationship(
         'ConstructionObject',
         back_populates='construction_progress'

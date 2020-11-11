@@ -13,10 +13,6 @@ class DocType(Base):
 
     __tablename__ = 'doctypes'
 
-    doctypes_id = Column(Integer, primary_key=True)
-    code = Column(VARCHAR(40), nullable=False)
-    fullname = Column(VARCHAR(255), nullable=False)
-
     __table_args__ = (
         UniqueConstraint(
             'code',
@@ -24,6 +20,10 @@ class DocType(Base):
             name='doctypes_unique'
         ),
     )
+
+    doctypes_id = Column(Integer, primary_key=True)
+    code = Column(VARCHAR(40), nullable=False)
+    fullname = Column(VARCHAR(255), nullable=False)
 
     # --------- relationships --------- #
 

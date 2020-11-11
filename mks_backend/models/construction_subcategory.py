@@ -7,6 +7,7 @@ from mks_backend.models import Base
 class ConstructionSubcategory(Base):
 
     __tablename__ = 'construction_subcategories'
+
     construction_subcategories_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
 

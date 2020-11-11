@@ -607,63 +607,6 @@ Description: Delete progress_status
 Route: '/progress_status/{id}'
 
 
-# --- FIAS ---
-
-Description: Get subjects
-Route: '/fias/subject/{text}'
-Method: GET
-
-Description: Get districts
-Route: '/fias/district/{text}'
-Method: GET
-{
-    "subject": "обл Белгородская"
-}
-{}
-
-Description: Get cities
-Route: '/fias/city/{text}'
-Method: GET
-{
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский"
-}
-{
-    "subject": "обл Белгородская"
-}
-{}
-
-Description: Get localities
-Route: '/fias/locality/{text}'
-Method: GET
-{
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский"
-}
-{
-    "subject": "обл Белгородская"
-}
-{}
-
-Description: Get remaining_addresses
-Route: '/fias/remaining_address/{text}'
-Method: GET
-{
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский",
-    "locality": "пгт Разумное"
-}
-{
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский",
-    "city": "г. Белгород"
-}
-{
-    "subject": "обл Белгородская",
-    "city": "г Белгород"
-}
-
-
 # --- organization_document ---
 
 Description: Get all organization_document
@@ -764,16 +707,6 @@ ObjectFile {
     constructionObjects Integer
     note                String
     uploadDate          String
-}
-
-FIAS {
-    id                  Integer
-    subject             String
-    district            String
-    city                String
-    locality            String
-    remainingAddress    String
-}
 
 OrganizationDocument {
     id            Integer
@@ -782,7 +715,7 @@ OrganizationDocument {
     docName       String
     note          String
     uploadDate    String
-    organization Organization
+    organizationId Integer
     docType     {
                     id        Integer
                     code      String

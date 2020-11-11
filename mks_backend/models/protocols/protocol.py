@@ -15,6 +15,7 @@ from mks_backend.models import Base
 class Protocol(Base):
 
     __tablename__ = 'protocol'
+
     protocol_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     protocol_num = Column(VARCHAR(20), nullable=False)
     protocol_date = Column(Date, nullable=False, default=func.current_date())
@@ -30,6 +31,8 @@ class Protocol(Base):
         UUID,
         ForeignKey('filestorage.idfilestorage', ondelete='CASCADE')
     )
+
+    # --------- relationships --------- #
 
     meeting = relationship(
         'Meeting',
