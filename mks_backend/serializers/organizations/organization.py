@@ -19,10 +19,10 @@ class OrganizationSerializer:
             'fullname': node.actual.fullname,
             'isActive': False if node.actual.end_date else True,
             'history': self.history_serializer.convert_list_to_json(node.history),
+            'organizationDocuments': self.document.convert_list_to_json(node.organization_documents),
 
             # recursive strategy
             'children': self.to_json_tree(node.children),
-            'organizationDocuments': self.document.convert_list_to_json(node.organization_documents)
         }
 
     def to_json_tree(self, rootes):
