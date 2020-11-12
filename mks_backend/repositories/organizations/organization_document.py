@@ -1,6 +1,7 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.organizations.organization_document import OrganizationDocument
 from mks_backend.repositories import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class OrganizationDocumentRepository:

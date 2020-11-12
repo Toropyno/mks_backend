@@ -1,5 +1,4 @@
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import (
     Column,
@@ -19,20 +18,20 @@ class OrganizationDocument(Base):
     __tablename__ = 'organization_documents'
 
     __table_args__ = (
-        {'schema': ORGANIZATION_SCHEMA},
         UniqueConstraint(
             'organizations_id',
             'doctypes_id',
             'doc_date',
             'doc_number',
             name='organization_documents_unique'
-        )
+        ),
+        {'schema': ORGANIZATION_SCHEMA},
     )
 
     organization_documents_id = Column(Integer, primary_key=True)
     doc_name = Column(VARCHAR(255))
     note = Column(VARCHAR(1000))
-    upload_date = Column(TIMESTAMP, default=func.now())
+    upload_date = Column(TIMESTAMP)
 
     doc_date = Column(DATE, nullable=False)
     doc_number = Column(VARCHAR(40))
