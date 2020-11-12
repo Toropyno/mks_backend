@@ -1,8 +1,8 @@
 import os
 import sys
+from mks_backend.models import Base, DBSession
 
 # Do not delete import models
-from mks_backend.models import Base, DBSession
 
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.filestorage import Filestorage
@@ -54,6 +54,9 @@ from mks_backend.models.work_list.element_type import ElementType
 
 from mks_backend.models.inspections.inspection import Inspection
 
+from mks_backend.models.organizations.organization import Organization
+from mks_backend.models.organizations.organization_history import OrganizationHistory
+from mks_backend.models.organizations.official import Official
 
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config

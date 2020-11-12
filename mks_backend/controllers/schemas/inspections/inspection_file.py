@@ -1,13 +1,13 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import uuid_validator, strip_space
+from mks_backend.controllers.schemas.validator_utils import uuid_file_validator, strip_space
 
 
 class InspectionFileSchema(colander.MappingSchema):
 
     inspection_id = colander.SchemaNode(
         colander.Int(),
-        name='inspection',
+        name='inspectionId',
         validator=colander.Range(
             min=0,
             min_err='Такой проверки не существует'
@@ -20,14 +20,14 @@ class InspectionFileSchema(colander.MappingSchema):
         preparer=[strip_space],
         validator=colander.Length(
             max=2000,
-            max_err='Недопустимое примечание'
-        )
+            max_err='Превышена максимальная длинна примечания'
+        ),
+        missing=None
     )
 
     idfilestorage = colander.SchemaNode(
         colander.String(),
         name='idFileStorage',
         preparer=[strip_space],
-        msg='Недопустимая информация о файле',
-        validator=uuid_validator
+        validator=uuid_file_validator
     )

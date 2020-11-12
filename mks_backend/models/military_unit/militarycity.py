@@ -7,6 +7,7 @@ from mks_backend.models import Base
 class MilitaryCity(Base):
 
     __tablename__ = 'militarycity'
+
     idmilitarycity = Column(Integer, primary_key=True, autoincrement=True)
     namemilitarycity = Column(VARCHAR(50), nullable=False)
 

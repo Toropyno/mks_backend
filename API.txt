@@ -607,60 +607,33 @@ Description: Delete progress_status
 Route: '/progress_status/{id}'
 
 
-# --- FIAS ---
+# --- official ---
 
-Description: Get subjects
-Route: '/fias/subject/{text}'
-Method: GET
+Description: Add official
+Route: '/official'
+Method: POST
 
-Description: Get districts
-Route: '/fias/district/{text}'
-Method: GET
-{
-    "subject": "обл Белгородская"
-}
-{}
+Description: Delete official
+Route: '/official/{id}'
 
-Description: Get cities
-Route: '/fias/city/{text}'
-Method: GET
-{
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский"
-}
-{
-    "subject": "обл Белгородская"
-}
-{}
+Description: Edit official
+Route: '/official'
+Method: PUT
 
-Description: Get localities
-Route: '/fias/locality/{text}'
-Method: GET
 {
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский"
-}
-{
-    "subject": "обл Белгородская"
-}
-{}
+    "positionName": "positionName",
+    "organizationId": "d181c97a-e0b2-42d3-bcd5-2a05356c0b92",
+    "surname": "oficial surname",
+    "firstName": "oficial firstname",
+    "beginDate": "Thu Nov 12 2020",
 
-Description: Get remaining_addresses
-Route: '/fias/remaining_address/{text}'
-Method: GET
-{
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский",
-    "locality": "пгт Разумное"
-}
-{
-    "subject": "обл Белгородская",
-    "district": "р-н Белгородский",
-    "city": "г. Белгород"
-}
-{
-    "subject": "обл Белгородская",
-    "city": "г Белгород"
+    "middleName": "oficial.middlename",
+    "endDate": "Thu Nov 30 2025",
+    "secureСhannel": "oficial.secure_channel",
+    "note": "oficial.note",
+    "phone": "+7 55 44 777",
+    "email": "ddddd@ddd.wed",
+    "militaryRankId": 1
 }
 
 
@@ -748,11 +721,19 @@ ObjectFile {
     uploadDate          String
 }
 
-FIAS {
-    id                  Integer
-    subject             String
-    district            String
-    city                String
-    locality            String
-    remainingAddress    String
+Official {
+    id              Integer
+    positionName    String
+    organizationId  String
+    militaryRankId  Integer
+    surname         String
+    firstName       String
+    middleName      String
+    beginDate       String
+    endDate         String
+    phone           String
+    secureСhannel   String
+    email           String
+    note            String
 }
+

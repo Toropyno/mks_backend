@@ -7,6 +7,7 @@ from mks_backend.models import Base
 class Zone(Base):
 
     __tablename__ = 'zones'
+
     zones_id = Column(Integer, primary_key=True, autoincrement=True)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
 

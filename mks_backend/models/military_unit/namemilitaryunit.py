@@ -12,10 +12,18 @@ from mks_backend.models import Base
 class NameMilitaryUnit(Base):
 
     __tablename__ = 'namemilitaryunit'
+
     idnamemu = Column(Integer, primary_key=True, autoincrement=True)
     namemu = Column(VARCHAR(250), nullable=False)
     snamemu = Column(VARCHAR(20))
-    idkeyword = Column(Integer, ForeignKey('keyword.idkeyword', ondelete='CASCADE'), nullable=False)
+
+    idkeyword = Column(
+        Integer,
+        ForeignKey('keyword.idkeyword', ondelete='CASCADE'),
+        nullable=False
+    )
+
+    # --------- relationships --------- #
 
     keyword = relationship(
         'Keyword',

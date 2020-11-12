@@ -24,6 +24,7 @@ class Inspection(Base):
             name='inspection_unique'
         ),
     )
+
     inspections_id = Column(Integer, primary_key=True)
     insp_date = Column(DATE, nullable=False)
     insp_name = Column(VARCHAR(255), nullable=False)

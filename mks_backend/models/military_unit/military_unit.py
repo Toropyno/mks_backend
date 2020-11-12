@@ -13,15 +13,46 @@ from mks_backend.models import Base
 class MilitaryUnit(Base):
 
     __tablename__ = 'military_unit'
+
     idMU = Column(Integer, primary_key=True, autoincrement=True)
-    pidMU = Column(Integer, ForeignKey(idMU))
     vChNumber = Column(VARCHAR(4))
-    idNameMU = Column(Integer, ForeignKey('namemilitaryunit.idnamemu'), nullable=False)
-    idPurpose = Column(Integer, ForeignKey('purposemu.idpurpose', ondelete='CASCADE'), nullable=False)
-    idMilitaryCity = Column(Integer, ForeignKey('militarycity.idmilitarycity'))
-    idSortAF = Column(VARCHAR(2), ForeignKey('sortarmedforces.idsortaf', ondelete='CASCADE'), nullable=False)
-    idCombatArm = Column(CHAR(3), ForeignKey('combatarm.idcombatarm', ondelete='CASCADE'), nullable=False)
     codeNameMU = Column(VARCHAR(5))
+
+    pidMU = Column(
+        Integer,
+        ForeignKey(idMU)
+    )
+
+    idNameMU = Column(
+        Integer,
+        ForeignKey('namemilitaryunit.idnamemu'),
+        nullable=False
+    )
+
+    idPurpose = Column(
+        Integer,
+        ForeignKey('purposemu.idpurpose', ondelete='CASCADE'),
+        nullable=False
+    )
+
+    idMilitaryCity = Column(
+        Integer,
+        ForeignKey('militarycity.idmilitarycity')
+    )
+
+    idSortAF = Column(
+        VARCHAR(2),
+        ForeignKey('sortarmedforces.idsortaf', ondelete='CASCADE'),
+        nullable=False
+    )
+
+    idCombatArm = Column(
+        CHAR(3),
+        ForeignKey('combatarm.idcombatarm', ondelete='CASCADE'),
+        nullable=False
+    )
+
+    # --------- relationships --------- #
 
     construction = relationship(
         'Construction',

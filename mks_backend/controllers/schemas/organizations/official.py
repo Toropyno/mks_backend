@@ -1,6 +1,12 @@
 import colander
 
-from mks_backend.controllers.schemas.validator_utils import strip_space, uuid_validator, date_validator, phone_validator
+from mks_backend.controllers.schemas.validator_utils import (
+    strip_space,
+    date_validator,
+    phone_validator,
+    organization_uuid,
+    email_validator,
+)
 
 
 class OfficialSchema(colander.MappingSchema):
@@ -8,9 +14,8 @@ class OfficialSchema(colander.MappingSchema):
     organizations_id = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
-        name='organizationsId',
-        msg='Недопустимая информация об организации',
-        validator=uuid_validator
+        name='organizationId',
+        validator=organization_uuid
     )
 
     position_name = colander.SchemaNode(
@@ -68,7 +73,8 @@ class OfficialSchema(colander.MappingSchema):
             max=40,
             min_err='Слишком короткое отчество',
             max_err='Слишком длинное отчество'
-        )
+        ),
+        missing=None
     )
 
     begin_date = colander.SchemaNode(
@@ -102,10 +108,10 @@ class OfficialSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='secureСhannel',
         validator=colander.Length(
-            min=1,
+            min=2,
             max=40,
-            min_err='Слишком короткое secureСhannel',
-            max_err='Слишком длинное secureСhannel'
+            min_err='Слишком короткое АТС-Р',
+            max_err='Слишком длинное АТС-Р'
         ),
         missing=None
     )
@@ -114,19 +120,15 @@ class OfficialSchema(colander.MappingSchema):
         colander.String(),
         preparer=[strip_space],
         name='email',
-        validator=colander.Length(
-            min=1,
-            max=80,
-            min_err='Слишком короткий email',
-            max_err='Слишком длинный email'
-        ),
+        msg='Недопустимая информация об email',
+        validator=email_validator,
         missing=None
     )
 
     note = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
-        name='email',
+        name='note',
         validator=colander.Length(
             min=1,
             max=1000,
@@ -135,6 +137,3 @@ class OfficialSchema(colander.MappingSchema):
         ),
         missing=None
     )
-
-
-
