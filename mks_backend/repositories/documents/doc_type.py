@@ -27,6 +27,5 @@ class DocTypeRepository:
         DBSession.commit()
 
     def delete_doc_type_by_id(self, id: int) -> None:
-        doc_type = self.get_doc_type_by_id(id)
-        DBSession.delete(doc_type)
+        DBSession.query(DocType).filter_by(doctypes_id=id).delete()
         DBSession.commit()

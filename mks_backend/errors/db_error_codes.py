@@ -114,7 +114,11 @@ DB_ERROR_CODES = {
     'doctypes_pkey_duplicate': 'Типы Документов с указанным ключом уже существуют!',
     'doctypes_unique_duplicate': 'Типы Документов с указанными кодом и наименованием уже существуют!',
 
-    'construction_documents_pkey_duplicate': 'Докумнеты Проекта с указанным ключом уже существуют!',
+    'construction_documents_pkey_duplicate': 'Документы Проекта с указанным ключом уже существуют!',
+
+    'organization_documents_pkey_duplicate': 'Документы Организации с указанным ключом уже существуют!',
+    'organization_documents_unique_duplicate': 'Документы Организации с указанными Организацией, типом, номером '
+                                               'и датой уже существуют!',
 
     'sortarmedforces_pkey_duplicate': 'Вид ВС с указанным ключом уже существуют!',
     'purposemu_pkey_duplicate': 'Предназначение ВФ с указанным ключом уже существует!',

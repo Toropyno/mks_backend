@@ -3,29 +3,28 @@ import colander
 from mks_backend.controllers.schemas.validator_utils import (
     strip_space,
     date_validator,
+    organization_uuid,
     uuid_file_validator,
-    timestamp_validator,
 )
 
 
-class ConstructionDocumentSchema(colander.MappingSchema):
-
-    construction_id = colander.SchemaNode(
-        colander.Int(),
-        name='constructionId',
-        validator=colander.Range(
-            min=0,
-            min_err='Неверный номер проекта'
-        )
-    )
+class OrganizationDocumentSchema(colander.MappingSchema):
 
     doctypes_id = colander.SchemaNode(
         colander.Int(),
-        name='docTypesId',
+        name='docTypeId',
         validator=colander.Range(
             min=0,
             min_err='Неверный номер типа документов'
         )
+    )
+
+    doc_date = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='docDate',
+        msg='Недопустимая информация о дате документа',
+        validator=date_validator
     )
 
     doc_number = colander.SchemaNode(
@@ -39,15 +38,7 @@ class ConstructionDocumentSchema(colander.MappingSchema):
             max_err='Слишком длинный номер документа'
         )
     )
-
-    doc_date = colander.SchemaNode(
-        colander.String(),
-        preparer=[strip_space],
-        name='docDate',
-        msg='Недопустимая информация о дате документа',
-        validator=date_validator
-    )
-
+    
     doc_name = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
@@ -82,11 +73,9 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         missing=None
     )
 
-    upload_date = colander.SchemaNode(
+    organizations_id = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
-        name='uploadDate',
-        msg='Недопустимая информация о дате загрузки',
-        validator=timestamp_validator,
-        missing=None
+        name='organizationId',
+        validator=organization_uuid
     )

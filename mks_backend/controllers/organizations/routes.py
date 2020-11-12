@@ -8,6 +8,9 @@ def include_organizations(config):
     config.add_route('update_organization_history', '/organization-history/{history_id}', request_method='PUT')
     config.add_route('delete_organization_history', '/organization-history/{history_id}', request_method='DELETE')
 
+    config.add_route('add_organization_document', '/organization_document', request_method='POST')
+    config.add_route('edit_organization_document', '/organization_document/{id}', request_method='PUT')
+
     config.add_route('add_official', '/official', request_method='POST')
     config.add_route('edit_official', '/official/{id}', request_method='PUT')
     config.add_route('delete_official', '/official/{id}', request_method='DELETE')
