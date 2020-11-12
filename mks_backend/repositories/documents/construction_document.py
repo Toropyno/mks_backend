@@ -21,8 +21,8 @@ class ConstructionDocumentRepository:
         DBSession.add(construction_document)
         DBSession.commit()
 
-    def delete_construction_document(self, construction_document: ConstructionDocument) -> None:
-        DBSession.delete(construction_document)
+    def delete_construction_document(self, id: int) -> None:
+        DBSession.query(ConstructionDocument).filter_by(construction_documents_id=id).delete()
         DBSession.commit()
 
     @db_error_handler

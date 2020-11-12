@@ -1,6 +1,7 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.documents.object_document import ObjectDocument
 from mks_backend.repositories import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ObjectDocumentRepository:
@@ -14,8 +15,7 @@ class ObjectDocumentRepository:
         DBSession.commit()
 
     def delete_object_document_by_id(self, id: int) -> None:
-        object_document = self.get_object_document_by_id(id)
-        DBSession.delete(object_document)
+        DBSession.query(ObjectDocument).filter_by(object_documents_id=id).delete()
         DBSession.commit()
 
     def get_object_document_by_id(self, id: int) -> ObjectDocument:
