@@ -20,12 +20,12 @@ class OrganizationHistory(Base):
 
     __tablename__ = 'organizations_history'
     __table_args__ = (
+        {'schema': ORGANIZATION_SCHEMA},
         UniqueConstraint(
             'organizations_id',
             'begin_date',
             name='organizations_history_ak'
         ),
-        {'schema': ORGANIZATION_SCHEMA},
     )
 
     organizations_history_id = Column(Integer, primary_key=True)

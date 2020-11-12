@@ -19,14 +19,14 @@ class OrganizationDocument(Base):
     __tablename__ = 'organization_documents'
 
     __table_args__ = (
+        {'schema': ORGANIZATION_SCHEMA},
         UniqueConstraint(
             'organizations_id',
             'doctypes_id',
             'doc_date',
             'doc_number',
             name='organization_documents_unique'
-        ),
-        {'schema': ORGANIZATION_SCHEMA},
+        )
     )
 
     organization_documents_id = Column(Integer, primary_key=True)

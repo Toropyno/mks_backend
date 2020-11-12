@@ -1,7 +1,7 @@
 import os
 import sys
 
-from mks_backend.models import Base, DBSession, ORGANIZATION_SCHEMA, SCHEMAS
+from mks_backend.models import Base, DBSession, SCHEMAS
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
 from sqlalchemy.schema import CreateSchema
