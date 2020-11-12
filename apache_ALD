@@ -1,0 +1,40 @@
+WSGIPythonHome /home/atimchenko/MKS/backend/env
+WSGIPythonPath /home/atimchenko/MKS/backend
+WSGIChunkedRequest On
+
+<VirtualHost *:80>
+
+    ErrorDocument 500 "Some unexpected shit happened. Contact atimchenko@htsts.ru"
+    DocumentRoot /home/atimchenko/MKS/frontend
+    WSGIScriptAlias /api /home/atimchenko/MKS/backend/pyramid.wsgi
+
+    <Directory /home/atimchenko/MKS/backend>
+        AuthType Kerberos
+        KrbAuthRealms INT.AORTI.TECH
+	Krb5Keytab /etc/apache2/keytab/1mks03.int.aorti.tech
+	KrbServiceName HTTP/1mks03.int.aorti.tech
+        KrbMethodNegotiate on
+        KrbMethodK5Passwd on
+	Require valid-user
+    </Directory>
+
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+    RewriteCond %{REQUEST_URI} !^/api/.*$
+    RewriteRule ^ - [L]
+
+    <Directory /home/atimchenko/MKS/frontend>
+        AuthType Kerberos
+        KrbAuthRealms INT.AORTI.TECH
+        KrbServiceName HTTP/1mks03.int.aorti.tech
+        Krb5Keytab /etc/apache2/keytab/1mks03.int.aorti.tech
+        KrbMethodNegotiate on
+        KrbMethodK5Passwd on
+        Require valid-user
+        AllowOverride All
+    </Directory>
+
+    ErrorLog /home/atimchenko/MKS/error.log
+    CustomLog /home/atimchenko/MKS/access.log combined
+
+</VirtualHost>

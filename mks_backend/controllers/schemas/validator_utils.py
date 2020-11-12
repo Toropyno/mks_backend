@@ -1,3 +1,4 @@
+import re
 from uuid import UUID
 from datetime import datetime
 
@@ -9,6 +10,19 @@ def date_validator(node: colander.SchemaNode, date: str) -> None:
         datetime.strptime(date, '%a %b %d %Y')
     except ValueError:
         raise colander.Invalid(node, 'Неверный формат даты')
+
+
+def timestamp_validator(node: colander.SchemaNode, date_time: str) -> None:
+    try:
+        datetime.strptime(date_time, '%a %b %d %Y %H:%M:%S')
+    except ValueError:
+        raise colander.Invalid(node, 'Неверный формат даты и времени')
+
+
+def strip_space(value: str) -> str:
+    if value:
+        value = value.strip(' \t\n\r')
+    return value
 
 
 def organization_parent_uuid(node: colander.SchemaNode, value: str):
@@ -35,15 +49,17 @@ def is_uuid(value: str) -> bool:
         return True
 
 
-def strip_space(value: str) -> str:
-    if value:
-        value = value.strip(' \t\n\r')
-    return value
+def phone_validator(node: colander.SchemaNode, value: str) -> None:
+    pattern = '\\+?[\d\s\\-\\(\\)]{3,40}'
+    validator_by_pattern(node, value, pattern)
 
 
-def timestamp_validator(node: colander.SchemaNode, date_time: str) -> None:
-    try:
-        datetime.strptime(date_time, '%a %b %d %Y %H:%M:%S')
-    except ValueError:
-        raise colander.Invalid(node, 'Неверный формат даты и времени')
+def email_validator(node: colander.SchemaNode, value: str) -> None:
+    pattern = '[\da-zA-ZА-ЯЁа-яё\\-\\_]+@[\da-zA-ZА-ЯЁа-яё\\-\\_]+\\.[a-zA-ZА-ЯЁа-яё]+'
+    validator_by_pattern(node, value, pattern)
 
+
+def validator_by_pattern(node: colander.SchemaNode, value: str, pattern: str) -> None:
+    res = re.fullmatch(pattern, value)
+    if res is None or len(value) > 80:
+        raise colander.Invalid(node, node.msg)

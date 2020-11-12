@@ -18,6 +18,7 @@ class Organization(Base):
     """
     Организации
     """
+
     __tablename__ = 'organizations'
 
     __table_args__ = {'schema': ORGANIZATION_SCHEMA}
@@ -37,18 +38,26 @@ class Organization(Base):
     history = relationship(
         'OrganizationHistory',
         order_by='desc(OrganizationHistory.begin_date)',
-        back_populates='organization'
+        back_populates='organization',
+        passive_deletes=True
     )
 
     sub_organizations = relationship(
         'Organization',
         cascade='all, delete-orphan',
-        passive_deletes=True,
+        passive_deletes=True
     )
 
     organization_documents = relationship(
         'OrganizationDocument',
-        back_populates='organization'
+        back_populates='organization',
+        passive_deletes=True
+    )
+
+    officials = relationship(
+        'Official',
+        back_populates='organization',
+        passive_deletes=True
     )
 
     parent = relationship(
