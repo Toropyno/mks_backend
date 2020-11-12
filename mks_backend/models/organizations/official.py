@@ -39,14 +39,9 @@ class Official(Base):
 
     military_ranks_id = Column(
         Integer,
-        # ForeignKey('{schema}.military_ranks.military_ranks_id'.format(schema=ORGANIZATION_SCHEMA), ondelete='CASCADE'),
     )
 
     # --------- relationships --------- #
-
-    # military_rank = relationship(
-    #     'MilitaryRank'
-    # )
 
     organization = relationship(
         'Organization',

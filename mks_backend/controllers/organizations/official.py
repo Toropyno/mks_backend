@@ -3,9 +3,9 @@ from pyramid.request import Request
 
 from mks_backend.controllers.schemas.organizations.official import OfficialSchema
 from mks_backend.serializers.organizations.official import OfficialSerializer
+from mks_backend.services.organizations.official import OfficialService
 
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
-from mks_backend.services.organizations.official import OfficialService
 
 
 @view_defaults(renderer='json')
@@ -45,3 +45,10 @@ class OfficialController:
         id = int(self.request.matchdict['id'])
         self.service.delete_official_by_id(id)
         return {'id': id}
+
+    @handle_db_error
+    @view_config(route_name='get_officials_by_organization')
+    def get_officials_by_organization(self):
+        organization_id = self.request.matchdict['organization_uuid']
+        officials = self.service.get_officials_by_organization(organization_id)
+        return self.serializer.convert_list_to_json(officials)

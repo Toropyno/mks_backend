@@ -2,6 +2,7 @@ from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
 from mks_backend.controllers.schemas.organizations.organization_document import OrganizationDocumentSchema
+from mks_backend.serializers.organizations.organization_document import OrganizationDocumentSerializer
 from mks_backend.services.organizations.organization_document import OrganizationDocumentService
 
 from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
@@ -14,6 +15,7 @@ class OrganizationDocumentController:
         self.request = request
         self.schema = OrganizationDocumentSchema()
         self.service = OrganizationDocumentService()
+        self.serializer = OrganizationDocumentSerializer()
 
     @handle_db_error
     @handle_colander_error
@@ -42,3 +44,10 @@ class OrganizationDocumentController:
         id = int(self.request.matchdict['id'])
         self.service.delete_organization_document_by_id(id)
         return {'id': id}
+
+    @handle_db_error
+    @view_config(route_name='get_documents_by_organization')
+    def get_documents_by_organization(self):
+        organization_id = self.request.matchdict['organization_uuid']
+        documents = self.service.get_documents_by_organization(organization_id)
+        return self.serializer.convert_list_to_json(documents)

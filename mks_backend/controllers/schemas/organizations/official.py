@@ -108,7 +108,7 @@ class OfficialSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='secureСhannel',
         validator=colander.Length(
-            min=2,
+            min=1,
             max=40,
             min_err='Слишком короткое АТС-Р',
             max_err='Слишком длинное АТС-Р'

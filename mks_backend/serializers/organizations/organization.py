@@ -1,8 +1,6 @@
 from uuid import uuid4
 
 from mks_backend.models.organizations.organization import Organization
-from mks_backend.serializers.organizations.official import OfficialSerializer
-from mks_backend.serializers.organizations.organization_document import OrganizationDocumentSerializer
 from mks_backend.serializers.organizations.organization_history import OrganizationHistorySerializer
 
 
@@ -10,8 +8,6 @@ class OrganizationSerializer:
 
     def __init__(self):
         self.history_serializer = OrganizationHistorySerializer()
-        self.oficial_serializer = OfficialSerializer()
-        self.document = OrganizationDocumentSerializer()
 
 
     def to_json(self, node: Organization) -> dict:
@@ -22,8 +18,6 @@ class OrganizationSerializer:
             'fullname': node.actual.fullname,
             'isActive': False if node.actual.end_date else True,
             'history': self.history_serializer.convert_list_to_json(node.history),
-            'oficials': self.oficial_serializer.convert_list_to_json(node.officials) if node.officials else [],
-            'organizationDocuments': self.document.convert_list_to_json(node.organization_documents),
 
             # recursive strategy
             'children': self.to_json_tree(node.children),

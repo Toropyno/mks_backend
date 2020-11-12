@@ -38,28 +38,31 @@ class Organization(Base):
     history = relationship(
         'OrganizationHistory',
         order_by='desc(OrganizationHistory.begin_date)',
-        back_populates='organization'
+        back_populates='organization',
+        passive_deletes=True
     )
 
     sub_organizations = relationship(
         'Organization',
         cascade='all, delete-orphan',
-        passive_deletes=True,
+        passive_deletes=True
     )
 
     organization_documents = relationship(
         'OrganizationDocument',
-        back_populates='organization'
+        back_populates='organization',
+        passive_deletes=True
+    )
+
+    officials = relationship(
+        'Official',
+        back_populates='organization',
+        passive_deletes=True
     )
 
     parent = relationship(
         'Organization',
         remote_side=organizations_id,
-    )
-
-    officials = relationship(
-        'Official',
-        back_populates='organization'
     )
 
     # --------- hybrid_properties --------- #

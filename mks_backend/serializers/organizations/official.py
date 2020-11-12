@@ -1,6 +1,7 @@
-from mks_backend.errors.serilize_error import serialize_error_handler
 from mks_backend.models.organizations.official import Official
 from mks_backend.serializers.utils.date_and_time import get_date_string
+
+from mks_backend.errors.serilize_error import serialize_error_handler
 
 
 class OfficialSerializer:
@@ -12,10 +13,7 @@ class OfficialSerializer:
             'id': oficial.officials_id,
             'positionName': oficial.position_name,
             'organizationId': oficial.organizations_id,
-
             'militaryRankId': oficial.military_ranks_id,
-            # 'militaryRank': MilitaryRank.to_json(oficial.military_ranks_id),
-
             'surname': oficial.surname,
             'firstName': oficial.firstname,
             'middleName': oficial.middlename,
