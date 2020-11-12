@@ -47,8 +47,9 @@ class ZoneController:
     @handle_colander_error
     @view_config(route_name='edit_zone', renderer='json')
     def edit_zone(self):
+        id = self.get_id()
         zone_deserialized = self.schema.deserialize(self.request.json_body)
-        zone_deserialized['id'] = self.get_id()
+        zone_deserialized['id'] = id
 
         zone = self.service.convert_schema_to_object(zone_deserialized)
         self.service.update_zone(zone)
