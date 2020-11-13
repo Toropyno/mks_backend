@@ -1,8 +1,5 @@
-from uuid import UUID
-
 from mks_backend.errors.serilize_error import serialize_error_handler
 from mks_backend.models.filestorage import Filestorage
-from mks_backend.serializers.utils.date_and_time import get_date_time_zone
 
 
 class FileStorageSerializer:
