@@ -1,14 +1,8 @@
-from os import environ
 import argparse
 
+from mks_backend.env_vars import setup_env_vars
+
 from mks_backend.repositories.miv.miv import MIVRepository
-
-
-environ['MIV_USER'] = ''
-environ['MIV_USER_PASSWORD'] = ''
-environ['MIV_REGISTER_URL'] = 'http://1krn-balancer01.int.aorti.tech:8860/public/api/1.0/account_endpoint/'
-environ['MIV_SEND_URL'] = 'http://1krn-balancer01.int.aorti.tech:8860/public/api/1.0/message/receive/'
-environ['MIV_WHOAMI_URL'] = 'http://1krn-balancer01.int.aorti.tech:8860/public/api/1.0/whoami/'
 
 
 def register():
@@ -20,6 +14,7 @@ def send():
 
 
 if __name__ == '__main__':
+    setup_env_vars()
     parser = argparse.ArgumentParser()
     parser.add_argument('action')
     args = parser.parse_args()

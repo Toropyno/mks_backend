@@ -10,8 +10,11 @@ from mks_backend.controllers.organizations.routes import include_organizations
 from mks_backend.controllers.miv.routes import include_miv
 from mks_backend.routes import includeme
 
+from mks_backend.env_vars import setup_env_vars
+
 
 def main(global_config, **settings):
+    setup_env_vars()
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
