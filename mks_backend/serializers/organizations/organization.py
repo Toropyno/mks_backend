@@ -9,15 +9,12 @@ class OrganizationSerializer:
     def __init__(self):
         self.history_serializer = OrganizationHistorySerializer()
 
-
     def to_json(self, node: Organization) -> dict:
         return {
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
-            'shortname': node.actual.shortname,
-            'fullname': node.actual.fullname,
+            'label': node.actual.shortname,
             'isActive': False if node.actual.end_date else True,
-            'history': self.history_serializer.convert_list_to_json(node.history),
 
             # recursive strategy
             'children': self.to_json_tree(node.children),
