@@ -25,8 +25,8 @@ class OrganizationHistorySerializer:
             'endDate': get_date_string(record.end_date),
         }
 
-    def convert_list_to_json(self, rootes: list) -> list:
-        return list(map(self.to_json, rootes))
+    def convert_list_to_json(self, history_records: list) -> list:
+        return list(map(self.to_json, history_records))
 
     def to_mapped_object(self, history_record: dict, organization_uuid: str = None) -> OrganizationHistory:
         if not history_record.get('organizationId'):
