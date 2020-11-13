@@ -64,6 +64,7 @@ from mks_backend.models.inspections.inspection import Inspection
 from mks_backend.models.organizations.organization import Organization
 from mks_backend.models.organizations.organization_history import OrganizationHistory
 from mks_backend.models.organizations.organization_document import OrganizationDocument
+from mks_backend.models.organizations.official import Official
 
 
 def usage(argv):

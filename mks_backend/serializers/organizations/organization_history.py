@@ -4,7 +4,7 @@ from mks_backend.serializers.utils.date_and_time import get_date_string
 
 class OrganizationHistorySerializer:
 
-    def to_json(self, record: OrganizationHistory):
+    def to_json(self, record: OrganizationHistory) -> dict:
         return {
             'organizationHistoryId': record.organizations_history_id,
             'shortname': record.shortname,
@@ -25,7 +25,7 @@ class OrganizationHistorySerializer:
             'endDate': get_date_string(record.end_date),
         }
 
-    def convert_list_to_json(self, rootes):
+    def convert_list_to_json(self, rootes: list) -> list:
         return list(map(self.to_json, rootes))
 
     def to_mapped_object(self, history_record: dict, organization_uuid: str = None) -> OrganizationHistory:
