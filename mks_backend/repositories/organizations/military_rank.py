@@ -1,6 +1,7 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.organizations.military_rank import MilitaryRank
 from mks_backend.repositories import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class MilitaryRankRepository:
@@ -17,8 +18,7 @@ class MilitaryRankRepository:
         DBSession.commit()
 
     def delete_military_rank_by_id(self, id: int) -> None:
-        military_rank = self.get_military_rank_by_id(id)
-        DBSession.delete(military_rank)
+        DBSession.query(MilitaryRank).filter_by(military_ranks_id=id).delete()
         DBSession.commit()
 
     @db_error_handler
