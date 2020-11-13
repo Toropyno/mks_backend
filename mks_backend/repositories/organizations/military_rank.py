@@ -1,5 +1,5 @@
 from mks_backend.errors.db_basic_error import db_error_handler
-from mks_backend.models.military_rank import MilitaryRank
+from mks_backend.models.organizations.military_rank import MilitaryRank
 from mks_backend.repositories import DBSession
 
 

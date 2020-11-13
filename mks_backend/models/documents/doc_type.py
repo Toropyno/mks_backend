@@ -25,6 +25,8 @@ class DocType(Base):
     code = Column(VARCHAR(40), nullable=False)
     fullname = Column(VARCHAR(255), nullable=False)
 
+    # --------- relationships --------- #
+
     documents = relationship(
         'ConstructionDocument',
         back_populates='doc_type'

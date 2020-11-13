@@ -18,26 +18,46 @@ class Organization(Base):
     """
     Организации
     """
+
     __tablename__ = 'organizations'
+
     __table_args__ = {'schema': ORGANIZATION_SCHEMA}
 
     organizations_id = Column(UUID, primary_key=True, default=uuid4)
-    parent_organizations_id = Column(UUID, ForeignKey(organizations_id, ondelete='CASCADE'), nullable=True)
     par_number = Column(Integer, nullable=True)
     org_sign = Column(BOOLEAN, default=False, nullable=False)
+
+    parent_organizations_id = Column(
+        UUID,
+        ForeignKey(organizations_id, ondelete='CASCADE'),
+        nullable=True
+    )
 
     # --------- relationships --------- #
 
     history = relationship(
         'OrganizationHistory',
         order_by='desc(OrganizationHistory.begin_date)',
-        back_populates='organization'
+        back_populates='organization',
+        passive_deletes=True
     )
 
     sub_organizations = relationship(
         'Organization',
         cascade='all, delete-orphan',
-        passive_deletes=True,
+        passive_deletes=True
+    )
+
+    organization_documents = relationship(
+        'OrganizationDocument',
+        back_populates='organization',
+        passive_deletes=True
+    )
+
+    officials = relationship(
+        'Official',
+        back_populates='organization',
+        passive_deletes=True
     )
 
     parent = relationship(

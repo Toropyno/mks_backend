@@ -423,6 +423,7 @@ Method: GET
 
 Description: Delete construction_document
 Route: '/construction_document/{id}'
+Method: DELETE
 
 
 # --- construction_progress ---
@@ -441,6 +442,7 @@ Method: GET
 
 Description: Delete construction_progress
 Route: '/construction_progress/{id}'
+Method: DELETE
 
 
 # --- doc_type ---
@@ -459,6 +461,7 @@ Method: GET
 
 Description: Delete doc_type
 Route: '/doc_type/{id}'
+Method: DELETE
 
 
 # ---object_file---
@@ -473,6 +476,7 @@ Method: GET
 
 Description: Delete object_file
 Route: '/object_file/{id}'
+Method: DELETE
 
 ---POST
 
@@ -551,6 +555,7 @@ Method: GET
 
 Description: Delete measure_unit
 Route: '/measure_unit/{id}'
+Method: DELETE
 
 
 # --- contract_status ---
@@ -569,6 +574,7 @@ Method: GET
 
 Description: Delete contract_status
 Route: '/contract_status/{id}'
+Method: DELETE
 
 
 # --- element_type ---
@@ -587,6 +593,7 @@ Method: GET
 
 Description: Delete element_type
 Route: '/element_type/{id}'
+Method: DELETE
 
 
 # --- progress_status ---
@@ -605,44 +612,98 @@ Method: GET
 
 Description: Delete progress_status
 Route: '/progress_status/{id}'
+Method: DELETE
+
+
+# --- official ---
+
+Description: Add official
+Route: '/official'
+Method: POST
+
+Description: Delete official
+Route: '/official/{id}'
+Method: DELETE
+
+Description: Edit official
+Route: '/official/{id}'
+Method: PUT
+
+Description: Get officials by organization_uuid
+Route: '/organization/{organization_uuid}/official'
+Method: GET
+
+{
+    "positionName": "positionName",
+    "organizationId": "d181c97a-e0b2-42d3-bcd5-2a05356c0b92",
+    "surname": "oficial surname",
+    "firstName": "oficial firstname",
+    "beginDate": "Thu Nov 12 2020",
+
+    "middleName": "oficial.middlename",
+    "endDate": "Thu Nov 30 2025",
+    "secureСhannel": "oficial.secure_channel",
+    "note": "oficial.note",
+    "phone": "+7 55 44 777",
+    "email": "ddddd@ddd.wed",
+    "militaryRankId": 1
+}
+
+# --- organization_document ---
+
+Description: Add organization_document
+Route: '/organization_document'
+Method: POST
+
+Description: Edit organization_document
+Route: '/organization_document/{id}'
+Method: PUT
+
+Description: Delete organization_document
+Route: '/organization_document/{id}'
+Method: DELETE
+
+Description: Get get organization_documents by organization_uuid
+Route: '/organization/{organization_uuid}/organization_document'
+Method: GET
 
 
 =====================================================================================================
 
 ConstructionDocument {
-    'id'            Integer
-    'constructionId'Integer
-    'docType'{
-                "id"        Integer
-                "code"      String
-                "fullName"  String
+    id             Integer
+    constructionId Integer
+    docType     {
+                    id        Integer
+                    code      String
+                    fullName  String
                 }
-    'docNumber'     String
-    'docDate'       String
-    'docName'       String
-    'note'          String
-    'uploadDate'    String
-    'file' {
-            'name'          String
-            'size'          String
-            'idFileStorage' String
-    }
+    docNumber     String
+    docDate       String
+    docName       String
+    note          String
+    uploadDate    String
+    file        {
+                    name          String
+                    size          String
+                    idFileStorage String
+                }
 }
 
 ConstructionObject {
 
     ...
 
-    'realtyType'            Integer
-    'factDate'              String
-    'constructionProgress'  {
+    realtyType            Integer
+    factDate              String
+    constructionProgress  {
             readiness             DECIMAL(17,2)
             people                Integer
             equipment             Integer
             progressStatusesId    Integer
     }
-    'documents':    [ConstructionDocument{}, ConstructionDocument{}, ...],
-    'files':        [Filestorage{}, Filestorage{}, ...]
+    documents:    [ConstructionDocument{}, ConstructionDocument{}, ...],
+    files:        [Filestorage{}, Filestorage{}, ...]
 }
 
 ConstructionProgress {
@@ -690,3 +751,40 @@ ObjectFile {
     note                String
     uploadDate          String
 }
+
+Official {
+    id              Integer
+    positionName    String
+    organizationId  String
+    militaryRankId  Integer
+    surname         String
+    firstName       String
+    middleName      String
+    beginDate       String
+    endDate         String
+    phone           String
+    secureСhannel   String
+    email           String
+    note            String
+}
+
+OrganizationDocument {
+    id             Integer
+    organizationId Integer
+    docType     {
+                    id        Integer
+                    code      String
+                    fullName  String
+                }
+    docNumber     String
+    docDate       String
+    docName       String
+    note          String
+    uploadDate    String
+    file        {
+                    name          String
+                    size          String
+                    idFileStorage String
+                }
+}
+

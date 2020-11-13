@@ -2,6 +2,7 @@ from typing import List
 
 from mks_backend.models.organizations.organization import Organization
 from mks_backend.repositories import DBSession
+
 from mks_backend.errors.db_basic_error import DBBasicError, db_error_handler
 
 
@@ -20,14 +21,14 @@ class OrganisationRepository:
         DBSession.merge(organization)
         DBSession.commit()
 
-    def get(self, uuid: str) -> Organization:
+    def get_by_id(self, uuid: str) -> Organization:
         organization = self._query.get(uuid)
         if not organization:
-            raise DBBasicError('organnization_nf')
+            raise DBBasicError('organization_nf')
         return organization
 
     def delete(self, organization_uuid: str):
-        organization = self.get(organization_uuid)
+        organization = self.get_by_id(organization_uuid)
         DBSession.delete(organization)
         DBSession.commit()
 

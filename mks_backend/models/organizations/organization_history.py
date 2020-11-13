@@ -19,6 +19,7 @@ class OrganizationHistory(Base):
     """
 
     __tablename__ = 'organizations_history'
+
     __table_args__ = (
         UniqueConstraint(
             'organizations_id',

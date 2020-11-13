@@ -12,8 +12,7 @@ class FilestorageRepository:
         return DBSession.query(Filestorage).get(id)
 
     def delete_filestorage_by_id(self, id: str) -> None:
-        filestorage = self.get_filestorage_by_id(id)
-        DBSession.delete(filestorage)
+        DBSession.query(Filestorage).filter_by(idfilestorage=id).delete()
         DBSession.commit()
 
     def get_many_file_storages_by_id(self, ids: list) -> list:

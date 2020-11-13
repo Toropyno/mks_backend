@@ -9,7 +9,8 @@ class OrganizationSerializer:
     def __init__(self):
         self.history_serializer = OrganizationHistorySerializer()
 
-    def to_json(self, node: Organization):
+
+    def to_json(self, node: Organization) -> dict:
         return {
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
@@ -19,10 +20,10 @@ class OrganizationSerializer:
             'history': self.history_serializer.convert_list_to_json(node.history),
 
             # recursive strategy
-            'children': self.to_json_tree(node.children)
+            'children': self.to_json_tree(node.children),
         }
 
-    def to_json_tree(self, rootes):
+    def to_json_tree(self, rootes: list) -> list:
         return list(map(self.to_json, rootes))
 
     def to_mapped_object(self, schema: dict) -> Organization:

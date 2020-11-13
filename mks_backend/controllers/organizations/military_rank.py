@@ -25,7 +25,7 @@ class MilitaryRankController:
     def get_military_rank(self):
         id = self.get_id()
         military_rank = self.service.get_military_rank_by_id(id)
-        return self.serializer.convert_object_to_json(military_rank)
+        return self.serializer.to_json(military_rank)
 
     @handle_db_error
     @handle_colander_error
@@ -56,4 +56,4 @@ class MilitaryRankController:
         return {'id': id}
 
     def get_id(self):
-        return int(self.request.matchdict['id'])
+        return int(self.request.matchdict.get('id'))

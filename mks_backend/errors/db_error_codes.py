@@ -114,7 +114,11 @@ DB_ERROR_CODES = {
     'doctypes_pkey_duplicate': 'Типы Документов с указанным ключом уже существуют!',
     'doctypes_unique_duplicate': 'Типы Документов с указанными кодом и наименованием уже существуют!',
 
-    'construction_documents_pkey_duplicate': 'Докумнеты Проекта с указанным ключом уже существуют!',
+    'construction_documents_pkey_duplicate': 'Документы Проекта с указанным ключом уже существуют!',
+
+    'organization_documents_pkey_duplicate': 'Документы Организации с указанным ключом уже существуют!',
+    'organization_documents_unique_duplicate': 'Документы Организации с указанными Организацией, типом, номером '
+                                               'и датой уже существуют!',
 
     'sortarmedforces_pkey_duplicate': 'Вид ВС с указанным ключом уже существуют!',
     'purposemu_pkey_duplicate': 'Предназначение ВФ с указанным ключом уже существует!',
@@ -125,7 +129,10 @@ DB_ERROR_CODES = {
     'military_unit_pkey_duplicate': 'Воинское Формирование с указанным ключом уже существует!',
 
     'organizations_history_ak_duplicate': 'Запись с таким id организации и датой начала уже существует!',
+    'officials_pkey_duplicate': 'Должностные лица с указанным ключом уже существуют!',
+
     'other_duplicate': 'Дубликат записи!',
+
 
     'protocol_meetings_type_id_fkey': 'Указанного Типа Заседания не существует!',
     'protocol_idfilestorage_fkey': 'Указанного Файла не существует!',
@@ -183,14 +190,17 @@ DB_ERROR_CODES = {
     'inspection_files_idfilestorage_fkey': 'Указанного Файла не существует!',
     'inspection_files_inspections_id_fkey': 'Указанной Проверки Объектов Строительства не существует!',
 
-    'object_documents_construction_objects_id_fkey': 'Указанноого Объекта Строительства не существует!',
+    'object_documents_construction_objects_id_fkey': 'Указанного Объекта Строительства не существует!',
     'object_documents_construction_documents_id_fkey': 'Указанных Документов Строительства не существует!',
 
-    'construction_documents_construction_id_fkey': 'Указанноого Проекта не существует!',
+    'construction_documents_construction_id_fkey': 'Указанного Проекта не существует!',
     'construction_documents_doctypes_id_id_fkey': 'Указанных Типов Документов не существует!',
-    'construction_documents_idfilestorage_fkey': 'Указанноого Файла не существует!',
+    'construction_documents_idfilestorage_fkey': 'Указанного Файла не существует!',
 
-    'organizations_parent_organizations_id_fkey': 'Такой организации-родителя не существует!',
+    'organizations_parent_organizations_id_fkey': 'Указанной Организации-родителя не существует!',
+
+    'officials_organizations_id_fkey': 'Указанной Организации не существует!',
+    'officials_military_ranks_id_fkey': 'Указанного Воинского Звания не существует!',
 
     'other_fkey': 'Вторичный ключ не найден!',
 
