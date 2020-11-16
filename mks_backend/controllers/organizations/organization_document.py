@@ -48,6 +48,6 @@ class OrganizationDocumentController:
     @handle_db_error
     @view_config(route_name='get_documents_by_organization')
     def get_documents_by_organization(self):
-        organization_id = self.request.matchdict['organization_uuid']
+        organization_id = self.request.matchdict.get('organization_uuid')
         documents = self.service.get_documents_by_organization(organization_id)
         return self.serializer.convert_list_to_json(documents)

@@ -39,11 +39,17 @@ class Official(Base):
 
     military_ranks_id = Column(
         Integer,
+        ForeignKey('{schema}.military_ranks.military_ranks_id'.format(schema=ORGANIZATION_SCHEMA)),
+        nullable=True
     )
 
     # --------- relationships --------- #
 
-    organization = relationship(
-        'Organization',
+    military_rank = relationship(
+        'MilitaryRank',
         back_populates='officials'
+    )
+
+    organization = relationship(
+        'Organization'
     )
