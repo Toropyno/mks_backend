@@ -33,5 +33,11 @@ class OrganisationRepository:
         DBSession.commit()
 
     def get_rootes(self) -> List[Organization]:
-        rootes = self._query.filter(Organization.parent_organizations_id == None).all()
-        return sorted(rootes, key=lambda root: root.shortname)
+        return self._query.filter(Organization.parent_organizations_id is None).order_by(Organization.shortname).all()
+
+    def get_rootes_without_inactive(self) -> List[Organization]:
+        return self._query.filter(
+            Organization.parent_organizations_id is None
+        ).filter(
+            Organization.is_active is True
+        ).order_by(Organization.shortname).all()

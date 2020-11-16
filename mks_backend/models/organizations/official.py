@@ -2,10 +2,8 @@ from sqlalchemy import (
     Column,
     Integer,
     ForeignKey,
-    UniqueConstraint,
     VARCHAR,
     DATE,
-    CheckConstraint
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship

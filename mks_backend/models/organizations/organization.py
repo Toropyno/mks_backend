@@ -82,3 +82,7 @@ class Organization(Base):
     @hybrid_property
     def actual(self) -> OrganizationHistory:
         return max(self.history, key=lambda history_record: history_record.begin_date)
+
+    @hybrid_property
+    def is_active(self) -> bool:
+        return False if self.actual.end_date else True

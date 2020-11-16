@@ -14,7 +14,7 @@ class OrganizationSerializer:
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
             'label': node.actual.shortname,
-            'isActive': False if node.actual.end_date else True,
+            'isActive': node.is_active,
 
             # recursive strategy
             'children': self.to_json_tree(node.children),
