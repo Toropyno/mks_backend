@@ -6,8 +6,15 @@ class OrganisationService:
     def __init__(self):
         self.repo = OrganisationRepository()
 
-    def get_rootes(self):
-        return self.repo.get_rootes()
+    def get_rootes(self, filter_params=None) -> list:
+
+        if filter_params:
+            if self.get_reflect_disbanded(filter_params):
+                all_is_active = True
+
+        rootes = self.repo.get_rootes()
+
+        return rootes
 
     def add_organization(self, organization: Organization) -> None:
         self.repo.add(organization)
@@ -44,3 +51,6 @@ class OrganisationService:
 
     def get_by_id(self, organization_uuid: str) -> Organization:
         return self.repo.get_by_id(organization_uuid)
+
+    def get_reflect_disbanded(self, params_deserialized: dict) -> bool:
+        return params_deserialized.get('reflect_disbanded', True)

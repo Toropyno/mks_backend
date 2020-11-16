@@ -44,3 +44,13 @@ class OrganizationPatchSchema(colander.MappingSchema):
         name='parentId',
         validator=organization_parent_uuid
     )
+
+
+class OrganizationFilterSchema(colander.MappingSchema):
+
+    reflect_disbanded = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='reflectDisbanded',
+        missing=None
+    )
+
