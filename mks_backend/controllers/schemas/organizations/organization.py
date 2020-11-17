@@ -6,6 +6,13 @@ from mks_backend.controllers.schemas.validator_utils import organization_parent_
 
 class OrganizationSchema(colander.MappingSchema):
 
+    organization_uuid = colander.SchemaNode(
+        colander.String(),
+        name='organizationId',
+        validator=organization_uuid,
+        missing=colander.drop
+    )
+
     parent = colander.SchemaNode(
         colander.String(),
         name='parentId',
@@ -28,19 +35,4 @@ class OrganizationSchema(colander.MappingSchema):
         name='isLegal'
     )
 
-    history = OrganizationHistorySchema()
-
-
-class OrganizationPatchSchema(colander.MappingSchema):
-
-    organization_uuid = colander.SchemaNode(
-        colander.String(),
-        name='organizationId',
-        validator=organization_uuid
-    )
-
-    new_parent_uuid = colander.SchemaNode(
-        colander.String(),
-        name='parentId',
-        validator=organization_parent_uuid
-    )
+    history = OrganizationHistorySchema(missing=colander.drop)

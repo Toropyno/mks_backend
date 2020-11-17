@@ -12,6 +12,9 @@ class OrganisationService:
     def add_organization(self, organization: Organization) -> None:
         self.repo.add(organization)
 
+    def update_organization(self, organization: Organization) -> None:
+        self.repo.update(organization)
+
     def delete_organization(self, organization_uuid: str, new_parent_uuid: str = None) -> None:
         """
         Deletion can be done in two strategies: SOFT and HARD.

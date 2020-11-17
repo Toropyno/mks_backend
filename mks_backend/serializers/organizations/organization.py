@@ -15,6 +15,7 @@ class OrganizationSerializer:
             'parentId': node.parent.organizations_id if node.parent else None,
             'label': node.actual.shortname,
             'isActive': False if node.actual.end_date else True,
+            'isLegal': node.org_sign,
 
             # recursive strategy
             'children': self.to_json_tree(node.children),
@@ -25,15 +26,17 @@ class OrganizationSerializer:
 
     def to_mapped_object(self, schema: dict) -> Organization:
         organization = Organization(
-            organizations_id=str(uuid4()),
+            organizations_id=schema.get('organizationId', str(uuid4())),
             parent_organizations_id=schema.get('parentId'),
             par_number=schema.get('parentNumber'),
             org_sign=schema.get('isLegal')
         )
 
-        history_record = self.history_serializer.to_mapped_object(
-            schema.pop('history'), organization.organizations_id
-        )
+        if schema.get('history'):
+            # case when we create organization for the first time
+            history_record = self.history_serializer.to_mapped_object(
+                schema.pop('history'), organization.organizations_id
+            )
+            organization.history = [history_record]
 
-        organization.history = [history_record]
         return organization
