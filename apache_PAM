@@ -1,0 +1,37 @@
+WSGIPythonHome /home/atimchenko/MKS/backend/env
+WSGIPythonPath /home/atimchenko/MKS/backend
+
+<VirtualHost *:80>
+    DocumentRoot /home/atimchenko/MKS/frontend
+    WSGIScriptAlias /api /home/atimchenko/MKS/backend/pyramid.wsgi
+
+    <Directory /home/atimchenko/MKS/backend>
+        AuthType Basic
+        AuthName "PAM authentication"
+        AuthBasicProvider PAM
+        AuthPAMService apache2
+        Require valid-user
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
+    </Directory>
+
+    <Directory /home/atimchenko/MKS/frontend>
+        AuthType Basic
+        AuthName "PAM authentication"
+        AuthBasicProvider PAM
+        AuthPAMService apache2
+        Require valid-user
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+    </Directory>
+
+    RewriteEngine On
+
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+    RewriteCond %{REQUEST_URI} !^/api/.*$
+    RewriteRule ^ - [L]
+
+    ErrorLog /home/atimchenko/MKS/error.log
+    CustomLog /home/atimchenko/MKS/access.log combined
+</VirtualHost>
