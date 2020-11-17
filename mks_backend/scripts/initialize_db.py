@@ -67,6 +67,9 @@ from mks_backend.models.organizations.organization_document import OrganizationD
 from mks_backend.models.organizations.official import Official
 from mks_backend.models.organizations.military_rank import MilitaryRank
 
+from mks_backend.models.miv.storage import Storage
+from mks_backend.models._loggers.miv import MIVLog
+
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
