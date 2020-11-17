@@ -33,7 +33,7 @@ class OfficialController:
     @handle_colander_error
     @view_config(route_name='edit_official')
     def edit_official(self):
-        id = int(self.request.matchdict.get('id'))
+        id = self.get_id()
         official_deserialized = self.schema.deserialize(self.request.json_body)
         official_deserialized['id'] = id
 
@@ -44,7 +44,7 @@ class OfficialController:
 
     @view_config(route_name='delete_official')
     def delete_official(self):
-        id = int(self.request.matchdict.get('id'))
+        id = self.get_id()
         self.service.delete_official_by_id(id)
         return {'id': id}
 
@@ -56,5 +56,9 @@ class OfficialController:
             params_deserialized = self.filter_schema.deserialize(self.request.GET)
 
         organization_id = self.request.matchdict.get('organization_uuid')
+
         officials = self.service.get_officials_by_organization(organization_id, params_deserialized)
         return self.serializer.convert_list_to_json(officials)
+
+    def get_id(self):
+        return int(self.request.matchdict.get('id'))

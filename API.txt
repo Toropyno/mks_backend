@@ -668,6 +668,30 @@ Route: '/organization/{organization_uuid}/organization_document'
 Method: GET
 
 
+# --- military_rank ---
+
+Description: Add military_rank
+Route: '/military_rank'
+Method: POST
+
+Description: Get all military_ranks
+Route: '/military_rank'
+Method: GET
+
+Description: Edit military_rank
+Route: '/military_rank/{id}'
+Method: PUT
+
+Description: Get military_rank
+Route: '/military_rank/{id}'
+Method: GET
+
+Description: Delete military_rank
+Route: '/military_rank/{id}'
+Method: DELETE
+
+
+
 =====================================================================================================
 
 
@@ -808,4 +832,11 @@ OfficialFilterSchema{
 
 OrganizationFilterSchema{
     reflectDisbanded                bool
+}
+
+
+
+MilitaryRank {
+    id             Integer
+    fullName       String
 }
