@@ -198,6 +198,7 @@ DB_ERROR_CODES = {
     'construction_documents_idfilestorage_fkey': 'Указанного Файла не существует!',
 
     'organizations_parent_organizations_id_fkey': 'Указанной Организации-родителя не существует!',
+    'organizations_history_organizations_id_fkey': 'Указанной Организации не существует!',
 
     'officials_organizations_id_fkey': 'Указанной Организации не существует!',
     'officials_military_ranks_id_fkey': 'Указанного Воинского Звания не существует!',
