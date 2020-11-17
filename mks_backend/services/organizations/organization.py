@@ -7,14 +7,12 @@ class OrganisationService:
         self.repo = OrganisationRepository()
 
     def get_rootes(self, filter_params=None) -> list:
-
         if filter_params:
-            if self.get_reflect_disbanded(filter_params):
-                all_is_active = True
+            if not self.get_reflect_disbanded(filter_params):
+                return self.repo.get_rootes_without_inactive()
 
-        rootes = self.repo.get_rootes()
+        return self.repo.get_rootes()
 
-        return rootes
 
     def add_organization(self, organization: Organization) -> None:
         self.repo.add(organization)

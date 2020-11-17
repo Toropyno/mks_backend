@@ -28,10 +28,13 @@ class OrganisationRepository:
         return organization
 
     def delete(self, organization_uuid: str):
-        organization = self.get_by_id(organization_uuid)
-        DBSession.delete(organization)
+        self._query.filter_by(organizations_id=organization_uuid).delete()
         DBSession.commit()
 
     def get_rootes(self) -> List[Organization]:
         rootes = self._query.filter(Organization.parent_organizations_id == None).all()
         return sorted(rootes, key=lambda root: root.shortname)
+
+    def get_rootes_without_inactive(self) -> List[Organization]:
+        rootes = self.get_rootes()
+        return list(filter(lambda x: x.is_active == True, rootes))
