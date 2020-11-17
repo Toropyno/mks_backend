@@ -9,7 +9,7 @@ class OrganizationSerializer:
     def __init__(self):
         self.history_serializer = OrganizationHistorySerializer()
 
-    def to_json(self, node: Organization) -> dict:
+    def to_json(self, node: Organization, reflect_disbanded=True) -> dict:
         return {
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,

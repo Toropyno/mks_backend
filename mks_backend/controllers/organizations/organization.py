@@ -30,8 +30,10 @@ class OrganizationController:
         if self.request.params:
             params_deserialized = self.filter_schema.deserialize(self.request.GET)
 
-        rootes = self.service.get_rootes(params_deserialized)
-        return self.serializer.to_json_tree(rootes)
+        reflect_disbanded = self.get_reflect_disbanded(params_deserialized)
+
+        rootes = self.service.get_processed_rootes(params_deserialized)
+        return [self.serializer.to_json(root, reflect_disbanded) for root in rootes]
 
     @handle_db_error
     @handle_colander_error
