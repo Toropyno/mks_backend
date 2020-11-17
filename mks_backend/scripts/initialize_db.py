@@ -65,6 +65,7 @@ from mks_backend.models.organizations.organization import Organization
 from mks_backend.models.organizations.organization_history import OrganizationHistory
 from mks_backend.models.organizations.organization_document import OrganizationDocument
 from mks_backend.models.organizations.official import Official
+from mks_backend.models.organizations.military_rank import MilitaryRank
 
 from mks_backend.models.miv.storage import Storage
 from mks_backend.models._loggers.miv import MIVLog
