@@ -13,7 +13,6 @@ class OrganisationService:
 
         return self.repo.get_rootes()
 
-
     def add_organization(self, organization: Organization) -> None:
         self.repo.add(organization)
 
@@ -51,4 +50,4 @@ class OrganisationService:
         return self.repo.get_by_id(organization_uuid)
 
     def get_reflect_disbanded(self, params_deserialized: dict) -> bool:
-        return params_deserialized.get('reflect_disbanded', True)
+        return params_deserialized.get('reflectDisbanded', True)

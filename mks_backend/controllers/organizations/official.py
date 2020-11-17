@@ -1,7 +1,7 @@
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
-from mks_backend.controllers.schemas.organizations.official import OfficialSchema
+from mks_backend.controllers.schemas.organizations.official import OfficialSchema, OfficialFilterSchema
 from mks_backend.serializers.organizations.official import OfficialSerializer
 from mks_backend.services.organizations.official import OfficialService
 
@@ -13,9 +13,11 @@ class OfficialController:
 
     def __init__(self, request: Request):
         self.request = request
-        self.schema = OfficialSchema()
         self.service = OfficialService()
         self.serializer = OfficialSerializer()
+
+        self.schema = OfficialSchema()
+        self.filter_schema = OfficialFilterSchema()
 
     @handle_db_error
     @handle_colander_error
@@ -31,7 +33,7 @@ class OfficialController:
     @handle_colander_error
     @view_config(route_name='edit_official')
     def edit_official(self):
-        id = int(self.request.matchdict['id'])
+        id = int(self.request.matchdict.get('id'))
         official_deserialized = self.schema.deserialize(self.request.json_body)
         official_deserialized['id'] = id
 
@@ -42,13 +44,17 @@ class OfficialController:
 
     @view_config(route_name='delete_official')
     def delete_official(self):
-        id = int(self.request.matchdict['id'])
+        id = int(self.request.matchdict.get('id'))
         self.service.delete_official_by_id(id)
         return {'id': id}
 
     @handle_db_error
     @view_config(route_name='get_officials_by_organization')
     def get_officials_by_organization(self):
-        organization_id = self.request.matchdict['organization_uuid']
-        officials = self.service.get_officials_by_organization(organization_id)
+        params_deserialized = None
+        if self.request.params:
+            params_deserialized = self.filter_schema.deserialize(self.request.GET)
+
+        organization_id = self.request.matchdict.get('organization_uuid')
+        officials = self.service.get_officials_by_organization(organization_id, params_deserialized)
         return self.serializer.convert_list_to_json(officials)

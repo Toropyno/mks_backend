@@ -670,6 +670,7 @@ Method: GET
 
 =====================================================================================================
 
+
 ConstructionDocument {
     id             Integer
     constructionId Integer
@@ -690,6 +691,7 @@ ConstructionDocument {
                 }
 }
 
+
 ConstructionObject {
 
     ...
@@ -706,6 +708,7 @@ ConstructionObject {
     files:        [Filestorage{}, Filestorage{}, ...]
 }
 
+
 ConstructionProgress {
     id                        Integer
     constructionObjectsId     Integer
@@ -718,11 +721,13 @@ ConstructionProgress {
 
 }
 
+
 MeasureUnit {
     id          Integer
     code        String
     name        String
 }
+
 
 DocType {
     id          Integer
@@ -730,20 +735,24 @@ DocType {
     fullName    String
 }
 
+
 ContractStatus {
     id          Integer
     fullName    String
 }
+
 
 ElementType {
     id          Integer
     fullName    String
 }
 
+
 ProgressStatus {
     id          Integer
     fullName    String
 }
+
 
 ObjectFile {
     idFileStorage       String
@@ -751,6 +760,7 @@ ObjectFile {
     note                String
     uploadDate          String
 }
+
 
 Official {
     id              Integer
@@ -767,6 +777,7 @@ Official {
     email           String
     note            String
 }
+
 
 OrganizationDocument {
     id             Integer
@@ -788,3 +799,13 @@ OrganizationDocument {
                 }
 }
 
+
+Filter Organization:
+
+OfficialFilterSchema{
+    reflectVacatedPosition          bool
+}
+
+OrganizationFilterSchema{
+    reflectDisbanded                bool
+}

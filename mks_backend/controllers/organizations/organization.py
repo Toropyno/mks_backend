@@ -27,7 +27,7 @@ class OrganizationController:
     @view_config(route_name='get_organizations_tree')
     def get_organizations_tree(self):
         params_deserialized = None
-        if self.request.GET:
+        if self.request.params:
             params_deserialized = self.filter_schema.deserialize(self.request.GET)
 
         rootes = self.service.get_rootes(params_deserialized)

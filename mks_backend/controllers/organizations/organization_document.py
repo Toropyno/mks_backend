@@ -31,7 +31,7 @@ class OrganizationDocumentController:
     @handle_colander_error
     @view_config(route_name='edit_organization_document')
     def edit_organization_document(self):
-        id = int(self.request.matchdict['id'])
+        id = int(self.request.matchdict.get('id'))
         organization_document_deserialized = self.schema.deserialize(self.request.json_body)
         organization_document_deserialized['id'] = id
 
@@ -41,13 +41,13 @@ class OrganizationDocumentController:
 
     @view_config(route_name='delete_organization_document')
     def delete_organization_document(self):
-        id = int(self.request.matchdict['id'])
+        id = int(self.request.matchdict.get('id'))
         self.service.delete_organization_document_by_id(id)
         return {'id': id}
 
     @handle_db_error
     @view_config(route_name='get_documents_by_organization')
     def get_documents_by_organization(self):
-        organization_id = self.request.matchdict['organization_uuid']
+        organization_id = self.request.matchdict.get('organization_uuid')
         documents = self.service.get_documents_by_organization(organization_id)
         return self.serializer.convert_list_to_json(documents)
