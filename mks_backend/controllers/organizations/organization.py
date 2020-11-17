@@ -26,12 +26,9 @@ class OrganizationController:
 
     @view_config(route_name='get_organizations_tree')
     def get_organizations_tree(self):
-        params_deserialized = None
-        if self.request.params:
-            params_deserialized = self.filter_schema.deserialize(self.request.GET)
-
-        rootes = self.service.get_rootes(params_deserialized)
-        return self.serializer.to_json_tree(rootes)
+        reflect_disbanded = self.filter_schema.deserialize(self.request.GET).get('reflectDisbanded', True)
+        rootes = self.service.get_processed_rootes(reflect_disbanded)
+        return self.serializer.to_json_tree(rootes, reflect_disbanded)
 
     @handle_db_error
     @handle_colander_error
