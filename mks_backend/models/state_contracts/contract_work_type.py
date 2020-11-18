@@ -1,10 +1,10 @@
 from sqlalchemy import (
     Column,
     Integer,
-    ForeignKey,
-    UniqueConstraint,
     VARCHAR
 )
+
+from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base, STATE_CONTRACT_SCHEMA
 
@@ -20,3 +20,7 @@ class ContractWorkType(Base):
 
     contract_worktypes_id = Column(Integer, primary_key=True)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
+
+    completion_dates = relationship(
+        'CompletionDate',
+    )

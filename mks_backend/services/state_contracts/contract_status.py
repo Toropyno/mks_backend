@@ -1,5 +1,5 @@
-from mks_backend.models.contract_status import ContractStatus
-from mks_backend.repositories.contract_status import ContractStatusRepository
+from mks_backend.models.state_contracts.contract_status import ContractStatus
+from mks_backend.repositories.state_contracts.contract_status import ContractStatusRepository
 
 
 class ContractStatusService:

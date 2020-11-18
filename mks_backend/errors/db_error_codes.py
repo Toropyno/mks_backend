@@ -134,6 +134,10 @@ DB_ERROR_CODES = {
     'contract_worktypes_pkey_duplicate': 'Виды Мероприятий По Гос. Контрактам с указанным ключом уже существуют!',
     'contract_worktypes_fullname_key_duplicate': 'Виды Мероприятий с указанным наименованием уже существуют!',
 
+    'completion_dates_pkey_duplicate': 'Сроки Окончания Работ По Контракту с указанным ключом уже существуют!',
+    'completion_dates_unique_duplicate': 'Сроки Окончания Работ По Контракту с указанными Контрактами и '
+                                         'Видами Мероприятий уже существуют!',
+
     'other_duplicate': 'Дубликат записи!',
 
     'protocol_meetings_type_id_fkey': 'Указанного Типа Заседания не существует!',
@@ -205,9 +209,14 @@ DB_ERROR_CODES = {
     'officials_organizations_id_fkey': 'Указанной Организации не существует!',
     'officials_military_ranks_id_fkey': 'Указанного Воинского Звания не существует!',
 
+    'completion_dates_contracts_id_fkey': 'Указанного Контракта не существует!',
+    'completion_dates_contract_worktypes_id_fkey': 'Указанных Видов Мероприятий По Гос. Контрактам не существует!',
+
     'other_fkey': 'Вторичный ключ не найден!',
 
     'contract_work_type_nf': 'Указанных Видов Мероприятий По Государственным Контрактам не существует!',
+
+    'completion_date_nf': 'Указанных Сроков Окончания Работ По Контракту не существует!',
 
     'organization_nf': 'Указанной Организации не существует!',
     'organization_history_nf': 'Указанный реквизит не найден!',
