@@ -7,6 +7,7 @@ from mks_backend.controllers.protocols.routes import include_protocols
 from mks_backend.controllers.inspections.routes import include_inspections
 from mks_backend.controllers.work_list.routes import include_work_list
 from mks_backend.controllers.organizations.routes import include_organizations
+from mks_backend.controllers.state_contracts.routes import include_state_contracts
 from mks_backend.controllers.miv.routes import include_miv
 from mks_backend.routes import includeme
 
@@ -25,6 +26,7 @@ def main(global_config, **settings):
     config.include(include_inspections)
     config.include(include_work_list)
     config.include(include_organizations)
+    config.include(include_state_contracts)
     config.include(include_miv)
     config.scan()
     return config.make_wsgi_app()

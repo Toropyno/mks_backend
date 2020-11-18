@@ -131,8 +131,10 @@ DB_ERROR_CODES = {
     'organizations_history_ak_duplicate': 'Запись с таким id организации и датой начала уже существует!',
     'officials_pkey_duplicate': 'Должностные лица с указанным ключом уже существуют!',
 
-    'other_duplicate': 'Дубликат записи!',
+    'contract_worktypes_pkey_duplicate': 'Виды Мероприятий По Гос. Контрактам с указанным ключом уже существуют!',
+    'contract_worktypes_fullname_key_duplicate': 'Виды Мероприятий с указанным наименованием уже существуют!',
 
+    'other_duplicate': 'Дубликат записи!',
 
     'protocol_meetings_type_id_fkey': 'Указанного Типа Заседания не существует!',
     'protocol_idfilestorage_fkey': 'Указанного Файла не существует!',
@@ -205,7 +207,10 @@ DB_ERROR_CODES = {
 
     'other_fkey': 'Вторичный ключ не найден!',
 
-    'organization_nf': 'Такой организации не существует!',
-    'organization_history_nf': 'Такой реквизит не найден!',
+    'contract_work_type_nf': 'Указанных Видов Мероприятий По Государственным Контрактам не существует!',
+
+    'organization_nf': 'Указанной Организации не существует!',
+    'organization_history_nf': 'Указанный реквизит не найден!',
     'organization_history_delete_limit': 'Нельзя удалить единственный реквизит!'
+
 }
