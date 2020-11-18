@@ -36,3 +36,12 @@ class OrganizationSchema(colander.MappingSchema):
     )
 
     history = OrganizationHistorySchema(missing=colander.drop)
+
+
+class OrganizationFilterSchema(colander.MappingSchema):
+
+    reflect_disbanded = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='reflectDisbanded',
+        missing=colander.drop
+    )

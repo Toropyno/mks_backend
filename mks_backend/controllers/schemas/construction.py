@@ -98,6 +98,7 @@ class ConstructionSchema(colander.MappingSchema):
     )
 
     # ------ coordinate ------
+
     latitude = colander.SchemaNode(
         colander.Float(),
         name='latitude',
@@ -143,6 +144,7 @@ class ConstructionSchema(colander.MappingSchema):
         ),
         missing=None
     )
+
     # ----------------------
 
     construction_types_id = colander.SchemaNode(

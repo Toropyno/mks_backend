@@ -9,20 +9,28 @@ class OrganizationSerializer:
     def __init__(self):
         self.history_serializer = OrganizationHistorySerializer()
 
-    def to_json(self, node: Organization) -> dict:
+    def to_json(self, node: Organization, reflect_disbanded: bool = True) -> dict:
+        if reflect_disbanded:
+            children = self.to_json_tree(node.children)
+        else:
+            children = self.to_json_tree(
+                list(filter(lambda org: org.is_active, node.children)),
+                False
+            )
+
         return {
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
             'label': node.actual.shortname,
-            'isActive': False if node.actual.end_date else True,
+            'isActive': node.is_active,
             'isLegal': node.org_sign,
 
             # recursive strategy
-            'children': self.to_json_tree(node.children),
+            'children': children,
         }
 
-    def to_json_tree(self, rootes: list) -> list:
-        return list(map(self.to_json, rootes))
+    def to_json_tree(self, rootes: list, reflect_disbanded: bool = True) -> list:
+        return [self.to_json(root, reflect_disbanded) for root in rootes]
 
     def to_mapped_object(self, schema: dict) -> Organization:
         organization = Organization(

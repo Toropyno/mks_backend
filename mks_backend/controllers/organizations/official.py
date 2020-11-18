@@ -1,7 +1,7 @@
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
-from mks_backend.controllers.schemas.organizations.official import OfficialSchema
+from mks_backend.controllers.schemas.organizations.official import OfficialSchema, OfficialFilterSchema
 from mks_backend.serializers.organizations.official import OfficialSerializer
 from mks_backend.services.organizations.official import OfficialService
 
@@ -13,9 +13,11 @@ class OfficialController:
 
     def __init__(self, request: Request):
         self.request = request
-        self.schema = OfficialSchema()
         self.service = OfficialService()
         self.serializer = OfficialSerializer()
+
+        self.schema = OfficialSchema()
+        self.filter_schema = OfficialFilterSchema()
 
     @handle_db_error
     @handle_colander_error
@@ -49,8 +51,10 @@ class OfficialController:
     @handle_db_error
     @view_config(route_name='get_officials_by_organization')
     def get_officials_by_organization(self):
+        reflect_vacated_position = self.filter_schema.deserialize(self.request.GET).get('reflectVacatedPosition', True)
         organization_id = self.request.matchdict.get('organization_uuid')
-        officials = self.service.get_officials_by_organization(organization_id)
+
+        officials = self.service.get_officials_by_organization(organization_id, reflect_vacated_position)
         return self.serializer.convert_list_to_json(officials)
 
     def get_id(self):

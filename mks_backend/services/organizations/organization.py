@@ -6,8 +6,14 @@ class OrganisationService:
     def __init__(self):
         self.repo = OrganisationRepository()
 
-    def get_rootes(self):
-        return self.repo.get_rootes()
+    def get_rootes(self, reflect_disbanded: bool) -> list:
+        rootes = self.repo.get_rootes()
+        if reflect_disbanded is False:
+            return self.get_active_rootes(rootes)
+        return rootes
+
+    def get_active_rootes(self, organizations: list) -> list:
+        return list(filter(lambda org: org.is_active, organizations))
 
     def add_organization(self, organization: Organization) -> None:
         self.repo.add(organization)

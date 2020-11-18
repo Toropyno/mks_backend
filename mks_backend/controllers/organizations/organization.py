@@ -3,7 +3,7 @@ from pyramid.view import view_config, view_defaults
 
 from mks_backend.services.organizations.organization import OrganisationService
 from mks_backend.serializers.organizations.organization import OrganizationSerializer
-from mks_backend.controllers.schemas.organizations.organization import OrganizationSchema
+from mks_backend.controllers.schemas.organizations.organization import OrganizationSchema, OrganizationFilterSchema
 
 from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
 
@@ -15,12 +15,15 @@ class OrganizationController:
         self.request = request
         self.service = OrganisationService()
         self.serializer = OrganizationSerializer()
+
         self.schema = OrganizationSchema()
+        self.filter_schema = OrganizationFilterSchema()
 
     @view_config(route_name='get_organizations_tree')
     def get_organizations_tree(self):
-        rootes = self.service.get_rootes()
-        return self.serializer.to_json_tree(rootes)
+        reflect_disbanded = self.filter_schema.deserialize(self.request.GET).get('reflectDisbanded', True)
+        rootes = self.service.get_rootes(reflect_disbanded)
+        return self.serializer.to_json_tree(rootes, reflect_disbanded)
 
     @handle_db_error
     @handle_colander_error

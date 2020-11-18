@@ -137,3 +137,12 @@ class OfficialSchema(colander.MappingSchema):
         ),
         missing=None
     )
+
+
+class OfficialFilterSchema(colander.MappingSchema):
+
+    reflect_vacated_position = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='reflectVacatedPosition',
+        missing=colander.drop
+    )
