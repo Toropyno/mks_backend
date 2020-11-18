@@ -21,12 +21,12 @@ class ContractWorkTypeController:
     @handle_colander_error
     @view_config(route_name='add_contract_work_type')
     def add(self):
-        print('dscfsrfdtgdrtgf')
         contract_w_t_deserialized = self.schema.deserialize(self.request.json_body)
         contract_w_t = self.serializer.to_object(contract_w_t_deserialized)
 
         self.service.add(contract_w_t)
         return {'id': contract_w_t.contract_worktypes_id}
+
 
     @handle_db_error
     @handle_colander_error
@@ -35,8 +35,8 @@ class ContractWorkTypeController:
         id = self.get_id()
         contract_w_t_deserialized = self.schema.deserialize(self.request.json_body)
         contract_w_t_deserialized['id'] = id
-
         contract_w_t = self.serializer.to_object(contract_w_t_deserialized)
+
         self.service.update(contract_w_t)
         return {'id': id}
 
@@ -45,6 +45,7 @@ class ContractWorkTypeController:
         contract_work_types = self.service.get_all()
         return self.serializer.list_to_json(contract_work_types)
 
+    @handle_db_error
     @view_config(route_name='get_contract_work_type')
     def get(self):
         id = self.get_id()

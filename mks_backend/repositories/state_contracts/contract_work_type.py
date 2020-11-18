@@ -1,7 +1,7 @@
 from mks_backend.models.state_contracts.contract_work_type import ContractWorkType
 from mks_backend.repositories import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
 
 
 class ContractWorkTypeRepository:
@@ -15,7 +15,10 @@ class ContractWorkTypeRepository:
         DBSession.commit()
 
     def get_by_id(self, id: int) -> ContractWorkType:
-        return self._query.get(id)
+        contract_w_t = self._query.get(id)
+        if not contract_w_t:
+            raise DBBasicError('contract_work_type_nf')
+        return contract_w_t
 
     def get_all(self) -> list:
         return self._query.order_by(ContractWorkType.fullname).all()
