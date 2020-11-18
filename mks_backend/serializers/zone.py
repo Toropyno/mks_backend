@@ -1,6 +1,7 @@
-from mks_backend.errors.serilize_error import serialize_error_handler
 from mks_backend.models.zone import Zone
 from mks_backend.serializers.object_category import ObjectCategorySerializer
+
+from mks_backend.errors.serilize_error import serialize_error_handler
 
 
 class ZoneSerializer:

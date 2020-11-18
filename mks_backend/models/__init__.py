@@ -5,10 +5,13 @@ Base = declarative_base()
 DBSession = scoped_session(sessionmaker())
 
 ORGANIZATION_SCHEMA = 'organization'
+STATE_CONTRACT_SCHEMA = 'state_contract'
 
 MIV_SCHEMA = 'miv'
 
 SCHEMAS = (
     ORGANIZATION_SCHEMA,
+    STATE_CONTRACT_SCHEMA,
+
     MIV_SCHEMA,
 )
