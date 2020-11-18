@@ -10,8 +10,14 @@ class OrganizationSerializer:
         self.history_serializer = OrganizationHistorySerializer()
 
     def to_json(self, node: Organization, reflect_disbanded: bool = True) -> dict:
-        if reflect_disbanded == node.is_active is False:
-            return {}
+        if reflect_disbanded:
+            children = self.to_json_tree(node.children)
+        else:
+            children = self.to_json_tree(
+                list(filter(lambda org: org.is_active, node.children)),
+                False
+            )
+
         return {
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
@@ -20,10 +26,10 @@ class OrganizationSerializer:
             'isLegal': node.org_sign,
 
             # recursive strategy
-            'children': self.to_json_tree(node.children, reflect_disbanded),
+            'children': children,
         }
 
-    def to_json_tree(self, rootes: list, reflect_disbanded: bool) -> list:
+    def to_json_tree(self, rootes: list, reflect_disbanded: bool = True) -> list:
         return [self.to_json(root, reflect_disbanded) for root in rootes]
 
     def to_mapped_object(self, schema: dict) -> Organization:

@@ -38,21 +38,6 @@ class OrganizationSchema(colander.MappingSchema):
     history = OrganizationHistorySchema(missing=colander.drop)
 
 
-class OrganizationPatchSchema(colander.MappingSchema):
-
-    organization_uuid = colander.SchemaNode(
-        colander.String(),
-        name='organizationId',
-        validator=organization_uuid
-    )
-
-    new_parent_uuid = colander.SchemaNode(
-        colander.String(),
-        name='parentId',
-        validator=organization_parent_uuid
-    )
-
-
 class OrganizationFilterSchema(colander.MappingSchema):
 
     reflect_disbanded = colander.SchemaNode(

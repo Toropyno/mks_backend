@@ -22,8 +22,8 @@ class OfficialService:
         officials = self.organization_service.get_by_id(organization_uuid).officials
 
         if reflect_vacated_position is False:
-            officials = self.get_filtered_officials(officials)
+            officials = self.get_active_officials(officials)
         return officials
 
-    def get_filtered_officials(self, officials: list) -> list:
-        return list(filter(lambda ofl: ofl.end_date is None, officials))
+    def get_active_officials(self, officials: list) -> list:
+        return list(filter(lambda ofl: not ofl.end_date, officials))
