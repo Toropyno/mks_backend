@@ -18,14 +18,12 @@ class OfficialService:
     def delete_official_by_id(self, id: int) -> None:
         self.repo.delete_official(id)
 
-    def get_officials_by_organization(self, organization_uuid: str, filter_params=None) -> list:
+    def get_officials_by_organization(self, organization_uuid: str, reflect_vacated_position: bool) -> list:
         officials = self.organization_service.get_by_id(organization_uuid).officials
 
-        if filter_params:
-            if not self.get_reflect_vacated_position(filter_params):
-                officials = list(filter(lambda x: x.end_date == None, officials))
-
+        if reflect_vacated_position is False:
+            officials = self.get_filtered_officials(officials)
         return officials
 
-    def get_reflect_vacated_position(self, params_deserialized: dict) -> bool:
-        return params_deserialized.get('reflectVacatedPosition', True)
+    def get_filtered_officials(self, officials: list) -> list:
+        return list(filter(lambda ofl: ofl.end_date is None, officials))

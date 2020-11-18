@@ -51,13 +51,10 @@ class OfficialController:
     @handle_db_error
     @view_config(route_name='get_officials_by_organization')
     def get_officials_by_organization(self):
-        params_deserialized = None
-        if self.request.params:
-            params_deserialized = self.filter_schema.deserialize(self.request.GET)
-
+        reflect_vacated_position = self.filter_schema.deserialize(self.request.GET).get('reflectVacatedPosition', True)
         organization_id = self.request.matchdict.get('organization_uuid')
 
-        officials = self.service.get_officials_by_organization(organization_id, params_deserialized)
+        officials = self.service.get_officials_by_organization(organization_id, reflect_vacated_position)
         return self.serializer.convert_list_to_json(officials)
 
     def get_id(self):

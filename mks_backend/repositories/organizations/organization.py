@@ -30,6 +30,7 @@ class OrganisationRepository:
     def delete(self, organization_uuid: str):
         organization = self.get_by_id(organization_uuid)
         DBSession.delete(organization)
+        DBSession.commit()
 
     def get_rootes(self) -> List[Organization]:
         rootes = self._query.filter(Organization.parent_organizations_id == None).all()
