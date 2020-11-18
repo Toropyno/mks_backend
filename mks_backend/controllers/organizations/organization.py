@@ -3,6 +3,7 @@ from pyramid.view import view_config, view_defaults
 
 from mks_backend.services.organizations.organization import OrganisationService
 from mks_backend.serializers.organizations.organization import OrganizationSerializer
+
 from mks_backend.controllers.schemas.organizations.organization import (
     OrganizationSchema,
     OrganizationPatchSchema,
@@ -50,9 +51,13 @@ class OrganizationController:
         return {'organizationId': organization_uuid}
 
     @handle_db_error
-    @view_config(route_name='move_organization')
-    def move_organization(self):
-        move_params = self.patch_schema.deserialize(self.request.json_body)
+    @handle_colander_error
+    @view_config(route_name='edit_organization')
+    def edit_organization(self):
+        edit_data = self.request.json_body.copy()
+        organization_uuid = self.request.matchdict['organization_uuid']
+        edit_data['organizationId'] = organization_uuid
 
-        self.service.set_node_new_parent(move_params['organizationId'], move_params['parentId'])
-        return move_params
+        organization = self.serializer.to_mapped_object(self.schema.deserialize(edit_data))
+        self.service.update_organization(organization)
+        return {'organizationId': organization_uuid}
