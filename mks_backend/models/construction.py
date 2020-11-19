@@ -133,6 +133,12 @@ class Construction(Base):
         'ConstructionType'
     )
 
+    contracts = relationship(
+        'Contract',
+        back_populates='construction',
+        passive_deletes=True
+    )
+
     # --------- calculated_fields --------- #
 
     @hybrid_property

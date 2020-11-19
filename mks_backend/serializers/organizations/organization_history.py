@@ -13,13 +13,9 @@ class OrganizationHistorySerializer:
             'addressLegal': record.address_legal,
             'functions': record.functions,
 
-            'isLegal': record.organization.org_sign,
             'inn': record.inn,
             'kpp': record.kpp,
             'ogrn': record.ogrn,
-
-            'parent': record.organization.parent.shortname if record.organization.parent else None,
-            'parentNumber': record.organization.par_number,
 
             'beginDate': get_date_string(record.begin_date),
             'endDate': get_date_string(record.end_date),

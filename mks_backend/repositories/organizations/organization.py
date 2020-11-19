@@ -28,8 +28,7 @@ class OrganisationRepository:
         return organization
 
     def delete(self, organization_uuid: str):
-        organization = self.get_by_id(organization_uuid)
-        DBSession.delete(organization)
+        self._query.filter(Organization.organizations_id == organization_uuid).delete()
         DBSession.commit()
 
     def get_rootes(self) -> List[Organization]:

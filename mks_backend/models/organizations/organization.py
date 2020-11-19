@@ -73,7 +73,10 @@ class Organization(Base):
         Sorting within the parent is performed by the field "par_number".
         For the same number (or not specified) sorting by the name of a node in the tree.
         """
-        return sorted(self.sub_organizations, key=lambda children: (children.par_number, children.shortname))
+        return sorted(
+            self.sub_organizations,
+            key=lambda children: (children.par_number if children.par_number else 0, children.shortname)
+        )
 
     @hybrid_property
     def shortname(self) -> str:
