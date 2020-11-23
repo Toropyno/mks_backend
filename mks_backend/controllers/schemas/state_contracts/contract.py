@@ -46,7 +46,7 @@ class ContractSchema(colander.MappingSchema):
     )
 
     contract_sum = colander.SchemaNode(
-        colander.Decimal(20, 2),
+        colander.Decimal(),
         name='contractSum',
         validator=colander.Range(
             min=0,
@@ -55,7 +55,7 @@ class ContractSchema(colander.MappingSchema):
     )
 
     paid_sum = colander.SchemaNode(
-        colander.Decimal(20, 2),
+        colander.Decimal(),
         name='paidSum',
         validator=colander.Range(
             min=0,
@@ -64,7 +64,7 @@ class ContractSchema(colander.MappingSchema):
     )
 
     accepted_sum = colander.SchemaNode(
-        colander.Decimal(20, 2),
+        colander.Decimal(),
         name='acceptedSum',
         validator=colander.Range(
             min=0,
@@ -73,7 +73,7 @@ class ContractSchema(colander.MappingSchema):
     )
 
     receivables = colander.SchemaNode(
-        colander.Decimal(20, 2),
+        colander.Decimal(),
         name='receivables',
         validator=colander.Range(
             min=0,
@@ -82,7 +82,7 @@ class ContractSchema(colander.MappingSchema):
     )
 
     plan_sum = colander.SchemaNode(
-        colander.Decimal(20, 2),
+        colander.Decimal(),
         name='planSum',
         validator=colander.Range(
             min=0,

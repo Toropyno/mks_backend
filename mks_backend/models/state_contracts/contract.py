@@ -33,6 +33,7 @@ class Contract(Base):
     contract_date = Column(DATE, nullable=False)
     identifier = Column(VARCHAR(25))
     subject = Column(VARCHAR(1000))
+
     contract_sum = Column(DECIMAL(20, 2), default=0, nullable=False)
     paid_sum = Column(DECIMAL(20, 2), default=0, nullable=False)
     accepted_sum = Column(DECIMAL(20, 2), default=0, nullable=False)
@@ -58,7 +59,7 @@ class Contract(Base):
 
     contract_statuses_id = Column(
         Integer,
-        ForeignKey('contract_statuses.contract_statuses_id'),
+        ForeignKey('{schema}.contract_statuses.contract_statuses_id'.format(schema=STATE_CONTRACT_SCHEMA)),
         nullable=False
     )
 

@@ -1,4 +1,4 @@
-from mks_backend.models.contract_status import ContractStatus
+from mks_backend.models.state_contracts.contract_status import ContractStatus
 
 from mks_backend.errors.serilize_error import serialize_error_handler
 

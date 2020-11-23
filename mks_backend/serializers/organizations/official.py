@@ -12,7 +12,6 @@ class OfficialSerializer:
     def to_json(self, oficial: Official) -> dict:
         return {
             'id': oficial.officials_id,
-            'id': oficial.officials_id,
             'positionName': oficial.position_name,
             'organizationId': oficial.organizations_id,
             'militaryRank': MilitaryRankSerializer.to_json(oficial.military_rank),
@@ -22,7 +21,7 @@ class OfficialSerializer:
             'beginDate': get_date_string(oficial.begin_date),
             'endDate': get_date_string(oficial.end_date),
             'phone': oficial.phone,
-            'secureСhannel': oficial.secure_channel,
+            'secureChannel': oficial.secure_channel,
             'email': oficial.email,
             'note': oficial.note,
         }

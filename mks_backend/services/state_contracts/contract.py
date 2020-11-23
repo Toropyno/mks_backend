@@ -1,5 +1,5 @@
-from mks_backend.models.state_contracts.contract import Contract
-from mks_backend.repositories.state_contracts.contract import ContractRepository
+from mks_backend.models.state_contracts import Contract
+from mks_backend.repositories.state_contracts import ContractRepository
 
 
 class ContractService:
@@ -7,8 +7,8 @@ class ContractService:
     def __init__(self):
         self.repo = ContractRepository()
 
-    def get_all_contracts(self) -> list:
-        return self.repo.get_all()
+    def get_all_by_construction_id(self, construction_id: int) -> list:
+        return self.repo.get_all_by_construction_id(construction_id)
 
     def get_contract(self, id_: int) -> Contract:
         return self.repo.get_contract(id_)
@@ -16,8 +16,8 @@ class ContractService:
     def add_contract(self, contract: Contract) -> None:
         self.repo.add_contract(contract)
 
-    def update_contract(self, new_contract: Contract) -> None:
-        self.repo.update_contract(new_contract)
+    def edit_contract(self, contract: Contract) -> None:
+        self.repo.edit_contract(contract)
 
-    def delete_contract_by_id(self, id_: int) -> None:
+    def delete_contract(self, id_: int) -> None:
         self.repo.delete_contract(id_)

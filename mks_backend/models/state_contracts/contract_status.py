@@ -4,12 +4,14 @@ from sqlalchemy import (
     VARCHAR,
 )
 
-from mks_backend.models import Base
+from mks_backend.models import Base, STATE_CONTRACT_SCHEMA
 
 
 class ContractStatus(Base):
 
     __tablename__ = 'contract_statuses'
+
+    __table_args__ = {'schema': STATE_CONTRACT_SCHEMA}
 
     contract_statuses_id = Column(Integer, primary_key=True)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)

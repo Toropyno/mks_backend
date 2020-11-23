@@ -44,7 +44,6 @@ class Organization(Base):
 
     sub_organizations = relationship(
         'Organization',
-        cascade='all, delete-orphan',
         passive_deletes=True
     )
 

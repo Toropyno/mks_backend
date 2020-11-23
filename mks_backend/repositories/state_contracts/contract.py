@@ -1,18 +1,23 @@
-from mks_backend.errors.db_basic_error import db_error_handler
-from mks_backend.models.state_contracts.contract import Contract
+from mks_backend.models.state_contracts import Contract
 from mks_backend.repositories import DBSession
+
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ContractRepository:
 
     def __init__(self):
-        self._query = DBSession(Contract)
+        self._query = DBSession.query(Contract)
 
-    def get_all(self) -> list:
-        return self._query.order_by(Contract.contract_date).all()
+    def get_all_by_construction_id(self, construction_id: int) -> list:
+        return self._query.filter(Contract.construction_id == construction_id).order_by(Contract.contract_date).all()
 
     def get_contract(self, id_: int) -> Contract:
-        return self._query.get(id_)
+        contract = self._query.get(id_)
+        if not contract:
+            raise DBBasicError('contract_nf')
+        else:
+            return contract
 
     @db_error_handler
     def add_contract(self, contract: Contract) -> None:
@@ -20,12 +25,8 @@ class ContractRepository:
         DBSession.commit()
 
     @db_error_handler
-    def update_contract(self, contract: Contract) -> None:
-        self._query.filter(Contract.contracts_id == contract.contracts_id).update(
-            {
-                'contract_date': contract.contract_date,
-            }
-        )
+    def edit_contract(self, contract: Contract) -> None:
+        DBSession.merge(contract)
         DBSession.commit()
 
     def delete_contract(self, id_: int) -> None:

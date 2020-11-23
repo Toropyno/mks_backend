@@ -1,0 +1,1 @@
+from mks_backend.controllers.schemas.state_contracts.contract import ContractSchema

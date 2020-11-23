@@ -32,5 +32,6 @@ class OrganisationRepository:
         DBSession.commit()
 
     def get_rootes(self) -> List[Organization]:
+        DBSession.commit()
         rootes = self._query.filter(Organization.parent_organizations_id == None).all()
         return sorted(rootes, key=lambda root: root.shortname)
