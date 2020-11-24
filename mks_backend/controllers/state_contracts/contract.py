@@ -31,28 +31,28 @@ class ContractController:
         contract = self.serializer.to_mapped_object(contract_deserialized)
 
         self.service.add_contract(contract)
-        return {'contractId': contract.contracts_id}
+        return {'id': contract.contracts_id}
 
     @view_config(route_name='delete_contract')
     def delete_contract(self):
-        id_ = int(self.request.matchdict.get('contract_id'))
+        id_ = int(self.request.matchdict.get('id'))
         self.service.delete_contract(id_)
-        return {'contractId': id_}
+        return {'id': id_}
 
     @handle_db_error
     @handle_colander_error
     @view_config(route_name='edit_contract')
     def edit_contract(self):
         contract_deserialized = self.schema.deserialize(self.request.json_body)
-        contract_deserialized['contractId'] = int(self.request.matchdict.get('contract_id'))
+        contract_deserialized['id'] = int(self.request.matchdict.get('id'))
 
         contract = self.serializer.to_mapped_object(contract_deserialized)
         self.service.edit_contract(contract)
-        return {'contractId': contract.contracts_id}
+        return {'id': contract.contracts_id}
 
     @handle_db_error
     @view_config(route_name='get_contract')
     def get_contract(self):
-        id_ = int(self.request.matchdict.get('contract_id'))
+        id_ = int(self.request.matchdict.get('id'))
         contract = self.service.get_contract(id_)
         return self.serializer.to_json(contract)

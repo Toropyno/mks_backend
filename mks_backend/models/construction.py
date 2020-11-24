@@ -129,7 +129,7 @@ class Construction(Base):
         'OKSM'
     )
 
-    type = relationship(
+    construction_type = relationship(
         'ConstructionType'
     )
 

@@ -17,7 +17,7 @@ class ContractSerializer:
 
     def to_json(self, contract: Contract) -> dict:
         return {
-            'contractId': contract.contracts_id,
+            'id': contract.contracts_id,
             'contractNum': contract.contract_num,
             'constructionId': contract.construction_id,
             'contractDate': get_date_string(contract.contract_date),
@@ -37,7 +37,7 @@ class ContractSerializer:
 
     def to_mapped_object(self, schema: dict) -> Contract:
         return Contract(
-            contracts_id=schema.get('contractId'),
+            contracts_id=schema.get('id'),
             contract_num=schema.get('contractNum'),
             contract_date=schema.get('contractDate'),
             identifier=schema.get('identifier'),
