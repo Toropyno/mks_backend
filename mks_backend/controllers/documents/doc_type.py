@@ -2,9 +2,10 @@ from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
 from mks_backend.controllers.schemas.doc_type import DocTypeSchema
-from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
 from mks_backend.services.documents.doc_type import DocTypeService
+
+from mks_backend.errors import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')

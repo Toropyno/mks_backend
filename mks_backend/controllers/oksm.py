@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.oksm import OKSMSchema
 from mks_backend.serializers.oksm import OKSMSerializer
 from mks_backend.services.oksm import OKSMService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

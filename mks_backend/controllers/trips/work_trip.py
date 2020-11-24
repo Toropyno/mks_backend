@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.trips.work_trip import WorkTripSchema, Work
 from mks_backend.serializers.trips.work_trip import WorkTripSerializer
 from mks_backend.services.trips.work_trip import WorkTripService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

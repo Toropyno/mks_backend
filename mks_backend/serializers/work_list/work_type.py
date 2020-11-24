@@ -1,6 +1,6 @@
 from mks_backend.models.work_list.work_type import WorkType
 
-from mks_backend.errors.serilize_error import serialize_error_handler
+from mks_backend.errors.serialize_error import serialize_error_handler
 
 
 class WorkTypeSerializer:

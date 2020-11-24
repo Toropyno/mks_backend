@@ -8,7 +8,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from mks_backend.models import Base
-from mks_backend.models.construction import Construction
+from mks_backend.models.constructions import Construction
 
 
 class Inspection(Base):

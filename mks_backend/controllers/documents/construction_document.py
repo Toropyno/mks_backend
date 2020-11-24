@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.construction_document import ConstructionDo
 from mks_backend.serializers.documents.construction_document import ConstructionDocumentSerializer
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 
-from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
+from mks_backend.errors import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')
