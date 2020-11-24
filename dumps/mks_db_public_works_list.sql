@@ -1,1 +1,0 @@
-INSERT INTO public.works_list (works_list_id, element_types_id, element_description, begin_date, work_description, relevance_date, note, weight, end_date, plan, fact, unit_id, work_types_id, construction_objects_id) VALUES (5, 1, 'first_element_descr', '2020-10-05', 'work_decrp', '2020-10-06', 'nota', 2, '2020-10-07', 2.0, 2.0, 1, 1, 37);
