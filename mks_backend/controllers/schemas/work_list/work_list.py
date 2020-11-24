@@ -58,10 +58,10 @@ class WorkListSchema(colander.MappingSchema):
     )
 
     plan = colander.SchemaNode(
-        colander.Decimal(1),
+        colander.Decimal(),
         name='plan',
         validator=colander.Range(
-            min=0.1,
+            min=0,
             max=100,
             min_err='Показатель запланированного выполнения работ не может быть меньше 0%',
             max_err='Показатель запланированного выполнения работ не может быть больше 100%'
@@ -69,10 +69,10 @@ class WorkListSchema(colander.MappingSchema):
     )
 
     fact = colander.SchemaNode(
-        colander.Decimal(1),
+        colander.Decimal(),
         name='fact',
         validator=colander.Range(
-            min=0.1,
+            min=0,
             max=100,
             min_err='Показатель фактического выполнения работ не может быть меньше 0%',
             max_err='Показатель фактического выполнения работ не может быть больше 100%'

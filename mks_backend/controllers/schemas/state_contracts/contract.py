@@ -1,6 +1,11 @@
+from decimal import ROUND_UP
+
 import colander
 
 from mks_backend.controllers.schemas.validator_utils import date_validator, strip_space
+
+
+CONTRACT_SUM_MAX = 1E+18  # precision = 20, scale = 2;
 
 
 class ContractSchema(colander.MappingSchema):
@@ -46,47 +51,57 @@ class ContractSchema(colander.MappingSchema):
     )
 
     contract_sum = colander.SchemaNode(
-        colander.Decimal(),
+        colander.Decimal(quant='.00', rounding=ROUND_UP),
         name='contractSum',
         validator=colander.Range(
             min=0,
-            min_err='Сумма не может быть меньше нуля'
+            max=CONTRACT_SUM_MAX,
+            min_err='Сумма не может быть меньше нуля',
+            max_err='Указанная сумма контракта слишком велика'
         )
     )
 
     paid_sum = colander.SchemaNode(
-        colander.Decimal(),
+        colander.Decimal(quant='.00', rounding=ROUND_UP),
         name='paidSum',
         validator=colander.Range(
             min=0,
-            min_err='Сумма не может быть меньше нуля'
+            max=CONTRACT_SUM_MAX,
+            min_err='Сумма не может быть меньше нуля',
+            max_err='Указанная сумма оплаты слишком велика'
         )
     )
 
     accepted_sum = colander.SchemaNode(
-        colander.Decimal(),
+        colander.Decimal(quant='.00', rounding=ROUND_UP),
         name='acceptedSum',
         validator=colander.Range(
             min=0,
-            min_err='Сумма не может быть меньше нуля'
+            max=CONTRACT_SUM_MAX,
+            min_err='Сумма не может быть меньше нуля',
+            max_err='Указанная принятая сумма слишком велика '
         )
     )
 
     receivables = colander.SchemaNode(
-        colander.Decimal(),
+        colander.Decimal(quant='.00', rounding=ROUND_UP),
         name='receivables',
         validator=colander.Range(
             min=0,
-            min_err='Сумма не может быть меньше нуля'
+            max=CONTRACT_SUM_MAX,
+            min_err='Сумма не может быть меньше нуля',
+            max_err='Указанная дебиторская задолженность слишком велика'
         )
     )
 
     plan_sum = colander.SchemaNode(
-        colander.Decimal(),
+        colander.Decimal(quant='.00', rounding=ROUND_UP),
         name='planSum',
         validator=colander.Range(
             min=0,
-            min_err='Сумма не может быть меньше нуля'
+            max=CONTRACT_SUM_MAX,
+            min_err='Сумма не может быть меньше нуля',
+            max_err='Указанная в плане финансирования сумма слишком велика'
         )
     )
 
@@ -95,7 +110,7 @@ class ContractSchema(colander.MappingSchema):
         name='constructionId',
         validator=colander.Range(
             min=0,
-            min_err='Такой организации не существует'
+            min_err='Указанного ИСП не существует'
         )
     )
 
@@ -104,7 +119,7 @@ class ContractSchema(colander.MappingSchema):
         name='contractorId',
         validator=colander.Range(
             min=0,
-            min_err='Такой строительной организации не существует'
+            min_err='Указанного генерального подрядчика не существует'
         )
     )
 
@@ -113,7 +128,7 @@ class ContractSchema(colander.MappingSchema):
         name='subcontractorId',
         validator=colander.Range(
             min=0,
-            min_err='Такой строительной не существует'
+            min_err='Указанного субподрядчика не существует'
         ),
         misssing=None
     )
@@ -123,6 +138,6 @@ class ContractSchema(colander.MappingSchema):
         name='contractStatusId',
         validator=colander.Range(
             min=0,
-            min_err='Такого статуса контрактов не существует'
+            min_err='Указанного статуса контрактов не существует'
         ),
     )
