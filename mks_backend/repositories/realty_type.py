@@ -1,5 +1,5 @@
 from mks_backend.models.realty_type import RealtyType
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
 
 from mks_backend.errors.db_basic_error import db_error_handler
 
@@ -23,12 +23,7 @@ class RealtyTypeRepository:
 
     @db_error_handler
     def update_realty_type(self, new_realty_type: RealtyType) -> None:
-        old_realty_type = self._query.filter_by(realty_types_id=new_realty_type.realty_types_id)
-        old_realty_type.update(
-            {
-                'fullname': new_realty_type.fullname,
-            }
-        )
+        DBSession.merge(new_realty_type)
         DBSession.commit()
 
     def get_realty_type_by_id(self, id: int) -> RealtyType:

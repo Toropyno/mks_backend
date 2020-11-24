@@ -1,7 +1,8 @@
 from mks_backend.models.state_contracts.contract_status import ContractStatus
 
+from mks_backend.models import DBSession
+
 from mks_backend.errors.db_basic_error import db_error_handler
-from mks_backend.repositories import DBSession
 
 
 class ContractStatusRepository:

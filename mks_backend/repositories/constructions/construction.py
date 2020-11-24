@@ -1,15 +1,19 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.constructions import Construction
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ConstructionRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(Construction)
+
     def get_all_constructions(self) -> list:
-        return DBSession.query(Construction).order_by(Construction.contract_date).all()
+        return self._query.order_by(Construction.contract_date).all()
 
     def get_construction_by_id(self, id: int) -> Construction:
-        return DBSession.query(Construction).get(id)
+        return self._query.get(id)
 
     @db_error_handler
     def add_construction(self, construction: Construction) -> None:
@@ -18,28 +22,7 @@ class ConstructionRepository:
 
     @db_error_handler
     def update_construction(self, construction: Construction) -> None:
-        DBSession.query(Construction).filter_by(construction_id=construction.construction_id).update(
-            {
-                'project_code': construction.project_code,
-                'project_name': construction.project_name,
-                'construction_categories_id': construction.construction_categories_id,
-                'subcategories_list_id': construction.subcategories_list_id,
-                'is_critical': construction.is_critical,
-                'commission_id': construction.commission_id,
-                'idMU': construction.idMU,
-                'contract_date': construction.contract_date,
-                'object_amount': construction.object_amount,
-                'planned_date': construction.planned_date,
-                'coordinates_id': construction.coordinates_id,
-                'construction_types_id': construction.construction_types_id,
-                'location_types_id': construction.location_types_id,
-                'construction_companies_id': construction.construction_companies_id,
-                'oksm_id': construction.oksm_id,
-                'id_fias': construction.id_fias,
-                'address': construction.address,
-                'note': construction.note
-            }
-        )
+        DBSession.merge(construction)
         DBSession.commit()
 
     def delete_construction(self, id: int) -> None:
@@ -48,7 +31,7 @@ class ConstructionRepository:
         DBSession.commit()
 
     def filter_constructions(self, params: dict) -> list:
-        constructions = DBSession.query(Construction)
+        constructions = self._query
 
         if 'project_code' in params:
             project_code = params['project_code']

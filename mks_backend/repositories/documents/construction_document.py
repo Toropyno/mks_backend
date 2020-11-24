@@ -1,18 +1,22 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.documents.construction_document import ConstructionDocument
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ConstructionDocumentRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(ConstructionDocument)
+
     def get_construction_document_by_id(self, id: int) -> ConstructionDocument:
-        return DBSession.query(ConstructionDocument).get(id)
+        return self._query.get(id)
 
     def get_all_construction_documents(self) -> list:
-        return DBSession.query(ConstructionDocument).order_by(ConstructionDocument.doc_date).all()
+        return self._query.order_by(ConstructionDocument.doc_date).all()
 
     def get_many_construction_documents_by_id(self, ids: list) -> list:
-        return DBSession.query(ConstructionDocument).filter(
+        return self._query.filter(
             ConstructionDocument.construction_documents_id.in_(ids)
         ).all()
 
@@ -22,12 +26,12 @@ class ConstructionDocumentRepository:
         DBSession.commit()
 
     def delete_construction_document(self, id: int) -> None:
-        DBSession.query(ConstructionDocument).filter_by(construction_documents_id=id).delete()
+        self._query.filter_by(construction_documents_id=id).delete()
         DBSession.commit()
 
     @db_error_handler
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
-        DBSession.query(ConstructionDocument).filter_by(
+        self._query.filter_by(
             construction_documents_id=construction_document.construction_documents_id).update(
             {
                 'construction_id': construction_document.construction_id,
@@ -43,6 +47,6 @@ class ConstructionDocumentRepository:
         DBSession.commit()
 
     def get_construction_documents_by_construction(self, construction_id: int) -> list:
-        return DBSession.query(ConstructionDocument).filter_by(construction_id=construction_id).order_by(
+        return self._query.filter_by(construction_id=construction_id).order_by(
             ConstructionDocument.doc_date
         ).all()

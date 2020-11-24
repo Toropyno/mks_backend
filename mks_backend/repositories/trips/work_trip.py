@@ -2,7 +2,7 @@ from mks_backend.models.trips.work_trip import WorkTrip
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.constructions import Construction
 from mks_backend.models.trips.visited_object import VisitedObject
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
 
 from mks_backend.errors.db_basic_error import db_error_handler
 

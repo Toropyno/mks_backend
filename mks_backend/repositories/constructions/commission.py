@@ -1,11 +1,14 @@
 from mks_backend.models.constructions import Commission
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
 
 
 class CommissionRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(Commission)
+
     def get_all_commissions(self) -> list:
-        return DBSession.query(Commission).order_by(Commission.fullname).all()
+        return self._query.order_by(Commission.fullname).all()
 
     def add_commission(self, commission: Commission) -> None:
         DBSession.add(commission)
@@ -17,14 +20,8 @@ class CommissionRepository:
         DBSession.commit()
 
     def update_commission(self, commission: Commission) -> None:
-        DBSession.query(Commission).filter_by(commission_id=commission.commission_id).update(
-            {
-                'fullname': commission.fullname,
-                'code': commission.code
-            }
-        )
-
+        DBSession.merge(commission)
         DBSession.commit()
 
     def get_commission_by_id(self, id: int) -> Commission:
-        return DBSession.query(Commission).get(id)
+        return self._query.get(id)

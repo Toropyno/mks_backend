@@ -1,18 +1,22 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.constructions import ConstructionSubcategory
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class ConstructionSubcategoryRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(ConstructionSubcategory)
+
     def get_construction_subcategory_by_id(self, id: int) -> ConstructionSubcategory:
-        return DBSession.query(ConstructionSubcategory).get(id)
+        return self._query.get(id)
 
     def get_all_construction_subcategories(self) -> list:
-        return DBSession.query(ConstructionSubcategory).all()
+        return self._query.all()
 
     def get_many_construction_subcategories_by_id(self, ids: list) -> list:
-        return DBSession.query(ConstructionSubcategory).filter(
+        return self._query.filter(
             ConstructionSubcategory.construction_subcategories_id.in_(ids)
         ).all()
 
@@ -28,10 +32,5 @@ class ConstructionSubcategoryRepository:
 
     @db_error_handler
     def update_construction_subcategory(self, construction_subcategory: ConstructionSubcategory) -> None:
-        DBSession.query(ConstructionSubcategory).filter_by(
-            construction_subcategories_id=construction_subcategory.construction_subcategories_id).update(
-            {
-                'fullname': construction_subcategory.fullname
-            }
-        )
+        DBSession.merge(construction_subcategory)
         DBSession.commit()

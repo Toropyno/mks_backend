@@ -1,15 +1,19 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.constructions import SubcategoryList
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
+
+from mks_backend.errors.db_basic_error import db_error_handler
 
 
 class SubcategoryListRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(SubcategoryList)
+
     def get_subcategories_list_by_id(self, id: int) -> SubcategoryList:
-        return DBSession.query(SubcategoryList).get(id)
+        return self._query.get(id)
 
     def get_all_subcategories_lists(self) -> list:
-        return DBSession.query(SubcategoryList).all()
+        return self._query.all()
 
     @db_error_handler
     def add_subcategories_list(self, subcategories_list: SubcategoryList) -> None:
@@ -17,12 +21,11 @@ class SubcategoryListRepository:
         DBSession.commit()
 
     def delete_subcategories_list_by_id(self, id: int) -> None:
-        subcategories_list = self.get_subcategories_list_by_id(id)
-        DBSession.delete(subcategories_list)
+        self._query.filter(SubcategoryList.subcategories_list_id == id).delete()
         DBSession.commit()
 
     def get_subcategories_list_by_relations(self, category_id: int, subcategory_id: int) -> SubcategoryList:
-        return DBSession.query(SubcategoryList).filter(
+        return self._query.filter(
             SubcategoryList.construction_categories_id == category_id,
             SubcategoryList.construction_subcategories_id == subcategory_id
         ).first()

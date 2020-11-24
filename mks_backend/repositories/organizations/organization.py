@@ -1,7 +1,7 @@
 from typing import List
 
 from mks_backend.models.organizations.organization import Organization
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
 
 from mks_backend.errors.db_basic_error import DBBasicError, db_error_handler
 
