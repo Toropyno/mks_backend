@@ -1,10 +1,10 @@
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from mks_backend.controllers.schemas.contract_status import ContractStatusSchema
+from mks_backend.controllers.schemas.state_contracts.contract_status import ContractStatusSchema
 from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
-from mks_backend.serializers.contract_status import ContractStatusSerializer
-from mks_backend.services.contract_status import ContractStatusService
+from mks_backend.serializers.state_contracts.contract_status import ContractStatusSerializer
+from mks_backend.services.state_contracts.contract_status import ContractStatusService
 
 
 @view_defaults(renderer='json')

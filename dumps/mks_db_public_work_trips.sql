@@ -1,5 +1,0 @@
-INSERT INTO public.work_trips (work_trips_id, trip_date, trip_name, escort_officer, leadership_positions_id, protocol_id) VALUES (7, '2020-10-18', 'Шестая поездка', 'Петров Петр Петрович', 5, 51);
-INSERT INTO public.work_trips (work_trips_id, trip_date, trip_name, escort_officer, leadership_positions_id, protocol_id) VALUES (4, '2020-08-08', 'Четвертая поездка', 'Иванов Иван Иванович', 2, 37);
-INSERT INTO public.work_trips (work_trips_id, trip_date, trip_name, escort_officer, leadership_positions_id, protocol_id) VALUES (6, '2020-10-16', 'Пятая поездка', 'Александров Александр Александрович', 4, 43);
-INSERT INTO public.work_trips (work_trips_id, trip_date, trip_name, escort_officer, leadership_positions_id, protocol_id) VALUES (3, '2020-12-31', 'Третья поездка', 'Иванов Иван Иванович', 3, 37);
-INSERT INTO public.work_trips (work_trips_id, trip_date, trip_name, escort_officer, leadership_positions_id, protocol_id) VALUES (1, '2020-08-07', 'Первая поездка', 'Васильев Василий Васильевич', 1, null);

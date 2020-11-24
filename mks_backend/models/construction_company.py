@@ -23,3 +23,11 @@ class ConstructionCompany(Base):
     construction_companies_id = Column(Integer, primary_key=True)
     shortname = Column(VARCHAR(100), nullable=False)
     fullname = Column(VARCHAR(1000), nullable=False)
+
+    id_fias = Column(Integer)  # TODO: add fias
+    address_full = Column(VARCHAR(1000))
+    phone = Column(VARCHAR(40))
+    email = Column(VARCHAR(80))
+    people = Column(Integer)
+    equipment = Column(Integer)
+    services = Column(VARCHAR(1000))

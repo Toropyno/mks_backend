@@ -1,0 +1,1 @@
+from mks_backend.serializers.state_contracts.contract import ContractSerializer
