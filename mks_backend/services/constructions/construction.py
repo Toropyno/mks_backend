@@ -31,7 +31,6 @@ class ConstructionService:
 
     def convert_schema_to_object(self, schema: dict) -> Construction:
         construction = Construction()
-
         construction.construction_id = schema.get('id')
         construction.project_code = schema.get('code')
         construction.project_name = schema.get('name')
@@ -46,8 +45,10 @@ class ConstructionService:
         construction.location_types_id = schema.get('locationType')
         construction.construction_companies_id = schema.get('constructionCompany')
         construction.oksm_id = schema.get('oksm')
-        construction.address = schema.get('address')
+        construction.address_full = schema.get('address')
         construction.note = schema.get('note')
+        construction.organizations_id = schema.get('organization')
+
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
 

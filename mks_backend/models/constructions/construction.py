@@ -10,9 +10,10 @@ from sqlalchemy import (
     CheckConstraint,
 )
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from mks_backend.models import Base
+from mks_backend.models import Base, ORGANIZATION_SCHEMA
 
 
 class Construction(Base):
@@ -26,7 +27,7 @@ class Construction(Base):
     is_critical = Column(Boolean, nullable=False)
     planned_date = Column(DATE, nullable=False)
     id_fias = Column(Integer)  # ForeignKey()
-    address = Column(VARCHAR(1000))
+    address_full = Column(VARCHAR(1000))
     note = Column(VARCHAR(1000))
 
     construction_categories_id = Column(
@@ -84,6 +85,12 @@ class Construction(Base):
         ForeignKey('coordinates.coordinates_id')
     )
 
+    organizations_id = Column(
+        UUID,
+        ForeignKey('{schema}.organizations.organizations_id'.format(schema=ORGANIZATION_SCHEMA)),
+        nullable=False
+    )
+
     # --------- relationships --------- #
 
     construction_category = relationship(
@@ -137,6 +144,10 @@ class Construction(Base):
         'Contract',
         back_populates='construction',
         passive_deletes=True
+    )
+
+    organization = relationship(
+        'Organization'
     )
 
     # --------- calculated_fields --------- #

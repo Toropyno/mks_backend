@@ -1,15 +1,15 @@
 from mks_backend.models.constructions import Construction
 
+from mks_backend.serializers.oksm import OKSMSerializer
+from mks_backend.serializers.coordinate import CoordinateSerializer
+from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.constructions.commision import CommissionSerializer
+from mks_backend.serializers.organizations.organization import OrganizationSerializer
 from mks_backend.serializers.constructions.location_type import LocationTypeSerializer
+from mks_backend.serializers.construction_company import ConstructionCompanySerializer
 from mks_backend.serializers.constructions.construction_type import ConstructionTypeSerializer
 from mks_backend.serializers.constructions.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.constructions.construction_subcategory import ConstructionSubcategorySerializer
-
-from mks_backend.serializers.construction_company import ConstructionCompanySerializer
-from mks_backend.serializers.military_unit import MilitaryUnitSerializer
-from mks_backend.serializers.coordinate import CoordinateSerializer
-from mks_backend.serializers.oksm import OKSMSerializer
 
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
@@ -66,11 +66,14 @@ class ConstructionSerializer:
                 'locality': 'Наименование населенного пункта по ФИАС',
                 'remaining_address': 'Улица, мкр. по ФИАС'
             },
-            'address': 'Неформализованный адрес проекта',
+            'address': construction.address_full,
             'note': 'Примечание к проекту',
             'coordinate': CoordinateSerializer.convert_object_to_json(
                 construction.coordinate
             ),
+            'organization': OrganizationSerializer.to_simple_json(
+                construction.organization
+            )
         }
 
         construction_json.update(construction.calculated_fields)

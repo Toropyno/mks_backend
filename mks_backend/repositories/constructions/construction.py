@@ -86,6 +86,6 @@ class ConstructionRepository:
             constructions = constructions.filter(Construction.oksm_id == oksm_id)
         if 'address' in params:
             address = params['address']
-            constructions = constructions.filter(Construction.address == address)
+            constructions = constructions.filter(Construction.address_full == address)
 
         return constructions.order_by(Construction.contract_date).all()
