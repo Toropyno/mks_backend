@@ -1,1 +1,0 @@
-INSERT INTO public.object_files (object_files_id, idfilestorage, construction_objects_id, upload_date, note) VALUES (1, '72b4ff02-0b08-4459-9d33-3836636571af', 38, '2020-10-13 11:21:36.292019', 'Файл к объекту');

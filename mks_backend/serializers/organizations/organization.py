@@ -21,6 +21,8 @@ class OrganizationSerializer:
         return {
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
+            'parentName': node.parent.shortname if node.parent else None,
+            'parentNumber': node.par_number,
             'label': node.actual.shortname,
             'isActive': node.is_active,
             'isLegal': node.org_sign,

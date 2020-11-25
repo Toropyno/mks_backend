@@ -25,7 +25,7 @@ class CompletionDateController:
         completion_date = self.serializer.to_object(completion_date_deserialized)
 
         self.service.add(completion_date)
-        return {'id': completion_date.contract_worktypes_id}
+        return {'id': completion_date.completion_dates_id}
 
     @handle_db_error
     @handle_colander_error
@@ -59,4 +59,4 @@ class CompletionDateController:
         return {'id': id}
 
     def get_id(self):
-        return int(self.request.matchdict['id'])
+        return int(self.request.matchdict.get('id'))

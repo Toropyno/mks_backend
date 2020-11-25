@@ -27,6 +27,6 @@ class CompletionDateSchema(colander.MappingSchema):
         colander.String(),
         preparer=[strip_space],
         name='endDate',
-        msg='Недопустимая информация о дате документа',
+        msg='Недопустимая информация о сроке исполнения',
         validator=date_validator
     )

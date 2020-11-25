@@ -1,0 +1,1 @@
+from mks_backend.services.state_contracts.contract import ContractService

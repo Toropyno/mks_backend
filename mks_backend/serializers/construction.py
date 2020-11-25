@@ -26,7 +26,7 @@ class ConstructionSerializer:
             'code': construction.project_code,
             'name': construction.project_name,
             'constructionType': ConstructionTypeSerializer.convert_object_to_json(
-                construction.type
+                construction.construction_type
             ),
             'category': ConstructionCategorySerializer.to_short_json(
                 construction.construction_category

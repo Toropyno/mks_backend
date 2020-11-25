@@ -41,7 +41,7 @@ class OrganizationHistory(Base):
     ogrn = Column(VARCHAR(20), nullable=True)
 
     begin_date = Column(DATE, nullable=False)
-    end_date = Column(DATE, CheckConstraint('end_date <= begin_date'), nullable=True)
+    end_date = Column(DATE, CheckConstraint('end_date >= begin_date'), nullable=True)
 
     organizations_id = Column(
         UUID,

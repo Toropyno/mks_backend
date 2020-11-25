@@ -129,8 +129,14 @@ class Construction(Base):
         'OKSM'
     )
 
-    type = relationship(
+    construction_type = relationship(
         'ConstructionType'
+    )
+
+    contracts = relationship(
+        'Contract',
+        back_populates='construction',
+        passive_deletes=True
     )
 
     # --------- calculated_fields --------- #

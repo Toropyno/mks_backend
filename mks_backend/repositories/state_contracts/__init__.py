@@ -1,0 +1,1 @@
+from mks_backend.repositories.state_contracts.contract import ContractRepository

@@ -131,6 +131,8 @@ DB_ERROR_CODES = {
     'organizations_history_ak_duplicate': 'Запись с таким id организации и датой начала уже существует!',
     'officials_pkey_duplicate': 'Должностные лица с указанным ключом уже существуют!',
 
+    'contracts_pkey_duplicate': 'Контракт с указанным ключом уже существует!',
+    'contracts_ak_duplicate': 'Контракт с указанным номером и идентификатором уже существует!',
     'contract_worktypes_pkey_duplicate': 'Виды Мероприятий По Гос. Контрактам с указанным ключом уже существуют!',
     'contract_worktypes_fullname_key_duplicate': 'Виды Мероприятий с указанным наименованием уже существуют!',
 
@@ -212,8 +214,14 @@ DB_ERROR_CODES = {
     'completion_dates_contracts_id_fkey': 'Указанного Контракта не существует!',
     'completion_dates_contract_worktypes_id_fkey': 'Указанных Видов Мероприятий По Гос. Контрактам не существует!',
 
+    'contracts_construction_id_fkey': 'Указанного ИСП не существует!',
+    'contracts_contractor_id_fkey': 'Указанного Генерального Подрядчика не существует!',
+    'contracts_subcontractor_id_fkey': 'Указанного Субподрядчика не существует!',
+    'contracts_contract_statuses_id_fkey': 'Указанного Статуса Контракта не существует!',
+
     'other_fkey': 'Вторичный ключ не найден!',
 
+    'contract_nf': 'Указанного контракта не существует!',
     'contract_work_type_nf': 'Указанных Видов Мероприятий По Государственным Контрактам не существует!',
 
     'completion_date_nf': 'Указанных Сроков Окончания Работ По Контракту не существует!',

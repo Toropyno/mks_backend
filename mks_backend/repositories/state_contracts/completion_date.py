@@ -21,7 +21,7 @@ class CompletionDateRepository:
         return completion_date
 
     def get_all(self) -> list:
-        return self._query.order_by(CompletionDate.fullname).all()
+        return self._query.order_by(CompletionDate.end_date).all()
 
     def delete_by_id(self, id: int) -> None:
         completion_date = self.get_by_id(id)
@@ -30,7 +30,7 @@ class CompletionDateRepository:
 
     @db_error_handler
     def update(self, completion_date: CompletionDate) -> None:
-        self._query.filter_by(contract_worktypes_id=completion_date.contract_worktypes_id).update(
+        self._query.filter_by(completion_dates_id=completion_date.completion_dates_id).update(
             {
                 'contracts_id': completion_date.contracts_id,
                 'contract_worktypes_id': completion_date.contract_worktypes_id,

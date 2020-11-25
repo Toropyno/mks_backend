@@ -8,7 +8,7 @@ from sqlalchemy import (
 
 from sqlalchemy.orm import relationship
 
-from mks_backend.models import Base, STATE_CONTRACT_SCHEMA, ORGANIZATION_SCHEMA
+from mks_backend.models import Base, STATE_CONTRACT_SCHEMA
 
 
 class CompletionDate(Base):
@@ -32,13 +32,13 @@ class CompletionDate(Base):
 
     contracts_id = Column(
         Integer,
-        ForeignKey('{schema}.contracts.contracts_id'.format(schema=ORGANIZATION_SCHEMA)),
+        ForeignKey('{schema}.contracts.contracts_id'.format(schema=STATE_CONTRACT_SCHEMA)),
         nullable=False
     )
 
     contract_worktypes_id = Column(
         Integer,
-        # ForeignKey('{schema}.contract_worktypes.contract_worktypes_id'.format(schema=ORGANIZATION_SCHEMA)),
+        ForeignKey('{schema}.contract_worktypes.contract_worktypes_id'.format(schema=STATE_CONTRACT_SCHEMA)),
         nullable=False
     )
 
@@ -49,7 +49,7 @@ class CompletionDate(Base):
         back_populates='completion_dates'
     )
 
-    # contract = relationship(
-    #     'Contract',
-    #     back_populates='completion_dates'
-    # )
+    contract = relationship(
+        'Contract',
+        back_populates='completion_dates'
+    )
