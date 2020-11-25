@@ -1,7 +1,7 @@
 from mks_backend.models.documents.doc_type import DocType
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class DocTypeRepository:
@@ -22,8 +22,11 @@ class DocTypeRepository:
 
     @db_error_handler
     def update_doc_type(self, doc_type: DocType) -> None:
-        DBSession.merge(doc_type)
-        DBSession.commit()
+        if DBSession.merge(doc_type) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('doc_type_ad')
 
     def delete_doc_type_by_id(self, id: int) -> None:
         self._query.filter_by(doctypes_id=id).delete()

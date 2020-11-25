@@ -18,8 +18,11 @@ class OrganisationRepository:
 
     @db_error_handler
     def update(self, organization: Organization):
-        DBSession.merge(organization)
-        DBSession.commit()
+        if DBSession.merge(organization) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('organization_ad')
 
     def get_by_id(self, uuid: str) -> Organization:
         organization = self._query.get(uuid)

@@ -1,7 +1,7 @@
 from mks_backend.models.construction_stage import ConstructionStage
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ConstructionStageRepository:
@@ -27,5 +27,8 @@ class ConstructionStageRepository:
 
     @db_error_handler
     def update_construction_stage(self, construction_stage: ConstructionStage) -> None:
-        DBSession.merge(construction_stage)
-        DBSession.commit()
+        if DBSession.merge(construction_stage) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('construction_stage_ad')

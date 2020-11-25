@@ -1,7 +1,7 @@
 from mks_backend.models.zone import Zone
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ZoneRepository:
@@ -27,5 +27,8 @@ class ZoneRepository:
 
     @db_error_handler
     def update_zone(self, zone: Zone) -> None:
-        DBSession.merge(zone)
-        DBSession.commit()
+        if DBSession.merge(zone) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('zone_ad')

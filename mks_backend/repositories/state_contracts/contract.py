@@ -26,8 +26,11 @@ class ContractRepository:
 
     @db_error_handler
     def edit_contract(self, contract: Contract) -> None:
-        DBSession.merge(contract)
-        DBSession.commit()
+        if DBSession.merge(contract) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('contract_ad')
 
     def delete_contract(self, id_: int) -> None:
         self._query.filter(Contract.contracts_id == id_).delete()

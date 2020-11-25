@@ -1,7 +1,7 @@
 from mks_backend.models.constructions import ConstructionType
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ConstructionTypeRepository:
@@ -23,8 +23,11 @@ class ConstructionTypeRepository:
 
     @db_error_handler
     def update_construction_type(self, new_construction_type: ConstructionType) -> None:
-        DBSession.merge(new_construction_type)
-        DBSession.commit()
+        if DBSession.merge(new_construction_type) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('construction_type_ad')
 
     def get_construction_type_by_id(self, id: int) -> ConstructionType:
         return self._query.get(id)

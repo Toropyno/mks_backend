@@ -1,7 +1,7 @@
 from mks_backend.models.constructions import Construction
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ConstructionRepository:
@@ -22,8 +22,11 @@ class ConstructionRepository:
 
     @db_error_handler
     def update_construction(self, construction: Construction) -> None:
-        DBSession.merge(construction)
-        DBSession.commit()
+        if DBSession.merge(construction) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('construction_ad')
 
     def delete_construction(self, id: int) -> None:
         construction = self.get_construction_by_id(id)

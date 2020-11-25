@@ -1,7 +1,7 @@
 from mks_backend.models.progress_status import ProgressStatus
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ProgressStatusRepository:
@@ -27,5 +27,8 @@ class ProgressStatusRepository:
 
     @db_error_handler
     def update_progress_status(self, progress_status: ProgressStatus) -> None:
-        DBSession.merge(progress_status)
-        DBSession.commit()
+        if DBSession.merge(progress_status) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('progress_status_ad')

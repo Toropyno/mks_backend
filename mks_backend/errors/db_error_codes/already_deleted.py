@@ -1,0 +1,20 @@
+ALREADY_DELETED_ERROR = {
+    'contract_ad': 'Этот Контракт уже удалили!',
+    'construction_company_ad': 'Эту Строительную компанию уже удалили!',
+    'construction_type_ad': 'Этот тип проекта уже удалили!',
+    'realty_type_ad': 'Этот Тип Недвижимости уже удалили!',
+    'construction_stage_ad': 'Этот Этап Строительства уже удалили!',
+    'commission_ad': 'Эту Коммиссию уже удалили!',
+    'construction_category_ad': 'Эту категорию ИСП уже удалили!',
+    'construction_subcategory_ad': 'Эту подкатегорию ИСП уже удалили!',
+    'location_type_ad': 'Этот тип местоположения уже удалили!',
+    'doc_type_ad': 'Этот тип документа уже удалили!',
+    'inspected_object_ad': 'Этот объект уже удалили!',
+    'oksm_ad': 'Эта запись в ОКСМ уже была удалена!',
+    'organization_ad': 'Эту организацию уже удалили!',
+    'organization_history_ad': ' реквизит уже удалили!',
+    'progress_status_ad': 'Этот ход строительства уже удалили!',
+    'meeting_type_ad': 'Этот тип заседания уже удалили!',
+    'leadership_position_ad': 'Эту должность уже удалили!',
+    'zone_ad': 'Эту зону уже удалили!'
+}

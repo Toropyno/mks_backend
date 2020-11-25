@@ -1,6 +1,8 @@
 from mks_backend.models.constructions import Commission
 from mks_backend.models import DBSession
 
+from mks_backend.errors import DBBasicError
+
 
 class CommissionRepository:
 
@@ -20,8 +22,11 @@ class CommissionRepository:
         DBSession.commit()
 
     def update_commission(self, commission: Commission) -> None:
-        DBSession.merge(commission)
-        DBSession.commit()
+        if DBSession.merge(commission) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('commission_ad')
 
     def get_commission_by_id(self, id: int) -> Commission:
         return self._query.get(id)

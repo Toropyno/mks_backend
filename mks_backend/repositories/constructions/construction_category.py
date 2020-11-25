@@ -1,7 +1,7 @@
 from mks_backend.models.constructions import ConstructionCategory
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ConstructionCategoryRepository:
@@ -27,5 +27,8 @@ class ConstructionCategoryRepository:
 
     @db_error_handler
     def update_construction_category(self, construction_category: ConstructionCategory) -> None:
-        DBSession.merge(construction_category)
-        DBSession.commit()
+        if DBSession.merge(construction_category) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('construction_category_ad')

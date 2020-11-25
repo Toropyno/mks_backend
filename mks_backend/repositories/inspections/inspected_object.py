@@ -5,7 +5,7 @@ from sqlalchemy import and_
 from mks_backend.models.inspections.inspected_object import InspectedObject
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class InspectedObjectRepository:

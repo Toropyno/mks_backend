@@ -1,7 +1,7 @@
 from mks_backend.models.oksm import OKSM
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class OKSMRepository:
@@ -23,8 +23,11 @@ class OKSMRepository:
 
     @db_error_handler
     def update_oksm(self, new_oksm: OKSM) -> None:
-        DBSession.merge(new_oksm)
-        DBSession.commit()
+        if DBSession.merge(new_oksm) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('oksm_ad')
 
     def get_oksm_by_id(self, id: int) -> OKSM:
         return self._query.get(id)
