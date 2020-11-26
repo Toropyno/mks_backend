@@ -11,7 +11,7 @@ class DBBasicError(Exception):
         self.error_raw = error_raw
 
     @property
-    def message(self) -> None:
+    def message(self) -> str:
         return self.codes[self.code]
 
     @property
