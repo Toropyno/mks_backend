@@ -1,4 +1,4 @@
-from mks_backend.errors.serilize_error import serialize_error_handler
+from mks_backend.errors.serialize_error import serialize_error_handler
 from mks_backend.models.coordinate import Coordinate
 
 

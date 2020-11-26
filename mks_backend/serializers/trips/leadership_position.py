@@ -1,6 +1,6 @@
 from mks_backend.models.trips.leadership_position import LeadershipPosition
 
-from mks_backend.errors.serilize_error import serialize_error_handler
+from mks_backend.errors.serialize_error import serialize_error_handler
 
 
 class LeadershipPositionSerializer:

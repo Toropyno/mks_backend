@@ -1,7 +1,7 @@
 from typing import List
 
 from mks_backend.models.organizations.organization import Organization
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
 
 from mks_backend.errors.db_basic_error import DBBasicError, db_error_handler
 
@@ -18,8 +18,11 @@ class OrganisationRepository:
 
     @db_error_handler
     def update(self, organization: Organization):
-        DBSession.merge(organization)
-        DBSession.commit()
+        if DBSession.merge(organization) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('organization_ad')
 
     def get_by_id(self, uuid: str) -> Organization:
         organization = self._query.get(uuid)

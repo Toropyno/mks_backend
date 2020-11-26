@@ -5,7 +5,7 @@ from mks_backend.serializers.organizations.military_rank import MilitaryRankSeri
 from mks_backend.services.organizations.military_rank import MilitaryRankService
 from mks_backend.controllers.schemas.organizations.military_rank import MilitaryRankSchema
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

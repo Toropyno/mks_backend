@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.organizations.official import OfficialSchem
 from mks_backend.serializers.organizations.official import OfficialSerializer
 from mks_backend.services.organizations.official import OfficialService
 
-from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
+from mks_backend.errors import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')

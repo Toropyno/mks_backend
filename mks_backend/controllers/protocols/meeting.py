@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.protocols.meeting import MeetingSchema
 from mks_backend.serializers.protocols.meeting import MeetingSerializer
 from mks_backend.services.protocols.meeting import MeetingService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

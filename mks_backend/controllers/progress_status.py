@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.progress_status import ProgressStatusSchema
 from mks_backend.serializers.progress_status import ProgressStatusSerializer
 from mks_backend.services.progress_status import ProgressStatusService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

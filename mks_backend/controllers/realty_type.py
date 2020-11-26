@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.realty_type import RealtyTypeSchema
 from mks_backend.serializers.realty_type import RealtyTypeSerializer
 from mks_backend.services.realty_type import RealtyTypeService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

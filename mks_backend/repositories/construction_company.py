@@ -1,7 +1,7 @@
 from mks_backend.models.construction_company import ConstructionCompany
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ConstructionCompanyRepository:
@@ -23,17 +23,11 @@ class ConstructionCompanyRepository:
 
     @db_error_handler
     def update_construction_company(self, new_construction_company: ConstructionCompany) -> None:
-        old_construction_company = self._query.filter_by(
-            construction_companies_id=new_construction_company.construction_companies_id
-        )
-        old_construction_company.update(
-            {
-                'shortname': new_construction_company.shortname,
-                'fullname': new_construction_company.fullname,
-            }
-        )
-
-        DBSession.commit()
+        if DBSession.merge(new_construction_company) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('construction_company_ad')
 
     def get_construction_company_by_id(self, id: int) -> ConstructionCompany:
         return self._query.get(id)

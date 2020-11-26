@@ -1,15 +1,19 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.progress_status import ProgressStatus
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
+
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ProgressStatusRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(ProgressStatus)
+
     def get_progress_status_by_id(self, id: int) -> ProgressStatus:
-        return DBSession.query(ProgressStatus).get(id)
+        return self._query.get(id)
 
     def get_all_progress_statuses(self) -> list:
-        return DBSession.query(ProgressStatus).order_by(ProgressStatus.fullname).all()
+        return self._query.order_by(ProgressStatus.fullname).all()
 
     @db_error_handler
     def add_progress_status(self, progress_status: ProgressStatus) -> None:
@@ -23,9 +27,8 @@ class ProgressStatusRepository:
 
     @db_error_handler
     def update_progress_status(self, progress_status: ProgressStatus) -> None:
-        DBSession.query(ProgressStatus).filter_by(progress_statuses_id=progress_status.progress_statuses_id).update(
-            {
-                'fullname': progress_status.fullname,
-            }
-        )
-        DBSession.commit()
+        if DBSession.merge(progress_status) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('progress_status_ad')

@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.inspections.inspection_file import Inspecti
 from mks_backend.services.inspections.inspection_file import InspectionFileService
 from mks_backend.serializers.inspections.inspection_file import InspectionFileSerializer
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')
