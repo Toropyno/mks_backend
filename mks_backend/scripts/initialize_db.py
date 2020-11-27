@@ -15,20 +15,20 @@ from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.filestorage import Filestorage
 from mks_backend.models.protocols.meeting import Meeting
 
-from mks_backend.models.commission import Commission
-from mks_backend.models.construction import Construction
-from mks_backend.models.construction_category import ConstructionCategory
+from mks_backend.models.constructions import Commission
+from mks_backend.models.constructions import Construction
+from mks_backend.models.constructions import ConstructionCategory
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.models.construction_stage import ConstructionStage
-from mks_backend.models.construction_subcategory import ConstructionSubcategory
+from mks_backend.models.constructions import ConstructionSubcategory
 from mks_backend.models.military_unit.military_unit import MilitaryUnit
 from mks_backend.models.object_category import ObjectCategory
 from mks_backend.models.object_category_list import ObjectCategoryList
-from mks_backend.models.subcategory_list import SubcategoryList
+from mks_backend.models.constructions import SubcategoryList
 from mks_backend.models.zone import Zone
 from mks_backend.models.construction_company import ConstructionCompany
 from mks_backend.models.oksm import OKSM
-from mks_backend.models.construction_type import ConstructionType
+from mks_backend.models.constructions import ConstructionType
 from mks_backend.models.realty_type import RealtyType
 from mks_backend.models.work_list.work_type import WorkType
 from mks_backend.models.work_list.work_list import WorkList
@@ -41,7 +41,7 @@ from mks_backend.models.military_unit.purposemu import PurposeMU
 from mks_backend.models.military_unit.sortarmedforces import SortArmedForces
 
 from mks_backend.models.coordinate import Coordinate
-from mks_backend.models.location_type import LocationType
+from mks_backend.models.constructions import LocationType
 
 from mks_backend.models.documents.object_document import ObjectDocument
 from mks_backend.models.documents.construction_document import ConstructionDocument

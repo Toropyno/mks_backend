@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 from mks_backend.services.inspections.inspection import InspectionService
 from mks_backend.repositories.inspections.inspected_object import InspectedObjectRepository
-from mks_backend.models.construction import Construction
+from mks_backend.models.constructions import Construction
 from mks_backend.models.inspections.inspected_object import InspectedObject
 
 

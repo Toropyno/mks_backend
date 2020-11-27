@@ -5,7 +5,7 @@ from mks_backend.services.organizations.organization_history import Organization
 from mks_backend.serializers.organizations.organization_history import OrganizationHistorySerializer
 from mks_backend.controllers.schemas.organizations.organization_history import OrganizationHistorySchema
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

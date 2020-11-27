@@ -1,7 +1,7 @@
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
 from mks_backend.models.organizations.organization_history import OrganizationHistory
 
-from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class OrganizationHistoryRepository:
@@ -16,8 +16,11 @@ class OrganizationHistoryRepository:
 
     @db_error_handler
     def update(self, organization_history: OrganizationHistory) -> None:
-        DBSession.merge(organization_history)
-        DBSession.commit()
+        if DBSession.merge(organization_history) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('organization_history_ad')
 
     def delete(self, id_: int) -> None:
         organization_history = self.get(id_)

@@ -2,11 +2,11 @@ from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
 from mks_backend.controllers.schemas.inspections.inspected_object import InspectedObjectSchema
-from mks_backend.serializers.construction import ConstructionSerializer
+from mks_backend.serializers.constructions import ConstructionSerializer
 from mks_backend.serializers.inspections.inspected_object import InspectedObjectSerializer
 from mks_backend.services.inspections.inspected_object import InspectedObjectService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

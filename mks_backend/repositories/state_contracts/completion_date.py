@@ -1,5 +1,5 @@
+from mks_backend import DBSession
 from mks_backend.models.state_contracts.completion_date import CompletionDate
-from mks_backend.repositories import DBSession
 
 from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
 

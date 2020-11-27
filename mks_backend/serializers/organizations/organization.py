@@ -50,3 +50,10 @@ class OrganizationSerializer:
             organization.history = [history_record]
 
         return organization
+
+    @classmethod
+    def to_simple_json(cls, organization: Organization):
+        return {
+            'organizationId': organization.organizations_id,
+            'label': organization.actual.shortname
+        }

@@ -1,15 +1,19 @@
-from mks_backend.errors.db_basic_error import db_error_handler
 from mks_backend.models.zone import Zone
-from mks_backend.repositories import DBSession
+from mks_backend.models import DBSession
+
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ZoneRepository:
 
+    def __init__(self):
+        self._query = DBSession.query(Zone)
+
     def get_zone_by_id(self, id: int) -> Zone:
-        return DBSession.query(Zone).get(id)
+        return self._query.get(id)
 
     def get_all_zones(self) -> list:
-        return DBSession.query(Zone).order_by(Zone.fullname).all()
+        return self._query.order_by(Zone.fullname).all()
 
     @db_error_handler
     def add_zone(self, zone: Zone) -> None:
@@ -23,4 +27,8 @@ class ZoneRepository:
 
     @db_error_handler
     def update_zone(self, zone: Zone) -> None:
-        DBSession.commit()
+        if DBSession.merge(zone) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('zone_ad')

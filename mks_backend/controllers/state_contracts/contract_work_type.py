@@ -5,7 +5,7 @@ from mks_backend.serializers.state_contracts.contract_work_type import ContractW
 from mks_backend.services.state_contracts.contract_work_type import ContractWorkTypeService
 from mks_backend.controllers.schemas.state_contracts.contract_work_type import ContractWorkTypeSchema
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

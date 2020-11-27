@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.construction_company import ConstructionCom
 from mks_backend.serializers.construction_company import ConstructionCompanySerializer
 from mks_backend.services.construction_company import ConstructionCompanyService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

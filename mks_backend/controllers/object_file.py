@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.object_file import ObjectFileSchema
 from mks_backend.serializers.object_file import ObjectFileSerializer
 from mks_backend.services.object_file import ObjectFileService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')
@@ -60,7 +60,7 @@ class ObjectFileController:
         object_file = self.service.get_object_file_by_id(id)
         return self.serializer.convert_object_to_json(object_file)
 
-    @view_config(route_name='get_object_files_by_object', renderer='json')
+    @view_config(route_name='get_object_files_by_object')
     def get_object_files_by_object(self):
         object_id = int(self.request.matchdict['id'])
         object_files = self.service.get_object_files_by_object(object_id)

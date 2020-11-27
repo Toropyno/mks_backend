@@ -5,7 +5,7 @@ from mks_backend.controllers.schemas.trips.leadership_position import Leadership
 from mks_backend.serializers.trips.leadership_position import LeadershipPositionSerializer
 from mks_backend.services.trips.leadership_position import LeadershipPositionService
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
+from mks_backend.errors import handle_colander_error, handle_db_error
 
 
 @view_defaults(renderer='json')

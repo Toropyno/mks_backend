@@ -2,11 +2,11 @@ from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
 from mks_backend.controllers.schemas.trips.visited_object import VisitedObjectSchema
-from mks_backend.serializers.construction import ConstructionSerializer
+from mks_backend.serializers.constructions import ConstructionSerializer
 from mks_backend.serializers.trips.visited_object import VisitedObjectSerializer
 from mks_backend.services.trips.visited_object import VisitedObjectService
 
-from mks_backend.errors.handle_controller_error import handle_db_error, handle_colander_error
+from mks_backend.errors import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')
