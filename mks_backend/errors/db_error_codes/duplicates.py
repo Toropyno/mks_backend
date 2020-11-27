@@ -134,5 +134,9 @@ DUPLICATE_ERROR = {
     'contract_worktypes_pkey_duplicate': 'Виды Мероприятий По Гос. Контрактам с указанным ключом уже существуют!',
     'contract_worktypes_fullname_key_duplicate': 'Виды Мероприятий с указанным наименованием уже существуют!',
 
+    'completion_dates_pkey_duplicate': 'Сроки Окончания Работ По Контракту с указанным ключом уже существуют!',
+    'completion_dates_unique_duplicate': 'Сроки Окончания Работ По Контракту с указанными Контрактами и '
+                                         'Видами Мероприятий уже существуют!',
+
     'other_duplicate': 'Дубликат записи!',
 }

@@ -71,6 +71,7 @@ from mks_backend.models.organizations.military_rank import MilitaryRank
 from mks_backend.models.state_contracts import Contract
 from mks_backend.models.state_contracts import ContractStatus
 from mks_backend.models.state_contracts import ContractWorkType
+from mks_backend.models.state_contracts.completion_date import CompletionDate
 
 from mks_backend.models.miv.storage import Storage
 from mks_backend.models._loggers.miv import MIVLog

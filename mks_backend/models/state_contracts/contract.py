@@ -83,3 +83,7 @@ class Contract(Base):
     status = relationship(
         'ContractStatus'
     )
+
+    completion_dates = relationship(
+        'CompletionDate'
+    )
