@@ -42,7 +42,7 @@ class Construction(Base):
 
     commission_id = Column(
         Integer,
-        ForeignKey('commission.commission_id', ondelete='SET NULL'),
+        ForeignKey('commission.commission_id'),
         nullable=False
     )
 
