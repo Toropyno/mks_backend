@@ -22,6 +22,7 @@ class ConstructionDocumentController:
         construction_documents = self.service.get_all_construction_documents()
         return self.serializer.convert_list_to_json(construction_documents)
 
+    @handle_db_error
     @view_config(route_name='get_construction_document')
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
@@ -50,6 +51,7 @@ class ConstructionDocumentController:
         self.service.update_construction_document(construction_document)
         return {'id': id}
 
+    @handle_db_error
     @view_config(route_name='delete_construction_document')
     def delete_construction_document(self):
         id = int(self.request.matchdict['id'])
