@@ -1,6 +1,8 @@
 from mks_backend.models import DBSession
 from mks_backend.models.filestorage import Filestorage
 
+from mks_backend.errors.filestorage_error import FilestorageError
+
 
 class FilestorageRepository:
 
@@ -12,7 +14,10 @@ class FilestorageRepository:
         DBSession.commit()
 
     def get_filestorage_by_id(self, id: str) -> Filestorage:
-        return self._query.get(id)
+        filestorage = self._query.get(id)
+        if not filestorage:
+            raise FilestorageError(6)
+        return filestorage
 
     def delete_filestorage_by_id(self, id: str) -> None:
         self._query.filter_by(idfilestorage=id).delete()

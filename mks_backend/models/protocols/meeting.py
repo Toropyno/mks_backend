@@ -10,8 +10,3 @@ class Meeting(Base):
 
     meetings_type_id = Column(Integer, primary_key=True, nullable=False)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
-
-    protocols = relationship(
-        'Protocol',
-        back_populates='meeting'
-    )

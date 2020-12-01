@@ -16,12 +16,9 @@ class ProtocolService:
             protocols = self.repo.get_all_protocols()
         else:
             filter_params = self.switch_case(filter_params)
-            protocols = self.filter_protocols(filter_params)
+            protocols = self.repo.filter_protocols(filter_params)
 
         return protocols
-
-    def get_all_protocols(self) -> list:
-        return self.repo.get_all_protocols()
 
     def get_protocol_by_id(self, id) -> Protocol:
         return self.repo.get_protocol_by_id(id)
@@ -31,7 +28,6 @@ class ProtocolService:
 
     def update_protocol(self, new_protocol: Protocol) -> None:
         old_protocol = self.repo.get_protocol_by_id(new_protocol.protocol_id)
-        new_protocol.protocol_id = old_protocol.protocol_id
 
         old_idfilestorage = old_protocol.idfilestorage
         new_idfilestorage = new_protocol.idfilestorage
@@ -39,10 +35,8 @@ class ProtocolService:
         self.repo.update_protocol(new_protocol)
         self.filestorage_service.compare_two_filestorages(new_idfilestorage, old_idfilestorage)
 
-    def delete_protocol_by_id_with_filestorage_cascade(self, id: int) -> None:
-        protocol = self.repo.get_protocol_by_id(id)
-        self.repo.delete_protocol(protocol)
-        self.filestorage_service.delete_filestorage_by_id(protocol.idfilestorage)
+    def delete_protocol_by_id(self, id_: int) -> None:
+        self.repo.delete_protocol_by_id(id_)
 
     def switch_case(self, filter_params: dict) -> dict:
         case_switcher = {
@@ -59,6 +53,3 @@ class ProtocolService:
                 params[case_switcher[key]] = filter_params[key]
 
         return params
-
-    def filter_protocols(self, params: dict) -> list:
-        return self.repo.filter_protocols(params)

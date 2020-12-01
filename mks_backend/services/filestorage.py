@@ -8,15 +8,13 @@ from mks_backend.repositories.construction_object import ConstructionObjectRepos
 from mks_backend.repositories.filestorage import FilestorageRepository
 from mks_backend.repositories.filestorage_hdd import FilestorageHDD
 
-from mks_backend.errors.filestorage_error import FilestorageError
-
 
 class FilestorageService:
 
     def __init__(self):
         self.repo = FilestorageRepository()
         self.hdd = FilestorageHDD()
-        self.repo_object = ConstructionObjectRepository()
+        self.construction_object_repo = ConstructionObjectRepository()
 
     def get_filestorage_by_id(self, id):
         return self.repo.get_filestorage_by_id(id)
@@ -40,9 +38,6 @@ class FilestorageService:
 
     def get_filename(self, id: str) -> tuple:
         filestorage = self.repo.get_filestorage_by_id(id)
-        if not filestorage:
-            raise FilestorageError(6)
-
         return urllib_request.quote(filestorage.filename.encode('utf-8'))
 
     def get_path_to_file(self, id: str) -> str:
@@ -57,7 +52,7 @@ class FilestorageService:
         return self.repo.get_many_file_storages_by_id(ids)
 
     def get_filestorages_by_object(self, object_id: int) -> list:
-        construction_object = self.repo_object.get_construction_object_by_id(object_id)
+        construction_object = self.construction_object_repo.get_construction_object_by_id(object_id)
         return [doc.file_storage for doc in construction_object.documents if doc.file_storage]
 
     def delete_filestorage_by_id(self, id: str) -> None:

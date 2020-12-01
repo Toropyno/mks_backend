@@ -1,4 +1,5 @@
 ALREADY_DELETED_ERROR = {
+    'protocol_ad': 'Этот Протокол уже удалили!',
     'contract_ad': 'Этот Контракт уже удалили!',
     'construction_company_ad': 'Эту Строительную Компанию уже удалили!',
     'construction_type_ad': 'Этот Тип Проекта уже удалили!',
