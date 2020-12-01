@@ -34,6 +34,7 @@ class ObjectFileController:
         self.service.add_object_file(object_file)
         return {'id': object_file.object_files_id}
 
+    @handle_db_error
     @view_config(route_name='delete_object_file')
     def delete_object_file(self):
         id = int(self.request.matchdict['id'])
@@ -54,6 +55,7 @@ class ObjectFileController:
         self.service.update_object_file(new_object_file)
         return {'id': new_object_file.object_files_id}
 
+    @handle_db_error
     @view_config(route_name='get_object_file')
     def get_object_file(self):
         id = int(self.request.matchdict['id'])
