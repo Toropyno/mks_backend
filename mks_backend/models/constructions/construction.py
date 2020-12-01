@@ -137,7 +137,8 @@ class Construction(Base):
     )
 
     construction_type = relationship(
-        'ConstructionType'
+        'ConstructionType',
+        back_populates='constructions'
     )
 
     contracts = relationship(
