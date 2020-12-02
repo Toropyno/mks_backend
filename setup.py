@@ -12,6 +12,10 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'psycopg2',
+    'streaming_form_data',
+    'requests_toolbelt',
+    'kerberos',
+    'requests_kerberos',
 ]
 
 dev_requires = [
