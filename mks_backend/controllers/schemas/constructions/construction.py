@@ -220,7 +220,8 @@ class ConstructionSchema(colander.MappingSchema):
         colander.String(),
         preparer=[strip_space],
         name='organization',
-        validator=organization_uuid
+        validator=organization_uuid,
+        missing=None
     )
 
 
