@@ -17,8 +17,13 @@ class ConstructionTypeRepository:
         DBSession.add(construction_type)
         DBSession.commit()
 
-    def delete_construction_type_by_id(self, id: int) -> None:
-        self._query.filter(ConstructionType.construction_types_id == id).delete()
+    @db_error_handler
+    def delete_construction_type_by_id(self, id_: int) -> None:
+        construction_type = self.get_construction_type_by_id(id_)
+        if construction_type.constructions:
+            raise DBBasicError('construction_type_limit')
+
+        DBSession.delete(construction_type)
         DBSession.commit()
 
     @db_error_handler
@@ -29,5 +34,8 @@ class ConstructionTypeRepository:
             DBSession.rollback()
             raise DBBasicError('construction_type_ad')
 
-    def get_construction_type_by_id(self, id: int) -> ConstructionType:
-        return self._query.get(id)
+    def get_construction_type_by_id(self, id_: int) -> ConstructionType:
+        construction_type = self._query.get(id_)
+        if not construction_type:
+            raise DBBasicError('construction_type_nf')
+        return construction_type

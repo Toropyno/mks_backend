@@ -36,16 +36,10 @@ class Protocol(Base):
 
     meeting = relationship(
         'Meeting',
-        back_populates='protocols'
     )
 
     filestorage = relationship(
         'Filestorage',
-        back_populates='protocols'
+        single_parent=True,
+        cascade='all, delete-orphan'
     )
-
-    def __str__(self):
-        return 'id={id}, protocol_number={number}'.format(
-            id=self.protocol_id,
-            number=self.protocol_num
-        )

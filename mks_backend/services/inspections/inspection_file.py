@@ -17,6 +17,5 @@ class InspectionFileService:
     def add_inspection_file(self, inspection_file: InspectionFile) -> None:
         self.repo.add_inspection_file(inspection_file)
 
-    def delete_inspection_file(self, inspection_id: int, file_id: str) -> None:
-        self.repo.delete_inspection_file_by_id(inspection_id, file_id)
-        self.filestorage_service.delete_filestorage_by_id(file_id)
+    def delete_inspection_file(self, file_id: str) -> None:
+        self.repo.delete_inspection_file_by_id(file_id)

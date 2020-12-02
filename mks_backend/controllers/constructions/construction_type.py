@@ -32,6 +32,7 @@ class ConstructionTypeController:
         self.service.add_construction_type(construction_type)
         return {'id': construction_type.construction_types_id}
 
+    @handle_db_error
     @view_config(route_name='delete_construction_type')
     def delete_construction_type(self):
         id = self.get_id()

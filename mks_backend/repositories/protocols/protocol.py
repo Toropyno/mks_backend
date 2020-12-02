@@ -1,7 +1,7 @@
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors import db_error_handler, DBBasicError
 
 
 class ProtocolRepository:
@@ -10,7 +10,10 @@ class ProtocolRepository:
         self._query = DBSession.query(Protocol)
 
     def get_protocol_by_id(self, id: int) -> Protocol:
-        return self._query.get(id)
+        protocol = self._query.get(id)
+        if not protocol:
+            raise DBBasicError('protocol_ad')
+        return protocol
 
     def get_all_protocols(self) -> list:
         return self._query.order_by(Protocol.protocol_date.desc()).all()
@@ -20,7 +23,8 @@ class ProtocolRepository:
         DBSession.add(protocol)
         DBSession.commit()
 
-    def delete_protocol(self, protocol: Protocol) -> None:
+    def delete_protocol_by_id(self, id_: int) -> None:
+        protocol = self.get_protocol_by_id(id_)
         DBSession.delete(protocol)
         DBSession.commit()
 

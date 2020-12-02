@@ -55,5 +55,6 @@ class ConstructionDocument(Base):
 
     file_storage = relationship(
         'Filestorage',
-        back_populates='document'
+        single_parent=True,
+        cascade='all, delete-orphan'
     )

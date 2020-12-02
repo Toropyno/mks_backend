@@ -46,7 +46,8 @@ class ObjectFile(Base):
 
     file_storage = relationship(
         'Filestorage',
-        back_populates='object_files'
+        single_parent=True,
+        cascade='all, delete-orphan'
     )
 
     construction_object = relationship(

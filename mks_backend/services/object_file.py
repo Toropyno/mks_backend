@@ -23,8 +23,8 @@ class ObjectFileService:
     def update_object_file(self, new_object_file: ObjectFile) -> None:
         self.repo.update_object_file(new_object_file)
 
-    def delete_object_file_by_id(self, id: int) -> None:
-        self.repo.delete_object_file_by_id(id)
+    def delete_object_file_by_id(self, id_: int) -> None:
+        self.repo.delete_object_file_by_id(id_)
 
     def set_upload_date(self, object_file_deserialized):
         filestorage = self.service_filestorage.get_filestorage_by_id(object_file_deserialized['idFileStorage'])
@@ -32,5 +32,4 @@ class ObjectFileService:
 
     def get_object_files_by_object(self, object_id: int) -> list:
         construction_object = self.service_object.get_construction_object_by_id(object_id)
-        if construction_object:
-            return construction_object.object_files
+        return construction_object.object_files

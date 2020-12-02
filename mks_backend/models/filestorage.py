@@ -27,17 +27,6 @@ class Filestorage(Base):
     description = Column(VARCHAR(100))
     authorid = Column(Integer)
 
-    protocols = relationship(
-        'Protocol',
-        back_populates='filestorage',
-        passive_deletes=True
-    )
-
-    document = relationship(
-        'ConstructionDocument',
-        back_populates='file_storage'
-    )
-
     object_files = relationship(
         'ObjectFile',
         back_populates='file_storage',

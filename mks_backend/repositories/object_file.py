@@ -3,7 +3,7 @@ from sqlalchemy import desc
 from mks_backend.models.object_file import ObjectFile
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
 
 
 class ObjectFileRepository:
@@ -12,7 +12,10 @@ class ObjectFileRepository:
         self._query = DBSession.query(ObjectFile)
 
     def get_object_file_by_id(self, id: int) -> ObjectFile:
-        return self._query.get(id)
+        object_file = self._query.get(id)
+        if not object_file:
+            raise DBBasicError('object_file_nf')
+        return object_file
 
     def get_all_object_files(self) -> list:
         return self._query.order_by(desc(ObjectFile.upload_date)).all()
@@ -22,8 +25,9 @@ class ObjectFileRepository:
         DBSession.add(object_file)
         DBSession.commit()
 
-    def delete_object_file_by_id(self, id: int) -> None:
-        self._query.filter(ObjectFile.object_files_id == id).delete()
+    def delete_object_file_by_id(self, id_: int) -> None:
+        object_file = self.get_object_file_by_id(id_)
+        DBSession.delete(object_file)
         DBSession.commit()
 
     @db_error_handler

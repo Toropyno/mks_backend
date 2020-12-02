@@ -14,8 +14,8 @@ class ConstructionDocumentService:
     def get_all_construction_documents(self) -> list:
         return self.repo.get_all_construction_documents()
 
-    def get_construction_document_by_id(self, id: int) -> ConstructionDocument:
-        return self.repo.get_construction_document_by_id(id)
+    def get_construction_document_by_id(self, id_: int) -> ConstructionDocument:
+        return self.repo.get_construction_document_by_id(id_)
 
     def add_construction_document(self, construction_document: ConstructionDocument) -> None:
         self.repo.add_construction_document(construction_document)
@@ -23,8 +23,8 @@ class ConstructionDocumentService:
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
         self.repo.update_construction_document(construction_document)
 
-    def delete_construction_document_by_id(self, id: int) -> None:
-        self.repo.delete_construction_document(id)
+    def delete_construction_document_by_id(self, id_: int) -> None:
+        self.repo.delete_construction_document(id_)
 
     def get_many_construction_documents_by_id(self, ids: list) -> list:
         return self.repo.get_many_construction_documents_by_id(ids)

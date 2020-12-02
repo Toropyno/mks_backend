@@ -42,7 +42,7 @@ class Construction(Base):
 
     commission_id = Column(
         Integer,
-        ForeignKey('commission.commission_id', ondelete='SET NULL'),
+        ForeignKey('commission.commission_id'),
         nullable=False
     )
 
@@ -137,7 +137,8 @@ class Construction(Base):
     )
 
     construction_type = relationship(
-        'ConstructionType'
+        'ConstructionType',
+        back_populates='constructions'
     )
 
     contracts = relationship(

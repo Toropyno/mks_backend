@@ -37,7 +37,8 @@ class InspectionFile(Base):
 
     file_storage = relationship(
         'Filestorage',
-        uselist=False,
+        single_parent=True,
+        cascade='all, delete-orphan'
     )
 
     inspection = relationship(

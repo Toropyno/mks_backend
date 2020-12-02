@@ -1,7 +1,7 @@
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
+from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
 
 
 class ConstructionDocumentRepository:
@@ -9,8 +9,11 @@ class ConstructionDocumentRepository:
     def __init__(self):
         self._query = DBSession.query(ConstructionDocument)
 
-    def get_construction_document_by_id(self, id: int) -> ConstructionDocument:
-        return self._query.get(id)
+    def get_construction_document_by_id(self, id_: int) -> ConstructionDocument:
+        construction_document = self._query.get(id_)
+        if not construction_document:
+            raise DBBasicError('construction_document_nf')
+        return construction_document
 
     def get_all_construction_documents(self) -> list:
         return self._query.order_by(ConstructionDocument.doc_date).all()
@@ -25,8 +28,9 @@ class ConstructionDocumentRepository:
         DBSession.add(construction_document)
         DBSession.commit()
 
-    def delete_construction_document(self, id: int) -> None:
-        self._query.filter_by(construction_documents_id=id).delete()
+    def delete_construction_document(self, id_: int) -> None:
+        construction_document = self.get_construction_document_by_id(id_)
+        DBSession.delete(construction_document)
         DBSession.commit()
 
     @db_error_handler

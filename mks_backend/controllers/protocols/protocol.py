@@ -43,10 +43,11 @@ class ProtocolController:
         protocol = self.service.get_protocol_by_id(id)
         return self.serializer.convert_object_to_json(protocol)
 
+    @handle_db_error
     @view_config(route_name='delete_protocol')
     def delete_protocol(self):
         id = int(self.request.matchdict['id'])
-        self.service.delete_protocol_by_id_with_filestorage_cascade(id)
+        self.service.delete_protocol_by_id(id)
         return {'id': id}
 
     @handle_db_error

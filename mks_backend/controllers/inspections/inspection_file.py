@@ -33,10 +33,11 @@ class InspectionFileController:
         self.service.add_inspection_file(inspection)
         return {'id': inspection.inspections_id}
 
+    @handle_db_error
     @view_config(route_name='delete_inspection_file')
     def delete_inspection_file(self):
         inspection_id = int(self.request.matchdict['inspection_id'])
         file_id = self.request.matchdict['file_id']
 
-        self.service.delete_inspection_file(inspection_id, file_id)
+        self.service.delete_inspection_file(file_id)
         return {'id': inspection_id}
