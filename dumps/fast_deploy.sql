@@ -1739,3 +1739,7 @@ INSERT INTO public.commission (code, fullname) VALUES ('NDS', 'НДС');
 INSERT INTO public.construction_categories (fullname) VALUES ('Военная категория');
 INSERT INTO public.construction_companies (shortname, fullname, address_full, email, equipment, id_fias, people, phone, services) VALUES ('РТИ', 'АО РТИ', null, null, null, null, null, null, null);
 INSERT INTO public.construction_types (fullname) VALUES ('Военный город');
+
+INSERT INTO organization.organizations (organizations_id, par_number, org_sign, parent_organizations_id) VALUES ('8629decc-90fa-4bb5-b23b-7465fc95b3c4', 5, false, null);
+INSERT INTO organization.organizations_history (organizations_history_id, shortname, fullname, functions, inn, kpp, ogrn, begin_date, end_date, organizations_id, address_actual, address_legal) VALUES (689, 'node 14', 'node 14', 'functions 14', '12345678', '12345678', '1234567890', '2020-11-12', '2020-11-13', '8629decc-90fa-4bb5-b23b-7465fc95b3c4', 'addressActual 14', 'addressLegal 14');
+INSERT INTO public."OKSM" (oksm_id, code, shortname, fullname, alpha2, alpha3) VALUES (185, '643', 'РОССИЯ', 'Российская Федерация', 'RU', 'RUS');

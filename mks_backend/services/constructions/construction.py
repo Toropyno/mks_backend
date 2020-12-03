@@ -44,10 +44,10 @@ class ConstructionService:
         construction.construction_types_id = schema.get('constructionType')
         construction.location_types_id = schema.get('locationType')
         construction.construction_companies_id = schema.get('constructionCompany')
-        construction.oksm_id = schema.get('oksm')
+        construction.oksm_id = 185
         construction.address_full = schema.get('address')
         construction.note = schema.get('note')
-        construction.organizations_id = schema.get('organization')
+        construction.organizations_id = '8629decc-90fa-4bb5-b23b-7465fc95b3c4'
 
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
