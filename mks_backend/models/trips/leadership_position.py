@@ -12,10 +12,3 @@ class LeadershipPosition(Base):
     leadership_positions_id = Column(Integer, primary_key=True)
     code = Column(VARCHAR(40), unique=True, nullable=False)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
-
-    def __str__(self):
-        return 'Должность id={id}, code={code}, fullname={fullname}'.format(
-            id=self.leadership_positions_id,
-            code=self.code,
-            fullname=self.fullname
-        )

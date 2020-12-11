@@ -33,9 +33,3 @@ class InspectedObject(Base):
         ForeignKey('construction.construction_id', ondelete='CASCADE'),
         nullable=False
     )
-
-    def __str__(self):
-        return 'Проверенный объект construction_id={c_id}, проверка inspections_id={insp_id}'.format(
-            c_id=self.construction_id,
-            insp_id=self.inspections_id
-        )

@@ -47,10 +47,3 @@ class WorkTrip(Base):
         'Construction',
         secondary='visited_objects'
     )
-
-    def __str__(self):
-        return 'Поездка руководства id={id}, name={name}, leader={leader}'.format(
-            id=self.work_trips_id,
-            name=self.trip_name,
-            leader=self.leadership_position.fullname,
-        )
