@@ -9,7 +9,6 @@ from mks_backend.models import Base
 
 
 class ElementType(Base):
-
     __tablename__ = 'element_types'
 
     element_types_id = Column(Integer, primary_key=True)

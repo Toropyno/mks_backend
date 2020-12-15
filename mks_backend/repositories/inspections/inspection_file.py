@@ -3,7 +3,7 @@ from typing import List
 from mks_backend.models import DBSession
 from mks_backend.models.inspections.inspection_file import InspectionFile
 
-from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class InspectionFileRepository:
@@ -11,7 +11,6 @@ class InspectionFileRepository:
     def __init__(self):
         self._query = DBSession.query(InspectionFile)
 
-    @db_error_handler
     def add_inspection_file(self, file: InspectionFile):
         DBSession.add(file)
         DBSession.commit()

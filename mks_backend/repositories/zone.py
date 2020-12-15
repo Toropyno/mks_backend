@@ -1,7 +1,7 @@
 from mks_backend.models.zone import Zone
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class ZoneRepository:
@@ -10,12 +10,14 @@ class ZoneRepository:
         self._query = DBSession.query(Zone)
 
     def get_zone_by_id(self, id: int) -> Zone:
+        zone = self._query.get(id)
+        if not zone:
+            raise DBBasicError('zone_ad')
         return self._query.get(id)
 
     def get_all_zones(self) -> list:
         return self._query.order_by(Zone.fullname).all()
 
-    @db_error_handler
     def add_zone(self, zone: Zone) -> None:
         DBSession.add(zone)
         DBSession.commit()
@@ -25,7 +27,6 @@ class ZoneRepository:
         DBSession.delete(zone)
         DBSession.commit()
 
-    @db_error_handler
     def update_zone(self, zone: Zone) -> None:
         if DBSession.merge(zone) and not DBSession.new:
             DBSession.commit()

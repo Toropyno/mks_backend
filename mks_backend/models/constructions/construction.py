@@ -17,7 +17,6 @@ from mks_backend.models import Base, ORGANIZATION_SCHEMA
 
 
 class Construction(Base):
-
     __tablename__ = 'construction'
 
     construction_id = Column(Integer, primary_key=True, autoincrement=True)

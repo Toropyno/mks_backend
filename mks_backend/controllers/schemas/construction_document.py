@@ -9,7 +9,6 @@ from mks_backend.controllers.schemas.validator_utils import (
 
 
 class ConstructionDocumentSchema(colander.MappingSchema):
-
     construction_id = colander.SchemaNode(
         colander.Int(),
         name='constructionId',

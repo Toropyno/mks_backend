@@ -1,6 +1,6 @@
 from mks_backend.models.construction_stage import ConstructionStage
 
-from mks_backend.errors.serialize_error import serialize_error_handler
+from mks_backend.errors import serialize_error_handler
 
 
 class ConstructionStageSerializer:

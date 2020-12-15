@@ -10,7 +10,6 @@ from mks_backend.controllers.schemas.validator_utils import (
 
 
 class OfficialSchema(colander.MappingSchema):
-
     organizations_id = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
@@ -140,7 +139,6 @@ class OfficialSchema(colander.MappingSchema):
 
 
 class OfficialFilterSchema(colander.MappingSchema):
-
     reflect_vacated_position = colander.SchemaNode(
         colander.Boolean(false_choices=['false', '0', 'False', 'none']),
         name='reflectVacatedPosition',

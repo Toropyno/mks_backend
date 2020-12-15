@@ -10,7 +10,6 @@ from mks_backend.models import Base
 
 
 class SortArmedForces(Base):
-
     __tablename__ = 'sortarmedforces'
 
     idsortaf = Column(CHAR(3), primary_key=True)

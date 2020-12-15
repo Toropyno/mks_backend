@@ -5,7 +5,6 @@ from mks_backend.models import Base
 
 
 class PurposeMU(Base):
-
     __tablename__ = 'purposemu'
 
     idpurpose = Column(Integer, primary_key=True, autoincrement=True)

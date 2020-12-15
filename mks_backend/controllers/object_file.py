@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.object_file import ObjectFileSchema
 from mks_backend.serializers.object_file import ObjectFileSerializer
 from mks_backend.services.object_file import ObjectFileService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ObjectFileController:
@@ -22,8 +20,6 @@ class ObjectFileController:
         object_files = self.service.get_all_object_files()
         return self.serializer.convert_list_to_json(object_files)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_object_file')
     def add_object_file(self):
         object_file_deserialized = self.schema.deserialize(self.request.json_body)
@@ -34,15 +30,12 @@ class ObjectFileController:
         self.service.add_object_file(object_file)
         return {'id': object_file.object_files_id}
 
-    @handle_db_error
     @view_config(route_name='delete_object_file')
     def delete_object_file(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_object_file_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_object_file')
     def edit_object_file(self):
         id = int(self.request.matchdict['id'])
@@ -55,7 +48,6 @@ class ObjectFileController:
         self.service.update_object_file(new_object_file)
         return {'id': new_object_file.object_files_id}
 
-    @handle_db_error
     @view_config(route_name='get_object_file')
     def get_object_file(self):
         id = int(self.request.matchdict['id'])

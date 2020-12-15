@@ -3,7 +3,7 @@ from mks_backend.serializers.progress_status import ProgressStatusSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_string, get_date_time_string
 from datetime import datetime
 
-from mks_backend.errors.serialize_error import serialize_error_handler
+from mks_backend.errors import serialize_error_handler
 
 
 class ConstructionProgressSerializer:

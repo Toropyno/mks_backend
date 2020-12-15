@@ -1,6 +1,6 @@
 from mks_backend.models.constructions import LocationType
 
-from mks_backend.errors.serialize_error import serialize_error_handler
+from mks_backend.errors import serialize_error_handler
 
 
 class LocationTypeSerializer:

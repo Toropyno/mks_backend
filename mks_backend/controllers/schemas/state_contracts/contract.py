@@ -4,12 +4,10 @@ import colander
 
 from mks_backend.controllers.schemas.validator_utils import date_validator, strip_space
 
-
 CONTRACT_SUM_MAX = 1E+18  # precision = 20, scale = 2;
 
 
 class ContractSchema(colander.MappingSchema):
-
     contract_num = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

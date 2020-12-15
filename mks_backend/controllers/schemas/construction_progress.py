@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import date_validator, stri
 
 
 class ConstructionProgressSchema(colander.MappingSchema):
-
     construction_objects_id = colander.SchemaNode(
         colander.Int(),
         name='constructionObjects',

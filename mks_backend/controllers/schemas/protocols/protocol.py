@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import date_validator, uuid
 
 
 class ProtocolControllerSchema(colander.MappingSchema):
-
     protocol_num = colander.SchemaNode(
         colander.String(),
         name='protocolNumber',
@@ -65,7 +64,6 @@ class ProtocolControllerSchema(colander.MappingSchema):
 
 
 class ProtocolControllerFilterSchema(colander.MappingSchema):
-
     protocol_num = colander.SchemaNode(
         colander.String(),
         name='protocolNumber',

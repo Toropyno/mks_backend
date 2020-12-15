@@ -1,11 +1,9 @@
-from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
+from pyramid.view import view_config, view_defaults
 
 from mks_backend.controllers.schemas.construction_progress import ConstructionProgressSchema
 from mks_backend.serializers.construction_progress import ConstructionProgressSerializer
 from mks_backend.services.construction_progress import ConstructionProgressService
-
-from mks_backend.errors import handle_db_error, handle_colander_error
 
 
 @view_defaults(renderer='json')
@@ -17,8 +15,6 @@ class ConstructionProgressController:
         self.service = ConstructionProgressService()
         self.schema = ConstructionProgressSchema()
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_construction_progress')
     def add_construction_progress(self):
         construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
@@ -38,8 +34,6 @@ class ConstructionProgressController:
         self.service.delete_construction_progress_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_construction_progress')
     def edit_construction_progress(self):
         id = int(self.request.matchdict['id'])

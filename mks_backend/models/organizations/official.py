@@ -12,7 +12,6 @@ from mks_backend.models import Base, ORGANIZATION_SCHEMA
 
 
 class Official(Base):
-
     __tablename__ = 'officials'
 
     __table_args__ = {'schema': ORGANIZATION_SCHEMA}

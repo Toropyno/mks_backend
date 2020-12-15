@@ -6,8 +6,6 @@ from mks_backend.serializers.constructions import ConstructionSerializer
 from mks_backend.serializers.inspections.inspected_object import InspectedObjectSerializer
 from mks_backend.services.inspections.inspected_object import InspectedObjectService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class InspectedObjectController:
@@ -33,8 +31,6 @@ class InspectedObjectController:
         self.service.delete_inspected_object(inspection_id, construction_id)
         return {'inspection_id': inspection_id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_inspected_object')
     def add_inspected_object(self):
         inspection_id = int(self.request.matchdict.get('inspection_id'))

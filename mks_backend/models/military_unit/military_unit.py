@@ -11,7 +11,6 @@ from mks_backend.models import Base
 
 
 class MilitaryUnit(Base):
-
     __tablename__ = 'military_unit'
 
     idMU = Column(Integer, primary_key=True, autoincrement=True)

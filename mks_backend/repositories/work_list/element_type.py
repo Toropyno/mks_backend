@@ -1,8 +1,6 @@
 from mks_backend.models.work_list.element_type import ElementType
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class ElementTypeRepository:
 
@@ -12,7 +10,6 @@ class ElementTypeRepository:
     def get_all_element_types(self) -> list:
         return self._query.all()
 
-    @db_error_handler
     def add_element_type(self, element_type: ElementType) -> None:
         DBSession.add(element_type)
         DBSession.commit()
@@ -20,7 +17,6 @@ class ElementTypeRepository:
     def get_element_type_by_id(self, id: int) -> ElementType:
         return self._query.get(id)
 
-    @db_error_handler
     def update_element_type(self, element_type: ElementType) -> None:
         self._query.filter_by(element_types_id=element_type.element_types_id).update(
             {

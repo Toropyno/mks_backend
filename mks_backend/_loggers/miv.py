@@ -10,7 +10,6 @@ from mks_backend.models import Base, MIV_SCHEMA
 
 
 class MIVLog(Base):
-
     __tablename__ = 'miv_logs'
     __table_args__ = {'schema': MIV_SCHEMA}
 

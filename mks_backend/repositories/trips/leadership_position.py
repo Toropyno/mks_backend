@@ -1,7 +1,7 @@
 from mks_backend.models.trips.leadership_position import LeadershipPosition
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class LeadershipPositionRepository:
@@ -12,7 +12,6 @@ class LeadershipPositionRepository:
     def get_all_leadership_positions(self) -> list:
         return self._query.all()
 
-    @db_error_handler
     def add_leadership_position(self, leadership_position: LeadershipPosition) -> None:
         DBSession.add(leadership_position)
         DBSession.commit()
@@ -21,7 +20,6 @@ class LeadershipPositionRepository:
         self._query.filter(LeadershipPosition.leadership_positions_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_leadership_position(self, new_leadership_position: LeadershipPosition) -> None:
         if DBSession.merge(new_leadership_position) and not DBSession.new:
             DBSession.commit()

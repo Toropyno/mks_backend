@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.construction_stage import ConstructionStage
 from mks_backend.serializers.construction_stage import ConstructionStageSerializer
 from mks_backend.services.construction_stage import ConstructionStageService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ConstructionStageController:
@@ -22,8 +20,6 @@ class ConstructionStageController:
         construction_stages = self.service.get_all_construction_stages()
         return self.serializer.convert_list_to_json(construction_stages)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_construction_stage')
     def add_construction_stage(self):
         construction_stage_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,8 +40,6 @@ class ConstructionStageController:
         self.service.delete_construction_stage_by_id(id_)
         return {'id': id_}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_construction_stage')
     def edit_construction_stage(self):
         construction_stage_deserialized = self.schema.deserialize(self.request.json_body)

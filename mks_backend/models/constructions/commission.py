@@ -5,7 +5,6 @@ from mks_backend.models import Base
 
 
 class Commission(Base):
-
     __tablename__ = 'commission'
 
     commission_id = Column(Integer, primary_key=True)

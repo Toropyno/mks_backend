@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import date_validator, stri
 
 
 class WorkTripSchema(colander.MappingSchema):
-
     trip_date = colander.SchemaNode(
         colander.String(),
         name='date',
@@ -52,7 +51,6 @@ class WorkTripSchema(colander.MappingSchema):
 
 
 class WorkTripFilterSchema(colander.MappingSchema):
-
     trip_date_start = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import strip_space, date_va
 
 
 class CompletionDateSchema(colander.MappingSchema):
-
     contracts_id = colander.SchemaNode(
         colander.Int(),
         name='contractId',

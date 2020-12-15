@@ -1,4 +1,4 @@
-from mks_backend.errors.serialize_error import serialize_error_handler
+from mks_backend.errors import serialize_error_handler
 from mks_backend.models.filestorage import Filestorage
 from mks_backend.serializers.utils.date_and_time import get_date_time_zone
 

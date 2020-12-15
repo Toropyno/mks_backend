@@ -1,8 +1,6 @@
 from mks_backend.models.work_list.measure_unit import MeasureUnit
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class MeasureUnitRepository:
 
@@ -12,7 +10,6 @@ class MeasureUnitRepository:
     def get_all_measure_units(self) -> list:
         return self._query.all()
 
-    @db_error_handler
     def add_measure_unit(self, measure_unit: MeasureUnit) -> None:
         DBSession.add(measure_unit)
         DBSession.commit()
@@ -20,7 +17,6 @@ class MeasureUnitRepository:
     def get_measure_unit_by_id(self, id: int) -> MeasureUnit:
         return self._query.get(id)
 
-    @db_error_handler
     def update_measure_unit(self, measure_unit: MeasureUnit) -> None:
         self._query.filter_by(unit_id=measure_unit.unit_id).update(
             {

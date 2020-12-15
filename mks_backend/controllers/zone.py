@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.zone import ZoneSchema
 from mks_backend.serializers.zone import ZoneSerializer
 from mks_backend.services.zone import ZoneService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ZoneController:
@@ -22,8 +20,6 @@ class ZoneController:
         zones = self.service.get_all_zones()
         return self.serializer.convert_list_to_json(zones)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_zone')
     def add_zone(self):
         zone_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,8 +40,6 @@ class ZoneController:
         self.service.delete_zone_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_zone')
     def edit_zone(self):
         id = self.get_id()

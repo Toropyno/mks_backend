@@ -1,7 +1,7 @@
 from mks_backend.models.realty_type import RealtyType
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class RealtyTypeRepository:
@@ -12,7 +12,6 @@ class RealtyTypeRepository:
     def get_all_realty_types(self) -> list:
         return self._query.order_by(RealtyType.fullname).all()
 
-    @db_error_handler
     def add_realty_type(self, realty_type: RealtyType) -> None:
         DBSession.add(realty_type)
         DBSession.commit()
@@ -21,7 +20,6 @@ class RealtyTypeRepository:
         self._query.filter(RealtyType.realty_types_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_realty_type(self, new_realty_type: RealtyType) -> None:
         if DBSession.merge(new_realty_type) and not DBSession.new:
             DBSession.commit()

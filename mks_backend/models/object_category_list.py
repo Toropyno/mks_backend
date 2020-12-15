@@ -10,7 +10,6 @@ from mks_backend.models import Base
 
 
 class ObjectCategoryList(Base):
-
     __tablename__ = 'object_categories_list'
 
     __table_args__ = (

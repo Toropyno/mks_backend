@@ -11,7 +11,6 @@ from mks_backend.models import Base
 
 
 class ObjectDocument(Base):
-
     __tablename__ = 'object_documents'
 
     __table_args__ = (

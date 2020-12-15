@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import strip_space
 
 
 class ConstructionCompanySchema(colander.MappingSchema):
-
     shortname = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.state_contracts.contract_status import Cont
 from mks_backend.serializers.state_contracts.contract_status import ContractStatusSerializer
 from mks_backend.services.state_contracts.contract_status import ContractStatusService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ContractStatusController:
@@ -22,8 +20,6 @@ class ContractStatusController:
         contract_statuses = self.service.get_all_contract_statuses()
         return self.serializer.convert_list_to_json(contract_statuses)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_contract_status')
     def add_contract_status(self):
         contract_status_deserialized = self.schema.deserialize(self.request.json_body)
@@ -37,8 +33,6 @@ class ContractStatusController:
         self.service.delete_contract_status_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_contract_status')
     def edit_contract_status(self):
         contract_status_deserialized = self.schema.deserialize(self.request.json_body)

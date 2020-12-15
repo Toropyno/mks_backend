@@ -4,8 +4,6 @@ from mks_backend.models.constructions import Construction
 from mks_backend.models.trips.visited_object import VisitedObject
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class WorkTripRepository:
 
@@ -15,7 +13,6 @@ class WorkTripRepository:
     def get_all_work_trips(self) -> list:
         return self._query.all()
 
-    @db_error_handler
     def add_work_trip(self, work_trip: WorkTrip) -> None:
         DBSession.add(work_trip)
         DBSession.commit()
@@ -24,7 +21,6 @@ class WorkTripRepository:
         self._query.filter(WorkTrip.work_trips_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_work_trip(self, new_work_trip: WorkTrip) -> None:
         old_work_trip = self._query.filter(
             WorkTrip.work_trips_id == new_work_trip.work_trips_id
@@ -48,8 +44,8 @@ class WorkTripRepository:
 
         # Here it is necessary to combine the tables using the outerjoin method
         # to be able to filter by the entities to which work_trip refers
-        work_trips = self._query\
-            .outerjoin(VisitedObject, Construction)\
+        work_trips = self._query \
+            .outerjoin(VisitedObject, Construction) \
             .outerjoin(Protocol)
 
         if 'trip_name' in params:

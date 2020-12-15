@@ -1,8 +1,6 @@
 from mks_backend.models.work_list.work_list import WorkList
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class WorkListRepository:
 
@@ -12,7 +10,6 @@ class WorkListRepository:
     def get_work_list_for_construction_object(self, construction_object_id: int) -> list:
         return self._query.filter_by(construction_objects_id=construction_object_id).all()
 
-    @db_error_handler
     def add_work_list(self, work_list: WorkList) -> None:
         DBSession.add(work_list)
         DBSession.commit()
@@ -21,7 +18,6 @@ class WorkListRepository:
         self._query.filter(WorkList.works_list_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_work_list(self, new_work_list: WorkList) -> None:
         old_work_list = self._query.filter_by(works_list_id=new_work_list.works_list_id)
         old_work_list.update(

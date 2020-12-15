@@ -19,7 +19,6 @@ class TypeEnum(BuiltinEnum):
 
 
 class Storage(Base):
-
     __tablename__ = 'storage'
     __table_args__ = (
         PrimaryKeyConstraint(

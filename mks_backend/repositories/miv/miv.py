@@ -1,5 +1,4 @@
 import json
-from typing import Tuple
 from os import environ
 from subprocess import Popen, PIPE
 
@@ -15,6 +14,7 @@ class MIVRepository:
     Before sending a message, checks if kerberos_ticket is available.
     If no ticket is available, it automatically creates one.
     """
+
     def __init__(self):
         self.user = environ.get('MIV_USER', 'Elliot Alderson')
         self.password = environ.get('MIV_USER_PASSWORD')

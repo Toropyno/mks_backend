@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.work_list.measure_unit import MeasureUnitSc
 from mks_backend.serializers.work_list.measure_unit import MeasureUnitSerializer
 from mks_backend.services.work_list.measure_unit import MeasureUnitService
 
-from mks_backend.errors import handle_db_error, handle_colander_error
-
 
 @view_defaults(renderer='json')
 class MeasureUnitController:
@@ -22,8 +20,6 @@ class MeasureUnitController:
         measure_units = self.service.get_all_measure_units()
         return self.serializer.convert_list_to_json(measure_units)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_measure_unit')
     def add_measure_unit(self):
         measure_unit_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,8 +40,6 @@ class MeasureUnitController:
         self.service.delete_measure_unit_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_measure_unit')
     def edit_measure_unit(self):
         id = int(self.request.matchdict['id'])

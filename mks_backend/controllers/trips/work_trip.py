@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.trips.work_trip import WorkTripSchema, Work
 from mks_backend.serializers.trips.work_trip import WorkTripSerializer
 from mks_backend.services.trips.work_trip import WorkTripService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class WorkTripController:
@@ -18,15 +16,12 @@ class WorkTripController:
         self.schema = WorkTripSchema()
         self.filter_schema = WorkTripFilterSchema()
 
-    @handle_colander_error
     @view_config(route_name='get_all_work_trips')
     def get_all_work_trips(self):
         filter_params = self.filter_schema.deserialize(self.request.params)
         work_trips = self.service.get_work_trips(filter_params)
         return self.serializer.convert_list_to_json(work_trips)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_work_trip')
     def add_work_trip(self):
         work_trip_deserialized = self.schema.deserialize(self.request.json_body)
@@ -41,8 +36,6 @@ class WorkTripController:
         self.service.delete_work_trip_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_work_trip')
     def edit_work_trip(self):
         work_trip_deserialized = self.schema.deserialize(self.request.json_body)

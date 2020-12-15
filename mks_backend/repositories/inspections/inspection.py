@@ -7,8 +7,6 @@ from mks_backend.models.inspections.inspected_object import InspectedObject
 from mks_backend.models.constructions import Construction
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class InspectionRepository:
 
@@ -18,7 +16,6 @@ class InspectionRepository:
     def get_all_inspections(self) -> List[Inspection]:
         return self._query.order_by(Inspection.insp_date).all()
 
-    @db_error_handler
     def add_inspection(self, inspection: Inspection) -> None:
         DBSession.add(inspection)
         DBSession.commit()
@@ -27,7 +24,6 @@ class InspectionRepository:
         self._query.filter(Inspection.inspections_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_inspection(self, new_inspection: Inspection) -> None:
         old_inspection = self._query.filter(Inspection.inspections_id == new_inspection.inspections_id)
         old_inspection.update(

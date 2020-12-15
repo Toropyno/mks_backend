@@ -1,8 +1,6 @@
 from mks_backend.models.organizations.organization_document import OrganizationDocument
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class OrganizationDocumentRepository:
 
@@ -12,7 +10,6 @@ class OrganizationDocumentRepository:
     def get_organization_document_by_id(self, id: int) -> OrganizationDocument:
         return self._query.get(id)
 
-    @db_error_handler
     def add_organization_document(self, organization_document: OrganizationDocument) -> None:
         DBSession.add(organization_document)
         DBSession.commit()
@@ -21,7 +18,6 @@ class OrganizationDocumentRepository:
         self._query.filter_by(organization_documents_id=id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_organization_document(self, organization_document: OrganizationDocument) -> None:
         self._query.filter_by(
             organization_documents_id=organization_document.organization_documents_id).update(

@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import strip_space, date_va
 
 
 class OrganizationHistorySchema(colander.MappingSchema):
-
     shortname = colander.SchemaNode(
         colander.String(),
         name='shortname',

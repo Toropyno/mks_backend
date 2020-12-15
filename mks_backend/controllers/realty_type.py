@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.realty_type import RealtyTypeSchema
 from mks_backend.serializers.realty_type import RealtyTypeSerializer
 from mks_backend.services.realty_type import RealtyTypeService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class RealtyTypeController:
@@ -22,8 +20,6 @@ class RealtyTypeController:
         realty_types = self.service.get_all_realty_types()
         return self.serializer.convert_list_to_json(realty_types)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_realty_type')
     def add_realty_type(self):
         realty_type_deserialized = self.schema.deserialize(self.request.json_body)
@@ -38,8 +34,6 @@ class RealtyTypeController:
         self.service.delete_realty_type_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_realty_type')
     def edit_realty_type(self):
         realty_type_deserialized = self.schema.deserialize(self.request.json_body)

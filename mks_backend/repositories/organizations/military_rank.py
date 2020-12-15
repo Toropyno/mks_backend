@@ -1,8 +1,6 @@
 from mks_backend.models.organizations.military_rank import MilitaryRank
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class MilitaryRankRepository:
 
@@ -15,7 +13,6 @@ class MilitaryRankRepository:
     def get_all_military_ranks(self) -> list:
         return self._query.order_by(MilitaryRank.fullname).all()
 
-    @db_error_handler
     def add_military_rank(self, military_rank: MilitaryRank) -> None:
         DBSession.add(military_rank)
         DBSession.commit()
@@ -24,7 +21,6 @@ class MilitaryRankRepository:
         self._query.filter_by(military_ranks_id=id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_military_rank(self, military_rank: MilitaryRank) -> None:
         self._query.filter_by(military_ranks_id=military_rank.military_ranks_id).update(
             {

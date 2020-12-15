@@ -3,8 +3,6 @@ from sqlalchemy import desc
 from mks_backend.models.construction_progress import ConstructionProgress
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class ConstructionProgressRepository:
 
@@ -14,7 +12,6 @@ class ConstructionProgressRepository:
     def get_construction_progress_by_id(self, id: int) -> ConstructionProgress:
         return self._query.get(id)
 
-    @db_error_handler
     def add_construction_progress(self, construction_progress: ConstructionProgress) -> None:
         DBSession.add(construction_progress)
         DBSession.commit()
@@ -23,7 +20,6 @@ class ConstructionProgressRepository:
         DBSession.delete(construction_progress)
         DBSession.commit()
 
-    @db_error_handler
     def update_construction_progress(self, construction_progress: ConstructionProgress) -> None:
         self._query.filter_by(
             construction_progress_id=construction_progress.construction_progress_id).update(

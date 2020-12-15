@@ -1,7 +1,7 @@
 from mks_backend.models import DBSession
 from mks_backend.models.organizations.organization_history import OrganizationHistory
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class OrganizationHistoryRepository:
@@ -9,12 +9,10 @@ class OrganizationHistoryRepository:
     def __init__(self):
         self._query = DBSession.query(OrganizationHistory)
 
-    @db_error_handler
     def add(self, organization_history: OrganizationHistory) -> None:
         DBSession.add(organization_history)
         DBSession.commit()
 
-    @db_error_handler
     def update(self, organization_history: OrganizationHistory) -> None:
         if DBSession.merge(organization_history) and not DBSession.new:
             DBSession.commit()

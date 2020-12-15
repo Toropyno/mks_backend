@@ -1,7 +1,7 @@
 from mks_backend import DBSession
 from mks_backend.models.state_contracts.completion_date import CompletionDate
 
-from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class CompletionDateRepository:
@@ -9,7 +9,6 @@ class CompletionDateRepository:
     def __init__(self):
         self._query = DBSession.query(CompletionDate)
 
-    @db_error_handler
     def add(self, completion_date: CompletionDate) -> None:
         DBSession.add(completion_date)
         DBSession.commit()
@@ -28,7 +27,6 @@ class CompletionDateRepository:
         DBSession.delete(completion_date)
         DBSession.commit()
 
-    @db_error_handler
     def update(self, completion_date: CompletionDate) -> None:
         self._query.filter_by(completion_dates_id=completion_date.completion_dates_id).update(
             {

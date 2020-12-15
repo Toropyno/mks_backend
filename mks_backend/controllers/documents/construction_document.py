@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.construction_document import ConstructionDo
 from mks_backend.serializers.documents.construction_document import ConstructionDocumentSerializer
 from mks_backend.services.documents.construction_document import ConstructionDocumentService
 
-from mks_backend.errors import handle_db_error, handle_colander_error
-
 
 @view_defaults(renderer='json')
 class ConstructionDocumentController:
@@ -22,15 +20,12 @@ class ConstructionDocumentController:
         construction_documents = self.service.get_all_construction_documents()
         return self.serializer.convert_list_to_json(construction_documents)
 
-    @handle_db_error
     @view_config(route_name='get_construction_document')
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
         construction_document = self.service.get_construction_document_by_id(id)
         return self.serializer.convert_object_to_json(construction_document)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_construction_document')
     def add_construction_document(self):
         construction_document_deserialized = self.schema.deserialize(self.request.json_body)
@@ -39,8 +34,6 @@ class ConstructionDocumentController:
         self.service.add_construction_document(construction_document)
         return {'id': construction_document.construction_documents_id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_construction_document')
     def edit_construction_document(self):
         id = int(self.request.matchdict['id'])
@@ -51,7 +44,6 @@ class ConstructionDocumentController:
         self.service.update_construction_document(construction_document)
         return {'id': id}
 
-    @handle_db_error
     @view_config(route_name='delete_construction_document')
     def delete_construction_document(self):
         id = int(self.request.matchdict['id'])

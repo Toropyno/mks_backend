@@ -8,7 +8,6 @@ from mks_backend.models import Base, STATE_CONTRACT_SCHEMA
 
 
 class ContractStatus(Base):
-
     __tablename__ = 'contract_statuses'
 
     __table_args__ = {'schema': STATE_CONTRACT_SCHEMA}

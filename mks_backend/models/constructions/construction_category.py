@@ -5,7 +5,6 @@ from mks_backend.models import Base
 
 
 class ConstructionCategory(Base):
-
     __tablename__ = 'construction_categories'
 
     construction_categories_id = Column(Integer, primary_key=True, autoincrement=True)

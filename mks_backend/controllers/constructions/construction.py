@@ -3,10 +3,8 @@ from pyramid.view import view_config, view_defaults
 
 from mks_backend.controllers.schemas.constructions import ConstructionSchema, ConstructionFilterSchema
 from mks_backend.serializers.constructions import ConstructionSerializer
-from mks_backend.services.constructions import ConstructionService
 from mks_backend.serializers.coordinate import CoordinateSerializer
-
-from mks_backend.errors import handle_db_error, handle_colander_error
+from mks_backend.services.constructions import ConstructionService
 
 
 @view_defaults(renderer='json')
@@ -20,7 +18,6 @@ class ConstructionController:
         self.filter_schema = ConstructionFilterSchema()
         self.coordinate_serializer = CoordinateSerializer()
 
-    @handle_colander_error
     @view_config(route_name='get_all_constructions')
     def get_all_constructions(self):
         if self.request.params:
@@ -31,8 +28,6 @@ class ConstructionController:
 
         return self.serializer.convert_list_to_json(constructions)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_construction')
     def add_construction(self):
         construction_deserialized = self.schema.deserialize(self.request.json_body)
@@ -50,8 +45,6 @@ class ConstructionController:
         self.service.delete_construction_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_construction')
     def edit_construction(self):
         construction_deserialized = self.schema.deserialize(self.request.json_body)

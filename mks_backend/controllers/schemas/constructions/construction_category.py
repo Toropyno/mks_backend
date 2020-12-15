@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import strip_space
 
 
 class ConstructionCategorySchema(colander.MappingSchema):
-
     id = colander.SchemaNode(
         colander.Integer(),
         name='id',

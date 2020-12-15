@@ -5,8 +5,6 @@ from mks_backend.services.organizations.organization import OrganisationService
 from mks_backend.serializers.organizations.organization import OrganizationSerializer
 from mks_backend.controllers.schemas.organizations.organization import OrganizationSchema, OrganizationFilterSchema
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class OrganizationController:
@@ -25,8 +23,6 @@ class OrganizationController:
         rootes = self.service.get_rootes(reflect_disbanded)
         return self.serializer.to_json_tree(rootes, reflect_disbanded)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_organization')
     def add_organization(self):
         organization_deserialized = self.schema.deserialize(self.request.json_body)
@@ -35,7 +31,6 @@ class OrganizationController:
         self.service.add_organization(organization)
         return {'organizationId': organization.organizations_id}
 
-    @handle_db_error
     @view_config(route_name='delete_organization')
     def delete_organization(self):
         organization_uuid = self.request.matchdict.get('organization_uuid')
@@ -44,8 +39,6 @@ class OrganizationController:
         self.service.delete_organization(organization_uuid, new_parent_uuid)
         return {'organizationId': organization_uuid}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_organization')
     def edit_organization(self):
         edit_data = self.request.json_body.copy()

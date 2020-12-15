@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import uuid_file_validator,
 
 
 class InspectionFileSchema(colander.MappingSchema):
-
     inspection_id = colander.SchemaNode(
         colander.Int(),
         name='inspectionId',

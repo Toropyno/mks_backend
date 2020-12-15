@@ -1,7 +1,7 @@
 from mks_backend.models.oksm import OKSM
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class OKSMRepository:
@@ -12,7 +12,6 @@ class OKSMRepository:
     def get_all_oksms(self) -> list:
         return self._query.order_by(OKSM.code).all()
 
-    @db_error_handler
     def add_oksm(self, oksm: OKSM) -> None:
         DBSession.add(oksm)
         DBSession.commit()
@@ -21,7 +20,6 @@ class OKSMRepository:
         self._query.filter(OKSM.oksm_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_oksm(self, new_oksm: OKSM) -> None:
         if DBSession.merge(new_oksm) and not DBSession.new:
             DBSession.commit()

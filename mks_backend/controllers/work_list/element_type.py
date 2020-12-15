@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.work_list.element_type import ElementTypeSc
 from mks_backend.serializers.work_list.element_type import ElementTypeSerializer
 from mks_backend.services.work_list.element_type import ElementTypeService
 
-from mks_backend.errors import handle_db_error, handle_colander_error
-
 
 @view_defaults(renderer='json')
 class ElementTypeController:
@@ -22,8 +20,6 @@ class ElementTypeController:
         element_types = self.service.get_all_element_types()
         return self.serializer.convert_list_to_json(element_types)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_element_type')
     def add_element_type(self):
         element_type_deserialized = self.schema.deserialize(self.request.json_body)
@@ -43,8 +39,6 @@ class ElementTypeController:
         self.service.delete_element_type_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_element_type')
     def edit_element_type(self):
         id = int(self.request.matchdict['id'])

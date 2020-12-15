@@ -10,6 +10,7 @@ from mks_backend.controllers.organizations.routes import include_organizations
 from mks_backend.controllers.state_contracts.routes import include_state_contracts
 from mks_backend.controllers.miv.routes import include_miv
 from mks_backend.routes import includeme
+from mks_backend._loggers.routes import include_logs
 
 from mks_backend.env_vars import setup_env_vars
 
@@ -28,5 +29,6 @@ def main(global_config, **settings):
     config.include(include_organizations)
     config.include(include_state_contracts)
     config.include(include_miv)
+    config.include(include_logs)
     config.scan()
     return config.make_wsgi_app()

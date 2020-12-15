@@ -1,7 +1,7 @@
 from mks_backend.models.state_contracts.contract_work_type import ContractWorkType
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class ContractWorkTypeRepository:
@@ -9,7 +9,6 @@ class ContractWorkTypeRepository:
     def __init__(self):
         self._query = DBSession.query(ContractWorkType)
 
-    @db_error_handler
     def add(self, contract_w_t: ContractWorkType) -> None:
         DBSession.add(contract_w_t)
         DBSession.commit()
@@ -28,7 +27,6 @@ class ContractWorkTypeRepository:
         DBSession.delete(contract_w_t)
         DBSession.commit()
 
-    @db_error_handler
     def update(self, contract_w_t: ContractWorkType) -> None:
         self._query.filter_by(contract_worktypes_id=contract_w_t.contract_worktypes_id).update(
             {

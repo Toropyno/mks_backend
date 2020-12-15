@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.protocols.meeting import MeetingSchema
 from mks_backend.serializers.protocols.meeting import MeetingSerializer
 from mks_backend.services.protocols.meeting import MeetingService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class MeetingController:
@@ -22,8 +20,6 @@ class MeetingController:
         meeting_types = self.service.get_all_meeting_types()
         return self.serializer.convert_list_to_json(meeting_types)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_meeting_type')
     def add_meeting_type(self):
         meeting_type_deserialized = self.schema.deserialize(self.request.json_body)
@@ -37,8 +33,6 @@ class MeetingController:
         self.service.delete_meeting_type_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_meeting_type')
     def edit_meeting_type(self):
         id = self.request.matchdict['id']

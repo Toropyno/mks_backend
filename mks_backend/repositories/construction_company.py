@@ -1,7 +1,7 @@
 from mks_backend.models.construction_company import ConstructionCompany
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class ConstructionCompanyRepository:
@@ -12,7 +12,6 @@ class ConstructionCompanyRepository:
     def get_all_construction_companies(self) -> list:
         return self._query.order_by(ConstructionCompany.fullname).all()
 
-    @db_error_handler
     def add_construction_company(self, construction_company: ConstructionCompany) -> None:
         DBSession.add(construction_company)
         DBSession.commit()
@@ -21,7 +20,6 @@ class ConstructionCompanyRepository:
         self._query.filter(ConstructionCompany.construction_companies_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_construction_company(self, new_construction_company: ConstructionCompany) -> None:
         if DBSession.merge(new_construction_company) and not DBSession.new:
             DBSession.commit()

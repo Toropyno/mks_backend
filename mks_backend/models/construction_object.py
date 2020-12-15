@@ -17,7 +17,6 @@ from mks_backend.models import Base
 
 
 class ConstructionObject(Base):
-
     __tablename__ = 'construction_objects'
 
     construction_objects_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -40,7 +39,7 @@ class ConstructionObject(Base):
         CheckConstraint('weight>0 AND weight<=100'),
         nullable=False
     )
-    
+
     zones_id = Column(
         Integer,
         ForeignKey('zones.zones_id', ondelete='SET NULL')

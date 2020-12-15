@@ -1,7 +1,7 @@
 from mks_backend.models.state_contracts import Contract
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class ContractRepository:
@@ -19,12 +19,10 @@ class ContractRepository:
         else:
             return contract
 
-    @db_error_handler
     def add_contract(self, contract: Contract) -> None:
         DBSession.add(contract)
         DBSession.commit()
 
-    @db_error_handler
     def edit_contract(self, contract: Contract) -> None:
         if DBSession.merge(contract) and not DBSession.new:
             DBSession.commit()

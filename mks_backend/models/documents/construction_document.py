@@ -13,7 +13,6 @@ from mks_backend.models import Base
 
 
 class ConstructionDocument(Base):
-
     __tablename__ = 'construction_documents'
 
     construction_documents_id = Column(Integer, primary_key=True)

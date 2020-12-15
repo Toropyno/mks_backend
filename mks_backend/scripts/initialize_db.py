@@ -74,7 +74,9 @@ from mks_backend.models.state_contracts import ContractWorkType
 from mks_backend.models.state_contracts.completion_date import CompletionDate
 
 from mks_backend.models.miv.storage import Storage
-from mks_backend.models._loggers.miv import MIVLog
+
+from mks_backend._loggers import MIVLog
+from mks_backend._loggers import DBError
 
 
 def usage(argv):

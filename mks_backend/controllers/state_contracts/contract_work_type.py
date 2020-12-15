@@ -5,8 +5,6 @@ from mks_backend.serializers.state_contracts.contract_work_type import ContractW
 from mks_backend.services.state_contracts.contract_work_type import ContractWorkTypeService
 from mks_backend.controllers.schemas.state_contracts.contract_work_type import ContractWorkTypeSchema
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ContractWorkTypeController:
@@ -17,8 +15,6 @@ class ContractWorkTypeController:
         self.service = ContractWorkTypeService()
         self.serializer = ContractWorkTypeSerializer()
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_contract_work_type')
     def add(self):
         contract_w_t_deserialized = self.schema.deserialize(self.request.json_body)
@@ -27,9 +23,6 @@ class ContractWorkTypeController:
         self.service.add(contract_w_t)
         return {'id': contract_w_t.contract_worktypes_id}
 
-
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_contract_work_type')
     def edit(self):
         id = self.get_id()
@@ -45,14 +38,12 @@ class ContractWorkTypeController:
         contract_work_types = self.service.get_all()
         return self.serializer.list_to_json(contract_work_types)
 
-    @handle_db_error
     @view_config(route_name='get_contract_work_type')
     def get(self):
         id = self.get_id()
         contract_w_t = self.service.get_by_id(id)
         return self.serializer.to_json(contract_w_t)
 
-    @handle_db_error
     @view_config(route_name='delete_contract_work_type')
     def delete(self):
         id = self.get_id()

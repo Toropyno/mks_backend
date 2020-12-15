@@ -1,7 +1,7 @@
 from mks_backend.models.constructions import Construction
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class ConstructionRepository:
@@ -15,12 +15,10 @@ class ConstructionRepository:
     def get_construction_by_id(self, id: int) -> Construction:
         return self._query.get(id)
 
-    @db_error_handler
     def add_construction(self, construction: Construction) -> None:
         DBSession.add(construction)
         DBSession.commit()
 
-    @db_error_handler
     def update_construction(self, construction: Construction) -> None:
         if DBSession.merge(construction) and not DBSession.new:
             DBSession.commit()

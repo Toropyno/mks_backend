@@ -6,8 +6,6 @@ from mks_backend.serializers.construction_object import ConstructionObjectSerial
 from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.services.construction_object import ConstructionObjectService
 
-from mks_backend.errors import handle_db_error, handle_colander_error
-
 
 @view_defaults(renderer='json')
 class ConstructionObjectController:
@@ -31,8 +29,6 @@ class ConstructionObjectController:
         construction_object = self.service.get_construction_object_by_id(id)
         return self.serializer.convert_object_to_json(construction_object)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_construction_object')
     def add_construction_object(self):
         construction_object_deserialized = self.schema.deserialize(self.request.json_body)
@@ -51,8 +47,6 @@ class ConstructionObjectController:
         self.service.delete_construction_object_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_construction_object')
     def edit_construction_object(self):
         construction_object_deserialized = self.schema.deserialize(self.request.json_body)

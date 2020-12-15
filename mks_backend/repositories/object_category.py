@@ -1,8 +1,6 @@
 from mks_backend.models.object_category import ObjectCategory
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class ObjectCategoryRepository:
 
@@ -20,7 +18,6 @@ class ObjectCategoryRepository:
             ObjectCategory.object_categories_id.in_(ids)
         ).all()
 
-    @db_error_handler
     def add_object_category(self, object_category: ObjectCategory) -> None:
         DBSession.add(object_category)
         DBSession.commit()
@@ -30,7 +27,6 @@ class ObjectCategoryRepository:
         DBSession.delete(object_category)
         DBSession.commit()
 
-    @db_error_handler
     def update_object_category(self, object_category: ObjectCategory) -> None:
         self._query.filter_by(
             object_categories_id=object_category.object_categories_id).update(

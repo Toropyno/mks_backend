@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.inspections.inspection_file import Inspecti
 from mks_backend.services.inspections.inspection_file import InspectionFileService
 from mks_backend.serializers.inspections.inspection_file import InspectionFileSerializer
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class InspectionFileController:
@@ -23,8 +21,6 @@ class InspectionFileController:
         inspection_files = self.service.get_files_by_inspection_id(id)
         return self.serializer.convert_list_to_json(inspection_files)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_inspection_file')
     def add_inspection_file(self):
         inspection_deserialized = self.schema.deserialize(self.request.json_body)
@@ -33,7 +29,6 @@ class InspectionFileController:
         self.service.add_inspection_file(inspection)
         return {'id': inspection.inspections_id}
 
-    @handle_db_error
     @view_config(route_name='delete_inspection_file')
     def delete_inspection_file(self):
         inspection_id = int(self.request.matchdict['inspection_id'])

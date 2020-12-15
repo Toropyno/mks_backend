@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import strip_space, uuid_fi
 
 
 class ObjectFileSchema(colander.MappingSchema):
-
     construction_objects_id = colander.SchemaNode(
         colander.Int(),
         name='constructionObjectId',

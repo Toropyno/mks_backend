@@ -1,7 +1,7 @@
 from mks_backend.models.documents.construction_document import ConstructionDocument
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler, DBBasicError
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class ConstructionDocumentRepository:
@@ -23,7 +23,6 @@ class ConstructionDocumentRepository:
             ConstructionDocument.construction_documents_id.in_(ids)
         ).all()
 
-    @db_error_handler
     def add_construction_document(self, construction_document: ConstructionDocument) -> None:
         DBSession.add(construction_document)
         DBSession.commit()
@@ -33,7 +32,6 @@ class ConstructionDocumentRepository:
         DBSession.delete(construction_document)
         DBSession.commit()
 
-    @db_error_handler
     def update_construction_document(self, construction_document: ConstructionDocument) -> None:
         self._query.filter_by(
             construction_documents_id=construction_document.construction_documents_id).update(

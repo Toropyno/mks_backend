@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.object_category import ObjectCategorySchema
 from mks_backend.serializers.object_category import ObjectCategorySerializer
 from mks_backend.services.object_category import ObjectCategoryService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ObjectCategoryController:
@@ -28,8 +26,6 @@ class ObjectCategoryController:
         object_category = self.service.get_object_category_by_id(id)
         return self.serializer.convert_object_to_json(object_category)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_object_category')
     def add_object_category(self):
         object_category_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,8 +40,6 @@ class ObjectCategoryController:
         self.service.delete_object_category_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_object_category', request_method='PUT')
     def edit_object_categories_list(self):
         object_category_deserialized = self.schema.deserialize(self.request.json_body)

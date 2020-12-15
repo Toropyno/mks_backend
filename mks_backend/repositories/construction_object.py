@@ -1,8 +1,6 @@
 from mks_backend.models.construction_object import ConstructionObject
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import db_error_handler
-
 
 class ConstructionObjectRepository:
 
@@ -16,7 +14,6 @@ class ConstructionObjectRepository:
         return self._query.filter_by(construction_id=construction_id). \
             order_by(ConstructionObject.planned_date).all()
 
-    @db_error_handler
     def add_construction_object(self, construction_object: ConstructionObject) -> None:
         DBSession.add(construction_object)
         DBSession.commit()
@@ -26,6 +23,5 @@ class ConstructionObjectRepository:
         DBSession.delete(construction_object)
         DBSession.commit()
 
-    @db_error_handler
     def update_construction_object(self, construction_object: ConstructionObject) -> None:
         DBSession.commit()

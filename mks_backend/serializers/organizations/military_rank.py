@@ -1,6 +1,6 @@
 from mks_backend.models.organizations.military_rank import MilitaryRank
 
-from mks_backend.errors.serialize_error import serialize_error_handler
+from mks_backend.errors import serialize_error_handler
 
 
 class MilitaryRankSerializer:
@@ -15,7 +15,6 @@ class MilitaryRankSerializer:
 
     def convert_list_to_json(self, military_ranks: list) -> list:
         return list(map(self.to_json, military_ranks))
-
 
     def convert_schema_to_object(self, schema: dict) -> MilitaryRank:
         military_rank = MilitaryRank()

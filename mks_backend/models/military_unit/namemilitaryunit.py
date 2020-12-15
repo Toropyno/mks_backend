@@ -10,7 +10,6 @@ from mks_backend.models import Base
 
 
 class NameMilitaryUnit(Base):
-
     __tablename__ = 'namemilitaryunit'
 
     idnamemu = Column(Integer, primary_key=True, autoincrement=True)

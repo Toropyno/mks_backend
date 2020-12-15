@@ -4,7 +4,6 @@ from mks_backend.models import Base
 
 
 class WorkType(Base):
-
     __tablename__ = 'work_types'
 
     work_types_id = Column(Integer, primary_key=True)

@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.work_list.work_list import WorkListSchema
 from mks_backend.serializers.work_list.work_list import WorkListSerializer
 from mks_backend.services.work_list.work_list import WorkListService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class WorkListController:
@@ -23,8 +21,6 @@ class WorkListController:
         work_list = self.service.get_work_list_for_construction_object(construction_object_id)
         return self.serializer.convert_list_to_json(work_list)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_work_list')
     def add_work_list(self):
         work_list_deserialized = self.schema.deserialize(self.request.json_body)
@@ -39,8 +35,6 @@ class WorkListController:
         self.service.delete_work_list_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_work_list')
     def edit_work_list(self):
         work_list_deserialized = self.schema.deserialize(self.request.json_body)

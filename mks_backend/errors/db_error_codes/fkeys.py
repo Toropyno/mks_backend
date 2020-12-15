@@ -72,7 +72,7 @@ FOREIGN_KEY_ERROR = {
     'contracts_contractor_id_fkey': 'Указанного Генерального Подрядчика не существует!',
     'contracts_subcontractor_id_fkey': 'Указанного Субподрядчика не существует!',
     'contracts_contract_statuses_id_fkey': 'Указанного Статуса Контракта не существует!',
-    
+
     'completion_dates_contracts_id_fkey': 'Указанного Контракта не существует!',
     'completion_dates_contract_worktypes_id_fkey': 'Указанных Видов Мероприятий По Гос. Контрактам не существует!',
 

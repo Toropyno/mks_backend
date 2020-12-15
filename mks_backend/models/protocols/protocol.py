@@ -13,7 +13,6 @@ from mks_backend.models import Base
 
 
 class Protocol(Base):
-
     __tablename__ = 'protocol'
 
     protocol_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)

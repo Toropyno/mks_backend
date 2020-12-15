@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.inspections.inspection import InspectionSch
 from mks_backend.serializers.inspections.inspection import InspectionSerializer
 from mks_backend.services.inspections.inspection import InspectionService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class InspectionController:
@@ -18,15 +16,12 @@ class InspectionController:
         self.schema = InspectionSchema()
         self.filter_schema = InspectionFilterSchema()
 
-    @handle_colander_error
     @view_config(route_name='get_all_inspections')
     def get_all_inspections(self):
         filter_params = self.filter_schema.deserialize(self.request.GET)
         inspections = self.service.get_inspections(filter_params)
         return self.serializer.convert_list_to_json(inspections)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_inspection')
     def add_inspection(self):
         inspection_deserialized = self.schema.deserialize(self.request.json_body)
@@ -41,8 +36,6 @@ class InspectionController:
         self.service.delete_inspection_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_inspection')
     def edit_inspection(self):
         inspection_deserialized = self.schema.deserialize(self.request.json_body)

@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.progress_status import ProgressStatusSchema
 from mks_backend.serializers.progress_status import ProgressStatusSerializer
 from mks_backend.services.progress_status import ProgressStatusService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ProgressStatusController:
@@ -22,8 +20,6 @@ class ProgressStatusController:
         progress_statuses = self.service.get_all_progress_statuses()
         return self.serializer.convert_list_to_json(progress_statuses)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_progress_status')
     def add_progress_status(self):
         progress_status_deserialized = self.schema.deserialize(self.request.json_body)
@@ -37,8 +33,6 @@ class ProgressStatusController:
         self.service.delete_progress_status_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_progress_status')
     def edit_progress_status(self):
         id = self.request.matchdict['id']
@@ -53,4 +47,3 @@ class ProgressStatusController:
         id = self.request.matchdict['id']
         progress_status = self.service.get_progress_status_by_id(id)
         return self.serializer.convert_object_to_json(progress_status)
-

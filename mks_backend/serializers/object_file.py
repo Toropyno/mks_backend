@@ -2,7 +2,7 @@ from mks_backend.models.object_file import ObjectFile
 from mks_backend.serializers.filestorage import FileStorageSerializer
 from mks_backend.serializers.utils.date_and_time import get_date_time_string
 
-from mks_backend.errors.serialize_error import serialize_error_handler
+from mks_backend.errors import serialize_error_handler
 
 
 class ObjectFileSerializer:

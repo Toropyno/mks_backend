@@ -10,7 +10,6 @@ from mks_backend.models import Base
 
 
 class DocType(Base):
-
     __tablename__ = 'doctypes'
 
     __table_args__ = (

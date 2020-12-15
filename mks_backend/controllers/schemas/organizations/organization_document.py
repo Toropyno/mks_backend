@@ -9,7 +9,6 @@ from mks_backend.controllers.schemas.validator_utils import (
 
 
 class OrganizationDocumentSchema(colander.MappingSchema):
-
     doctypes_id = colander.SchemaNode(
         colander.Int(),
         name='docTypeId',
@@ -38,7 +37,7 @@ class OrganizationDocumentSchema(colander.MappingSchema):
             max_err='Слишком длинный номер документа'
         )
     )
-    
+
     doc_name = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

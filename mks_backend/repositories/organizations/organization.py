@@ -3,7 +3,7 @@ from typing import List
 from mks_backend.models.organizations.organization import Organization
 from mks_backend.models import DBSession
 
-from mks_backend.errors.db_basic_error import DBBasicError, db_error_handler
+from mks_backend.errors.db_basic_error import DBBasicError
 
 
 class OrganisationRepository:
@@ -11,12 +11,10 @@ class OrganisationRepository:
     def __init__(self):
         self._query = DBSession.query(Organization)
 
-    @db_error_handler
     def add(self, organization: Organization):
         DBSession.add(organization)
         DBSession.commit()
 
-    @db_error_handler
     def update(self, organization: Organization):
         if DBSession.merge(organization) and not DBSession.new:
             DBSession.commit()

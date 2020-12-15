@@ -1,7 +1,7 @@
 from mks_backend.models.protocols.meeting import Meeting
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class MeetingRepository:
@@ -15,7 +15,6 @@ class MeetingRepository:
     def get_all_meeting_types(self) -> list:
         return self._query.all()
 
-    @db_error_handler
     def add_meeting_type(self, meeting_type: Meeting) -> None:
         DBSession.add(meeting_type)
         DBSession.commit()
@@ -25,7 +24,6 @@ class MeetingRepository:
         DBSession.delete(meeting_type)
         DBSession.commit()
 
-    @db_error_handler
     def update_meeting_type(self, meeting_type: Meeting) -> None:
         if DBSession.merge(meeting_type) and not DBSession.new:
             DBSession.commit()

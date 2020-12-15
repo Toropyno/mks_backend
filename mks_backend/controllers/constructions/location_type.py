@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.constructions import LocationTypeSchema
 from mks_backend.serializers.constructions.location_type import LocationTypeSerializer
 from mks_backend.services.constructions.location_type import LocationTypeService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class LocationTypeController:
@@ -22,8 +20,6 @@ class LocationTypeController:
         location_types = self.service.get_all_location_types()
         return self.serializer.convert_list_to_json(location_types)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_location_type')
     def add_location_type(self):
         location_type_deserialized = self.schema.deserialize(self.request.json_body)
@@ -38,8 +34,6 @@ class LocationTypeController:
         self.service.delete_location_type_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_location_type')
     def edit_location_type(self):
         location_type_deserialized = self.schema.deserialize(self.request.json_body)

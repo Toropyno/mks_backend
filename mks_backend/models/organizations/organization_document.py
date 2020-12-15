@@ -14,7 +14,6 @@ from mks_backend.models import Base, ORGANIZATION_SCHEMA
 
 
 class OrganizationDocument(Base):
-
     __tablename__ = 'organization_documents'
 
     __table_args__ = (

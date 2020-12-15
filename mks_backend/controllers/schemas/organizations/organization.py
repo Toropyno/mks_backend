@@ -5,7 +5,6 @@ from mks_backend.controllers.schemas.validator_utils import organization_parent_
 
 
 class OrganizationSchema(colander.MappingSchema):
-
     organization_uuid = colander.SchemaNode(
         colander.String(),
         name='organizationId',
@@ -39,7 +38,6 @@ class OrganizationSchema(colander.MappingSchema):
 
 
 class OrganizationFilterSchema(colander.MappingSchema):
-
     reflect_disbanded = colander.SchemaNode(
         colander.Boolean(false_choices=['false', '0', 'False', 'none']),
         name='reflectDisbanded',

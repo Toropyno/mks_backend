@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.constructions import ConstructionCategorySc
 from mks_backend.serializers.constructions.construction_category import ConstructionCategorySerializer
 from mks_backend.services.constructions.construction_category import ConstructionCategoryService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class ConstructionCategoryController:
@@ -22,8 +20,6 @@ class ConstructionCategoryController:
         construction_categories = self.service.get_all_construction_categories()
         return self.serializer.convert_list_to_json(construction_categories)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_construction_category')
     def add_construction_category(self):
         construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
@@ -45,8 +41,6 @@ class ConstructionCategoryController:
         self.service.delete_construction_category_by_id(id_)
         return {'id': id_}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_construction_category')
     def edit_construction_category(self):
         construction_categories_deserialized = self.schema.deserialize(self.request.json_body)

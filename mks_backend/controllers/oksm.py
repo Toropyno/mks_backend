@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.oksm import OKSMSchema
 from mks_backend.serializers.oksm import OKSMSerializer
 from mks_backend.services.oksm import OKSMService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class OKSMController:
@@ -22,8 +20,6 @@ class OKSMController:
         oksms = self.service.get_all_oksms()
         return self.serializer.convert_list_to_json(oksms)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_oksm')
     def add_oksm(self):
         oksm_deserialized = self.schema.deserialize(self.request.json_body)
@@ -38,8 +34,6 @@ class OKSMController:
         self.service.delete_oksm_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_oksm')
     def edit_oksm(self):
         oksm_deserialized = self.schema.deserialize(self.request.json_body)

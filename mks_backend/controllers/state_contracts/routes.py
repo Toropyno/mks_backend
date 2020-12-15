@@ -26,4 +26,3 @@ def include_state_contracts(config):
     config.add_route('get_all_completion_dates', '/completion_date', request_method='GET')
     config.add_route('get_completion_date', '/completion_date/{id}', request_method='GET')
     config.add_route('delete_completion_date', '/completion_date/{id}', request_method='DELETE')
-

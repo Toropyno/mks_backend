@@ -55,4 +55,3 @@ class WorkTripService:
                 params[case_switcher[key]] = filter_params[key]
 
         return params
-

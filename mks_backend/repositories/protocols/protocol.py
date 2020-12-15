@@ -1,7 +1,7 @@
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class ProtocolRepository:
@@ -18,7 +18,6 @@ class ProtocolRepository:
     def get_all_protocols(self) -> list:
         return self._query.order_by(Protocol.protocol_date.desc()).all()
 
-    @db_error_handler
     def add_protocol(self, protocol: Protocol) -> None:
         DBSession.add(protocol)
         DBSession.commit()

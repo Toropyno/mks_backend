@@ -15,7 +15,6 @@ from mks_backend.models import Base
 
 
 class Filestorage(Base):
-
     __tablename__ = 'filestorage'
 
     idfilestorage = Column(UUID(as_uuid=True), primary_key=True, default=uuid4, nullable=False)

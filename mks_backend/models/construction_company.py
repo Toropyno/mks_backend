@@ -9,7 +9,6 @@ from mks_backend.models import Base
 
 
 class ConstructionCompany(Base):
-
     __tablename__ = 'construction_companies'
 
     __table_args__ = (

@@ -6,8 +6,6 @@ from mks_backend.serializers.constructions import ConstructionSerializer
 from mks_backend.serializers.trips.visited_object import VisitedObjectSerializer
 from mks_backend.services.trips.visited_object import VisitedObjectService
 
-from mks_backend.errors import handle_db_error, handle_colander_error
-
 
 @view_defaults(renderer='json')
 class VisitedObjectController:
@@ -34,8 +32,6 @@ class VisitedObjectController:
             'id': '{work_trip_id}, {construction_id}'.format(work_trip_id=work_trip_id, construction_id=construction_id)
         }
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_visited_object')
     def add_visited_object(self):
         work_trip_id = int(self.request.matchdict.get('work_trip_id'))

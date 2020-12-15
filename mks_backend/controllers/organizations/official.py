@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.organizations.official import OfficialSchem
 from mks_backend.serializers.organizations.official import OfficialSerializer
 from mks_backend.services.organizations.official import OfficialService
 
-from mks_backend.errors import handle_db_error, handle_colander_error
-
 
 @view_defaults(renderer='json')
 class OfficialController:
@@ -19,8 +17,6 @@ class OfficialController:
         self.schema = OfficialSchema()
         self.filter_schema = OfficialFilterSchema()
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_official')
     def add_official(self):
         official_deserialized = self.schema.deserialize(self.request.json_body)
@@ -29,8 +25,6 @@ class OfficialController:
         self.service.add_official(official)
         return {'id': official.officials_id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_official')
     def edit_official(self):
         id = self.get_id()
@@ -48,7 +42,6 @@ class OfficialController:
         self.service.delete_official_by_id(id)
         return {'id': id}
 
-    @handle_db_error
     @view_config(route_name='get_officials_by_organization')
     def get_officials_by_organization(self):
         reflect_vacated_position = self.filter_schema.deserialize(self.request.GET).get('reflectVacatedPosition', True)

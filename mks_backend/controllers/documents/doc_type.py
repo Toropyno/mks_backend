@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.doc_type import DocTypeSchema
 from mks_backend.serializers.documents.doc_type import DocTypeSerializer
 from mks_backend.services.documents.doc_type import DocTypeService
 
-from mks_backend.errors import handle_db_error, handle_colander_error
-
 
 @view_defaults(renderer='json')
 class DocTypeController:
@@ -22,8 +20,6 @@ class DocTypeController:
         doc_types = self.service.get_all_doc_types()
         return self.serializer.convert_list_to_json(doc_types)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_doc_type')
     def add_doc_type(self):
         doc_type_deserialized = self.schema.deserialize(self.request.json_body)
@@ -44,8 +40,6 @@ class DocTypeController:
         self.service.delete_doc_type_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_doc_type')
     def edit_doc_type(self):
         id = int(self.request.matchdict['id'])

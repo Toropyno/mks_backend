@@ -1,7 +1,7 @@
 from mks_backend.models.constructions import LocationType
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
+from mks_backend.errors import DBBasicError
 
 
 class LocationTypeRepository:
@@ -12,7 +12,6 @@ class LocationTypeRepository:
     def get_all_location_types(self) -> list:
         return self._query.order_by(LocationType.fullname).all()
 
-    @db_error_handler
     def add_location_type(self, location_type: LocationType) -> None:
         DBSession.add(location_type)
         DBSession.commit()
@@ -21,7 +20,6 @@ class LocationTypeRepository:
         self._query.filter(LocationType.location_types_id == id).delete()
         DBSession.commit()
 
-    @db_error_handler
     def update_location_type(self, new_location_type: LocationType) -> None:
         if DBSession.merge(new_location_type) and not DBSession.new:
             DBSession.commit()

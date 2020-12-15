@@ -10,7 +10,6 @@ from mks_backend.models import Base
 
 
 class SubcategoryList(Base):
-
     __tablename__ = 'subcategories_list'
 
     __table_args__ = (

@@ -9,7 +9,6 @@ from mks_backend.models import Base
 
 
 class MeasureUnit(Base):
-
     __tablename__ = 'measure_units'
 
     __table_args__ = (

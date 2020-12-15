@@ -14,7 +14,6 @@ from mks_backend.models import Base
 
 
 class ObjectFile(Base):
-
     __tablename__ = 'object_files'
 
     __table_args__ = (

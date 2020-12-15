@@ -15,7 +15,6 @@ from mks_backend.models.inspections.inspection import Inspection
 
 
 class InspectionFile(Base):
-
     __tablename__ = 'inspection_files'
 
     upload_date = Column(TIMESTAMP, default=func.now(), nullable=False)

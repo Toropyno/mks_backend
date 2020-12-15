@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import strip_space
 
 
 class MeasureUnitSchema(colander.MappingSchema):
-
     unit_code = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],

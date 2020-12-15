@@ -3,8 +3,6 @@ from sqlalchemy import and_
 from mks_backend.models.trips.visited_object import VisitedObject
 from mks_backend.models import DBSession
 
-from mks_backend.errors import db_error_handler, DBBasicError
-
 
 class VisitedObjectRepository:
 
@@ -17,7 +15,6 @@ class VisitedObjectRepository:
         ).delete()
         DBSession.commit()
 
-    @db_error_handler
     def add_visited_objects(self, visited_objects: tuple) -> None:
         for visited_object in visited_objects:
             DBSession.merge(visited_object)

@@ -5,8 +5,6 @@ from mks_backend.serializers.state_contracts.completion_date import CompletionDa
 from mks_backend.services.state_contracts.completion_date import CompletionDateService
 from mks_backend.controllers.schemas.state_contracts.completion_date import CompletionDateSchema
 
-from mks_backend.errors.handle_controller_error import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class CompletionDateController:
@@ -17,8 +15,6 @@ class CompletionDateController:
         self.service = CompletionDateService()
         self.serializer = CompletionDateSerializer()
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_completion_date')
     def add(self):
         completion_date_deserialized = self.schema.deserialize(self.request.json_body)
@@ -27,8 +23,6 @@ class CompletionDateController:
         self.service.add(completion_date)
         return {'id': completion_date.completion_dates_id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_completion_date')
     def edit(self):
         id = self.get_id()
@@ -44,14 +38,12 @@ class CompletionDateController:
         completion_dates = self.service.get_all()
         return self.serializer.list_to_json(completion_dates)
 
-    @handle_db_error
     @view_config(route_name='get_completion_date')
     def get(self):
         id = self.get_id()
         completion_date = self.service.get_by_id(id)
         return self.serializer.to_json(completion_date)
 
-    @handle_db_error
     @view_config(route_name='delete_completion_date')
     def delete(self):
         id = self.get_id()

@@ -4,7 +4,6 @@ from mks_backend.controllers.schemas.validator_utils import date_validator, stri
 
 
 class InspectionSchema(colander.MappingSchema):
-
     inspection_date = colander.SchemaNode(
         colander.String(),
         name='date',
@@ -44,7 +43,6 @@ class InspectionSchema(colander.MappingSchema):
 
 
 class InspectionFilterSchema(colander.MappingSchema):
-
     date_start = colander.SchemaNode(
         colander.String(),
         name='dateStart',

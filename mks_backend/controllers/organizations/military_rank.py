@@ -5,8 +5,6 @@ from mks_backend.serializers.organizations.military_rank import MilitaryRankSeri
 from mks_backend.services.organizations.military_rank import MilitaryRankService
 from mks_backend.controllers.schemas.organizations.military_rank import MilitaryRankSchema
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class MilitaryRankController:
@@ -28,8 +26,6 @@ class MilitaryRankController:
         military_rank = self.service.get_military_rank_by_id(id)
         return self.serializer.to_json(military_rank)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_military_rank')
     def add_military_rank(self):
         military_rank_deserialized = self.schema.deserialize(self.request.json_body)
@@ -38,8 +34,6 @@ class MilitaryRankController:
         self.service.add_military_rank(military_rank)
         return {'id': military_rank.military_ranks_id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_military_rank')
     def edit_military_rank(self):
         id = self.get_id()

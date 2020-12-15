@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.trips.leadership_position import Leadership
 from mks_backend.serializers.trips.leadership_position import LeadershipPositionSerializer
 from mks_backend.services.trips.leadership_position import LeadershipPositionService
 
-from mks_backend.errors import handle_colander_error, handle_db_error
-
 
 @view_defaults(renderer='json')
 class LeadershipPositionController:
@@ -22,8 +20,6 @@ class LeadershipPositionController:
         leadership_positions = self.service.get_all_leadership_positions()
         return self.serializer.convert_list_to_json(leadership_positions)
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='add_leadership_position')
     def add_leadership_position(self):
         leadership_position_deserialized = self.schema.deserialize(self.request.json_body)
@@ -38,8 +34,6 @@ class LeadershipPositionController:
         self.service.delete_leadership_position_by_id(id)
         return {'id': id}
 
-    @handle_db_error
-    @handle_colander_error
     @view_config(route_name='edit_leadership_position')
     def edit_leadership_position(self):
         leadership_position_deserialized = self.schema.deserialize(self.request.json_body)
