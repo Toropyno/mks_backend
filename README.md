@@ -5,7 +5,7 @@
 
 --------------------------------------------------------------------------------
 ## Локальное развертывание проекта:
-### Настройка окружения
+### Настройка окружения (для всех последующих команд)
 ```sh
 sudo apt update && apt -y upgrade
 sudo apt install -y python3-pip python3-venv
@@ -30,6 +30,12 @@ CREATE DATABASE mks_db;
 ```sh
 initialize_mks_db development.ini
 ```
+
+#### Наполнение БД
+```sh
+fill_db development.ini
+```
+
 #### Запуск севрвера
 ```sh
 pserve development.ini --reload

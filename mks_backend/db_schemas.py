@@ -1,5 +1,6 @@
 ORGANIZATION_SCHEMA = 'organization'
 STATE_CONTRACT_SCHEMA = 'state_contract'
+MU_SCHEMA = 'military_unit'
 
 MIV_SCHEMA = 'miv'
 LOG_SCHEMA = 'logs'
@@ -7,6 +8,7 @@ LOG_SCHEMA = 'logs'
 SCHEMAS = (
     ORGANIZATION_SCHEMA,
     STATE_CONTRACT_SCHEMA,
+    MU_SCHEMA,
 
     MIV_SCHEMA,
     LOG_SCHEMA

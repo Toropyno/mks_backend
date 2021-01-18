@@ -14,7 +14,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
 from mks_backend.session import Base
-from mks_backend.db_schemas import ORGANIZATION_SCHEMA
+from mks_backend.db_schemas import ORGANIZATION_SCHEMA, MU_SCHEMA
 
 
 class Construction(Base):
@@ -48,7 +48,7 @@ class Construction(Base):
 
     idMU = Column(
         Integer,
-        ForeignKey('military_unit.idMU')
+        ForeignKey('{schema}.military_unit.idMU'.format(schema=MU_SCHEMA))
     )
 
     object_amount = Column(
@@ -85,11 +85,12 @@ class Construction(Base):
         ForeignKey('coordinates.coordinates_id')
     )
 
-    organizations_id = Column(
-        UUID,
-        ForeignKey('{schema}.organizations.organizations_id'.format(schema=ORGANIZATION_SCHEMA)),
-        nullable=False
-    )
+    # TODO: uncomment when frontend form will be ok
+    # organizations_id = Column(
+    #     UUID,
+    #     ForeignKey('{schema}.organizations.organizations_id'.format(schema=ORGANIZATION_SCHEMA)),
+    #     nullable=False
+    # )
 
     # --------- relationships --------- #
 
@@ -147,9 +148,9 @@ class Construction(Base):
         passive_deletes=True
     )
 
-    organization = relationship(
-        'Organization'
-    )
+    # organization = relationship(
+    #     'Organization'
+    # )
 
     # --------- calculated_fields --------- #
 
