@@ -7,7 +7,8 @@ from sqlalchemy import engine_from_config
 from sqlalchemy.schema import CreateSchema
 from sqlalchemy.engine import Engine
 
-from mks_backend.models import Base, DBSession, SCHEMAS
+from mks_backend.session import Base, DBSession
+from mks_backend.db_schemas import SCHEMAS
 
 # Do not delete import models
 

@@ -13,7 +13,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from mks_backend.models import Base
+from mks_backend.session import Base
 
 
 class ConstructionObject(Base):

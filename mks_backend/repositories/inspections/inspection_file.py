@@ -1,6 +1,6 @@
 from typing import List
 
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 from mks_backend.models.inspections.inspection_file import InspectionFile
 
 from mks_backend.errors import DBBasicError

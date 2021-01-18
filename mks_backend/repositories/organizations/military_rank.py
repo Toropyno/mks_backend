@@ -1,5 +1,5 @@
 from mks_backend.models.organizations.military_rank import MilitaryRank
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 
 class MilitaryRankRepository:

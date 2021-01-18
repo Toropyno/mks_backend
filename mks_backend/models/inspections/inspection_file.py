@@ -9,7 +9,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import func
 from sqlalchemy.orm import relationship
 
-from mks_backend.models import Base
+from mks_backend.session import Base
 from mks_backend.models.filestorage import Filestorage
 from mks_backend.models.inspections.inspection import Inspection
 

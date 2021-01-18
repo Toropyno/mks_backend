@@ -5,7 +5,7 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 
-from mks_backend.models import Base
+from mks_backend.session import Base
 
 
 class ConstructionCompany(Base):

@@ -6,7 +6,8 @@ from sqlalchemy import (
 
 from sqlalchemy.orm import relationship
 
-from mks_backend.models import Base, STATE_CONTRACT_SCHEMA
+from mks_backend.session import Base
+from mks_backend.db_schemas import STATE_CONTRACT_SCHEMA
 
 
 class ContractWorkType(Base):

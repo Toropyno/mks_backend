@@ -1,7 +1,7 @@
 from sqlalchemy import desc
 
 from mks_backend.models.construction_progress import ConstructionProgress
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 
 class ConstructionProgressRepository:

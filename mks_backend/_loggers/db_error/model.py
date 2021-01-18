@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, VARCHAR, TIMESTAMP
 from sqlalchemy.sql import func
 
-from mks_backend.models import Base, LOG_SCHEMA
+from mks_backend.session import Base
+from mks_backend.db_schemas import LOG_SCHEMA
 
 
 class DBError(Base):

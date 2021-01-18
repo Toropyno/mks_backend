@@ -3,7 +3,7 @@ from datetime import datetime, timedelta as time_d
 from sqlalchemy import desc
 
 from .model import DBError
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 
 class DBErrorLogger:

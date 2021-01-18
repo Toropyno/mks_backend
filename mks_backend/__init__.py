@@ -1,7 +1,7 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 
-from mks_backend.models import DBSession, Base
+from mks_backend.session import DBSession, Base
 from mks_backend.controllers.trips.routes import include_trips
 from mks_backend.controllers.protocols.routes import include_protocols
 from mks_backend.controllers.inspections.routes import include_inspections

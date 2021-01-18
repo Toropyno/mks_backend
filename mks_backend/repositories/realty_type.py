@@ -1,5 +1,5 @@
 from mks_backend.models.realty_type import RealtyType
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 from mks_backend.errors import DBBasicError
 

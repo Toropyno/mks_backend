@@ -6,7 +6,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import UUID
 
-from mks_backend.models import Base, MIV_SCHEMA
+from mks_backend.session import Base
+from mks_backend.db_schemas import MIV_SCHEMA
 
 
 class MIVLog(Base):

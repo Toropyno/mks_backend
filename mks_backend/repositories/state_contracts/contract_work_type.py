@@ -1,5 +1,5 @@
 from mks_backend.models.state_contracts.contract_work_type import ContractWorkType
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 from mks_backend.errors import DBBasicError
 

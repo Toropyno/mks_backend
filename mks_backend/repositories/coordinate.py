@@ -1,5 +1,5 @@
 from mks_backend.models.coordinate import Coordinate
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 
 class CoordinateRepository:
