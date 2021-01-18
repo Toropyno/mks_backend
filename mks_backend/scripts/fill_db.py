@@ -113,13 +113,13 @@ def insert_mu(engine):
             try_insert(connection, fails)
 
     with engine.connect() as con:
-        with open('/home/atimchenko/PycharmProjects/mks_backend/dumps/military_unit.sql') as text:
+        with open('mks_backend/dumps/military_unit.sql') as text:
             try_insert(con, text.readlines())
 
 
 def insert_oksm(engine):
     with engine.connect() as con:
-        with open('/home/atimchenko/PycharmProjects/mks_backend/dumps/oksm.sql') as text:
+        with open('mks_backend/dumps/oksm.sql') as text:
             try:
                 con.execute(text.read())
             except DBAPIError:
