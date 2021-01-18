@@ -1,3 +1,5 @@
+from sqlalchemy import desc
+
 from mks_backend.models import DBSession
 from mks_backend.models.organizations.organization_history import OrganizationHistory
 
@@ -34,3 +36,9 @@ class OrganizationHistoryRepository:
         if not organization_history:
             raise DBBasicError('organization_history_nf')
         return organization_history
+
+    def get_history_by_organization_uuid(self, organization_uuid):
+        DBSession.commit()
+        history = self._query.filter(OrganizationHistory.organizations_id == organization_uuid).\
+            order_by(desc(OrganizationHistory.begin_date)).all()
+        return history

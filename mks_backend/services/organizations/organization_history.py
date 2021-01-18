@@ -13,7 +13,7 @@ class OrganizationHistoryService:
         self.repo.add(organization_history)
 
     def get_organization_history_by_organization_uuid(self, organization_uuid: str) -> list:
-        return self.organization_service.get_by_id(organization_uuid).history
+        return self.repo.get_history_by_organization_uuid(organization_uuid)
 
     def update_organization_history(self, organization_history: OrganizationHistory):
         self.repo.update(organization_history)
