@@ -1,16 +1,7 @@
-import os
 import sys
 
-from pyramid.paster import get_appsettings, setup_logging
+from mks_backend.session import Base, get_engine_by_uri
 
-from sqlalchemy import engine_from_config
-from sqlalchemy.schema import CreateSchema
-from sqlalchemy.engine import Engine
-
-from mks_backend.session import Base, DBSession
-from mks_backend.db_schemas import SCHEMAS
-
-# Do not delete import models
 
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.filestorage import Filestorage
@@ -74,32 +65,8 @@ from mks_backend.models.state_contracts import ContractStatus
 from mks_backend.models.state_contracts import ContractWorkType
 from mks_backend.models.state_contracts.completion_date import CompletionDate
 
-from mks_backend.models.miv.storage import Storage
 
-from mks_backend._loggers import MIVLog
-from mks_backend._loggers import DBError
-
-
-def usage(argv):
-    cmd = os.path.basename(argv[0])
-    print('usage: %s <config_uri>\n'
-          '(example: "%s development.ini")' % (cmd, cmd))
-    sys.exit(1)
-
-
-def main(argv=sys.argv):
-    if len(argv) != 2:
-        usage(argv)
-    config_uri = argv[1]
-    setup_logging(config_uri)
-    settings = get_appsettings(config_uri)
-    engine = engine_from_config(settings, 'sqlalchemy.')
-    DBSession.configure(bind=engine)
-    create_schemas(engine)
-    Base.metadata.create_all(engine)
-
-
-def create_schemas(engine: Engine) -> None:
-    for schema in SCHEMAS:
-        if not engine.dialect.has_schema(engine, schema):
-            engine.execute(CreateSchema(schema))
+def clean_db(config_uri=sys.argv[-1]):
+    engine = get_engine_by_uri(config_uri)
+    for tbl in reversed(Base.metadata.sorted_tables):
+        engine.execute(tbl.delete())

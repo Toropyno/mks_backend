@@ -39,8 +39,9 @@ class InspectionService:
             'inspector': 'inspector',
             'haveFile': 'have_file',
             'haveInspectedObjects': 'have_inspected_objects',
-            'constructionCode': 'construction_code'
-            # TODO: add FIAS Subject field
+            'constructionCode': 'construction_code',
+            'isCritical': 'is_critical',
+            'fiasSubject': 'fias_subject'
         }
 
         params = dict()

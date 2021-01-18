@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, VARCHAR
 
-from mks_backend.models import Base
+from mks_backend.session import Base
 
 
 class LeadershipPosition(Base):

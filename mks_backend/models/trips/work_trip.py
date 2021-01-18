@@ -7,7 +7,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 
-from mks_backend.models import Base
+from mks_backend.session import Base
 
 
 class WorkTrip(Base):

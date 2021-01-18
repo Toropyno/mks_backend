@@ -7,11 +7,13 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship, backref
 
-from mks_backend.models import Base
+from mks_backend.session import Base
+from mks_backend.db_schemas import MU_SCHEMA
 
 
 class MilitaryUnit(Base):
     __tablename__ = 'military_unit'
+    __table_args__ = {'schema': MU_SCHEMA}
 
     idMU = Column(Integer, primary_key=True, autoincrement=True)
     vChNumber = Column(VARCHAR(4))
@@ -24,30 +26,30 @@ class MilitaryUnit(Base):
 
     idNameMU = Column(
         Integer,
-        ForeignKey('namemilitaryunit.idnamemu'),
+        ForeignKey('{schema}.namemilitaryunit.idnamemu'.format(schema=MU_SCHEMA)),
         nullable=False
     )
 
     idPurpose = Column(
         Integer,
-        ForeignKey('purposemu.idpurpose', ondelete='CASCADE'),
+        ForeignKey('{schema}.purposemu.idpurpose'.format(schema=MU_SCHEMA), ondelete='CASCADE'),
         nullable=False
     )
 
     idMilitaryCity = Column(
         Integer,
-        ForeignKey('militarycity.idmilitarycity')
+        ForeignKey('{schema}.militarycity.idmilitarycity'.format(schema=MU_SCHEMA))
     )
 
     idSortAF = Column(
         VARCHAR(2),
-        ForeignKey('sortarmedforces.idsortaf', ondelete='CASCADE'),
+        ForeignKey('{schema}.sortarmedforces.idsortaf'.format(schema=MU_SCHEMA), ondelete='CASCADE'),
         nullable=False
     )
 
     idCombatArm = Column(
         CHAR(3),
-        ForeignKey('combatarm.idcombatarm', ondelete='CASCADE'),
+        ForeignKey('{schema}.combatarm.idcombatarm'.format(schema=MU_SCHEMA), ondelete='CASCADE'),
         nullable=False
     )
 

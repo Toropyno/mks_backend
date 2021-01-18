@@ -1,5 +1,5 @@
 from mks_backend.models.trips.leadership_position import LeadershipPosition
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 from mks_backend.errors import DBBasicError
 

@@ -1,5 +1,5 @@
 from mimetypes import guess_type as guess_mimetype
-from os import path as os_path, remove as os_remove
+from os import environ, path as os_path, remove as os_remove
 from shutil import copyfileobj
 
 from webob.compat import cgi_FieldStorage
@@ -8,11 +8,8 @@ from mks_backend.errors.filestorage_error import FilestorageError
 
 
 class FilestorageHDD:
-    FILE_STORAGE = '/home/atimchenko/MKS/filestorage/'
-    ALLOWED_EXTENSIONS = [
-        'doc', 'docx', 'docm',
-        'pdf', 'odt', 'txt',
-    ]
+    FILE_STORAGE = environ.get('FILE_STORAGE', '/home/atimchenko/MIO/filestorage/')
+    ALLOWED_EXTENSIONS = environ.get('ALLOWED_EXTENSIONS', ['pdf', 'docx', 'doc', ])
 
     def create_file(self, id_file_storage: str, file: cgi_FieldStorage) -> None:
         if not isinstance(file, cgi_FieldStorage):

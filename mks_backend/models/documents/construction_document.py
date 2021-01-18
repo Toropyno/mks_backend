@@ -9,7 +9,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from mks_backend.models import Base
+from mks_backend.session import Base
 
 
 class ConstructionDocument(Base):

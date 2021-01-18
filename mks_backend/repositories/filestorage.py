@@ -1,4 +1,4 @@
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 from mks_backend.models.filestorage import Filestorage
 
 from mks_backend.errors.filestorage_error import FilestorageError

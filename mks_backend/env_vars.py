@@ -2,6 +2,13 @@ from os import environ
 
 
 def setup_env_vars():
+    # ------ Filestorage ---------
+    environ['FILE_STORAGE'] = '/home/atimchenko/MKS/filestorage/'
+    environ['ALLOWED_EXTENSIONS'] = ', '.join([
+        'doc', 'docx', 'docm', 'pdf', 'odt', 'ppt', 'odp'
+        'txt', 'jpg', 'png', 'mp4', 'avi', 'mkv'
+    ])
+
     # ------------ MIV ------------
     environ['MIV_USER'] = ''
     environ['MIV_USER_PASSWORD'] = ''

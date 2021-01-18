@@ -1,6 +1,6 @@
 import json
 
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 from mks_backend._loggers.miv import MIVLog
 
 

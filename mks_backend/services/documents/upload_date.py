@@ -1,4 +1,4 @@
-from mks_backend.models import Base
+from mks_backend.session import Base
 from mks_backend.services.filestorage import FilestorageService
 
 

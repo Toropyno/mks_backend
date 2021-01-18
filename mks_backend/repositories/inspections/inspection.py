@@ -5,7 +5,7 @@ from sqlalchemy import not_
 from mks_backend.models.inspections.inspection import Inspection
 from mks_backend.models.inspections.inspected_object import InspectedObject
 from mks_backend.models.constructions import Construction
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 
 class InspectionRepository:

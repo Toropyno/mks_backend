@@ -4,7 +4,7 @@ from colander import Invalid as ColanderInvalid
 from sqlalchemy.exc import DBAPIError
 
 from . import DBBasicError, FilestorageError
-from mks_backend.models import DBSession
+from mks_backend.session import DBSession
 
 
 @view_config(context=DBAPIError)

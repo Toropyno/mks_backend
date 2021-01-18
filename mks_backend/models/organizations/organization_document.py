@@ -10,7 +10,8 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 
-from mks_backend.models import Base, ORGANIZATION_SCHEMA
+from mks_backend.session import Base
+from mks_backend.db_schemas import ORGANIZATION_SCHEMA
 
 
 class OrganizationDocument(Base):
