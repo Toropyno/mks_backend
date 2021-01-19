@@ -9,7 +9,7 @@ class OfficialSerializer:
 
     @classmethod
     @serialize_error_handler
-    def to_json(self, oficial: Official) -> dict:
+    def to_json(cls, oficial: Official) -> dict:
         return {
             'id': oficial.officials_id,
             'positionName': oficial.position_name,
@@ -36,7 +36,7 @@ class OfficialSerializer:
         official.position_name = schema_dict.get('positionName')
 
         official.organizations_id = schema_dict.get('organizationId')
-        official.military_ranks_id = schema_dict.get('militaryRankId')
+        official.military_ranks_id = schema_dict.get('militaryRank')
 
         official.surname = schema_dict.get('surname')
         official.firstname = schema_dict.get('firstName')
@@ -48,7 +48,7 @@ class OfficialSerializer:
         official.phone = schema_dict.get('phone')
         official.email = schema_dict.get('email')
 
-        official.secure_channel = schema_dict.get('secureСhannel')
+        official.secure_channel = schema_dict.get('secureChannel')
         official.note = schema_dict.get('note')
 
         return official

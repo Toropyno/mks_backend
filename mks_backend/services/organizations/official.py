@@ -27,3 +27,6 @@ class OfficialService:
 
     def get_active_officials(self, officials: list) -> list:
         return list(filter(lambda ofl: not ofl.end_date, officials))
+
+    def get_official(self, id_: int):
+        return self.repo.get_official(id_)

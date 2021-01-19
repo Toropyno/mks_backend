@@ -31,7 +31,7 @@ class OfficialSchema(colander.MappingSchema):
 
     military_ranks_id = colander.SchemaNode(
         colander.Int(),
-        name='militaryRankId',
+        name='militaryRank',
         validator=colander.Range(
             min=0,
             min_err='Неверный номер воинского звания'
@@ -105,7 +105,7 @@ class OfficialSchema(colander.MappingSchema):
     secure_channel = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
-        name='secureСhannel',
+        name='secureChannel',
         validator=colander.Length(
             min=1,
             max=40,

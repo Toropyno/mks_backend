@@ -50,5 +50,10 @@ class OfficialController:
         officials = self.service.get_officials_by_organization(organization_id, reflect_vacated_position)
         return self.serializer.convert_list_to_json(officials)
 
+    @view_config(route_name='get_official_by_id')
+    def get_official(self):
+        official = self.service.get_official(self.get_id())
+        return self.serializer.to_json(official)
+
     def get_id(self):
         return int(self.request.matchdict.get('id'))
