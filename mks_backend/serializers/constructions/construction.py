@@ -71,9 +71,9 @@ class ConstructionSerializer:
             'coordinate': CoordinateSerializer.convert_object_to_json(
                 construction.coordinate
             ),
-            'organization': OrganizationSerializer.to_simple_json(
-                construction.organization
-            )
+            # 'organization': OrganizationSerializer.to_simple_json(
+            #     construction.organization
+            # )
         }
 
         construction_json.update(construction.calculated_fields)
