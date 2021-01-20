@@ -107,7 +107,7 @@ def insert_mu(engine):
             try:
                 connection.execute(insert)
             except DBAPIError as error:
-                if 'is not present' in error.orig.pgerror:
+                if 'is not present' in error.orig.pgerror or 'отсутствует' in error.orig.pgerror:
                     fails.append(insert)
         if fails:
             try_insert(connection, fails)
