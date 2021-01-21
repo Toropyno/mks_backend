@@ -44,3 +44,9 @@ class OrganizationDocumentController:
         organization_id = self.request.matchdict.get('organization_uuid')
         documents = self.service.get_documents_by_organization(organization_id)
         return self.serializer.convert_list_to_json(documents)
+
+    @view_config(route_name='get_document_by_organization')
+    def get_document_by_organization(self):
+        document_id = self.request.matchdict.get('id')
+        document = self.service.get_organization_document_by_id(document_id)
+        return self.serializer.convert_object_to_json(document)
