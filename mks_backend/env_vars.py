@@ -17,4 +17,9 @@ def setup_env_vars():
     environ['MIV_WHOAMI_URL'] = 'http://1krn-balancer01.int.aorti.tech:8860/public/api/1.0/whoami/'
     environ['MIV_FILESTORAGE_PATH'] = '/home/atimchenko/MKS/miv_data'
     environ['MIV_JSON_PATH'] = '/home/atimchenko/MKS/miv_data/json'
+
+    # ------------ FIASService ------------
+    environ['FIAS_URL'] = 'http://172.23.137.67/fiasapi'
+    environ['FIAS_USER'] = 'user'
+    environ['FIAS_PASSWORD'] = '11111111'
     # -----------------------------

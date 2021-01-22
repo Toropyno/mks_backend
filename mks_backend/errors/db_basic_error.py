@@ -34,6 +34,7 @@ class DBBasicError(Exception):
 
             if code not in self.codes:
                 code = 'other_duplicate'
+
         elif 'foreign key' in self.error_raw:
             '''
             ERROR:  insert or update on table "construction" violates foreign key constraint    
@@ -49,10 +50,16 @@ class DBBasicError(Exception):
 
             if code not in self.codes:
                 code = 'other_fkey'
+
+        elif 'check constraint' in self.error_raw:
+            start = self.error_raw.find('constraint') + len('constraint "')
+            end = self.error_raw.find('"', start)
+            code = self.error_raw[start:end]
+
         elif 'nf' in self.error_raw:
             # entity not found in db
             code = self.error_raw
-        elif 'limit' in self.error_raw:
+        elif 'limit' in self.error_raw or 'logical' in self.error_raw:
             # logical limit for entity exceeded
             code = self.error_raw
         elif 'ad' in self.error_raw:

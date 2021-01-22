@@ -15,6 +15,7 @@ def db_api_error(context, request):
 
 @view_config(context=DBBasicError)
 def db_error_exception_view(context, request):
+    DBSession.rollback()
     return Response(status=403, json_body=context.code_and_message)
 
 

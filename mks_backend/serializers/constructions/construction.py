@@ -4,7 +4,6 @@ from mks_backend.serializers.oksm import OKSMSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.serializers.military_unit import MilitaryUnitSerializer
 from mks_backend.serializers.constructions.commision import CommissionSerializer
-from mks_backend.serializers.organizations.organization import OrganizationSerializer
 from mks_backend.serializers.constructions.location_type import LocationTypeSerializer
 from mks_backend.serializers.construction_company import ConstructionCompanySerializer
 from mks_backend.serializers.constructions.construction_type import ConstructionTypeSerializer
@@ -58,22 +57,12 @@ class ConstructionSerializer:
             'locationType': LocationTypeSerializer.convert_object_to_json(
                 construction.location_type
             ),
-            'fias': {
-                'id': 77777,
-                'subject': 'Название субъекта по ФИАС',
-                'district': 'Название района по ФИАС',
-                'city': 'Наименование города по ФИАС',
-                'locality': 'Наименование населенного пункта по ФИАС',
-                'remaining_address': 'Улица, мкр. по ФИАС'
-            },
+            'fias': construction.fias,
             'address': construction.address_full,
             'note': 'Примечание к проекту',
             'coordinate': CoordinateSerializer.convert_object_to_json(
                 construction.coordinate
             ),
-            # 'organization': OrganizationSerializer.to_simple_json(
-            #     construction.organization
-            # )
         }
 
         construction_json.update(construction.calculated_fields)

@@ -17,7 +17,14 @@ class OrganizationHistoryRepository:
 
     def update(self, organization_history: OrganizationHistory) -> None:
         if DBSession.merge(organization_history) and not DBSession.new:
-            DBSession.commit()
+            if any([
+                organization_history.address_legal, organization_history.inn,
+                organization_history.kpp, organization_history.ogrn
+            ]) and not self.get(organization_history.organizations_history_id).organization.org_sign:
+                DBSession.rollback()
+                raise DBBasicError('organization_not_legal_logical')
+            else:
+                DBSession.commit()
         else:
             DBSession.rollback()
             raise DBBasicError('organization_history_ad')

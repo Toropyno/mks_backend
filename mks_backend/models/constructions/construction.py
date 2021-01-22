@@ -26,7 +26,6 @@ class Construction(Base):
     contract_date = Column(DATE, nullable=False)
     is_critical = Column(Boolean, nullable=False)
     planned_date = Column(DATE, nullable=False)
-    id_fias = Column(Integer)  # ForeignKey()
     address_full = Column(VARCHAR(1000))
     note = Column(VARCHAR(1000))
 
@@ -85,6 +84,11 @@ class Construction(Base):
         ForeignKey('coordinates.coordinates_id')
     )
 
+    id_fias = Column(
+        Integer,
+        ForeignKey('fias.id')
+    )
+
     # TODO: uncomment when frontend form will be ok
     # organizations_id = Column(
     #     UUID,
@@ -133,10 +137,6 @@ class Construction(Base):
         'ConstructionCompany'
     )
 
-    oksm = relationship(
-        'OKSM'
-    )
-
     construction_type = relationship(
         'ConstructionType',
         back_populates='constructions'
@@ -151,6 +151,9 @@ class Construction(Base):
     # organization = relationship(
     #     'Organization'
     # )
+
+    oksm = relationship('OKSM')
+    fias = relationship('FIAS')
 
     # --------- calculated_fields --------- #
 

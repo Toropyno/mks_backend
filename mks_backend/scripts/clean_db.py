@@ -65,6 +65,8 @@ from mks_backend.models.state_contracts import ContractStatus
 from mks_backend.models.state_contracts import ContractWorkType
 from mks_backend.models.state_contracts.completion_date import CompletionDate
 
+from mks_backend.models.fias import FIAS
+
 
 def clean_db(config_uri=sys.argv[-1]):
     engine = get_engine_by_uri(config_uri)

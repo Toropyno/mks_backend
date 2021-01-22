@@ -74,6 +74,8 @@ from mks_backend.models.state_contracts import ContractStatus
 from mks_backend.models.state_contracts import ContractWorkType
 from mks_backend.models.state_contracts.completion_date import CompletionDate
 
+from mks_backend.models.fias import FIAS
+
 from mks_backend.models.miv.storage import Storage
 
 from mks_backend._loggers import MIVLog

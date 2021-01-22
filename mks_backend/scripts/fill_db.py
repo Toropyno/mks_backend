@@ -1,7 +1,7 @@
 import sys
 
 from random import choice, randint
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List
 from uuid import uuid4
 
@@ -70,6 +70,8 @@ from mks_backend.models.state_contracts import ContractStatus
 from mks_backend.models.state_contracts import ContractWorkType
 from mks_backend.models.state_contracts.completion_date import CompletionDate
 
+from mks_backend.services.fias import FIASService
+
 
 from mks_backend.session import DBSession, bind_session, get_engine_by_uri
 
@@ -82,20 +84,28 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_oksm(engine)
 
     insert_meeting_types()
-    insert_commissions()
-    insert_construction_categories()
-    insert_construction_companies()
-    insert_construction_types()
-
-    orgs = insert_organizations()
-    ranks = insert_military_ranks()
-    insert_officials(orgs, ranks)
-
     insert_leadership_positions()
     insert_zones()
     insert_realty_types()
     insert_construction_stages()
     insert_doctypes()
+
+    commissions = insert_commissions()
+    construction_categories = insert_construction_categories_and_subcategories()
+    companies = insert_construction_companies()
+    construction_types = insert_construction_types()
+    location_types = insert_location_types()
+    fiases = create_fiases()
+
+    constructions = insert_constructions(
+        commissions, construction_types,
+        companies, construction_categories,
+        location_types, fiases
+    )
+
+    orgs = insert_organizations()
+    ranks = insert_military_ranks()
+    insert_officials(orgs, ranks)
 
     DBSession.commit()
 
@@ -132,67 +142,96 @@ def insert_meeting_types():
 
 
 def insert_commissions():
+    commissions = []
     for commission in ['НДС', 'КАСКО']:
-        DBSession.add(Commission(fullname=commission, code=commission.lower()))
+        instance = Commission(fullname=commission, code=commission.lower())
+        commissions.append(instance)
+        DBSession.add(instance)
+    return commissions
 
 
-def insert_construction_categories():
+def insert_construction_categories_and_subcategories():
+    subcategories = []
+    for subcategory in ['Военная подкатегория', 'Строительная подкатегория', 'Гражданская подкатегория']:
+        instance = ConstructionSubcategory(fullname=subcategory)
+        subcategories.append(instance)
+        DBSession.add(instance)
+
+    categories = []
     for category in ['Военная категория', 'Строительная категория', 'Гражданская категория']:
-        DBSession.add(ConstructionCategory(fullname=category))
+        instance = ConstructionCategory(fullname=category, subcategories=subcategories)
+        categories.append(instance)
+        DBSession.add(instance)
+
+    return categories
 
 
 def insert_construction_companies():
+    companies = []
     for company in ['АО РТИ', 'НПК ВТиСС']:
-        DBSession.add(ConstructionCompany(fullname=company, shortname=company.lower()))
+        instance = ConstructionCompany(fullname=company, shortname=company.lower())
+        companies.append(instance)
+        DBSession.add(instance)
+    return companies
 
 
 def insert_construction_types():
+    construction_types = []
     for construction_type in ['Военный город', 'Склад', 'Ракетная установка']:
-        DBSession.add(ConstructionType(fullname=construction_type))
+        instance = ConstructionType(fullname=construction_type)
+        construction_types.append(instance)
+        DBSession.add(instance)
+
+    return construction_types
 
 
 def insert_organizations():
     all_orghanizations = []
     for x in range(1, 11):
         id_ = str(uuid4())
+        org_sign = choice([True, False])
+        history = []
+        for i in range(1, 6):
+            history_record = OrganizationHistory(
+                shortname='Организация {}.{}'.format(x, i),
+                fullname='Организация {}.{}'.format(x, i),
+                address_legal='Юридический адрес {}.{}'.format(x, i) if org_sign else None,
+                address_actual='Фактический адрес {}{}'.format(x, i),
+                functions='Функции {}.{}'.format(x, i),
+                inn=get_rand_int() if org_sign else None,
+                kpp=get_rand_int() if org_sign else None,
+                ogrn=get_rand_int() if org_sign else None,
+                begin_date=datetime.now().date() - timedelta(days=i),
+                end_date=choice([None, None, datetime.now().date() - timedelta(days=i)])
+            )
+            history.append(history_record)
+
         organization = Organization(
             organizations_id=id_,
             par_number=choice([1, 2, 3, 4, 5]),
-            org_sign=choice([True, False]),
-            history=[OrganizationHistory(
-                shortname='Организация {}'.format(x),
-                fullname='Организация {}'.format(x),
-                address_legal='Юридический адрес {}'.format(x),
-                address_actual='Фактический адрес {}'.format(x),
-                functions='Функции {}'.format(x),
-                inn='123454678',
-                kpp='123454678',
-                ogrn='123454678',
-                begin_date=datetime.now().date(),
-            )]
+            org_sign=org_sign,
+            history=history
         )
-
-        DBSession.add(organization)
-        DBSession.flush()
 
         suborganization = Organization(
             organizations_id=str(uuid4()),
             parent_organizations_id=id_,
             par_number=choice([1, 2, 3, 4, 5]),
-            org_sign=choice([True, False]),
+            org_sign=org_sign,
             history=[OrganizationHistory(
                 shortname='Суборгнаизация {}'.format(x),
                 fullname='Суборганизация {}'.format(x),
-                address_legal='Юридический адрес {}'.format(x),
+                address_legal='Юридический адрес {}'.format(x) if org_sign else None,
                 address_actual='Фактический адрес {}'.format(x),
                 functions='Функции {}'.format(x),
-                inn='123454678',
-                kpp='123454678',
-                ogrn='123454678',
+                inn=get_rand_int() if org_sign else None,
+                kpp=get_rand_int() if org_sign else None,
+                ogrn=get_rand_int() if org_sign else None,
                 begin_date=datetime.now().date(),
             )]
         )
 
+        DBSession.add(organization)
         DBSession.add(suborganization)
 
         all_orghanizations.append(organization)
@@ -206,7 +245,6 @@ def insert_military_ranks():
         rank = MilitaryRank(fullname=rank)
         DBSession.add(rank)
         all_ranks.append(rank)
-
     return all_ranks
 
 
@@ -264,3 +302,68 @@ def insert_construction_stages():
 def insert_doctypes():
     for doctype in ['Чертеж', 'План', 'Доклад', 'Схема']:
         DBSession.add(DocType(fullname=doctype, code=doctype.lower()))
+
+
+def insert_location_types():
+    location_types = []
+    for location_type in ['Равнина', 'Лес', 'Горы', 'Тундра']:
+        instance = LocationType(fullname=location_type)
+        location_types.append(instance)
+        DBSession.add(instance)
+    return location_types
+
+
+def insert_constructions(commissions: list, construction_types: list,
+                         construction_companies: list, construction_categories: list,
+                         location_types: list, fiases: list):
+    constructions = []
+    military_units = DBSession.query(MilitaryUnit).all()
+    for code, name in [
+        ('south_base', 'Южная база'), ('north_base', 'Северная база'),
+        ('east_base', 'Восточная база'), ('west_base', 'Западная база'),
+        ('secret_base', 'Секретная база'), ('experiment_base', 'Экспериментальная база')
+    ]:
+        category = choice(construction_categories)
+        instance = Construction(
+            project_code=code,
+            project_name=name,
+            contract_date=datetime.now().date() - timedelta(days=randint(10, 100)),
+            is_critical=choice([True, False]),
+            planned_date=datetime.now().date(),
+            address_full=get_random_address(),
+            note='Примечание к {}'.format(name),
+            commission=choice(commissions),
+            object_amount=randint(1, 5),
+            construction_type=choice(construction_types),
+            construction_company=choice(construction_companies),
+            oksm_id=185,
+            construction_category=category,
+            military_unit=choice(military_units),
+            location_type=choice(location_types),
+            fias=choice(fiases)
+        )
+        constructions.append(instance)
+        DBSession.add(instance)
+
+    return constructions
+
+
+def create_fiases():
+    service = FIASService()
+    suggests = service.get_suggests('облМосковская')[1:6]  # magic
+
+    fiases = []
+    for suggest in suggests:
+        fias_address = service.expand_adress(suggest['aoid'])
+        fiases.append(fias_address)
+
+    return fiases
+
+
+def get_random_address():
+    fake = Faker('ru_RU')
+    return fake.address()
+
+
+def get_rand_int():
+    return str(randint(10000000, 99999999))

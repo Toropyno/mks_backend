@@ -16,6 +16,9 @@ class OrganisationRepository:
         DBSession.commit()
 
     def update(self, organization: Organization):
+        if organization.parent_organizations_id == organization.organizations_id:
+            raise DBBasicError('organization_parent_logical')
+
         if DBSession.merge(organization) and not DBSession.new:
             DBSession.commit()
         else:
