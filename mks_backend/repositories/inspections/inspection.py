@@ -2,6 +2,7 @@ from typing import List
 
 from sqlalchemy import not_
 
+from mks_backend.models.inspections.inspected_object import InspectedObject
 from mks_backend.models.inspections.inspection import Inspection
 from mks_backend.models.constructions import Construction
 from mks_backend.models.fias import FIAS
@@ -41,7 +42,7 @@ class InspectionRepository:
         return self._query.get(id)
 
     def get_filtered_inspections(self, params: dict) -> List[Inspection]:
-        filtered_inspections = DBSession.query(Inspection).join(Inspection.constructions).join(FIAS)
+        filtered_inspections = DBSession.query(Inspection).outerjoin(InspectedObject).outerjoin(Construction).outerjoin(FIAS)
         if 'date_start' in params:
             date_start = params['date_start']
             filtered_inspections = filtered_inspections.filter(Inspection.insp_date >= date_start)
