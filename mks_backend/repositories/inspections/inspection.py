@@ -3,8 +3,8 @@ from typing import List
 from sqlalchemy import not_
 
 from mks_backend.models.inspections.inspection import Inspection
-from mks_backend.models.inspections.inspected_object import InspectedObject
 from mks_backend.models.constructions import Construction
+from mks_backend.models.fias import FIAS
 from mks_backend.session import DBSession
 
 
@@ -41,8 +41,7 @@ class InspectionRepository:
         return self._query.get(id)
 
     def get_filtered_inspections(self, params: dict) -> List[Inspection]:
-        filtered_inspections = self._query.outerjoin(InspectedObject, Construction)
-
+        filtered_inspections = DBSession.query(Inspection).join(Inspection.constructions).join(FIAS)
         if 'date_start' in params:
             date_start = params['date_start']
             filtered_inspections = filtered_inspections.filter(Inspection.insp_date >= date_start)
@@ -73,6 +72,14 @@ class InspectionRepository:
             else:
                 filtered_inspections = filtered_inspections.filter(not_(Inspection.constructions.any()))
 
-        # TODO: add FIAS Subject field
+        if 'is_critical' in params:
+            is_critical = params['is_critical']
+            if is_critical:
+                filtered_inspections = filtered_inspections.filter(Construction.is_critical == True)
+            else:
+                filtered_inspections = filtered_inspections.filter(Construction.is_critical == False)
+
+        if 'fias_subject' in params:
+            filtered_inspections = filtered_inspections.filter(FIAS.region.ilike('%{}%'.format(params['fias_subject'])))
 
         return filtered_inspections.order_by(Inspection.insp_date).all()

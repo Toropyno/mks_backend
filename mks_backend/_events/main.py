@@ -14,9 +14,11 @@ def receive_before_commit(session):
         edited_object = next(iter(session.identity_map._dict.keys()))[0]
         print('Trying to EDIT {} in DB'.format(edited_object))
     else:
-        print('Unknow event')
+        pass
+        # print('Unknow event')
 
 
 @event.listens_for(DBSession, 'after_commit')
 def receive_after_commit(session):
-    print('Commit was successful.')
+    pass
+    # print('Commit was successful.')

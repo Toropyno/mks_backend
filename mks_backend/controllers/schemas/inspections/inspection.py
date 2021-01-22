@@ -108,4 +108,8 @@ class InspectionFilterSchema(colander.MappingSchema):
         missing=colander.drop
     )
 
-    # TODO: add FIAS Subject field
+    fias_subject = colander.SchemaNode(
+        colander.String(),
+        name='fiasSubject',
+        missing=colander.drop
+    )
