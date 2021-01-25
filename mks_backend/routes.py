@@ -147,3 +147,5 @@ def includeme(config):
     config.add_route('delete_progress_status', '/progress_status/{id}', request_method='DELETE')
     config.add_route('edit_progress_status', '/progress_status/{id}', request_method='PUT')
     config.add_route('get_progress_status', '/progress_status/{id}', request_method='GET')
+
+    config.add_route('get_all_fiases_for_filtration', '/fias-filter', request_method='GET')

@@ -60,7 +60,6 @@ class FIASService:
             for row in expanded_address:
                 socrname = row['socrname']
                 value = row['shortname'] + ' ' + row['formalname']
-                print(socrname, value)
                 if socrname in REGIONS:
                     fias_address.region = value
                 elif socrname in AREAS:
@@ -80,3 +79,19 @@ class FIASService:
                 else:
                     print('Идентификатор "{}" не найден'.format(socrname))
         return fias_address
+
+    def get_data_for_filtration(self):
+        """
+        return all regions, areas, cities, settlements fir filtration
+        """
+        regions = self.repo.get_distincts(FIAS.region)
+        areas = self.repo.get_distincts(FIAS.area)
+        cities = self.repo.get_distincts(FIAS.city)
+        settlements = self.repo.get_distincts(FIAS.settlement)
+
+        return {
+            'regions': [{'name': value} for value in regions] if regions else None,
+            'areas': [{'name': value} for value in areas] if areas else None,
+            'cities': [{'name': value} for value in cities] if cities else None,
+            'settlements': [{'name': value} for value in settlements] if settlements else None,
+        }
