@@ -8,7 +8,7 @@ class MeasureUnitSerializer:
         return {
             'id': measure_unit.unit_id,
             'code': measure_unit.unit_code,
-            'fullName': measure_unit.unit_name
+            'name': measure_unit.unit_name
         }
 
     def convert_list_to_json(self, measure_unit_list: list) -> list:

@@ -20,7 +20,7 @@ class ElementTypeRepository:
     def update_element_type(self, element_type: ElementType) -> None:
         self._query.filter_by(element_types_id=element_type.element_types_id).update(
             {
-                'fullName': element_type.fullname,
+                'fullname': element_type.fullname,
             }
         )
         DBSession.commit()
