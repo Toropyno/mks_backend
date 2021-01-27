@@ -1,3 +1,4 @@
+from mks_backend.models.fias import FIAS
 from mks_backend.models.trips.work_trip import WorkTrip
 from mks_backend.models.protocols.protocol import Protocol
 from mks_backend.models.constructions import Construction
@@ -46,7 +47,7 @@ class WorkTripRepository:
         # to be able to filter by the entities to which work_trip refers
         work_trips = self._query \
             .outerjoin(VisitedObject, Construction) \
-            .outerjoin(Protocol)
+            .outerjoin(Protocol).outerjoin(FIAS)
 
         if 'trip_name' in params:
             trip_name = params['trip_name']
@@ -87,8 +88,7 @@ class WorkTripRepository:
                 work_trips = work_trips.filter(Construction.is_critical == True)
             else:
                 work_trips = work_trips.filter(Construction.is_critical != True)
-        if 'fias_subject' in params:
-            # TODO: rework with MKSBRYANS-205
-            pass
+        if 'region' in params:
+            work_trips = work_trips.filter(FIAS.region.ilike('%' + params['region'] + '%'))
 
         return work_trips.order_by(WorkTrip.trip_date).all()
