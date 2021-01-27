@@ -369,3 +369,15 @@ class ConstructionFilterSchema(colander.MappingSchema):
         name='settlement',
         missing=colander.drop
     )
+
+    location_type = colander.SchemaNode(
+        colander.Integer(),
+        name='locationType',
+        missing=colander.drop
+    )
+
+    company = colander.SchemaNode(
+        colander.Integer(),
+        name='company',
+        missing=colander.drop
+    )

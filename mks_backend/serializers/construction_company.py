@@ -11,7 +11,14 @@ class ConstructionCompanySerializer:
         return {
             'id': construction_company.construction_companies_id,
             'shortName': construction_company.shortname,
-            'fullName': construction_company.fullname
+            'fullName': construction_company.fullname,
+            'addressFull': construction_company.address_full,
+            'phone': construction_company.phone,
+            'email': construction_company.email,
+            'people': construction_company.people,
+            'equipment': construction_company.equipment,
+            'services': construction_company.services,
+            'fias': construction_company.fias,
         }
 
     def convert_list_to_json(self, construction_companys: list) -> list:

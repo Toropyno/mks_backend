@@ -91,7 +91,7 @@ class ConstructionService:
             'plannedDateStart': 'planned_date_start',
             'plannedDateEnd': 'planned_date_end',
             'constructionType': 'construction_types_id',
-            'constructionCompany': 'construction_companies_id',
+            'company': 'construction_companies_id',
             'locationType': 'location_types_id',
             'oksm': 'oksm_id',
             'address': 'address',
