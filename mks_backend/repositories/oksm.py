@@ -1,3 +1,5 @@
+from typing import List
+
 from mks_backend.models.oksm import OKSM
 from mks_backend.session import DBSession
 
@@ -9,8 +11,8 @@ class OKSMRepository:
     def __init__(self):
         self._query = DBSession.query(OKSM)
 
-    def get_all_oksms(self) -> list:
-        return self._query.order_by(OKSM.code).all()
+    def get_all_oksms(self) -> List[OKSM]:
+        return self._query.order_by(OKSM.shortname).all()
 
     def add_oksm(self, oksm: OKSM) -> None:
         DBSession.add(oksm)
@@ -27,5 +29,5 @@ class OKSMRepository:
             DBSession.rollback()
             raise DBBasicError('oksm_ad')
 
-    def get_oksm_by_id(self, id: int) -> OKSM:
-        return self._query.get(id)
+    def get_oksm_by_id(self, id_: int) -> OKSM:
+        return self._query.get(id_)

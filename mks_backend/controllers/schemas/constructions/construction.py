@@ -235,7 +235,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
             min_err='Слишком короткий код проекта',
             max_err='Слишком длинный код проекта'
         ),
-        missing=None
+        missing=colander.drop
     )
 
     project_name = colander.SchemaNode(
@@ -248,7 +248,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
             min_err='Слишком короткое имя проекта',
             max_err='Слишком длинное имя проекта'
         ),
-        missing=None
+        missing=colander.drop
     )
 
     construction_categories_id = colander.SchemaNode(
@@ -258,7 +258,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
             min=1,
             min_err='Неверный номер категории'
         ),
-        missing=None
+        missing=colander.drop
     )
 
     subcategories_list_id = colander.SchemaNode(
@@ -268,14 +268,14 @@ class ConstructionFilterSchema(colander.MappingSchema):
             min=1,
             min_err='Неверный номер подкатегории'
         ),
-        missing=None
+        missing=colander.drop
     )
 
     is_critical = colander.SchemaNode(
         colander.Bool(),
         name='isCritical',
         validator=colander.OneOf([True, False]),
-        missing=None
+        missing=colander.drop
     )
 
     commission_id = colander.SchemaNode(
@@ -285,7 +285,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
             min=1,
             min_err='Неверный номер комиссии'
         ),
-        missing=None
+        missing=colander.drop
     )
 
     idMU = colander.SchemaNode(
@@ -295,7 +295,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
             min=1,
             min_err='Неверный номер воинского формирования'
         ),
-        missing=None
+        missing=colander.drop
     )
 
     object_amount = colander.SchemaNode(
@@ -305,7 +305,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
             min=1,
             min_err='Неверное кол-во объектов'
         ),
-        missing=None
+        missing=colander.drop
     )
 
     contract_date_start = colander.SchemaNode(
@@ -313,7 +313,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='contractDateStart',
         validator=date_validator,
-        missing=None
+        missing=colander.drop
     )
 
     contract_date_end = colander.SchemaNode(
@@ -321,7 +321,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='contractDateEnd',
         validator=date_validator,
-        missing=None
+        missing=colander.drop
     )
 
     planned_date_start = colander.SchemaNode(
@@ -329,7 +329,7 @@ class ConstructionFilterSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='plannedDateStart',
         validator=date_validator,
-        missing=None
+        missing=colander.drop
     )
 
     planned_date_end = colander.SchemaNode(
@@ -337,5 +337,35 @@ class ConstructionFilterSchema(colander.MappingSchema):
         preparer=[strip_space],
         name='plannedDateEnd',
         validator=date_validator,
-        missing=None
+        missing=colander.drop
+    )
+
+    oksm = colander.SchemaNode(
+        colander.String(),
+        name='oksm',
+        missing=colander.drop
+    )
+
+    region = colander.SchemaNode(
+        colander.String(),
+        name='region',
+        missing=colander.drop
+    )
+
+    area = colander.SchemaNode(
+        colander.String(),
+        name='area',
+        missing=colander.drop
+    )
+
+    city = colander.SchemaNode(
+        colander.String(),
+        name='city',
+        missing=colander.drop
+    )
+
+    settlement = colander.SchemaNode(
+        colander.String(),
+        name='settlement',
+        missing=colander.drop
     )
