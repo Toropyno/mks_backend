@@ -37,10 +37,15 @@ class OrganisationService:
         Set new parents for CHILDREN when organization removed by "soft" strategy
         """
         old_parent = self.repo.get_by_id(old_parent_uuid)
-        new_parent = self.repo.get_by_id(new_parent_uuid)
 
-        new_parent.sub_organizations.extend(old_parent.sub_organizations)
-        old_parent.sub_organizations.clear()
+        if new_parent_uuid != 'null':
+            new_parent = self.repo.get_by_id(new_parent_uuid)
+
+            new_parent.sub_organizations.extend(old_parent.sub_organizations)
+            old_parent.sub_organizations.clear()
+        else:
+            for children in old_parent.sub_organizations:
+                children.parent_organizations_id = None
 
     def set_node_new_parent(self, organization_uuid: str, new_parent_uuid: str) -> None:
         """
