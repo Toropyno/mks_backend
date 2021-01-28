@@ -1,6 +1,7 @@
 from typing import List
 
 from mks_backend.models.organizations.organization import Organization
+from mks_backend.models.organizations.organization_history import OrganizationHistory
 from mks_backend.session import DBSession
 
 from mks_backend.errors.db_basic_error import DBBasicError
@@ -37,5 +38,6 @@ class OrganisationRepository:
 
     def get_rootes(self) -> List[Organization]:
         DBSession.commit()
-        rootes = self._query.filter(Organization.parent_organizations_id == None).all()
-        return sorted(rootes, key=lambda root: root.shortname)
+        rootes = self._query.join(OrganizationHistory).filter(Organization.parent_organizations_id == None). \
+            order_by(Organization.par_number.asc(), OrganizationHistory.shortname).all()
+        return rootes
