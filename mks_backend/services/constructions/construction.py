@@ -47,7 +47,6 @@ class ConstructionService:
         construction.oksm_id = 185
         construction.address_full = schema.get('address')
         construction.note = schema.get('note')
-        construction.organizations_id = '8629decc-90fa-4bb5-b23b-7465fc95b3c4'
 
         category_id = schema.get('category')
         construction.construction_categories_id = category_id
@@ -62,7 +61,7 @@ class ConstructionService:
         fias = schema.get('fias')
         if fias:
             # some cool stuff for FIAS
-            construction.id_fias = 1
+            pass
 
         return construction
 
@@ -92,10 +91,15 @@ class ConstructionService:
             'plannedDateStart': 'planned_date_start',
             'plannedDateEnd': 'planned_date_end',
             'constructionType': 'construction_types_id',
-            'constructionCompany': 'construction_companies_id',
+            'company': 'construction_companies_id',
             'locationType': 'location_types_id',
             'oksm': 'oksm_id',
             'address': 'address',
+
+            'region': 'region',
+            'area': 'area',
+            'city': 'city',
+            'settlement': 'settlement',
         }
 
         params = dict()

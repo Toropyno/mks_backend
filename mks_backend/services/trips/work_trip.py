@@ -46,7 +46,7 @@ class WorkTripService:
 
             'projectCode': 'project_code',
             'isCritical': 'is_critical',
-            'fiasSubject': 'fias_subject',
+            'region': 'region',
         }
 
         params = dict()

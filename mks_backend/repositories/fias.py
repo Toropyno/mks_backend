@@ -24,3 +24,11 @@ class FIASrepo:
         fias = self.get_fias_by_id(id)
         DBSession.delete(fias)
         DBSession.commit()
+
+    def get_distincts(self, field):
+        """
+        good: [('край Приморский',), ('обл Оренбургская',), ('обл Тульская',)]
+        bad: [(None,)]
+        """
+        distincts_values = DBSession.query(field).distinct(field).order_by(field)
+        return [value[0] for value in distincts_values] if distincts_values[0][0] else None

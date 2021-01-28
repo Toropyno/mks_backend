@@ -150,7 +150,7 @@ class WorkTripFilterSchema(colander.MappingSchema):
     )
 
     fias_subject = colander.SchemaNode(
-        colander.Int(),
-        name='fiasSubject',
-        missing=None
+        colander.String(),
+        name='region',
+        missing=colander.drop
     )

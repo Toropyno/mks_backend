@@ -1,4 +1,5 @@
 from mks_backend.models.constructions import Construction
+from mks_backend.models.fias import FIAS
 from mks_backend.session import DBSession
 
 from mks_backend.errors import DBBasicError
@@ -32,7 +33,7 @@ class ConstructionRepository:
         DBSession.commit()
 
     def filter_constructions(self, params: dict) -> list:
-        constructions = self._query
+        constructions = self._query.outerjoin(FIAS)
 
         if 'project_code' in params:
             project_code = params['project_code']
@@ -85,5 +86,17 @@ class ConstructionRepository:
         if 'address' in params:
             address = params['address']
             constructions = constructions.filter(Construction.address_full == address)
+        if 'region' in params:
+            region = '%' + params['region'] + '%'
+            constructions = constructions.filter(FIAS.region.ilike(region))
+        if 'area' in params:
+            region = '%' + params['area'] + '%'
+            constructions = constructions.filter(FIAS.area.ilike(region))
+        if 'city' in params:
+            region = '%' + params['city'] + '%'
+            constructions = constructions.filter(FIAS.city.ilike(region))
+        if 'settlement' in params:
+            region = '%' + params['settlement'] + '%'
+            constructions = constructions.filter(FIAS.settlement.ilike(region))
 
         return constructions.order_by(Construction.contract_date).all()
