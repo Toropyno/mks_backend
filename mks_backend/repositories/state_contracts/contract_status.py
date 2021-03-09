@@ -23,7 +23,7 @@ class ContractStatusRepository:
         old_contract_status = self._query.filter_by(contract_statuses_id=new_contract_status.contract_statuses_id)
         old_contract_status.update(
             {
-                'fullName': new_contract_status.fullname,
+                'fullname': new_contract_status.fullname,
             }
         )
         DBSession.commit()
