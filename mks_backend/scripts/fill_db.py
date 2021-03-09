@@ -95,12 +95,12 @@ def fill_db(config_uri=sys.argv[-1]):
     companies = insert_construction_companies()
     construction_types = insert_construction_types()
     location_types = insert_location_types()
-    fiases = create_fiases()
+    # fiases = create_fiases()
 
     constructions = insert_constructions(
         commissions, construction_types,
         companies, construction_categories,
-        location_types, fiases
+        location_types
     )
 
     orgs = insert_organizations()
@@ -315,7 +315,7 @@ def insert_location_types():
 
 def insert_constructions(commissions: list, construction_types: list,
                          construction_companies: list, construction_categories: list,
-                         location_types: list, fiases: list):
+                         location_types: list):
     constructions = []
     military_units = DBSession.query(MilitaryUnit).all()
     for code, name in [
@@ -340,7 +340,7 @@ def insert_constructions(commissions: list, construction_types: list,
             construction_category=category,
             military_unit=choice(military_units),
             location_type=choice(location_types),
-            fias=choice(fiases)
+            # fias=choice(fiases)
         )
         constructions.append(instance)
         DBSession.add(instance)

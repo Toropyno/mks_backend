@@ -33,9 +33,10 @@ class CompletionDateController:
         self.service.update(completion_date)
         return {'id': id}
 
-    @view_config(route_name='get_all_completion_dates')
+    @view_config(route_name='get_all_completion_dates_by_contract')
     def get_all(self):
-        completion_dates = self.service.get_all()
+        contract_id = self.request.matchdict.get('id')
+        completion_dates = self.service.get_all_completion_dates_by_contract_id(contract_id)
         return self.serializer.list_to_json(completion_dates)
 
     @view_config(route_name='get_completion_date')

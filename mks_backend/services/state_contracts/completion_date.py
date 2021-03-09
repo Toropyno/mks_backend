@@ -13,8 +13,8 @@ class CompletionDateService:
     def update(self, completion_date: CompletionDate) -> None:
         self.repo.update(completion_date)
 
-    def get_all(self) -> list:
-        return self.repo.get_all()
+    def get_all_completion_dates_by_contract_id(self, contract_id: int) -> list:
+        return self.repo.get_all_completion_dates_by_contract_id(contract_id)
 
     def get_by_id(self, id: int) -> CompletionDate:
         return self.repo.get_by_id(id)

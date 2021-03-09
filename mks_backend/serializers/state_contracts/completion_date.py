@@ -13,7 +13,7 @@ class CompletionDateSerializer:
     def to_json(self, completion_date: CompletionDate) -> dict:
         return {
             'id': completion_date.completion_dates_id,
-            'contract': self.contract_serializer.to_json(completion_date.contract),
+            'contractId': completion_date.contracts_id,
             'contractWorkType': self.contract_work_serializer.to_json(completion_date.contract_worktype),
             'endDate': get_date_string(completion_date.end_date),
         }

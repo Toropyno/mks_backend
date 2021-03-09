@@ -89,12 +89,11 @@ class Construction(Base):
         ForeignKey('fias.id')
     )
 
-    # TODO: uncomment when frontend form will be ok
-    # organizations_id = Column(
-    #     UUID,
-    #     ForeignKey('{schema}.organizations.organizations_id'.format(schema=ORGANIZATION_SCHEMA)),
-    #     nullable=False
-    # )
+    organizations_id = Column(
+        UUID,
+        ForeignKey('{schema}.organizations.organizations_id'.format(schema=ORGANIZATION_SCHEMA)),
+        nullable=True
+    )
 
     # --------- relationships --------- #
 
@@ -148,9 +147,9 @@ class Construction(Base):
         passive_deletes=True
     )
 
-    # organization = relationship(
-    #     'Organization'
-    # )
+    organization = relationship(
+        'Organization'
+    )
 
     oksm = relationship('OKSM')
     fias = relationship('FIAS')

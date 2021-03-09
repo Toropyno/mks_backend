@@ -128,7 +128,7 @@ class ContractSchema(colander.MappingSchema):
             min=0,
             min_err='Указанного субподрядчика не существует'
         ),
-        misssing=None
+        missing=None
     )
 
     contract_statuses_id = colander.SchemaNode(

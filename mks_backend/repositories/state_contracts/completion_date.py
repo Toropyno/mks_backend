@@ -19,8 +19,8 @@ class CompletionDateRepository:
             raise DBBasicError('completion_date_nf')
         return completion_date
 
-    def get_all(self) -> list:
-        return self._query.order_by(CompletionDate.end_date).all()
+    def get_all_completion_dates_by_contract_id(self, contract_id: int) -> list:
+        return self._query.filter(CompletionDate.contracts_id == contract_id).order_by(CompletionDate.end_date).all()
 
     def delete_by_id(self, id: int) -> None:
         completion_date = self.get_by_id(id)

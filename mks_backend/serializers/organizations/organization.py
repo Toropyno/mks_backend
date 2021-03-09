@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from mks_backend.errors import serialize_error_handler
 from mks_backend.models.organizations.organization import Organization
 from mks_backend.serializers.organizations.organization_history import OrganizationHistorySerializer
 
@@ -52,6 +53,7 @@ class OrganizationSerializer:
         return organization
 
     @classmethod
+    @serialize_error_handler
     def to_simple_json(cls, organization: Organization):
         return {
             'organizationId': organization.organizations_id,

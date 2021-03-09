@@ -9,6 +9,7 @@ from mks_backend.serializers.construction_company import ConstructionCompanySeri
 from mks_backend.serializers.constructions.construction_type import ConstructionTypeSerializer
 from mks_backend.serializers.constructions.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.constructions.construction_subcategory import ConstructionSubcategorySerializer
+from mks_backend.serializers.organizations.organization import OrganizationSerializer
 
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
@@ -63,6 +64,9 @@ class ConstructionSerializer:
             'coordinate': CoordinateSerializer.convert_object_to_json(
                 construction.coordinate
             ),
+            'organization': OrganizationSerializer.to_simple_json(
+                construction.organization
+            )
         }
 
         construction_json.update(construction.calculated_fields)
