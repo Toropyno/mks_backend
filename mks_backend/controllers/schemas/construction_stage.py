@@ -27,3 +27,22 @@ class ConstructionStageSchema(colander.MappingSchema):
             max_err='Слишком длинное полное наименование'
         )
     )
+
+    hierarchy_level = colander.SchemaNode(
+        colander.Integer(),
+        name='hierarchyLevel',
+        validator=colander.Range(
+            min=1,
+            min_err='Уровень иерархии не может быть меньше нуля'
+        )
+    )
+
+    parent = colander.SchemaNode(
+        colander.Integer(),
+        name='parent',
+        validator=colander.Range(
+            min=0,
+            min_err='Некорректный номер родителя'
+        ),
+        missing=colander.drop
+    )
