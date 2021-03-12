@@ -1,3 +1,1 @@
-PROGRAMMING_ERROR = {
-    'other_error': 'Ошибка с БД!',
-}
+PROGRAMMING_ERROR = {}
