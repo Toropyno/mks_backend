@@ -1,5 +1,5 @@
 from mks_backend.models.documents.construction_document import ConstructionDocument
-from mks_backend.repositories.construction_object import ConstructionObjectRepository
+from mks_backend.repositories.construction_objects.construction_object import ConstructionObjectRepository
 from mks_backend.repositories.documents.construction_document import ConstructionDocumentRepository
 from mks_backend.services.documents.upload_date import UploadDateService
 

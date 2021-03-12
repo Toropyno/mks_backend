@@ -1,4 +1,4 @@
-from mks_backend.serializers.construction_object import ConstructionObjectSerializer
+from mks_backend.serializers.construction_objects.construction_object import ConstructionObjectSerializer
 
 
 class GisSerializer:
