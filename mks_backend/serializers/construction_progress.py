@@ -15,7 +15,7 @@ class ConstructionProgressSerializer:
             'id': construction_progress.construction_progress_id,
             'constructionObjects': construction_progress.construction_objects_id,
             'reportingDate': get_date_string(construction_progress.reporting_date),
-            'readiness': format(construction_progress.readiness, '.3f'),
+            'readiness': format(construction_progress.readiness, '.2f'),
             'people': construction_progress.people,
             'equipment': construction_progress.equipment,
             'progressStatus': ProgressStatusSerializer.convert_object_to_json(construction_progress.progress_status),

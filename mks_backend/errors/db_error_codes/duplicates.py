@@ -138,5 +138,7 @@ DUPLICATE_ERROR = {
     'completion_dates_unique_duplicate': 'Сроки Окончания Работ По Контракту с указанными Контрактами и '
                                          'Видами Мероприятий уже существуют!',
 
+    'construction_dynamics_ak_duplicate': 'Ход строительства ИСП с такой отчетной датой уже существует!',
+
     'other_duplicate': 'Дубликат записи!',
 }
