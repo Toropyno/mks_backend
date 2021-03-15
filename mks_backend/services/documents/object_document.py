@@ -1,23 +1,23 @@
-from mks_backend.models.documents.object_document import ObjectDocument
+from typing import List
+
 from mks_backend.repositories.documents.object_document import ObjectDocumentRepository
+from mks_backend.services.construction_objects.construction_object import ConstructionObjectService
+from mks_backend.services.documents.construction_document import ConstructionDocumentService
 
 
 class ObjectDocumentService:
 
     def __init__(self):
         self.repo = ObjectDocumentRepository()
+        self.object_service = ConstructionObjectService()
+        self.construction_documents_service = ConstructionDocumentService()
 
-    def get_object_document_by_id(self, id: int) -> ObjectDocument:
-        return self.repo.get_object_document_by_id(id)
+    def get_documents_by_construction_object(self, object_id: int) -> list:
+        return self.object_service.get_construction_object_by_id(object_id).documents
 
-    def add_object_document(self, object_document: ObjectDocument) -> None:
-        return self.repo.add_object_document(object_document)
+    def edit_construction_document_and_object_relations(self, object_id: int, construction_documents_ids: List[int]):
+        construction_object = self.object_service.get_construction_object_by_id(object_id)
+        construction_documents = self.construction_documents_service.get_many_construction_documents_by_id(construction_documents_ids)
 
-    def delete_object_document_by_id(self, id: int) -> None:
-        self.repo.delete_object_document_by_id(id)
-
-    def get_all_object_documents(self) -> list:
-        return self.repo.get_all_object_documents()
-
-    def get_object_document_by_relations(self, construction_objects_id: int, construction_documents_id: int):
-        return self.repo.get_object_document_by_relations(construction_objects_id, construction_documents_id)
+        construction_object.documents = construction_documents
+        self.repo.update()

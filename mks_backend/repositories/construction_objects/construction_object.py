@@ -12,7 +12,7 @@ class ConstructionObjectRepository:
 
     def get_all_construction_objects_by_construction_id(self, construction_id) -> list:
         return self._query.filter_by(construction_id=construction_id). \
-            order_by(ConstructionObject.planned_date).all()
+            order_by(ConstructionObject.object_code).all()
 
     def add_construction_object(self, construction_object: ConstructionObject) -> None:
         DBSession.add(construction_object)

@@ -15,9 +15,6 @@ class ConstructionDocumentRepository:
             raise DBBasicError('construction_document_nf')
         return construction_document
 
-    def get_all_construction_documents(self) -> list:
-        return self._query.order_by(ConstructionDocument.doc_date).all()
-
     def get_many_construction_documents_by_id(self, ids: list) -> list:
         return self._query.filter(
             ConstructionDocument.construction_documents_id.in_(ids)
