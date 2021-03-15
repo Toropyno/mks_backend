@@ -27,3 +27,8 @@ class CommissionSchema(colander.MappingSchema):
             max_err='Слишком длинное название комиссии'
         )
     )
+
+    index_number = colander.SchemaNode(
+        colander.Integer(),
+        name='indexNumber',
+    )
