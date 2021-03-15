@@ -15,11 +15,6 @@ class ConstructionDocumentController:
         self.service = ConstructionDocumentService()
         self.schema = ConstructionDocumentSchema()
 
-    @view_config(route_name='get_all_construction_documents')
-    def get_all_construction_documents(self):
-        construction_documents = self.service.get_all_construction_documents()
-        return self.serializer.convert_list_to_json(construction_documents)
-
     @view_config(route_name='get_construction_document')
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
@@ -49,12 +44,6 @@ class ConstructionDocumentController:
         id = int(self.request.matchdict['id'])
         self.service.delete_construction_document_by_id(id)
         return {'id': id}
-
-    @view_config(route_name='get_construction_documents_by_object')
-    def get_construction_documents_by_object(self):
-        object_id = int(self.request.matchdict['id'])
-        construction_documents = self.service.get_construction_documents_by_object(object_id)
-        return self.serializer.convert_list_to_json(construction_documents)
 
     @view_config(route_name='get_construction_documents_by_construction')
     def get_construction_documents_by_construction(self):
