@@ -1,6 +1,6 @@
 import sys
 
-from random import choice, randint
+from random import choice, randint, randrange
 from datetime import datetime, timedelta
 from typing import List
 from uuid import uuid4
@@ -39,10 +39,15 @@ def fill_db(config_uri=sys.argv[-1]):
         companies, construction_categories,
         location_types
     )
+    construction_objects = insert_construction_objects(constructions)
 
     orgs = insert_organizations()
     ranks = insert_military_ranks()
     insert_officials(orgs, ranks)
+
+    contract_statuses = insert_contract_statuses()
+    contract_worktypes = insert_contract_worktypes()
+
 
     DBSession.commit()
 
@@ -285,6 +290,21 @@ def insert_constructions(commissions: list, construction_types: list,
     return constructions
 
 
+def insert_construction_objects(constructions: List[Construction]):
+    construction_objects = []
+    for construction in constructions:
+        for i in range(randint(1, 10)):
+            instance = ConstructionObject(
+                object_code='{project_code}-{code}'.format(project_code=construction.project_code, code=i),
+                object_name='Наименование объекта {}'.format(i),
+                construction_id=construction.construction_id,
+                weight=randrange(1, 100),
+
+            )
+            construction_objects.append(instance)
+            construction.construction_objects.append(instance)
+
+
 def create_fiases():
     service = FIASService()
     suggests = service.get_suggests('облМосковская')[1:6]  # magic
@@ -295,6 +315,26 @@ def create_fiases():
         fiases.append(fias_address)
 
     return fiases
+
+
+def insert_contract_statuses():
+    contract_statuses = []
+    for name in ['На рассмотрении', 'Принят', 'Отклонён']:
+        instance = ContractStatus(fullname=name)
+        contract_statuses.append(instance)
+        DBSession.add(instance)
+
+    return contract_statuses
+
+
+def insert_contract_worktypes():
+    contract_worktypes = []
+    for name in ['Доставлено в распределительный центр', 'Утилизировано', 'На рассмотрении']:
+        instance = ContractWorkType(fullname=name)
+        contract_worktypes.append(instance)
+        DBSession.add(instance)
+
+    return contract_worktypes
 
 
 def get_random_address():

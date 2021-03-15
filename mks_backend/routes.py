@@ -32,6 +32,7 @@ def includeme(config):
     config.add_route('get_construction_object', '/construction_object/{id}', request_method='GET')
 
     config.add_route('get_reference_history_by_object', '/construction_object/{id}/reference-history', request_method='GET')
+    config.add_route('get_object_completion_by_object', '/construction_object/{id}/completion', request_method='GET')
 
     config.add_route('get_all_construction_categories', '/construction_category', request_method='GET')
     config.add_route('add_construction_category', '/construction_category', request_method='POST')
