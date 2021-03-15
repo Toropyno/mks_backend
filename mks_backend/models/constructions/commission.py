@@ -10,6 +10,7 @@ class Commission(Base):
     commission_id = Column(Integer, primary_key=True)
     code = Column(VARCHAR(20), unique=True, nullable=False)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
+    index_number = Column(Integer)
 
     construction = relationship(
         'Construction',

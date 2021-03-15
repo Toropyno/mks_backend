@@ -10,7 +10,7 @@ class CommissionRepository:
         self._query = DBSession.query(Commission)
 
     def get_all_commissions(self) -> list:
-        return self._query.order_by(Commission.fullname).all()
+        return self._query.order_by(Commission.index_number).all()
 
     def add_commission(self, commission: Commission) -> None:
         DBSession.add(commission)
