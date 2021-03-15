@@ -65,7 +65,7 @@ class ConstructionObjectService:
             )
             construction_object.object_categories_list_id = object_categories_list.object_categories_list_id
 
-        construction_documents = schema.get('../documents')
+        construction_documents = schema.get('documents')
         if construction_documents:
             construction_documents_ids = list(map(lambda x: x['id'], construction_documents))
             construction_object.documents = \
