@@ -1,6 +1,7 @@
 from mks_backend.models.constructions.construction_dynamic import ConstructionDynamic
-
 from mks_backend.serializers.utils.date_and_time import get_date_time_string, get_date_string
+
+from mks_backend.errors import serialize_error_handler
 
 
 class ConstructionDynamicSerializer:
@@ -8,7 +9,9 @@ class ConstructionDynamicSerializer:
     def convert_list_to_json(self, construction_dynamics: list) -> list:
         return list(map(self.to_json, construction_dynamics))
 
-    def to_json(self, construction_dynamic: ConstructionDynamic) -> dict:
+    @classmethod
+    @serialize_error_handler
+    def to_json(cls, construction_dynamic: ConstructionDynamic) -> dict:
         return {
             'id': construction_dynamic.construction_dynamics_id,
             'constructionId': construction_dynamic.construction_id,

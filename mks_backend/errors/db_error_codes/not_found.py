@@ -1,4 +1,5 @@
 NOT_FOUND_ERROR = {
+    'construction_nf': 'Такого ИСП не существует',
     'construction_type_nf': 'Такого Типа ИСП не существует!',
     'inspection_file_nf': 'Файла проверки не существует!',
     'construction_document_nf': 'Такого документа не существует!',

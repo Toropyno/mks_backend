@@ -23,11 +23,14 @@ class Construction(Base):
     construction_id = Column(Integer, primary_key=True, autoincrement=True)
     project_code = Column(VARCHAR(40), unique=True, nullable=False)
     project_name = Column(VARCHAR(255), nullable=False)
-    contract_date = Column(DATE, nullable=False)
     is_critical = Column(Boolean, nullable=False)
-    planned_date = Column(DATE, nullable=False)
     address_full = Column(VARCHAR(1000))
     note = Column(VARCHAR(1000))
+    department = Column(VARCHAR(255))
+    officer = Column(VARCHAR(100))
+    technical_spec = Column(Boolean, nullable=False, default=False)
+    price_calc = Column(Boolean, nullable=False, default=False)
+    deletion_mark = Column(Boolean, nullable=False, default=False)
 
     construction_categories_id = Column(
         Integer,
@@ -47,7 +50,13 @@ class Construction(Base):
 
     idMU = Column(
         Integer,
-        ForeignKey('{schema}.military_unit.idMU'.format(schema=MU_SCHEMA))
+        ForeignKey('{schema}.military_unit.idMU'.format(schema=MU_SCHEMA)),
+    )
+
+    military_district_id = Column(
+        Integer,
+        ForeignKey('{schema}.military_unit.idMU'.format(schema=MU_SCHEMA)),
+        nullable=False
     )
 
     object_amount = Column(
@@ -58,8 +67,7 @@ class Construction(Base):
 
     construction_types_id = Column(
         Integer,
-        ForeignKey('construction_types.construction_types_id'),
-        nullable=False
+        ForeignKey('construction_types.construction_types_id', ondelete='SET NULL'),
     )
 
     location_types_id = Column(
@@ -75,8 +83,7 @@ class Construction(Base):
 
     oksm_id = Column(
         Integer,
-        ForeignKey('OKSM.oksm_id'),
-        nullable=False
+        ForeignKey('OKSM.oksm_id', ondelete='SET NULL'),
     )
 
     coordinates_id = Column(
@@ -114,12 +121,19 @@ class Construction(Base):
 
     military_unit = relationship(
         'MilitaryUnit',
-        back_populates='construction'
+        foreign_keys=[idMU]
+    )
+
+    military_district = relationship(
+        'MilitaryUnit',
+        foreign_keys=[military_district_id]
     )
 
     construction_objects = relationship(
         'ConstructionObject',
         back_populates='construction',
+        order_by='desc(ConstructionObject.planned_date)',
+        lazy='joined',
         passive_deletes=True,
     )
 
@@ -151,42 +165,29 @@ class Construction(Base):
         'Organization'
     )
 
+    dynamic_raw = relationship(
+        'ConstructionDynamic',
+        order_by='desc(ConstructionDynamic.reporting_date)',
+        lazy='dynamic'
+    )
+
     oksm = relationship('OKSM')
     fias = relationship('FIAS')
 
     # --------- calculated_fields --------- #
 
     @hybrid_property
-    def calculated_fields(self):
-        plan = 0
-        actually = 0
-        entered_additionally = 0
-        readiness = 0
-        workers = 0
-        equipment = 0
-        now_year = datetime.now().year
+    def actually_entered(self):
+        return sum(filter(lambda x: x.fact_date, self.construction_objects))
 
-        for construction_object in self.construction_objects:
-            if construction_object.planned_date.year == now_year:
-                plan += 1
+    @hybrid_property
+    def readiness(self):
+        return sum(construction_object.readiness for construction_object in self.construction_objects)
 
-            if construction_object.fact_date:
-                if construction_object.planned_date.year == construction_object.fact_date.year == now_year:
-                    actually += 1
-                if construction_object.fact_date.year == now_year != construction_object.planned_date.year:
-                    entered_additionally += 1
+    @hybrid_property
+    def planned_date(self):
+        return self.construction_objects[0].planned_date if self.construction_objects else None
 
-            readiness += construction_object.readiness
-            workers += construction_object.workers
-            equipment += construction_object.equipment
-        difference = plan - actually
-
-        return {
-            'plan': plan,
-            'actually': actually,
-            'difference': difference,
-            'enteredAdditionally': entered_additionally,
-            'readiness': format(readiness, '.3f'),
-            'workers': workers,
-            'equipment': equipment,
-        }
+    @hybrid_property
+    def dynamic(self):
+        return self.dynamic_raw.filter_by(from_sakura=True).first()

@@ -11,10 +11,13 @@ class ConstructionRepository:
         self._query = DBSession.query(Construction)
 
     def get_all_constructions(self) -> list:
-        return self._query.order_by(Construction.contract_date).all()
+        return self._query.order_by(Construction.project_code).all()
 
-    def get_construction_by_id(self, id: int) -> Construction:
-        return self._query.get(id)
+    def get_construction_by_id(self, id_: int) -> Construction:
+        construction = self._query.get(id_)
+        if not construction:
+            raise DBBasicError('construction_nf')
+        return construction
 
     def add_construction(self, construction: Construction) -> None:
         DBSession.add(construction)
@@ -59,18 +62,6 @@ class ConstructionRepository:
         if 'object_amount' in params:
             object_amount = params['object_amount']
             constructions = constructions.filter(Construction.object_amount == object_amount)
-        if 'contract_date_start' in params:
-            contract_date_start = params['contract_date_start']
-            constructions = constructions.filter(Construction.contract_date >= contract_date_start)
-        if 'contract_date_end' in params:
-            contract_date_end = params['contract_date_end']
-            constructions = constructions.filter(Construction.contract_date <= contract_date_end)
-        if 'planned_date_start' in params:
-            planned_date_start = params['planned_date_start']
-            constructions = constructions.filter(Construction.planned_date >= planned_date_start)
-        if 'planned_date_end' in params:
-            planned_date_end = params['planned_date_end']
-            constructions = constructions.filter(Construction.planned_date <= planned_date_end)
         if 'construction_types_id' in params:
             types_id = params['construction_types_id']
             constructions = constructions.filter(Construction.construction_types_id == types_id)
@@ -98,5 +89,13 @@ class ConstructionRepository:
         if 'settlement' in params:
             region = '%' + params['settlement'] + '%'
             constructions = constructions.filter(FIAS.settlement.ilike(region))
+        if 'organization' in params:
+            constructions = constructions.filter(Construction.organizations_id == params['organization'])
+        if 'military_district' in params:
+            constructions = constructions.filter(Construction.military_district_id == params['military_district'])
+        if 'deletion_mark' in params:
+            constructions = constructions.filter(Construction.deletion_mark)
 
-        return constructions.order_by(Construction.contract_date).all()
+        # TODO: filter planned date start/end, filter readiness
+
+        return constructions.order_by(Construction.project_code).all()

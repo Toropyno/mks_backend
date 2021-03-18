@@ -37,8 +37,7 @@ class ConstructionService:
         construction.is_critical = schema.get('isCritical')
         construction.commission_id = schema.get('commission')
         construction.idMU = schema.get('militaryUnit')
-        construction.contract_date = schema.get('contractDate')
-        construction.planned_date = schema.get('plannedDate')
+        construction.military_district_id = schema.get('militaryDistrict')
         construction.object_amount = schema.get('objectsAmount')
         construction.coordinates_id = schema.get('coordinateId')
         construction.construction_types_id = schema.get('constructionType')
@@ -48,11 +47,15 @@ class ConstructionService:
         construction.address_full = schema.get('address')
         construction.note = schema.get('note')
         construction.organizations_id = schema.get('organization')
+        construction.department = schema.get('department')
+        construction.officer = schema.get('officer')
+        construction.technical_spec = schema.get('technicalSpec')
+        construction.price_calc = schema.get('priceCalc')
+        construction.deletion_mark = schema.get('deletionMark')
 
         category_id = schema.get('category')
-        construction.construction_categories_id = category_id
-
         subcategory_id = schema.get('subcategory')
+        construction.construction_categories_id = category_id
         if subcategory_id:
             subcategories_list = self.subcategory_list_service.get_subcategories_list_by_relations(
                 category_id, subcategory_id
@@ -77,7 +80,7 @@ class ConstructionService:
 
         return self.repo.filter_constructions(params)
 
-    def get_params_from_schema(self, params_deserilized: dict) -> dict:
+    def get_params_from_schema(self, params_deserialized: dict) -> dict:
         case_switcher = {
             'code': 'project_code',
             'name': 'project_name',
@@ -87,8 +90,6 @@ class ConstructionService:
             'commission': 'commission_id',
             'militaryUnit': 'idMU',
             'objectsAmount': 'object_amount',
-            'contractDateStart': 'contract_date_start',
-            'contractDateEnd': 'contract_date_end',
             'plannedDateStart': 'planned_date_start',
             'plannedDateEnd': 'planned_date_end',
             'constructionType': 'construction_types_id',
@@ -97,6 +98,11 @@ class ConstructionService:
             'oksm': 'oksm_id',
             'address': 'address',
 
+            'organization': 'organization',
+            'readiness': 'readiness',
+            'deletionMark': 'deletion_mark',
+            'militaryDistrict': 'military_district',
+
             'region': 'region',
             'area': 'area',
             'city': 'city',
@@ -104,8 +110,8 @@ class ConstructionService:
         }
 
         params = dict()
-        for key, value in params_deserilized.items():
+        for key, value in params_deserialized.items():
             if key in case_switcher and value is not None:
-                params[case_switcher[key]] = params_deserilized[key]
+                params[case_switcher[key]] = params_deserialized[key]
 
         return params
