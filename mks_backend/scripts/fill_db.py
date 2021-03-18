@@ -269,9 +269,7 @@ def insert_constructions(commissions: list, construction_types: list,
         instance = Construction(
             project_code=code,
             project_name=name,
-            contract_date=datetime.now().date() - timedelta(days=randint(10, 100)),
             is_critical=choice([True, False]),
-            planned_date=datetime.now().date(),
             address_full=get_random_address(),
             note='Примечание к {}'.format(name),
             commission=choice(commissions),
@@ -281,6 +279,7 @@ def insert_constructions(commissions: list, construction_types: list,
             oksm_id=185,
             construction_category=category,
             military_unit=choice(military_units),
+            military_district=choice(military_units),
             location_type=choice(location_types),
             # fias=choice(fiases)
         )

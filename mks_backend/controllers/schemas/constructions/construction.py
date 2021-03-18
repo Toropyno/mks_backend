@@ -73,13 +73,6 @@ class ConstructionSchema(colander.MappingSchema):
         missing=None
     )
 
-    contract_date = colander.SchemaNode(
-        colander.String(),
-        preparer=[strip_space],
-        name='contractDate',
-        validator=date_validator
-    )
-
     object_amount = colander.SchemaNode(
         colander.Int(),
         name='objectsAmount',
@@ -89,11 +82,41 @@ class ConstructionSchema(colander.MappingSchema):
         )
     )
 
-    planned_date = colander.SchemaNode(
+    department = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
-        name='plannedDate',
-        validator=date_validator
+        name='department',
+        validator=colander.Length(
+            max=255,
+            max_err='Слишком длинное наименование отдела'
+        ),
+        missing=None
+    )
+
+    officer = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='officer',
+        validator=colander.Length(
+            max=100,
+            max_err='Слишком длинное имя ответственного лица'
+        ),
+        missing=None
+    )
+
+    technical_spec = colander.SchemaNode(
+        colander.Bool(false_choices=['false', '0', 'False', 'none']),
+        name='technicalSpec',
+    )
+
+    price_calc = colander.SchemaNode(
+        colander.Bool(false_choices=['false', '0', 'False', 'none']),
+        name='priceCalc',
+    )
+
+    deletion_mark = colander.SchemaNode(
+        colander.Bool(false_choices=['false', '0', 'False', 'none']),
+        name='deletionMark',
     )
 
     # ------ coordinate ------
@@ -152,7 +175,8 @@ class ConstructionSchema(colander.MappingSchema):
         validator=colander.Range(
             min=0,
             min_err='Такого типа проекта не существует'
-        )
+        ),
+        missing=None
     )
 
     location_types_id = colander.SchemaNode(
@@ -181,6 +205,7 @@ class ConstructionSchema(colander.MappingSchema):
             min=0,
             min_err='Такой записи в ОКСМ не существует'
         ),
+        missing=None
     )
 
     id_fias = colander.SchemaNode(
@@ -221,6 +246,16 @@ class ConstructionSchema(colander.MappingSchema):
         name='organization',
         validator=organization_uuid,
         missing=None
+    )
+
+    military_district = colander.SchemaNode(
+        colander.Int(),
+        name='militaryDistrict',
+        validator=colander.Range(
+            min=1,
+            min_err='Неверный номер военного округа'
+        ),
+        missing=colander.drop
     )
 
 
@@ -308,22 +343,6 @@ class ConstructionFilterSchema(colander.MappingSchema):
         missing=colander.drop
     )
 
-    contract_date_start = colander.SchemaNode(
-        colander.String(),
-        preparer=[strip_space],
-        name='contractDateStart',
-        validator=date_validator,
-        missing=colander.drop
-    )
-
-    contract_date_end = colander.SchemaNode(
-        colander.String(),
-        preparer=[strip_space],
-        name='contractDateEnd',
-        validator=date_validator,
-        missing=colander.drop
-    )
-
     planned_date_start = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
@@ -379,5 +398,41 @@ class ConstructionFilterSchema(colander.MappingSchema):
     company = colander.SchemaNode(
         colander.Integer(),
         name='company',
+        missing=colander.drop
+    )
+
+    organization_id = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='organization',
+        validator=organization_uuid,
+        missing=colander.drop
+    )
+
+    readiness = colander.SchemaNode(
+        colander.Integer(),
+        name='readiness',
+        validator=colander.Range(
+            min=0,
+            max=100,
+            min_err='Процент готовности не может быть меньше нуля',
+            max_err='Процент готовности не может быть больше сотни'
+        ),
+        missing=colander.drop
+    )
+
+    deletion_mark = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='deletionMark',
+        missing=colander.drop
+    )
+
+    military_district = colander.SchemaNode(
+        colander.Int(),
+        name='militaryDistrict',
+        validator=colander.Range(
+            min=1,
+            min_err='Неверный номер военного округа'
+        ),
         missing=colander.drop
     )

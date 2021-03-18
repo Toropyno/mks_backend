@@ -55,11 +55,6 @@ class MilitaryUnit(Base):
 
     # --------- relationships --------- #
 
-    construction = relationship(
-        'Construction',
-        back_populates='military_unit'
-    )
-
     combat_arm = relationship(
         'Combatarm',
         back_populates='military_unit'
