@@ -298,7 +298,9 @@ def insert_construction_objects(constructions: List[Construction]):
                 object_name='Наименование объекта {}'.format(i),
                 construction_id=construction.construction_id,
                 weight=randrange(1, 100),
-
+                generalplan_number=str(randint(100, 100000)),
+                building_volume=choice([None, randint(100, 100000)]),
+                floors_amount=choice([None, randint(1, 10)]),
             )
             construction_objects.append(instance)
             construction.construction_objects.append(instance)

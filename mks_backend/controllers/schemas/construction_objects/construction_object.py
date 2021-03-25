@@ -58,13 +58,6 @@ class ConstructionObjectSchema(colander.MappingSchema):
         missing=None
     )
 
-    planned_date = colander.SchemaNode(
-        colander.String(),
-        name='plannedDate',
-        preparer=[strip_space],
-        validator=date_validator
-    )
-
     weight = colander.SchemaNode(
         colander.Int(),
         name='weight',

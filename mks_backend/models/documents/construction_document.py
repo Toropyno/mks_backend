@@ -18,6 +18,7 @@ class ConstructionDocument(Base):
     construction_documents_id = Column(Integer, primary_key=True)
     doc_number = Column(VARCHAR(40), nullable=False)
     doc_date = Column(DATE, nullable=False)
+    valid_until = Column(DATE)
     doc_name = Column(VARCHAR(255))
     note = Column(VARCHAR(1000))
     upload_date = Column(TIMESTAMP)

@@ -42,5 +42,6 @@ class ConstructionDocumentService:
         construction_document.doc_date = schema_dict.get('docDate')
         construction_document.doc_name = schema_dict.get('docName')
         construction_document.note = schema_dict.get('note')
+        construction_document.valid_until = schema_dict.get('validUntil')
 
         return construction_document

@@ -1,12 +1,9 @@
-from datetime import datetime
-
 from sqlalchemy import (
     Column,
     Integer,
     ForeignKey,
     VARCHAR,
     Boolean,
-    DATE,
     CheckConstraint,
 )
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -132,7 +129,6 @@ class Construction(Base):
     construction_objects = relationship(
         'ConstructionObject',
         back_populates='construction',
-        order_by='desc(ConstructionObject.planned_date)',
         lazy='joined',
         passive_deletes=True,
     )
@@ -178,7 +174,7 @@ class Construction(Base):
 
     @hybrid_property
     def actually_entered(self):
-        return sum(filter(lambda x: x.fact_date, self.construction_objects))
+        return len([instance for instance in self.construction_objects if instance.fact_date])
 
     @hybrid_property
     def readiness(self):
@@ -186,7 +182,12 @@ class Construction(Base):
 
     @hybrid_property
     def planned_date(self):
-        return self.construction_objects[0].planned_date if self.construction_objects else None
+        # TODO: shitty performance, need refactor
+        planned_dates = [
+            construction_object.planned_date for construction_object in self.construction_objects
+            if construction_object.planned_date
+        ]
+        return max(planned_dates, key=lambda x: x.planned_date) if planned_dates else None
 
     @hybrid_property
     def dynamic(self):
