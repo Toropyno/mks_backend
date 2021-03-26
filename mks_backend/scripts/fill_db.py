@@ -48,6 +48,17 @@ def fill_db(config_uri=sys.argv[-1]):
     contract_statuses = insert_contract_statuses()
     contract_worktypes = insert_contract_worktypes()
 
+    element_types = insert_element_types()
+    measure_units = insert_measure_units()
+    object_categories = insert_object_categories()
+    progress_statuses = insert_progress_status()
+    work_types = insert_work_types()
+
+    insert_construction_progress(construction_objects, progress_statuses)
+    insert_work_lists(construction_objects, work_types, element_types, measure_units)
+    insert_object_completion(construction_objects)
+    insert_reference_history(construction_objects)
+    insert_construction_dynamic(constructions)
 
     DBSession.commit()
 
@@ -64,12 +75,14 @@ def insert_mu(engine):
         if fails:
             try_insert(connection, fails)
 
+    print('INSERT MILITARY UNITS')
     with engine.connect() as con:
         with open('mks_backend/dumps/military_unit.sql') as text:
             try_insert(con, text.readlines())
 
 
 def insert_oksm(engine):
+    print('INSERT OKSM')
     with engine.connect() as con:
         with open('mks_backend/dumps/oksm.sql') as text:
             try:
@@ -78,12 +91,14 @@ def insert_oksm(engine):
                 pass
 
 
-def insert_meeting_types():
+def insert_meeting_types() -> None:
+    print('INSERT MEETING_TYPES')
     for meeting_type in ['Совещание', 'Заседание', 'Форум', 'Съезд']:
         DBSession.add(Meeting(fullname=meeting_type))
 
 
-def insert_commissions():
+def insert_commissions() -> List[Commission]:
+    print('INSERT COMMISSIONS')
     commissions = []
     for commission in ['НДС', 'КАСКО']:
         instance = Commission(fullname=commission, code=commission.lower())
@@ -93,12 +108,14 @@ def insert_commissions():
 
 
 def insert_construction_categories_and_subcategories():
+    print('INSERT CONSTRUCTION SUBCATEGORIES')
     subcategories = []
     for subcategory in ['Военная подкатегория', 'Строительная подкатегория', 'Гражданская подкатегория']:
         instance = ConstructionSubcategory(fullname=subcategory)
         subcategories.append(instance)
         DBSession.add(instance)
 
+    print('INSERT CONSTRUCTION SUBCATEGORIES')
     categories = []
     for category in ['Военная категория', 'Строительная категория', 'Гражданская категория']:
         instance = ConstructionCategory(fullname=category, subcategories=subcategories)
@@ -109,6 +126,7 @@ def insert_construction_categories_and_subcategories():
 
 
 def insert_construction_companies():
+    print('INSERT CONSTRUCTION COMPANIES')
     companies = []
     for company in ['АО РТИ', 'НПК ВТиСС']:
         instance = ConstructionCompany(fullname=company, shortname=company.lower())
@@ -118,6 +136,7 @@ def insert_construction_companies():
 
 
 def insert_construction_types():
+    print('INSERT CONSTRUCTION TYPES')
     construction_types = []
     for construction_type in ['Военный город', 'Склад', 'Ракетная установка']:
         instance = ConstructionType(fullname=construction_type)
@@ -128,6 +147,7 @@ def insert_construction_types():
 
 
 def insert_organizations():
+    print('INSERT ORGANIZATIONS')
     all_orghanizations = []
     for x in range(1, 11):
         id_ = str(uuid4())
@@ -182,6 +202,7 @@ def insert_organizations():
 
 
 def insert_military_ranks():
+    print('INSERT MILITARY RANKS')
     all_ranks = []
     for rank in ['Полковник', 'Генерал']:
         rank = MilitaryRank(fullname=rank)
@@ -191,6 +212,7 @@ def insert_military_ranks():
 
 
 def insert_officials(organizations: List[Organization], military_ranks: List[MilitaryRank]):
+    print('INSERT OFFICIALS')
     DBSession.flush()
     generate_name = Faker('ru_RU')
 
@@ -222,31 +244,37 @@ def insert_officials(organizations: List[Organization], military_ranks: List[Mil
 
 
 def insert_leadership_positions():
+    print('INSERT LEADERSHIP POSITIONS')
     for position in ['Полковник', 'Генерал']:
         DBSession.add(LeadershipPosition(fullname=position, code=position.lower()))
 
 
 def insert_zones():
+    print('INSERT ZONES')
     for zone in ['Равнина', 'Лесополоса', 'Тундра']:
         DBSession.add(Zone(fullname=zone))
 
 
 def insert_realty_types():
+    print('INSERT REALTY TYPES')
     for realty_type in ['Большая недвижимость', 'Мелкая недвижимость']:
         DBSession.add(RealtyType(fullname=realty_type))
 
 
 def insert_construction_stages():
+    print('INSERT CONSTRUCTION STAGES')
     for stage in ['Начало', 'Середина', 'Конец']:
         DBSession.add(ConstructionStage(fullname=stage, code=stage.lower()))
 
 
 def insert_doctypes():
+    print('INSERT DOCTYPES')
     for doctype in ['Чертеж', 'План', 'Доклад', 'Схема']:
         DBSession.add(DocType(fullname=doctype, code=doctype.lower()))
 
 
 def insert_location_types():
+    print('INSERT LOCATION TYPES')
     location_types = []
     for location_type in ['Равнина', 'Лес', 'Горы', 'Тундра']:
         instance = LocationType(fullname=location_type)
@@ -258,6 +286,7 @@ def insert_location_types():
 def insert_constructions(commissions: list, construction_types: list,
                          construction_companies: list, construction_categories: list,
                          location_types: list):
+    print('INSERT CONSTRUCTIONS')
     constructions = []
     military_units = DBSession.query(MilitaryUnit).all()
     for code, name in [
@@ -290,6 +319,7 @@ def insert_constructions(commissions: list, construction_types: list,
 
 
 def insert_construction_objects(constructions: List[Construction]):
+    print('INSERT CONSTRUCTION OBJECTS')
     construction_objects = []
     for construction in constructions:
         for i in range(randint(1, 10)):
@@ -298,13 +328,18 @@ def insert_construction_objects(constructions: List[Construction]):
                 object_name='Наименование объекта {}'.format(i),
                 construction_id=construction.construction_id,
                 weight=randrange(1, 100),
-
+                generalplan_number=str(randint(100, 100000)),
+                building_volume=choice([None, randint(100, 100000)]),
+                floors_amount=choice([None, randint(1, 10)]),
             )
             construction_objects.append(instance)
             construction.construction_objects.append(instance)
 
+    return construction_objects
+
 
 def create_fiases():
+    print('INSERT FIASES')
     service = FIASService()
     suggests = service.get_suggests('облМосковская')[1:6]  # magic
 
@@ -317,6 +352,7 @@ def create_fiases():
 
 
 def insert_contract_statuses():
+    print('INSERT CONTRACT STATUSES')
     contract_statuses = []
     for name in ['На рассмотрении', 'Принят', 'Отклонён']:
         instance = ContractStatus(fullname=name)
@@ -327,6 +363,7 @@ def insert_contract_statuses():
 
 
 def insert_contract_worktypes():
+    print('INSERT CONTRACT WORKTYPES')
     contract_worktypes = []
     for name in ['Доставлено в распределительный центр', 'Утилизировано', 'На рассмотрении']:
         instance = ContractWorkType(fullname=name)
@@ -334,6 +371,144 @@ def insert_contract_worktypes():
         DBSession.add(instance)
 
     return contract_worktypes
+
+
+def insert_element_types() -> List[ElementType]:
+    print('INSERT ELEMENT TYPES')
+    element_types = []
+    for name in ['Фундамент', 'Крыша', 'Стены', 'Подвал']:
+        instance = ElementType(fullname=name)
+        element_types.append(instance)
+        DBSession.add(instance)
+
+    return element_types
+
+
+def insert_measure_units() -> List[MeasureUnit]:
+    print('INSERT MEASURE UNITS')
+    measure_units = []
+    for code, name in [('kg', 'килограмм'), ('t', 'тонны'), ('litres', 'Литры')]:
+        instance = MeasureUnit(unit_code=code, unit_name=name)
+        measure_units.append(instance)
+        DBSession.add(instance)
+
+    return measure_units
+
+
+def insert_object_categories() -> List[ObjectCategory]:
+    print('INSERT OBJECT CATEGORIES')
+    object_categories = []
+    for name in ['Малый объект', 'Средний объект', 'Большой объект']:
+        instance = ObjectCategory(fullname=name)
+        object_categories.append(instance)
+        DBSession.add(instance)
+
+    return object_categories
+
+
+def insert_progress_status() -> List[ProgressStatus]:
+    print('INSERT PROGRESS STATUSES')
+    progress_statuses = []
+    for name in ['Начальный статус', 'Финальный статус', 'Рабочий статус']:
+        instance = ProgressStatus(fullname=name)
+        progress_statuses.append(instance)
+        DBSession.add(instance)
+
+    return progress_statuses
+
+
+def insert_work_types() -> List[WorkType]:
+    print('INSERT WORK TYPES')
+    work_types = []
+    for name in ['Закладка фундамента', 'Залитие бетона', 'Укладка асфальта']:
+        instance = WorkType(fullname=name)
+        work_types.append(instance)
+        DBSession.add(instance)
+
+    return work_types
+
+
+def insert_construction_progress(objects: List[ConstructionObject], statuses: List[ProgressStatus]):
+    print('INSERT CONSTRUCTION PROGRESS')
+    for construction_object in objects:
+        for i in range(5):
+            construction_progress = ConstructionProgress(
+                reporting_date=(datetime.now() - timedelta(days=i)).date(),
+                people_plan=randint(10, 1000),
+                equipment_plan=randint(10, 1000),
+                readiness=randint(1, 100),
+                people=randint(10, 1000),
+                equipment=randint(10, 1000),
+                construction_object=construction_object,
+                progress_status=choice(statuses)
+            )
+            DBSession.add(construction_progress)
+
+
+def insert_work_lists(objects: List[ConstructionObject], work_type: List[WorkType], element_types: List[ElementType],
+                      measure_units: List[MeasureUnit]):
+    print('INSERT WORK LISTS')
+    for construction_object in objects:
+        for i in range(4):
+            work_list = WorkList(
+                begin_date=(datetime.now() - timedelta(days=i)).date(),
+                relevance_date=datetime.now().date(),
+                element_type=element_types[i],
+                weight=randint(1, 100),
+                end_date=(datetime.now() + timedelta(days=i)).date(),
+                plan=randint(80, 100),
+                fact=80 - randint(1, 20),
+                measure_unit=choice(measure_units),
+                work_type=choice(work_type),
+                construction_object=construction_object,
+            )
+
+
+def insert_object_completion(objects: List[ConstructionObject]):
+    print('INSERT OBJECT COMPLETION')
+    for k, construction_object in enumerate(objects):
+        for i in range(k+5, k*10, k+2):
+            instance = ObjectCompletion(
+                planned_date=(datetime.now() + timedelta(days=i)).date(),
+                update_datetime=datetime.now() - timedelta(days=i),
+                construction_object=construction_object
+            )
+
+            DBSession.add(instance)
+
+
+def insert_reference_history(objects: List[ConstructionObject]):
+    print('INSERT REFERENCE HISTORY')
+    DBSession.flush()
+    construction_ids = set([construction_object.construction_id for construction_object in objects])
+    for construction_object in objects:
+        available_ids = filter(lambda x: x != construction_object.construction_id, construction_ids)
+        for i in available_ids:
+            instance = ReferenceHistory(
+                end_date=(datetime.now() - timedelta(days=i)).date(),
+                construction_objects_id=construction_object.construction_objects_id,
+                construction_id=i
+            )
+            DBSession.add(instance)
+
+
+def insert_construction_dynamic(constructions: List[Construction]):
+    print('INSERT CONSTRUCTION DYNAMIC')
+    for construction in constructions:
+        for i in range(1, 6):
+            instance = ConstructionDynamic(
+                construction_id=construction.construction_id,
+                reporting_date=(datetime.now() - timedelta(days=i)).date(),
+                from_sakura=choice([True, False]),
+                people=randint(10, 1000),
+                people_plan=randint(10, 1000),
+                equipment=randint(10, 1000),
+                equipment_plan=randint(10, 1000),
+                description='Описание хода строительсвта {}'.format(construction.project_code),
+                reason='Причина {}'.format(construction.project_code),
+                problems='Проблемы {}'.format(construction.project_code),
+            )
+            DBSession.add(instance)
 
 
 def get_random_address():

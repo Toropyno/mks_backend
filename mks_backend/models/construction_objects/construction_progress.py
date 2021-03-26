@@ -14,6 +14,9 @@ from mks_backend.session import Base
 
 
 class ConstructionProgress(Base):
+    """
+    Ход строительства (здания и сооружения)
+    """
     __tablename__ = 'construction_progress'
 
     __table_args__ = (
@@ -27,6 +30,9 @@ class ConstructionProgress(Base):
     construction_progress_id = Column(Integer, primary_key=True, autoincrement=True)
     reporting_date = Column(Date, nullable=False)
     update_datetime = Column(TIMESTAMP, default=func.now())
+
+    people_plan = Column(Integer, CheckConstraint('people_plan>=0'), nullable=False)
+    equipment_plan = Column(Integer, CheckConstraint('equipment_plan>=0'), nullable=False)
 
     readiness = Column(
         DECIMAL(17, 2),

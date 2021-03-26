@@ -11,6 +11,7 @@ from mks_backend.serializers.constructions.construction_type import Construction
 from mks_backend.serializers.constructions.construction_dynamic import ConstructionDynamicSerializer
 from mks_backend.serializers.constructions.construction_category import ConstructionCategorySerializer
 from mks_backend.serializers.constructions.construction_subcategory import ConstructionSubcategorySerializer
+from mks_backend.serializers.utils import decimal_to_str
 
 from mks_backend.serializers.utils.date_and_time import get_date_string
 
@@ -35,7 +36,7 @@ class ConstructionSerializer:
             'department': construction.department,
             'officer': construction.officer,
             'actuallyEntered': construction.actually_entered,
-            'readiness': construction.readiness,
+            'readiness': decimal_to_str(construction.readiness),
             'technicalSpec': construction.technical_spec,
             'priceCalc': construction.price_calc,
             'deletionMark': construction.deletion_mark,

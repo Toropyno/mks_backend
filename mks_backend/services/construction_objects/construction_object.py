@@ -39,7 +39,6 @@ class ConstructionObjectService:
         construction_object.construction_id = schema.get('projectId')
         construction_object.object_code = schema.get('code')
         construction_object.object_name = schema.get('name')
-        construction_object.planned_date = schema.get('plannedDate')
         construction_object.weight = schema.get('weight')
         construction_object.generalplan_number = schema.get('generalPlanNumber')
         construction_object.building_volume = schema.get('buildingVolume')

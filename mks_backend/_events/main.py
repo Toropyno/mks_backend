@@ -15,10 +15,3 @@ def receive_before_commit(session):
         print('Trying to EDIT {} in DB'.format(edited_object))
     else:
         pass
-        # print('Unknow event')
-
-
-@event.listens_for(DBSession, 'after_commit')
-def receive_after_commit(session):
-    pass
-    # print('Commit was successful.')
