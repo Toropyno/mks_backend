@@ -1,3 +1,4 @@
+from datetime import datetime
 from decimal import Decimal
 
 from sqlalchemy import (
@@ -10,7 +11,6 @@ from sqlalchemy import (
     CheckConstraint,
 )
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from mks_backend.session import Base
@@ -22,8 +22,7 @@ class ConstructionObject(Base):
     construction_objects_id = Column(Integer, primary_key=True, autoincrement=True)
     object_code = Column(VARCHAR(40), unique=True, nullable=False)
     object_name = Column(VARCHAR(255), nullable=False)
-    planned_date = Column(Date, default=func.current_date(), nullable=False)
-    generalplan_number = Column(Integer)
+    generalplan_number = Column(VARCHAR(10))
     building_volume = Column(DECIMAL(17, 3))
     floors_amount = Column(Integer)
     fact_date = Column(Date)
@@ -35,7 +34,7 @@ class ConstructionObject(Base):
     )
 
     weight = Column(
-        Integer,
+        DECIMAL(5, 2),
         CheckConstraint('weight>0 AND weight<=100'),
         nullable=False
     )
@@ -120,6 +119,12 @@ class ConstructionObject(Base):
         passive_deletes=True,
     )
 
+    planned_date_query = relationship(
+        'ObjectCompletion',
+        order_by='desc(ObjectCompletion.planned_date)',
+        lazy='dynamic',
+    )
+
     # --------- calculated_fields --------- #
 
     @hybrid_property
@@ -147,3 +152,8 @@ class ConstructionObject(Base):
             return self.last_report.equipment
         else:
             return 0
+
+    @hybrid_property
+    def planned_date(self):
+        completion = self.planned_date_query.first()
+        return completion.planned_date if completion else None

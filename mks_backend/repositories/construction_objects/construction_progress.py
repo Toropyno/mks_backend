@@ -29,6 +29,8 @@ class ConstructionProgressRepository:
                 'readiness': construction_progress.readiness,
                 'people': construction_progress.people,
                 'equipment': construction_progress.equipment,
+                'people_plan': construction_progress.people_plan,
+                'equipment_plan': construction_progress.equipment_plan,
                 'progress_statuses_id': construction_progress.progress_statuses_id,
                 'update_datetime': construction_progress.update_datetime,
             }

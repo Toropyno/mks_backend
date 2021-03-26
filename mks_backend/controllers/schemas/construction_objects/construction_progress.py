@@ -48,6 +48,24 @@ class ConstructionProgressSchema(colander.MappingSchema):
         )
     )
 
+    people_plan = colander.SchemaNode(
+        colander.Int(),
+        name='peoplePlan',
+        validator=colander.Range(
+            min=0,
+            min_err='Недопустимое значение количества рабочих'
+        )
+    )
+
+    equipment_plan = colander.SchemaNode(
+        colander.Int(),
+        name='equipmentPlan',
+        validator=colander.Range(
+            min=0,
+            min_err='Недопустимое значение количества техники'
+        )
+    )
+
     progress_statuses_id = colander.SchemaNode(
         colander.Int(),
         name='progressStatus',

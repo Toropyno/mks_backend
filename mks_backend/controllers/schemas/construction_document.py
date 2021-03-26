@@ -89,3 +89,10 @@ class ConstructionDocumentSchema(colander.MappingSchema):
         validator=timestamp_validator,
         missing=None
     )
+
+    valid_until = colander.SchemaNode(
+        colander.String(),
+        name='validUntil',
+        validator=date_validator,
+        missing=None
+    )

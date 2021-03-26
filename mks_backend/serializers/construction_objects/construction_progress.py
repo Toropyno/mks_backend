@@ -18,8 +18,11 @@ class ConstructionProgressSerializer:
             'readiness': format(construction_progress.readiness, '.2f'),
             'people': construction_progress.people,
             'equipment': construction_progress.equipment,
+            'peoplePlan': construction_progress.people_plan,
+            'equipmentPlan': construction_progress.equipment_plan,
             'progressStatus': ProgressStatusSerializer.convert_object_to_json(construction_progress.progress_status),
             'updateDatetime': get_date_time_string(construction_progress.update_datetime),
+
         }
 
     def convert_list_to_json(self, construction_progresses_list: list) -> list:
@@ -33,6 +36,8 @@ class ConstructionProgressSerializer:
         construction_progress.reporting_date = schema.get('reportingDate')
         construction_progress.readiness = schema.get('readiness')
         construction_progress.people = schema.get('people')
+        construction_progress.equipment_plan = schema.get('equipmentPlan')
+        construction_progress.people_plan = schema.get('peoplePlan')
         construction_progress.equipment = schema.get('equipment')
         construction_progress.progress_statuses_id = schema.get('progressStatus')
 

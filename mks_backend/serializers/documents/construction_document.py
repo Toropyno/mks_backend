@@ -11,6 +11,7 @@ class ConstructionDocumentSerializer:
             'id': construction_document.construction_documents_id,
             'constructionId': construction_document.construction_id,
             'docType': DocTypeSerializer().convert_object_to_json(construction_document.doc_type),
+            'validUntil': get_date_string(construction_document.valid_until),
             'docNumber': construction_document.doc_number,
             'docDate': get_date_string(construction_document.doc_date),
             'docName': construction_document.doc_name,
