@@ -7,8 +7,8 @@ class ConstructionObjectRepository:
     def __init__(self):
         self._query = DBSession.query(ConstructionObject)
 
-    def get_construction_object_by_id(self, id: int) -> ConstructionObject:
-        return self._query.get(id)
+    def get_construction_object_by_id(self, id_: int) -> ConstructionObject:
+        return self._query.get(id_)
 
     def get_all_construction_objects_by_construction_id(self, construction_id) -> list:
         return self._query.filter_by(construction_id=construction_id). \

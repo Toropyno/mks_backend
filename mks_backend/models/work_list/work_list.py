@@ -39,7 +39,6 @@ class WorkList(Base):
     element_types_id = Column(
         Integer,
         ForeignKey('element_types.element_types_id', ondelete='CASCADE'),
-        unique=True,
         nullable=False
     )
 

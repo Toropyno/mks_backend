@@ -187,7 +187,7 @@ class Construction(Base):
             construction_object.planned_date for construction_object in self.construction_objects
             if construction_object.planned_date
         ]
-        return max(planned_dates, key=lambda x: x.planned_date) if planned_dates else None
+        return max(planned_dates) if planned_dates else None
 
     @hybrid_property
     def dynamic(self):
