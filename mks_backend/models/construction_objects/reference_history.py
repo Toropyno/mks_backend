@@ -22,7 +22,7 @@ class ReferenceHistory(Base):
     references_history_id = Column(Integer, primary_key=True)
     end_date = Column(DATE, default=func.now(), nullable=False)
 
-    construction_objects_id = Column(ForeignKey('construction_objects.construction_objects_id'), nullable=False)
-    construction_id = Column(ForeignKey('construction.construction_id'), nullable=False)
+    construction_objects_id = Column(ForeignKey('construction_objects.construction_objects_id', ondelete='CASCADE'), nullable=False)
+    construction_id = Column(ForeignKey('construction.construction_id', ondelete='CASCADE'), nullable=False)
 
     construction = relationship('Construction', lazy='joined', uselist=False)

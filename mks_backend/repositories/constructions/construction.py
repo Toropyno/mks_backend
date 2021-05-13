@@ -24,7 +24,7 @@ class ConstructionRepository:
         DBSession.commit()
 
     def update_construction(self, construction: Construction) -> None:
-        if DBSession.merge(construction) and not DBSession.new:
+        if DBSession.merge(construction):  # TODO: add new condition when FIAS will be ok
             DBSession.commit()
         else:
             DBSession.rollback()

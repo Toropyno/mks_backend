@@ -52,14 +52,16 @@ class ProtocolControllerSchema(colander.MappingSchema):
             max=2000,
             min_err='Слишком короткое примечание',
             max_err='Недопустимое примечание'
-        )
+        ),
+        missing=None
     )
 
     idfilestorage = colander.SchemaNode(
         colander.String(),
         name='idFileStorage',
         preparer=[strip_space],
-        validator=uuid_file_validator
+        validator=uuid_file_validator,
+        missing=None
     )
 
 

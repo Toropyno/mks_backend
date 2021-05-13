@@ -1,8 +1,12 @@
+from uuid import uuid4
+
 from mks_backend.models.constructions import Construction
 from mks_backend.repositories.constructions.construction import ConstructionRepository
 from mks_backend.services.construction_objects.construction_object import ConstructionObjectService
 from mks_backend.services.coordinate import CoordinateService
 from mks_backend.services.constructions.subcategory_list import SubcategoryListService
+
+from mks_backend.models.fias import FIAS
 
 
 class ConstructionService:
@@ -66,6 +70,16 @@ class ConstructionService:
         if fias:
             # some cool stuff for FIAS
             pass
+        else:
+            # TODO: remove when FIAS will be ok
+            region = schema.get('region')
+            area = schema.get('area')
+            city = schema.get('city')
+            settlement = schema.get('settlement')
+            street = schema.get('street')
+
+            construction.fias = FIAS(aoid=uuid4(), region=region, area=area,
+                                     city=city, settlement=settlement, street=street)
 
         return construction
 

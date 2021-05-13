@@ -258,6 +258,13 @@ class ConstructionSchema(colander.MappingSchema):
         missing=colander.drop
     )
 
+    # TODO: remove when FIAS will be ok
+    region = colander.SchemaNode(colander.String(), name='region', missing=colander.drop)
+    area = colander.SchemaNode(colander.String(), name='area', missing=colander.drop)
+    city = colander.SchemaNode(colander.String(), name='city', missing=colander.drop)
+    settlement = colander.SchemaNode(colander.String(), name='settlement', missing=colander.drop)
+    street = colander.SchemaNode(colander.String(), name='street', missing=colander.drop)
+
 
 class ConstructionFilterSchema(colander.MappingSchema):
     project_code = colander.SchemaNode(

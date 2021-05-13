@@ -1,3 +1,4 @@
+import random
 import sys
 
 from random import choice, randint, randrange
@@ -59,6 +60,10 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_object_completion(construction_objects)
     insert_reference_history(construction_objects)
     insert_construction_dynamic(constructions)
+
+    # TODO: remove, when FIAS will be ok
+    for construction in constructions:
+        construction.organization = random.choice(orgs)
 
     DBSession.commit()
 

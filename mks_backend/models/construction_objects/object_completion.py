@@ -22,6 +22,6 @@ class ObjectCompletion(Base):
     planned_date = Column(DATE, nullable=False)
     update_datetime = Column(TIMESTAMP, default=func.now(), nullable=False)
 
-    construction_objects_id = Column(ForeignKey('construction_objects.construction_objects_id'), nullable=False)
+    construction_objects_id = Column(ForeignKey('construction_objects.construction_objects_id', ondelete='CASCADE'), nullable=False)
 
     construction_object = relationship('ConstructionObject', lazy='joined', uselist=False)

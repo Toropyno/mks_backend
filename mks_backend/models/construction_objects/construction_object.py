@@ -29,8 +29,7 @@ class ConstructionObject(Base):
 
     construction_id = Column(
         Integer,
-        ForeignKey('construction.construction_id', ondelete='CASCADE'),
-        nullable=False
+        ForeignKey('construction.construction_id', ondelete='CASCADE')
     )
 
     weight = Column(

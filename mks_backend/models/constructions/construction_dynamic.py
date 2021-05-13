@@ -38,4 +38,4 @@ class ConstructionDynamic(Base):
     reason = Column(VARCHAR(100))
     problems = Column(VARCHAR(1000))
 
-    construction_id = Column(ForeignKey('construction.construction_id', ondelete='CASCADE'), nullable=False)
+    construction_id = Column(ForeignKey('construction.construction_id', ondelete='CASCADE'))

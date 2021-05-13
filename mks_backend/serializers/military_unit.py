@@ -12,9 +12,6 @@ class MilitaryUnitSerializer:
             'fullName': cls.get_correct_military_unit_name(military_unit),
         }
 
-    def convert_list_to_json(self, military_units: list) -> list:
-        return list(map(self.convert_object_to_json, military_units))
-
     def convert_list_to_json_tree(self, military_units: list) -> list:
         tree = []
         for military_unit in military_units:
