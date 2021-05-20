@@ -29,7 +29,8 @@ class ConstructionObject(Base):
 
     construction_id = Column(
         Integer,
-        ForeignKey('construction.construction_id', ondelete='CASCADE')
+        ForeignKey('construction.construction_id', ondelete='CASCADE'),
+        nullable=False
     )
 
     weight = Column(
@@ -94,7 +95,7 @@ class ConstructionObject(Base):
     construction_progress = relationship(
         'ConstructionProgress',
         back_populates='construction_object',
-        passive_deletes=True
+        cascade='all, delete'
     )
 
     documents = relationship(
@@ -109,19 +110,21 @@ class ConstructionObject(Base):
 
     worklist = relationship(
         'WorkList',
-        back_populates='construction_object'
+        back_populates='construction_object',
+        cascade='all, delete'
     )
 
     object_files = relationship(
         'ObjectFile',
         back_populates='construction_object',
-        passive_deletes=True,
+        cascade='all, delete'
     )
 
     planned_date_query = relationship(
         'ObjectCompletion',
         order_by='desc(ObjectCompletion.planned_date)',
         lazy='dynamic',
+        cascade='all, delete'
     )
 
     # --------- calculated_fields --------- #

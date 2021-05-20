@@ -130,7 +130,7 @@ class Construction(Base):
         'ConstructionObject',
         back_populates='construction',
         lazy='joined',
-        passive_deletes=True,
+        cascade='all, delete'
     )
 
     coordinate = relationship(
@@ -154,7 +154,7 @@ class Construction(Base):
     contracts = relationship(
         'Contract',
         back_populates='construction',
-        passive_deletes=True
+        cascade='all, delete'
     )
 
     organization = relationship(
@@ -164,7 +164,8 @@ class Construction(Base):
     dynamic_raw = relationship(
         'ConstructionDynamic',
         order_by='desc(ConstructionDynamic.reporting_date)',
-        lazy='dynamic'
+        lazy='dynamic',
+        cascade='all, delete',
     )
 
     oksm = relationship('OKSM')
