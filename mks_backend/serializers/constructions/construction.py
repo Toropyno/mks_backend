@@ -1,4 +1,6 @@
 from mks_backend.models.constructions import Construction
+from mks_backend.models.geoobject.geo_object__cross__user import GeoObjectCrossUser
+from mks_backend.serializers.geoobject.geo_object import GeoObjectSerializer
 
 from mks_backend.serializers.oksm import OKSMSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
@@ -14,9 +16,13 @@ from mks_backend.serializers.constructions.construction_subcategory import Const
 from mks_backend.serializers.utils import decimal_to_str
 
 from mks_backend.serializers.utils.date_and_time import get_date_string
+from mks_backend.services.geoobject.geo_object__cross__user import GeoObjectCrossUserService
 
 
 class ConstructionSerializer:
+
+    def __init__(self):
+        self.geo_object_service = GeoObjectCrossUserService()
 
     def convert_list_to_json(self, constructions: list) -> list:
         return list(map(self.to_json, constructions))
@@ -28,7 +34,10 @@ class ConstructionSerializer:
             )
         else:
             subcategory = None
-
+        if (construction.geo_object):
+            geo_object__cross__user = self.geo_object_service.get_geo_object_for_user(construction.geo_object)
+        else:
+            geo_object__cross__user = None
         construction_json = {
             'id': construction.construction_id,
             'code': construction.project_code,
@@ -55,10 +64,10 @@ class ConstructionSerializer:
             'militaryDistrict': MilitaryUnitSerializer.convert_object_to_json(construction.military_district),
             'organization': OrganizationSerializer.to_simple_json(construction.organization),
             'dynamic': ConstructionDynamicSerializer.to_json(construction.dynamic),
-
+            'geoObject': GeoObjectSerializer.to_json(construction.geo_object, geo_object__cross__user),
             'fias': construction.fias,
             'address': construction.address_full,
-            'coordinate': CoordinateSerializer.convert_object_to_json(construction.coordinate),
+           # 'coordinate': CoordinateSerializer.convert_object_to_json(construction.coordinate),
             'oksm': OKSMSerializer.convert_object_to_json(construction.oksm),
         }
 

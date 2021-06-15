@@ -1,6 +1,8 @@
 from uuid import uuid4
 
 from mks_backend.models.constructions import Construction
+from mks_backend.models.geoobject.geo_object import GeoObject
+from mks_backend.models.geoobject.geo_object__cross__user import GeoObjectCrossUser
 from mks_backend.repositories.constructions.construction import ConstructionRepository
 from mks_backend.services.construction_objects.construction_object import ConstructionObjectService
 from mks_backend.services.coordinate import CoordinateService
@@ -80,7 +82,19 @@ class ConstructionService:
 
             construction.fias = FIAS(aoid=uuid4(), region=region, area=area,
                                      city=city, settlement=settlement, street=street)
+        if(schema.get('layerId')):
+            geo_object = GeoObject()
+            geo_object.style_id = schema.get('styleId')
+            geo_object.projection = schema.get('projection')
+            geo_object.geo_object_id = schema.get('id')
 
+            geo_object__cross__user = GeoObjectCrossUser()
+            geo_object__cross__user.user = 1
+            geo_object__cross__user.layer_id = schema.get('layerId', str(uuid4()))
+            geo_object__cross__user.object_id = schema.get('objectId', str(uuid4()))
+            geo_object.geo_object__cross__user = [geo_object__cross__user]
+
+            construction.geo_object = geo_object;
         return construction
 
     def filter_constructions(self, params: dict) -> list:
