@@ -34,3 +34,4 @@ class GeoObjectSerializer:
             'objectId': geo_object__cross__user.object_id,
             'coordinate': CoordinateSerializer.convert_object_to_json(geo_object.coordinate),
         }
+ 
