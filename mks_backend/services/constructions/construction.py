@@ -84,7 +84,7 @@ class ConstructionService:
                                      city=city, settlement=settlement, street=street)
         if(schema.get('layerId')):
             geo_object = GeoObject()
-            geo_object.style_id = schema.get('styleId')
+            geo_object.style_id = 1;
             geo_object.projection = schema.get('projection')
             geo_object.geo_object_id = schema.get('id')
 

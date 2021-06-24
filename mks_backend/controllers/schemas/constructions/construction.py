@@ -184,7 +184,7 @@ class ConstructionSchema(colander.MappingSchema):
         colander.String(),
         preparer=[strip_space],
         name='projection',
-        validator=colander.Range(
+        validator=colander.Length(
             min=0,
             min_err='no'
         ),

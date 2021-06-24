@@ -56,7 +56,9 @@ class ConstructionController:
 
         coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
         new_construction = self.service.convert_schema_to_object(construction_deserialized)
-        new_construction.coordinate = coordinate
+        if (new_construction.geo_object):
+            new_construction.geo_object.coordinate = coordinate
+       # new_construction.coordinate = coordinate
 
         self.service.update_construction(new_construction)
         return {'id': new_construction.construction_id}
