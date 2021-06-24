@@ -11,6 +11,6 @@ class GeoObjectCrossUser(Base):
 
     geo_objects__cross__user_id = Column(Integer, primary_key=True, autoincrement=True)
     origin_id = Column(Integer, ForeignKey('geo_objects.geo_object_id'))
-    layer_id = Column(UUID, default=uuid4, nullable=False)
-    object_id = Column(UUID, default=uuid4, nullable=False)
+    layer_id = Column(UUID(as_uuid=True), default=uuid4, nullable=False)
+    object_id = Column(UUID(as_uuid=True), default=uuid4, nullable=False)
     user = Column(Integer, nullable=False, default=1)

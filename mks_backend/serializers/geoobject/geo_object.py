@@ -30,8 +30,7 @@ class GeoObjectSerializer:
             'style':  GeoStyleSerialaizer.convert_object_to_json(geo_object.style),
             'projection': geo_object.projection,
             'id': geo_object__cross__user.geo_objects__cross__user_id,
-            'layerId': geo_object__cross__user.layer_id,
-            'objectId': geo_object__cross__user.object_id,
+            'layerId': str(geo_object__cross__user.layer_id),
+            'objectId': str(geo_object__cross__user.object_id),
             'coordinate': CoordinateSerializer.convert_object_to_json(geo_object.coordinate),
         }
- 
