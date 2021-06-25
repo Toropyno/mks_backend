@@ -167,6 +167,72 @@ class ConstructionSchema(colander.MappingSchema):
         missing=None
     )
 
+
+    #geo_object
+
+    style_id = colander.SchemaNode(
+        colander.Int(),
+        name='styleId',
+        validator=colander.Range(
+            min=0,
+            min_err='no'
+        ),
+        missing=None
+    )
+
+    projection = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='projection',
+        validator=colander.Length(
+            min=0,
+            min_err='no'
+        ),
+        missing=None
+    )
+
+    geo_objects__cross__user_id = colander.SchemaNode(
+        colander.Int(),
+        name='geoObjectId',
+        validator=colander.Range(
+            min=0,
+            min_err='no'
+        ),
+        missing=None
+    )
+
+    layer_id =  colander.SchemaNode(
+            colander.String(),
+
+            name='layerId',
+            validator=colander.Length(
+                min=0,
+                min_err='no'
+            ),
+            missing=None
+        )
+
+    object_id = colander.SchemaNode(
+            colander.String(),
+
+            name='objectId',
+            validator=colander.Length(
+                min=0,
+                min_err='no'
+            ),
+            missing=None
+        )
+    origin_id = colander.SchemaNode(
+        colander.Int(),
+        name='originId',
+        validator=colander.Range(
+            min=0,
+            min_err='no'
+        ),
+        missing=None
+    )
+
+
     # ----------------------
 
     construction_types_id = colander.SchemaNode(

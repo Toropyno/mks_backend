@@ -29,6 +29,8 @@ class Construction(Base):
     price_calc = Column(Boolean, nullable=False, default=False)
     deletion_mark = Column(Boolean, nullable=False, default=False)
 
+    geo_object_id = Column(Integer, ForeignKey('geo_objects.geo_object_id'))
+
     construction_categories_id = Column(
         Integer,
         ForeignKey('construction_categories.construction_categories_id', ondelete='SET NULL')
@@ -166,6 +168,10 @@ class Construction(Base):
         order_by='desc(ConstructionDynamic.reporting_date)',
         lazy='dynamic',
         cascade='all, delete',
+    )
+
+    geo_object = relationship(
+        'GeoObject'
     )
 
     oksm = relationship('OKSM')

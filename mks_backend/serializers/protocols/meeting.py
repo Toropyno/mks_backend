@@ -1,3 +1,5 @@
+from typing import List
+
 from mks_backend.models.protocols.meeting import Meeting
 
 from mks_backend.errors import serialize_error_handler
@@ -13,13 +15,11 @@ class MeetingSerializer:
             'fullName': meeting.fullname,
         }
 
-    def convert_list_to_json(self, meetings: list) -> list:
+    def convert_list_to_json(self, meetings: List[Meeting]) -> List[dict]:
         return list(map(self.convert_object_to_json, meetings))
 
     def convert_schema_to_object(self, schema: dict) -> Meeting:
         meeting_type = Meeting()
 
         meeting_type.meetings_type_id = schema.get('id')
-        meeting_type.fullname = schema.get('fullName')
-
-        return meeting_type
+        meeting_type.fullname = schema.get('fullname')

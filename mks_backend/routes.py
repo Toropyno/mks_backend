@@ -97,6 +97,9 @@ def includeme(config):
     config.add_route('edit_construction_progress', '/construction_progress/{id}', request_method='PUT')
     config.add_route('delete_construction_progress', '/construction_progress/{id}', request_method='DELETE')
 
+    config.add_route('add_geo_object', '/geo-object', request_method='POST')
+    config.add_route('get_geo_style', '/geo-style/{id}', request_method='GET')
+
     config.add_route('get_all_location_types', '/location_type', request_method='GET')
     config.add_route('add_location_type', '/location_type', request_method='POST')
     config.add_route('delete_location_type', '/location_type/{id}', request_method='DELETE')
@@ -153,3 +156,4 @@ def includeme(config):
     config.add_route('get_progress_status', '/progress_status/{id}', request_method='GET')
 
     config.add_route('get_all_fiases_for_filtration', '/fias-filter', request_method='GET')
+

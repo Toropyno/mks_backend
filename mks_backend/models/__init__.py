@@ -65,3 +65,6 @@ from .coordinate import Coordinate
 from .filestorage import Filestorage
 from .miv.storage import Storage
 
+from .geoobject.geo_style import GeoStyle
+from .geoobject.geo_object import GeoObject
+from .geoobject.geo_object__cross__user import GeoObjectCrossUser
