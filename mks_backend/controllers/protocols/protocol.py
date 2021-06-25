@@ -17,13 +17,13 @@ class ProtocolController:
         self.schema = ProtocolControllerSchema()
         self.filter_schema = ProtocolControllerFilterSchema()
 
-    @view_config(route_name='get_all_protocols')
+    @view_config(route_name='get_all_protocols', permission='access.mks_crud_protocols')
     def get_all_protocols(self):
         filter_params = self.filter_schema.deserialize(self.request.GET)
         protocols = self.service.get_protocols(filter_params)
         return self.serializer.convert_list_to_json(protocols)
 
-    @view_config(route_name='add_protocol')
+    @view_config(route_name='add_protocol', permission='access.mks_crud_protocols')
     def add_protocol(self):
         protocol_deserialized = self.schema.deserialize(self.request.json_body)
         protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
@@ -31,19 +31,19 @@ class ProtocolController:
         self.service.add_protocol(protocol)
         return {'id': protocol.protocol_id}
 
-    @view_config(route_name='get_protocol')
+    @view_config(route_name='get_protocol', permission='access.mks_crud_protocols')
     def get_protocol(self):
         id = int(self.request.matchdict['id'])
         protocol = self.service.get_protocol_by_id(id)
         return self.serializer.convert_object_to_json(protocol)
 
-    @view_config(route_name='delete_protocol')
+    @view_config(route_name='delete_protocol', permission='access.mks_crud_protocols')
     def delete_protocol(self):
         id = int(self.request.matchdict['id'])
         self.service.delete_protocol_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='edit_protocol')
+    @view_config(route_name='edit_protocol', permission='access.mks_crud_protocols')
     def edit_protocol(self):
         protocol_deserialized = self.schema.deserialize(self.request.json_body)
         protocol_deserialized['id'] = int(self.request.matchdict['id'])
