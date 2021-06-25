@@ -23,3 +23,12 @@ def setup_env_vars():
     environ['FIAS_USER'] = 'user'
     environ['FIAS_PASSWORD'] = '11111111'
     # -----------------------------
+
+    # ------------ REALM and AUTH ------------
+    environ['KRB_AUTH_REALM'] = 'INT.AORTI.TECH'
+    environ['AUTH_TYPE'] = 'kerberos'
+
+    # ------------ SVIP ------------
+    environ['SVIP_HOST'] = 'http://1adr-book02.int.aorti.tech:8820/public/api/'
+    environ['SVIP_USER'] = 'mks'
+    environ['SVIP_PASSWORD'] = 'iEfG02AE'

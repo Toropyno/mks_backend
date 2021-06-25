@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPForbidden
 from webob import Response
 from pyramid.view import view_config
 from colander import Invalid as ColanderInvalid
@@ -30,6 +31,11 @@ def colander_exception_view(context, request):
         return {'code': list(errors.keys()).pop(), 'message': '.\n\n'.join(errors.values())}
 
     return Response(status=403, json_body=get_collander_error_dict(context.asdict()))
+
+
+@view_config(context=HTTPForbidden)
+def unauthorized(context, request):
+    return Response(status=401, json_body={'code': 'unauthorized', 'message': 'Недостаточно прав для просмотра ресурса'})
 
 #
 # @view_config(context=Exception)
