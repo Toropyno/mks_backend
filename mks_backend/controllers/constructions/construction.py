@@ -5,8 +5,6 @@ from mks_backend.controllers.schemas.constructions import ConstructionSchema, Co
 from mks_backend.serializers.constructions import ConstructionSerializer
 from mks_backend.serializers.coordinate import CoordinateSerializer
 from mks_backend.services.constructions import ConstructionService
-from mks_backend.services.geoobject.geo_object import GeoObjectService
-from mks_backend.services.geoobject.geo_object__cross__user import GeoObjectCrossUserService
 
 
 @view_defaults(renderer='json')
@@ -15,7 +13,6 @@ class ConstructionController:
     def __init__(self, request: Request):
         self.request = request
         self.service = ConstructionService()
-        self.geo_object_service = GeoObjectCrossUserService()
         self.serializer = ConstructionSerializer()
         self.schema = ConstructionSchema()
         self.filter_schema = ConstructionFilterSchema()
@@ -37,8 +34,7 @@ class ConstructionController:
 
         coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
         construction = self.service.convert_schema_to_object(construction_deserialized)
-        if (construction.geo_object):
-            construction.geo_object.coordinate = coordinate
+        construction.coordinate = coordinate
 
         self.service.add_construction(construction)
         return {'id': construction.construction_id}
@@ -56,9 +52,7 @@ class ConstructionController:
 
         coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
         new_construction = self.service.convert_schema_to_object(construction_deserialized)
-        if (new_construction.geo_object):
-            new_construction.geo_object.coordinate = coordinate
-       # new_construction.coordinate = coordinate
+        new_construction.coordinate = coordinate
 
         self.service.update_construction(new_construction)
         return {'id': new_construction.construction_id}
