@@ -1,51 +1,36 @@
-import logging
-import requests
-from os import environ
 from subprocess import Popen, PIPE
 
+import requests
 from requests_kerberos import HTTPKerberosAuth
 
-
-logging.basicConfig(level=logging.INFO)
+from mks_backend.settings import AUTH_TYPE, MKS_USER, KRB_AUTH_REALM
 
 
 class Authorization:
 
-    def __init__(self, username: str, password: str):
-        self.username = username
-        self.password = password
+    def __init__(self):
         self.auth = self._auth
 
     @property
-    def login_with_realm(self):
-        return self.username + '@' + environ['KRB_AUTH_REALM']
-
-    @property
     def _auth(self):
-        auth_type = environ['AUTH_TYPE']
-        if auth_type == 'kerberos':
-            # TODO: Слишком частое создание тикета
-            self.create_ticket()
-            auth = HTTPKerberosAuth(principal=self.login_with_realm)
-            return auth
-        elif auth_type == 'explicit':
-            return ExplicitAuth(self.login_with_realm)
+        if AUTH_TYPE == 'kerberos':
+            return HTTPKerberosAuth()
+        elif AUTH_TYPE == 'explicit':
+            return ExplicitAuth('{username}@{realm}'.format(username=MKS_USER, realm=KRB_AUTH_REALM))
 
-    def check_ticket(self):
-        # TODO: Можно сделать умнее
-        whoami = requests.get(environ['MIV_WHOAMI_URL'], auth=self.auth)
-        is_authorized = True if whoami.status_code == 200 else False
+    @classmethod
+    def create_ticket(cls, username: str, password: str) -> None:
+        """
+        Создаёт kerberos ticket для пользователя по логину и паролю
+        Должен использоваться только для скриптов, например, для первоначального наполнения СВИП
 
-        if not is_authorized:
-            logging.info('CREATING TICKET')
-            self.create_ticket()
-            self.check_ticket()
-        else:
-            logging.info('I AM {}'.format(whoami.json()))
-
-    def create_ticket(self):
-        kinit = Popen(['/usr/bin/kinit', self.username], stdin=PIPE, stdout=PIPE, stderr=PIPE)
-        kinit.communicate(input=bytes(self.password + '\n', encoding='utf-8'))
+        TODO: возможно в контуре главного конструктора такой трюк не пройдёт из-за того, что мы можем не знать пароль пользователя
+        :param username: имя пользователя - владельца коллекции в СВИП
+        :param password: пароль пользователя - владельца коллекции в СВИП
+        :return:
+        """
+        kinit = Popen(['/usr/bin/kinit', username], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        kinit.communicate(input=bytes(password + '\n', encoding='utf-8'))
         kinit.wait(timeout=3)
 
 

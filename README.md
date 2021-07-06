@@ -15,7 +15,7 @@ source env/bin/activate
 
 pip install --upgrade pip setuptools
 python setup.py install
-pip install -e ".[dev]" 
+pip install -e ".[dev]" -i http://art.rd.aorti.ru/repository/pypi-proxy/simple/ --trusted-host art.rd.aorti.ru
 ``` 
 
 ### Установка PostgreSQL 

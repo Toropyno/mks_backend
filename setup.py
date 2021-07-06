@@ -16,6 +16,7 @@ requires = [
     'requests_toolbelt',
     'kerberos',
     'requests_kerberos',
+    'python-dotenv',
 ]
 
 dev_requires = [
@@ -38,6 +39,7 @@ setup(
             'initialize_mks_db=mks_backend.scripts.initialize_db:main',
             'clean_db=mks_backend.scripts.clean_db:clean_db',
             'fill_db=mks_backend.scripts.fill_db:fill_db',
+            'svip=mks_backend.scripts.svip:main',
         ],
     },
 )

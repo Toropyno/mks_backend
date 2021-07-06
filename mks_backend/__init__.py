@@ -13,11 +13,8 @@ from mks_backend.controllers.miv.routes import include_miv
 from mks_backend.routes import includeme
 from mks_backend._loggers.routes import include_logs
 
-from mks_backend.env_vars import setup_env_vars
-
 
 def main(global_config, **settings):
-    setup_env_vars()
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
@@ -35,6 +32,9 @@ def main(global_config, **settings):
     config.include(include_state_contracts)
     config.include(include_miv)
     config.include(include_logs)
+
+    # хуки, которые срабатывает до начала обработки request нашим приложением и после
+    config.add_tween('mks_backend.tweens.tween_factory')
 
     config.scan()
     return config.make_wsgi_app()
