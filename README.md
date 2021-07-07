@@ -14,8 +14,8 @@ python3 -m venv env
 source env/bin/activate
 
 pip install --upgrade pip setuptools
+pip install -e ".[dev]" -i http://art.rd.aorti.ru/repository/pypi-proxy/simple/ --trusted-host art.rd.aorti.ru
 python setup.py install
-pip install -e ".[dev]" 
 ``` 
 
 ### Установка PostgreSQL 
@@ -71,3 +71,6 @@ lc_messages = 'en_US.UTF-8'
 ```sh
 sudo service postgresql restart
 ```
+
+### СВИП
+[СВИП README](mks_backend/SVIP/README.md)

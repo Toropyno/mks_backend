@@ -1,0 +1,11 @@
+{
+  "accounts_with_all_permissions": [
+    "mks",
+    "mio",
+    "mog",
+    "mfo"
+  ],
+  "accounts_with_no_permissions": [
+    "kvdv01"
+  ]
+}

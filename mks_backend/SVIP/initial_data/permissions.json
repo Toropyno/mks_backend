@@ -1,0 +1,22 @@
+[
+  {
+    "name": "МКC CRUD ИСП" ,
+    "function_name": "access.mks_crud_isp"
+  },
+  {
+    "name": "МКC CRUD Реестр проверок" ,
+    "function_name": "access.mks_crud_inspections"
+  },
+  {
+    "name": "МКC CRUD Реестр протоколов" ,
+    "function_name": "access.mks_crud_protocols"
+  },
+  {
+    "name": "МКC CRUD Реестр поездок" ,
+    "function_name": "access.mks_crud_trips"
+  },
+  {
+    "name": "МКC CRUD Реестр организаций" ,
+    "function_name": "access.mks_crud_organizations"
+  }
+]

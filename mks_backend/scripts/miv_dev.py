@@ -1,6 +1,7 @@
+from os import path
 import argparse
 
-from mks_backend.env_vars import setup_env_vars
+from dotenv import load_dotenv
 
 from mks_backend.repositories.miv.miv import MIVRepository
 
@@ -14,7 +15,7 @@ def send():
 
 
 if __name__ == '__main__':
-    setup_env_vars()
+    load_dotenv(path.join(path.realpath(path.dirname(__file__)), '.env'))
     parser = argparse.ArgumentParser()
     parser.add_argument('action')
     args = parser.parse_args()
