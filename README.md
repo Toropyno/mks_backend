@@ -4,7 +4,11 @@
 - ##### [Техническое проектирование](https://gitlab.rd.aorti.ru/ntc-sria/nio1/analytics2/-/tree/master/%D0%A6%D0%A3%D0%9F%D0%94/%D0%9C%D0%9A%D0%A1/%D0%A2%D0%9F%20%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D1%83%20%D0%9F%D0%98)
 
 --------------------------------------------------------------------------------
-## Развёртывание проекта:
+### Необходимые apt-пакеты
+```shell
+sudo apt-get install python3.5-dev python3-venv apache2 python-setuptools libapache2-mod-auth-kerb libapache2-mod-wsgi-py3 libkrb5-dev libpq-dev postgresql-9.6 python3-pip python-psycopg2 build-essential libldap2-dev libsasl2-dev postgresql-contrib ldap-utils memcached libmemcached-tools
+```
+
 ### Настройка окружения (для всех последующих команд)
 ```sh
 sudo apt update && apt -y upgrade
@@ -37,9 +41,12 @@ fill_db development.ini
 ```
 ###
 
-### Если при любой ошибке система выдаёт "Ошибка с БД",
-### значит, БД на сервере генерирует ошибки на русском языке.
-### Следует изменить текст ошибки, чтобы модуль обработки её поймал
+Если при любой ошибке система выдаёт **Ошибка с БД**,
+значит, БД на сервере генерирует ошибки на русском языке.
+Следует изменить текст ошибки, чтобы модуль обработки её поймал:
+<details>
+<p>
+
 ```sh
 nano /etc/locale.gen  # запускаем на редактирование
 ```
@@ -71,6 +78,8 @@ lc_messages = 'en_US.UTF-8'
 ```sh
 sudo service postgresql restart
 ```
+</p>
+</details> 
 
 ### СВИП
 [СВИП README](mks_backend/SVIP/README.md)
