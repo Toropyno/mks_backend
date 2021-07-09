@@ -3,6 +3,8 @@ import logging
 from os import path
 from typing import Optional, List
 
+from pyramid.httpexceptions import HTTPForbidden
+
 from mks_backend.SVIP.repository import SVIPRepository
 from mks_backend.settings import SVIP_HOST, BASE_DIRECTORY, KRB_AUTH_REALM
 
@@ -22,7 +24,7 @@ class SVIP:
         try:
             return next(elem['uid'] for elem in sets if elem['name'] == self.COLLECTION_NAME)
         except StopIteration:
-            raise ValueError('Такой коллекции разрешений нет в СВИП')
+            raise HTTPForbidden('Этот пользователь не входит в коллекцию СВИП')
 
     def get_permissions(self, username_with_realm: str) -> dict:
         """
