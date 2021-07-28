@@ -1,6 +1,8 @@
 import argparse
 import logging
 
+from pyramid.httpexceptions import HTTPForbidden
+
 from mks_backend.SVIP import SVIP
 from mks_backend.auth import Authorization
 
@@ -30,7 +32,7 @@ def create_svip():
 
     try:
         collection_uuid = service.get_set_uuid()
-    except ValueError:
+    except HTTPForbidden:
         logging.info('Создаём коллекцию {}'.format(service.COLLECTION_NAME))
         collection_uuid = service.create_set()
     else:
