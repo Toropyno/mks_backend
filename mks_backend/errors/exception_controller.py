@@ -37,7 +37,7 @@ def colander_exception_view(context, request):
 
 @view_config(context=HTTPForbidden)
 def unauthorized(context, request):
-    return Response(status=401, json_body={'code': 'unauthorized', 'message': 'Недостаточно прав для просмотра ресурса'})
+    return Response(status=403, json_body={'code': 'unauthorized', 'message': 'Недостаточно прав для просмотра ресурса'})
 
 
 @view_config(context=Exception)
