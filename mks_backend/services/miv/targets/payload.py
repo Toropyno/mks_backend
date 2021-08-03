@@ -1,10 +1,10 @@
-from os import environ
 from os import path as os_path
 from datetime import datetime
 
 from streaming_form_data.targets import BaseTarget
 
 from mks_backend.repositories.miv.storage import StorageRepository, Storage
+from mks_backend.settings import SETTINGS
 
 
 class PayloadTarget(BaseTarget):
@@ -13,7 +13,7 @@ class PayloadTarget(BaseTarget):
     'payload' could be any mime-type, default - application/octet-stream
     Writes (streams) the input to an on-disk file in FILESTORAGE_PATH
     """
-    FILESTORAGE_PATH = environ['MIV_FILESTORAGE_PATH']
+    FILESTORAGE_PATH = SETTINGS['MIV_FILESTORAGE_PATH']
 
     def __init__(self, sender, uid, *args, **kwargs):
         super().__init__(*args, **kwargs)

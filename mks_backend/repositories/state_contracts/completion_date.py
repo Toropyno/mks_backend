@@ -1,4 +1,4 @@
-from mks_backend import DBSession
+from mks_backend.session import DBSession
 from mks_backend.models.state_contracts.completion_date import CompletionDate
 
 from mks_backend.errors.db_basic_error import DBBasicError

@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 
 requires = [
+    'wheel',
     'pyramid',
     'pyramid_retry',
     'pyramid_tm',

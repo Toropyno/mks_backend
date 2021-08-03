@@ -3,20 +3,21 @@ from subprocess import Popen, PIPE
 import requests
 from requests_kerberos import HTTPKerberosAuth
 
-from mks_backend.settings import AUTH_TYPE, MKS_USER, KRB_AUTH_REALM
+from mks_backend.settings import SETTINGS
 
 
 class Authorization:
 
     def __init__(self):
+        self.auth_type = SETTINGS['AUTH_TYPE']
         self.auth = self._auth
 
     @property
     def _auth(self):
-        if AUTH_TYPE == 'kerberos':
+        if self.auth_type == 'kerberos':
             return HTTPKerberosAuth()
-        elif AUTH_TYPE == 'explicit':
-            return ExplicitAuth('{username}@{realm}'.format(username=MKS_USER, realm=KRB_AUTH_REALM))
+        elif self.auth_type == 'explicit':
+            return ExplicitAuth()
 
     @classmethod
     def create_ticket(cls, username: str, password: str) -> None:
@@ -36,9 +37,6 @@ class Authorization:
 
 class ExplicitAuth(requests.auth.AuthBase):
 
-    def __init__(self, login_with_realm: str):
-        self.login_with_realm = login_with_realm
-
     def __call__(self, request: requests.PreparedRequest) -> requests.PreparedRequest:
-        request.headers['Authorization'] = 'Explicit {}'.format(self.login_with_realm)
+        request.headers['Authorization'] = 'Explicit {}@{}'.format(SETTINGS['MIO_USER'], SETTINGS['KRB_AUTH_REALM'])
         return request
