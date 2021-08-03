@@ -1,8 +1,6 @@
 from pyramid.config import Configurator
-from sqlalchemy import engine_from_config
 
 from mks_backend.security import SecurityPolicy
-from mks_backend.session import DBSession, Base
 from mks_backend.controllers.trips.routes import include_trips
 from mks_backend.controllers.protocols.routes import include_protocols
 from mks_backend.controllers.inspections.routes import include_inspections
@@ -15,9 +13,6 @@ from mks_backend._loggers.routes import include_logs
 
 
 def main(global_config, **settings):
-    engine = engine_from_config(settings, 'sqlalchemy.')
-    DBSession.configure(bind=engine)
-    Base.metadata.bind = engine
     config = Configurator(settings=settings)
 
     config.set_authentication_policy(SecurityPolicy())

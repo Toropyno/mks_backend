@@ -6,20 +6,23 @@ from typing import Optional, List
 from pyramid.httpexceptions import HTTPForbidden
 
 from mks_backend.SVIP.repository import SVIPRepository
-from mks_backend.settings import SVIP_HOST, BASE_DIRECTORY, KRB_AUTH_REALM
+from mks_backend.settings import SETTINGS, BASE_DIRECTORY
 
 
 class SVIP:
-    COLLECTION_NAME = 'МКС'
 
     def __init__(self):
+        self.COLLECTION_NAME = SETTINGS['COLLECTION_NAME']
+
+        self.host = SETTINGS['SVIP_HOST']
+        self.realm = SETTINGS['KRB_AUTH_REALM'].lower()
         self.repo = SVIPRepository()
 
     def get_set_uuid(self) -> str:
         """
         Получаем uuid набора по наименованию набора
         """
-        sets_url = '{host}/idm/set/'.format(host=SVIP_HOST)
+        sets_url = '{host}/idm/set/'.format(host=self.host)
         sets = self.repo.get_from_all_pages(sets_url)
         try:
             return next(elem['uid'] for elem in sets if elem['name'] == self.COLLECTION_NAME)
@@ -36,7 +39,7 @@ class SVIP:
         }
         """
         permission_url = '{host}/idm/{set_uuid}/check_permission/?account_id={username}'.format(
-            host=SVIP_HOST,
+            host=self.host,
             set_uuid=self.get_set_uuid(),
             username=username_with_realm
         )
@@ -51,7 +54,7 @@ class SVIP:
 
         :return: uuid коллекции
         """
-        set_url = '{host}/idm/set/'.format(host=SVIP_HOST)
+        set_url = '{host}/idm/set/'.format(host=self.host)
         response = self.repo.custom_post(url=set_url, json_data={'name': self.COLLECTION_NAME})
 
         collection_uuid = response['data']['uid']
@@ -69,11 +72,11 @@ class SVIP:
         with open(path_to_accounts) as f:
             accounts = json.load(f)
 
-        url = '{host}/idm/{collection_uuid}/set_owner/'.format(host=SVIP_HOST, collection_uuid=collection_uuid)
+        url = '{host}/idm/{collection_uuid}/set_owner/'.format(host=self.host, collection_uuid=collection_uuid)
         for account in accounts:
             json_data = {
                 'set_id': collection_uuid,
-                'owner_id': '{account}@{realm}'.format(account=account, realm=KRB_AUTH_REALM.lower()),
+                'owner_id': '{account}@{realm}'.format(account=account, realm=self.realm),
                 'id_edit': False
             }
             self.repo.custom_post(url, json_data=json_data)
@@ -90,7 +93,7 @@ class SVIP:
             permissions = json.load(f)
 
         permissions_uuid = []
-        set_url = '{host}/idm/{collection_uuid}/permission/'.format(host=SVIP_HOST, collection_uuid=collection_uuid)
+        set_url = '{host}/idm/{collection_uuid}/permission/'.format(host=self.host, collection_uuid=collection_uuid)
         for permission in permissions:
             response = self.repo.custom_post(url=set_url, json_data=permission)
             permissions_uuid.append(response['data']['uid'])
@@ -110,11 +113,11 @@ class SVIP:
         with open(path_to_accounts) as f:
             accounts = json.load(f)
 
-        url = '{host}/idm/{collection_uuid}/account_permission/'.format(host=SVIP_HOST, collection_uuid=collection_uuid)
+        url = '{host}/idm/{collection_uuid}/account_permission/'.format(host=self.host, collection_uuid=collection_uuid)
         for permission in permissions:
             for account in accounts['accounts_with_all_permissions']:
                 json_data = {
-                    'account_id': '{account}@{realm}'.format(account=account, realm=KRB_AUTH_REALM.lower()),
+                    'account_id': '{account}@{realm}'.format(account=account, realm=self.realm),
                     'permission_id': permission,
                     'is_allow': True
                 }
@@ -122,7 +125,7 @@ class SVIP:
 
             for account in accounts['accounts_with_no_permissions']:
                 json_data = {
-                    'account_id': '{account}@{realm}'.format(account=account, realm=KRB_AUTH_REALM.lower()),
+                    'account_id': '{account}@{realm}'.format(account=account, realm=self.realm),
                     'permission_id': permission,
                     'is_allow': False
                 }
@@ -134,6 +137,6 @@ class SVIP:
         :return: None
         """
         collection_uuid = self.get_set_uuid()
-        url = '{host}/idm/set/{collection_uuid}/'.format(host=SVIP_HOST, collection_uuid=collection_uuid)
+        url = '{host}/idm/set/{collection_uuid}/'.format(host=self.host, collection_uuid=collection_uuid)
         logging.info(url)
         self.repo.custom_delete(url)

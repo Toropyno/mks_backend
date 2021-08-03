@@ -6,7 +6,7 @@ from pyramid.httpexceptions import HTTPForbidden
 from mks_backend.SVIP import SVIP
 from mks_backend.auth import Authorization
 
-from mks_backend.settings import MKS_USER, MKS_PASSWORD
+from mks_backend.settings import SETTINGS
 
 
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +28,7 @@ def create_svip():
 
     # прежде, чем начнём, нужно создать kerberos-ticket для пользователя,
     # от чьего лица будет наполняться коллекция в СВИП
-    Authorization.create_ticket(MKS_USER, MKS_PASSWORD)
+    Authorization.create_ticket(SETTINGS['MKS_USER'], SETTINGS['MKS_PASSWORD'])
 
     try:
         collection_uuid = service.get_set_uuid()
@@ -51,7 +51,7 @@ def create_svip():
 def delete_svip():
     service = SVIP()
 
-    Authorization.create_ticket(MKS_USER, MKS_PASSWORD)
+    Authorization.create_ticket(SETTINGS['MKS_USER'], SETTINGS['MKS_PASSWORD'])
     service.delete_collection()
     logging.info('Коллекция {} удалена'.format(service.COLLECTION_NAME))
 

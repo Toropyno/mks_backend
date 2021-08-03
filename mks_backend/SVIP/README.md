@@ -16,9 +16,9 @@ svip delete
 ./env/bin/svip delete
 ```
 
-Название коллекции (**COLLECTION_NAME**) задаётся в [модуле СВИП](SVIP.py)
+Название коллекции (**COLLECTION_NAME**) задаётся в [development.ini](./../../development.ini)
 
-Хост СВИП, пользователь (владелец коллекции), от которого будут создаваться данные в СВИП, указаны в [переменных окружения](../.env)
+Хост СВИП, пользователь (владелец коллекции), от которого будут создаваться данные в СВИП, указаны в [development.ini](./../../development.ini)
 ```shell
 MKS_USER = mks
 MKS_PASSWORD = iEfG02AE
