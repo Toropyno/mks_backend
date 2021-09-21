@@ -1,0 +1,52 @@
+from pyramid.view import view_config, view_defaults
+from pyramid.request import Request
+
+from .schema import OrganizationDocumentSchema
+from .serializer import OrganizationDocumentSerializer
+from .service import OrganizationDocumentService
+
+
+@view_defaults(renderer='json')
+class OrganizationDocumentController:
+
+    def __init__(self, request: Request):
+        self.request = request
+        self.schema = OrganizationDocumentSchema()
+        self.service = OrganizationDocumentService()
+        self.serializer = OrganizationDocumentSerializer()
+
+    @view_config(route_name='add_organization_document')
+    def add_organization_document(self):
+        organization_document_deserialized = self.schema.deserialize(self.request.json_body)
+        organization_document = self.service.convert_schema_to_object(organization_document_deserialized)
+
+        self.service.add_organization_document(organization_document)
+        return {'id': organization_document.organization_documents_id}
+
+    @view_config(route_name='edit_organization_document')
+    def edit_organization_document(self):
+        id = int(self.request.matchdict.get('id'))
+        organization_document_deserialized = self.schema.deserialize(self.request.json_body)
+        organization_document_deserialized['id'] = id
+
+        organization_document = self.service.convert_schema_to_object(organization_document_deserialized)
+        self.service.update_organization_document(organization_document)
+        return {'id': id}
+
+    @view_config(route_name='delete_organization_document')
+    def delete_organization_document(self):
+        id = int(self.request.matchdict.get('id'))
+        self.service.delete_organization_document_by_id(id)
+        return {'id': id}
+
+    @view_config(route_name='get_documents_by_organization')
+    def get_documents_by_organization(self):
+        organization_id = self.request.matchdict.get('organization_uuid')
+        documents = self.service.get_documents_by_organization(organization_id)
+        return self.serializer.convert_list_to_json(documents)
+
+    @view_config(route_name='get_document_by_organization')
+    def get_document_by_organization(self):
+        document_id = self.request.matchdict.get('id')
+        document = self.service.get_organization_document_by_id(document_id)
+        return self.serializer.convert_object_to_json(document)

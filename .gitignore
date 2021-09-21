@@ -4,5 +4,3 @@
 .idea/
 build/
 dist/
-/alembic.ini
-/alembic/
