@@ -1,6 +1,6 @@
 from pyramid.view import view_config
 
-from .loger import DBErrorLogger
+from .logger import DBErrorLogger
 
 
 class DBErrorController:

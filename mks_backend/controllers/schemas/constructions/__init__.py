@@ -1,6 +1,0 @@
-from mks_backend.controllers.schemas.constructions.construction import ConstructionSchema, ConstructionFilterSchema
-from mks_backend.controllers.schemas.constructions.construction_subcategory import ConstructionSubcategorySchema
-from mks_backend.controllers.schemas.constructions.construction_category import ConstructionCategorySchema
-from mks_backend.controllers.schemas.constructions.construction_type import ConstructionTypeSchema
-from mks_backend.controllers.schemas.constructions.location_type import LocationTypeSchema
-from mks_backend.controllers.schemas.constructions.commission import CommissionSchema

@@ -1,1 +1,0 @@
-from mks_backend.serializers.constructions.construction import ConstructionSerializer

@@ -1,8 +1,8 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy import engine_from_config, create_engine
 
 from pyramid.paster import get_appsettings, setup_logging
+from sqlalchemy import engine_from_config, create_engine
 
 from mks_backend.settings import SETTINGS
 

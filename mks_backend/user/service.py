@@ -11,7 +11,7 @@ class UserService:
     @property
     def current_username_with_realm(self) -> str:
         request = get_current_request()
-        username = request.environ.get('REMOTE_USER')
+        username = request.environ.get('REMOTE_USER', 'mks@INT.AORTI.TECH')
         return username
 
     def get_permissions(self) -> dict:

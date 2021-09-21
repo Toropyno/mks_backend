@@ -3,7 +3,7 @@ import argparse
 
 from dotenv import load_dotenv
 
-from mks_backend.repositories.miv.miv import MIVRepository
+from mks_backend.entities.miv.repository import MIVRepository
 
 
 def register():

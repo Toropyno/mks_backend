@@ -1,155 +1,53 @@
-def includeme(config):
-    config.add_route('download_file', '/file/{uuid}', request_method='GET')
-    config.add_route('upload_file', '/file', request_method='POST')
-    config.add_route('get_file_info', '/protocol/file_info', request_method='GET')
-
-    config.add_route('get_filestorages_by_object',
-                     'construction_object/{id}/filestorages',
-                     request_method='GET')
-
-    # ISP
-    config.add_route('get_all_constructions', '/construction', request_method='GET')
-    config.add_route('add_construction', '/construction', request_method='POST')
-    config.add_route('delete_construction', '/construction/{id}', request_method='DELETE')
-    config.add_route('edit_construction', '/construction/{id}', request_method='PUT')
-    config.add_route('get_construction', '/construction/{id}', request_method='GET')
-
-    config.add_route(
-        'get_construction_objects_by_parent',
-        'construction/{construction_id}/construction_objects',
-        request_method='GET'
-    )
-
-    config.add_route('get_dynamics_by_construction', '/construction/{construction_id}/dynamic', request_method='GET')
-    config.add_route('add_construction_dynamic', '/dynamic', request_method='POST')
-    config.add_route('get_construction_dynamic', '/dynamic/{id}', request_method='GET')
-    config.add_route('edit_construction_dynamic', '/dynamic/{id}', request_method='PUT')
-    config.add_route('delete_construction_dynamic', '/dynamic/{id}', request_method='DELETE')
-
-    config.add_route('add_construction_object', '/construction_object', request_method='POST')
-    config.add_route('delete_construction_object', '/construction_object/{id}', request_method='DELETE')
-    config.add_route('edit_construction_object', '/construction_object/{id}', request_method='PUT')
-    config.add_route('get_construction_object', '/construction_object/{id}', request_method='GET')
-
-    config.add_route('get_reference_history_by_object', '/construction_object/{id}/reference-history', request_method='GET')
-    config.add_route('get_object_completion_by_object', '/construction_object/{id}/completion', request_method='GET')
-
-    config.add_route('get_all_construction_categories', '/construction_category', request_method='GET')
-    config.add_route('add_construction_category', '/construction_category', request_method='POST')
-    config.add_route('delete_construction_category', '/construction_category/{id}', request_method='DELETE')
-    config.add_route('edit_construction_category', '/construction_category/{id}', request_method='PUT')
-    config.add_route('get_construction_category', '/construction_category/{id}', request_method='GET')
-
-    config.add_route('get_all_construction_subcategories', '/construction_subcategory', request_method='GET')
-    config.add_route('add_construction_subcategory', '/construction_subcategory', request_method='POST')
-    config.add_route('delete_construction_subcategory', '/construction_subcategory/{id}', request_method='DELETE')
-    config.add_route('edit_construction_subcategory', '/construction_subcategory/{id}', request_method='PUT')
-    config.add_route('get_construction_subcategory', '/construction_subcategory/{id}', request_method='GET')
-
-    config.add_route('get_all_construction_stages', '/construction_stage', request_method='GET')
-    config.add_route('add_construction_stage', '/construction_stage', request_method='POST')
-    config.add_route('delete_construction_stage', '/construction_stage/{id}', request_method='DELETE')
-    config.add_route('edit_construction_stage', '/construction_stage/{id}', request_method='PUT')
-    config.add_route('get_construction_stage', '/construction_stage/{id}', request_method='GET')
-
-    config.add_route('get_all_object_categories', '/object_category', request_method='GET')
-    config.add_route('add_object_category', '/object_category', request_method='POST')
-    config.add_route('delete_object_category', '/object_category/{id}', request_method='DELETE')
-    config.add_route('edit_object_category', '/object_category/{id}', request_method='PUT')
-    config.add_route('get_object_category', '/object_category/{id}', request_method='GET')
-
-    config.add_route('get_all_zones', '/zone', request_method='GET')
-    config.add_route('add_zone', '/zone', request_method='POST')
-    config.add_route('delete_zone', '/zone/{id}', request_method='DELETE')
-    config.add_route('edit_zone', '/zone/{id}', request_method='PUT')
-    config.add_route('get_zone', '/zone/{id}', request_method='GET')
-
-    config.add_route('get_all_commissions', '/commission', request_method='GET')
-    config.add_route('add_commission', '/commission', request_method='POST')
-    config.add_route('delete_commission', '/commission/{id}', request_method='DELETE')
-    config.add_route('edit_commission', '/commission/{id}', request_method='PUT')
-    config.add_route('get_commission', '/commission/{id}', request_method='GET')
-
-    config.add_route('get_military_units', '/military_unit', request_method='GET')
-
-    config.add_route('get_coordinates', '/coordinate', request_method='GET')
-
-    config.add_route('get_subcategories_lists', '/subcategories_lists', request_method='GET')
-    config.add_route('get_object_categories_lists', '/object_categories_list', request_method='GET')
-
-    config.add_route('get_construction_documents_by_construction', 'construction/{id}/construction_documents', request_method='GET')
-    config.add_route('get_construction_document', '/construction_document/{id}', request_method='GET')
-    config.add_route('add_construction_document', '/construction_document', request_method='POST')
-    config.add_route('edit_construction_document', '/construction_document/{id}', request_method='PUT')
-    config.add_route('delete_construction_document', '/construction_document/{id}', request_method='DELETE')
-
-    config.add_route('get_construction_documents_by_object', 'construction_object/{id}/document', request_method='GET')
-    config.add_route('edit_construction_document_and_object_relations', 'construction_object/{id}/document', request_method='PUT')
-
-    config.add_route('get_all_construction_progresses_by_object',
-                     'construction_object/{id}/construction_progresses',
-                     request_method='GET')
-    config.add_route('get_last_construction_progress_by_object',
-                     'construction_object/{id}/construction_progress',
-                     request_method='GET')
-    config.add_route('add_construction_progress', '/construction_progress', request_method='POST')
-    config.add_route('get_construction_progress', '/construction_progress/{id}', request_method='GET')
-    config.add_route('edit_construction_progress', '/construction_progress/{id}', request_method='PUT')
-    config.add_route('delete_construction_progress', '/construction_progress/{id}', request_method='DELETE')
-
-    config.add_route('get_all_location_types', '/location_type', request_method='GET')
-    config.add_route('add_location_type', '/location_type', request_method='POST')
-    config.add_route('delete_location_type', '/location_type/{id}', request_method='DELETE')
-    config.add_route('edit_location_type', '/location_type/{id}', request_method='PUT')
-    config.add_route('get_location_type', '/location_type/{id}', request_method='GET')
-
-    config.add_route('get_all_construction_companies', '/company', request_method='GET')
-    config.add_route('add_construction_company', '/company', request_method='POST')
-    config.add_route('delete_construction_company', '/company/{id}', request_method='DELETE')
-    config.add_route('edit_construction_company', '/company/{id}', request_method='PUT')
-    config.add_route('get_construction_company', '/company/{id}', request_method='GET')
-
-    config.add_route('get_all_oksms', '/oksm', request_method='GET')
-    config.add_route('add_oksm', '/oksm', request_method='POST')
-    config.add_route('delete_oksm', '/oksm/{id}', request_method='DELETE')
-    config.add_route('edit_oksm', '/oksm/{id}', request_method='PUT')
-    config.add_route('get_oksm', '/oksm/{id}', request_method='GET')
-
-    config.add_route('get_all_construction_types', '/construction_type', request_method='GET')
-    config.add_route('add_construction_type', '/construction_type', request_method='POST')
-    config.add_route('delete_construction_type', '/construction_type/{id}', request_method='DELETE')
-    config.add_route('edit_construction_type', '/construction_type/{id}', request_method='PUT')
-    config.add_route('get_construction_type', '/construction_type/{id}', request_method='GET')
-
-    config.add_route('get_all_doc_types', '/doc_type', request_method='GET')
-    config.add_route('add_doc_type', '/doc_type', request_method='POST')
-    config.add_route('delete_doc_type', '/doc_type/{id}', request_method='DELETE')
-    config.add_route('edit_doc_type', '/doc_type/{id}', request_method='PUT')
-    config.add_route('get_doc_type', '/doc_type/{id}', request_method='GET')
-
-    config.add_route('get_all_realty_types', '/realty_type', request_method='GET')
-    config.add_route('add_realty_type', '/realty_type', request_method='POST')
-    config.add_route('delete_realty_type', '/realty_type/{id}', request_method='DELETE')
-    config.add_route('edit_realty_type', '/realty_type/{id}', request_method='PUT')
-    config.add_route('get_realty_type', '/realty_type/{id}', request_method='GET')
-
-    config.add_route('get_all_object_files', '/object_file', request_method='GET')
-    config.add_route('add_object_file', '/object_file', request_method='POST')
-    config.add_route('delete_object_file', '/object_file/{id}', request_method='DELETE')
-    config.add_route('edit_object_file', '/object_file/{id}', request_method='PUT')
-    config.add_route('get_object_file', '/object_file/{id}', request_method='GET')
-    config.add_route('get_object_files_by_object', 'construction_object/{id}/object_files', request_method='GET')
-
-    config.add_route(
-        'get_work_list_for_construction_object',
-        '/construction_object/{id}/work_list',
-        request_method='GET'
-    )
-
-    config.add_route('get_all_progress_statuses', '/progress_status', request_method='GET')
-    config.add_route('add_progress_status', '/progress_status', request_method='POST')
-    config.add_route('delete_progress_status', '/progress_status/{id}', request_method='DELETE')
-    config.add_route('edit_progress_status', '/progress_status/{id}', request_method='PUT')
-    config.add_route('get_progress_status', '/progress_status/{id}', request_method='GET')
-
-    config.add_route('get_all_fiases_for_filtration', '/fias-filter', request_method='GET')
+ROUTES = [
+    'mks_backend._loggers.routes.include_logs',
+    'mks_backend.entities.construction_company.routes.include_construction_companies',
+    'mks_backend.entities.construction_objects.construction_object.routes.include_construction_objects',
+    'mks_backend.entities.construction_objects.construction_progress.routes.include_construction_progress',
+    'mks_backend.entities.construction_objects.construction_stage.routes.include_construction_stages',
+    'mks_backend.entities.construction_objects.object_category.routes.include_object_category',
+    'mks_backend.entities.construction_objects.object_category_list.routes.include_object_categories_list',
+    'mks_backend.entities.construction_objects.object_completion.routes.include_object_completion',
+    'mks_backend.entities.construction_objects.object_file.routes.include_object_files',
+    'mks_backend.entities.construction_objects.progress_status.routes.include_progress_statuses',
+    'mks_backend.entities.construction_objects.realty_type.routes.include_realty_types',
+    'mks_backend.entities.construction_objects.reference_history.routes.include_reference_histories',
+    'mks_backend.entities.construction_objects.zone.routes.include_zones',
+    'mks_backend.entities.constructions.commission.routes.include_commissions',
+    'mks_backend.entities.constructions.construction.routes.include_constructions',
+    'mks_backend.entities.constructions.construction_category.routes.include_construction_categories',
+    'mks_backend.entities.constructions.construction_dynamic.routes.include_construction_dynamic',
+    'mks_backend.entities.constructions.construction_subcategory.routes.include_construction_subcategories',
+    'mks_backend.entities.constructions.construction_type.routes.include_construction_type',
+    'mks_backend.entities.constructions.location_type.routes.include_location_types',
+    'mks_backend.entities.constructions.subcategory_list.routes.include_subcategories_lists',
+    'mks_backend.entities.coordinate.routes.include_coordinates',
+    'mks_backend.entities.documents.construction_document.routes.include_construction_documents',
+    'mks_backend.entities.documents.doc_type.routes.include_doc_types',
+    'mks_backend.entities.documents.object_document.routes.include_object_documents',
+    'mks_backend.entities.fias.routes.include_fias',
+    'mks_backend.entities.filestorage.routes.include_filestorage',
+    'mks_backend.entities.inspections.inspected_object.routes.include_inspected_objects',
+    'mks_backend.entities.inspections.inspection.routes.include_inspections',
+    'mks_backend.entities.inspections.inspection_file.routes.include_inspection_files',
+    'mks_backend.entities.military_unit.routes.include_military_units',
+    'mks_backend.entities.miv.routes.include_miv',
+    'mks_backend.entities.oksm.routes.include_oksms',
+    'mks_backend.entities.organizations.military_rank.routes.include_military_ranks',
+    'mks_backend.entities.organizations.official.routes.include_officials',
+    'mks_backend.entities.organizations.organization.routes.include_organizations',
+    'mks_backend.entities.organizations.organization_document.routes.include_organization_document',
+    'mks_backend.entities.organizations.organization_history.routes.include_organization_history',
+    'mks_backend.entities.protocols.meeting.routes.include_meeting_types',
+    'mks_backend.entities.protocols.protocol.routes.include_protocols',
+    'mks_backend.entities.state_contracts.completion_date.routes.include_completion_dates',
+    'mks_backend.entities.state_contracts.contract.routes.include_contracts',
+    'mks_backend.entities.state_contracts.contract_status.routes.include_contract_statuses',
+    'mks_backend.entities.state_contracts.contract_work_type.routes.include_contract_work_types',
+    'mks_backend.entities.trips.leadership_position.routes.include_leadership_positions',
+    'mks_backend.entities.trips.visited_object.routes.include_visited_objects',
+    'mks_backend.entities.trips.work_trip.routes.include_work_trips',
+    'mks_backend.entities.work_list.element_type.routes.include_element_types',
+    'mks_backend.entities.work_list.measure_unit.routes.include_measure_unit',
+    'mks_backend.entities.work_list.work_list.routes.include_work_list',
+    'mks_backend.entities.work_list.work_type.routes.include_work_types'
+]

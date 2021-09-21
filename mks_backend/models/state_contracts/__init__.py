@@ -1,3 +1,0 @@
-from mks_backend.models.state_contracts.contract import Contract
-from mks_backend.models.state_contracts.contract_work_type import ContractWorkType
-from mks_backend.models.state_contracts.contract_status import ContractStatus
