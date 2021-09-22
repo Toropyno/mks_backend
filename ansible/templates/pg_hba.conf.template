@@ -1,0 +1,11 @@
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# DO NOT DISABLE!
+local   all             postgres                                peer
+# "local" is for Unix domain socket connections only
+local   all             all                                     md5
+# IPv4 local connections:
+host    all             mks_service     0.0.0.0/0               md5
+host    all             all             0.0.0.0/0               gss include_realm=0
+# IPv6 local connections:
+host    all             all             ::1/128                 md5

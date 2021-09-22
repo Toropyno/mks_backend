@@ -1,0 +1,82 @@
+- name: Create application directory
+  file:
+    path: "{{ deploy_directory }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+  become: true
+
+- name: Remove old backend
+  file:
+    path: "{{ deploy_directory }}/backend"
+    state: absent
+  become: true
+
+- name: Create the backend directory
+  become: true
+  file:
+    path: "{{ deploy_directory }}/backend"
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Synchronize files backend
+  synchronize:
+    src: "{{ source_directory }}"
+    dest: "{{ deploy_directory}}/backend"
+    rsync_path: "sudo rsync"
+    rsync_opts:
+      - "-a"
+      - "--exclude=.git"
+      - "--exclude=.venv"
+      - "--exclude=env"
+      - "--exclude=venv"
+      - "--exclude=.gitignore"
+      - "--exclude=.idea"
+      - "--exclude=__pycache__"
+      - "--exclude=docker-compose.yml"
+      - "--exclude=ansible"
+      - "--delete"
+      - "--exclude=development.ini"
+      - "--exclude=mks_backend.egg-info"
+
+- name:  Copy development.ini
+  become: true
+  template:
+    src: development.ini.template
+    dest: "{{ deploy_directory }}/backend/development.ini"
+
+- name: Create filestorage directory
+  file:
+    path: "{{ deploy_directory }}/filestorage"
+    state: directory
+    group: centrem  # ALD-users
+    mode: u=rwX,g=rwX,o=r
+    recurse: true
+  become: true
+
+- name: Setup virtualenv
+  become: true
+  command: "python3 -m venv {{ deploy_directory }}/backend/env"
+
+- name: Install requirements
+  become: true
+  command:
+    cmd: "{{ deploy_directory }}/backend/env/bin/pip install -e .[dev] -i {{ pypi_url }} --trusted-host art.rd.aorti.ru"
+    chdir: "{{ deploy_directory }}/backend"
+
+- name: Create egg
+  become: true
+  command:
+    cmd: "{{ deploy_directory }}/backend/env/bin/python {{ deploy_directory }}/backend/setup.py develop"
+    chdir: "{{ deploy_directory }}/backend"
+
+- name: Set an owner to the files backend directory
+  file:
+    dest: "{{ deploy_directory }}/backend"
+    owner: www-data
+    group: www-data
+    mode: u=rwX,g=rwX,o=rX
+    recurse: yes
+  become: true

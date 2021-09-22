@@ -5,41 +5,61 @@
 
 --------------------------------------------------------------------------------
 ### Необходимые apt-пакеты
-```shell
-sudo apt-get install python3.5-dev python3-venv apache2 python-setuptools libapache2-mod-auth-kerb libapache2-mod-wsgi-py3 libkrb5-dev libpq-dev postgresql-9.6 python3-pip python-psycopg2 build-essential libldap2-dev libsasl2-dev postgresql-contrib ldap-utils memcached libmemcached-tools
-```
+[ansible/group_vars/apt_packages.yml](ansible/group_vars/apt_packages.yml)
 
-### Настройка окружения (для всех последующих команд)
+### Общий конфигурационный файл
+Все специфичные переменные для проекта задаются в [development.ini](development.ini)
+
+--------------------------------------------------------------------------------
+<details>
+<summary>Локальное разворачивание</summary>
+
+### Настройка локального окружения
 ```sh
-sudo apt update && apt -y upgrade
-sudo apt install -y python3-pip python3-venv
-
 python3 -m venv env
 source env/bin/activate
-
-pip install --upgrade pip setuptools
 pip install -e ".[dev]" -i http://art.rd.aorti.ru/repository/pypi-proxy/simple/ --trusted-host art.rd.aorti.ru
-python setup.py install
 ``` 
 
-### Установка PostgreSQL 
+### Настройка локального PostgreSQL 
 ```sh
-sudo apt install postgresql
-sudo -u postgres psql
-
-CREATE DATABASE mks_db;
+CREATE DATABASE mks;
 \password postgres
-``` 
-#### Инициализация БД
-```sh
-initialize_mks_db development.ini
 ```
 
+#### Накатывание миграций на БД
+```sh
+alembic upgrade heads || env/bin/alembic upgrade heads
+```
 #### Наполнение БД
 ```sh
 fill_db development.ini
 ```
-###
+
+#### Запуск
+```sh
+pserve development.ini
+```
+</details>
+
+--------------------------------------------------------------------------------
+
+<details>
+<summary>Разворачивание на удалённых серверах через ansible</summary>
+
+1. Создайте и скопируйте ключ пару ssh-ключей на целевой хост [(пример)](http://www.linuxproblem.org/art_9.html)
+2. Для деплоя запустите в терминале
+   ```shell
+   # установить сам ansible
+   sudo apt install ansible
+   
+   # деплой на стенды
+   ansible-playbook ansible/install_to_stands.yml -i hosts
+   ```
+   Но вообще, здесь настроено CI/CD, так что dev ветку таким образом точно заливать не нужно
+</details>
+
+--------------------------------------------------------------------------------
 
 Если при любой ошибке система выдаёт **Ошибка с БД**,
 значит, БД на сервере генерирует ошибки на русском языке.
@@ -79,7 +99,9 @@ lc_messages = 'en_US.UTF-8'
 sudo service postgresql restart
 ```
 </p>
-</details> 
+</details>
+
+--------------------------------------------------------------------------------
 
 ### СВИП
 [СВИП README](mks_backend/SVIP/README.md)

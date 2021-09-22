@@ -1,0 +1,48 @@
+- name: Download keytab
+  get_url:
+    url: "{{ apache_keytab_url }}"
+    dest: /etc/apache2/keytab
+    owner: www-data
+    group: www-data
+    mode: 0644
+  become: true
+
+- name: Enable frontend port
+  lineinfile:
+    dest: /etc/apache2/ports.conf
+    insertafter: '^#*Listen '
+    line: Listen 80
+  become: true
+
+- name: replace line Astra Mode
+  lineinfile:
+    dest: /etc/apache2/apache2.conf
+    regexp: '^#*AstraMode'
+    line: 'AstraMode On'
+  become: true
+
+- name: Apache2. Copy config
+  become: true
+  template:
+    src: mks.krb.conf.template
+    dest: "/etc/apache2/sites-available/mks.conf"
+
+- name: Disable default site
+  command: "/usr/sbin/a2dissite 000-default.conf"
+  become: true
+
+- name: Enable mks site
+  command: "/usr/sbin/a2ensite mks.conf"
+  become: true
+
+- name: Enable modules
+  command: /usr/sbin/a2enmod rewrite proxy proxy_http env headers
+  become: true
+
+- name: Enable auth_kerb
+  command: /usr/sbin/a2enmod auth_kerb
+  become: true
+
+- name: Restart apache
+  service: name=apache2 enabled=true state=restarted
+  become: true
