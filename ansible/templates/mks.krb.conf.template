@@ -1,0 +1,43 @@
+WSGIPythonHome {{ deploy_directory }}/backend/env
+WSGIPythonPath {{ deploy_directory }}/backend
+WSGIChunkedRequest On
+
+<VirtualHost *:80>
+    DocumentRoot {{ deploy_directory }}/frontend
+    WSGIScriptAlias /api {{ deploy_directory }}/backend/pyramid.wsgi
+
+    <Directory {{ deploy_directory }}/backend>
+        AuthType Kerberos
+        KrbAuthRealms {{ krb_auth_realms }}
+        KrbServiceName HTTP/{{ inventory_hostname }}
+        Krb5Keytab /etc/apache2/keytab
+        KrbMethodNegotiate on
+        KrbMethodK5Passwd on
+        KrbSaveCredentials on
+        Require valid-user
+        AllowOverride All
+    </Directory>
+
+    <Directory {{ deploy_directory }}/frontend>
+        Options Includes FollowSymLinks MultiViews
+        AuthType Kerberos
+        KrbAuthRealms {{ krb_auth_realms }}
+        KrbServiceName HTTP/{{ inventory_hostname }}
+        Krb5Keytab /etc/apache2/keytab
+        KrbMethodNegotiate on
+        KrbMethodK5Passwd on
+        Require valid-user
+        AllowOverride All
+    </Directory>
+
+    RewriteEngine On
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+    RewriteRule ^ - [L]
+    RewriteCond %{REQUEST_URI} !^/api/.*$
+    RewriteRule ^ /index.html [L]
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>

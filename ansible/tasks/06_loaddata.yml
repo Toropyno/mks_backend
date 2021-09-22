@@ -1,0 +1,5 @@
+- name: Load initial database data
+  become: true
+  command:
+    cmd: "{{ deploy_directory }}/backend/env/bin/fill_db {{ deploy_directory }}/backend/development.ini"
+    chdir: "{{ deploy_directory}}/backend"

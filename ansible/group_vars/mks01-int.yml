@@ -1,0 +1,13 @@
+apache_keytab_url: https://art.rd.aorti.ru/repository/infr/ald-int/HTTP/1mks01.int.aorti.tech
+postgres_keytab_url: https://art.rd.aorti.ru/repository/infr/ald-int/postgres/1mks01.int.aorti.tech
+krb_auth_realms: INT.AORTI.TECH
+
+auth_type: kerberos
+
+miv_host: http://1krn-core02.int.aorti.tech:8860
+miv_user: mks
+miv_password: iEfG02AE
+
+svip_host: http://1adr-book02.int.aorti.tech:8820
+svip_user: mks
+svip_password: iEfG02AE

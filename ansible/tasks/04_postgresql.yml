@@ -1,0 +1,81 @@
+- name: Copy pg_hba.conf
+  become: true
+  template:
+    src: pg_hba.conf.template
+    dest: /etc/postgresql/9.6/main/pg_hba.conf
+
+- name: Download postgres keytab
+  get_url:
+    url: "{{ postgres_keytab_url }}"
+    dest: /etc/postgresql-common/krb5.keytab
+    owner: postgres
+  become: true
+
+- name: replace line ac_ignore_socket_maclabel
+  lineinfile:
+    dest: /etc/postgresql/9.6/main/postgresql.conf
+    regexp: '^#*ac_ignore_socket_maclabel'
+    line: 'ac_ignore_socket_maclabel = false'
+  become: true
+
+- name: replace line krb_server_keyfile
+  lineinfile:
+    dest: /etc/postgresql/9.6/main/postgresql.conf
+    regexp: '^#*krb_server_keyfile'
+    line: "krb_server_keyfile = '/etc/postgresql-common/krb5.keytab'"
+  become: true
+
+- name: Create local user
+  user:
+    name: "{{ database_user }}"
+    password: "{{ database_password }}"
+  become: true
+
+- name: Set MAC local user
+  command: "pdpl-user -l 0:3 {{ database_user }}"
+  become: true
+
+- name: Set MAC
+  command: "{{ item }}"
+  with_items:
+    - usermod -a -G shadow postgres
+    - setfacl -d -m u:postgres:r /etc/parsec/macdb
+    - setfacl -R -m u:postgres:r /etc/parsec/macdb
+    - setfacl -m u:postgres:rx /etc/parsec/macdb
+    - setfacl -d -m u:postgres:r /etc/parsec/capdb
+    - setfacl -R -m u:postgres:r /etc/parsec/capdb
+    - setfacl -m u:postgres:rx /etc/parsec/capdb
+  become: true
+
+- name: PostgreSQL. Create role
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: "{{ database_user }}"
+    password: "{{ database_password }}"
+    role_attr_flags: SUPERUSER
+
+- name: PostgreSQL. Create database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: "{{ database_name }}"
+    state: present
+    owner: "{{ database_user }}"
+
+- name: Give zero rights if user was not found
+  lineinfile:
+    dest:  /etc/parsec/mswitch.conf
+    regexp: 'zero_if_notfound: no'
+    line: 'zero_if_notfound: yes'
+  become: true
+
+- name: Restart postgresql
+  service: name=postgresql enabled=true state=restarted
+  become: true
+
+- name: Run alembic migrations
+  become: true
+  command:
+    cmd: "{{ deploy_directory }}/backend/env/bin/alembic -c {{ deploy_directory }}/backend/alembic.ini upgrade heads"
+    chdir: "{{ deploy_directory }}/backend"

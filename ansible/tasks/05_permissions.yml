@@ -1,0 +1,4 @@
+- name: Create pi svip permissions
+  become: true
+  command:
+    cmd: "{{ deploy_directory }}/backend/env/bin/svip create"

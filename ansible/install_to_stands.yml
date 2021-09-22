@@ -1,0 +1,24 @@
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Install requirements
+      include: tasks/01_packages.yml
+
+    - name: Configure project
+      include: tasks/02_files.yml
+
+    - name: Configure apache
+      include: tasks/03_apache.yml
+
+    - name: Configure postgresql
+      include: tasks/04_postgresql.yml
+
+    - name: Configure permissions
+      include: tasks/05_permissions.yml
+
+    - name: Load initial database data
+      include: tasks/06_loaddata.yml
+
+    - name: Rewrite resolve.conf
+      include: tasks/07_rewrite_dns.yml

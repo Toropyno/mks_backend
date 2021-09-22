@@ -1,0 +1,27 @@
+packages:
+    - 'python3.5-dev'
+    - 'python-dev'
+    - 'python3-venv'
+    - 'python3-pip'
+    - 'python-setuptools'
+
+    - 'apache2'
+    - 'libapache2-mod-auth-kerb'
+    - 'libapache2-mod-authnz-pam'
+    - 'libapache2-mod-wsgi-py3'
+
+    - 'libkrb5-dev'
+    - 'libpq-dev'
+
+    - 'postgresql-9.6'
+    - 'postgresql-contrib'
+    - 'python-psycopg2'
+
+    - 'ldap-utils'
+    - 'libldap2-dev'
+    - 'libsasl2-dev'
+    - 'libssl-dev'
+    - 'libffi-dev'
+
+    - 'build-essential'
+    - 'rsync'

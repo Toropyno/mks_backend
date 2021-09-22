@@ -1,0 +1,6 @@
+- name: Rewrite DNS for mandatory
+  lineinfile:
+    dest: /etc/resolv.conf
+    insertafter: '^#*search int.aorti.tech'
+    line: nameserver 172.23.208.229
+  become: true

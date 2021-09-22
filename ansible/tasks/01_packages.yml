@@ -1,0 +1,11 @@
+- name: Get all the necessary apt packages from yml-file
+  include_vars:
+    file: "{{ playbook_dir }}/group_vars/apt_packages.yml"
+    name: apt_packages
+
+- name: Install all necessary packages
+  become: true
+  apt:
+    name: "{{ apt_packages['packages'] }}"
+    state: present
+    update_cache: yes

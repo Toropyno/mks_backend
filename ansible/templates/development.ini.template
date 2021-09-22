@@ -1,24 +1,30 @@
-### ПРИМЕР ФАЙЛА. ШАБЛОН РАСПОЛОЖЕН В ansible/templates/development.ini.template
-
 [app:main]
 use = egg:mks_backend
+
 pyramid.reload_templates = true
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = ru
 pyramid.includes = pyramid_debugtoolbar
 
-sqlalchemy.url = postgresql://postgres:postgres@0.0.0.0:5432/mks
+sqlalchemy.url = postgresql://{{ database_user }}:{{ database_password }}@{{ database_host }}:5432/{{ database_name }}
 
 retry.attempts = 3
 
+# ------ GLOBAL ---------
+HTTP_HOST = http://{{ inventory_hostname }}
+
 # ------ Filestorage ---------
-FILE_STORAGE = /home/atimchenko/MKS/filestorage/
+FILE_STORAGE = {{ deploy_directory }}/filestorage
 ALLOWED_EXTENSIONS = "doc, docx, docm, pdf, odt, ppt, odp, txt, jpg, png, mp4, avi, mkv"
 
 # ------------ MIV ------------
-MIV_USER =
-MIV_USER_PASSWORD =
-MIV_REGISTER_URL = http://1krn-balancer01.int.aorti.tech:8860/public/api/1.0/account_endpoint/
-MIV_SEND_URL = http://1krn-balancer01.int.aorti.tech:8860/public/api/1.0/message/receive/
-MIV_WHOAMI_URL = http://1krn-balancer01.int.aorti.tech:8860/public/api/1.0/whoami/
+MIV_USER = {{ miv_user }}
+MIV_PASSWORD = {{ miv_password }}
+MIV_REGISTER_URL = {{ miv_host }}/public/api/1.0/account_endpoint/
+MIV_SEND_URL = {{ miv_host }}/public/api/1.0/message/receive/
+MIV_WHOAMI_URL = {{ miv_host }}/public/api/1.0/whoami/
 MIV_FILESTORAGE_PATH = /home/atimchenko/MKS/miv_data
 MIV_JSON_PATH = /home/atimchenko/MKS/miv_data/json
 
@@ -33,18 +39,18 @@ KRB_AUTH_REALM = INT.AORTI.TECH
 AUTH_TYPE = kerberos
 
 # ------------ SVIP ------------
-SVIP_HOST = http://1adr-book02.int.aorti.tech:8820/public/api
+SVIP_HOST = {{ svip_host }}/public/api
 COLLECTION_NAME = MKS
-MKS_USER = mks
-MKS_PASSWORD = iEfG02AE
+MKS_USER = {{ svip_user }}
+MKS_PASSWORD = {{ svip_password }}
 
 [alembic]
-script_location = alembic
+script_location = mks_backend/alembic
 file_template = %%(year)d%%(month).2d%%(day).2d_%%(rev)s
 
 [server:main]
 use = egg:waitress#main
-listen = *:6543
+listen = *:6545
 
 [loggers]
 keys = root, mks_backend, sqlalchemy
@@ -68,6 +74,9 @@ qualname = mks_backend
 level = WARN
 handlers =
 qualname = sqlalchemy.engine
+# "level = INFO" logs SQL queries.
+# "level = DEBUG" logs SQL queries and results.
+# "level = WARN" logs neither.  (Recommended for production systems.)
 
 [handler_console]
 class = StreamHandler
