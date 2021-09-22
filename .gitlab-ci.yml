@@ -1,0 +1,66 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  ANSIBLE_FORCE_COLOR: 'true'
+
+build-job:
+  stage: build
+  tags:
+    - docker
+  image: art-docker-public.rd.aorti.ru/python:3.5
+  before_script:
+    - echo "deb http://art.rd.aorti.ru/repository/debian-yandex/ stretch main" > /etc/apt/sources.list
+    - apt-get update
+  script:
+    - python -m venv env
+    - source env/bin/activate
+    - pip install -e .[dev] -i https://art.rd.aorti.ru/repository/pypi-proxy/simple
+    - python setup.py develop
+    - python -c 'from mks_backend import *'
+    - echo "Постаивились все пакеты, и без синтаксических ошибок. Уже неплохо" "$CI_COMMIT_AUTHOR"
+
+unit-test-job:
+  stage: test
+  script:
+    - echo "Running unit tests... This will take about 10 seconds."
+    - sleep 10
+    - echo "Code coverage is 90%"
+
+lint-test-job:
+  stage: test
+  tags:
+    - docker
+  image: art-docker-public.rd.aorti.ru/python:3.5
+  script:
+    - echo "Проверка flake8"
+    - pip install flake8 -i https://art.rd.aorti.ru/repository/pypi-proxy/simple
+    - python -m flake8 mks_backend
+    - echo "Проверка закончена"
+
+deploy-job:
+  only:
+    - dev
+  stage: deploy
+  tags:
+    - docker
+  image: art-docker-public.rd.aorti.ru/debian:9
+  before_script:
+    - echo "deb http://art.rd.aorti.ru/repository/debian-yandex/ stretch main" > /etc/apt/sources.list
+    - apt-get update
+    - apt-get install ansible openssh-client rsync -y
+
+    ## Запускаем ssh-agent
+    - eval $(ssh-agent -s)
+
+    ## Добавляем SSH-ключ, хранящийся в NOT_PRIVATE_SSH_KEY в наш ssh-агент
+    - echo "$NOT_PRIVATE_SSH_KEY" | tr -d '\r' | ssh-add -
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null\n" >> /etc/ssh/ssh_config
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - python --version
+    - ansible-playbook ansible/install_to_stands.yml -i hosts --private-key='~/.ssh/gitlab_runner' --user "$ANSIBLE_USER"
+    - echo "Success deploy, congrats" "$CI_COMMIT_AUTHOR"
