@@ -38,6 +38,6 @@ class OrganisationRepository:
 
     def get_rootes(self) -> List[Organization]:
         DBSession.commit()
-        rootes = self._query.join(OrganizationHistory).filter(Organization.parent_organizations_id == None). \
+        rootes = self._query.join(OrganizationHistory).filter(Organization.parent_organizations_id.is_(None)). \
             order_by(Organization.par_number.asc(), OrganizationHistory.shortname).all()
         return rootes

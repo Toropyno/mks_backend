@@ -68,9 +68,9 @@ class WorkTripRepository:
             work_trips = work_trips.filter(WorkTrip.escort_officer.ilike('%{}%'.format(escort_officer)))
         if 'have_protocol' in params:
             if not params['have_protocol']:
-                work_trips = work_trips.filter(WorkTrip.protocol_id == None)
+                work_trips = work_trips.filter(WorkTrip.protocol_id.is_(None))
             else:
-                work_trips = work_trips.filter(WorkTrip.protocol_id != None)
+                work_trips = work_trips.filter(WorkTrip.protocol_id.isnot(None))
 
                 if 'protocol_date_start' in params:
                     protocol_date_start = params['protocol_date_start']
@@ -87,9 +87,9 @@ class WorkTripRepository:
             work_trips = work_trips.filter(Construction.project_code.ilike('%{}%'.format(project_code)))
         if 'is_critical' in params:
             if params['is_critical']:
-                work_trips = work_trips.filter(Construction.is_critical == True)
+                work_trips = work_trips.filter(Construction.is_critical.is_(True))
             else:
-                work_trips = work_trips.filter(Construction.is_critical != True)
+                work_trips = work_trips.filter(Construction.is_critical.isnot(True))
         if 'region' in params:
             work_trips = work_trips.filter(FIAS.region.ilike('%' + params['region'] + '%'))
 

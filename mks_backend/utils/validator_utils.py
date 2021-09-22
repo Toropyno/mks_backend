@@ -50,12 +50,12 @@ def is_uuid(value: str) -> bool:
 
 
 def phone_validator(node: colander.SchemaNode, value: str) -> None:
-    pattern = '\\+?[\d\s\\-\\(\\)]{3,40}'
+    pattern = r'\\+?[\d\s\\-\\(\\)]{3,40}'
     validator_by_pattern(node, value, pattern)
 
 
 def email_validator(node: colander.SchemaNode, value: str) -> None:
-    pattern = '[\da-zA-ZА-ЯЁа-яё\\-\\_]+@[\da-zA-ZА-ЯЁа-яё\\-\\_]+\\.[a-zA-ZА-ЯЁа-яё]+'
+    pattern = r'[\da-zA-ZА-ЯЁа-яё\\-\\_]+@[\da-zA-ZА-ЯЁа-яё\\-\\_]+\\.[a-zA-ZА-ЯЁа-яё]+'
     validator_by_pattern(node, value, pattern)
 
 

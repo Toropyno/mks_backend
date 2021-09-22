@@ -81,9 +81,9 @@ class InspectionRepository:
         if 'is_critical' in params:
             is_critical = params['is_critical']
             if is_critical:
-                filtered_inspections = filtered_inspections.filter(Construction.is_critical == True)
+                filtered_inspections = filtered_inspections.filter(Construction.is_critical.is_(True))
             else:
-                filtered_inspections = filtered_inspections.filter(Construction.is_critical == False)
+                filtered_inspections = filtered_inspections.filter(Construction.is_critical.isnot(True))
 
         if 'fias_subject' in params:
             filtered_inspections = filtered_inspections.filter(FIAS.region.ilike('%{}%'.format(params['fias_subject'])))
