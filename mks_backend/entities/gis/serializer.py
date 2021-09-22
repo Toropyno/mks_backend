@@ -41,23 +41,11 @@ class GisSerializer:
         # информация по позиции объекта
         xml_for_one += '<location alias = "Привязка объекта">'
 
-        locations = ['geometry', 'rzd', 'address', 'place', 'embassy', 'lineobject', 'okato']
-
         # для location типа geometry - реальные координаты объекта
         xml_for_one += '<geometry alias = "Географическая привязка объекта">' \
                        '<geometry_epsg alias = "Код EPSG системы координат" >4326</geometry_epsg>' \
                        '<geometry_type alias = "Тип геометрии" >0</geometry_type>' \
                        '<geometry_gml></geometry_gml'
-
-        geometry_types = {
-            0: 'точка',
-            1: 'линия',
-            2: 'полигон',
-            3: 'мультиточка',
-            4: 'мультилиния',
-            5: 'мультиполигон',
-            6: 'подпись',
-        }
 
         ''' надо ли нам адресная привязка по военному адресу?
         адресная привязка - может происходить по военному адресу

@@ -37,7 +37,7 @@ class DBBasicError(Exception):
 
         elif 'foreign key' in self.error_raw:
             '''
-            ERROR:  insert or update on table "construction" violates foreign key constraint    
+            ERROR:  insert or update on table "construction" violates foreign key constraint
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
             '''

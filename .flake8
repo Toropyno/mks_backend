@@ -1,0 +1,20 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    env,
+    venv,
+    *.egg-info,
+    dumps,
+    *__init__.py*
+
+per-file-ignores =
+    # imported but unused
+    mks_backend/models_meta.py: F401
+
+    # may be undefined (they are not, trust me)
+    mks_backend/scripts/fill_db/fill_db.py: F405, F403
+
+max-line-length = 121

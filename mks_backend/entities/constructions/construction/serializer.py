@@ -50,7 +50,9 @@ class ConstructionSerializer:
             'locationType': LocationTypeSerializer.convert_object_to_json(construction.location_type),
             'category': ConstructionCategorySerializer.to_short_json(construction.construction_category),
             'commission': CommissionSerializer.convert_object_to_json(construction.commission),
-            'constructionCompany': ConstructionCompanySerializer.convert_object_to_json(construction.construction_company),
+            'constructionCompany': ConstructionCompanySerializer.convert_object_to_json(
+                construction.construction_company
+            ),
             'militaryUnit': MilitaryUnitSerializer.convert_object_to_json(construction.military_unit),
             'militaryDistrict': MilitaryUnitSerializer.convert_object_to_json(construction.military_district),
             'organization': OrganizationSerializer.to_simple_json(construction.organization),

@@ -18,7 +18,8 @@ class ObjectDocumentService:
 
     def edit_construction_document_and_object_relations(self, object_id: int, construction_documents_ids: List[int]):
         construction_object = self.object_service.get_construction_object_by_id(object_id)
-        construction_documents = self.construction_documents_service.get_many_construction_documents_by_id(construction_documents_ids)
+        construction_documents = self.construction_documents_service.\
+            get_many_construction_documents_by_id(construction_documents_ids)
 
         construction_object.documents = construction_documents
         self.repo.update()
