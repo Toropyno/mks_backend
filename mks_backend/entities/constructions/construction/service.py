@@ -6,7 +6,7 @@ from .repository import ConstructionRepository
 from mks_backend.entities.construction_objects.construction_object import ConstructionObjectService
 from mks_backend.entities.constructions.subcategory_list import SubcategoryListService
 from mks_backend.entities.coordinate import CoordinateService
-from mks_backend.entities.fias import FIAS
+from mks_backend.FIAS import FIAS
 
 
 class ConstructionService:

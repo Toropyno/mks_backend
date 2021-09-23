@@ -6,7 +6,7 @@ from .model import Inspection
 
 from mks_backend.entities.inspections.inspected_object import InspectedObject
 from mks_backend.entities.constructions.construction import Construction
-from mks_backend.entities.fias import FIAS
+from mks_backend.FIAS import FIAS
 
 from mks_backend.session import DBSession
 
