@@ -7,7 +7,7 @@ from uuid import uuid4
 from sqlalchemy.exc import DBAPIError
 
 from mks_backend.models_meta import *
-from mks_backend.entities.fias import FIASService
+from mks_backend.FIAS import FIASService
 
 from .utils import try_add, get_random_address, get_rand_int, get_random_date, get_surname, get_first_name, \
     get_middle_name, get_random_phone, get_random_email

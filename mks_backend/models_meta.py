@@ -31,7 +31,7 @@ from mks_backend.entities.documents.construction_document.model import Construct
 from mks_backend.entities.documents.doc_type.model import DocType
 from mks_backend.entities.documents.object_document.model import ObjectDocument
 
-from mks_backend.entities.fias.model import FIAS
+from mks_backend.FIAS.model import FIAS
 from mks_backend.entities.filestorage.model import Filestorage
 
 from mks_backend.entities.inspections.inspected_object.model import InspectedObject
@@ -46,7 +46,7 @@ from mks_backend.entities.military_unit.models.namemilitaryunit import NameMilit
 from mks_backend.entities.military_unit.models.purposemu import PurposeMU
 from mks_backend.entities.military_unit.models.sortarmedforces import SortArmedForces
 
-from mks_backend.entities.miv.storage.model import Storage
+from mks_backend.MIV.storage.model import Storage
 
 from mks_backend.entities.oksm.model import OKSM
 

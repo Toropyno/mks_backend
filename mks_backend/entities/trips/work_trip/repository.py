@@ -1,6 +1,6 @@
 from .model import WorkTrip
 
-from mks_backend.entities.fias import FIAS
+from mks_backend.FIAS import FIAS
 from mks_backend.entities.protocols.protocol import Protocol
 from mks_backend.entities.constructions.construction import Construction
 from mks_backend.entities.trips.visited_object import VisitedObject

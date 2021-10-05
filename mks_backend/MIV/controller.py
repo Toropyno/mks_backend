@@ -1,7 +1,7 @@
 from pyramid.view import view_config, view_defaults
 from pyramid.response import Response
 
-from mks_backend.entities.miv.service import MIVService
+from mks_backend.MIV.service import MIVService
 from mks_backend._loggers.miv.logger import MIVLogger
 
 
