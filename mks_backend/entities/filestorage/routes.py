@@ -6,3 +6,4 @@ def include_filestorage(config):
     config.add_route('get_filestorages_by_object',
                      'construction_object/{id}/filestorages',
                      request_method='GET')
+    config.add_route('delete_file', '/file/{uuid}', request_method='DELETE')

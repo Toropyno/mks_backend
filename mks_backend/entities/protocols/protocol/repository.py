@@ -35,7 +35,8 @@ class ProtocolRepository:
                 'meetings_type_id': protocol.meetings_type_id,
                 'protocol_name': protocol.protocol_name,
                 'note': protocol.note,
-                'idfilestorage': protocol.idfilestorage
+                'idfilestorage': protocol.idfilestorage,
+                'signatory': protocol.signatory
             }
         )
         DBSession.commit()
@@ -46,6 +47,7 @@ class ProtocolRepository:
         protocol_num = params.get('protocol_number')
         date_start = params.get('date_start')
         date_end = params.get('date_end')
+        signatory = params.get('signatory')
 
         protocols = self._query
 
@@ -61,5 +63,7 @@ class ProtocolRepository:
             protocols = protocols.filter(Protocol.protocol_date >= date_start)
         if date_end:
             protocols = protocols.filter(Protocol.protocol_date <= date_end)
+        if signatory:
+            protocols = protocols.filter(Protocol.signatory == signatory)
 
         return protocols.order_by(Protocol.protocol_date.desc()).all()

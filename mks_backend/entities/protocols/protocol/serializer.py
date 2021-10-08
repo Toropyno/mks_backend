@@ -26,7 +26,8 @@ class ProtocolSerializer:
             'note': protocol.note,
             'protocolFile': FileStorageSerializer.to_json(
                 protocol.filestorage
-            )
+            ),
+            'signatory': protocol.signatory
         }
 
     def convert_schema_to_object(self, schema_dict: dict) -> Protocol:
@@ -39,5 +40,6 @@ class ProtocolSerializer:
         protocol.protocol_name = schema_dict.get('protocolName')
         protocol.note = schema_dict.get('note')
         protocol.idfilestorage = schema_dict.get('idFileStorage')
+        protocol.signatory = schema_dict.get('signatory')
 
         return protocol

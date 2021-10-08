@@ -12,13 +12,14 @@ class FilestorageHDD:
     FILE_STORAGE = SETTINGS['FILE_STORAGE']
     ALLOWED_EXTENSIONS = SETTINGS['ALLOWED_EXTENSIONS']
 
-    def create_file(self, id_file_storage: str, file: cgi_FieldStorage) -> None:
+    def create_file(self, id_file_storage: str, file: cgi_FieldStorage, all_fromats: bool = False) -> None:
         if not isinstance(file, cgi_FieldStorage):
             raise FilestorageError('not_received')
         elif file.limit > 2.6e+7:  # > ~25Mbytes
             raise FilestorageError('too_big')
-        elif '.' not in file.filename or \
-                file.filename.split('.')[1] not in self.ALLOWED_EXTENSIONS:
+        elif '.' not in file.filename:
+            raise FilestorageError('extension_error')
+        elif not all_fromats and file.filename.split('.')[1] not in self.ALLOWED_EXTENSIONS:
             raise FilestorageError('extension_error')
 
         file_path = os_path.join(self.FILE_STORAGE, id_file_storage)

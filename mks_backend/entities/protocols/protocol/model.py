@@ -20,6 +20,7 @@ class Protocol(Base):
     protocol_date = Column(Date, nullable=False, default=func.current_date())
     protocol_name = Column(VARCHAR(255), nullable=False)
     note = Column(VARCHAR(2000))
+    signatory = Column(VARCHAR(255))
 
     meetings_type_id = Column(
         Integer,
@@ -28,7 +29,7 @@ class Protocol(Base):
 
     idfilestorage = Column(
         UUID,
-        ForeignKey('filestorage.idfilestorage', ondelete='CASCADE')
+        ForeignKey('filestorage.idfilestorage', ondelete='SET NULL')
     )
 
     # --------- relationships --------- #
