@@ -64,6 +64,19 @@ class ProtocolControllerSchema(colander.MappingSchema):
         missing=None
     )
 
+    signatory = colander.SchemaNode(
+        colander.String(),
+        name='signatory',
+        preparer=[strip_space],
+        validator=colander.Length(
+            min=1,
+            max=255,
+            min_err='Слишком короткое значение поля кем утвержден',
+            max_err='Слишком длинное значение поля кем утвержден'
+        ),
+        missing=None
+    )
+
 
 class ProtocolControllerFilterSchema(colander.MappingSchema):
     protocol_num = colander.SchemaNode(
@@ -115,5 +128,18 @@ class ProtocolControllerFilterSchema(colander.MappingSchema):
         name='dateEnd',
         preparer=[strip_space],
         validator=date_validator,
+        missing=None
+    )
+
+    signatory = colander.SchemaNode(
+        colander.String(),
+        name='signatory',
+        preparer=[strip_space],
+        validator=colander.Length(
+            min=1,
+            max=255,
+            min_err='Слишком короткое значение поля кем утвержден',
+            max_err='Слишком длинное значение поля кем утвержден'
+        ),
         missing=None
     )

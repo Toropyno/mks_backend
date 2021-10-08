@@ -46,6 +46,7 @@ class ProtocolService:
             'protocolNumber': 'protocol_number',
             'meeting': 'meeting',
             'protocolName': 'protocol_name',
+            'signatory': 'signatory',
         }
 
         params = dict()
