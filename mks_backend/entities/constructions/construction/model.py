@@ -99,9 +99,9 @@ class Construction(Base):
         nullable=True
     )
 
-    construction_critical_categories_id = Column(
+    critical_categories_id = Column(
         Integer,
-        ForeignKey('construction_critical_categories.construction_critical_categories_id', ondelete='SET NULL'),
+        ForeignKey('critical_categories.critical_categories_id', ondelete='SET NULL'),
     )
 
     # --------- relationships --------- #
@@ -176,8 +176,8 @@ class Construction(Base):
     oksm = relationship('OKSM')
     fias = relationship('FIAS')
 
-    construction_critical_category = relationship(
-        'ConstructionCriticalCategory'
+    critical_category = relationship(
+        'CriticalCategory'
     )
 
     # --------- calculated_fields --------- #

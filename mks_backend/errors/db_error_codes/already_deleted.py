@@ -17,5 +17,6 @@ ALREADY_DELETED_ERROR = {
     'progress_status_ad': 'Этот Ход Строительства уже удалили!',
     'meeting_type_ad': 'Этот Тип Заседания уже удалили!',
     'leadership_position_ad': 'Эту Должность уже удалили!',
-    'zone_ad': 'Эту Зону уже удалили!'
+    'zone_ad': 'Эту Зону уже удалили!',
+    'construction_critical_category_ad': 'Эту категорию критичного объекта уже удалили!'
 }
