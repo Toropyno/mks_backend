@@ -100,16 +100,15 @@ def insert_commissions():
 
 
 def insert_construction_categories_and_subcategories():
-    print('INSERT CONSTRUCTION SUBCATEGORIES')
-    for subcategory in ['Военная подкатегория', 'Строительная подкатегория', 'Гражданская подкатегория']:
-        instance = ConstructionSubcategory(fullname=subcategory)
-        try_add(instance)
-
-    print('INSERT CONSTRUCTION SUBCATEGORIES')
-    subcategories = DBSession.query(ConstructionSubcategory).all()
-    for category in ['Военная категория', 'Строительная категория', 'Гражданская категория']:
-        instance = ConstructionCategory(fullname=category, subcategories=subcategories)
-        try_add(instance)
+    print('INSERT CONSTRUCTION CATEGORIES AND SUBCATEGORIES')
+    for category, subcategory in [
+        ('Военная категория', 'Военная подкатегория'),
+        ('Строительная категория', 'Строительная подкатегория'),
+        ('Гражданская категория', 'Гражданская подкатегория'),
+    ]:
+        subcategory = ConstructionSubcategory(fullname=subcategory)
+        category = ConstructionCategory(fullname=category, subcategories=[subcategory])
+        try_add(category)
 
 
 def insert_construction_companies():
