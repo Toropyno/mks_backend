@@ -43,3 +43,6 @@
 
 ### 22.09.2021
 -  **GLOBAL**. Внедрил [ansible](ansible)
+
+### 11.10.2021
+- Переделал `fill_db` в контексте категории-подкатегории ИСП. [Задача в JIRA](https://jira.rd.aorti.ru/browse/MKSBRYANS-334)
