@@ -1,4 +1,3 @@
-from os import path as os_path
 from datetime import datetime
 
 from streaming_form_data.targets import BaseTarget
@@ -29,7 +28,6 @@ class PayloadTarget(BaseTarget):
     def on_finish(self):
         if self._values:
             self.write_to_db()
-            self.write_to_file()
 
     def write_to_db(self):
         self.repo.add_storage(Storage(
@@ -38,11 +36,6 @@ class PayloadTarget(BaseTarget):
             sender=self.sender,
             dt_received=datetime.now()
         ))
-
-    def write_to_file(self):
-        path = os_path.join(self.FILESTORAGE_PATH, self.uid)
-        with open(path, 'wb') as output_stream:
-            output_stream.write(self.value)
 
     @property
     def value(self):

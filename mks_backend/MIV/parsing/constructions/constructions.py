@@ -1,0 +1,193 @@
+import logging
+from datetime import datetime
+from xml.etree import ElementTree
+
+from mks_backend.session import DBSession
+from ..abstract_strategy import Strategy
+from ..base_repository import BaseRepository
+
+from mks_backend.models_meta import *
+
+
+class ConstructionsParserXML(Strategy):
+    """
+    Класс парсер для XML "Реестр ИСП" от АС «САКУРА»
+
+    Используются следующие обозначения:
+    Тип:
+        О - обязательный элемент
+        Н - необязательный элемент
+    Формат:
+        Т – <текст (символьная строка)>
+        └── Т(n-m), где: n – минимальное количество символов, m – максимальное количество символов
+        N – <число (целое или дробное)>
+        └── N(m.k), где m – максимальное количество знаков в числе,
+            включая целую и дробную часть числа, без учета десятичной точки и знака «-» (минус),
+            k – число знаков дробной части числа
+        D – <дата>, дата в формате <ГГГГ-ММ-ДД> (год-месяц-день)
+        К – <код>, кодовое значение по классификатору, справочнику и т.п.
+        З – <значение>, значение классификатора, справочника и т.п.
+        B – <булево выражение>, логический тип «Истина/Ложь»
+        Z – <целое положительное число или ноль>.
+
+        Если значением является значение записи справочника,
+        то тип значения указывается следующим образом: ЗТ, ЗN и т.д.
+
+        S - <элемент>, составной элемент (сложный элемент логической модели, который содержит вложенные элементы);
+        SA – <элемент>, составной элемент, содержащий атрибут
+             (сложный элемент логической модели, который содержит вложенные элементы и атрибуты);
+    """
+
+    def __init__(self, meta: dict, payload: ElementTree.Element, *args, **kwargs):
+        self.meta = meta
+        self.payload = payload
+
+        # Версия структуры XML-документа. О/Т(2, 2)
+        self.version_xsd = self.payload.find('VersionXsdSсheme').text
+        # Дата формирования выгрузки. О/D
+        self.upload_date = self.upload_date_parsed
+        # GUID выгрузки. О/Т(36-36)
+        self.upload_guid = self.payload.find('UploadGUID').text
+        # Рабочий год. Этот параметр используется при построении отчетов и вывода сведений на карту.
+        self.last_document_year = self.payload.find('ГодПоследнегоДокументаПланВвода').text
+
+    @property
+    def upload_date_parsed(self):
+        raw = self.payload.find('UploadDate').text
+        return datetime.strptime(raw, '%Y-%m-%d')
+
+    def do_algorithm(self):
+        projects = self.payload.find('Projects')
+        for node in projects:
+            self.parse_project(node)
+
+    def parse_project(self, node: ElementTree.Element):
+        """
+        По значению из поля <ИСП><Code> ищется запись в таблице construction (сравнение с полем project_code)
+        Если запись найдена, то она изменяется, иначе добавляется новая запись
+        """
+        # ------- Construction  ------- #
+        construction = BaseRepository(Construction).get_or_create(
+            Construction.project_code, node.find('Code').text  # О/Т(1-50)
+        )
+        construction.project_name = node.find('ОписаниеОбъекта').text  # О/Т(0-500)
+
+        # ------- Commission ------- #
+        commission_fullname = node.find('Комиссия').text
+
+        commission = BaseRepository(Commission).get_by_field(
+            Commission.fullname, commission_fullname  # О/ЗТ
+        ).first()
+        if not commission:
+            commission = Commission(code='отсутствует', fullname=commission_fullname)
+        construction.commission = commission
+
+        # ------- Construction.object_amount ------- #
+        construction.object_amount = int(node.find('КоличествоЗиС').text)  # О/Z
+
+        # ------- ConstructionCompany ------- #
+        # TODO: нет описания в XML-схеме
+        construction_company_repo = BaseRepository(ConstructionCompany)
+        construction_company_shortname = node.find('ИсполнительРабот').text
+
+        construction_company = construction_company_repo\
+            .get_by_field(ConstructionCompany.shortname, construction_company_shortname)\
+            .first()
+        if not construction_company:
+            construction_company = ConstructionCompany(
+                shortname=construction_company_shortname, fullname=construction_company_shortname
+            )
+            construction_company_repo.add_to_session(construction_company)
+
+        construction.construction_company = construction_company
+
+        # ------- FIAS ------- #
+        # TODO: FIAS
+        fias_address = node.find('Местоположение')
+
+        address_full = fias_address.find('ФактическоеМестоположение')  # Н/Т(0-200)
+        construction.address_full = address_full.text if address_full else None
+
+        # ------- Organization ------- #
+        # TODO: У модели Organization нет поля fullname, оно есть только у реквизитов, поэтому это супер неэффективно
+        organization_fullname = node.find('РУЗКС').text  # О/ЗТ
+        organization = next(
+            org for org in BaseRepository(Organization).get_all() if org.fullname == organization_fullname
+        )
+        construction.organization = organization
+
+        construction.department = node.find('УправлениеФКП').text  # О/ЗТ
+        construction.officer = node.find('ОтветственныйФКП').text  # О/ЗТ
+
+        # ------- MilitaryDistrict ------- #
+        # TODO: непонятно как искать, предварительный вариант
+        military_district = fias_address.find('ВоенныйОкруг').text  # О/ЗТ
+        mu_name = BaseRepository(NameMilitaryUnit).get_by_field(NameMilitaryUnit.snamemu, military_district).first()
+        military_district = BaseRepository(MilitaryUnit).get_by_field(MilitaryUnit.idNameMU, mu_name.idnamemu).first()
+        construction.military_district = military_district
+
+        # ------- TechnicalSpec ------- #
+        tz = node.find('НаличиеТЗ').find('ДатаУтвТЗ')  # О/D
+        construction.technical_spec = bool(tz is not None and tz.text)
+
+        # ------- PriceCalc ------- #
+        tz = node.find('НаличиеРНЦ').find('ДатаСогласованияСПодрядчиком')
+        construction.price_calc = bool(tz is not None and tz.text)  # О/D
+
+        # ------- DeletionMark ------- #
+        construction.deletion_mark = node.find('DeletionMark').text == 'true'  # О/B
+
+        for construction_stage in node.find('СоставОбъекта').find('СтруктураЭтапов'):
+            self.parse_construction_stage(construction_stage)
+
+    def parse_construction_stage(self, stage: ElementTree.Element):
+        """
+        Объект строительства (здание и сооружение) определяется по значению элемента <Код> из ветки
+        <СоставОбъекта><СтруктураЭтапов><Этапы><ЗданияСооружения><ЗданиеСооружение>,
+        оно уникально и соответствует значению поля «Код объекта» из таблицы construction_objects
+
+        Поиск в таблице construction_objects осуществляется только по коду объекта (без учета принадлежности к ИСП).
+        Если запись найдена, то она изменяется, иначе добавляется новая запись
+        Одновременно с объектами строительства наполняется словарь «Этапы строительства»
+        """
+        code = stage.find('Код').text
+
+        construction_objects = stage.find('ЗданияСооружения')
+        if not construction_objects:
+            logging.error(
+                'Некорректная запись в XML для <ЗданияСооружения> Код этапа {} выгрузка {}'
+                .format(code, self.upload_guid)
+            )
+            return
+
+        construction_stage_repo = BaseRepository(ConstructionStage)
+        construction_stage = construction_stage_repo.get_by_field(ConstructionStage.code, code).first()
+        if not construction_stage:
+            parent_fullname = stage.find('ЭтапРодитель').text
+            if parent_fullname:
+                parent_stage = construction_stage_repo.get_or_create(ConstructionStage.fullname, parent_fullname)
+            else:
+                parent_stage = None
+
+            new_stage = BaseRepository(ConstructionStage).create_instance(ConstructionStage.code, code)
+            new_stage.fullname = stage.find('Этап').text
+            new_stage.hierarchy_level = stage.find('Уровень').text
+            new_stage.parent = parent_stage
+            DBSession.commit()
+
+        for construction_object in construction_objects:
+            self.parse_construction_object(construction_object)
+
+    def parse_construction_object(self, construction_object: ElementTree.Element):
+        # print(construction_object)
+        pass
+
+
+def main():
+    with open('/home/atimchenko/PycharmProjects/mks_backend/mks_backend/MIV/parsing/constructions/sakura_isp.xml', 'r') \
+            as f:
+        raw_xml = f.read()
+
+    root = ElementTree.fromstring(raw_xml)
+
+    ConstructionsParserXML(dict(), root).do_algorithm()

@@ -18,7 +18,7 @@ def get_engine_by_uri(config_uri):
 
 
 Base = declarative_base()
-DBSession = scoped_session(sessionmaker())
+DBSession = scoped_session(sessionmaker(autoflush=False))
 
 engine = create_engine(SETTINGS['sqlalchemy.url'])
 DBSession.configure(bind=engine)

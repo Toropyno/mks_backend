@@ -41,6 +41,7 @@ setup(
         'console_scripts': [
             'fill_db=mks_backend.scripts.fill_db.fill_db:fill_db',
             'svip=mks_backend.scripts.svip:main',
+            'sakura=mks_backend.MIV.parsing.constructions.constructions:main'
         ],
     },
 )
