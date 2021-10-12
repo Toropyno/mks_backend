@@ -7,11 +7,11 @@ exclude =
     env,
     venv,
     *.egg-info,
-    dumps,
-    *__init__.py*
+    dumps
 
 per-file-ignores =
     # imported but unused
+    *__init__.py*: F401
     mks_backend/models_meta.py: F401
 
     # may be undefined (they are not, trust me)
