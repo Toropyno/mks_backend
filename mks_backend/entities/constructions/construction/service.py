@@ -81,6 +81,7 @@ class ConstructionService:
             construction.fias = FIAS(aoid=uuid4(), region=region, area=area,
                                      city=city, settlement=settlement, street=street)
 
+        construction.critical_categories_id = schema.get('criticalCategory')
         return construction
 
     def filter_constructions(self, params: dict) -> list:

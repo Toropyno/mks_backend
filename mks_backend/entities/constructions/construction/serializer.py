@@ -14,6 +14,7 @@ from mks_backend.entities.constructions.construction_subcategory import Construc
 
 from mks_backend.utils.decimal import decimal_to_str
 from mks_backend.utils.date_and_time import get_date_string
+from mks_backend.entities.constructions.critical_category import CriticalCategorySerializer
 
 
 class ConstructionSerializer:
@@ -62,6 +63,9 @@ class ConstructionSerializer:
             'address': construction.address_full,
             'coordinate': CoordinateSerializer.convert_object_to_json(construction.coordinate),
             'oksm': OKSMSerializer.convert_object_to_json(construction.oksm),
+            'criticalCategory': CriticalCategorySerializer.to_json(
+                construction.critical_category
+            )
         }
 
         return construction_json

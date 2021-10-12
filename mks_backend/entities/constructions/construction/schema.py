@@ -258,6 +258,16 @@ class ConstructionSchema(colander.MappingSchema):
         missing=colander.drop
     )
 
+    construction_critical_categories_id = colander.SchemaNode(
+        colander.Int(),
+        name='criticalCategory',
+        validator=colander.Range(
+            min=0,
+            min_err='Такой категории критичных объектов не существует'
+        ),
+        missing=None
+    )
+
     # TODO: remove when FIAS will be ok
     region = colander.SchemaNode(colander.String(), name='region', missing=colander.drop)
     area = colander.SchemaNode(colander.String(), name='area', missing=colander.drop)

@@ -49,5 +49,6 @@ ROUTES = [
     'mks_backend.entities.work_list.element_type.routes.include_element_types',
     'mks_backend.entities.work_list.measure_unit.routes.include_measure_unit',
     'mks_backend.entities.work_list.work_list.routes.include_work_list',
-    'mks_backend.entities.work_list.work_type.routes.include_work_types'
+    'mks_backend.entities.work_list.work_type.routes.include_work_types',
+    'mks_backend.entities.constructions.critical_category.routes.include_critical_categories'
 ]

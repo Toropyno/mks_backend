@@ -28,6 +28,7 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_realty_types()
     insert_construction_stages()
     insert_doctypes()
+    insert_critical_category()
 
     insert_commissions()
     insert_construction_categories_and_subcategories()
@@ -258,6 +259,7 @@ def insert_constructions():
     construction_categories = DBSession.query(ConstructionCategory).all()
     location_types = DBSession.query(LocationType).all()
     military_units = DBSession.query(MilitaryUnit).all()
+    critical_categories = DBSession.query(CriticalCategory).all()
 
     for code, name in [
         ('south_base', 'Южная база'), ('north_base', 'Северная база'),
@@ -280,6 +282,7 @@ def insert_constructions():
             military_unit=choice(military_units),
             military_district=choice(military_units),
             location_type=choice(location_types),
+            critical_category=choice(critical_categories)
             # fias=choice(fiases)
         )
         try_add(instance)
@@ -450,3 +453,9 @@ def insert_construction_dynamic():
                 problems='Проблемы {}'.format(construction.project_code),
             )
             try_add(instance)
+
+
+def insert_critical_category():
+    print('INSERT CRITICAL CATEGORY')
+    for name in ['Очень критичная', 'Не очень критичная', 'Умеренно критичная']:
+        try_add(CriticalCategory(fullname=name))

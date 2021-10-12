@@ -72,3 +72,4 @@ from mks_backend.entities.work_list.element_type.model import ElementType
 from mks_backend.entities.work_list.measure_unit.model import MeasureUnit
 from mks_backend.entities.work_list.work_list.model import WorkList
 from mks_backend.entities.work_list.work_type.model import WorkType
+from mks_backend.entities.constructions.critical_category import CriticalCategory
