@@ -1,5 +1,5 @@
 def include_critical_categories(config):
-    config.add_route('get_all_critical_category',
+    config.add_route('get_all_critical_categories',
                      '/critical_category', request_method='GET')
     config.add_route('add_critical_category', '/critical_category', request_method='POST')
     config.add_route('delete_critical_category',
