@@ -29,6 +29,7 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_construction_stages()
     insert_doctypes()
     insert_critical_category()
+    insert_reason_stopping()
 
     insert_commissions()
     insert_construction_categories_and_subcategories()
@@ -459,3 +460,9 @@ def insert_critical_category():
     print('INSERT CRITICAL CATEGORY')
     for name in ['Очень критичная', 'Не очень критичная', 'Умеренно критичная']:
         try_add(CriticalCategory(fullname=name))
+
+
+def insert_reason_stopping():
+    print('INSERT REASON STOPPING')
+    for name in ['1ая причина', '2ая причина', '3ая причина']:
+        try_add(ReasonStopping(fullname=name))
