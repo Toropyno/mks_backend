@@ -18,5 +18,6 @@ ALREADY_DELETED_ERROR = {
     'meeting_type_ad': 'Этот Тип Заседания уже удалили!',
     'leadership_position_ad': 'Эту Должность уже удалили!',
     'zone_ad': 'Эту Зону уже удалили!',
-    'construction_critical_category_ad': 'Эту категорию критичного объекта уже удалили!'
+    'construction_critical_category_ad': 'Эту категорию критичного объекта уже удалили!',
+    'reason_stopping_ad': 'Эту причину остановки СМР уже удалили!',
 }

@@ -73,3 +73,4 @@ from mks_backend.entities.work_list.measure_unit.model import MeasureUnit
 from mks_backend.entities.work_list.work_list.model import WorkList
 from mks_backend.entities.work_list.work_type.model import WorkType
 from mks_backend.entities.constructions.critical_category import CriticalCategory
+from mks_backend.entities.constructions.reason_stopping import ReasonStopping
