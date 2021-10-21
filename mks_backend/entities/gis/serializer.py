@@ -28,6 +28,17 @@ class GisSerializer:
         return '</Objects>'
 
     def get_constructions_object_info_xml(self, construction_object):
+        """
+        надо ли нам адресная привязка по военному адресу?
+        адресная привязка - может происходить по военному адресу
+        раздел military
+        hq - наименование штаба
+        vo - наименование военного округа
+        tg - наименование территориального гарнизона
+        lg - наименование локального гарнизона
+        vch - номер воинской части
+        """
+
         # общая информация по объекту
         xml_for_one = '<Object alias="Объект">'
         serialized_construction_object = self.construction_object_serializer.convert_object_to_json(construction_object)
@@ -46,16 +57,6 @@ class GisSerializer:
                        '<geometry_epsg alias = "Код EPSG системы координат" >4326</geometry_epsg>' \
                        '<geometry_type alias = "Тип геометрии" >0</geometry_type>' \
                        '<geometry_gml></geometry_gml'
-
-        ''' надо ли нам адресная привязка по военному адресу?
-        адресная привязка - может происходить по военному адресу
-        раздел military
-        hq - наименование штаба
-        vo - наименование военного округа
-        tg - наименование территориального гарнизона
-        lg - наименование локального гарнизона
-        vch - номер воинской части
-        '''
 
         xml_for_one += '</location>'
 
