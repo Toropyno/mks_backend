@@ -36,7 +36,7 @@ lint-test-job:
   image: art-docker-public.rd.aorti.ru/python:3.5
   script:
     - echo "Проверка flake8"
-    - pip install flake8 -i https://art.rd.aorti.ru/repository/pypi-proxy/simple > /dev/null
+    - pip install flake8 flake8-quotes -i https://art.rd.aorti.ru/repository/pypi-proxy/simple > /dev/null
     - python -m flake8 mks_backend
     - echo "Проверка закончена"
 

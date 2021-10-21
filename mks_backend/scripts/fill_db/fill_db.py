@@ -140,7 +140,7 @@ def insert_organizations():
 
             history_record = OrganizationHistory(
                 shortname=name,
-                fullname="OOO " + name,
+                fullname='OOO ' + name,
                 address_legal='Юридический адрес {}.{}'.format(x, i) if org_sign else None,
                 address_actual='Фактический адрес {}{}'.format(x, i),
                 functions='Функции {}.{}'.format(x, i),

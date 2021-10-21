@@ -24,10 +24,10 @@ class DBBasicError(Exception):
     def get_error_code(self) -> str:
 
         if 'duplicate' in self.error_raw:
-            '''
+            """
             ERROR:  duplicate key value violates unique constraint "construction_project_code_key"
             DETAIL:  Key (project_code)=(12345) already exists.
-            '''
+            """
             start = self.error_raw.find('constraint') + len('constraint "')
             end = self.error_raw.find('"', start)
             code = self.error_raw[start:end] + '_duplicate'
@@ -36,11 +36,11 @@ class DBBasicError(Exception):
                 code = 'other_duplicate'
 
         elif 'foreign key' in self.error_raw:
-            '''
+            """
             ERROR:  insert or update on table "construction" violates foreign key constraint
             "construction_construction_categories_id_fkey"
             DETAIL:  Key (construction_categories_id)=(6) is not present in table "construction_categories".
-            '''
+            """
             start = self.error_raw.find('constraint') + len('constraint "')
             end = self.error_raw.find('"', start)
             code = self.error_raw[start:end]

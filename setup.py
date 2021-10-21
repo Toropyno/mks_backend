@@ -23,6 +23,8 @@ requires = [
 dev_requires = [
     'pyramid_debugtoolbar',
     'faker',
+    'flake8',
+    'flake8-quotes',
 ]
 
 setup(
