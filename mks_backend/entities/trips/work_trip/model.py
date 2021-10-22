@@ -49,6 +49,6 @@ class WorkTrip(Base):
     )
 
     work_trip_files = relationship(
-        'WorkTripFiles',
+        'WorkTripFile',
         cascade='all, delete-orphan'
     )

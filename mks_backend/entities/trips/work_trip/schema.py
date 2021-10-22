@@ -154,3 +154,9 @@ class WorkTripFilterSchema(colander.MappingSchema):
         name='region',
         missing=colander.drop
     )
+
+    have_file = colander.SchemaNode(
+        colander.Bool(),
+        name='haveFile',
+        missing=None
+    )
