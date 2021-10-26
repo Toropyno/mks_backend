@@ -37,6 +37,8 @@ class ConstructionsParserXML(Strategy):
         S - <элемент>, составной элемент (сложный элемент логической модели, который содержит вложенные элементы);
         SA – <элемент>, составной элемент, содержащий атрибут
              (сложный элемент логической модели, который содержит вложенные элементы и атрибуты);
+
+        TODO: первосортное дерьмо, обязательно следует декомпозировать, уменьшать кол-во запрсов к БД
     """
 
     def __init__(self, meta: dict, payload: ElementTree.Element, *args, **kwargs):
@@ -57,6 +59,8 @@ class ConstructionsParserXML(Strategy):
         self.construction_object_repo = BaseRepository(ConstructionObject)
         self.realty_type_repo = BaseRepository(RealtyType)
         self.construction_dynamic_repo = BaseRepository(ConstructionDynamic)
+        self.construction_documents_repo = BaseRepository(ConstructionDocument)
+        self.doctypes_repo = BaseRepository(DocType)
 
     @property
     def upload_date_parsed(self):
@@ -120,10 +124,13 @@ class ConstructionsParserXML(Strategy):
         # ------- Organization ------- #
         # TODO: У модели Organization нет поля fullname, оно есть только у реквизитов, поэтому это супер неэффективно
         organization_fullname = node.find('РУЗКС').text  # О/ЗТ
-        organization = next(
-            org for org in BaseRepository(Organization).get_all() if org.fullname == organization_fullname
-        )
-        construction.organization = organization
+        organizations = BaseRepository(Organization).get_all()
+        try:
+            organization = next(org for org in organizations if org.fullname == organization_fullname)
+        except StopIteration:
+            raise ValueError('Такой организации не существует в реестре РУЗКС')
+        else:
+            construction.organization = organization
 
         construction.department = node.find('УправлениеФКП').text  # О/ЗТ
         construction.officer = node.find('ОтветственныйФКП').text  # О/ЗТ
@@ -150,6 +157,7 @@ class ConstructionsParserXML(Strategy):
             self.parse_construction_stage(stage=construction_stage, construction=construction)
 
         self.parse_construction_dynamic(construction, node)
+        self.parse_construction_documents(construction, node)
 
     def parse_construction_stage(self, stage: ElementTree.Element, construction: Construction):
         """
@@ -253,8 +261,65 @@ class ConstructionsParserXML(Strategy):
         reasons = {reason['worksStoppageReason'] for reason in reasons if reason['worksStoppageReason']}
         construction_dynamic.reason = ';'.join(reasons)
 
-    def parse_construction_documents(self):
-        pass
+    def parse_construction_documents(self, construction: Construction, node: ElementTree.Element):
+        rns_document_type = self.doctypes_repo.get_by_field(DocType.fullname, 'РНС').first()
+        zge_document_type_pd = self.doctypes_repo.get_by_field(DocType.fullname, 'ЗГЭ-ПД').first()
+        zge_document_type_sd = self.doctypes_repo.get_by_field(DocType.fullname, 'ЗГЭ-СД').first()
+        zos_document_type = self.doctypes_repo.get_by_field(DocType.fullname, 'ЗОС').first()
+
+        for rns_document_raw in node.find('РазрешенияНаСтроительство'):
+            rns_document = self.construction_documents_repo.get_by_fields(
+                construction_id=construction.construction_id,
+                doctypes_id=rns_document_type.doctypes_id,
+                doc_number=rns_document_raw.find('Номер').text,
+                doc_date=datetime.strptime(rns_document_raw.find('Дата').text, '%Y-%m-%d')
+            ).first()
+            if not rns_document:
+                rns_document = ConstructionDocument(
+                    construction_id=construction.construction_id,
+                    doctypes_id=rns_document_type.doctypes_id,
+                    doc_number=rns_document_raw.find('Номер').text,
+                    doc_date=datetime.strptime(rns_document_raw.find('Дата').text, '%Y-%m-%d'),
+                    valid_until=datetime.strptime(rns_document_raw.find('СрокДействия').text, '%Y-%m-%d')
+                )
+                self.construction_documents_repo.add_to_session(rns_document)
+
+        for zge_document_raw in node.find('ЗаключенияГосударственнойЭкспертизы'):
+            if zge_document_raw.find('ТипЗаключения').text == 'ПД':
+                zge_document_type = zge_document_type_pd
+            else:
+                zge_document_type = zge_document_type_sd
+
+            zge_document = self.construction_documents_repo.get_by_fields(
+                construction_id=construction.construction_id,
+                doctypes_id=zge_document_type.doctypes_id,
+                doc_number=zge_document_raw.find('Номер').text,
+                doc_date=datetime.strptime(zge_document_raw.find('Дата').text, '%Y-%m-%d')
+            ).first()
+            if not zge_document:
+                zge_document = ConstructionDocument(
+                    construction_id=construction.construction_id,
+                    doctypes_id=zge_document_type.doctypes_id,
+                    doc_number=zge_document_raw.find('Номер').text,
+                    doc_date=datetime.strptime(zge_document_raw.find('Дата').text, '%Y-%m-%d'),
+                )
+                self.construction_documents_repo.add_to_session(zge_document)
+
+        for zos_document_raw in node.find('ЗОС'):
+            zos_document = self.construction_documents_repo.get_by_fields(
+                construction_id=construction.construction_id,
+                doctypes_id=zos_document_type.doctypes_id,
+                doc_number=zos_document_raw.find('Номер').text,
+                doc_date=datetime.strptime(zos_document_raw.find('Дата').text, '%Y-%m-%d')
+            ).first()
+            if not zos_document:
+                zos_document = ConstructionDocument(
+                    construction_id=construction.construction_id,
+                    doctypes_id=zos_document_type.doctypes_id,
+                    doc_number=zos_document_raw.find('Номер').text,
+                    doc_date=datetime.strptime(zos_document_raw.find('Дата').text, '%Y-%m-%d'),
+                )
+                self.construction_documents_repo.add_to_session(zos_document)
 
 
 def main():
