@@ -20,7 +20,7 @@ class Construction(Base):
     construction_id = Column(Integer, primary_key=True, autoincrement=True)
     project_code = Column(VARCHAR(40), unique=True, nullable=False)
     project_name = Column(VARCHAR(255), nullable=False)
-    is_critical = Column(Boolean, nullable=False)
+    is_critical = Column(Boolean, nullable=False, default=False)
     address_full = Column(VARCHAR(1000))
     note = Column(VARCHAR(1000))
     department = Column(VARCHAR(255))

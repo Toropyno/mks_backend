@@ -242,7 +242,7 @@ def insert_construction_stages():
 
 def insert_doctypes():
     print('INSERT DOCTYPES')
-    for doctype in ['Чертеж', 'План', 'Доклад', 'Схема']:
+    for doctype in ['РНС', 'ЗГЭ-ПД', 'ЗГЭ-СД', 'ЗОС', 'КС-14', 'КС-14 предварительный', 'РНВ', 'АВЭ']:
         try_add(DocType(fullname=doctype, code=doctype.lower()))
 
 

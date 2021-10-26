@@ -84,6 +84,10 @@ class Organization(Base):
         return self.actual.shortname
 
     @hybrid_property
+    def fullname(self) -> str:
+        return self.actual.fullname
+
+    @hybrid_property
     def actual(self) -> OrganizationHistory:
         return max(self.history, key=lambda history_record: history_record.begin_date)
 

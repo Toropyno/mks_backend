@@ -17,7 +17,6 @@ requires = [
     'requests_toolbelt',
     'kerberos',
     'requests_kerberos',
-    'python-dotenv',
 ]
 
 dev_requires = [
@@ -41,6 +40,8 @@ setup(
         'console_scripts': [
             'fill_db=mks_backend.scripts.fill_db.fill_db:fill_db',
             'svip=mks_backend.scripts.svip:main',
+            'miv=mks_backend.scripts.miv_dev:main',
+            'sakura=mks_backend.MIV.parsing.constructions.constructions:main'
         ],
     },
 )

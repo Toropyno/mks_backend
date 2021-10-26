@@ -5,6 +5,9 @@ from mks_backend.session import Base
 
 
 class ConstructionStage(Base):
+    """
+    Этапы строительства
+    """
     __tablename__ = 'construction_stages'
 
     construction_stages_id = Column(Integer, primary_key=True, autoincrement=True)

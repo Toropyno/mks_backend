@@ -1,5 +1,4 @@
 import json
-from os import path as os_path
 
 from streaming_form_data.targets import BaseTarget
 from ..storage import StorageRepository, Storage
@@ -26,7 +25,6 @@ class JSONTarget(BaseTarget):
     def on_finish(self):
         if self._values:
             self.write_to_db()
-            self.write_to_file()
 
     def write_to_db(self):
         self.repo.add_storage(Storage(
@@ -34,11 +32,6 @@ class JSONTarget(BaseTarget):
             type='json',
             sender=self.sender
         ))
-
-    def write_to_file(self):
-        path = os_path.join(self.JSON_PATH, '{uid}'.format(uid=self.uid))
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump(self.value, f, ensure_ascii=False, indent=4)
 
     @property
     def value(self):

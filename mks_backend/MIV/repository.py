@@ -17,8 +17,10 @@ class MIVRepository:
     """
 
     def __init__(self):
+        self.host = SETTINGS['HTTP_HOST']
+
         self.user = SETTINGS['MIV_USER']
-        self.password = SETTINGS['MIV_USER_PASSWORD']
+        self.password = SETTINGS['MIV_PASSWORD']
 
         self.register_url = SETTINGS['MIV_REGISTER_URL']
         self.send_url = SETTINGS['MIV_SEND_URL']
@@ -37,11 +39,11 @@ class MIVRepository:
         """
         Register endpoint in MIV programming complex.
         """
-        self.check_ticket()
+        self.create_ticket()
 
         register_data = MultipartEncoder(fields={
-            'receive': 'http://1mks03.int.aorti.tech/api/miv/message/receive/',
-            'notify': 'http://1mks03.int.aorti.tech/api/miv/message/notify/',
+            'receive': self.host + '/api/miv/message/receive/',
+            'notify': self.host + '/api/miv/message/notify/',
         })
 
         register_request = requests.post(
@@ -62,7 +64,7 @@ class MIVRepository:
         Send message to MIV programming complex.
         Before that, checking if kerberos ticket available
         """
-        self.check_ticket()
+        self.create_ticket()
 
         send_data = dict()
         if 'meta' in message:

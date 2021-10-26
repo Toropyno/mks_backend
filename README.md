@@ -105,3 +105,10 @@ sudo service postgresql restart
 
 ### СВИП
 [СВИП README](mks_backend/SVIP/README.md)
+
+
+### МИВ
+[МИВ README](mks_backend/MIV/MIV.md)
+
+### АЛУШТА
+[МИВ README](mks_backend/MIV/MIV.md)
