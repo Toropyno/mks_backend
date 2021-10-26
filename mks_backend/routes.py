@@ -52,4 +52,7 @@ ROUTES = [
     'mks_backend.entities.work_list.work_type.routes.include_work_types',
     'mks_backend.entities.constructions.critical_category.routes.include_critical_categories',
     'mks_backend.entities.constructions.reason_stopping.routes.include_reason_stoppings',
+    'mks_backend.entities.courts.routes.include_court',
+    'mks_backend.entities.court_decisions.routes.include_court_decision',
+    'mks_backend.entities.military_unit_extension.routes.include_military_unit_extension'
 ]
