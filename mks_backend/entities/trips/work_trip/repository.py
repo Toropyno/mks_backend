@@ -1,3 +1,5 @@
+from sqlalchemy import not_
+
 from .model import WorkTrip
 
 from mks_backend.FIAS import FIAS
@@ -6,6 +8,7 @@ from mks_backend.entities.constructions.construction import Construction
 from mks_backend.entities.trips.visited_object import VisitedObject
 
 from mks_backend.session import DBSession
+from mks_backend.entities.trips.work_trip_file import WorkTripFile
 
 
 class WorkTripRepository:
@@ -92,5 +95,12 @@ class WorkTripRepository:
                 work_trips = work_trips.filter(Construction.is_critical.isnot(True))
         if 'region' in params:
             work_trips = work_trips.filter(FIAS.region.ilike('%' + params['region'] + '%'))
+        if 'have_file' in params:
+            if params['have_file']:
+                work_trips = work_trips.join(WorkTripFile).filter(
+                    WorkTrip.work_trips_id == WorkTripFile.work_trips_id
+                )
+            else:
+                work_trips = work_trips.filter(not_(WorkTrip.work_trip_files.any()))
 
         return work_trips.order_by(WorkTrip.trip_date).all()

@@ -15,10 +15,15 @@ class FilestorageController:
 
     @view_config(route_name='upload_file', renderer='json')
     def upload_file(self):
-        file = self.request.POST.get('file')
+
+        files = self.request.POST.getall('file')
         all_formats = self.request.params.get('format') == 'all'
-        filestorage_id = self.service.create_filestorage(file, all_formats)
-        return {'idFileStorage': filestorage_id}
+
+        filestorage_ids = []
+
+        for file in files:
+            filestorage_ids.append(self.service.create_filestorage(file, all_formats))
+        return {'idFileStorage': filestorage_ids}
 
     @view_config(route_name='download_file')
     def download_file(self):

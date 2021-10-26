@@ -47,3 +47,8 @@ class WorkTrip(Base):
         'Construction',
         secondary='visited_objects'
     )
+
+    work_trip_files = relationship(
+        'WorkTripFile',
+        cascade='all, delete-orphan'
+    )
