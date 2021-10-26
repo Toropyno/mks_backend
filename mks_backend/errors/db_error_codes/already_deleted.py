@@ -20,4 +20,6 @@ ALREADY_DELETED_ERROR = {
     'zone_ad': 'Эту Зону уже удалили!',
     'construction_critical_category_ad': 'Эту категорию критичного объекта уже удалили!',
     'reason_stopping_ad': 'Эту причину остановки СМР уже удалили!',
+    'court_ad': 'Этот суд уже удалили!',
+    'court_decision_ad': 'Это решение суда уже удалили'
 }

@@ -74,3 +74,8 @@ from mks_backend.entities.work_list.work_list.model import WorkList
 from mks_backend.entities.work_list.work_type.model import WorkType
 from mks_backend.entities.constructions.critical_category import CriticalCategory
 from mks_backend.entities.constructions.reason_stopping import ReasonStopping
+
+from mks_backend.entities.courts import Courts
+from mks_backend.entities.court_decisions import CourtDecision
+
+from mks_backend.entities.military_unit_extension import MilitaryUnitExtension

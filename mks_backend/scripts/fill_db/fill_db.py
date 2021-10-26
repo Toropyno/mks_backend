@@ -59,6 +59,9 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_object_completion()
     insert_reference_history()
     insert_construction_dynamic()
+    insert_military_unit_extension()
+    insert_court_decisions()
+    insert_court()
 
 
 def insert_mu(engine):
@@ -466,3 +469,21 @@ def insert_reason_stopping():
     print('INSERT REASON STOPPING')
     for name in ['1ая причина', '2ая причина', '3ая причина']:
         try_add(ReasonStopping(fullname=name))
+
+
+def insert_court():
+    print('INSERT COURTS')
+    for name in ['Верховный суд', 'Арбитражный суд', 'Конституционный суд']:
+        try_add(Courts(fullname=name))
+
+
+def insert_court_decisions():
+    print('INSERT COURT DECISIONS')
+    for name in ['Решение верховного суда', 'Решение арбитражного суда ', 'Решение конституционного суда']:
+        try_add(Courts(fullname=name))
+
+
+def insert_military_unit_extension():
+    print('INSERT MILITARY UNIT EXTENSION')
+    for name in ['Добавление танка', 'Добавление БТР', 'Добавление БМП']:
+        try_add(Courts(fullname=name))
