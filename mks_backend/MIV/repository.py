@@ -20,7 +20,7 @@ class MIVRepository:
         self.host = SETTINGS['HTTP_HOST']
 
         self.user = SETTINGS['MIV_USER']
-        self.password = SETTINGS['MIV_USER_PASSWORD']
+        self.password = SETTINGS['MIV_PASSWORD']
 
         self.register_url = SETTINGS['MIV_REGISTER_URL']
         self.send_url = SETTINGS['MIV_SEND_URL']
@@ -64,7 +64,7 @@ class MIVRepository:
         Send message to MIV programming complex.
         Before that, checking if kerberos ticket available
         """
-        self.check_ticket()
+        self.create_ticket()
 
         send_data = dict()
         if 'meta' in message:
