@@ -1,4 +1,5 @@
 import logging
+import json
 from datetime import datetime
 from xml.etree import ElementTree
 
@@ -48,8 +49,14 @@ class ConstructionsParserXML(Strategy):
         self.upload_date = self.upload_date_parsed
         # GUID выгрузки. О/Т(36-36)
         self.upload_guid = self.payload.find('UploadGUID').text
-        # Рабочий год. Этот параметр используется при построении отчетов и вывода сведений на карту.
+        # Рабочий год. Этот системный параметр используется при построении отчетов и вывода сведений на карту.
         self.last_document_year = self.payload.find('ГодПоследнегоДокументаПланВвода').text
+
+        self.construction_repo = BaseRepository(Construction)
+        self.construction_stage_repo = BaseRepository(ConstructionStage)
+        self.construction_object_repo = BaseRepository(ConstructionObject)
+        self.realty_type_repo = BaseRepository(RealtyType)
+        self.construction_dynamic_repo = BaseRepository(ConstructionDynamic)
 
     @property
     def upload_date_parsed(self):
@@ -61,13 +68,15 @@ class ConstructionsParserXML(Strategy):
         for node in projects:
             self.parse_project(node)
 
+        DBSession.commit()
+
     def parse_project(self, node: ElementTree.Element):
         """
         По значению из поля <ИСП><Code> ищется запись в таблице construction (сравнение с полем project_code)
         Если запись найдена, то она изменяется, иначе добавляется новая запись
         """
         # ------- Construction  ------- #
-        construction = BaseRepository(Construction).get_or_create(
+        construction = self.construction_repo.get_or_create(
             Construction.project_code, node.find('Code').text  # О/Т(1-50)
         )
         construction.project_name = node.find('ОписаниеОбъекта').text  # О/Т(0-500)
@@ -79,7 +88,7 @@ class ConstructionsParserXML(Strategy):
             Commission.fullname, commission_fullname  # О/ЗТ
         ).first()
         if not commission:
-            commission = Commission(code='отсутствует', fullname=commission_fullname)
+            commission = Commission(code='не указан', fullname=commission_fullname)
         construction.commission = commission
 
         # ------- Construction.object_amount ------- #
@@ -138,9 +147,11 @@ class ConstructionsParserXML(Strategy):
         construction.deletion_mark = node.find('DeletionMark').text == 'true'  # О/B
 
         for construction_stage in node.find('СоставОбъекта').find('СтруктураЭтапов'):
-            self.parse_construction_stage(construction_stage)
+            self.parse_construction_stage(stage=construction_stage, construction=construction)
 
-    def parse_construction_stage(self, stage: ElementTree.Element):
+        self.parse_construction_dynamic(construction, node)
+
+    def parse_construction_stage(self, stage: ElementTree.Element, construction: Construction):
         """
         Объект строительства (здание и сооружение) определяется по значению элемента <Код> из ветки
         <СоставОбъекта><СтруктураЭтапов><Этапы><ЗданияСооружения><ЗданиеСооружение>,
@@ -160,26 +171,89 @@ class ConstructionsParserXML(Strategy):
             )
             return
 
-        construction_stage_repo = BaseRepository(ConstructionStage)
-        construction_stage = construction_stage_repo.get_by_field(ConstructionStage.code, code).first()
+        construction_stage = self.construction_stage_repo.get_by_field(ConstructionStage.code, code).first()
         if not construction_stage:
             parent_fullname = stage.find('ЭтапРодитель').text
             if parent_fullname:
-                parent_stage = construction_stage_repo.get_or_create(ConstructionStage.fullname, parent_fullname)
+                parent_stage = self.construction_stage_repo.get_or_create(ConstructionStage.fullname, parent_fullname)
             else:
                 parent_stage = None
 
-            new_stage = BaseRepository(ConstructionStage).create_instance(ConstructionStage.code, code)
-            new_stage.fullname = stage.find('Этап').text
-            new_stage.hierarchy_level = stage.find('Уровень').text
-            new_stage.parent = parent_stage
-            DBSession.commit()
+            construction_stage = self.construction_stage_repo.create_instance(ConstructionStage.code, code)
+            construction_stage.fullname = stage.find('Этап').text
+            construction_stage.hierarchy_level = stage.find('Уровень').text
+            construction_stage.parent = parent_stage
 
         for construction_object in construction_objects:
-            self.parse_construction_object(construction_object)
+            self.parse_construction_object(
+                construction_object_raw=construction_object,
+                construction=construction,
+                construction_stage=construction_stage
+            )
+            DBSession.commit()
 
-    def parse_construction_object(self, construction_object: ElementTree.Element):
-        # print(construction_object)
+    def parse_construction_object(
+            self,
+            construction_object_raw: ElementTree.Element,
+            construction: Construction,
+            construction_stage: ConstructionStage
+    ):
+        construction_object = self.construction_object_repo.get_by_field(
+            ConstructionObject.object_code, construction_object_raw.find('Код').text
+        ).first()
+
+        if not construction_object:
+            # Добавление новой записи
+            construction_object = self.construction_object_repo.create_instance(
+                ConstructionObject.object_code, construction_object_raw.find('Код').text
+            )
+        else:
+            # Редактирование существующей записи
+            if construction_object.construction.project_code != construction.project_code:
+                # Если ИСП из xml не совпадает с тем, что сохранен в базе, значит,
+                # здание/сооружение переместили в другой ИСП.
+                reference_history_record = ReferenceHistory(
+                    construction=construction_object.construction, construction_object=construction_object
+                )
+                DBSession.add(reference_history_record)
+
+        construction_object.object_name = construction_object_raw.find('Наименование').text
+        construction_object.weight = construction_object_raw.find('Вес').text
+        construction_object.generalplan_number = construction_object_raw.find('НомерНаГП').text
+
+        construction_object.construction = construction
+        construction_object.construction_stage = construction_stage
+        construction_object.realty_type = self.realty_type_repo.get_or_create(
+            RealtyType.fullname, construction_object_raw.find('ТипЗданияСооружения').text
+        )
+
+    def parse_construction_dynamic(self, construction: Construction, node: ElementTree.Element):
+        construction_dynamic_raw = node.find('ХодВыполненияСМР')
+
+        construction_dynamic = self.construction_dynamic_repo.get_by_fields(
+            reporting_date=self.upload_date, from_sakura=True, construction_id=construction.construction_id
+        ).first()
+
+        if not construction_dynamic:
+            construction_dynamic = self.construction_dynamic_repo.create_instance(
+                ConstructionDynamic.reporting_date, self.upload_date
+            )
+            construction_dynamic.from_sakura = True
+            construction_dynamic.construction_id = construction.construction_id
+
+        construction_dynamic.people_plan = construction_dynamic_raw.find('КоличествоЛюдейПлан').text
+        construction_dynamic.people = construction_dynamic_raw.find('КоличествоЛюдей').text
+        construction_dynamic.equipment_plan = construction_dynamic_raw.find('КоличествоТехникиПлан').text
+        construction_dynamic.equipment = construction_dynamic_raw.find('КоличествоТехники').text
+        construction_dynamic.description = construction_dynamic_raw.find('ОписаниеХодаСМР').text
+        construction_dynamic.problems = node.find('ПроблемныеВопросы').text
+        construction_dynamic.update_datetime = datetime.now()
+
+        reasons = json.loads(construction_dynamic_raw.find('ПричиныОстановкиСМР').text)
+        reasons = {reason['worksStoppageReason'] for reason in reasons if reason['worksStoppageReason']}
+        construction_dynamic.reason = ';'.join(reasons)
+
+    def parse_construction_documents(self):
         pass
 
 
