@@ -1,26 +1,34 @@
-from os import path
-import argparse
+import sys
 
-from dotenv import load_dotenv
+from pprint import pprint
 
 from mks_backend.MIV.repository import MIVRepository
 
 
 def register():
-    print(MIVRepository().register_endpoint())
+    response = MIVRepository().register_endpoint()
+    pprint(response)
 
 
-def send():
-    print(MIVRepository().send_message({'meta': {'foo': 'bar'}}, 'mks@int.aorti.tech'))
+def send(recipient: str, path_to_file: str = None):
+    message = {'meta': 'message for {}'.format(recipient)}
+
+    if path_to_file:
+        message['payload'] = path_to_file
+
+    response = MIVRepository().send_message(message, recipient)
+    pprint(response)
 
 
-if __name__ == '__main__':
-    load_dotenv(path.join(path.realpath(path.dirname(__file__)), '.env'))
-    parser = argparse.ArgumentParser()
-    parser.add_argument('action')
-    args = parser.parse_args()
-
-    if args.action == 'send':
-        send()
-    elif args.action == 'register':
+def main(args=sys.argv):
+    if len(args) == 2 and args[1] == 'register':
+        # miv register
         register()
+    elif len(args) == 3 and args[1] == 'send':
+        # miv send mks@int.aorti.tech
+        send(args[2])
+    elif len(args) == 4 and args[1] == 'send':
+        # miv send mks@int.aorti.tech /path/to/file.txt
+        send(args[2], args[3])
+    else:
+        print('Wrong command')
