@@ -16,6 +16,7 @@ per-file-ignores =
 
     # may be undefined (they are not, trust me)
     mks_backend/scripts/fill_db/fill_db.py: F405, F403
+    mks_backend/MIV/parsing/constructions/constructions.py: F405, F403
 
 max-line-length = 121
 
