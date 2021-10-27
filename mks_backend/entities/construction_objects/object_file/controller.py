@@ -22,13 +22,11 @@ class ObjectFileController:
 
     @view_config(route_name='add_object_file')
     def add_object_file(self):
-        object_file_deserialized = self.schema.deserialize(self.request.json_body)
+        object_files_deserialized = self.schema.deserialize(self.request.json_body)
+        object_files_deserialized = self.serializer.to_object_list(object_files_deserialized)
 
-        self.service.set_upload_date(object_file_deserialized)
-        object_file = self.serializer.convert_schema_to_object(object_file_deserialized)
-
-        self.service.add_object_file(object_file)
-        return {'id': object_file.object_files_id}
+        self.service.add_object_files(object_files_deserialized)
+        return {'ids': [object_file.object_files_id for object_file in object_files_deserialized]}
 
     @view_config(route_name='delete_object_file')
     def delete_object_file(self):
