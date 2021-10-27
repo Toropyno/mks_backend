@@ -1,25 +1,45 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
+from os import environ
 
-from pyramid.paster import get_appsettings, setup_logging
-from sqlalchemy import engine_from_config, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import scoped_session, Session
+from sqlalchemy.engine import create_engine, Engine
 
 from mks_backend.settings import SETTINGS
 
 
-def bind_session(engine):
-    DBSession.configure(bind=engine)
+class SessionFactory(Session):
 
+    def __init__(self) -> None:
+        super().__init__(autoflush=False)
+        self.url = self._url
+        self.bind = self._engine
 
-def get_engine_by_uri(config_uri):
-    setup_logging(config_uri)
-    settings = get_appsettings(config_uri)
-    return engine_from_config(settings, 'sqlalchemy.')
+    @property
+    def _url(self) -> str:
+        """
+        URL для подключения к БД
+
+        Если нет заголовка REMOTE_USER, то подставляет дефолтный логин:пароль
+        Если такой заголовок есть, подставляем только логин,
+        и подключение к БД происходит через kerberos, посредством KRB5CCNAME,
+        который мы положили в окружение в tweens.py
+        """
+        current_user = environ.get('REMOTE_USER') or (SETTINGS['DATABASE_USER'] + ':' + SETTINGS['DATABASE_PASSWORD'])
+        url = 'postgresql://{user}@{host}:{port}/{dbname}'.format(
+            user=current_user,
+            host=SETTINGS['DATABASE_HOST'],
+            port=SETTINGS['DATABASE_PORT'],
+            dbname=SETTINGS['DATABASE_NAME']
+        )
+        return url
+
+    @property
+    def _engine(self) -> Engine:
+        """
+        Движок подключения к БД
+        """
+        return create_engine(self.url)
 
 
 Base = declarative_base()
-DBSession = scoped_session(sessionmaker(autoflush=False))
-
-engine = create_engine(SETTINGS['sqlalchemy.url'])
-DBSession.configure(bind=engine)
-Base.metadata.bind = engine
+DBSession = scoped_session(SessionFactory)

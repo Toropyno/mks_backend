@@ -13,7 +13,14 @@ from mks_backend.session import DBSession
 @view_config(context=DBAPIError)
 def db_api_error(context, request):
     DBSession.rollback()
-    raise DBBasicError(context.orig.pgerror)
+
+    if context.orig.pgerror:
+        # Если есть текст ошибки от БД, то бросаем новую, и приводим к нужному формату
+        raise DBBasicError(context.orig.pgerror)
+    else:
+        # Когда текста ошибки от БД нет, значит, мы даже не смогли к ней подключиться
+        message = context.orig.args[0].strip() if context.orig.args else 'Не удалось подключиться к БД'
+        return HTTPForbidden(json_body={'code': 'unauthorized', 'message': message})
 
 
 @view_config(context=DBBasicError)

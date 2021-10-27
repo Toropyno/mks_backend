@@ -18,7 +18,7 @@ BEGIN
             BEGIN
                 EXECUTE format('CREATE USER %s', name);
                 EXECUTE format('alter user %s set lo_compat_privileges = on', name);
-                EXECUTE format('GRANT vdv to %s', name);
+                EXECUTE format('GRANT mks_service to %s', name);
             EXCEPTION
                 WHEN DUPLICATE_OBJECT THEN
                     RAISE NOTICE 'not creating %', name;
@@ -47,8 +47,8 @@ BEGIN
     MAC CCR ON TABLESPACE pg_global IS OFF;
     MAC LABEL ON TABLESPACE pg_default IS '{3,0}';
     MAC CCR ON TABLESPACE pg_default IS OFF;
-    MAC LABEL ON DATABASE vdv IS '{3,0}';
-    MAC CCR ON DATABASE vdv IS OFF;
+    MAC LABEL ON DATABASE mks IS '{3,0}';
+    MAC CCR ON DATABASE mks IS OFF;
 
     FOR ex IN exist_schemas
         LOOP

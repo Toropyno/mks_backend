@@ -10,8 +10,10 @@ def tween_factory(handler, registry):
     """
     def rewrite_KRB5CCNAME_in_environ(request):
         # Переписываем значение KRB5CCNAME в окружении на тот, что пришёл с реквестом
+        # Так же, записываем имя пришедшего пользователя, чтобы упростить к нему доступ
         if 'KRB5CCNAME' in request.environ.keys():
             environ['KRB5CCNAME'] = request.environ['KRB5CCNAME']
+            environ['REMOTE_USER'] = request.environ['REMOTE_USER'].split('@')[0]
 
         # обрабатываем входящий request нашим приложением
         response = handler(request)

@@ -4,8 +4,3 @@ pypi_url: http://art.rd.aorti.ru/repository/pypi-proxy/simple
 
 source_directory: "{{ lookup('env', 'PWD') }}/"
 deploy_directory: /opt/mks
-
-database_user: mks_service
-database_password: mks_service
-database_name: mks
-database_host: localhost

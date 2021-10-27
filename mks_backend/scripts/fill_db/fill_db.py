@@ -1,5 +1,3 @@
-import sys
-
 from random import choice, randint, randrange
 from datetime import datetime, timedelta
 from uuid import uuid4
@@ -12,15 +10,12 @@ from mks_backend.FIAS import FIASService
 from .utils import try_add, get_random_address, get_rand_int, get_random_date, get_surname, get_first_name, \
     get_middle_name, get_random_phone, get_random_email
 
-from mks_backend.session import DBSession, bind_session, get_engine_by_uri
+from mks_backend.session import DBSession
 
 
-def fill_db(config_uri=sys.argv[-1]):
-    engine = get_engine_by_uri(config_uri)
-    bind_session(engine)
-
-    insert_mu(engine)
-    insert_oksm(engine)
+def fill_db():
+    insert_mu()
+    insert_oksm()
 
     insert_meeting_types()
     insert_leadership_positions()
@@ -66,7 +61,7 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_litigation()
 
 
-def insert_mu(engine):
+def insert_mu():
     def try_insert(connection, inserts):
         fails = []
         for insert in inserts:
@@ -79,14 +74,14 @@ def insert_mu(engine):
             try_insert(connection, fails)
 
     print('INSERT MILITARY UNITS')
-    with engine.connect() as con:
+    with DBSession.bind.connect() as con:
         with open('mks_backend/dumps/military_unit.sql') as text:
             try_insert(con, text.readlines())
 
 
-def insert_oksm(engine):
+def insert_oksm():
     print('INSERT OKSM')
-    with engine.connect() as con:
+    with DBSession.bind.connect() as con:
         with open('mks_backend/dumps/oksm.sql') as text:
             try:
                 con.execute(text.read())

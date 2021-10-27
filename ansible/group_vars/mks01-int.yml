@@ -4,6 +4,12 @@ krb_auth_realms: INT.AORTI.TECH
 
 auth_type: kerberos
 
+database_host: 1mks01.int.aorti.tech
+database_port: 5432
+database_name: mks
+database_user: mks_service
+database_password: mks_service
+
 miv_host: http://1krn-core02.int.aorti.tech:8860
 miv_user: mks
 miv_password: iEfG02AE
