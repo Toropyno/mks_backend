@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import desc
 
 from .model import ObjectFile
@@ -20,8 +22,8 @@ class ObjectFileRepository:
     def get_all_object_files(self) -> list:
         return self._query.order_by(desc(ObjectFile.upload_date)).all()
 
-    def add_object_file(self, object_file: ObjectFile) -> None:
-        DBSession.add(object_file)
+    def add_object_files(self, object_files: List[ObjectFile]) -> None:
+        DBSession.add_all(object_files)
         DBSession.commit()
 
     def delete_object_file_by_id(self, id_: int) -> None:

@@ -1,3 +1,5 @@
+from typing import List
+
 from .model import ObjectFile
 from .repository import ObjectFileRepository
 
@@ -18,8 +20,8 @@ class ObjectFileService:
     def get_object_file_by_id(self, id: int) -> ObjectFile:
         return self.repo.get_object_file_by_id(id)
 
-    def add_object_file(self, object_file: ObjectFile) -> None:
-        self.repo.add_object_file(object_file)
+    def add_object_files(self, object_files: List[ObjectFile]) -> None:
+        self.repo.add_object_files(object_files)
 
     def update_object_file(self, new_object_file: ObjectFile) -> None:
         self.repo.update_object_file(new_object_file)
