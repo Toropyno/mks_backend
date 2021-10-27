@@ -22,12 +22,12 @@ class InspectionFileController:
         return self.serializer.convert_list_to_json(inspection_files)
 
     @view_config(route_name='add_inspection_file')
-    def add_inspection_file(self):
-        inspection_deserialized = self.schema.deserialize(self.request.json_body)
-        inspection = self.serializer.to_object(inspection_deserialized)
+    def add_inspection_files(self):
+        inspection_files_deserialized = self.schema.deserialize(self.request.json_body)
+        inspection_files_deserialized = self.serializer.to_object_list(inspection_files_deserialized)
 
-        self.service.add_inspection_file(inspection)
-        return {'id': inspection.inspections_id}
+        self.service.add_inspection_files(inspection_files_deserialized)
+        return {'ids': [inspection_file.idfilestorage for inspection_file in inspection_files_deserialized]}
 
     @view_config(route_name='delete_inspection_file')
     def delete_inspection_file(self):

@@ -18,11 +18,12 @@ class InspectionFileSerializer:
     def convert_list_to_json(self, inspection_files: List[InspectionFile]) -> List[dict]:
         return list(map(self.to_json, inspection_files))
 
-    def to_object(self, schema: dict) -> InspectionFile:
-        inspection_file = InspectionFile()
+    def to_object_list(self, schema: dict) -> List[InspectionFile]:
+        return [self.to_object(schema, idfilestorage) for idfilestorage in schema.get('ids', [])]
 
-        inspection_file.idfilestorage = schema.get('idFileStorage')
-        inspection_file.inspections_id = schema.get('inspectionId')
-        inspection_file.note = schema.get('note')
-
-        return inspection_file
+    def to_object(self, schema: dict, idfilestorage: str = None) -> InspectionFile:
+        return InspectionFile(
+            idfilestorage=idfilestorage,
+            note=schema.get('note'),
+            inspections_id=schema.get('inspectionId'),
+        )

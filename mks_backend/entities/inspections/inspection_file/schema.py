@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.utils.validator_utils import uuid_file_validator, strip_space
+from mks_backend.utils.validator_utils import strip_space
 
 
 class InspectionFileSchema(colander.MappingSchema):
@@ -25,8 +25,6 @@ class InspectionFileSchema(colander.MappingSchema):
     )
 
     idfilestorage = colander.SchemaNode(
-        colander.String(),
-        name='idFileStorage',
-        preparer=[strip_space],
-        validator=uuid_file_validator
+        colander.List(),
+        name='ids',
     )

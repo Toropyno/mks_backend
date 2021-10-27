@@ -11,8 +11,8 @@ class InspectionFileRepository:
     def __init__(self):
         self._query = DBSession.query(InspectionFile)
 
-    def add_inspection_file(self, file: InspectionFile):
-        DBSession.add(file)
+    def add_inspection_files(self, files: List[InspectionFile]):
+        DBSession.add_all(files)
         DBSession.commit()
 
     def get_files_by_inspection_id(self, id: int) -> List[InspectionFile]:
