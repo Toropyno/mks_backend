@@ -21,5 +21,7 @@ ALREADY_DELETED_ERROR = {
     'construction_critical_category_ad': 'Эту категорию критичного объекта уже удалили!',
     'reason_stopping_ad': 'Эту причину остановки СМР уже удалили!',
     'court_ad': 'Этот суд уже удалили!',
-    'court_decision_ad': 'Это решение суда уже удалили'
+    'court_decision_ad': 'Это решение суда уже удалили',
+    'military_unit_extension_ad': 'Это дополнительное описание в/ч уже удалили',
+    'participant_statuse_ad': 'Этот статус участника судебных споров уже удалили'
 }

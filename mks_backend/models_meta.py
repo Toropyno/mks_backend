@@ -79,5 +79,6 @@ from mks_backend.entities.courts import Courts
 from mks_backend.entities.court_decisions import CourtDecision
 
 from mks_backend.entities.military_unit_extension import MilitaryUnitExtension
+from mks_backend.entities.participant_statuses import Participant_Statuses
 
 from mks_backend.entities.trips.work_trip_file import WorkTripFile

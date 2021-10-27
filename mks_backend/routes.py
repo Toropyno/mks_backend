@@ -55,5 +55,6 @@ ROUTES = [
     'mks_backend.entities.courts.routes.include_court',
     'mks_backend.entities.court_decisions.routes.include_court_decision',
     'mks_backend.entities.military_unit_extension.routes.include_military_unit_extension',
+    'mks_backend.entities.participant_statuses.routes.include_participant_statuses',
     'mks_backend.entities.trips.work_trip_file.routes.include_work_trip_files'
 ]
