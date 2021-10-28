@@ -3,7 +3,7 @@ import colander
 from mks_backend.utils.validator_utils import strip_space
 
 
-class ParticipantStatusesSchema(colander.MappingSchema):
+class ParticipantStatusSchema(colander.MappingSchema):
 
     fullname = colander.SchemaNode(
         colander.String(),

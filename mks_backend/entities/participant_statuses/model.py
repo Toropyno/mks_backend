@@ -8,7 +8,7 @@ from mks_backend.session import Base
 from mks_backend.db_schemas import COURTS_SCHEMA
 
 
-class Participant_Statuses(Base):
+class ParticipantStatus(Base):
     __tablename__ = 'participant_statuses'
     __table_args__ = {'schema': COURTS_SCHEMA}
 

@@ -1,23 +1,23 @@
-from .model import Participant_Statuses
-from .repository import ParticipantStatusesRepository
+from .model import ParticipantStatus
+from .repository import ParticipantStatusRepository
 
 
-class ParticipantStatusesService:
+class ParticipantStatusService:
 
     def __init__(self):
-        self.repo = ParticipantStatusesRepository()
+        self.repo = ParticipantStatusRepository()
 
     def get_all_participant_statuses(self) -> list:
         return self.repo.get_all_participant_statuses()
 
-    def get_participant_statuse_by_id(self, id: int) -> Participant_Statuses:
-        return self.repo.get_participant_statuse_by_id(id)
+    def get_participant_status_by_id(self, id: int) -> ParticipantStatus:
+        return self.repo.get_participant_status_by_id(id)
 
-    def add_participant_statuse(self, participant_statuse: Participant_Statuses) -> None:
-        self.repo.add_participant_statuse(participant_statuse)
+    def add_participant_status(self, participant_status: ParticipantStatus) -> None:
+        self.repo.add_participant_status(participant_status)
 
-    def update_participant_statuse(self, new_participant_statuse: Participant_Statuses) -> None:
-        self.repo.update_participant_statuse(new_participant_statuse)
+    def update_participant_status(self, new_participant_status: ParticipantStatus) -> None:
+        self.repo.update_participant_status(new_participant_status)
 
-    def delete_participant_statuse_by_id(self, id: int) -> None:
-        self.repo.get_participant_statuse_by_id(id)
+    def delete_participant_status_by_id(self, id: int) -> None:
+        self.repo.get_participant_status_by_id(id)
