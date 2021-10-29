@@ -62,6 +62,7 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_military_unit_extension()
     insert_court_decisions()
     insert_court()
+    insert_participant_status()
 
 
 def insert_mu(engine):
@@ -486,4 +487,10 @@ def insert_court_decisions():
 def insert_military_unit_extension():
     print('INSERT MILITARY UNIT EXTENSION')
     for name in ['Добавление танка', 'Добавление БТР', 'Добавление БМП']:
+        try_add(Courts(fullname=name))
+
+
+def insert_participant_status():
+    print('INSERT PARTICIPANT STATUS')
+    for name in ['Истец (заявитель)', 'Ответчик']:
         try_add(Courts(fullname=name))
