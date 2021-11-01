@@ -16,8 +16,8 @@ class ReasonStoppingRepository:
         DBSession.add(reason_stopping)
         DBSession.commit()
 
-    def delete_reason_stopping_by_id(self, id: int) -> None:
-        self._query.filter(ReasonStopping.reason_stopping_id == id).delete()
+    def delete_reason_stopping_by_id(self, id_: int) -> None:
+        self._query.filter(ReasonStopping.reason_stopping_id == id_).delete()
         DBSession.commit()
 
     def update_reason_stopping(self, new_reason_stopping: ReasonStopping) -> None:
@@ -27,5 +27,5 @@ class ReasonStoppingRepository:
             DBSession.rollback()
             raise DBBasicError('reason_stopping_ad')
 
-    def get_reason_stopping_by_id(self, id: int) -> ReasonStopping:
-        return self._query.get(id)
+    def get_reason_stopping_by_id(self, id_: int) -> ReasonStopping:
+        return self._query.get(id_)

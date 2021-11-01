@@ -9,8 +9,8 @@ class CriticalCategoryRepository:
     def __init__(self):
         self._query = DBSession.query(CriticalCategory)
 
-    def get_critical_category_by_id(self, id: int) -> CriticalCategory:
-        critical_category = self._query.get(id)
+    def get_critical_category_by_id(self, id_: int) -> CriticalCategory:
+        critical_category = self._query.get(id_)
         if not critical_category:
             raise DBBasicError('critical_category_nf')
         return critical_category
@@ -22,8 +22,8 @@ class CriticalCategoryRepository:
         DBSession.add(critical_category)
         DBSession.commit()
 
-    def delete_critical_category_by_id(self, id: int) -> None:
-        critical_category = self.get_critical_category_by_id(id)
+    def delete_critical_category_by_id(self, id_: int) -> None:
+        critical_category = self.get_critical_category_by_id(id_)
         DBSession.delete(critical_category)
         DBSession.commit()
 

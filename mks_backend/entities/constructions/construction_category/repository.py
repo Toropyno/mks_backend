@@ -9,8 +9,8 @@ class ConstructionCategoryRepository:
     def __init__(self):
         self._query = DBSession.query(ConstructionCategory)
 
-    def get_construction_category_by_id(self, id: int) -> ConstructionCategory:
-        return self._query.get(id)
+    def get_construction_category_by_id(self, id_: int) -> ConstructionCategory:
+        return self._query.get(id_)
 
     def get_all_construction_categories(self) -> list:
         return self._query.order_by(ConstructionCategory.fullname).all()
@@ -19,8 +19,8 @@ class ConstructionCategoryRepository:
         DBSession.add(construction_category)
         DBSession.commit()
 
-    def delete_construction_category_by_id(self, id: int) -> None:
-        construction_category = self.get_construction_category_by_id(id)
+    def delete_construction_category_by_id(self, id_: int) -> None:
+        construction_category = self.get_construction_category_by_id(id_)
         DBSession.delete(construction_category)
         DBSession.commit()
 

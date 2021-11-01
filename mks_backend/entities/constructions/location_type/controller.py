@@ -30,9 +30,9 @@ class LocationTypeController:
 
     @view_config(route_name='delete_location_type')
     def delete_location_type(self):
-        id = self.get_id()
-        self.service.delete_location_type_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_location_type_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_location_type')
     def edit_location_type(self):
@@ -45,8 +45,8 @@ class LocationTypeController:
 
     @view_config(route_name='get_location_type')
     def get_location_type(self):
-        id = self.get_id()
-        location_type = self.service.get_location_type_by_id(id)
+        id_ = self.get_id()
+        location_type = self.service.get_location_type_by_id(id_)
         return self.serializer.convert_object_to_json(location_type)
 
     def get_id(self):

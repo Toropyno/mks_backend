@@ -9,8 +9,8 @@ class ConstructionSubcategoryRepository:
     def __init__(self):
         self._query = DBSession.query(ConstructionSubcategory)
 
-    def get_construction_subcategory_by_id(self, id: int) -> ConstructionSubcategory:
-        return self._query.get(id)
+    def get_construction_subcategory_by_id(self, id_: int) -> ConstructionSubcategory:
+        return self._query.get(id_)
 
     def get_all_construction_subcategories(self) -> list:
         return self._query.all()
@@ -24,8 +24,8 @@ class ConstructionSubcategoryRepository:
         DBSession.add(construction_subcategory)
         DBSession.commit()
 
-    def delete_construction_subcategory_by_id(self, id: int) -> None:
-        construction_subcategory = self.get_construction_subcategory_by_id(id)
+    def delete_construction_subcategory_by_id(self, id_: int) -> None:
+        construction_subcategory = self.get_construction_subcategory_by_id(id_)
         DBSession.delete(construction_subcategory)
         DBSession.commit()
 

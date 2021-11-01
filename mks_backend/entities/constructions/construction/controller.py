@@ -42,9 +42,9 @@ class ConstructionController:
 
     @view_config(route_name='delete_construction', permission='access.mks_crud_isp')
     def delete_construction(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_construction_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_construction_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_construction', permission='access.mks_crud_isp')
     def edit_construction(self):
@@ -60,6 +60,6 @@ class ConstructionController:
 
     @view_config(route_name='get_construction', permission='access.mks_crud_isp')
     def get_construction(self):
-        id = int(self.request.matchdict['id'])
-        construction = self.service.get_construction_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        construction = self.service.get_construction_by_id(id_)
         return self.serializer.to_json(construction)
