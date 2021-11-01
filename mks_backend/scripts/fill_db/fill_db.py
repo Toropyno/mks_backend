@@ -63,6 +63,7 @@ def fill_db(config_uri=sys.argv[-1]):
     insert_court_decisions()
     insert_court()
     insert_participant_status()
+    insert_litigation()
 
 
 def insert_mu(engine):
@@ -493,4 +494,10 @@ def insert_military_unit_extension():
 def insert_participant_status():
     print('INSERT PARTICIPANT STATUS')
     for name in ['Истец (заявитель)', 'Ответчик']:
+        try_add(Courts(fullname=name))
+
+
+def insert_litigation():
+    print('INSERT LITIGATION')
+    for name in ['Судебный спор МО', 'Судебный спор ФНС', 'Судебный спор КС']:
         try_add(Courts(fullname=name))
