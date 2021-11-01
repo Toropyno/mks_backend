@@ -29,9 +29,9 @@ class ReasonStoppingController:
 
     @view_config(route_name='delete_reason_stopping')
     def delete_reason_stopping(self):
-        id = self.get_id()
-        self.service.delete_reason_stopping_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_reason_stopping_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_reason_stopping')
     def edit_reason_stopping(self):
@@ -43,8 +43,8 @@ class ReasonStoppingController:
 
     @view_config(route_name='get_reason_stopping')
     def get_reason_stopping(self):
-        id = self.get_id()
-        reason_stopping = self.service.get_reason_stopping_by_id(id)
+        id_ = self.get_id()
+        reason_stopping = self.service.get_reason_stopping_by_id(id_)
         return self.serializer.convert_object_to_json(reason_stopping)
 
     def get_id(self):

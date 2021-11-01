@@ -16,8 +16,8 @@ class LocationTypeRepository:
         DBSession.add(location_type)
         DBSession.commit()
 
-    def delete_location_type_by_id(self, id: int) -> None:
-        self._query.filter(LocationType.location_types_id == id).delete()
+    def delete_location_type_by_id(self, id_: int) -> None:
+        self._query.filter(LocationType.location_types_id == id_).delete()
         DBSession.commit()
 
     def update_location_type(self, new_location_type: LocationType) -> None:
@@ -27,5 +27,5 @@ class LocationTypeRepository:
             DBSession.rollback()
             raise DBBasicError('location_type_ad')
 
-    def get_location_type_by_id(self, id: int) -> LocationType:
-        return self._query.get(id)
+    def get_location_type_by_id(self, id_: int) -> LocationType:
+        return self._query.get(id_)

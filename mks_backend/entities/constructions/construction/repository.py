@@ -31,8 +31,8 @@ class ConstructionRepository:
             DBSession.rollback()
             raise DBBasicError('construction_ad')
 
-    def delete_construction(self, id: int) -> None:
-        construction = self.get_construction_by_id(id)
+    def delete_construction(self, id_: int) -> None:
+        construction = self.get_construction_by_id(id_)
         DBSession.delete(construction)
         DBSession.commit()
 

@@ -16,8 +16,8 @@ class CommissionRepository:
         DBSession.add(commission)
         DBSession.commit()
 
-    def delete_commission_by_id(self, id: int) -> None:
-        commission = self.get_commission_by_id(id)
+    def delete_commission_by_id(self, id_: int) -> None:
+        commission = self.get_commission_by_id(id_)
         if not commission.construction:
             DBSession.delete(commission)
             DBSession.commit()
@@ -32,8 +32,8 @@ class CommissionRepository:
             DBSession.rollback()
             raise DBBasicError('commission_ad')
 
-    def get_commission_by_id(self, id: int) -> Commission:
-        commission = self._query.get(id)
+    def get_commission_by_id(self, id_: int) -> Commission:
+        commission = self._query.get(id_)
         if not commission:
             raise DBBasicError('commission_ad')
         return commission

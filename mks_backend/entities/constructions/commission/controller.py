@@ -29,9 +29,9 @@ class CommissionController:
 
     @view_config(route_name='delete_commission')
     def delete_commission(self):
-        id = self.get_id()
-        self.service.delete_commission_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_commission_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_commission')
     def edit_commission(self):
@@ -44,8 +44,8 @@ class CommissionController:
 
     @view_config(route_name='get_commission')
     def get_commission(self):
-        id = self.get_id()
-        commission = self.service.get_commission_by_id(id)
+        id_ = self.get_id()
+        commission = self.service.get_commission_by_id(id_)
         return self.serializer.convert_object_to_json(commission)
 
     def get_id(self):

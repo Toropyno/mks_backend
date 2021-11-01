@@ -10,14 +10,14 @@ class ConstructionCategoryService:
         self.repo = ConstructionCategoryRepository()
         self.subcategory_service = ConstructionSubcategoryService()
 
-    def get_construction_category_by_id(self, id: int) -> ConstructionCategory:
-        return self.repo.get_construction_category_by_id(id)
+    def get_construction_category_by_id(self, id_: int) -> ConstructionCategory:
+        return self.repo.get_construction_category_by_id(id_)
 
     def add_construction_category(self, construction_category: ConstructionCategory) -> None:
         self.repo.add_construction_category(construction_category)
 
-    def delete_construction_category_by_id(self, id: int) -> None:
-        self.repo.delete_construction_category_by_id(id)
+    def delete_construction_category_by_id(self, id_: int) -> None:
+        self.repo.delete_construction_category_by_id(id_)
 
     def update_construction_category(self, construction_category: ConstructionCategory) -> None:
         self.repo.update_construction_category(construction_category)

@@ -10,8 +10,8 @@ class CommissionService:
     def get_all_commissions(self) -> list:
         return self.repo.get_all_commissions()
 
-    def get_commission_by_id(self, id: int) -> Commission:
-        return self.repo.get_commission_by_id(id)
+    def get_commission_by_id(self, id_: int) -> Commission:
+        return self.repo.get_commission_by_id(id_)
 
     def add_commission(self, commission: Commission) -> None:
         self.repo.add_commission(commission)
@@ -19,5 +19,5 @@ class CommissionService:
     def update_commission(self, new_commission: Commission) -> None:
         self.repo.update_commission(new_commission)
 
-    def delete_commission_by_id(self, id: int) -> None:
-        self.repo.delete_commission_by_id(id)
+    def delete_commission_by_id(self, id_: int) -> None:
+        self.repo.delete_commission_by_id(id_)

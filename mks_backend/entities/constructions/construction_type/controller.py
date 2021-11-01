@@ -30,9 +30,9 @@ class ConstructionTypeController:
 
     @view_config(route_name='delete_construction_type')
     def delete_construction_type(self):
-        id = self.get_id()
-        self.service.delete_construction_type_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_construction_type_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_construction_type')
     def edit_construction_type(self):
@@ -45,8 +45,8 @@ class ConstructionTypeController:
 
     @view_config(route_name='get_construction_type')
     def get_construction_type(self):
-        id = self.get_id()
-        construction_type = self.service.get_construction_type_by_id(id)
+        id_ = self.get_id()
+        construction_type = self.service.get_construction_type_by_id(id_)
         return self.serializer.convert_object_to_json(construction_type)
 
     def get_id(self) -> int:

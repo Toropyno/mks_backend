@@ -20,8 +20,8 @@ class ConstructionService:
     def get_all_constructions(self) -> list:
         return self.repo.get_all_constructions()
 
-    def get_construction_by_id(self, id: int) -> Construction:
-        return self.repo.get_construction_by_id(id)
+    def get_construction_by_id(self, id_: int) -> Construction:
+        return self.repo.get_construction_by_id(id_)
 
     def add_construction(self, construction: Construction) -> None:
         self.repo.add_construction(construction)
@@ -30,8 +30,8 @@ class ConstructionService:
         self.coordinate_service.add_or_update_coordinate(new_construction.coordinate)
         self.repo.update_construction(new_construction)
 
-    def delete_construction_by_id(self, id: int) -> None:
-        self.repo.delete_construction(id)
+    def delete_construction_by_id(self, id_: int) -> None:
+        self.repo.delete_construction(id_)
 
     def convert_schema_to_object(self, schema: dict) -> Construction:
         construction = Construction()
