@@ -11,4 +11,6 @@ def get_settings_from_config(config_uri: str) -> dict:
 
 PROJECT_DIRECTORY = path.dirname(path.dirname(path.abspath(__file__)))
 BASE_DIRECTORY = path.join(PROJECT_DIRECTORY, 'mks_backend')
-SETTINGS = get_settings_from_config(path.join(PROJECT_DIRECTORY, 'development.ini'))
+
+CONFIG_PATH = path.join(PROJECT_DIRECTORY, 'development.ini')
+SETTINGS = get_settings_from_config(CONFIG_PATH)

@@ -63,6 +63,17 @@
     state: present
     owner: "{{ database_user }}"
 
+- name: Run alembic migrations
+  become: true
+  command:
+    cmd: "{{ deploy_directory }}/backend/env/bin/alembic -c {{ deploy_directory }}/backend/alembic.ini upgrade heads"
+    chdir: "{{ deploy_directory }}/backend"
+
+- name: Setup mac labels on tables and add ALD users
+  become: true
+  become_user: postgres
+  command: psql -f {{ deploy_directory }}/backend/mks_backend/scripts/add_mac_labels.sql -d {{ database_name }}
+
 - name: Give zero rights if user was not found
   lineinfile:
     dest:  /etc/parsec/mswitch.conf
@@ -73,9 +84,3 @@
 - name: Restart postgresql
   service: name=postgresql enabled=true state=restarted
   become: true
-
-- name: Run alembic migrations
-  become: true
-  command:
-    cmd: "{{ deploy_directory }}/backend/env/bin/alembic -c {{ deploy_directory }}/backend/alembic.ini upgrade heads"
-    chdir: "{{ deploy_directory }}/backend"

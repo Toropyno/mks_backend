@@ -8,12 +8,17 @@ pyramid.debug_routematch = false
 pyramid.default_locale_name = ru
 pyramid.includes = pyramid_debugtoolbar
 
-sqlalchemy.url = postgresql://{{ database_user }}:{{ database_password }}@{{ database_host }}:5432/{{ database_name }}
-
 retry.attempts = 3
 
 # ------ GLOBAL ---------
 HTTP_HOST = http://{{ inventory_hostname }}
+
+# ------ Database ---------
+DATABASE_HOST = {{ database_host }}
+DATABASE_PORT = {{ database_port }}
+DATABASE_NAME = {{ database_name }}
+DATABASE_USER = {{ database_user }}
+DATABASE_PASSWORD = {{ database_password }}
 
 # ------ Filestorage ---------
 FILE_STORAGE = {{ deploy_directory }}/filestorage
