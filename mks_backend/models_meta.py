@@ -82,3 +82,5 @@ from mks_backend.entities.military_unit_extension import MilitaryUnitExtension
 from mks_backend.entities.participant_statuses import ParticipantStatus
 
 from mks_backend.entities.trips.work_trip_file import WorkTripFile
+
+from mks_backend.entities.litigation import Litigation
