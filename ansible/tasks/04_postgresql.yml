@@ -11,6 +11,14 @@
     owner: postgres
   become: true
 
+- name: Change postgres network binding to all
+  lineinfile:
+    dest: /etc/postgresql/9.6/main/postgresql.conf
+    regexp: '^listen_addresses = '
+    line: "listen_addresses = '*'"
+  become: true
+
+
 - name: replace line ac_ignore_socket_maclabel
   lineinfile:
     dest: /etc/postgresql/9.6/main/postgresql.conf
@@ -63,12 +71,6 @@
     state: present
     owner: "{{ database_user }}"
 
-- name: Run alembic migrations
-  become: true
-  command:
-    cmd: "{{ deploy_directory }}/backend/env/bin/alembic -c {{ deploy_directory }}/backend/alembic.ini upgrade heads"
-    chdir: "{{ deploy_directory }}/backend"
-
 - name: Setup mac labels on tables and add ALD users
   become: true
   become_user: postgres
@@ -84,3 +86,9 @@
 - name: Restart postgresql
   service: name=postgresql enabled=true state=restarted
   become: true
+
+- name: Run alembic migrations
+  become: true
+  command:
+    cmd: "{{ deploy_directory }}/backend/env/bin/alembic -c {{ deploy_directory }}/backend/alembic.ini upgrade heads"
+    chdir: "{{ deploy_directory }}/backend"
