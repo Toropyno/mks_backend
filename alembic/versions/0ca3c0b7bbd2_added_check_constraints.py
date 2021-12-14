@@ -43,26 +43,26 @@ def upgrade():
 
 
 def downgrade():
-    op.create_check_constraint('organizations_history_date_check', 'organizations_history', 'end_date >= begin_date', schema='organization')
+    op.drop_constraint('organizations_history_date_check', 'organizations_history', schema='organization')
 
-    op.create_check_constraint('construction_dynamics_equipment_check', 'construction_dynamics', type_='check')
-    op.create_check_constraint('construction_dynamics_equipment_plan_check', 'construction_dynamics', type_='check')
-    op.create_check_constraint('construction_dynamics_people_check', 'construction_dynamics', type_='check')
-    op.create_check_constraint('construction_dynamics_people_plan_check', 'construction_dynamics', type_='check')
+    op.drop_constraint('construction_dynamics_equipment_check', 'construction_dynamics')
+    op.drop_constraint('construction_dynamics_equipment_plan_check', 'construction_dynamics')
+    op.drop_constraint('construction_dynamics_people_check', 'construction_dynamics')
+    op.drop_constraint('construction_dynamics_people_plan_check', 'construction_dynamics')
 
-    op.create_check_constraint('construction_hierarchy_level_check', 'construction', type_='check')
+    op.drop_constraint('construction_hierarchy_level_check', 'construction')
 
-    op.create_check_constraint('construction_stages_hierarchy_level_check', 'construction_stages', type_='check')
+    op.drop_constraint('construction_stages_hierarchy_level_check', 'construction_stages')
 
-    op.create_check_constraint('construction_progress_equipment_check', 'construction_progress', type_='check')
-    op.create_check_constraint('construction_progress_people_check', 'construction_progress', type_='check')
-    op.create_check_constraint('construction_progress_readiness_check', 'construction_progress', 'readiness > 0 AND readiness <= 100')
-    op.create_check_constraint('construction_progress_equipment_plan_check', 'construction_progress', type_='check')
-    op.create_check_constraint('construction_progress_people_plan_check', 'construction_progress', type_='check')
+    op.drop_constraint('construction_progress_equipment_check', 'construction_progress')
+    op.drop_constraint('construction_progress_people_check', 'construction_progress')
+    op.drop_constraint('construction_progress_readiness_check', 'construction_progress')
+    op.drop_constraint('construction_progress_equipment_plan_check', 'construction_progress')
+    op.drop_constraint('construction_progress_people_plan_check', 'construction_progress')
 
-    op.create_check_constraint('construction_objects_weight_check', 'construction_objects', type_='check')
+    op.drop_constraint('construction_objects_weight_check', 'construction_objects')
 
-    op.drop_constraint('works_list_fact_check', 'works_list', type_='check')
-    op.drop_constraint('works_list_plan_check', 'works_list', type_='check')
-    op.drop_constraint('works_list_date_check', 'works_list', type_='check')
-    op.drop_constraint('works_list_weight_check', 'works_list', type_='check')
+    op.drop_constraint('works_list_fact_check', 'works_list')
+    op.drop_constraint('works_list_plan_check', 'works_list')
+    op.drop_constraint('works_list_date_check', 'works_list')
+    op.drop_constraint('works_list_weight_check', 'works_list')
