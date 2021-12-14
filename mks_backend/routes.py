@@ -33,6 +33,7 @@ ROUTES = [
     'mks_backend.MIV.routes.include_miv',
     'mks_backend.entities.oksm.routes.include_oksms',
     'mks_backend.entities.organizations.military_rank.routes.include_military_ranks',
+    'mks_backend.entities.organizations.class_rank.routes.include_class_rank',
     'mks_backend.entities.organizations.official.routes.include_officials',
     'mks_backend.entities.organizations.organization.routes.include_organizations',
     'mks_backend.entities.organizations.organization_document.routes.include_organization_document',

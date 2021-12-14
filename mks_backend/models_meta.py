@@ -55,6 +55,7 @@ from mks_backend.entities.organizations.official.model import Official
 from mks_backend.entities.organizations.organization.model import Organization
 from mks_backend.entities.organizations.organization_document.model import OrganizationDocument
 from mks_backend.entities.organizations.organization_history.model import OrganizationHistory
+from mks_backend.entities.organizations.class_rank import ClassRank
 
 from mks_backend.entities.protocols.meeting.model import Meeting
 from mks_backend.entities.protocols.protocol.model import Protocol

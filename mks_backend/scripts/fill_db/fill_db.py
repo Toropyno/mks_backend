@@ -59,6 +59,7 @@ def fill_db():
     insert_court()
     insert_participant_status()
     insert_litigation()
+    insert_class_rank()
 
 
 def insert_mu():
@@ -496,3 +497,33 @@ def insert_litigation():
     print('INSERT LITIGATION')
     for name in ['Судебный спор МО', 'Судебный спор ФНС', 'Судебный спор КС']:
         try_add(Courts(fullname=name))
+    courts = DBSession.query(Courts).all()
+    organizations = DBSession.query(Organization).all()
+    participant_statuses = DBSession.query(ParticipantStatus).all()
+    construction_companies = DBSession.query(ConstructionCompany).all()
+    court_decisions = DBSession.query(CourtDecision).all()
+
+    for _ in range(5):
+        instance = Litigation(
+            appeal_date=datetime.now().date(),
+            courts_id=choice(courts).courts_id,
+            organizations_id=choice(organizations).organizations_id,
+            participant_statuses_id=choice(participant_statuses).participant_statuses_id,
+            construction_companies_id=choice(construction_companies).construction_companies_id,
+            participant_other=choice(['Судебный спор МО', 'Судебный спор ФНС', 'Судебный спор КС']),
+            information='Информация',
+            court_decisions_id=choice(court_decisions).court_decisions_id,
+            decision_date=datetime.now().date(),
+            note='Примечание'
+        )
+        try_add(instance)
+
+
+def insert_class_rank():
+    print('INSERT CLASS RANK')
+    for i in range(3):
+        instance = ClassRank(
+            class_ranks_id=i,
+            fullname=choice(['Младший советник', 'Советник', 'Старший советник'])
+        )
+    try_add(instance)
