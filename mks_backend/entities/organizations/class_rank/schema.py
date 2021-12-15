@@ -15,9 +15,9 @@ class ClassRankSchema(colander.MappingSchema):
         missing=colander.drop
     )
 
-    name = colander.SchemaNode(
+    fullname = colander.SchemaNode(
         colander.String(),
-        name='name',
+        name='fullName',
         preparer=[strip_space],
         validator=colander.Length(
             max=255,

@@ -1,5 +1,8 @@
-from .model import ClassRank
 from mks_backend.session import DBSession
+from typing import List
+from mks_backend.errors.db_basic_error import DBBasicError
+
+from .model import ClassRank
 
 
 class ClassRankRepository:
@@ -10,7 +13,7 @@ class ClassRankRepository:
     def get_class_rank_by_id(self, id_: int) -> ClassRank:
         return self._query.get(id_)
 
-    def get_all_class_ranks(self) -> list:
+    def get_all_class_ranks(self) -> List[ClassRank]:
         return self._query.order_by(ClassRank.fullname).all()
 
     def add_class_rank(self, class_rank: ClassRank) -> None:
@@ -21,10 +24,9 @@ class ClassRankRepository:
         self._query.filter_by(class_ranks_id=id).delete()
         DBSession.commit()
 
-    def edit_class_rank(self, class_rank: ClassRank) -> None:
-        self._query.filter_by(class_ranks_id=class_rank.class_ranks_id).update(
-            {
-                'fullname': class_rank.fullname,
-            }
-        )
-        DBSession.commit()
+    def update_class_rank(self, class_rank: ClassRank) -> None:
+        if DBSession.merge(class_rank) and not DBSession.new:
+            DBSession.commit()
+        else:
+            DBSession.rollback()
+            raise DBBasicError('class_rank_ad')

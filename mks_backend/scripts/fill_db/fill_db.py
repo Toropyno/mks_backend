@@ -478,25 +478,23 @@ def insert_court():
 def insert_court_decisions():
     print('INSERT COURT DECISIONS')
     for name in ['Решение верховного суда', 'Решение арбитражного суда ', 'Решение конституционного суда']:
-        try_add(Courts(fullname=name))
+        try_add(CourtDecision(fullname=name))
 
 
 def insert_military_unit_extension():
     print('INSERT MILITARY UNIT EXTENSION')
     for name in ['Добавление танка', 'Добавление БТР', 'Добавление БМП']:
-        try_add(Courts(fullname=name))
+        try_add(MilitaryUnitExtension(report_name=name))
 
 
 def insert_participant_status():
     print('INSERT PARTICIPANT STATUS')
     for name in ['Истец (заявитель)', 'Ответчик']:
-        try_add(Courts(fullname=name))
+        try_add(ParticipantStatus(fullname=name))
 
 
 def insert_litigation():
     print('INSERT LITIGATION')
-    for name in ['Судебный спор МО', 'Судебный спор ФНС', 'Судебный спор КС']:
-        try_add(Courts(fullname=name))
     courts = DBSession.query(Courts).all()
     organizations = DBSession.query(Organization).all()
     participant_statuses = DBSession.query(ParticipantStatus).all()
@@ -510,7 +508,7 @@ def insert_litigation():
             organizations_id=choice(organizations).organizations_id,
             participant_statuses_id=choice(participant_statuses).participant_statuses_id,
             construction_companies_id=choice(construction_companies).construction_companies_id,
-            participant_other=choice(['Судебный спор МО', 'Судебный спор ФНС', 'Судебный спор КС']),
+            participant_other=choice(['Участник со стороны МО', 'Участник со стороны ФНС', 'Участник со стороны МВД']),
             information='Информация',
             court_decisions_id=choice(court_decisions).court_decisions_id,
             decision_date=datetime.now().date(),
