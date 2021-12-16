@@ -1,7 +1,6 @@
 from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
-from .model import ClassRank
 from .service import ClassRankService
 from .serializer import ClassRankSerializer
 from .schema import ClassRankSchema
@@ -12,7 +11,7 @@ class ClassRankController:
 
     def __init__(self, request: Request):
         self.request = request
-        self.service = ClassRankService(ClassRank)
+        self.service = ClassRankService()
         self.serializer = ClassRankSerializer()
         self.schema = ClassRankSchema()
 

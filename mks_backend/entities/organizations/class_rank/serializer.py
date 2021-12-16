@@ -11,10 +11,6 @@ class ClassRankSerializer:
     def __init__(self):
         self.schema = ClassRankSchema()
 
-    def to_mapped_object(self, class_rank: dict) -> ClassRank:
-        deserialized = self.schema.deserialize(class_rank)
-        return ClassRank(**deserialized)
-
     @classmethod
     @serialize_error_handler
     def to_json(cls, class_rank: ClassRank) -> dict:

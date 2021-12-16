@@ -34,6 +34,7 @@ def fill_db():
     # fiases = create_fiases()
 
     insert_organizations()
+    insert_class_ranks()
     insert_military_ranks()
     insert_officials()
 
@@ -59,7 +60,6 @@ def fill_db():
     insert_court()
     insert_participant_status()
     insert_litigation()
-    insert_class_rank()
 
 
 def insert_mu():
@@ -78,6 +78,13 @@ def insert_mu():
     with DBSession.bind.connect() as con:
         with open('mks_backend/dumps/military_unit.sql') as text:
             try_insert(con, text.readlines())
+
+
+def insert_class_ranks():
+    print('INSERT CLASS RANK')
+    for rank in list(['Младший советник', 'Советник', 'Старший советник']):
+        instatance = ClassRank(fullname=rank)
+        try_add(instatance)
 
 
 def insert_oksm():
@@ -194,6 +201,7 @@ def insert_military_ranks():
 def insert_officials():
     print('INSERT OFFICIALS')
     military_ranks = DBSession.query(MilitaryRank).all()
+    class_ranks = DBSession.query(ClassRank).all()
     organizations = DBSession.query(Organization).all()
 
     date_gen = get_random_date()
@@ -212,6 +220,8 @@ def insert_officials():
             note=choice([None, 'Примечание']),
             organization=choice(organizations),
             military_rank=choice(military_ranks),
+            class_rank=choice(class_ranks)
+
         )
 
         try_add(instance)
@@ -515,13 +525,3 @@ def insert_litigation():
             note='Примечание'
         )
         try_add(instance)
-
-
-def insert_class_rank():
-    print('INSERT CLASS RANK')
-    for i in range(3):
-        instance = ClassRank(
-            class_ranks_id=i,
-            fullname=choice(['Младший советник', 'Советник', 'Старший советник'])
-        )
-    try_add(instance)

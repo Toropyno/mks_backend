@@ -6,7 +6,7 @@ from .model import ClassRank
 
 class ClassRankService:
 
-    def __init__(self, model, repo=ClassRankRepository):
+    def __init__(self):
         self.repo = ClassRankRepository()
 
     def get_all_class_ranks(self) -> List[ClassRank]:

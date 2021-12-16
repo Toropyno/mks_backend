@@ -13,6 +13,9 @@ from mks_backend.db_schemas import ORGANIZATION_SCHEMA
 
 
 class Official(Base):
+    """
+        Должностные лица
+    """
     __tablename__ = 'officials'
 
     __table_args__ = {'schema': ORGANIZATION_SCHEMA}
@@ -50,4 +53,22 @@ class Official(Base):
 
     organization = relationship(
         'Organization'
+    )
+
+    class_ranks_id = Column(
+        Integer,
+        ForeignKey('{schema}.class_ranks.class_ranks_id'.format(schema=ORGANIZATION_SCHEMA)),
+    )
+
+    idfilestorage = Column(
+        UUID,
+        ForeignKey('filestorage.idfilestorage', ondelete='SET NULL')
+    )
+
+    class_rank = relationship(
+        'ClassRank'
+    )
+    filestorage = relationship(
+        'Filestorage',
+        cascade='all, delete'
     )

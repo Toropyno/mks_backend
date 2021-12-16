@@ -11,7 +11,10 @@ class ClassRankRepository:
         self._query = DBSession.query(ClassRank)
 
     def get_class_rank_by_id(self, id_: int) -> ClassRank:
-        return self._query.get(id_)
+        class_rank = self._query.get(id_)
+        if not class_rank:
+            raise DBBasicError('class_rank_nf')
+        return class_rank
 
     def get_all_class_ranks(self) -> List[ClassRank]:
         return self._query.order_by(ClassRank.fullname).all()
