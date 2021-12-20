@@ -1,7 +1,6 @@
 import colander
 
-from mks_backend.utils.validator_utils import strip_space, date_validator, phone_validator, \
-    organization_uuid, email_validator
+from mks_backend.utils.validator_utils import strip_space, date_validator, organization_uuid
 
 
 class OfficialSchema(colander.MappingSchema):
@@ -90,10 +89,7 @@ class OfficialSchema(colander.MappingSchema):
 
     phone = colander.SchemaNode(
         colander.String(),
-        preparer=[strip_space],
         name='phone',
-        msg='Недопустимая информация о номере телефона',
-        validator=phone_validator,
         missing=None
     )
 
@@ -112,10 +108,7 @@ class OfficialSchema(colander.MappingSchema):
 
     email = colander.SchemaNode(
         colander.String(),
-        preparer=[strip_space],
         name='email',
-        msg='Недопустимая информация об email',
-        validator=email_validator,
         missing=None
     )
 
