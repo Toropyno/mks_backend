@@ -47,19 +47,3 @@ def is_uuid(value: str) -> bool:
         return False
     else:
         return True
-
-
-def phone_validator(node: colander.SchemaNode, value: str) -> None:
-    pattern = r'\\+?[\d\s\\-\\(\\)]{3,40}'
-    validator_by_pattern(node, value, pattern)
-
-
-def email_validator(node: colander.SchemaNode, value: str) -> None:
-    pattern = r'[\da-zA-ZА-ЯЁа-яё\\-\\_]+@[\da-zA-ZА-ЯЁа-яё\\-\\_]+\\.[a-zA-ZА-ЯЁа-яё]+'
-    validator_by_pattern(node, value, pattern)
-
-
-def validator_by_pattern(node: colander.SchemaNode, value: str, pattern: str) -> None:
-    res = re.fullmatch(pattern, value)
-    if res is None or len(value) > 80:
-        raise colander.Invalid(node, node.msg)
