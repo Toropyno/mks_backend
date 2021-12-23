@@ -1,4 +1,7 @@
-from .repository import OrganisationRepository, Organization
+from typing import List
+
+from .model import Organization
+from .repository import OrganisationRepository
 
 
 class OrganizationService:
@@ -6,14 +9,11 @@ class OrganizationService:
     def __init__(self):
         self.repo = OrganisationRepository()
 
-    def get_rootes(self, reflect_disbanded: bool) -> list:
-        rootes = self.repo.get_rootes()
-        if reflect_disbanded is False:
-            return self.get_active_rootes(rootes)
-        return rootes
+    def get_roots(self) -> List[Organization]:
+        return self.repo.get_roots()
 
-    def get_active_rootes(self, organizations: list) -> list:
-        return list(filter(lambda org: org.is_active, organizations))
+    def get_all_organizations(self, filter_fields: dict = None) -> List[str]:
+        return self.repo.get_all_organizations(filter_fields)
 
     def add_organization(self, organization: Organization) -> None:
         self.repo.add(organization)

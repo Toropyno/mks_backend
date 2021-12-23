@@ -19,15 +19,18 @@ class OrganizationController:
 
     @view_config(route_name='get_organizations_tree', permission='access.mks_crud_organizations')
     def get_organizations_tree(self):
-        reflect_disbanded = self.filter_schema.deserialize(self.request.GET).get('reflectDisbanded', True)
-        rootes = self.service.get_rootes(reflect_disbanded)
-        return self.serializer.to_json_tree(rootes, reflect_disbanded)
+        roots = self.service.get_roots()
+        return self.serializer.to_json_tree(roots)
+
+    @view_config(route_name='get_organizations_filter')
+    def get_organizations_filter(self):
+        filter_fields = self.filter_schema.deserialize(self.request.GET)
+        return self.service.get_all_organizations(filter_fields)
 
     @view_config(route_name='add_organization', permission='access.mks_crud_organizations')
     def add_organization(self):
         organization_deserialized = self.schema.deserialize(self.request.json_body)
         organization = self.serializer.to_mapped_object(organization_deserialized)
-
         self.service.add_organization(organization)
         return {'organizationId': organization.organizations_id}
 
