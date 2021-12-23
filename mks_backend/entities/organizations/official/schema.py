@@ -130,5 +130,18 @@ class OfficialFilterSchema(colander.MappingSchema):
     reflect_vacated_position = colander.SchemaNode(
         colander.Boolean(false_choices=['false', '0', 'False', 'none']),
         name='reflectVacatedPosition',
+        missing=True
+    )
+
+    official_name = colander.SchemaNode(
+        colander.Str(),
+        preparer=[strip_space],
+        name='officialName',
         missing=colander.drop
+    )
+
+    organization_uuid = colander.SchemaNode(
+        colander.Str(),
+        name='organization_uuid',
+        validator=organization_uuid
     )

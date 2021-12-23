@@ -24,7 +24,7 @@ class OrganizationController:
 
     @view_config(route_name='get_organizations_filter')
     def get_organizations_filter(self):
-        filter_fields = self.filter_schema.deserialize(self.request.GET)
+        filter_fields = self.filter_schema.deserialize(self.request.params)
         return self.service.get_all_organizations(filter_fields)
 
     @view_config(route_name='add_organization', permission='access.mks_crud_organizations')

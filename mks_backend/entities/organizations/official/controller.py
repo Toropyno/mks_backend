@@ -44,10 +44,8 @@ class OfficialController:
 
     @view_config(route_name='get_officials_by_organization')
     def get_officials_by_organization(self):
-        reflect_vacated_position = self.filter_schema.deserialize(self.request.GET).get('reflectVacatedPosition', True)
-        organization_id = self.request.matchdict.get('organization_uuid')
-
-        officials = self.service.get_officials_by_organization(organization_id, reflect_vacated_position)
+        filter_fields = self.filter_schema.deserialize({**self.request.params, **self.request.matchdict})
+        officials = self.service.get_officials_by_organization(filter_fields)
         return self.serializer.convert_list_to_json(officials)
 
     @view_config(route_name='get_official_by_id')

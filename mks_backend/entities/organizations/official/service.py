@@ -1,3 +1,5 @@
+from typing import List
+
 from .model import Official
 from .repository import OfficialRepository
 
@@ -19,15 +21,8 @@ class OfficialService:
     def delete_official_by_id(self, id: int) -> None:
         self.repo.delete_official(id)
 
-    def get_officials_by_organization(self, organization_uuid: str, reflect_vacated_position: bool) -> list:
-        officials = self.organization_service.get_by_id(organization_uuid).officials
+    def get_officials_by_organization(self, filter_fields: dict) -> List[Official]:
+        return self.repo.get_officials_by_organization(filter_fields)
 
-        if reflect_vacated_position is False:
-            officials = self.get_active_officials(officials)
-        return officials
-
-    def get_active_officials(self, officials: list) -> list:
-        return list(filter(lambda ofl: not ofl.end_date, officials))
-
-    def get_official(self, id_: int):
+    def get_official(self, id_: int) -> Official:
         return self.repo.get_official(id_)
