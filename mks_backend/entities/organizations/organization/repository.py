@@ -71,5 +71,4 @@ class OrganisationRepository:
                     ' ', Official.surname, Official.firstname, Official.middlename
                 ).ilike('%{}%'.format(official_name))
             )
-
-        return [organization[0] for organization in organizations.all()]
+        return [organization[0] for organization in organizations.distinct().all()]
