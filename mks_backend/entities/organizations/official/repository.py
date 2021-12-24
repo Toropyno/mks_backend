@@ -1,3 +1,6 @@
+from typing import List
+from sqlalchemy import func
+
 from .model import Official
 from mks_backend.session import DBSession
 
@@ -34,5 +37,21 @@ class OfficialRepository:
         self._query.filter_by(officials_id=id).delete()
         DBSession.commit()
 
-    def get_official(self, id_: int):
+    def get_official(self, id_: int) -> Official:
         return self._query.filter_by(officials_id=id_).first()
+
+    def get_officials_by_organization(self, filter_fields: dict) -> List[Official]:
+        organization_uuid = filter_fields.get('organization_uuid')
+        reflect_vacated_position = filter_fields.get('reflectVacatedPosition')
+        official_name = filter_fields.get('officialName')
+
+        officials = self._query.filter(Official.organizations_id == organization_uuid)
+        if official_name:
+            officials = officials.filter(
+                func.CONCAT_WS(
+                    ' ', Official.surname, Official.firstname, Official.middlename
+                ).ilike('%{}%'.format(official_name))
+            )
+        if reflect_vacated_position:
+            officials = officials.filter(Official.end_date.is_(None))
+        return officials

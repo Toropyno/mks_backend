@@ -1,3 +1,4 @@
+from typing import List
 from uuid import uuid4
 
 from .model import Organization
@@ -11,15 +12,7 @@ class OrganizationSerializer:
     def __init__(self):
         self.history_serializer = OrganizationHistorySerializer()
 
-    def to_json(self, node: Organization, reflect_disbanded: bool = True) -> dict:
-        if reflect_disbanded:
-            children = self.to_json_tree(node.children)
-        else:
-            children = self.to_json_tree(
-                list(filter(lambda org: org.is_active, node.children)),
-                False
-            )
-
+    def to_json(self, node: Organization) -> dict:
         return {
             'organizationId': node.organizations_id,
             'parentId': node.parent.organizations_id if node.parent else None,
@@ -28,13 +21,11 @@ class OrganizationSerializer:
             'label': node.actual.shortname,
             'isActive': node.is_active,
             'isLegal': node.org_sign,
-
-            # recursive strategy
-            'children': children,
+            'children': self.to_json_tree(node.children),
         }
 
-    def to_json_tree(self, rootes: list, reflect_disbanded: bool = True) -> list:
-        return [self.to_json(root, reflect_disbanded) for root in rootes]
+    def to_json_tree(self, roots: List[Organization]) -> List[dict]:
+        return [self.to_json(root) for root in roots]
 
     def to_mapped_object(self, schema: dict) -> Organization:
         organization = Organization(

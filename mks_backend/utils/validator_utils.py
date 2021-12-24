@@ -1,4 +1,3 @@
-import re
 from uuid import UUID
 from datetime import datetime
 
