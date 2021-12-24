@@ -58,10 +58,10 @@ class OrganisationRepository:
         organization_name = filter_fields.get('organizationName')
         official_name = filter_fields.get('officialName')
 
-        organizations = DBSession.query(Organization.organizations_id).join(OrganizationHistory)
+        organizations = DBSession.query(Organization.organizations_id)
 
         if organization_name:
-            organizations = organizations.filter(or_(
+            organizations = organizations.join(OrganizationHistory).filter(or_(
                 OrganizationHistory.shortname.ilike('%{}%'.format(organization_name)),
                 OrganizationHistory.fullname.ilike('%{}%'.format(organization_name))
             ))
