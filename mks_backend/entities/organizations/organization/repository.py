@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import func, and_, or_
+from sqlalchemy import func, or_
 
 from .model import Organization
 from .model import OrganizationHistory
@@ -45,26 +45,21 @@ class OrganisationRepository:
         ).order_by(Organization.par_number, OrganizationHistory.shortname).all()
 
     def get_all_organizations(self, filter_fields: dict = None) -> List[str]:
-        reflect_disbanded = filter_fields.get('reflectDisbanded')
+        """
+        Параметр organization_name фильтрует организации по краткому и полному наименованию связанных сущностей в
+            таблице "История изменения организации"
+
+        Параметр official_name фильтрует организации по ФИО должностных лиц, фигурирующих в них. Для этого формируется
+            подзапрос, который конкатенирует фамилию, имя и отчество сотрудников
+
+        :return: List[str] Список идентификаторов организаций, удовлетворяющих параметрам фильтрации
+        """
+
         organization_name = filter_fields.get('organizationName')
         official_name = filter_fields.get('officialName')
 
-        organizations = DBSession.query(Organization.organizations_id).join(
-            OrganizationHistory, isouter=True
-        ).distinct()
-        if reflect_disbanded:
-            max_begin_date = DBSession.query(
-                func.max(OrganizationHistory.begin_date).label('begin_date'), OrganizationHistory.organizations_id
-            ).join(Organization).group_by(
-                OrganizationHistory.organizations_id
-            ).subquery()
-            organizations = organizations.join(
-                max_begin_date, and_(
-                    max_begin_date.c.organizations_id == OrganizationHistory.organizations_id,
-                    max_begin_date.c.begin_date == OrganizationHistory.begin_date)
-            ).filter(
-                OrganizationHistory.end_date.is_(None)
-            )
+        organizations = DBSession.query(Organization.organizations_id).join(OrganizationHistory)
+
         if organization_name:
             organizations = organizations.filter(or_(
                 OrganizationHistory.shortname.ilike('%{}%'.format(organization_name)),
