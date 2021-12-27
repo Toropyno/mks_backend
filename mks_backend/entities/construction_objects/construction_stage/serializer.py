@@ -20,7 +20,7 @@ class ConstructionStageSerializer(BaseSerializer):
             } if construction_stage.parent else None
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionStage:
+    def to_mapped_object(self, schema: dict) -> ConstructionStage:
         construction_stage = ConstructionStage()
         if 'id' in schema:
             construction_stage.construction_stages_id = schema['id']

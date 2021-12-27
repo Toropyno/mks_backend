@@ -21,7 +21,7 @@ class MilitaryUnitExtensionController:
     def add_military_unit_extension(self):
         military_unit_extension_deserialized = self.schema.deserialize(self.request.json_body)
 
-        military_unit_extension = self.serializer.convert_schema_to_object(military_unit_extension_deserialized)
+        military_unit_extension = self.serializer.to_mapped_object(military_unit_extension_deserialized)
         self.service.add_military_unit_extension(military_unit_extension)
         return {'id': military_unit_extension.idMU}
 
@@ -38,7 +38,7 @@ class MilitaryUnitExtensionController:
         military_unit_extension_deserialized['idMU'] = self.get_id()
         military_unit_extension_deserialized['date'] = get_date_from_string(self.request.matchdict.get('date'))
 
-        new_military_unit_extension = self.serializer.convert_schema_to_object(military_unit_extension_deserialized)
+        new_military_unit_extension = self.serializer.to_mapped_object(military_unit_extension_deserialized)
         self.service.update_military_unit_extension(new_military_unit_extension)
         return {'id': new_military_unit_extension.idMU}
 

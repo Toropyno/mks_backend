@@ -14,7 +14,7 @@ class CourtSerializer(BaseSerializer):
             'fullName': courts.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> Courts:
+    def to_mapped_object(self, schema: dict) -> Courts:
         courts = Courts()
 
         courts.courts_id = schema.get('id')

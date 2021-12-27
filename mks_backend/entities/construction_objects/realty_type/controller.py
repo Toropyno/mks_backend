@@ -24,7 +24,7 @@ class RealtyTypeController:
     def add_realty_type(self):
         realty_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        realty_type = self.serializer.convert_schema_to_object(realty_type_deserialized)
+        realty_type = self.serializer.to_mapped_object(realty_type_deserialized)
         self.service.add_realty_type(realty_type)
         return {'id': realty_type.realty_types_id}
 
@@ -39,7 +39,7 @@ class RealtyTypeController:
         realty_type_deserialized = self.schema.deserialize(self.request.json_body)
         realty_type_deserialized['id'] = self.get_id()
 
-        new_realty_type = self.serializer.convert_schema_to_object(realty_type_deserialized)
+        new_realty_type = self.serializer.to_mapped_object(realty_type_deserialized)
         self.service.update_realty_type(new_realty_type)
         return {'id': self.get_id()}
 

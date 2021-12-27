@@ -24,7 +24,7 @@ class LeadershipPositionController:
     def add_leadership_position(self):
         leadership_position_deserialized = self.schema.deserialize(self.request.json_body)
 
-        leadership_position = self.serializer.convert_schema_to_object(leadership_position_deserialized)
+        leadership_position = self.serializer.to_mapped_object(leadership_position_deserialized)
         self.service.add_leadership_position(leadership_position)
         return {'id': leadership_position.leadership_positions_id}
 
@@ -39,7 +39,7 @@ class LeadershipPositionController:
         leadership_position_deserialized = self.schema.deserialize(self.request.json_body)
         leadership_position_deserialized['id'] = self.get_id()
 
-        new_leadership_position = self.serializer.convert_schema_to_object(leadership_position_deserialized)
+        new_leadership_position = self.serializer.to_mapped_object(leadership_position_deserialized)
         self.service.update_leadership_position(new_leadership_position)
         return {'id': new_leadership_position.leadership_positions_id}
 

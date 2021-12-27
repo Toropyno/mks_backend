@@ -23,7 +23,7 @@ class MeetingController:
     @view_config(route_name='add_meeting_type')
     def add_meeting_type(self):
         meeting_type_deserialized = self.schema.deserialize(self.request.json_body)
-        meeting_type = self.serializer.convert_schema_to_object(meeting_type_deserialized)
+        meeting_type = self.serializer.to_mapped_object(meeting_type_deserialized)
         self.service.add_meeting_type(meeting_type)
         return {'id': meeting_type.meetings_type_id}
 
@@ -38,7 +38,7 @@ class MeetingController:
         id = self.request.matchdict['id']
         meeting_type_deserialized = self.schema.deserialize(self.request.json_body)
         meeting_type_deserialized['id'] = id
-        new_meeting_type = self.serializer.convert_schema_to_object(meeting_type_deserialized)
+        new_meeting_type = self.serializer.to_mapped_object(meeting_type_deserialized)
         self.service.update_meeting_type(new_meeting_type)
         return {'id': id}
 

@@ -14,7 +14,7 @@ class CriticalCategorySerializer(BaseSerializer):
             'fullName': critical_category.fullname,
         }
 
-    def to_object(self, schema: dict) -> CriticalCategory:
+    def to_mapped_object(self, schema: dict) -> CriticalCategory:
         critical_category = CriticalCategory()
 
         critical_category.critical_categories_id = schema.get('id')

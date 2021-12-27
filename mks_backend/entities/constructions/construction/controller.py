@@ -33,8 +33,8 @@ class ConstructionController:
     def add_construction(self):
         construction_deserialized = self.schema.deserialize(self.request.json_body)
 
-        coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
-        construction = self.service.convert_schema_to_object(construction_deserialized)
+        coordinate = self.coordinate_serializer.to_mapped_object(construction_deserialized)
+        construction = self.service.to_mapped_object(construction_deserialized)
         construction.coordinate = coordinate
 
         self.service.add_construction(construction)
@@ -51,8 +51,8 @@ class ConstructionController:
         construction_deserialized = self.schema.deserialize(self.request.json_body)
         construction_deserialized['id'] = int(self.request.matchdict['id'])
 
-        coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
-        new_construction = self.service.convert_schema_to_object(construction_deserialized)
+        coordinate = self.coordinate_serializer.to_mapped_object(construction_deserialized)
+        new_construction = self.service.to_mapped_object(construction_deserialized)
         new_construction.coordinate = coordinate
 
         self.service.update_construction(new_construction)

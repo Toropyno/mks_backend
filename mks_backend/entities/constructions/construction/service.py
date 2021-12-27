@@ -33,7 +33,7 @@ class ConstructionService:
     def delete_construction_by_id(self, id_: int) -> None:
         self.repo.delete_construction(id_)
 
-    def convert_schema_to_object(self, schema: dict) -> Construction:
+    def to_mapped_object(self, schema: dict) -> Construction:
         construction = Construction()
         construction.construction_id = schema.get('id')
         construction.project_code = schema.get('code')

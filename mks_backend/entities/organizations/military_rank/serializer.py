@@ -14,7 +14,7 @@ class MilitaryRankSerializer(BaseSerializer):
             'fullName': military_rank.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> MilitaryRank:
+    def to_mapped_object(self, schema: dict) -> MilitaryRank:
         military_rank = MilitaryRank()
 
         military_rank.military_ranks_id = schema.get('id')

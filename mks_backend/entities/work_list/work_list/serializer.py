@@ -34,7 +34,7 @@ class WorkListSerializer(BaseSerializer):
             'note': work_list.note
         }
 
-    def convert_schema_to_object(self, schema: dict) -> WorkList:
+    def to_mapped_object(self, schema: dict) -> WorkList:
         work_list = WorkList()
 
         work_list.works_list_id = schema.get('id')

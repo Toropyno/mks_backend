@@ -33,9 +33,9 @@ class ConstructionObjectController:
     @view_config(route_name='add_construction_object')
     def add_construction_object(self):
         construction_object_deserialized = self.schema.deserialize(self.request.json_body)
-        construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
+        construction_object = self.service.to_mapped_object(construction_object_deserialized)
 
-        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+        construction_object.coordinate = self.coordinate_serializer.to_mapped_object(
             construction_object_deserialized
         )
 
@@ -53,9 +53,9 @@ class ConstructionObjectController:
         construction_object_deserialized = self.schema.deserialize(self.request.json_body)
         construction_object_deserialized['id'] = int(self.request.matchdict['id'])
 
-        construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
+        construction_object = self.service.to_mapped_object(construction_object_deserialized)
 
-        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+        construction_object.coordinate = self.coordinate_serializer.to_mapped_object(
             construction_object_deserialized
         )
 

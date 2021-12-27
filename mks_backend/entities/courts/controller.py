@@ -23,7 +23,7 @@ class CourtController:
     @view_config(route_name='add_court')
     def add_court(self):
         court_deserialized = self.schema.deserialize(self.request.json_body)
-        court = self.serializer.convert_schema_to_object(court_deserialized)
+        court = self.serializer.to_mapped_object(court_deserialized)
         self.service.add_court(court)
         return {'id': court.courts_id}
 
@@ -38,7 +38,7 @@ class CourtController:
         court_deserialized = self.schema.deserialize(self.request.json_body)
         court_deserialized['id'] = self.get_id()
 
-        new_court = self.serializer.convert_schema_to_object(court_deserialized)
+        new_court = self.serializer.to_mapped_object(court_deserialized)
         self.service.update_court(new_court)
         return {'id': new_court.courts_id}
 

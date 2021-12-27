@@ -18,7 +18,7 @@ class ContractWorkTypeController:
     @view_config(route_name='add_contract_work_type')
     def add(self):
         contract_w_t_deserialized = self.schema.deserialize(self.request.json_body)
-        contract_w_t = self.serializer.to_object(contract_w_t_deserialized)
+        contract_w_t = self.serializer.to_mapped_object(contract_w_t_deserialized)
 
         self.service.add(contract_w_t)
         return {'id': contract_w_t.contract_worktypes_id}
@@ -28,7 +28,7 @@ class ContractWorkTypeController:
         id = self.get_id()
         contract_w_t_deserialized = self.schema.deserialize(self.request.json_body)
         contract_w_t_deserialized['id'] = id
-        contract_w_t = self.serializer.to_object(contract_w_t_deserialized)
+        contract_w_t = self.serializer.to_mapped_object(contract_w_t_deserialized)
 
         self.service.update(contract_w_t)
         return {'id': id}

@@ -23,7 +23,7 @@ class ReasonStoppingController:
     @view_config(route_name='add_reason_stopping')
     def add_reason_stopping(self):
         reason_stopping_deserialized = self.schema.deserialize(self.request.json_body)
-        reason_stopping = self.serializer.convert_schema_to_object(reason_stopping_deserialized)
+        reason_stopping = self.serializer.to_mapped_object(reason_stopping_deserialized)
         self.service.add_reason_stopping(reason_stopping)
         return {'id': reason_stopping.reasons_stopping_id}
 
@@ -37,7 +37,7 @@ class ReasonStoppingController:
     def edit_reason_stopping(self):
         reason_stopping_deserialized = self.schema.deserialize(self.request.json_body)
         reason_stopping_deserialized['id'] = self.get_id()
-        new_reason_stopping = self.serializer.convert_schema_to_object(reason_stopping_deserialized)
+        new_reason_stopping = self.serializer.to_mapped_object(reason_stopping_deserialized)
         self.service.update_reason_stopping(new_reason_stopping)
         return {'id': new_reason_stopping.reasons_stopping_id}
 

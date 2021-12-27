@@ -24,7 +24,7 @@ class ConstructionDocumentController:
     @view_config(route_name='add_construction_document')
     def add_construction_document(self):
         construction_document_deserialized = self.schema.deserialize(self.request.json_body)
-        construction_document = self.service.convert_schema_to_object(construction_document_deserialized)
+        construction_document = self.service.to_mapped_object(construction_document_deserialized)
 
         self.service.add_construction_document(construction_document)
         return {'id': construction_document.construction_documents_id}
@@ -35,7 +35,7 @@ class ConstructionDocumentController:
         construction_document_deserialized = self.schema.deserialize(self.request.json_body)
         construction_document_deserialized['id'] = id
 
-        construction_document = self.service.convert_schema_to_object(construction_document_deserialized)
+        construction_document = self.service.to_mapped_object(construction_document_deserialized)
         self.service.update_construction_document(construction_document)
         return {'id': id}
 

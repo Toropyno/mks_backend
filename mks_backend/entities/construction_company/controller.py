@@ -24,7 +24,7 @@ class ConstructionCompanyController:
     def add_construction_company(self):
         construction_company_deserialized = self.schema.deserialize(self.request.json_body)
 
-        construction_company = self.serializer.convert_schema_to_object(construction_company_deserialized)
+        construction_company = self.serializer.to_mapped_object(construction_company_deserialized)
         self.service.add_construction_company(construction_company)
         return {'id': construction_company.construction_companies_id}
 
@@ -39,7 +39,7 @@ class ConstructionCompanyController:
         construction_company_deserialized = self.schema.deserialize(self.request.json_body)
         construction_company_deserialized['id'] = self.get_id()
 
-        new_construction_company = self.serializer.convert_schema_to_object(construction_company_deserialized)
+        new_construction_company = self.serializer.to_mapped_object(construction_company_deserialized)
         self.service.update_construction_company(new_construction_company)
         return {'id': new_construction_company.construction_companies_id}
 

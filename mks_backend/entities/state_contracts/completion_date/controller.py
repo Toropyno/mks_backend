@@ -18,7 +18,7 @@ class CompletionDateController:
     @view_config(route_name='add_completion_date')
     def add(self):
         completion_date_deserialized = self.schema.deserialize(self.request.json_body)
-        completion_date = self.serializer.to_object(completion_date_deserialized)
+        completion_date = self.serializer.to_mapped_object(completion_date_deserialized)
 
         self.service.add(completion_date)
         return {'id': completion_date.completion_dates_id}
@@ -28,7 +28,7 @@ class CompletionDateController:
         id = self.get_id()
         completion_date_deserialized = self.schema.deserialize(self.request.json_body)
         completion_date_deserialized['id'] = id
-        completion_date = self.serializer.to_object(completion_date_deserialized)
+        completion_date = self.serializer.to_mapped_object(completion_date_deserialized)
 
         self.service.update(completion_date)
         return {'id': id}

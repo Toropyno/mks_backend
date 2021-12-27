@@ -22,7 +22,7 @@ class ConstructionCompanySerializer(BaseSerializer):
             'fias': construction_company.fias,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionCompany:
+    def to_mapped_object(self, schema: dict) -> ConstructionCompany:
         construction_company = ConstructionCompany()
 
         construction_company.construction_companies_id = schema.get('id')

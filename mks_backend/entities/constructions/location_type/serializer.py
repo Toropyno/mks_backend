@@ -14,7 +14,7 @@ class LocationTypeSerializer(BaseSerializer):
             'fullName': location_type.fullname
         }
 
-    def convert_schema_to_object(self, schema: dict) -> LocationType:
+    def to_mapped_object(self, schema: dict) -> LocationType:
         location_type = LocationType()
 
         location_type.location_types_id = schema.get('id')

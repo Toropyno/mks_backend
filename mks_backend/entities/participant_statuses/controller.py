@@ -23,7 +23,7 @@ class ParticipantStatusController:
     @view_config(route_name='add_participant_status')
     def add_participant_status(self):
         participant_status_deserialized = self.schema.deserialize(self.request.json_body)
-        participant_status = self.serializer.convert_schema_to_object(participant_status_deserialized)
+        participant_status = self.serializer.to_mapped_object(participant_status_deserialized)
         self.service.add_participant_status(participant_status)
         return {'id': participant_status.participant_statuses_id}
 
@@ -38,7 +38,7 @@ class ParticipantStatusController:
         participant_status_deserialized = self.schema.deserialize(self.request.json_body)
         participant_status_deserialized['id'] = self.get_id()
 
-        new_participant_status = self.serializer.convert_schema_to_object(participant_status_deserialized)
+        new_participant_status = self.serializer.to_mapped_object(participant_status_deserialized)
         self.service.update_participant_status(new_participant_status)
         return {'id': new_participant_status.participant_statuses_id}
 

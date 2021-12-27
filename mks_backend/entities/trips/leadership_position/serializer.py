@@ -15,7 +15,7 @@ class LeadershipPositionSerializer(BaseSerializer):
             'fullName': leadership_position.fullname
         }
 
-    def convert_schema_to_object(self, schema: dict) -> LeadershipPosition:
+    def to_mapped_object(self, schema: dict) -> LeadershipPosition:
         leadership_position = LeadershipPosition()
 
         leadership_position.leadership_positions_id = schema.get('id')

@@ -14,7 +14,7 @@ class ReasonStoppingSerializer(BaseSerializer):
             'fullName': reason_stopping.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ReasonStopping:
+    def to_mapped_object(self, schema: dict) -> ReasonStopping:
         reason_stopping = ReasonStopping()
 
         reason_stopping.reason_stopping_id = schema.get('id')

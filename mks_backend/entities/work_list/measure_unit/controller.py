@@ -24,7 +24,7 @@ class MeasureUnitController:
     def add_measure_unit(self):
         measure_unit_deserialized = self.schema.deserialize(self.request.json_body)
 
-        measure_unit = self.serializer.convert_schema_to_object(measure_unit_deserialized)
+        measure_unit = self.serializer.to_mapped_object(measure_unit_deserialized)
         self.service.add_measure_unit(measure_unit)
         return {'id': measure_unit.unit_id}
 
@@ -46,7 +46,7 @@ class MeasureUnitController:
         measure_unit_deserialized = self.schema.deserialize(self.request.json_body)
 
         measure_unit_deserialized['id'] = id
-        measure_unit = self.serializer.convert_schema_to_object(measure_unit_deserialized)
+        measure_unit = self.serializer.to_mapped_object(measure_unit_deserialized)
 
         self.service.update_measure_unit(measure_unit)
         return {'id': id}

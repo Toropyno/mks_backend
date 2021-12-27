@@ -14,7 +14,7 @@ class ProgressStatusSerializer(BaseSerializer):
             'fullName': progress_status.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ProgressStatus:
+    def to_mapped_object(self, schema: dict) -> ProgressStatus:
         progress_status = ProgressStatus()
 
         progress_status.progress_statuses_id = schema.get('id')

@@ -24,7 +24,7 @@ class DocTypeController:
     def add_doc_type(self):
         doc_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        doc_type = self.serializer.convert_schema_to_object(doc_type_deserialized)
+        doc_type = self.serializer.to_mapped_object(doc_type_deserialized)
         self.service.add_doc_type(doc_type)
         return {'id': doc_type.doctypes_id}
 
@@ -46,7 +46,7 @@ class DocTypeController:
         doc_type_deserialized = self.schema.deserialize(self.request.json_body)
 
         doc_type_deserialized['id'] = id
-        doc_type = self.serializer.convert_schema_to_object(doc_type_deserialized)
+        doc_type = self.serializer.to_mapped_object(doc_type_deserialized)
 
         self.service.update_doc_type(doc_type)
         return {'id': id}

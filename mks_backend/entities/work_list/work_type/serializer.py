@@ -15,7 +15,7 @@ class WorkTypeSerializer(BaseSerializer):
             'note': work_type.note
         }
 
-    def convert_schema_to_object(self, schema: dict) -> WorkType:
+    def to_mapped_object(self, schema: dict) -> WorkType:
         work_type = WorkType()
 
         work_type.work_types_id = schema.get('id')

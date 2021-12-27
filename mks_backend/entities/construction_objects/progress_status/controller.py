@@ -23,7 +23,7 @@ class ProgressStatusController:
     @view_config(route_name='add_progress_status')
     def add_progress_status(self):
         progress_status_deserialized = self.schema.deserialize(self.request.json_body)
-        progress_status = self.serializer.convert_schema_to_object(progress_status_deserialized)
+        progress_status = self.serializer.to_mapped_object(progress_status_deserialized)
         self.service.add_progress_status(progress_status)
         return {'id': progress_status.progress_statuses_id}
 
@@ -38,7 +38,7 @@ class ProgressStatusController:
         id = self.request.matchdict['id']
         progress_status_deserialized = self.schema.deserialize(self.request.json_body)
         progress_status_deserialized['id'] = id
-        new_progress_status = self.serializer.convert_schema_to_object(progress_status_deserialized)
+        new_progress_status = self.serializer.to_mapped_object(progress_status_deserialized)
         self.service.update_progress_status(new_progress_status)
         return {'id': id}
 

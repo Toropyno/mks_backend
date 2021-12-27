@@ -23,7 +23,7 @@ class CourtDecisionController:
     @view_config(route_name='add_court_decision')
     def add_court_decision(self):
         court_decision_deserialized = self.schema.deserialize(self.request.json_body)
-        court_decision = self.serializer.convert_schema_to_object(court_decision_deserialized)
+        court_decision = self.serializer.to_mapped_object(court_decision_deserialized)
         self.service.add_court_decision(court_decision)
         return {'id': court_decision.court_decisions_id}
 
@@ -37,7 +37,7 @@ class CourtDecisionController:
     def edit_court_decision(self):
         court_decision_deserialized = self.schema.deserialize(self.request.json_body)
         court_decision_deserialized['id'] = self.get_id()
-        new_court_decision = self.serializer.convert_schema_to_object(court_decision_deserialized)
+        new_court_decision = self.serializer.to_mapped_object(court_decision_deserialized)
         self.service.update_court_decision(new_court_decision)
         return {'id': new_court_decision.court_decisions_id}
 

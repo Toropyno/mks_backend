@@ -18,7 +18,7 @@ class OKSMSerializer(BaseSerializer):
             'alpha3': oksm.alpha3,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> OKSM:
+    def to_mapped_object(self, schema: dict) -> OKSM:
         oksm = OKSM()
 
         oksm.oksm_id = schema.get('id')

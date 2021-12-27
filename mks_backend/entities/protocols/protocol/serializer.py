@@ -28,7 +28,7 @@ class ProtocolSerializer(BaseSerializer):
             'signatory': protocol.signatory
         }
 
-    def convert_schema_to_object(self, schema_dict: dict) -> Protocol:
+    def to_mapped_object(self, schema_dict: dict) -> Protocol:
         protocol = Protocol()
 
         protocol.protocol_id = schema_dict.get('id')

@@ -16,7 +16,7 @@ class MilitaryUnitExtensionSerializer(BaseSerializer):
             'startDate': get_date_string(military_unit_extension.start_date),
         }
 
-    def convert_schema_to_object(self, schema: dict):
+    def to_mapped_object(self, schema: dict):
         military_unit_extension = MilitaryUnitExtension()
         military_unit_extension.idMU = schema.get('idMU')
         military_unit_extension.report_name = schema.get('reportName')

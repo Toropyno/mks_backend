@@ -14,7 +14,7 @@ class ConstructionTypeSerializer(BaseSerializer):
             'fullName': construction_type.fullname
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionType:
+    def to_mapped_object(self, schema: dict) -> ConstructionType:
         construction_type = ConstructionType()
 
         construction_type.construction_types_id = schema.get('id')

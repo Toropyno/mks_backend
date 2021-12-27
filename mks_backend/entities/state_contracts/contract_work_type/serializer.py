@@ -11,7 +11,7 @@ class ContractWorkTypeSerializer(BaseSerializer):
             'fullName': contract_w_t.fullname,
         }
 
-    def to_object(self, schema: dict) -> ContractWorkType:
+    def to_mapped_object(self, schema: dict) -> ContractWorkType:
         contract_w_t = ContractWorkType()
 
         contract_w_t.contract_worktypes_id = schema.get('id')

@@ -23,7 +23,7 @@ class ElementTypeController:
     @view_config(route_name='add_element_type')
     def add_element_type(self):
         element_type_deserialized = self.schema.deserialize(self.request.json_body)
-        element_type = self.serializer.convert_schema_to_object(element_type_deserialized)
+        element_type = self.serializer.to_mapped_object(element_type_deserialized)
         self.service.add_element_type(element_type)
         return {'id': element_type.element_types_id}
 
@@ -45,7 +45,7 @@ class ElementTypeController:
         element_type_deserialized = self.schema.deserialize(self.request.json_body)
 
         element_type_deserialized['id'] = id
-        element_type = self.serializer.convert_schema_to_object(element_type_deserialized)
+        element_type = self.serializer.to_mapped_object(element_type_deserialized)
 
         self.service.update_element_type(element_type)
         return {'id': id}

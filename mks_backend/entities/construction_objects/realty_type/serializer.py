@@ -14,7 +14,7 @@ class RealtyTypeSerializer(BaseSerializer):
             'fullName': realty_type.fullname
         }
 
-    def convert_schema_to_object(self, schema: dict) -> RealtyType:
+    def to_mapped_object(self, schema: dict) -> RealtyType:
         realty_type = RealtyType()
 
         realty_type.realty_types_id = schema.get('id')

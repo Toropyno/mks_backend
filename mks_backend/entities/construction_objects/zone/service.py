@@ -25,7 +25,7 @@ class ZoneService:
     def update_zone(self, new_zone: Zone) -> None:
         self.repo.update_zone(new_zone)
 
-    def convert_schema_to_object(self, schema: dict) -> Zone:
+    def to_mapped_object(self, schema: dict) -> Zone:
         zone_id = schema.get('id')
         if zone_id:
             zone = self.get_zone_by_id(zone_id)

@@ -23,7 +23,7 @@ class ConstructionSubcategoryController:
     @view_config(route_name='add_construction_subcategory')
     def add_construction_subcategory(self):
         construction_subcategories_deserialized = self.schema.deserialize(self.request.json_body)
-        construction_subcategory = self.serializer.convert_schema_to_object(construction_subcategories_deserialized)
+        construction_subcategory = self.serializer.to_mapped_object(construction_subcategories_deserialized)
 
         self.service.add_construction_subcategory(construction_subcategory)
         return {'id': construction_subcategory.construction_subcategories_id}
@@ -46,6 +46,6 @@ class ConstructionSubcategoryController:
         id_ = int(self.request.matchdict['id'])
         construction_subcategories_deserialized['id'] = id_
 
-        construction_subcategory = self.serializer.convert_schema_to_object(construction_subcategories_deserialized)
+        construction_subcategory = self.serializer.to_mapped_object(construction_subcategories_deserialized)
         self.service.update_construction_subcategory(construction_subcategory)
         return {'id': id_}

@@ -23,7 +23,7 @@ class WorkTripSerializer(BaseSerializer):
             )
         }
 
-    def convert_schema_to_object(self, schema: dict) -> WorkTrip:
+    def to_mapped_object(self, schema: dict) -> WorkTrip:
         work_trip = WorkTrip()
 
         work_trip.work_trips_id = schema.get('id')

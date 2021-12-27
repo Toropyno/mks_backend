@@ -27,7 +27,7 @@ class ConstructionProgressSerializer(BaseSerializer):
 
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionProgress:
+    def to_mapped_object(self, schema: dict) -> ConstructionProgress:
         construction_progress = ConstructionProgress()
 
         construction_progress.construction_progress_id = schema.get('id')

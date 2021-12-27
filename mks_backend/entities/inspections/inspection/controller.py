@@ -26,7 +26,7 @@ class InspectionController:
     def add_inspection(self):
         inspection_deserialized = self.schema.deserialize(self.request.json_body)
 
-        inspection = self.serializer.convert_schema_to_object(inspection_deserialized)
+        inspection = self.serializer.to_mapped_object(inspection_deserialized)
         self.service.add_inspection(inspection)
         return {'id': inspection.inspections_id}
 
@@ -41,7 +41,7 @@ class InspectionController:
         inspection_deserialized = self.schema.deserialize(self.request.json_body)
         inspection_deserialized['id'] = int(self.request.matchdict['id'])
 
-        new_inspection = self.serializer.convert_schema_to_object(inspection_deserialized)
+        new_inspection = self.serializer.to_mapped_object(inspection_deserialized)
         self.service.update_inspection(new_inspection)
         return {'id': new_inspection.inspections_id}
 

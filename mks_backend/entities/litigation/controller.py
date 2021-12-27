@@ -23,7 +23,7 @@ class LitigationController:
     @view_config(route_name='add_litigation')
     def add_litigation(self):
         litigation_deserialized = self.schema.deserialize(self.request.json_body)
-        litigation = self.serializer.convert_schema_to_object(litigation_deserialized)
+        litigation = self.serializer.to_mapped_object(litigation_deserialized)
         self.service.add_litigation(litigation)
         return {'id': litigation.litigation_id}
 
@@ -37,7 +37,7 @@ class LitigationController:
     def edit_litigation(self):
         litigation_deserialized = self.schema.deserialize(self.request.json_body)
         litigation_deserialized['litigation_id'] = self.get_id()
-        new_litigation = self.serializer.convert_schema_to_object(litigation_deserialized)
+        new_litigation = self.serializer.to_mapped_object(litigation_deserialized)
         self.service.update_litigation(new_litigation)
         return {'id': new_litigation.litigation_id}
 

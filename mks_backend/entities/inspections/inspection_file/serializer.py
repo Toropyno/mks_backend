@@ -17,9 +17,9 @@ class InspectionFileSerializer(BaseSerializer):
         }
 
     def to_object_list(self, schema: dict) -> List[InspectionFile]:
-        return [self.to_object(schema, idfilestorage) for idfilestorage in schema.get('ids', [])]
+        return [self.to_mapped_object(schema, idfilestorage) for idfilestorage in schema.get('ids', [])]
 
-    def to_object(self, schema: dict, idfilestorage: str = None) -> InspectionFile:
+    def to_mapped_object(self, schema: dict, idfilestorage: str = None) -> InspectionFile:
         return InspectionFile(
             idfilestorage=idfilestorage,
             note=schema.get('note'),

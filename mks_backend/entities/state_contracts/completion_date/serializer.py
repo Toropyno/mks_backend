@@ -21,7 +21,7 @@ class CompletionDateSerializer(BaseSerializer):
             'endDate': get_date_string(completion_date.end_date),
         }
 
-    def to_object(self, schema: dict) -> CompletionDate:
+    def to_mapped_object(self, schema: dict) -> CompletionDate:
         completion_date = CompletionDate()
 
         completion_date.completion_dates_id = schema.get('id')

@@ -11,9 +11,8 @@ from mks_backend.errors import serialize_error_handler
 
 class OfficialSerializer(BaseSerializer):
 
-    @classmethod
     @serialize_error_handler
-    def to_json(cls, official: Official) -> dict:
+    def to_json(self, official: Official) -> dict:
         return {
             'id': official.officials_id,
             'positionName': official.position_name,
@@ -32,7 +31,7 @@ class OfficialSerializer(BaseSerializer):
             'filestorage': FileStorageSerializer.to_json(official.filestorage)
         }
 
-    def convert_schema_to_object(self, schema_dict: dict) -> Official:
+    def to_mapped_object(self, schema_dict: dict) -> Official:
         official = Official()
 
         official.officials_id = schema_dict.get('id')

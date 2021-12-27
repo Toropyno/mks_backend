@@ -12,7 +12,7 @@ class ElementTypeSerializer(BaseSerializer):
             'fullName': element_type.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ElementType:
+    def to_mapped_object(self, schema: dict) -> ElementType:
         element_type = ElementType()
 
         element_type.element_types_id = schema.get('id')

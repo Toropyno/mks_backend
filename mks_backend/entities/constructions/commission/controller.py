@@ -23,7 +23,7 @@ class CommissionController:
     @view_config(route_name='add_commission')
     def add_commission(self):
         commission_deserialized = self.schema.deserialize(self.request.json_body)
-        commission = self.serializer.convert_schema_to_object(commission_deserialized)
+        commission = self.serializer.to_mapped_object(commission_deserialized)
         self.service.add_commission(commission)
         return {'id': commission.commission_id}
 
@@ -38,7 +38,7 @@ class CommissionController:
         commission_deserialized = self.schema.deserialize(self.request.json_body)
         commission_deserialized['id'] = self.request.matchdict['id']
 
-        new_commission = self.serializer.convert_schema_to_object(commission_deserialized)
+        new_commission = self.serializer.to_mapped_object(commission_deserialized)
         self.service.update_commission(new_commission)
         return {'id': new_commission.commission_id}
 

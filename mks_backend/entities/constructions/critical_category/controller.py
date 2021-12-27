@@ -24,7 +24,7 @@ class CriticalCategoryController:
     def add_critical_category(self):
         critical_category_deserialized = self.schema.deserialize(self.request.json_body)
 
-        critical_category = self.serializer.to_object(
+        critical_category = self.serializer.to_mapped_object(
             critical_category_deserialized
         )
         self.service.add_critical_category(critical_category)
@@ -49,7 +49,7 @@ class CriticalCategoryController:
         id_ = int(self.request.matchdict['id'])
         critical_category_deserialized['id'] = id_
 
-        critical_category = self.serializer.to_object(
+        critical_category = self.serializer.to_mapped_object(
             critical_category_deserialized
         )
         self.service.update_critical_category(critical_category)

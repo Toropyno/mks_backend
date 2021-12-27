@@ -18,7 +18,7 @@ class ConstructionProgressController:
     @view_config(route_name='add_construction_progress')
     def add_construction_progress(self):
         construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
-        construction_progress = self.serializer.convert_schema_to_object(construction_progress_deserialized)
+        construction_progress = self.serializer.to_mapped_object(construction_progress_deserialized)
         self.service.add_construction_progress(construction_progress)
         return {'id': construction_progress.construction_progress_id}
 
@@ -40,7 +40,7 @@ class ConstructionProgressController:
         construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
 
         construction_progress_deserialized['id'] = id
-        construction_progress = self.serializer.convert_schema_to_object(construction_progress_deserialized)
+        construction_progress = self.serializer.to_mapped_object(construction_progress_deserialized)
 
         self.service.update_construction_progress(construction_progress)
         return {'id': id}

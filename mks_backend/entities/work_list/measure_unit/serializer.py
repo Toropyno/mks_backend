@@ -13,7 +13,7 @@ class MeasureUnitSerializer(BaseSerializer):
             'name': measure_unit.unit_name
         }
 
-    def convert_schema_to_object(self, schema: dict) -> MeasureUnit:
+    def to_mapped_object(self, schema: dict) -> MeasureUnit:
         measure_unit = MeasureUnit()
 
         measure_unit.unit_id = schema.get('id')

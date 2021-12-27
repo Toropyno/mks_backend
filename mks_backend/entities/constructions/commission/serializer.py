@@ -14,7 +14,7 @@ class CommissionSerializer(BaseSerializer):
             'indexNumber': commission.index_number,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> Commission:
+    def to_mapped_object(self, schema: dict) -> Commission:
         commission = Commission()
 
         commission.commission_id = schema.get('id')

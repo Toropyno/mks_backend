@@ -23,7 +23,7 @@ class ZoneController:
     @view_config(route_name='add_zone')
     def add_zone(self):
         zone_deserialized = self.schema.deserialize(self.request.json_body)
-        zone = self.service.convert_schema_to_object(zone_deserialized)
+        zone = self.service.to_mapped_object(zone_deserialized)
 
         self.service.add_zone(zone)
         return {'id': zone.zones_id}
@@ -46,7 +46,7 @@ class ZoneController:
         zone_deserialized = self.schema.deserialize(self.request.json_body)
         zone_deserialized['id'] = id
 
-        zone = self.service.convert_schema_to_object(zone_deserialized)
+        zone = self.service.to_mapped_object(zone_deserialized)
         self.service.update_zone(zone)
         return {'id': id}
 

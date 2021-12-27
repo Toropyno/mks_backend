@@ -23,7 +23,7 @@ class ContractStatusController:
     @view_config(route_name='add_contract_status')
     def add_contract_status(self):
         contract_status_deserialized = self.schema.deserialize(self.request.json_body)
-        contract_status = self.serializer.convert_schema_to_object(contract_status_deserialized)
+        contract_status = self.serializer.to_mapped_object(contract_status_deserialized)
         self.service.add_contract_status(contract_status)
         return {'id': contract_status.contract_statuses_id}
 
@@ -37,7 +37,7 @@ class ContractStatusController:
     def edit_contract_status(self):
         contract_status_deserialized = self.schema.deserialize(self.request.json_body)
         contract_status_deserialized['id'] = self.get_id()
-        new_contract_status = self.serializer.convert_schema_to_object(contract_status_deserialized)
+        new_contract_status = self.serializer.to_mapped_object(contract_status_deserialized)
         self.service.update_contract_status(new_contract_status)
         return {'id': new_contract_status.contract_statuses_id}
 

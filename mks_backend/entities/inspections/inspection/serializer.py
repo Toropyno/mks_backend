@@ -18,7 +18,7 @@ class InspectionSerializer(BaseSerializer):
             'result': inspection.insp_result,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> Inspection:
+    def to_mapped_object(self, schema: dict) -> Inspection:
         inspection = Inspection()
 
         inspection.inspections_id = schema.get('id')

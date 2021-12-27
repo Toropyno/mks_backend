@@ -29,7 +29,7 @@ class MilitaryRankController:
     @view_config(route_name='add_military_rank')
     def add_military_rank(self):
         military_rank_deserialized = self.schema.deserialize(self.request.json_body)
-        military_rank = self.serializer.convert_schema_to_object(military_rank_deserialized)
+        military_rank = self.serializer.to_mapped_object(military_rank_deserialized)
 
         self.service.add_military_rank(military_rank)
         return {'id': military_rank.military_ranks_id}
@@ -40,7 +40,7 @@ class MilitaryRankController:
         military_rank_deserialized = self.schema.deserialize(self.request.json_body)
         military_rank_deserialized['id'] = id
 
-        military_rank = self.serializer.convert_schema_to_object(military_rank_deserialized)
+        military_rank = self.serializer.to_mapped_object(military_rank_deserialized)
         self.service.update_military_rank(military_rank)
         return {'id': id}
 

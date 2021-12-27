@@ -20,7 +20,7 @@ class OfficialController:
     @view_config(route_name='add_official')
     def add_official(self):
         official_deserialized = self.schema.deserialize(self.request.json_body)
-        official = self.serializer.convert_schema_to_object(official_deserialized)
+        official = self.serializer.to_mapped_object(official_deserialized)
 
         self.service.add_official(official)
         return {'id': official.officials_id}
@@ -31,7 +31,7 @@ class OfficialController:
         official_deserialized = self.schema.deserialize(self.request.json_body)
         official_deserialized['id'] = id
 
-        official = self.serializer.convert_schema_to_object(official_deserialized)
+        official = self.serializer.to_mapped_object(official_deserialized)
 
         self.service.update_official(official)
         return {'id': id}

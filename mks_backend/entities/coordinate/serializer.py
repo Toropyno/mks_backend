@@ -16,7 +16,7 @@ class CoordinateSerializer(BaseSerializer):
             'zoom': coordinate.zoom,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> Coordinate:
+    def to_mapped_object(self, schema: dict) -> Coordinate:
         if schema['latitude'] and schema['longitude'] and schema['zoom']:
             coordinate = Coordinate()
             if 'coordinateId' in schema:

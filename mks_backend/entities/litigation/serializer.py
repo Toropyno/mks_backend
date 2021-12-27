@@ -24,7 +24,7 @@ class LitigationSerializer(BaseSerializer):
             'note': litigation.note
         }
 
-    def convert_schema_to_object(self, schema: dict) -> Litigation:
+    def to_mapped_object(self, schema: dict) -> Litigation:
         litigation = Litigation()
         litigation.litigation_id = schema.get('litigation_id')
         litigation.appeal_date = schema.get('appeal_date')

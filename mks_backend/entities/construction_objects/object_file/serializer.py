@@ -24,9 +24,9 @@ class ObjectFileSerializer(BaseSerializer):
         }
 
     def to_object_list(self, schema: dict) -> List[ObjectFile]:
-        return [self.to_object(schema, idfilestorage) for idfilestorage in schema.get('idsFileStorage', [])]
+        return [self.to_mapped_object(schema, idfilestorage) for idfilestorage in schema.get('idsFileStorage', [])]
 
-    def to_object(self, schema: dict, idfilestorage: str = None) -> ObjectFile:
+    def to_mapped_object(self, schema: dict, idfilestorage: str = None) -> ObjectFile:
         return ObjectFile(
             idfilestorage=idfilestorage,
             note=schema.get('note'),

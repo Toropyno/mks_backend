@@ -26,7 +26,7 @@ class ProtocolController:
     @view_config(route_name='add_protocol', permission='access.mks_crud_protocols')
     def add_protocol(self):
         protocol_deserialized = self.schema.deserialize(self.request.json_body)
-        protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
+        protocol = self.serializer.to_mapped_object(protocol_deserialized)
 
         self.service.add_protocol(protocol)
         return {'id': protocol.protocol_id}
@@ -48,6 +48,6 @@ class ProtocolController:
         protocol_deserialized = self.schema.deserialize(self.request.json_body)
         protocol_deserialized['id'] = int(self.request.matchdict['id'])
 
-        new_protocol = self.serializer.convert_schema_to_object(protocol_deserialized)
+        new_protocol = self.serializer.to_mapped_object(protocol_deserialized)
         self.service.update_protocol(new_protocol)
         return {'id': new_protocol.protocol_id}

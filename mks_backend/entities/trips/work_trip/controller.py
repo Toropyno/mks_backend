@@ -26,7 +26,7 @@ class WorkTripController:
     def add_work_trip(self):
         work_trip_deserialized = self.schema.deserialize(self.request.json_body)
 
-        work_trip = self.serializer.convert_schema_to_object(work_trip_deserialized)
+        work_trip = self.serializer.to_mapped_object(work_trip_deserialized)
         self.service.add_work_trip(work_trip)
         return {'id': work_trip.work_trips_id}
 
@@ -41,7 +41,7 @@ class WorkTripController:
         work_trip_deserialized = self.schema.deserialize(self.request.json_body)
         work_trip_deserialized['id'] = self.get_id()
 
-        new_work_trip = self.serializer.convert_schema_to_object(work_trip_deserialized)
+        new_work_trip = self.serializer.to_mapped_object(work_trip_deserialized)
         self.service.update_work_trip(new_work_trip)
         return {'id': new_work_trip.work_trips_id}
 

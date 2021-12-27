@@ -24,7 +24,7 @@ class WorkTypeController:
     def add_work_type(self):
         work_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        work_type = self.serializer.convert_schema_to_object(work_type_deserialized)
+        work_type = self.serializer.to_mapped_object(work_type_deserialized)
         self.service.add_work_type(work_type)
         return {'id': work_type.work_types_id}
 
@@ -39,7 +39,7 @@ class WorkTypeController:
         work_type_deserialized = self.schema.deserialize(self.request.json_body)
         work_type_deserialized['id'] = self.get_id()
 
-        new_work_type = self.serializer.convert_schema_to_object(work_type_deserialized)
+        new_work_type = self.serializer.to_mapped_object(work_type_deserialized)
         self.service.update_work_type(new_work_type)
         return {'id': new_work_type.work_types_id}
 

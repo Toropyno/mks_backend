@@ -25,7 +25,7 @@ class WorkListController:
     def add_work_list(self):
         work_list_deserialized = self.schema.deserialize(self.request.json_body)
 
-        work_list = self.serializer.convert_schema_to_object(work_list_deserialized)
+        work_list = self.serializer.to_mapped_object(work_list_deserialized)
         self.service.add_work_list(work_list)
         return {'id': work_list.works_list_id}
 
@@ -40,7 +40,7 @@ class WorkListController:
         work_list_deserialized = self.schema.deserialize(self.request.json_body)
         work_list_deserialized['id'] = self.get_id()
 
-        new_work_list = self.serializer.convert_schema_to_object(work_list_deserialized)
+        new_work_list = self.serializer.to_mapped_object(work_list_deserialized)
         self.service.update_work_list(new_work_list)
         return {'id': self.get_id()}
 

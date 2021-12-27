@@ -14,7 +14,7 @@ class MeetingSerializer(BaseSerializer):
             'fullName': meeting.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> Meeting:
+    def to_mapped_object(self, schema: dict) -> Meeting:
         meeting_type = Meeting()
 
         meeting_type.meetings_type_id = schema.get('id')

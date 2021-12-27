@@ -29,7 +29,7 @@ class ObjectCategoryController:
     @view_config(route_name='add_object_category')
     def add_object_category(self):
         object_category_deserialized = self.schema.deserialize(self.request.json_body)
-        object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
+        object_category = self.serializer.to_mapped_object(object_category_deserialized)
 
         self.service.add_object_category(object_category)
         return {'id': object_category.object_categories_id}
@@ -45,6 +45,6 @@ class ObjectCategoryController:
         object_category_deserialized = self.schema.deserialize(self.request.json_body)
         object_category_deserialized['id'] = int(self.request.matchdict['id'])
 
-        object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
+        object_category = self.serializer.to_mapped_object(object_category_deserialized)
         self.service.update_object_category(object_category)
         return {'id': object_category.object_categories_id}

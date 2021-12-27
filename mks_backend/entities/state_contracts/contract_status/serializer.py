@@ -14,7 +14,7 @@ class ContractStatusSerializer(BaseSerializer):
             'fullName': contract_status.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ContractStatus:
+    def to_mapped_object(self, schema: dict) -> ContractStatus:
         contract_status = ContractStatus()
 
         contract_status.contract_statuses_id = schema.get('id')

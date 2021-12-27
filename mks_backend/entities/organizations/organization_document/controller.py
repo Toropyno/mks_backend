@@ -18,7 +18,7 @@ class OrganizationDocumentController:
     @view_config(route_name='add_organization_document')
     def add_organization_document(self):
         organization_document_deserialized = self.schema.deserialize(self.request.json_body)
-        organization_document = self.service.convert_schema_to_object(organization_document_deserialized)
+        organization_document = self.service.to_mapped_object(organization_document_deserialized)
 
         self.service.add_organization_document(organization_document)
         return {'id': organization_document.organization_documents_id}
@@ -29,7 +29,7 @@ class OrganizationDocumentController:
         organization_document_deserialized = self.schema.deserialize(self.request.json_body)
         organization_document_deserialized['id'] = id
 
-        organization_document = self.service.convert_schema_to_object(organization_document_deserialized)
+        organization_document = self.service.to_mapped_object(organization_document_deserialized)
         self.service.update_organization_document(organization_document)
         return {'id': id}
 

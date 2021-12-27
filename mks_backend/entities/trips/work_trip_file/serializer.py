@@ -20,9 +20,9 @@ class WorkTripFilesSerializer(BaseSerializer):
         }
 
     def to_object_list(self, schema: dict) -> List[WorkTripFile]:
-        return [self.to_object(schema, idfilestorage) for idfilestorage in schema.get('id', [])]
+        return [self.to_mapped_object(schema, idfilestorage) for idfilestorage in schema.get('id', [])]
 
-    def to_object(self, schema: dict, idfilestorage: str = None) -> WorkTripFile:
+    def to_mapped_object(self, schema: dict, idfilestorage: str = None) -> WorkTripFile:
         return WorkTripFile(
             idfilestorage=idfilestorage,
             note=schema.get('note'),

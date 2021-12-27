@@ -30,7 +30,7 @@ class ConstructionObjectService:
         self.coordinate_service.add_or_update_coordinate(new_construction_object.coordinate)
         self.repo.update_construction_object(new_construction_object)
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionObject:
+    def to_mapped_object(self, schema: dict) -> ConstructionObject:
         construction_object_id = schema.get('id')
         if construction_object_id:
             construction_object = self.get_construction_object_by_id(construction_object_id)

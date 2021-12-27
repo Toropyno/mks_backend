@@ -14,7 +14,7 @@ class ParticipantStatusSerializer(BaseSerializer):
             'fullName': participant_status.fullname,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ParticipantStatus:
+    def to_mapped_object(self, schema: dict) -> ParticipantStatus:
         participant_status = ParticipantStatus()
 
         participant_status.participant_statuses_id = schema.get('id')

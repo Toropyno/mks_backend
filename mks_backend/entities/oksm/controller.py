@@ -24,7 +24,7 @@ class OKSMController:
     def add_oksm(self):
         oksm_deserialized = self.schema.deserialize(self.request.json_body)
 
-        oksm = self.serializer.convert_schema_to_object(oksm_deserialized)
+        oksm = self.serializer.to_mapped_object(oksm_deserialized)
         self.service.add_oksm(oksm)
         return {'id': oksm.oksm_id}
 
@@ -39,7 +39,7 @@ class OKSMController:
         oksm_deserialized = self.schema.deserialize(self.request.json_body)
         oksm_deserialized['id'] = self.get_id()
 
-        new_oksm = self.serializer.convert_schema_to_object(oksm_deserialized)
+        new_oksm = self.serializer.to_mapped_object(oksm_deserialized)
         self.service.update_oksm(new_oksm)
         return {'id': new_oksm.oksm_id}
 

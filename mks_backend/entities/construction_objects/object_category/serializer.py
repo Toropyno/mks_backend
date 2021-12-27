@@ -15,7 +15,7 @@ class ObjectCategorySerializer(BaseSerializer):
             'note': object_category.note,
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ObjectCategory:
+    def to_mapped_object(self, schema: dict) -> ObjectCategory:
         object_category = ObjectCategory()
         if 'id' in schema:
             object_category.object_categories_id = schema['id']

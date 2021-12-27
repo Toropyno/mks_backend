@@ -24,7 +24,7 @@ class ConstructionTypeController:
     def add_construction_type(self):
         construction_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        construction_type = self.serializer.convert_schema_to_object(construction_type_deserialized)
+        construction_type = self.serializer.to_mapped_object(construction_type_deserialized)
         self.service.add_construction_type(construction_type)
         return {'id': construction_type.construction_types_id}
 
@@ -39,7 +39,7 @@ class ConstructionTypeController:
         construction_type_deserialized = self.schema.deserialize(self.request.json_body)
         construction_type_deserialized['id'] = self.get_id()
 
-        new_construction_type = self.serializer.convert_schema_to_object(construction_type_deserialized)
+        new_construction_type = self.serializer.to_mapped_object(construction_type_deserialized)
         self.service.update_construction_type(new_construction_type)
         return {'id': new_construction_type.construction_types_id}
 

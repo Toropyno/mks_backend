@@ -12,7 +12,7 @@ class DocTypeSerializer(BaseSerializer):
             'fullName': doc_type.fullname
         }
 
-    def convert_schema_to_object(self, schema: dict) -> DocType:
+    def to_mapped_object(self, schema: dict) -> DocType:
         doc_types = DocType()
 
         doc_types.doctypes_id = schema.get('id')

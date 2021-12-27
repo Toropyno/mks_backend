@@ -14,7 +14,7 @@ class ConstructionSubcategorySerializer(BaseSerializer):
             'fullName': construction_subcategory.fullname
         }
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionSubcategory:
+    def to_mapped_object(self, schema: dict) -> ConstructionSubcategory:
         construction_subcategories = ConstructionSubcategory()
 
         construction_subcategories.construction_subcategories_id = schema.get('id')

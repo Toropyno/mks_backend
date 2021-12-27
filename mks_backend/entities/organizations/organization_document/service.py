@@ -27,7 +27,7 @@ class OrganizationDocumentService:
     def get_documents_by_organization(self, organization_uuid: str) -> list:
         return self.organization_service.get_by_id(organization_uuid).organization_documents
 
-    def convert_schema_to_object(self, schema_dict: dict) -> OrganizationDocument:
+    def to_mapped_object(self, schema_dict: dict) -> OrganizationDocument:
         organization_document = OrganizationDocument()
 
         organization_document.idfilestorage = schema_dict.get('idFileStorage')
