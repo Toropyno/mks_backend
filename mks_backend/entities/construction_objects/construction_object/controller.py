@@ -28,7 +28,7 @@ class ConstructionObjectController:
     def get_construction_object_by_id(self):
         id = int(self.request.matchdict['id'])
         construction_object = self.service.get_construction_object_by_id(id)
-        return self.serializer.convert_object_to_json(construction_object)
+        return self.serializer.to_json(construction_object)
 
     @view_config(route_name='add_construction_object')
     def add_construction_object(self):

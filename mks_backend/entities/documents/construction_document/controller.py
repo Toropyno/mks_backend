@@ -19,7 +19,7 @@ class ConstructionDocumentController:
     def get_construction_document(self):
         id = int(self.request.matchdict['id'])
         construction_document = self.service.get_construction_document_by_id(id)
-        return self.serializer.convert_object_to_json(construction_document)
+        return self.serializer.to_json(construction_document)
 
     @view_config(route_name='add_construction_document')
     def add_construction_document(self):

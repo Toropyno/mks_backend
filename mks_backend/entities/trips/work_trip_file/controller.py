@@ -19,7 +19,7 @@ class WorkTripFilesController:
     def get_all_work_trip_files_by_work_trip_id(self):
         work_trip_id = self.request.matchdict['id']
         work_trip_files = self.service.get_all_work_trip_files_by_work_trip_id(work_trip_id)
-        return self.serializer.list_to_json(work_trip_files)
+        return self.serializer.convert_list_to_json(work_trip_files)
 
     @view_config(route_name='add_work_trip_files')
     def add_work_trip_files(self):

@@ -31,7 +31,7 @@ class ElementTypeController:
     def get_element_type(self):
         id = int(self.request.matchdict['id'])
         element_type = self.service.get_element_type_by_id(id)
-        return self.serializer.convert_object_to_json(element_type)
+        return self.serializer.to_json(element_type)
 
     @view_config(route_name='delete_element_type')
     def delete_element_type(self):

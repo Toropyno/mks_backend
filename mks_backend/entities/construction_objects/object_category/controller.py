@@ -24,7 +24,7 @@ class ObjectCategoryController:
     def get_object_category(self):
         id = int(self.request.matchdict['id'])
         object_category = self.service.get_object_category_by_id(id)
-        return self.serializer.convert_object_to_json(object_category)
+        return self.serializer.to_json(object_category)
 
     @view_config(route_name='add_object_category')
     def add_object_category(self):

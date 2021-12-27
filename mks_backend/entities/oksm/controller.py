@@ -47,7 +47,7 @@ class OKSMController:
     def get_oksm(self):
         id = self.get_id()
         oksm = self.service.get_oksm_by_id(id)
-        return self.serializer.convert_object_to_json(oksm)
+        return self.serializer.to_json(oksm)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

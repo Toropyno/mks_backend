@@ -46,7 +46,7 @@ class ParticipantStatusController:
     def get_participant_status(self):
         id = self.get_id()
         participant_status = self.service.get_participant_status_by_id(id)
-        return self.serializer.convert_object_to_json(participant_status)
+        return self.serializer.to_json(participant_status)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

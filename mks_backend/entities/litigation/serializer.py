@@ -1,13 +1,15 @@
 from .model import Litigation
-from mks_backend.errors import serialize_error_handler
+
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.utils.date_and_time import get_date_string
+from mks_backend.errors import serialize_error_handler
 
 
-class LitigationSerializer:
+class LitigationSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, litigation: Litigation) -> dict:
+    def to_json(cls, litigation: Litigation) -> dict:
         return {
             'litigation_id': litigation.litigation_id,
             'appeal_date': get_date_string(litigation.appeal_date),
@@ -21,9 +23,6 @@ class LitigationSerializer:
             'decision_date': get_date_string(litigation.decision_date),
             'note': litigation.note
         }
-
-    def convert_list_to_json(self, litigation: list) -> list:
-        return list(map(self.convert_object_to_json, litigation))
 
     def convert_schema_to_object(self, schema: dict) -> Litigation:
         litigation = Litigation()

@@ -1,13 +1,14 @@
 from .model import OKSM
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class OKSMSerializer:
+class OKSMSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, oksm: OKSM) -> dict:
+    def to_json(cls, oksm: OKSM) -> dict:
         return {
             'id': oksm.oksm_id,
             'code': oksm.code,
@@ -16,9 +17,6 @@ class OKSMSerializer:
             'alpha2': oksm.alpha2,
             'alpha3': oksm.alpha3,
         }
-
-    def convert_list_to_json(self, oksms: list) -> list:
-        return list(map(self.convert_object_to_json, oksms))
 
     def convert_schema_to_object(self, schema: dict) -> OKSM:
         oksm = OKSM()

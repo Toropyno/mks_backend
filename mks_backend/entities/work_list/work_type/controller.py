@@ -47,7 +47,7 @@ class WorkTypeController:
     def get_work_type(self):
         id = self.get_id()
         work_type = self.service.get_work_type_by_id(id)
-        return self.serializer.convert_object_to_json(work_type)
+        return self.serializer.to_json(work_type)
 
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])

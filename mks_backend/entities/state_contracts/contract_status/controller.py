@@ -45,7 +45,7 @@ class ContractStatusController:
     def get_contract_status(self):
         id = self.get_id()
         contract_status = self.service.get_contract_status_by_id(id)
-        return self.serializer.convert_object_to_json(contract_status)
+        return self.serializer.to_json(contract_status)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

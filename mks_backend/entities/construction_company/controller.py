@@ -47,7 +47,7 @@ class ConstructionCompanyController:
     def get_construction_company(self):
         id = self.get_id()
         construction_company = self.service.get_construction_company_by_id(id)
-        return self.serializer.convert_object_to_json(construction_company)
+        return self.serializer.to_json(construction_company)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

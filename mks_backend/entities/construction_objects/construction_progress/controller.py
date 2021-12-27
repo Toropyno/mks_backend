@@ -26,7 +26,7 @@ class ConstructionProgressController:
     def get_construction_progress(self):
         id = int(self.request.matchdict['id'])
         construction_progress = self.service.get_construction_progress_by_id(id)
-        return self.serializer.convert_object_to_json(construction_progress)
+        return self.serializer.to_json(construction_progress)
 
     @view_config(route_name='delete_construction_progress')
     def delete_construction_progress(self):
@@ -56,4 +56,4 @@ class ConstructionProgressController:
     def get_last_construction_progress_by_object(self):
         object_id = int(self.request.matchdict['id'])
         construction_progress = self.service.get_last_construction_progress_by_object(object_id)
-        return self.serializer.convert_object_to_json(construction_progress)
+        return self.serializer.to_json(construction_progress)

@@ -47,7 +47,7 @@ class ConstructionTypeController:
     def get_construction_type(self):
         id_ = self.get_id()
         construction_type = self.service.get_construction_type_by_id(id_)
-        return self.serializer.convert_object_to_json(construction_type)
+        return self.serializer.to_json(construction_type)
 
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])

@@ -1,13 +1,14 @@
 from .model import ConstructionCompany
 
 from mks_backend.errors import serialize_error_handler
+from mks_backend.entities.BASE.serializer import BaseSerializer
 
 
-class ConstructionCompanySerializer:
+class ConstructionCompanySerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, construction_company: ConstructionCompany) -> dict:
+    def to_json(cls, construction_company: ConstructionCompany) -> dict:
         return {
             'id': construction_company.construction_companies_id,
             'shortName': construction_company.shortname,
@@ -20,9 +21,6 @@ class ConstructionCompanySerializer:
             'services': construction_company.services,
             'fias': construction_company.fias,
         }
-
-    def convert_list_to_json(self, construction_companys: list) -> list:
-        return list(map(self.convert_object_to_json, construction_companys))
 
     def convert_schema_to_object(self, schema: dict) -> ConstructionCompany:
         construction_company = ConstructionCompany()

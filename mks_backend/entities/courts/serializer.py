@@ -1,20 +1,18 @@
 from .model import Courts
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class CourtSerializer:
+class CourtSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, courts: Courts) -> dict:
+    def to_json(cls, courts: Courts) -> dict:
         return {
             'id': courts.courts_id,
             'fullName': courts.fullname,
         }
-
-    def convert_list_to_json(self, courts: list) -> list:
-        return list(map(self.convert_object_to_json, courts))
 
     def convert_schema_to_object(self, schema: dict) -> Courts:
         courts = Courts()

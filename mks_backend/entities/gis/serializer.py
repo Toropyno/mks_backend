@@ -41,7 +41,7 @@ class GisSerializer:
 
         # общая информация по объекту
         xml_for_one = '<Object alias="Объект">'
-        serialized_construction_object = self.construction_object_serializer.convert_object_to_json(construction_object)
+        serialized_construction_object = self.construction_object_serializer.to_json(construction_object)
         xml_for_one += '<id alias = "Идентификатор объекта в ИС">' + \
                        str(serialized_construction_object['id']) + \
                        '</id>'

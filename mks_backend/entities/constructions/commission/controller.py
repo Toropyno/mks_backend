@@ -46,7 +46,7 @@ class CommissionController:
     def get_commission(self):
         id_ = self.get_id()
         commission = self.service.get_commission_by_id(id_)
-        return self.serializer.convert_object_to_json(commission)
+        return self.serializer.to_json(commission)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

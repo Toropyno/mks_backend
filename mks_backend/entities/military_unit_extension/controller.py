@@ -46,7 +46,7 @@ class MilitaryUnitExtensionController:
     def get_military_unit_extension(self):
         id = self.get_id()
         military_unit_extension = self.service.get_military_unit_extension_by_id(id)
-        return self.serializer.convert_object_to_json(military_unit_extension)
+        return self.serializer.to_json(military_unit_extension)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

@@ -45,7 +45,7 @@ class LitigationController:
     def get_litigation(self):
         id = self.get_id()
         litigation = self.service.get_litigation_by_id(id)
-        return self.serializer.convert_object_to_json(litigation)
+        return self.serializer.to_json(litigation)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

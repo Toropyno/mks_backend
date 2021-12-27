@@ -1,13 +1,15 @@
 from .model import Official
+
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.organizations.military_rank import MilitaryRankSerializer
 from mks_backend.entities.organizations.class_rank import ClassRankSerializer
-from mks_backend.utils.date_and_time import get_date_string
 from mks_backend.entities.filestorage import FileStorageSerializer
 
+from mks_backend.utils.date_and_time import get_date_string
 from mks_backend.errors import serialize_error_handler
 
 
-class OfficialSerializer:
+class OfficialSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
@@ -29,9 +31,6 @@ class OfficialSerializer:
             'classRank': ClassRankSerializer.to_json(official.class_rank),
             'filestorage': FileStorageSerializer.to_json(official.filestorage)
         }
-
-    def convert_list_to_json(self, oficials: list) -> list:
-        return list(map(self.to_json, oficials))
 
     def convert_schema_to_object(self, schema_dict: dict) -> Official:
         official = Official()

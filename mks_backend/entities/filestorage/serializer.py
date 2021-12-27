@@ -1,10 +1,11 @@
 from .model import Filestorage
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.utils.date_and_time import get_date_time_zone
 from mks_backend.errors import serialize_error_handler
 
 
-class FileStorageSerializer:
+class FileStorageSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
@@ -15,6 +16,3 @@ class FileStorageSerializer:
             'size': filestorage.size,
             'createdOn': get_date_time_zone(filestorage.createdOn),
         }
-
-    def convert_list_to_json(self, filestorages: list) -> list:
-        return list(map(self.to_json, filestorages))

@@ -32,7 +32,7 @@ class ConstructionStageController:
     def get_construction_stage(self):
         id_ = int(self.request.matchdict['id'])
         construction_stage = self.service.get_construction_stage_by_id(id_)
-        return self.serializer.convert_object_to_json(construction_stage)
+        return self.serializer.to_json(construction_stage)
 
     @view_config(route_name='delete_construction_stage')
     def delete_construction_object(self):

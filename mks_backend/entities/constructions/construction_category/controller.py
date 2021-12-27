@@ -33,7 +33,7 @@ class ConstructionCategoryController:
     def get_construction_category(self):
         id_ = int(self.request.matchdict['id'])
         construction_category = self.service.get_construction_category_by_id(id_)
-        return self.serializer.convert_object_to_json(construction_category)
+        return self.serializer.to_json(construction_category)
 
     @view_config(route_name='delete_construction_category')
     def delete_construction_category(self):

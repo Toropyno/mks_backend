@@ -46,7 +46,7 @@ class CourtController:
     def get_court(self):
         id = self.get_id()
         court = self.service.get_court_by_id(id)
-        return self.serializer.convert_object_to_json(court)
+        return self.serializer.to_json(court)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

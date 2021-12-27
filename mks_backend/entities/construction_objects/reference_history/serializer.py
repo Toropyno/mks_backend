@@ -1,12 +1,10 @@
 from .model import ReferenceHistory
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.utils.date_and_time import get_date_string
 
 
-class ReferenceHistorySerializer:
-
-    def convert_list_to_json(self, reference_historys: list) -> list:
-        return list(map(self.to_json, reference_historys))
+class ReferenceHistorySerializer(BaseSerializer):
 
     def to_json(self, reference_history: ReferenceHistory) -> dict:
         return {

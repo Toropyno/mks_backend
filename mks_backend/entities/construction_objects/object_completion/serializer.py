@@ -1,12 +1,10 @@
 from .model import ObjectCompletion
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.utils.date_and_time import get_date_string, get_date_time_string
 
 
-class ObjectCompletionSerializer:
-
-    def convert_list_to_json(self, object_completions: list) -> list:
-        return list(map(self.to_json, object_completions))
+class ObjectCompletionSerializer(BaseSerializer):
 
     def to_json(self, object_completion: ObjectCompletion) -> dict:
         return {

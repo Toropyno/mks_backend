@@ -47,7 +47,7 @@ class RealtyTypeController:
     def get_realty_type(self):
         id = self.get_id()
         realty_type = self.service.get_realty_type_by_id(id)
-        return self.serializer.convert_object_to_json(realty_type)
+        return self.serializer.to_json(realty_type)
 
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])

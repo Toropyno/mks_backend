@@ -38,7 +38,7 @@ class ObjectFileController:
     def get_object_file(self):
         id = int(self.request.matchdict['id'])
         object_file = self.service.get_object_file_by_id(id)
-        return self.serializer.convert_object_to_json(object_file)
+        return self.serializer.to_json(object_file)
 
     @view_config(route_name='get_object_files_by_object')
     def get_object_files_by_object(self):

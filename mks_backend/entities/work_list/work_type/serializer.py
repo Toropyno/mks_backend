@@ -1,21 +1,19 @@
 from .model import WorkType
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class WorkTypeSerializer:
+class WorkTypeSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, work_type: WorkType) -> dict:
+    def to_json(cls, work_type: WorkType) -> dict:
         return {
             'id': work_type.work_types_id,
             'fullName': work_type.fullname,
             'note': work_type.note
         }
-
-    def convert_list_to_json(self, work_types: list) -> list:
-        return list(map(self.convert_object_to_json, work_types))
 
     def convert_schema_to_object(self, schema: dict) -> WorkType:
         work_type = WorkType()

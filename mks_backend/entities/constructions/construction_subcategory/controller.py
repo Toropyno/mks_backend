@@ -32,7 +32,7 @@ class ConstructionSubcategoryController:
     def get_construction_subcategory(self):
         id_ = int(self.request.matchdict['id'])
         construction_subcategory = self.service.get_construction_subcategory_by_id(id_)
-        return self.serializer.convert_object_to_json(construction_subcategory)
+        return self.serializer.to_json(construction_subcategory)
 
     @view_config(route_name='delete_construction_subcategory')
     def delete_construction_subcategory(self):

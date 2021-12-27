@@ -47,7 +47,7 @@ class LocationTypeController:
     def get_location_type(self):
         id_ = self.get_id()
         location_type = self.service.get_location_type_by_id(id_)
-        return self.serializer.convert_object_to_json(location_type)
+        return self.serializer.to_json(location_type)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

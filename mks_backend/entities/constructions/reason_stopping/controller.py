@@ -45,7 +45,7 @@ class ReasonStoppingController:
     def get_reason_stopping(self):
         id_ = self.get_id()
         reason_stopping = self.service.get_reason_stopping_by_id(id_)
-        return self.serializer.convert_object_to_json(reason_stopping)
+        return self.serializer.to_json(reason_stopping)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

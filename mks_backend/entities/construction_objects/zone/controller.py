@@ -32,7 +32,7 @@ class ZoneController:
     def get_zone(self):
         id = self.get_id()
         zone = self.service.get_zone_by_id(id)
-        return self.serializer.convert_object_to_json(zone)
+        return self.serializer.to_json(zone)
 
     @view_config(route_name='delete_zone')
     def delete_zone(self):

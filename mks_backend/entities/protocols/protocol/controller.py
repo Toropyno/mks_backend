@@ -35,7 +35,7 @@ class ProtocolController:
     def get_protocol(self):
         id = int(self.request.matchdict['id'])
         protocol = self.service.get_protocol_by_id(id)
-        return self.serializer.convert_object_to_json(protocol)
+        return self.serializer.to_json(protocol)
 
     @view_config(route_name='delete_protocol', permission='access.mks_crud_protocols')
     def delete_protocol(self):

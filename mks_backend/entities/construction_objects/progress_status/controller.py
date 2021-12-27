@@ -46,4 +46,4 @@ class ProgressStatusController:
     def get_progress_status(self):
         id = self.request.matchdict['id']
         progress_status = self.service.get_progress_status_by_id(id)
-        return self.serializer.convert_object_to_json(progress_status)
+        return self.serializer.to_json(progress_status)

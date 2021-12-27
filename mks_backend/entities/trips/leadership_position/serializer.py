@@ -1,9 +1,10 @@
 from .model import LeadershipPosition
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class LeadershipPositionSerializer:
+class LeadershipPositionSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
@@ -13,9 +14,6 @@ class LeadershipPositionSerializer:
             'code': leadership_position.code,
             'fullName': leadership_position.fullname
         }
-
-    def convert_list_to_json(self, leadership_positions: list) -> list:
-        return list(map(self.to_json, leadership_positions))
 
     def convert_schema_to_object(self, schema: dict) -> LeadershipPosition:
         leadership_position = LeadershipPosition()

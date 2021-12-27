@@ -1,20 +1,18 @@
 from .model import ContractStatus
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class ContractStatusSerializer:
+class ContractStatusSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, contract_status: ContractStatus) -> dict:
+    def to_json(cls, contract_status: ContractStatus) -> dict:
         return {
             'id': contract_status.contract_statuses_id,
             'fullName': contract_status.fullname,
         }
-
-    def convert_list_to_json(self, contract_statuses: list) -> list:
-        return list(map(self.convert_object_to_json, contract_statuses))
 
     def convert_schema_to_object(self, schema: dict) -> ContractStatus:
         contract_status = ContractStatus()

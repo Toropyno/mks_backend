@@ -32,7 +32,7 @@ class DocTypeController:
     def get_doc_type(self):
         id = int(self.request.matchdict['id'])
         doc_type = self.service.get_doc_type_by_id(id)
-        return self.serializer.convert_object_to_json(doc_type)
+        return self.serializer.to_json(doc_type)
 
     @view_config(route_name='delete_doc_type')
     def delete_doc_type(self):

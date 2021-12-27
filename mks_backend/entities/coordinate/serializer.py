@@ -1,21 +1,20 @@
-from mks_backend.errors import serialize_error_handler
 from .model import Coordinate
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
+from mks_backend.errors import serialize_error_handler
 
-class CoordinateSerializer:
+
+class CoordinateSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, coordinate: Coordinate) -> dict:
+    def to_json(cls, coordinate: Coordinate) -> dict:
         return {
             'id': coordinate.coordinates_id,
             'latitude': coordinate.latitude,
             'longitude': coordinate.longitude,
             'zoom': coordinate.zoom,
         }
-
-    def convert_list_to_json(self, coordinates: list) -> list:
-        return list(map(self.convert_object_to_json, coordinates))
 
     def convert_schema_to_object(self, schema: dict) -> Coordinate:
         if schema['latitude'] and schema['longitude'] and schema['zoom']:

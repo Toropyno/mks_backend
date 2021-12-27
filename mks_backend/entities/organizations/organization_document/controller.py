@@ -49,4 +49,4 @@ class OrganizationDocumentController:
     def get_document_by_organization(self):
         document_id = self.request.matchdict.get('id')
         document = self.service.get_organization_document_by_id(document_id)
-        return self.serializer.convert_object_to_json(document)
+        return self.serializer.to_json(document)

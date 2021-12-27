@@ -1,13 +1,14 @@
 from .models import MilitaryUnit
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class MilitaryUnitSerializer:
+class MilitaryUnitSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, military_unit: MilitaryUnit) -> dict:
+    def to_json(cls, military_unit: MilitaryUnit) -> dict:
         return {
             'id': military_unit.idMU,
             'fullName': cls.get_correct_military_unit_name(military_unit),
@@ -16,7 +17,7 @@ class MilitaryUnitSerializer:
     def convert_list_to_json_tree(self, military_units: list) -> list:
         tree = []
         for military_unit in military_units:
-            node = self.convert_object_to_json(military_unit)
+            node = self.to_json(military_unit)
             children = self.convert_list_to_json_tree(military_unit.children)
             if children:
                 node['children'] = children

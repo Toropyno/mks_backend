@@ -48,7 +48,7 @@ class WorkListController:
     def get_work_list(self):
         id = self.get_id()
         work_list = self.service.get_work_list_by_id(id)
-        return self.serializer.convert_object_to_json(work_list)
+        return self.serializer.to_json(work_list)
 
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])

@@ -1,5 +1,6 @@
 from .model import Construction
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.oksm import OKSMSerializer
 from mks_backend.entities.coordinate import CoordinateSerializer
 from mks_backend.entities.military_unit import MilitaryUnitSerializer
@@ -17,14 +18,11 @@ from mks_backend.utils.date_and_time import get_date_string
 from mks_backend.entities.constructions.critical_category import CriticalCategorySerializer
 
 
-class ConstructionSerializer:
-
-    def convert_list_to_json(self, constructions: list) -> list:
-        return list(map(self.to_json, constructions))
+class ConstructionSerializer(BaseSerializer):
 
     def to_json(self, construction: Construction) -> dict:
         if construction.subcategories_list:
-            subcategory = ConstructionSubcategorySerializer.convert_object_to_json(
+            subcategory = ConstructionSubcategorySerializer.to_json(
                 construction.subcategories_list.subcategory
             )
         else:
@@ -47,22 +45,22 @@ class ConstructionSerializer:
             'note': construction.note,
             'plannedDate': get_date_string(construction.planned_date),
 
-            'constructionType': ConstructionTypeSerializer.convert_object_to_json(construction.construction_type),
-            'locationType': LocationTypeSerializer.convert_object_to_json(construction.location_type),
+            'constructionType': ConstructionTypeSerializer.to_json(construction.construction_type),
+            'locationType': LocationTypeSerializer.to_json(construction.location_type),
             'category': ConstructionCategorySerializer.to_short_json(construction.construction_category),
-            'commission': CommissionSerializer.convert_object_to_json(construction.commission),
-            'constructionCompany': ConstructionCompanySerializer.convert_object_to_json(
+            'commission': CommissionSerializer.to_json(construction.commission),
+            'constructionCompany': ConstructionCompanySerializer.to_json(
                 construction.construction_company
             ),
-            'militaryUnit': MilitaryUnitSerializer.convert_object_to_json(construction.military_unit),
-            'militaryDistrict': MilitaryUnitSerializer.convert_object_to_json(construction.military_district),
+            'militaryUnit': MilitaryUnitSerializer.to_json(construction.military_unit),
+            'militaryDistrict': MilitaryUnitSerializer.to_json(construction.military_district),
             'organization': OrganizationSerializer.to_simple_json(construction.organization),
             'dynamic': ConstructionDynamicSerializer.to_json(construction.dynamic),
 
             'fias': construction.fias,
             'address': construction.address_full,
-            'coordinate': CoordinateSerializer.convert_object_to_json(construction.coordinate),
-            'oksm': OKSMSerializer.convert_object_to_json(construction.oksm),
+            'coordinate': CoordinateSerializer.to_json(construction.coordinate),
+            'oksm': OKSMSerializer.to_json(construction.oksm),
             'criticalCategory': CriticalCategorySerializer.to_json(
                 construction.critical_category
             )

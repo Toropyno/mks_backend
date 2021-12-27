@@ -32,7 +32,7 @@ class MeasureUnitController:
     def get_measure_unit(self):
         id = int(self.request.matchdict['id'])
         measure_unit = self.service.get_measure_unit_by_id(id)
-        return self.serializer.convert_object_to_json(measure_unit)
+        return self.serializer.to_json(measure_unit)
 
     @view_config(route_name='delete_measure_unit')
     def delete_measure_unit(self):

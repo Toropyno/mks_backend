@@ -46,4 +46,4 @@ class MeetingController:
     def get_meeting_type(self):
         id = self.request.matchdict['id']
         meeting_type = self.service.get_meeting_type_by_id(id)
-        return self.serializer.convert_object_to_json(meeting_type)
+        return self.serializer.to_json(meeting_type)

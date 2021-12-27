@@ -45,7 +45,7 @@ class CourtDecisionController:
     def get_court_decision(self):
         id = self.get_id()
         court_decision = self.service.get_court_decision_by_id(id)
-        return self.serializer.convert_object_to_json(court_decision)
+        return self.serializer.to_json(court_decision)
 
     def get_id(self):
         return int(self.request.matchdict['id'])
