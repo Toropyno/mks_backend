@@ -23,5 +23,6 @@ ALREADY_DELETED_ERROR = {
     'court_ad': 'Этот суд уже удалили!',
     'court_decision_ad': 'Это решение суда уже удалили',
     'military_unit_extension_ad': 'Это дополнительное описание в/ч уже удалили',
-    'participant_status_ad': 'Этот статус участника судебных споров уже удалили'
+    'participant_status_ad': 'Этот статус участника судебных споров уже удалили',
+    'class_rank_ad': 'Этот классный чин уже удалили'
 }

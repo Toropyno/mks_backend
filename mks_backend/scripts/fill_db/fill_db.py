@@ -34,6 +34,7 @@ def fill_db():
     # fiases = create_fiases()
 
     insert_organizations()
+    insert_class_ranks()
     insert_military_ranks()
     insert_officials()
 
@@ -77,6 +78,13 @@ def insert_mu():
     with DBSession.bind.connect() as con:
         with open('mks_backend/dumps/military_unit.sql') as text:
             try_insert(con, text.readlines())
+
+
+def insert_class_ranks():
+    print('INSERT CLASS RANK')
+    for rank in list(['Младший советник', 'Советник', 'Старший советник']):
+        instatance = ClassRank(fullname=rank)
+        try_add(instatance)
 
 
 def insert_oksm():
@@ -193,6 +201,7 @@ def insert_military_ranks():
 def insert_officials():
     print('INSERT OFFICIALS')
     military_ranks = DBSession.query(MilitaryRank).all()
+    class_ranks = DBSession.query(ClassRank).all()
     organizations = DBSession.query(Organization).all()
 
     date_gen = get_random_date()
@@ -211,6 +220,8 @@ def insert_officials():
             note=choice([None, 'Примечание']),
             organization=choice(organizations),
             military_rank=choice(military_ranks),
+            class_rank=choice(class_ranks)
+
         )
 
         try_add(instance)
@@ -477,22 +488,40 @@ def insert_court():
 def insert_court_decisions():
     print('INSERT COURT DECISIONS')
     for name in ['Решение верховного суда', 'Решение арбитражного суда ', 'Решение конституционного суда']:
-        try_add(Courts(fullname=name))
+        try_add(CourtDecision(fullname=name))
 
 
 def insert_military_unit_extension():
     print('INSERT MILITARY UNIT EXTENSION')
     for name in ['Добавление танка', 'Добавление БТР', 'Добавление БМП']:
-        try_add(Courts(fullname=name))
+        try_add(MilitaryUnitExtension(report_name=name))
 
 
 def insert_participant_status():
     print('INSERT PARTICIPANT STATUS')
     for name in ['Истец (заявитель)', 'Ответчик']:
-        try_add(Courts(fullname=name))
+        try_add(ParticipantStatus(fullname=name))
 
 
 def insert_litigation():
     print('INSERT LITIGATION')
-    for name in ['Судебный спор МО', 'Судебный спор ФНС', 'Судебный спор КС']:
-        try_add(Courts(fullname=name))
+    courts = DBSession.query(Courts).all()
+    organizations = DBSession.query(Organization).all()
+    participant_statuses = DBSession.query(ParticipantStatus).all()
+    construction_companies = DBSession.query(ConstructionCompany).all()
+    court_decisions = DBSession.query(CourtDecision).all()
+
+    for _ in range(5):
+        instance = Litigation(
+            appeal_date=datetime.now().date(),
+            courts_id=choice(courts).courts_id,
+            organizations_id=choice(organizations).organizations_id,
+            participant_statuses_id=choice(participant_statuses).participant_statuses_id,
+            construction_companies_id=choice(construction_companies).construction_companies_id,
+            participant_other=choice(['Участник со стороны МО', 'Участник со стороны ФНС', 'Участник со стороны МВД']),
+            information='Информация',
+            court_decisions_id=choice(court_decisions).court_decisions_id,
+            decision_date=datetime.now().date(),
+            note='Примечание'
+        )
+        try_add(instance)

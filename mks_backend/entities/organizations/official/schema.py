@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.utils.validator_utils import strip_space, date_validator, organization_uuid
+from mks_backend.utils.validator_utils import strip_space, date_validator, organization_uuid, uuid_file_validator
 
 
 class OfficialSchema(colander.MappingSchema):
@@ -122,6 +122,23 @@ class OfficialSchema(colander.MappingSchema):
             min_err='Слишком короткое описание',
             max_err='Слишком длинное описание'
         ),
+        missing=None
+    )
+
+    class_ranks_id = colander.SchemaNode(
+        colander.Int(),
+        name='classRank',
+        validator=colander.Range(
+            min=0,
+            min_err='Неверный номер классного чина'
+        ),
+        missing=None
+    )
+
+    idfilestorage = colander.SchemaNode(
+        colander.String(),
+        name='filestorage',
+        validator=uuid_file_validator,
         missing=None
     )
 

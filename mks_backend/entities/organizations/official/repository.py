@@ -33,8 +33,10 @@ class OfficialRepository:
         )
         DBSession.commit()
 
-    def delete_official(self, id: int) -> None:
-        self._query.filter_by(officials_id=id).delete()
+    def delete_official(self, id_: int) -> None:
+        self._query.filter(Official.idfilestorage == id_).delete()
+        official = self.get_inspection_by_id(id)
+        DBSession.delete(official)
         DBSession.commit()
 
     def get_official(self, id_: int) -> Official:
