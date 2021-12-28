@@ -40,5 +40,6 @@ class Inspection(Base):
     )
 
     files = relationship(
-        'InspectionFile'
+        'InspectionFile',
+        cascade='all, delete'
     )
