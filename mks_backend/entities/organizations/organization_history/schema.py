@@ -1,6 +1,8 @@
 import colander
 
-from mks_backend.utils.validator_utils import strip_space, date_validator, organization_uuid
+from mks_backend.utils.validator_utils import (
+    strip_space, date_validator, organization_uuid, inn_validator, kpp_validator, ogrn_validator
+)
 
 
 class OrganizationHistorySchema(colander.MappingSchema):
@@ -57,30 +59,21 @@ class OrganizationHistorySchema(colander.MappingSchema):
     inn = colander.SchemaNode(
         colander.String(),
         name='inn',
-        validator=colander.Length(
-            max=20,
-            max_err='Слишком большой ИНН'
-        ),
+        validator=inn_validator,
         missing=None
     )
 
     kpp = colander.SchemaNode(
         colander.String(),
         name='kpp',
-        validator=colander.Length(
-            max=20,
-            max_err='Слишком большой КПП'
-        ),
+        validator=kpp_validator,
         missing=None
     )
 
     ogrn = colander.SchemaNode(
         colander.String(),
         name='ogrn',
-        validator=colander.Length(
-            max=20,
-            max_err='Слишком большой ОГРН'
-        ),
+        validator=ogrn_validator,
         missing=None
     )
 
