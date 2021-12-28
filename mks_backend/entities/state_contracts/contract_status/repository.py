@@ -15,8 +15,8 @@ class ContractStatusRepository:
         DBSession.add(contract_status)
         DBSession.commit()
 
-    def delete_contract_status_by_id(self, id: int) -> None:
-        self._query.filter(ContractStatus.contract_statuses_id == id).delete()
+    def delete_contract_status_by_id(self, id_: int) -> None:
+        self._query.filter(ContractStatus.contract_statuses_id == id_).delete()
         DBSession.commit()
 
     def update_contract_status(self, new_contract_status: ContractStatus) -> None:
@@ -28,5 +28,5 @@ class ContractStatusRepository:
         )
         DBSession.commit()
 
-    def get_contract_status_by_id(self, id: int) -> ContractStatus:
-        return self._query.get(id)
+    def get_contract_status_by_id(self, id_: int) -> ContractStatus:
+        return self._query.get(id_)

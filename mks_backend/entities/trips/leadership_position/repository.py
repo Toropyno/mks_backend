@@ -16,8 +16,8 @@ class LeadershipPositionRepository:
         DBSession.add(leadership_position)
         DBSession.commit()
 
-    def delete_leadership_position_by_id(self, id: int) -> None:
-        self._query.filter(LeadershipPosition.leadership_positions_id == id).delete()
+    def delete_leadership_position_by_id(self, id_: int) -> None:
+        self._query.filter(LeadershipPosition.leadership_positions_id == id_).delete()
         DBSession.commit()
 
     def update_leadership_position(self, new_leadership_position: LeadershipPosition) -> None:
@@ -27,5 +27,5 @@ class LeadershipPositionRepository:
             DBSession.rollback()
             raise DBBasicError('leadership_position_ad')
 
-    def get_leadership_position_by_id(self, id: int) -> LeadershipPosition:
-        return self._query.get(id)
+    def get_leadership_position_by_id(self, id_: int) -> LeadershipPosition:
+        return self._query.get(id_)

@@ -24,26 +24,26 @@ class ConstructionProgressController:
 
     @view_config(route_name='get_construction_progress')
     def get_construction_progress(self):
-        id = int(self.request.matchdict['id'])
-        construction_progress = self.service.get_construction_progress_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        construction_progress = self.service.get_construction_progress_by_id(id_)
         return self.serializer.to_json(construction_progress)
 
     @view_config(route_name='delete_construction_progress')
     def delete_construction_progress(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_construction_progress_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_construction_progress_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_construction_progress')
     def edit_construction_progress(self):
-        id = int(self.request.matchdict['id'])
+        id_ = int(self.request.matchdict['id'])
         construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
 
-        construction_progress_deserialized['id'] = id
+        construction_progress_deserialized['id'] = id_
         construction_progress = self.serializer.to_mapped_object(construction_progress_deserialized)
 
         self.service.update_construction_progress(construction_progress)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='get_all_construction_progresses_by_object')
     def get_all_construction_progresses_by_object(self):

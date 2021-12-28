@@ -17,8 +17,8 @@ class ObjectFileService:
     def get_all_object_files(self) -> list:
         return self.repo.get_all_object_files()
 
-    def get_object_file_by_id(self, id: int) -> ObjectFile:
-        return self.repo.get_object_file_by_id(id)
+    def get_object_file_by_id(self, id_: int) -> ObjectFile:
+        return self.repo.get_object_file_by_id(id_)
 
     def add_object_files(self, object_files: List[ObjectFile]) -> None:
         self.repo.add_object_files(object_files)

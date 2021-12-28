@@ -29,9 +29,9 @@ class LitigationController:
 
     @view_config(route_name='delete_litigation')
     def delete_litigation(self):
-        id = self.get_id()
-        self.service.delete_litigation_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_litigation_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_litigation')
     def edit_litigation(self):
@@ -43,8 +43,8 @@ class LitigationController:
 
     @view_config(route_name='get_litigation')
     def get_litigation(self):
-        id = self.get_id()
-        litigation = self.service.get_litigation_by_id(id)
+        id_ = self.get_id()
+        litigation = self.service.get_litigation_by_id(id_)
         return self.serializer.to_json(litigation)
 
     def get_id(self):

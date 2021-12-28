@@ -27,20 +27,20 @@ class OfficialController:
 
     @view_config(route_name='edit_official')
     def edit_official(self):
-        id = self.get_id()
+        id_ = self.get_id()
         official_deserialized = self.schema.deserialize(self.request.json_body)
-        official_deserialized['id'] = id
+        official_deserialized['id'] = id_
 
         official = self.serializer.to_mapped_object(official_deserialized)
 
         self.service.update_official(official)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='delete_official')
     def delete_official(self):
-        id = self.get_id()
-        self.service.delete_official_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_official_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='get_officials_by_organization')
     def get_officials_by_organization(self):

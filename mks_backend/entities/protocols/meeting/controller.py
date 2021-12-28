@@ -29,21 +29,21 @@ class MeetingController:
 
     @view_config(route_name='delete_meeting_type')
     def delete_meeting_type(self):
-        id = self.request.matchdict['id']
-        self.service.delete_meeting_type_by_id(id)
-        return {'id': id}
+        id_ = self.request.matchdict['id']
+        self.service.delete_meeting_type_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_meeting_type')
     def edit_meeting_type(self):
-        id = self.request.matchdict['id']
+        id_ = self.request.matchdict['id']
         meeting_type_deserialized = self.schema.deserialize(self.request.json_body)
-        meeting_type_deserialized['id'] = id
+        meeting_type_deserialized['id'] = id_
         new_meeting_type = self.serializer.to_mapped_object(meeting_type_deserialized)
         self.service.update_meeting_type(new_meeting_type)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='get_meeting_type')
     def get_meeting_type(self):
-        id = self.request.matchdict['id']
-        meeting_type = self.service.get_meeting_type_by_id(id)
+        id_ = self.request.matchdict['id']
+        meeting_type = self.service.get_meeting_type_by_id(id_)
         return self.serializer.to_json(meeting_type)

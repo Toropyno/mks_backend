@@ -9,11 +9,11 @@ class ZoneRepository:
     def __init__(self):
         self._query = DBSession.query(Zone)
 
-    def get_zone_by_id(self, id: int) -> Zone:
-        zone = self._query.get(id)
+    def get_zone_by_id(self, id_: int) -> Zone:
+        zone = self._query.get(id_)
         if not zone:
             raise DBBasicError('zone_ad')
-        return self._query.get(id)
+        return zone
 
     def get_all_zones(self) -> list:
         return self._query.order_by(Zone.fullname).all()
@@ -22,8 +22,8 @@ class ZoneRepository:
         DBSession.add(zone)
         DBSession.commit()
 
-    def delete_zone_by_id(self, id: int) -> None:
-        zone = self.get_zone_by_id(id)
+    def delete_zone_by_id(self, id_: int) -> None:
+        zone = self.get_zone_by_id(id_)
         DBSession.delete(zone)
         DBSession.commit()
 

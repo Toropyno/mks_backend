@@ -7,14 +7,14 @@ class ConstructionProgressService:
     def __init__(self):
         self.repo = ConstructionProgressRepository()
 
-    def get_construction_progress_by_id(self, id: int) -> ConstructionProgress:
-        return self.repo.get_construction_progress_by_id(id)
+    def get_construction_progress_by_id(self, id_: int) -> ConstructionProgress:
+        return self.repo.get_construction_progress_by_id(id_)
 
     def add_construction_progress(self, construction_progress: ConstructionProgress) -> None:
         self.repo.add_construction_progress(construction_progress)
 
-    def delete_construction_progress_by_id(self, id: int) -> None:
-        construction_progress = self.get_construction_progress_by_id(id)
+    def delete_construction_progress_by_id(self, id_: int) -> None:
+        construction_progress = self.get_construction_progress_by_id(id_)
         self.repo.delete_construction_progress(construction_progress)
 
     def update_construction_progress(self, construction_progress: ConstructionProgress) -> None:

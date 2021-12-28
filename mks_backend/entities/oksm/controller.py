@@ -30,9 +30,9 @@ class OKSMController:
 
     @view_config(route_name='delete_oksm')
     def delete_oksm(self):
-        id = self.get_id()
-        self.service.delete_oksm_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_oksm_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_oksm')
     def edit_oksm(self):
@@ -45,8 +45,8 @@ class OKSMController:
 
     @view_config(route_name='get_oksm')
     def get_oksm(self):
-        id = self.get_id()
-        oksm = self.service.get_oksm_by_id(id)
+        id_ = self.get_id()
+        oksm = self.service.get_oksm_by_id(id_)
         return self.serializer.to_json(oksm)
 
     def get_id(self):

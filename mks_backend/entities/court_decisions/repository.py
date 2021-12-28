@@ -27,8 +27,8 @@ class CourtDecisionRepository:
             DBSession.rollback()
             raise DBBasicError('court_decision_ad')
 
-    def get_court_decision_by_id(self, id: int):
-        court = self._query.get(id)
+    def get_court_decision_by_id(self, id_: int):
+        court = self._query.get(id_)
         if not court:
             raise DBBasicError('court_decision_nf')
         return court

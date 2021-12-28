@@ -13,14 +13,14 @@ class FilestorageRepository:
         DBSession.add(file)
         DBSession.commit()
 
-    def get_filestorage_by_id(self, id: str) -> Filestorage:
-        filestorage = self._query.get(id)
+    def get_filestorage_by_id(self, id_: str) -> Filestorage:
+        filestorage = self._query.get(id_)
         if not filestorage:
             raise FilestorageError('nf_in_db')
         return filestorage
 
-    def delete_filestorage_by_id(self, id: str) -> None:
-        self._query.filter_by(idfilestorage=id).delete()
+    def delete_filestorage_by_id(self, id_: str) -> None:
+        self._query.filter_by(idfilestorage=id_).delete()
         DBSession.commit()
 
     def get_many_file_storages_by_id(self, ids: list) -> list:

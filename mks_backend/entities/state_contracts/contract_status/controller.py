@@ -29,9 +29,9 @@ class ContractStatusController:
 
     @view_config(route_name='delete_contract_status')
     def delete_contract_status(self):
-        id = self.get_id()
-        self.service.delete_contract_status_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_contract_status_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_contract_status')
     def edit_contract_status(self):
@@ -43,8 +43,8 @@ class ContractStatusController:
 
     @view_config(route_name='get_contract_status')
     def get_contract_status(self):
-        id = self.get_id()
-        contract_status = self.service.get_contract_status_by_id(id)
+        id_ = self.get_id()
+        contract_status = self.service.get_contract_status_by_id(id_)
         return self.serializer.to_json(contract_status)
 
     def get_id(self):

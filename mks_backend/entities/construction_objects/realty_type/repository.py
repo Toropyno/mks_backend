@@ -16,8 +16,8 @@ class RealtyTypeRepository:
         DBSession.add(realty_type)
         DBSession.commit()
 
-    def delete_realty_type_by_id(self, id: int) -> None:
-        self._query.filter(RealtyType.realty_types_id == id).delete()
+    def delete_realty_type_by_id(self, id_: int) -> None:
+        self._query.filter(RealtyType.realty_types_id == id_).delete()
         DBSession.commit()
 
     def update_realty_type(self, new_realty_type: RealtyType) -> None:
@@ -27,5 +27,5 @@ class RealtyTypeRepository:
             DBSession.rollback()
             raise DBBasicError('realty_type_ad')
 
-    def get_realty_type_by_id(self, id: int) -> RealtyType:
-        return self._query.get(id)
+    def get_realty_type_by_id(self, id_: int) -> RealtyType:
+        return self._query.get(id_)

@@ -33,15 +33,15 @@ class ProtocolController:
 
     @view_config(route_name='get_protocol', permission='access.mks_crud_protocols')
     def get_protocol(self):
-        id = int(self.request.matchdict['id'])
-        protocol = self.service.get_protocol_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        protocol = self.service.get_protocol_by_id(id_)
         return self.serializer.to_json(protocol)
 
     @view_config(route_name='delete_protocol', permission='access.mks_crud_protocols')
     def delete_protocol(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_protocol_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_protocol_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_protocol', permission='access.mks_crud_protocols')
     def edit_protocol(self):

@@ -9,8 +9,8 @@ class ConstructionProgressRepository:
     def __init__(self):
         self._query = DBSession.query(ConstructionProgress)
 
-    def get_construction_progress_by_id(self, id: int) -> ConstructionProgress:
-        return self._query.get(id)
+    def get_construction_progress_by_id(self, id_: int) -> ConstructionProgress:
+        return self._query.get(id_)
 
     def add_construction_progress(self, construction_progress: ConstructionProgress) -> None:
         DBSession.add(construction_progress)

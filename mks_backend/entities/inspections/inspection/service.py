@@ -12,8 +12,8 @@ class InspectionService:
     def get_all_inspections(self) -> List[Inspection]:
         return self.repo.get_all_inspections()
 
-    def get_inspection_by_id(self, id: int) -> Inspection:
-        return self.repo.get_inspection_by_id(id)
+    def get_inspection_by_id(self, id_: int) -> Inspection:
+        return self.repo.get_inspection_by_id(id_)
 
     def add_inspection(self, inspection: Inspection) -> None:
         self.repo.add_inspection(inspection)
@@ -21,8 +21,8 @@ class InspectionService:
     def update_inspection(self, new_inspection: Inspection) -> None:
         self.repo.update_inspection(new_inspection)
 
-    def delete_inspection_by_id(self, id: int) -> None:
-        self.repo.delete_inspection_by_id(id)
+    def delete_inspection_by_id(self, id_: int) -> None:
+        self.repo.delete_inspection_by_id(id_)
 
     def get_inspections(self, filter_params=None) -> List[Inspection]:
         if filter_params:

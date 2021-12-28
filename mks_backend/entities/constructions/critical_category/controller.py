@@ -18,7 +18,7 @@ class CriticalCategoryController:
     @view_config(route_name='get_all_critical_categories')
     def get_all_critical_categories(self):
         critical_categories = self.service.get_all_construction_categories()
-        return self.serializer.list_to_json(critical_categories)
+        return self.serializer.convert_list_to_json(critical_categories)
 
     @view_config(route_name='add_critical_category')
     def add_critical_category(self):

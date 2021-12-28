@@ -17,8 +17,8 @@ class FilestorageService:
         self.hdd = FilestorageHDD()
         self.construction_object_service = ConstructionObjectService()
 
-    def get_filestorage_by_id(self, id):
-        return self.repo.get_filestorage_by_id(id)
+    def get_filestorage_by_id(self, id_):
+        return self.repo.get_filestorage_by_id(id_)
 
     def create_filestorage(self, file: cgi_FieldStorage, all_formats=False) -> str:
         id_file_storage = str(uuid4())
@@ -37,12 +37,12 @@ class FilestorageService:
 
         return id_file_storage
 
-    def get_filename(self, id: str) -> tuple:
-        filestorage = self.repo.get_filestorage_by_id(id)
+    def get_filename(self, id_: str) -> tuple:
+        filestorage = self.repo.get_filestorage_by_id(id_)
         return urllib_request.quote(filestorage.filename.encode('utf-8'))
 
-    def get_path_to_file(self, id: str) -> str:
-        path_to_file = self.hdd.get_path_to_file(id)
+    def get_path_to_file(self, id_: str) -> str:
+        path_to_file = self.hdd.get_path_to_file(id_)
         return path_to_file
 
     def compare_two_filestorages(self, new_filestorage_id: str, old_filestorage_id: str) -> None:
@@ -56,5 +56,5 @@ class FilestorageService:
         construction_object = self.construction_object_service.get_construction_object_by_id(object_id)
         return [doc.file_storage for doc in construction_object.documents if doc.file_storage]
 
-    def delete_filestorage_by_id(self, id: str) -> None:
-        self.repo.delete_filestorage_by_id(id)
+    def delete_filestorage_by_id(self, id_: str) -> None:
+        self.repo.delete_filestorage_by_id(id_)

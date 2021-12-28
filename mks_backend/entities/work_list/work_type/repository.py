@@ -14,8 +14,8 @@ class WorkTypeRepository:
         DBSession.add(work_type)
         DBSession.commit()
 
-    def delete_work_type_by_id(self, id: int) -> None:
-        self._query.filter(WorkType.work_types_id == id).delete()
+    def delete_work_type_by_id(self, id_: int) -> None:
+        self._query.filter(WorkType.work_types_id == id_).delete()
         DBSession.commit()
 
     def update_work_type(self, new_work_type: WorkType) -> None:
@@ -29,5 +29,5 @@ class WorkTypeRepository:
 
         DBSession.commit()
 
-    def get_work_type_by_id(self, id: int) -> WorkType:
-        return self._query.get(id)
+    def get_work_type_by_id(self, id_: int) -> WorkType:
+        return self._query.get(id_)

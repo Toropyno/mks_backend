@@ -17,8 +17,8 @@ class InspectionFileController:
 
     @view_config(route_name='get_files_by_inspection')
     def get_files_by_inspection(self):
-        id = int(self.request.matchdict['inspection_id'])
-        inspection_files = self.service.get_files_by_inspection_id(id)
+        id_ = int(self.request.matchdict['inspection_id'])
+        inspection_files = self.service.get_files_by_inspection_id(id_)
         return self.serializer.convert_list_to_json(inspection_files)
 
     @view_config(route_name='add_inspection_file')

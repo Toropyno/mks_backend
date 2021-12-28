@@ -9,8 +9,8 @@ class ProgressStatusRepository:
     def __init__(self):
         self._query = DBSession.query(ProgressStatus)
 
-    def get_progress_status_by_id(self, id: int) -> ProgressStatus:
-        return self._query.get(id)
+    def get_progress_status_by_id(self, id_: int) -> ProgressStatus:
+        return self._query.get(id_)
 
     def get_all_progress_statuses(self) -> list:
         return self._query.order_by(ProgressStatus.fullname).all()
@@ -19,8 +19,8 @@ class ProgressStatusRepository:
         DBSession.add(progress_status)
         DBSession.commit()
 
-    def delete_progress_status_by_id(self, id: int) -> None:
-        progress_status = self.get_progress_status_by_id(id)
+    def delete_progress_status_by_id(self, id_: int) -> None:
+        progress_status = self.get_progress_status_by_id(id_)
         DBSession.delete(progress_status)
         DBSession.commit()
 

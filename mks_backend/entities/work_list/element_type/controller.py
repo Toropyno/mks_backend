@@ -29,23 +29,23 @@ class ElementTypeController:
 
     @view_config(route_name='get_element_type')
     def get_element_type(self):
-        id = int(self.request.matchdict['id'])
-        element_type = self.service.get_element_type_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        element_type = self.service.get_element_type_by_id(id_)
         return self.serializer.to_json(element_type)
 
     @view_config(route_name='delete_element_type')
     def delete_element_type(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_element_type_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_element_type_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_element_type')
     def edit_element_type(self):
-        id = int(self.request.matchdict['id'])
+        id_ = int(self.request.matchdict['id'])
         element_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        element_type_deserialized['id'] = id
+        element_type_deserialized['id'] = id_
         element_type = self.serializer.to_mapped_object(element_type_deserialized)
 
         self.service.update_element_type(element_type)
-        return {'id': id}
+        return {'id': id_}

@@ -18,8 +18,8 @@ class ConstructionObjectRepository:
         DBSession.add(construction_object)
         DBSession.commit()
 
-    def delete_construction_object_by_id(self, id: int) -> None:
-        construction_object = self.get_construction_object_by_id(id)
+    def delete_construction_object_by_id(self, id_: int) -> None:
+        construction_object = self.get_construction_object_by_id(id_)
         DBSession.delete(construction_object)
         DBSession.commit()
 

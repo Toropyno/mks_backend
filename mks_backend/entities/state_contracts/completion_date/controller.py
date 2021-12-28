@@ -25,13 +25,13 @@ class CompletionDateController:
 
     @view_config(route_name='edit_completion_date')
     def edit(self):
-        id = self.get_id()
+        id_ = self.get_id()
         completion_date_deserialized = self.schema.deserialize(self.request.json_body)
-        completion_date_deserialized['id'] = id
+        completion_date_deserialized['id'] = id_
         completion_date = self.serializer.to_mapped_object(completion_date_deserialized)
 
         self.service.update(completion_date)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='get_all_completion_dates_by_contract')
     def get_all(self):
@@ -41,15 +41,15 @@ class CompletionDateController:
 
     @view_config(route_name='get_completion_date')
     def get(self):
-        id = self.get_id()
-        completion_date = self.service.get_by_id(id)
+        id_ = self.get_id()
+        completion_date = self.service.get_by_id(id_)
         return self.serializer.to_json(completion_date)
 
     @view_config(route_name='delete_completion_date')
     def delete(self):
-        id = self.get_id()
-        self.service.delete_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_by_id(id_)
+        return {'id': id_}
 
     def get_id(self):
         return int(self.request.matchdict.get('id'))

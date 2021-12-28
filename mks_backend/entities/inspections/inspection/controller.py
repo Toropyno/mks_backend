@@ -32,9 +32,9 @@ class InspectionController:
 
     @view_config(route_name='delete_inspection', permission='access.mks_crud_inspections')
     def delete_inspection(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_inspection_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_inspection_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_inspection', permission='access.mks_crud_inspections')
     def edit_inspection(self):
@@ -47,6 +47,6 @@ class InspectionController:
 
     @view_config(route_name='get_inspection', permission='access.mks_crud_inspections')
     def get_inspection(self):
-        id = int(self.request.matchdict['id'])
-        inspection = self.service.get_inspection_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        inspection = self.service.get_inspection_by_id(id_)
         return self.serializer.to_json(inspection)

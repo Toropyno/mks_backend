@@ -30,9 +30,9 @@ class WorkTypeController:
 
     @view_config(route_name='delete_work_type')
     def delete_work_type(self):
-        id = self.get_id()
-        self.service.delete_work_type_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_work_type_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_work_type')
     def edit_work_type(self):
@@ -45,8 +45,8 @@ class WorkTypeController:
 
     @view_config(route_name='get_work_type')
     def get_work_type(self):
-        id = self.get_id()
-        work_type = self.service.get_work_type_by_id(id)
+        id_ = self.get_id()
+        work_type = self.service.get_work_type_by_id(id_)
         return self.serializer.to_json(work_type)
 
     def get_id(self) -> int:

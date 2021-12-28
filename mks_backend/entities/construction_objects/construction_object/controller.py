@@ -26,8 +26,8 @@ class ConstructionObjectController:
 
     @view_config(route_name='get_construction_object')
     def get_construction_object_by_id(self):
-        id = int(self.request.matchdict['id'])
-        construction_object = self.service.get_construction_object_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        construction_object = self.service.get_construction_object_by_id(id_)
         return self.serializer.to_json(construction_object)
 
     @view_config(route_name='add_construction_object')
@@ -44,9 +44,9 @@ class ConstructionObjectController:
 
     @view_config(route_name='delete_construction_object')
     def delete_construction_object(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_construction_object_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_construction_object_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_construction_object')
     def edit_construction_object(self):

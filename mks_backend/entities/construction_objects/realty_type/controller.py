@@ -30,9 +30,9 @@ class RealtyTypeController:
 
     @view_config(route_name='delete_realty_type')
     def delete_realty_type(self):
-        id = self.get_id()
-        self.service.delete_realty_type_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_realty_type_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_realty_type')
     def edit_realty_type(self):
@@ -45,8 +45,8 @@ class RealtyTypeController:
 
     @view_config(route_name='get_realty_type')
     def get_realty_type(self):
-        id = self.get_id()
-        realty_type = self.service.get_realty_type_by_id(id)
+        id_ = self.get_id()
+        realty_type = self.service.get_realty_type_by_id(id_)
         return self.serializer.to_json(realty_type)
 
     def get_id(self) -> int:

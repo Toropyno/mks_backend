@@ -22,8 +22,8 @@ class ObjectCategoryController:
 
     @view_config(route_name='get_object_category')
     def get_object_category(self):
-        id = int(self.request.matchdict['id'])
-        object_category = self.service.get_object_category_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        object_category = self.service.get_object_category_by_id(id_)
         return self.serializer.to_json(object_category)
 
     @view_config(route_name='add_object_category')
@@ -36,9 +36,9 @@ class ObjectCategoryController:
 
     @view_config(route_name='delete_object_category')
     def delete_construction_object(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_object_category_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_object_category_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_object_category', request_method='PUT')
     def edit_object_categories_list(self):

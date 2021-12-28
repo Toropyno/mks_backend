@@ -17,8 +17,8 @@ class ConstructionDocumentController:
 
     @view_config(route_name='get_construction_document')
     def get_construction_document(self):
-        id = int(self.request.matchdict['id'])
-        construction_document = self.service.get_construction_document_by_id(id)
+        id_ = int(self.request.matchdict['id'])
+        construction_document = self.service.get_construction_document_by_id(id_)
         return self.serializer.to_json(construction_document)
 
     @view_config(route_name='add_construction_document')
@@ -31,19 +31,19 @@ class ConstructionDocumentController:
 
     @view_config(route_name='edit_construction_document')
     def edit_construction_document(self):
-        id = int(self.request.matchdict['id'])
+        id_ = int(self.request.matchdict['id'])
         construction_document_deserialized = self.schema.deserialize(self.request.json_body)
-        construction_document_deserialized['id'] = id
+        construction_document_deserialized['id'] = id_
 
         construction_document = self.service.to_mapped_object(construction_document_deserialized)
         self.service.update_construction_document(construction_document)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='delete_construction_document')
     def delete_construction_document(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_construction_document_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_construction_document_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='get_construction_documents_by_construction')
     def get_construction_documents_by_construction(self):

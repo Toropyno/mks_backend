@@ -25,19 +25,19 @@ class OrganizationDocumentController:
 
     @view_config(route_name='edit_organization_document')
     def edit_organization_document(self):
-        id = int(self.request.matchdict.get('id'))
+        id_ = int(self.request.matchdict.get('id'))
         organization_document_deserialized = self.schema.deserialize(self.request.json_body)
-        organization_document_deserialized['id'] = id
+        organization_document_deserialized['id'] = id_
 
         organization_document = self.service.to_mapped_object(organization_document_deserialized)
         self.service.update_organization_document(organization_document)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='delete_organization_document')
     def delete_organization_document(self):
-        id = int(self.request.matchdict.get('id'))
-        self.service.delete_organization_document_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict.get('id'))
+        self.service.delete_organization_document_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='get_documents_by_organization')
     def get_documents_by_organization(self):

@@ -31,9 +31,9 @@ class WorkListController:
 
     @view_config(route_name='delete_work_list')
     def delete_work_list(self):
-        id = self.get_id()
-        self.service.delete_work_list_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_work_list_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_work_list')
     def edit_work_list(self):
@@ -46,8 +46,8 @@ class WorkListController:
 
     @view_config(route_name='get_work_list')
     def get_work_list(self):
-        id = self.get_id()
-        work_list = self.service.get_work_list_by_id(id)
+        id_ = self.get_id()
+        work_list = self.service.get_work_list_by_id(id_)
         return self.serializer.to_json(work_list)
 
     def get_id(self) -> int:

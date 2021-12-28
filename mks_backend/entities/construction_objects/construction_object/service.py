@@ -16,15 +16,15 @@ class ConstructionObjectService:
         construction_objects = self.repo.get_all_construction_objects_by_construction_id(construction_id)
         return construction_objects
 
-    def get_construction_object_by_id(self, id: int):
-        construction_object = self.repo.get_construction_object_by_id(id)
+    def get_construction_object_by_id(self, id_: int):
+        construction_object = self.repo.get_construction_object_by_id(id_)
         return construction_object
 
     def add_construction_object(self, construction_object: ConstructionObject) -> None:
         self.repo.add_construction_object(construction_object)
 
-    def delete_construction_object_by_id(self, id: int) -> None:
-        self.repo.delete_construction_object_by_id(id)
+    def delete_construction_object_by_id(self, id_: int) -> None:
+        self.repo.delete_construction_object_by_id(id_)
 
     def update_construction_object(self, new_construction_object: ConstructionObject) -> None:
         self.coordinate_service.add_or_update_coordinate(new_construction_object.coordinate)

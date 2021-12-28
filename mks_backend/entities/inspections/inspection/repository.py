@@ -23,8 +23,8 @@ class InspectionRepository:
         DBSession.add(inspection)
         DBSession.commit()
 
-    def delete_inspection_by_id(self, id: int) -> None:
-        inspection = self.get_inspection_by_id(id)
+    def delete_inspection_by_id(self, id_: int) -> None:
+        inspection = self.get_inspection_by_id(id_)
         DBSession.delete(inspection)
         DBSession.commit()
 
@@ -41,8 +41,8 @@ class InspectionRepository:
 
         DBSession.commit()
 
-    def get_inspection_by_id(self, id: int) -> Inspection:
-        return self._query.get(id)
+    def get_inspection_by_id(self, id_: int) -> Inspection:
+        return self._query.get(id_)
 
     def get_filtered_inspections(self, params: dict) -> List[Inspection]:
         filtered_inspections = DBSession.query(Inspection)\

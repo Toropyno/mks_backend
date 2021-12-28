@@ -18,8 +18,8 @@ class OKSMRepository:
         DBSession.add(oksm)
         DBSession.commit()
 
-    def delete_oksm_by_id(self, id: int) -> None:
-        self._query.filter(OKSM.oksm_id == id).delete()
+    def delete_oksm_by_id(self, id_: int) -> None:
+        self._query.filter(OKSM.oksm_id == id_).delete()
         DBSession.commit()
 
     def update_oksm(self, new_oksm: OKSM) -> None:

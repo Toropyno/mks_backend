@@ -22,8 +22,8 @@ class MilitaryRankController:
 
     @view_config(route_name='get_military_rank')
     def get_military_rank(self):
-        id = self.get_id()
-        military_rank = self.service.get_military_rank_by_id(id)
+        id_ = self.get_id()
+        military_rank = self.service.get_military_rank_by_id(id_)
         return self.serializer.to_json(military_rank)
 
     @view_config(route_name='add_military_rank')
@@ -36,19 +36,19 @@ class MilitaryRankController:
 
     @view_config(route_name='edit_military_rank')
     def edit_military_rank(self):
-        id = self.get_id()
+        id_ = self.get_id()
         military_rank_deserialized = self.schema.deserialize(self.request.json_body)
-        military_rank_deserialized['id'] = id
+        military_rank_deserialized['id'] = id_
 
         military_rank = self.serializer.to_mapped_object(military_rank_deserialized)
         self.service.update_military_rank(military_rank)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='delete_military_rank')
     def delete_military_rank(self):
-        id = self.get_id()
-        self.service.delete_military_rank_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_military_rank_by_id(id_)
+        return {'id': id_}
 
     def get_id(self):
         return int(self.request.matchdict.get('id'))

@@ -29,9 +29,9 @@ class ParticipantStatusController:
 
     @view_config(route_name='delete_participant_status')
     def delete_participant_status(self):
-        id = self.get_id()
-        self.service.delete_participant_status_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_participant_status_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_participant_status')
     def edit_participant_status(self):
@@ -44,8 +44,8 @@ class ParticipantStatusController:
 
     @view_config(route_name='get_participant_status')
     def get_participant_status(self):
-        id = self.get_id()
-        participant_status = self.service.get_participant_status_by_id(id)
+        id_ = self.get_id()
+        participant_status = self.service.get_participant_status_by_id(id_)
         return self.serializer.to_json(participant_status)
 
     def get_id(self):

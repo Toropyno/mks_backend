@@ -16,8 +16,8 @@ class ContractWorkTypeService:
     def get_all(self) -> list:
         return self.repo.get_all()
 
-    def get_by_id(self, id: int) -> ContractWorkType:
-        return self.repo.get_by_id(id)
+    def get_by_id(self, id_: int) -> ContractWorkType:
+        return self.repo.get_by_id(id_)
 
-    def delete_by_id(self, id: int) -> None:
-        self.repo.delete_by_id(id)
+    def delete_by_id(self, id_: int) -> None:
+        self.repo.delete_by_id(id_)

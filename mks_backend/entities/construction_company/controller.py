@@ -30,9 +30,9 @@ class ConstructionCompanyController:
 
     @view_config(route_name='delete_construction_company')
     def delete_construction_company(self):
-        id = self.get_id()
-        self.service.delete_construction_company_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_construction_company_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_construction_company')
     def edit_construction_company(self):
@@ -45,8 +45,8 @@ class ConstructionCompanyController:
 
     @view_config(route_name='get_construction_company')
     def get_construction_company(self):
-        id = self.get_id()
-        construction_company = self.service.get_construction_company_by_id(id)
+        id_ = self.get_id()
+        construction_company = self.service.get_construction_company_by_id(id_)
         return self.serializer.to_json(construction_company)
 
     def get_id(self):

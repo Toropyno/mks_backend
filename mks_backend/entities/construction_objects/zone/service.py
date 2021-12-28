@@ -13,14 +13,14 @@ class ZoneService:
     def get_all_zones(self) -> list:
         return self.repo.get_all_zones()
 
-    def get_zone_by_id(self, id: int) -> Zone:
-        return self.repo.get_zone_by_id(id)
+    def get_zone_by_id(self, id_: int) -> Zone:
+        return self.repo.get_zone_by_id(id_)
 
     def add_zone(self, zone: Zone) -> None:
         self.repo.add_zone(zone)
 
-    def delete_zone_by_id(self, id: int) -> None:
-        self.repo.delete_zone_by_id(id)
+    def delete_zone_by_id(self, id_: int) -> None:
+        self.repo.delete_zone_by_id(id_)
 
     def update_zone(self, new_zone: Zone) -> None:
         self.repo.update_zone(new_zone)

@@ -21,8 +21,8 @@ class ProtocolService:
 
         return protocols
 
-    def get_protocol_by_id(self, id) -> Protocol:
-        return self.repo.get_protocol_by_id(id)
+    def get_protocol_by_id(self, id_) -> Protocol:
+        return self.repo.get_protocol_by_id(id_)
 
     def add_protocol(self, protocol: Protocol) -> None:
         self.repo.add_protocol(protocol)

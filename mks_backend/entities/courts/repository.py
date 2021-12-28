@@ -17,8 +17,8 @@ class CourtsRepository:
         DBSession.add(construction_court)
         DBSession.commit()
 
-    def delete_court_by_id(self, id: int) -> None:
-        self._query.filter(Courts.courts_id == id).delete()
+    def delete_court_by_id(self, id_: int) -> None:
+        self._query.filter(Courts.courts_id == id_).delete()
         DBSession.commit()
 
     def update_court(self, new_court: Courts) -> None:

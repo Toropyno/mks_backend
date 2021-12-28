@@ -27,10 +27,10 @@ class MilitaryUnitExtensionController:
 
     @view_config(route_name='delete_military_unit_extension')
     def delete_military_unit_extension(self):
-        id = self.get_id()
+        id_ = self.get_id()
         date = get_date_from_string(self.request.matchdict.get('date'))
-        self.service.delete_military_unit_extension_by_id(id, date)
-        return {'id': id}
+        self.service.delete_military_unit_extension_by_id(id_, date)
+        return {'id': id_}
 
     @view_config(route_name='edit_military_unit_extension')
     def edit_military_unit_extension(self):
@@ -44,8 +44,8 @@ class MilitaryUnitExtensionController:
 
     @view_config(route_name='get_military_unit_extension')
     def get_military_unit_extension(self):
-        id = self.get_id()
-        military_unit_extension = self.service.get_military_unit_extension_by_id(id)
+        id_ = self.get_id()
+        military_unit_extension = self.service.get_military_unit_extension_by_id(id_)
         return self.serializer.to_json(military_unit_extension)
 
     def get_id(self):

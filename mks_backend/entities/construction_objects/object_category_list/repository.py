@@ -7,8 +7,8 @@ class ObjectCategoryListRepository:
     def __init__(self):
         self._query = DBSession.query(ObjectCategoryList)
 
-    def get_object_categories_list_by_id(self, id: int) -> ObjectCategoryList:
-        return self._query.get(id)
+    def get_object_categories_list_by_id(self, id_: int) -> ObjectCategoryList:
+        return self._query.get(id_)
 
     def get_all_object_categories_lists(self) -> list:
         return self._query.all()
@@ -17,8 +17,8 @@ class ObjectCategoryListRepository:
         DBSession.add(object_categories_list)
         DBSession.commit()
 
-    def delete_object_categories_list_by_id(self, id: int) -> None:
-        object_categories_list = self.get_object_categories_list_by_id(id)
+    def delete_object_categories_list_by_id(self, id_: int) -> None:
+        object_categories_list = self.get_object_categories_list_by_id(id_)
         DBSession.delete(object_categories_list)
         DBSession.commit()
 

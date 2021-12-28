@@ -29,21 +29,21 @@ class ProgressStatusController:
 
     @view_config(route_name='delete_progress_status')
     def delete_progress_status(self):
-        id = self.request.matchdict['id']
-        self.service.delete_progress_status_by_id(id)
-        return {'id': id}
+        id_ = self.request.matchdict['id']
+        self.service.delete_progress_status_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_progress_status')
     def edit_progress_status(self):
-        id = self.request.matchdict['id']
+        id_ = self.request.matchdict['id']
         progress_status_deserialized = self.schema.deserialize(self.request.json_body)
-        progress_status_deserialized['id'] = id
+        progress_status_deserialized['id'] = id_
         new_progress_status = self.serializer.to_mapped_object(progress_status_deserialized)
         self.service.update_progress_status(new_progress_status)
-        return {'id': id}
+        return {'id': id_}
 
     @view_config(route_name='get_progress_status')
     def get_progress_status(self):
-        id = self.request.matchdict['id']
-        progress_status = self.service.get_progress_status_by_id(id)
+        id_ = self.request.matchdict['id']
+        progress_status = self.service.get_progress_status_by_id(id_)
         return self.serializer.to_json(progress_status)

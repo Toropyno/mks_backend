@@ -14,5 +14,5 @@ class WorkTripFilesService:
     def add_work_trip_file(self, work_trip_files: List[WorkTripFile]) -> None:
         self.repository.add_work_trip_file(work_trip_files)
 
-    def delete_work_trip_file(self, id) -> None:
-        self.repository.delete_work_trip_file(id)
+    def delete_work_trip_file(self, id_) -> None:
+        self.repository.delete_work_trip_file(id_)

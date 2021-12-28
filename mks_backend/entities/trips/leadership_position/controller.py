@@ -30,9 +30,9 @@ class LeadershipPositionController:
 
     @view_config(route_name='delete_leadership_position')
     def delete_leadership_position(self):
-        id = self.get_id()
-        self.service.delete_leadership_position_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_leadership_position_by_id(id_)
+        return {'id': id_}
 
     @view_config(route_name='edit_leadership_position')
     def edit_leadership_position(self):
@@ -45,8 +45,8 @@ class LeadershipPositionController:
 
     @view_config(route_name='get_leadership_position')
     def get_leadership_position(self):
-        id = self.get_id()
-        leadership_position = self.service.get_leadership_position_by_id(id)
+        id_ = self.get_id()
+        leadership_position = self.service.get_leadership_position_by_id(id_)
         return self.serializer.to_json(leadership_position)
 
     def get_id(self) -> int:

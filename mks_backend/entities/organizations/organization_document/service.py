@@ -12,8 +12,8 @@ class OrganizationDocumentService:
         self.date_service = UploadDateService()
         self.organization_service = OrganizationService()
 
-    def get_organization_document_by_id(self, id: int) -> OrganizationDocument:
-        return self.repo.get_organization_document_by_id(id)
+    def get_organization_document_by_id(self, id_: int) -> OrganizationDocument:
+        return self.repo.get_organization_document_by_id(id_)
 
     def add_organization_document(self, organization_document: OrganizationDocument) -> None:
         self.repo.add_organization_document(organization_document)
@@ -21,8 +21,8 @@ class OrganizationDocumentService:
     def update_organization_document(self, organization_document: OrganizationDocument) -> None:
         self.repo.update_organization_document(organization_document)
 
-    def delete_organization_document_by_id(self, id: int) -> None:
-        self.repo.delete_organization_document(id)
+    def delete_organization_document_by_id(self, id_: int) -> None:
+        self.repo.delete_organization_document(id_)
 
     def get_documents_by_organization(self, organization_uuid: str) -> list:
         return self.organization_service.get_by_id(organization_uuid).organization_documents

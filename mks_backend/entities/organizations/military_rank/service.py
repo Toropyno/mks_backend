@@ -10,14 +10,14 @@ class MilitaryRankService:
     def get_all_military_ranks(self) -> list:
         return self.repo.get_all_military_ranks()
 
-    def get_military_rank_by_id(self, id: int) -> MilitaryRank:
-        return self.repo.get_military_rank_by_id(id)
+    def get_military_rank_by_id(self, id_: int) -> MilitaryRank:
+        return self.repo.get_military_rank_by_id(id_)
 
     def add_military_rank(self, military_rank: MilitaryRank) -> None:
         self.repo.add_military_rank(military_rank)
 
-    def delete_military_rank_by_id(self, id: int) -> None:
-        self.repo.delete_military_rank_by_id(id)
+    def delete_military_rank_by_id(self, id_: int) -> None:
+        self.repo.delete_military_rank_by_id(id_)
 
     def update_military_rank(self, new_military_rank: MilitaryRank) -> None:
         self.repo.update_military_rank(new_military_rank)
