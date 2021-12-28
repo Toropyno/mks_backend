@@ -24,7 +24,8 @@ class InspectionRepository:
         DBSession.commit()
 
     def delete_inspection_by_id(self, id: int) -> None:
-        self._query.filter(Inspection.inspections_id == id).delete()
+        inspection = self.get_inspection_by_id(id)
+        DBSession.delete(inspection)
         DBSession.commit()
 
     def update_inspection(self, new_inspection: Inspection) -> None:

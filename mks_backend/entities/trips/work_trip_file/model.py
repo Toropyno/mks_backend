@@ -29,6 +29,5 @@ class WorkTripFile(Base):
     file_storage = relationship(
         'Filestorage',
         single_parent=True,
-        passive_deletes=True,
         cascade='all, delete-orphan'
     )

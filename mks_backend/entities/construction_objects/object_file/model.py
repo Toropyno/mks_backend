@@ -48,8 +48,3 @@ class ObjectFile(Base):
         single_parent=True,
         cascade='all, delete-orphan'
     )
-
-    construction_object = relationship(
-        'ConstructionObject',
-        back_populates='object_files'
-    )
