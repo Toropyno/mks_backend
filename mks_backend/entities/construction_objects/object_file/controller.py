@@ -34,18 +34,6 @@ class ObjectFileController:
         self.service.delete_object_file_by_id(id)
         return {'id': id}
 
-    @view_config(route_name='edit_object_file')
-    def edit_object_file(self):
-        id = int(self.request.matchdict['id'])
-        object_file_deserialized = self.schema.deserialize(self.request.json_body)
-
-        object_file_deserialized['id'] = id
-        self.service.set_upload_date(object_file_deserialized)
-        new_object_file = self.serializer.convert_schema_to_object(object_file_deserialized)
-
-        self.service.update_object_file(new_object_file)
-        return {'id': new_object_file.object_files_id}
-
     @view_config(route_name='get_object_file')
     def get_object_file(self):
         id = int(self.request.matchdict['id'])

@@ -24,7 +24,8 @@ class WorkTripRepository:
         DBSession.commit()
 
     def delete_work_trip_by_id(self, id: int) -> None:
-        self._query.filter(WorkTrip.work_trips_id == id).delete()
+        work_trip = self.get_work_trip_by_id(id)
+        DBSession.delete(work_trip)
         DBSession.commit()
 
     def update_work_trip(self, new_work_trip: WorkTrip) -> None:

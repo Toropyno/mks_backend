@@ -7,7 +7,6 @@ from sqlalchemy import (
     TIMESTAMP,
 )
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -25,12 +24,6 @@ class Filestorage(Base):
     createdOn = Column(TIMESTAMP(timezone=True), default=func.now())
     description = Column(VARCHAR(100))
     authorid = Column(Integer)
-
-    object_files = relationship(
-        'ObjectFile',
-        back_populates='file_storage',
-        passive_deletes=True
-    )
 
     @hybrid_property
     def size(self):
