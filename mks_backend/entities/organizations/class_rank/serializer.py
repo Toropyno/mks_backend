@@ -19,7 +19,7 @@ class ClassRankSerializer:
             'fullName': class_rank.fullname,
         }
 
-    def convert_list_to_json(self, class_ranks: List[ClassRank]) -> List[str]:
+    def convert_list_to_json(self, class_ranks: List[ClassRank]) -> List[dict]:
         return list(map(self.to_json, class_ranks))
 
     def convert_schema_to_object(self, schema: dict) -> ClassRank:
