@@ -11,15 +11,12 @@ class DBBasicError(Exception):
         self.logger = DBErrorLogger()
 
     @property
-    def code_and_message(self):
-        code = self.get_error_code()
-        if code not in self.codes:
-            message = 'Ошибка c БД'
-            self.logger.log(self.error_raw)
-        else:
-            message = self.codes[code]
+    def message(self) -> str:
+        return DB_ERROR_CODES.get(self.code, 'Ошибка')
 
-        return {'code': code, 'message': message}
+    @property
+    def code(self) -> str:
+        return self.get_error_code()
 
     def get_error_code(self) -> str:
 

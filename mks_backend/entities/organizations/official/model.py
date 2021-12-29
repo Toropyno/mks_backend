@@ -44,6 +44,16 @@ class Official(Base):
         nullable=True
     )
 
+    class_ranks_id = Column(
+        Integer,
+        ForeignKey('{schema}.class_ranks.class_ranks_id'.format(schema=ORGANIZATION_SCHEMA)),
+    )
+
+    idfilestorage = Column(
+        UUID,
+        ForeignKey('filestorage.idfilestorage', ondelete='SET NULL')
+    )
+
     # --------- relationships --------- #
 
     military_rank = relationship(
@@ -55,19 +65,10 @@ class Official(Base):
         'Organization'
     )
 
-    class_ranks_id = Column(
-        Integer,
-        ForeignKey('{schema}.class_ranks.class_ranks_id'.format(schema=ORGANIZATION_SCHEMA)),
-    )
-
-    idfilestorage = Column(
-        UUID,
-        ForeignKey('filestorage.idfilestorage', ondelete='SET NULL')
-    )
-
     class_rank = relationship(
         'ClassRank'
     )
+
     filestorage = relationship(
         'Filestorage',
         cascade='all, delete'

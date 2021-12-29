@@ -5,7 +5,7 @@ from mks_backend.utils.validator_utils import strip_space
 
 class ClassRankSchema(colander.MappingSchema):
 
-    id_ = colander.SchemaNode(
+    id = colander.SchemaNode(
         colander.Integer(),
         name='id',
         validator=colander.Range(
