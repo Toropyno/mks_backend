@@ -1,6 +1,6 @@
 import logging
 
-from pyramid.httpexceptions import HTTPForbidden
+from pyramid.httpexceptions import HTTPForbidden, HTTPNotFound, HTTPUnprocessableEntity
 from webob import Response
 from pyramid.view import view_config
 from colander import Invalid as ColanderInvalid
@@ -16,7 +16,7 @@ def db_api_error(context, request):
 
     if context.orig.pgerror:
         # Если есть текст ошибки от БД, то бросаем новую, и приводим к нужному формату
-        raise DBBasicError(context.orig.pgerror)
+        return db_error_exception_view(DBBasicError(context.orig.pgerror), request)
     else:
         # Когда текста ошибки от БД нет, значит, мы даже не смогли к ней подключиться
         message = context.orig.args[0].strip() if context.orig.args else 'Не удалось подключиться к БД'
@@ -26,7 +26,14 @@ def db_api_error(context, request):
 @view_config(context=DBBasicError)
 def db_error_exception_view(context, request):
     DBSession.rollback()
-    return Response(status=400, json_body=context.code_and_message)
+    logging.warning(context)
+
+    if context.code.endswith('_nf'):
+        response = HTTPNotFound(json_body={'code': context.code, 'message': context.message})
+    else:
+        response = HTTPUnprocessableEntity(json_body={'code': context.code, 'message': context.message})
+
+    return response
 
 
 @view_config(context=FilestorageError)
