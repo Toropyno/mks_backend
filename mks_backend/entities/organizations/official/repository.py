@@ -20,6 +20,7 @@ class OfficialRepository:
                 'position_name': official.position_name,
                 'organizations_id': official.organizations_id,
                 'military_ranks_id': official.military_ranks_id,
+                'class_ranks_id': official.class_ranks_id,
                 'surname': official.surname,
                 'firstname': official.firstname,
                 'middlename': official.middlename,
@@ -34,8 +35,7 @@ class OfficialRepository:
         DBSession.commit()
 
     def delete_official(self, id_: int) -> None:
-        self._query.filter(Official.idfilestorage == id_).delete()
-        official = self.get_inspection_by_id(id)
+        official = self.get_official(id_)
         DBSession.delete(official)
         DBSession.commit()
 
