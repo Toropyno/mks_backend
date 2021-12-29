@@ -18,8 +18,8 @@ class OfficialService:
     def update_official(self, official: Official) -> None:
         self.repo.update_official(official)
 
-    def delete_official_by_id(self, id: int) -> None:
-        self.repo.delete_official(id)
+    def delete_official_by_id(self, id_: int) -> None:
+        self.repo.delete_official(id_)
 
     def get_officials_by_organization(self, filter_fields: dict) -> List[Official]:
         return self.repo.get_officials_by_organization(filter_fields)
