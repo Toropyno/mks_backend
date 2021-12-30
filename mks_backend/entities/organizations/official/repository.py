@@ -30,7 +30,7 @@ class OfficialRepository:
                 'email': official.email,
                 'secure_channel': official.secure_channel,
                 'note': official.note,
-                'filestorage': official.idfilestorage
+                'idfilestorage': official.idfilestorage
             }
         )
         DBSession.commit()
