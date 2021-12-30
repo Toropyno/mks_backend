@@ -15,7 +15,7 @@ class FilestorageHDD:
     def create_file(self, id_file_storage: str, file: cgi_FieldStorage, all_fromats: bool = False) -> None:
         if not isinstance(file, cgi_FieldStorage):
             raise FilestorageError('not_received')
-        elif file.limit > 2.6e+7:  # > ~25Mbytes
+        elif file.limit > 5e+9:  # > ~5Gbytes
             raise FilestorageError('too_big')
         elif '.' not in file.filename:
             raise FilestorageError('extension_error')
