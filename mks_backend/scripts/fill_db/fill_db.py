@@ -7,8 +7,8 @@ from sqlalchemy.exc import DBAPIError
 from mks_backend.models_meta import *
 from mks_backend.FIAS import FIASService
 
-from .utils import try_add, get_random_address, get_rand_int, get_random_date, get_surname, get_first_name, \
-    get_middle_name, get_random_phone, get_random_email
+from .utils import try_add, get_random_address, get_random_date, get_surname, get_first_name, get_middle_name, \
+    get_random_phone, get_random_email
 
 from mks_backend.session import DBSession
 
@@ -152,9 +152,9 @@ def insert_organizations():
                 address_legal='Юридический адрес {}.{}'.format(x, i) if org_sign else None,
                 address_actual='Фактический адрес {}{}'.format(x, i),
                 functions='Функции {}.{}'.format(x, i),
-                inn=get_rand_int() if org_sign else None,
-                kpp=get_rand_int() if org_sign else None,
-                ogrn=get_rand_int() if org_sign else None,
+                inn=7731347089 if org_sign else None,
+                kpp=773101001 if org_sign else None,
+                ogrn=1177746126040 if org_sign else None,
                 begin_date=datetime.now().date() - timedelta(days=i),
                 end_date=choice([None, None, datetime.now().date() - timedelta(days=i)])
             )
@@ -181,9 +181,9 @@ def insert_organizations():
                 address_legal='Юридический адрес {}'.format(x) if org_sign else None,
                 address_actual='Фактический адрес {}'.format(x),
                 functions='Функции {}'.format(x),
-                inn=get_rand_int() if org_sign else None,
-                kpp=get_rand_int() if org_sign else None,
-                ogrn=get_rand_int() if org_sign else None,
+                inn=7731347089 if org_sign else None,
+                kpp=773101001 if org_sign else None,
+                ogrn=1177746126040 if org_sign else None,
                 begin_date=datetime.now().date(),
             )]
         )
