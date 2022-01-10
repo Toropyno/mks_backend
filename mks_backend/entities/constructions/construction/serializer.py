@@ -49,9 +49,7 @@ class ConstructionSerializer(BaseSerializer):
             'locationType': LocationTypeSerializer.to_json(construction.location_type),
             'category': ConstructionCategorySerializer.to_short_json(construction.construction_category),
             'commission': CommissionSerializer.to_json(construction.commission),
-            'constructionCompany': ConstructionCompanySerializer.to_json(
-                construction.construction_company
-            ),
+            'constructionCompany': ConstructionCompanySerializer.to_json(construction.construction_company),
             'militaryUnit': MilitaryUnitSerializer.to_json(construction.military_unit),
             'militaryDistrict': MilitaryUnitSerializer.to_json(construction.military_district),
             'organization': OrganizationSerializer.to_simple_json(construction.organization),
@@ -61,9 +59,7 @@ class ConstructionSerializer(BaseSerializer):
             'address': construction.address_full,
             'coordinate': CoordinateSerializer.to_json(construction.coordinate),
             'oksm': OKSMSerializer.to_json(construction.oksm),
-            'criticalCategory': CriticalCategorySerializer.to_json(
-                construction.critical_category
-            )
+            'criticalCategory': CriticalCategorySerializer.to_json(construction.critical_category)
         }
 
         return construction_json

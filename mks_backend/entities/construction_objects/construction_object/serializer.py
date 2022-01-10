@@ -34,17 +34,9 @@ class ConstructionObjectSerializer(BaseSerializer):
             'buildingVolume': decimal_to_str(construction_object.building_volume, scale=3),
             'floorsAmount': construction_object.floors_amount,
             'zone': ZoneSerializer.to_json(construction_object.zone),
-            'stage': ConstructionStageSerializer.to_json(
-                construction_object.construction_stage
-            ),
-            'coordinate': CoordinateSerializer.to_json(
-                construction_object.coordinate
-            ),
-            'realtyType': RealtyTypeSerializer.to_json(
-                construction_object.realty_type
-            ),
-            'constructionProgress': ConstructionProgressSerializer.to_json(
-                construction_object.last_report
-            ),
+            'stage': ConstructionStageSerializer.to_json(construction_object.construction_stage),
+            'coordinate': CoordinateSerializer.to_json(construction_object.coordinate),
+            'realtyType': RealtyTypeSerializer.to_json(construction_object.realty_type),
+            'constructionProgress': ConstructionProgressSerializer.to_json(construction_object.last_report),
             'plannedDate': get_date_string(construction_object.planned_date),
         }
