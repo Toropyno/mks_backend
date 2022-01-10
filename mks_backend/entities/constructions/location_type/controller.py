@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -27,7 +27,7 @@ class LocationTypeController:
 
         location_type = self.serializer.to_mapped_object(location_type_deserialized)
         self.service.add_location_type(location_type)
-        return {'id': location_type.location_types_id}
+        return HTTPCreated(json_body={'id': location_type.location_types_id})
 
     @view_config(route_name='delete_location_type')
     def delete_location_type(self):

@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config
 from pyramid.response import FileResponse
@@ -23,7 +24,7 @@ class FilestorageController:
 
         for file in files:
             filestorage_ids.append(self.service.create_filestorage(file, all_formats))
-        return {'idFileStorage': filestorage_ids}
+        return HTTPCreated(json_body={'idFileStorage': filestorage_ids})
 
     @view_config(route_name='download_file')
     def download_file(self):
@@ -51,4 +52,4 @@ class FilestorageController:
     def delete_file(self):
         uuid = self.request.matchdict['uuid']
         self.service.delete_filestorage_by_id(uuid)
-        return uuid
+        return HTTPNoContent()

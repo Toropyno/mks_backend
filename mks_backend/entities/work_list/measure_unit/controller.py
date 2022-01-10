@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
@@ -27,7 +27,7 @@ class MeasureUnitController:
 
         measure_unit = self.serializer.to_mapped_object(measure_unit_deserialized)
         self.service.add_measure_unit(measure_unit)
-        return {'id': measure_unit.unit_id}
+        return HTTPCreated(json_body={'id': measure_unit.unit_id})
 
     @view_config(route_name='get_measure_unit')
     def get_measure_unit(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -27,7 +27,7 @@ class ConstructionTypeController:
 
         construction_type = self.serializer.to_mapped_object(construction_type_deserialized)
         self.service.add_construction_type(construction_type)
-        return {'id': construction_type.construction_types_id}
+        return HTTPCreated(json_body={'id': construction_type.construction_types_id})
 
     @view_config(route_name='delete_construction_type')
     def delete_construction_type(self):

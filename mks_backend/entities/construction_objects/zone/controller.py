@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -27,7 +27,7 @@ class ZoneController:
         zone = self.service.to_mapped_object(zone_deserialized)
 
         self.service.add_zone(zone)
-        return {'id': zone.zones_id}
+        return HTTPCreated(json_body={'id': zone.zones_id})
 
     @view_config(route_name='get_zone')
     def get_zone(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
@@ -24,7 +24,7 @@ class OfficialController:
         official = self.serializer.to_mapped_object(official_deserialized)
 
         self.service.add_official(official)
-        return {'id': official.officials_id}
+        return HTTPCreated(json_body={'id': official.officials_id})
 
     @view_config(route_name='edit_official')
     def edit_official(self):

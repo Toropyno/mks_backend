@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,7 +26,7 @@ class ContractStatusController:
         contract_status_deserialized = self.schema.deserialize(self.request.json_body)
         contract_status = self.serializer.to_mapped_object(contract_status_deserialized)
         self.service.add_contract_status(contract_status)
-        return {'id': contract_status.contract_statuses_id}
+        return HTTPCreated(json_body={'id': contract_status.contract_statuses_id})
 
     @view_config(route_name='delete_contract_status')
     def delete_contract_status(self):

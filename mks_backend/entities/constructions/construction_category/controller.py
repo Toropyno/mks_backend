@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -28,7 +28,7 @@ class ConstructionCategoryController:
         construction_category = self.service.to_mapped_object(construction_categories_deserialized)
         self.service.add_construction_category(construction_category)
 
-        return {'id': construction_category.construction_categories_id}
+        return HTTPCreated(json_body={'id': construction_category.construction_categories_id})
 
     @view_config(route_name='get_construction_category')
     def get_construction_category(self):

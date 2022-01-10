@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -24,7 +24,7 @@ class MilitaryUnitExtensionController:
 
         military_unit_extension = self.serializer.to_mapped_object(military_unit_extension_deserialized)
         self.service.add_military_unit_extension(military_unit_extension)
-        return {'id': military_unit_extension.idMU}
+        return HTTPCreated(json_body={'id': military_unit_extension.idMU})
 
     @view_config(route_name='delete_military_unit_extension')
     def delete_military_unit_extension(self):

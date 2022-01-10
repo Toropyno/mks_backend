@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -33,7 +33,7 @@ class ObjectCategoryController:
         object_category = self.serializer.to_mapped_object(object_category_deserialized)
 
         self.service.add_object_category(object_category)
-        return {'id': object_category.object_categories_id}
+        return HTTPCreated(json_body={'id': object_category.object_categories_id})
 
     @view_config(route_name='delete_object_category')
     def delete_construction_object(self):

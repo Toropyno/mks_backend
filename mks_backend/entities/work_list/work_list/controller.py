@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -28,7 +28,7 @@ class WorkListController:
 
         work_list = self.serializer.to_mapped_object(work_list_deserialized)
         self.service.add_work_list(work_list)
-        return {'id': work_list.works_list_id}
+        return HTTPCreated(json_body={'id': work_list.works_list_id})
 
     @view_config(route_name='delete_work_list')
     def delete_work_list(self):

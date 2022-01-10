@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,7 +26,7 @@ class ProgressStatusController:
         progress_status_deserialized = self.schema.deserialize(self.request.json_body)
         progress_status = self.serializer.to_mapped_object(progress_status_deserialized)
         self.service.add_progress_status(progress_status)
-        return {'id': progress_status.progress_statuses_id}
+        return HTTPCreated(json_body={'id': progress_status.progress_statuses_id})
 
     @view_config(route_name='delete_progress_status')
     def delete_progress_status(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -40,4 +40,4 @@ class VisitedObjectController:
             work_trip_id, self.schema.deserialize(self.request.json_body)['constructions']
         )
         self.service.add_visited_objects(visited_objects)
-        return {'work_trip_id': work_trip_id}
+        return HTTPCreated(json_body={'work_trip_id': work_trip_id})

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,7 +26,7 @@ class MeetingController:
         meeting_type_deserialized = self.schema.deserialize(self.request.json_body)
         meeting_type = self.serializer.to_mapped_object(meeting_type_deserialized)
         self.service.add_meeting_type(meeting_type)
-        return {'id': meeting_type.meetings_type_id}
+        return HTTPCreated(json_body={'id': meeting_type.meetings_type_id})
 
     @view_config(route_name='delete_meeting_type')
     def delete_meeting_type(self):

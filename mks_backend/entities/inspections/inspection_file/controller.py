@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -28,7 +28,8 @@ class InspectionFileController:
         inspection_files_deserialized = self.serializer.to_object_list(inspection_files_deserialized)
 
         self.service.add_inspection_files(inspection_files_deserialized)
-        return {'ids': [inspection_file.idfilestorage for inspection_file in inspection_files_deserialized]}
+        files_ids = [inspection_file.idfilestorage for inspection_file in inspection_files_deserialized]
+        return HTTPCreated(json_body={'ids': files_ids})
 
     @view_config(route_name='delete_inspection_file')
     def delete_inspection_file(self):

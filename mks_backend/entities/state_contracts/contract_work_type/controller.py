@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -22,7 +22,7 @@ class ContractWorkTypeController:
         contract_w_t = self.serializer.to_mapped_object(contract_w_t_deserialized)
 
         self.service.add(contract_w_t)
-        return {'id': contract_w_t.contract_worktypes_id}
+        return HTTPCreated(json_body={'id': contract_w_t.contract_worktypes_id})
 
     @view_config(route_name='edit_contract_work_type')
     def edit(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -28,7 +28,8 @@ class WorkTripFilesController:
         work_trip_files_deserialized = self.serializer.to_object_list(work_trip_files_deserialized)
 
         self.service.add_work_trip_file(work_trip_files_deserialized)
-        return {'id': [work_trip_file.idfilestorage for work_trip_file in work_trip_files_deserialized]}
+        files_ids = [work_trip_file.idfilestorage for work_trip_file in work_trip_files_deserialized]
+        return HTTPCreated(json_body={'id': files_ids})
 
     @view_config(route_name='delete_work_trip_file')
     def delete_work_trip_file(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,7 +26,7 @@ class CourtController:
         court_deserialized = self.schema.deserialize(self.request.json_body)
         court = self.serializer.to_mapped_object(court_deserialized)
         self.service.add_court(court)
-        return {'id': court.courts_id}
+        return HTTPCreated(json_body={'id': court.courts_id})
 
     @view_config(route_name='delete_court')
     def delete_court(self):

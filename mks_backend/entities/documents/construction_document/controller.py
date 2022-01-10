@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
@@ -28,7 +28,7 @@ class ConstructionDocumentController:
         construction_document = self.service.to_mapped_object(construction_document_deserialized)
 
         self.service.add_construction_document(construction_document)
-        return {'id': construction_document.construction_documents_id}
+        return HTTPCreated(json_body={'id': construction_document.construction_documents_id})
 
     @view_config(route_name='edit_construction_document')
     def edit_construction_document(self):

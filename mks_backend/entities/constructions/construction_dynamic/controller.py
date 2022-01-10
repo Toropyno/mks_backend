@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -29,7 +29,7 @@ class ConstructionDynamicController:
         construction_dynamic = self.serializer.to_mapped_object(construction_dynamic_deserialized)
 
         self.service.add_construction_dynamic(construction_dynamic)
-        return {'id': construction_dynamic.construction_dynamics_id}
+        return HTTPCreated(json_body={'id': construction_dynamic.construction_dynamics_id})
 
     @view_config(route_name='delete_construction_dynamic')
     def delete_construction_dynamic(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,7 +26,7 @@ class ParticipantStatusController:
         participant_status_deserialized = self.schema.deserialize(self.request.json_body)
         participant_status = self.serializer.to_mapped_object(participant_status_deserialized)
         self.service.add_participant_status(participant_status)
-        return {'id': participant_status.participant_statuses_id}
+        return HTTPCreated(json_body={'id': participant_status.participant_statuses_id})
 
     @view_config(route_name='delete_participant_status')
     def delete_participant_status(self):

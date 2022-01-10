@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -27,7 +27,7 @@ class RealtyTypeController:
 
         realty_type = self.serializer.to_mapped_object(realty_type_deserialized)
         self.service.add_realty_type(realty_type)
-        return {'id': realty_type.realty_types_id}
+        return HTTPCreated(json_body={'id': realty_type.realty_types_id})
 
     @view_config(route_name='delete_realty_type')
     def delete_realty_type(self):

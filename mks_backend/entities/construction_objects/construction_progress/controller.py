@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -21,7 +21,7 @@ class ConstructionProgressController:
         construction_progress_deserialized = self.schema.deserialize(self.request.json_body)
         construction_progress = self.serializer.to_mapped_object(construction_progress_deserialized)
         self.service.add_construction_progress(construction_progress)
-        return {'id': construction_progress.construction_progress_id}
+        return HTTPCreated(json_body={'id': construction_progress.construction_progress_id})
 
     @view_config(route_name='get_construction_progress')
     def get_construction_progress(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,7 +26,7 @@ class ElementTypeController:
         element_type_deserialized = self.schema.deserialize(self.request.json_body)
         element_type = self.serializer.to_mapped_object(element_type_deserialized)
         self.service.add_element_type(element_type)
-        return {'id': element_type.element_types_id}
+        return HTTPCreated(json_body={'id': element_type.element_types_id})
 
     @view_config(route_name='get_element_type')
     def get_element_type(self):

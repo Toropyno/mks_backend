@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -33,7 +33,7 @@ class MilitaryRankController:
         military_rank = self.serializer.to_mapped_object(military_rank_deserialized)
 
         self.service.add_military_rank(military_rank)
-        return {'id': military_rank.military_ranks_id}
+        return HTTPCreated(json_body={'id': military_rank.military_ranks_id})
 
     @view_config(route_name='edit_military_rank')
     def edit_military_rank(self):

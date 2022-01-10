@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -27,7 +27,7 @@ class OKSMController:
 
         oksm = self.serializer.to_mapped_object(oksm_deserialized)
         self.service.add_oksm(oksm)
-        return {'id': oksm.oksm_id}
+        return HTTPCreated(json_body={'id': oksm.oksm_id})
 
     @view_config(route_name='delete_oksm')
     def delete_oksm(self):

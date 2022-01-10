@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -41,7 +41,7 @@ class ConstructionObjectController:
         )
 
         self.service.add_construction_object(construction_object)
-        return {'id': construction_object.construction_objects_id}
+        return HTTPCreated(json_body={'id': construction_object.construction_objects_id})
 
     @view_config(route_name='delete_construction_object')
     def delete_construction_object(self):

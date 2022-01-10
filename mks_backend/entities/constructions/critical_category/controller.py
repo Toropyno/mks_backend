@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -30,7 +30,7 @@ class CriticalCategoryController:
         )
         self.service.add_critical_category(critical_category)
 
-        return {'id': critical_category.critical_categories_id}
+        return HTTPCreated(json_body={'id': critical_category.critical_categories_id})
 
     @view_config(route_name='get_critical_category')
     def get_critical_category(self):

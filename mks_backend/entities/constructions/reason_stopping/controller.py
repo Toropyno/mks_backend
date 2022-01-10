@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,7 +26,7 @@ class ReasonStoppingController:
         reason_stopping_deserialized = self.schema.deserialize(self.request.json_body)
         reason_stopping = self.serializer.to_mapped_object(reason_stopping_deserialized)
         self.service.add_reason_stopping(reason_stopping)
-        return {'id': reason_stopping.reasons_stopping_id}
+        return HTTPCreated(json_body={'id': reason_stopping.reasons_stopping_id})
 
     @view_config(route_name='delete_reason_stopping')
     def delete_reason_stopping(self):

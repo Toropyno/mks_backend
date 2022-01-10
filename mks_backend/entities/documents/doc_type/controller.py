@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
@@ -27,7 +27,7 @@ class DocTypeController:
 
         doc_type = self.serializer.to_mapped_object(doc_type_deserialized)
         self.service.add_doc_type(doc_type)
-        return {'id': doc_type.doctypes_id}
+        return HTTPCreated(json_body={'id': doc_type.doctypes_id})
 
     @view_config(route_name='get_doc_type')
     def get_doc_type(self):

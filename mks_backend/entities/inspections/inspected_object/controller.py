@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -30,7 +31,7 @@ class InspectedObjectController:
         construction_id = int(self.request.matchdict.get('construction_id'))
 
         self.service.delete_inspected_object(inspection_id, construction_id)
-        return {'inspection_id': inspection_id}
+        return HTTPNoContent()
 
     @view_config(route_name='add_inspected_object')
     def add_inspected_object(self):
@@ -42,4 +43,4 @@ class InspectedObjectController:
         )
 
         self.service.add_inspected_objects(inspected_objects)
-        return {'inspection_id': inspection_id}
+        return HTTPCreated(json_body={'inspection_id': inspection_id})

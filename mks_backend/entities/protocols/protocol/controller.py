@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -30,7 +30,7 @@ class ProtocolController:
         protocol = self.serializer.to_mapped_object(protocol_deserialized)
 
         self.service.add_protocol(protocol)
-        return {'id': protocol.protocol_id}
+        return HTTPCreated({'id': protocol.protocol_id})
 
     @view_config(route_name='get_protocol', permission='access.mks_crud_protocols')
     def get_protocol(self):

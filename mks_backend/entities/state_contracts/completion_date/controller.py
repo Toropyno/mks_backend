@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -22,7 +22,7 @@ class CompletionDateController:
         completion_date = self.serializer.to_mapped_object(completion_date_deserialized)
 
         self.service.add(completion_date)
-        return {'id': completion_date.completion_dates_id}
+        return HTTPCreated(json_body={'id': completion_date.completion_dates_id})
 
     @view_config(route_name='edit_completion_date')
     def edit(self):

@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -29,7 +29,7 @@ class InspectionController:
 
         inspection = self.serializer.to_mapped_object(inspection_deserialized)
         self.service.add_inspection(inspection)
-        return {'id': inspection.inspections_id}
+        return HTTPCreated(json_body={'id': inspection.inspections_id})
 
     @view_config(route_name='delete_inspection', permission='access.mks_crud_inspections')
     def delete_inspection(self):
