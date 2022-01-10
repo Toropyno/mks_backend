@@ -38,7 +38,7 @@ def db_error_exception_view(context, request):
 
 @view_config(context=FilestorageError)
 def filestorage_exception_view(context, request):
-    return Response(status=403, json_body={'code': context.code, 'message': context.msg})
+    return Response(status=422, json_body={'code': context.code, 'message': context.msg})
 
 
 @view_config(context=ColanderInvalid)

@@ -5,8 +5,6 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 
-from sqlalchemy.orm import relationship
-
 from mks_backend.session import Base
 
 
@@ -33,14 +31,4 @@ class ObjectDocument(Base):
         Integer,
         ForeignKey('construction_documents.construction_documents_id', ondelete='CASCADE'),
         nullable=False,
-    )
-
-    # --------- relationships --------- #
-
-    document = relationship(
-        'ConstructionDocument'
-    )
-
-    construction_object = relationship(
-        'ConstructionObject'
     )

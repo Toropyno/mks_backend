@@ -10,13 +10,7 @@ class Zone(Base):
     zones_id = Column(Integer, primary_key=True, autoincrement=True)
     fullname = Column(VARCHAR(255), unique=True, nullable=False)
 
-    construction_object = relationship(
-        'ConstructionObject',
-        back_populates='zone'
-    )
-
     object_categories = relationship(
         'ObjectCategory',
-        secondary='object_categories_list',
-        back_populates='zones'
+        secondary='object_categories_list'
     )

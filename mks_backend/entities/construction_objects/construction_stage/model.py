@@ -16,11 +16,6 @@ class ConstructionStage(Base):
     hierarchy_level = Column(Integer, CheckConstraint('hierarchy_level>0'), nullable=False, default=1)
     ref_construction_stages_id = Column(ForeignKey(construction_stages_id, ondelete='SET NULL'))
 
-    construction_object = relationship(
-        'ConstructionObject',
-        back_populates='construction_stage'
-    )
-
     children = relationship(
         'ConstructionStage',
         backref=backref('parent', remote_side=construction_stages_id),

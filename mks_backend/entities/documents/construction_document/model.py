@@ -42,12 +42,6 @@ class ConstructionDocument(Base):
 
     # --------- relationships --------- #
 
-    parent = relationship(
-        'ConstructionObject',
-        secondary='object_documents',
-        back_populates='documents'
-    )
-
     doc_type = relationship(
         'DocType',
         back_populates='documents'

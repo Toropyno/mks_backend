@@ -35,15 +35,6 @@ class ObjectCategoryList(Base):
 
     # --------- relationships --------- #
 
-    construction_object = relationship(
-        'ConstructionObject',
-        back_populates='object_categories_list'
-    )
-
-    zone = relationship(
-        'Zone'
-    )
-
     object_category = relationship(
         'ObjectCategory'
     )

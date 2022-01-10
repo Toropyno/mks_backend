@@ -21,8 +21,7 @@ class ObjectDocumentController:
         object_id = int(self.request.matchdict['id'])
         object_documents = self.service.get_documents_by_construction_object(object_id)
 
-        all_documents = [object_document.document for object_document in object_documents]
-        return self.document_serializer.convert_list_to_json(all_documents)
+        return self.document_serializer.convert_list_to_json(object_documents)
 
     @view_config(route_name='edit_construction_document_and_object_relations')
     def edit_construction_document_and_object_relations(self):

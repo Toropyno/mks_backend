@@ -19,7 +19,7 @@ class FilestorageHDD:
             raise FilestorageError('too_big')
         elif '.' not in file.filename:
             raise FilestorageError('extension_error')
-        elif not all_fromats and file.filename.split('.')[1] not in self.ALLOWED_EXTENSIONS:
+        elif not all_fromats and file.filename.split('.')[-1] not in self.ALLOWED_EXTENSIONS:
             raise FilestorageError('extension_error')
 
         file_path = os_path.join(self.FILE_STORAGE, id_file_storage)
