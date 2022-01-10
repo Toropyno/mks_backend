@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -37,7 +38,7 @@ class ElementTypeController:
     def delete_element_type(self):
         id_ = int(self.request.matchdict['id'])
         self.service.delete_element_type_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_element_type')
     def edit_element_type(self):

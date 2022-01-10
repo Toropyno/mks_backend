@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -30,7 +31,7 @@ class MilitaryUnitExtensionController:
         id_ = self.get_id()
         date = get_date_from_string(self.request.matchdict.get('date'))
         self.service.delete_military_unit_extension_by_id(id_, date)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_military_unit_extension')
     def edit_military_unit_extension(self):

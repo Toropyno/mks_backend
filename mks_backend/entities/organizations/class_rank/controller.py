@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
@@ -46,7 +47,7 @@ class ClassRankController:
     def delete_class_rank(self):
         id_ = self.get_id()
         self.service.delete_class_rank(id_)
-        return {'id': int(id_)}
+        return HTTPNoContent()
 
     def get_id(self):
         return int(self.request.matchdict.get('id'))

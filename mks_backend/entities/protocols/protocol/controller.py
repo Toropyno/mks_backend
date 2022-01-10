@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -41,7 +42,7 @@ class ProtocolController:
     def delete_protocol(self):
         id_ = int(self.request.matchdict['id'])
         self.service.delete_protocol_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_protocol', permission='access.mks_crud_protocols')
     def edit_protocol(self):

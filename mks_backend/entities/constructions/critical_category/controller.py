@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -41,7 +42,7 @@ class CriticalCategoryController:
     def delete_critical_category(self):
         id_ = int(self.request.matchdict['id'])
         self.service.delete_critical_category_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_critical_category')
     def edit_critical_category(self):

@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -48,7 +49,7 @@ class ContractWorkTypeController:
     def delete(self):
         id_ = self.get_id()
         self.service.delete_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     def get_id(self):
         return int(self.request.matchdict['id'])

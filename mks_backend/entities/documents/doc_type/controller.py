@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
@@ -38,7 +39,7 @@ class DocTypeController:
     def delete_doc_type(self):
         id_ = int(self.request.matchdict['id'])
         self.service.delete_doc_type_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_doc_type')
     def edit_doc_type(self):

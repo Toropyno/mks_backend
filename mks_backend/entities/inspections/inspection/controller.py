@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -34,7 +35,7 @@ class InspectionController:
     def delete_inspection(self):
         id_ = int(self.request.matchdict['id'])
         self.service.delete_inspection_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_inspection', permission='access.mks_crud_inspections')
     def edit_inspection(self):

@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -33,4 +34,4 @@ class WorkTripFilesController:
     def delete_work_trip_file(self):
         id_ = self.request.matchdict['id']
         self.service.delete_work_trip_file(id_)
-        return {'id': id_}
+        return HTTPNoContent()

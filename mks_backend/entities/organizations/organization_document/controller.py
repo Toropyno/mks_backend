@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
@@ -37,7 +38,7 @@ class OrganizationDocumentController:
     def delete_organization_document(self):
         id_ = int(self.request.matchdict.get('id'))
         self.service.delete_organization_document_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='get_documents_by_organization')
     def get_documents_by_organization(self):

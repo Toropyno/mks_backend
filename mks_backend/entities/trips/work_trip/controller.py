@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -34,7 +35,7 @@ class WorkTripController:
     def delete_work_trip(self):
         id_ = self.get_id()
         self.service.delete_work_trip_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_work_trip', permission='access.mks_crud_trips')
     def edit_work_trip(self):

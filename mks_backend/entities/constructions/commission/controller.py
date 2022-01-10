@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -31,7 +32,7 @@ class CommissionController:
     def delete_commission(self):
         id_ = self.get_id()
         self.service.delete_commission_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_commission')
     def edit_commission(self):

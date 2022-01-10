@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.view import view_config, view_defaults
 from pyramid.request import Request
 
@@ -40,7 +41,7 @@ class OfficialController:
     def delete_official(self):
         id_ = self.get_id()
         self.service.delete_official_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='get_officials_by_organization')
     def get_officials_by_organization(self):

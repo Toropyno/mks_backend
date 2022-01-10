@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -31,7 +32,7 @@ class MeetingController:
     def delete_meeting_type(self):
         id_ = self.request.matchdict['id']
         self.service.delete_meeting_type_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_meeting_type')
     def edit_meeting_type(self):

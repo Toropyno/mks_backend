@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -31,8 +32,6 @@ class InspectionFileController:
 
     @view_config(route_name='delete_inspection_file')
     def delete_inspection_file(self):
-        inspection_id = int(self.request.matchdict['inspection_id'])
         file_id = self.request.matchdict['file_id']
-
         self.service.delete_inspection_file(file_id)
-        return {'id': inspection_id}
+        return HTTPNoContent()

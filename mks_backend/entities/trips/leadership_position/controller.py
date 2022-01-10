@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -32,7 +33,7 @@ class LeadershipPositionController:
     def delete_leadership_position(self):
         id_ = self.get_id()
         self.service.delete_leadership_position_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_leadership_position')
     def edit_leadership_position(self):

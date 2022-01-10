@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -31,7 +32,7 @@ class CourtDecisionController:
     def delete_court_decision(self):
         id = self.get_id()
         self.service.delete_court_decision_by_id(id)
-        return {'id': id}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_court_decision')
     def edit_court_decision(self):

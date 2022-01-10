@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -31,7 +32,7 @@ class ContractStatusController:
     def delete_contract_status(self):
         id_ = self.get_id()
         self.service.delete_contract_status_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_contract_status')
     def edit_contract_status(self):
