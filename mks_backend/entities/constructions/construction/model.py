@@ -107,18 +107,15 @@ class Construction(Base):
     # --------- relationships --------- #
 
     construction_category = relationship(
-        'ConstructionCategory',
-        back_populates='construction'
+        'ConstructionCategory'
     )
 
     subcategories_list = relationship(
-        'SubcategoryList',
-        back_populates='construction'
+        'SubcategoryList'
     )
 
     commission = relationship(
-        'Commission',
-        back_populates='construction'
+        'Commission'
     )
 
     military_unit = relationship(

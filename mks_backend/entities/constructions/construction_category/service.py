@@ -25,7 +25,7 @@ class ConstructionCategoryService:
     def get_all_construction_categories(self) -> list:
         return self.repo.get_all_construction_categories()
 
-    def convert_schema_to_object(self, schema: dict) -> ConstructionCategory:
+    def to_mapped_object(self, schema: dict) -> ConstructionCategory:
         category_id = schema.get('id')
         if category_id:
             category = self.get_construction_category_by_id(category_id)

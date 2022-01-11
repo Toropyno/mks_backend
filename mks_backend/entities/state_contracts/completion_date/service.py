@@ -16,8 +16,8 @@ class CompletionDateService:
     def get_all_completion_dates_by_contract_id(self, contract_id: int) -> list:
         return self.repo.get_all_completion_dates_by_contract_id(contract_id)
 
-    def get_by_id(self, id: int) -> CompletionDate:
-        return self.repo.get_by_id(id)
+    def get_by_id(self, id_: int) -> CompletionDate:
+        return self.repo.get_by_id(id_)
 
-    def delete_by_id(self, id: int) -> None:
-        self.repo.delete_by_id(id)
+    def delete_by_id(self, id_: int) -> None:
+        self.repo.delete_by_id(id_)

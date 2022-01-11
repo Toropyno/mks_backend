@@ -3,6 +3,7 @@ from .model import ConstructionObject
 from mks_backend.utils.decimal import decimal_to_str
 from mks_backend.utils.date_and_time import get_date_string
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.construction_objects.object_category import ObjectCategorySerializer
 from mks_backend.entities.construction_objects.zone import ZoneSerializer
 from mks_backend.entities.construction_objects.construction_stage import ConstructionStageSerializer
@@ -11,11 +12,11 @@ from mks_backend.entities.construction_objects.realty_type import RealtyTypeSeri
 from mks_backend.entities.coordinate import CoordinateSerializer
 
 
-class ConstructionObjectSerializer:
+class ConstructionObjectSerializer(BaseSerializer):
 
-    def convert_object_to_json(self, construction_object: ConstructionObject) -> dict:
+    def to_json(self, construction_object: ConstructionObject) -> dict:
         if construction_object.object_categories_list:
-            category = ObjectCategorySerializer.convert_object_to_json(
+            category = ObjectCategorySerializer.to_json(
                 construction_object.object_categories_list.object_category
             )
         else:
@@ -32,21 +33,10 @@ class ConstructionObjectSerializer:
             'generalPlanNumber': construction_object.generalplan_number,
             'buildingVolume': decimal_to_str(construction_object.building_volume, scale=3),
             'floorsAmount': construction_object.floors_amount,
-            'zone': ZoneSerializer.convert_object_to_json(construction_object.zone),
-            'stage': ConstructionStageSerializer.convert_object_to_json(
-                construction_object.construction_stage
-            ),
-            'coordinate': CoordinateSerializer.convert_object_to_json(
-                construction_object.coordinate
-            ),
-            'realtyType': RealtyTypeSerializer.convert_object_to_json(
-                construction_object.realty_type
-            ),
-            'constructionProgress': ConstructionProgressSerializer.convert_object_to_json(
-                construction_object.last_report
-            ),
+            'zone': ZoneSerializer.to_json(construction_object.zone),
+            'stage': ConstructionStageSerializer.to_json(construction_object.construction_stage),
+            'coordinate': CoordinateSerializer.to_json(construction_object.coordinate),
+            'realtyType': RealtyTypeSerializer.to_json(construction_object.realty_type),
+            'constructionProgress': ConstructionProgressSerializer.to_json(construction_object.last_report),
             'plannedDate': get_date_string(construction_object.planned_date),
         }
-
-    def convert_list_to_json(self, construction_objects: list) -> list:
-        return list(map(self.convert_object_to_json, construction_objects))

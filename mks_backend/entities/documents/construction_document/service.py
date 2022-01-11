@@ -29,7 +29,7 @@ class ConstructionDocumentService:
     def get_construction_documents_by_construction(self, construction_id: int) -> list:
         return self.repo.get_construction_documents_by_construction(construction_id)
 
-    def convert_schema_to_object(self, schema_dict: dict) -> ConstructionDocument:
+    def to_mapped_object(self, schema_dict: dict) -> ConstructionDocument:
         construction_document = ConstructionDocument()
 
         construction_document.idfilestorage = schema_dict.get('idFileStorage')

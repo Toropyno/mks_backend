@@ -13,8 +13,8 @@ class ContractWorkTypeRepository:
         DBSession.add(contract_w_t)
         DBSession.commit()
 
-    def get_by_id(self, id: int) -> ContractWorkType:
-        contract_w_t = self._query.get(id)
+    def get_by_id(self, id_: int) -> ContractWorkType:
+        contract_w_t = self._query.get(id_)
         if not contract_w_t:
             raise DBBasicError('contract_work_type_nf')
         return contract_w_t
@@ -22,8 +22,8 @@ class ContractWorkTypeRepository:
     def get_all(self) -> list:
         return self._query.order_by(ContractWorkType.fullname).all()
 
-    def delete_by_id(self, id: int) -> None:
-        contract_w_t = self.get_by_id(id)
+    def delete_by_id(self, id_: int) -> None:
+        contract_w_t = self.get_by_id(id_)
         DBSession.delete(contract_w_t)
         DBSession.commit()
 

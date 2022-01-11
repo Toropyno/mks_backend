@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -21,7 +22,7 @@ class OrganizationController:
         organization_history = self.serializer.to_mapped_object(organization_history_deserialized)
 
         self.service.add_organization_history(organization_history)
-        return {'organizationHistoryId': organization_history.organizations_history_id}
+        return HTTPCreated(json_body={'organizationHistoryId': organization_history.organizations_history_id})
 
     @view_config(route_name='get_organization_history_by_organization')
     def get_organization_history_by_organization(self):
@@ -34,7 +35,7 @@ class OrganizationController:
         organization_history_id = int(self.request.matchdict.get('history_id'))
 
         self.service.delete_organization_history(organization_history_id)
-        return {'organizationHistoryId': organization_history_id}
+        return HTTPNoContent()
 
     @view_config(route_name='update_organization_history')
     def update_organization_history(self):

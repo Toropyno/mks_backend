@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -25,30 +26,30 @@ class WorkListController:
     def add_work_list(self):
         work_list_deserialized = self.schema.deserialize(self.request.json_body)
 
-        work_list = self.serializer.convert_schema_to_object(work_list_deserialized)
+        work_list = self.serializer.to_mapped_object(work_list_deserialized)
         self.service.add_work_list(work_list)
-        return {'id': work_list.works_list_id}
+        return HTTPCreated(json_body={'id': work_list.works_list_id})
 
     @view_config(route_name='delete_work_list')
     def delete_work_list(self):
-        id = self.get_id()
-        self.service.delete_work_list_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_work_list_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_work_list')
     def edit_work_list(self):
         work_list_deserialized = self.schema.deserialize(self.request.json_body)
         work_list_deserialized['id'] = self.get_id()
 
-        new_work_list = self.serializer.convert_schema_to_object(work_list_deserialized)
+        new_work_list = self.serializer.to_mapped_object(work_list_deserialized)
         self.service.update_work_list(new_work_list)
         return {'id': self.get_id()}
 
     @view_config(route_name='get_work_list')
     def get_work_list(self):
-        id = self.get_id()
-        work_list = self.service.get_work_list_by_id(id)
-        return self.serializer.convert_object_to_json(work_list)
+        id_ = self.get_id()
+        work_list = self.service.get_work_list_by_id(id_)
+        return self.serializer.to_json(work_list)
 
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])

@@ -1,14 +1,13 @@
-from typing import Dict, List
+from typing import List
 
-from mks_backend.errors import serialize_error_handler
-from mks_backend.utils.date_and_time import get_date_time_string
 from .model import WorkTripFile
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
+from mks_backend.utils.date_and_time import get_date_time_string
+from mks_backend.errors import serialize_error_handler
 
-class WorkTripFilesSerializer:
 
-    def list_to_json(self, work_trip_files: List[WorkTripFile]) -> List[Dict]:
-        return list(map(self.to_json, work_trip_files))
+class WorkTripFilesSerializer(BaseSerializer):
 
     @serialize_error_handler
     def to_json(self, work_trip_file: WorkTripFile) -> dict:
@@ -21,9 +20,9 @@ class WorkTripFilesSerializer:
         }
 
     def to_object_list(self, schema: dict) -> List[WorkTripFile]:
-        return [self.to_object(schema, idfilestorage) for idfilestorage in schema.get('id', [])]
+        return [self.to_mapped_object(schema, idfilestorage) for idfilestorage in schema.get('id', [])]
 
-    def to_object(self, schema: dict, idfilestorage: str = None) -> WorkTripFile:
+    def to_mapped_object(self, schema: dict, idfilestorage: str = None) -> WorkTripFile:
         return WorkTripFile(
             idfilestorage=idfilestorage,
             note=schema.get('note'),

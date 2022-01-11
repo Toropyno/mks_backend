@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -33,26 +34,26 @@ class ConstructionController:
     def add_construction(self):
         construction_deserialized = self.schema.deserialize(self.request.json_body)
 
-        coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
-        construction = self.service.convert_schema_to_object(construction_deserialized)
+        coordinate = self.coordinate_serializer.to_mapped_object(construction_deserialized)
+        construction = self.service.to_mapped_object(construction_deserialized)
         construction.coordinate = coordinate
 
         self.service.add_construction(construction)
-        return {'id': construction.construction_id}
+        return HTTPCreated(json_body={'id': construction.construction_id})
 
     @view_config(route_name='delete_construction', permission='access.mks_crud_isp')
     def delete_construction(self):
         id_ = int(self.request.matchdict['id'])
         self.service.delete_construction_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_construction', permission='access.mks_crud_isp')
     def edit_construction(self):
         construction_deserialized = self.schema.deserialize(self.request.json_body)
         construction_deserialized['id'] = int(self.request.matchdict['id'])
 
-        coordinate = self.coordinate_serializer.convert_schema_to_object(construction_deserialized)
-        new_construction = self.service.convert_schema_to_object(construction_deserialized)
+        coordinate = self.coordinate_serializer.to_mapped_object(construction_deserialized)
+        new_construction = self.service.to_mapped_object(construction_deserialized)
         new_construction.coordinate = coordinate
 
         self.service.update_construction(new_construction)

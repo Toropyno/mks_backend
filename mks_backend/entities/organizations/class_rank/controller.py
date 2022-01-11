@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
@@ -26,7 +27,7 @@ class ClassRankController:
         class_rank = self.serializer.convert_schema_to_object(class_rank_deserialized)
 
         self.service.add_class_rank(class_rank)
-        return {'id': class_rank.class_ranks_id}
+        return HTTPCreated(json_body={'id': class_rank.class_ranks_id})
 
     @view_config(route_name='update_class_rank')
     def update_class_rank(self):
@@ -46,7 +47,7 @@ class ClassRankController:
     def delete_class_rank(self):
         id_ = self.get_id()
         self.service.delete_class_rank(id_)
-        return {'id': int(id_)}
+        return HTTPNoContent()
 
     def get_id(self):
         return int(self.request.matchdict.get('id'))

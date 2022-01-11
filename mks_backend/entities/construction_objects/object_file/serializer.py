@@ -1,16 +1,18 @@
-from .model import ObjectFile
-from mks_backend.entities.filestorage import FileStorageSerializer
-from mks_backend.utils.date_and_time import get_date_time_string
 from typing import List
 
+from .model import ObjectFile
+
+from mks_backend.entities.BASE.serializer import BaseSerializer
+from mks_backend.entities.filestorage import FileStorageSerializer
+from mks_backend.utils.date_and_time import get_date_time_string
 from mks_backend.errors import serialize_error_handler
 
 
-class ObjectFileSerializer:
+class ObjectFileSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, object_file: ObjectFile) -> dict:
+    def to_json(cls, object_file: ObjectFile) -> dict:
         return {
             'id': object_file.object_files_id,
             'file': FileStorageSerializer.to_json(
@@ -21,13 +23,10 @@ class ObjectFileSerializer:
             'note': object_file.note,
         }
 
-    def convert_list_to_json(self, object_files_list: list) -> list:
-        return list(map(self.convert_object_to_json, object_files_list))
-
     def to_object_list(self, schema: dict) -> List[ObjectFile]:
-        return [self.to_object(schema, idfilestorage) for idfilestorage in schema.get('idsFileStorage', [])]
+        return [self.to_mapped_object(schema, idfilestorage) for idfilestorage in schema.get('idsFileStorage', [])]
 
-    def to_object(self, schema: dict, idfilestorage: str = None) -> ObjectFile:
+    def to_mapped_object(self, schema: dict, idfilestorage: str = None) -> ObjectFile:
         return ObjectFile(
             idfilestorage=idfilestorage,
             note=schema.get('note'),

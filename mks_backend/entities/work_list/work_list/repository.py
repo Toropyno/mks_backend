@@ -14,8 +14,8 @@ class WorkListRepository:
         DBSession.add(work_list)
         DBSession.commit()
 
-    def delete_work_list_by_id(self, id: int) -> None:
-        self._query.filter(WorkList.works_list_id == id).delete()
+    def delete_work_list_by_id(self, id_: int) -> None:
+        self._query.filter(WorkList.works_list_id == id_).delete()
         DBSession.commit()
 
     def update_work_list(self, new_work_list: WorkList) -> None:
@@ -40,5 +40,5 @@ class WorkListRepository:
 
         DBSession.commit()
 
-    def get_work_list_by_id(self, id: int) -> WorkList:
-        return self._query.get(id)
+    def get_work_list_by_id(self, id_: int) -> WorkList:
+        return self._query.get(id_)

@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,36 +27,36 @@ class ConstructionObjectController:
 
     @view_config(route_name='get_construction_object')
     def get_construction_object_by_id(self):
-        id = int(self.request.matchdict['id'])
-        construction_object = self.service.get_construction_object_by_id(id)
-        return self.serializer.convert_object_to_json(construction_object)
+        id_ = int(self.request.matchdict['id'])
+        construction_object = self.service.get_construction_object_by_id(id_)
+        return self.serializer.to_json(construction_object)
 
     @view_config(route_name='add_construction_object')
     def add_construction_object(self):
         construction_object_deserialized = self.schema.deserialize(self.request.json_body)
-        construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
+        construction_object = self.service.to_mapped_object(construction_object_deserialized)
 
-        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+        construction_object.coordinate = self.coordinate_serializer.to_mapped_object(
             construction_object_deserialized
         )
 
         self.service.add_construction_object(construction_object)
-        return {'id': construction_object.construction_objects_id}
+        return HTTPCreated(json_body={'id': construction_object.construction_objects_id})
 
     @view_config(route_name='delete_construction_object')
     def delete_construction_object(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_construction_object_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_construction_object_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_construction_object')
     def edit_construction_object(self):
         construction_object_deserialized = self.schema.deserialize(self.request.json_body)
         construction_object_deserialized['id'] = int(self.request.matchdict['id'])
 
-        construction_object = self.service.convert_schema_to_object(construction_object_deserialized)
+        construction_object = self.service.to_mapped_object(construction_object_deserialized)
 
-        construction_object.coordinate = self.coordinate_serializer.convert_schema_to_object(
+        construction_object.coordinate = self.coordinate_serializer.to_mapped_object(
             construction_object_deserialized
         )
 

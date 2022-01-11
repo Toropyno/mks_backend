@@ -7,15 +7,15 @@ class OrganizationDocumentRepository:
     def __init__(self):
         self._query = DBSession.query(OrganizationDocument)
 
-    def get_organization_document_by_id(self, id: int) -> OrganizationDocument:
-        return self._query.get(id)
+    def get_organization_document_by_id(self, id_: int) -> OrganizationDocument:
+        return self._query.get(id_)
 
     def add_organization_document(self, organization_document: OrganizationDocument) -> None:
         DBSession.add(organization_document)
         DBSession.commit()
 
-    def delete_organization_document(self, id: int) -> None:
-        self._query.filter_by(organization_documents_id=id).delete()
+    def delete_organization_document(self, id_: int) -> None:
+        self._query.filter_by(organization_documents_id=id_).delete()
         DBSession.commit()
 
     def update_organization_document(self, organization_document: OrganizationDocument) -> None:

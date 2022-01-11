@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -24,30 +25,30 @@ class WorkTypeController:
     def add_work_type(self):
         work_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        work_type = self.serializer.convert_schema_to_object(work_type_deserialized)
+        work_type = self.serializer.to_mapped_object(work_type_deserialized)
         self.service.add_work_type(work_type)
-        return {'id': work_type.work_types_id}
+        return HTTPCreated(json_body={'id': work_type.work_types_id})
 
     @view_config(route_name='delete_work_type')
     def delete_work_type(self):
-        id = self.get_id()
-        self.service.delete_work_type_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_work_type_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_work_type')
     def edit_work_type(self):
         work_type_deserialized = self.schema.deserialize(self.request.json_body)
         work_type_deserialized['id'] = self.get_id()
 
-        new_work_type = self.serializer.convert_schema_to_object(work_type_deserialized)
+        new_work_type = self.serializer.to_mapped_object(work_type_deserialized)
         self.service.update_work_type(new_work_type)
         return {'id': new_work_type.work_types_id}
 
     @view_config(route_name='get_work_type')
     def get_work_type(self):
-        id = self.get_id()
-        work_type = self.service.get_work_type_by_id(id)
-        return self.serializer.convert_object_to_json(work_type)
+        id_ = self.get_id()
+        work_type = self.service.get_work_type_by_id(id_)
+        return self.serializer.to_json(work_type)
 
     def get_id(self) -> int:
         return int(self.request.matchdict['id'])

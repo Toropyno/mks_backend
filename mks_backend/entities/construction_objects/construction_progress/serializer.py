@@ -2,16 +2,17 @@ from datetime import datetime
 
 from .model import ConstructionProgress
 
-from mks_backend.errors import serialize_error_handler
-from mks_backend.utils.date_and_time import get_date_string, get_date_time_string
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.construction_objects.progress_status import ProgressStatusSerializer
+from mks_backend.utils.date_and_time import get_date_string, get_date_time_string
+from mks_backend.errors import serialize_error_handler
 
 
-class ConstructionProgressSerializer:
+class ConstructionProgressSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, construction_progress: ConstructionProgress) -> dict:
+    def to_json(cls, construction_progress: ConstructionProgress) -> dict:
         return {
             'id': construction_progress.construction_progress_id,
             'constructionObjects': construction_progress.construction_objects_id,
@@ -21,15 +22,12 @@ class ConstructionProgressSerializer:
             'equipment': construction_progress.equipment,
             'peoplePlan': construction_progress.people_plan,
             'equipmentPlan': construction_progress.equipment_plan,
-            'progressStatus': ProgressStatusSerializer.convert_object_to_json(construction_progress.progress_status),
+            'progressStatus': ProgressStatusSerializer.to_json(construction_progress.progress_status),
             'updateDatetime': get_date_time_string(construction_progress.update_datetime),
 
         }
 
-    def convert_list_to_json(self, construction_progresses_list: list) -> list:
-        return list(map(self.convert_object_to_json, construction_progresses_list))
-
-    def convert_schema_to_object(self, schema: dict) -> ConstructionProgress:
+    def to_mapped_object(self, schema: dict) -> ConstructionProgress:
         construction_progress = ConstructionProgress()
 
         construction_progress.construction_progress_id = schema.get('id')

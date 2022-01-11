@@ -1,13 +1,11 @@
 from .model import ConstructionDynamic
 from mks_backend.utils.date_and_time import get_date_time_string, get_date_string
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class ConstructionDynamicSerializer:
-
-    def convert_list_to_json(self, construction_dynamics: list) -> list:
-        return list(map(self.to_json, construction_dynamics))
+class ConstructionDynamicSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
@@ -27,7 +25,7 @@ class ConstructionDynamicSerializer:
             'updateDatetime': get_date_time_string(construction_dynamic.update_datetime),
         }
 
-    def to_mapped_object(self, dynamic: dict):
+    def to_mapped_object(self, dynamic: dict) -> ConstructionDynamic:
         return ConstructionDynamic(
             construction_dynamics_id=dynamic.get('id'),
             reporting_date=dynamic.get('reportingDate'),

@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -23,29 +24,29 @@ class LitigationController:
     @view_config(route_name='add_litigation')
     def add_litigation(self):
         litigation_deserialized = self.schema.deserialize(self.request.json_body)
-        litigation = self.serializer.convert_schema_to_object(litigation_deserialized)
+        litigation = self.serializer.to_mapped_object(litigation_deserialized)
         self.service.add_litigation(litigation)
-        return {'id': litigation.litigation_id}
+        return HTTPCreated(json_body={'id': litigation.litigation_id})
 
     @view_config(route_name='delete_litigation')
     def delete_litigation(self):
-        id = self.get_id()
-        self.service.delete_litigation_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_litigation_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_litigation')
     def edit_litigation(self):
         litigation_deserialized = self.schema.deserialize(self.request.json_body)
         litigation_deserialized['litigation_id'] = self.get_id()
-        new_litigation = self.serializer.convert_schema_to_object(litigation_deserialized)
+        new_litigation = self.serializer.to_mapped_object(litigation_deserialized)
         self.service.update_litigation(new_litigation)
         return {'id': new_litigation.litigation_id}
 
     @view_config(route_name='get_litigation')
     def get_litigation(self):
-        id = self.get_id()
-        litigation = self.service.get_litigation_by_id(id)
-        return self.serializer.convert_object_to_json(litigation)
+        id_ = self.get_id()
+        litigation = self.service.get_litigation_by_id(id_)
+        return self.serializer.to_json(litigation)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

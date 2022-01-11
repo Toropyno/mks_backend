@@ -64,6 +64,7 @@ class Organization(Base):
     parent = relationship(
         'Organization',
         remote_side=organizations_id,
+        viewonly=True
     )
 
     # --------- hybrid_properties --------- #

@@ -16,8 +16,8 @@ class DocTypeRepository:
         DBSession.add(doc_type)
         DBSession.commit()
 
-    def get_doc_type_by_id(self, id: int) -> DocType:
-        return self._query.get(id)
+    def get_doc_type_by_id(self, id_: int) -> DocType:
+        return self._query.get(id_)
 
     def update_doc_type(self, doc_type: DocType) -> None:
         if DBSession.merge(doc_type) and not DBSession.new:
@@ -26,6 +26,6 @@ class DocTypeRepository:
             DBSession.rollback()
             raise DBBasicError('doc_type_ad')
 
-    def delete_doc_type_by_id(self, id: int) -> None:
-        self._query.filter_by(doctypes_id=id).delete()
+    def delete_doc_type_by_id(self, id_: int) -> None:
+        self._query.filter_by(doctypes_id=id_).delete()
         DBSession.commit()

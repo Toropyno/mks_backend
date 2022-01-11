@@ -15,8 +15,8 @@ class InspectionFileRepository:
         DBSession.add_all(files)
         DBSession.commit()
 
-    def get_files_by_inspection_id(self, id: int) -> List[InspectionFile]:
-        return self._query.filter(InspectionFile.inspections_id == id).all()
+    def get_files_by_inspection_id(self, id_: int) -> List[InspectionFile]:
+        return self._query.filter(InspectionFile.inspections_id == id_).all()
 
     def delete_inspection_file_by_id(self, idfilestorage: str) -> None:
         inspection_file = self.get_inspection_file_by_id(idfilestorage)

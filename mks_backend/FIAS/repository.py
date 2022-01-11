@@ -7,8 +7,8 @@ class FIASrepo:
     def __init__(self):
         self._query = DBSession.query(FIAS)
 
-    def get_fias_by_id(self, id: int) -> FIAS:
-        return self._query.get(id)
+    def get_fias_by_id(self, id_: int) -> FIAS:
+        return self._query.get(id_)
 
     def get_fias_by_aoid(self, aoid):
         return self._query.filter(FIAS.aoid == aoid).first()
@@ -20,8 +20,8 @@ class FIASrepo:
         DBSession.add(fias)
         DBSession.commit()
 
-    def delete_fias_by_id(self, id: int) -> None:
-        fias = self.get_fias_by_id(id)
+    def delete_fias_by_id(self, id_: int) -> None:
+        fias = self.get_fias_by_id(id_)
         DBSession.delete(fias)
         DBSession.commit()
 

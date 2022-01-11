@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,19 +27,21 @@ class ObjectFileController:
         object_files_deserialized = self.serializer.to_object_list(object_files_deserialized)
 
         self.service.add_object_files(object_files_deserialized)
-        return {'ids': [object_file.object_files_id for object_file in object_files_deserialized]}
+        return HTTPCreated(
+            json_body={'ids': [object_file.object_files_id for object_file in object_files_deserialized]}
+        )
 
     @view_config(route_name='delete_object_file')
     def delete_object_file(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_object_file_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_object_file_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='get_object_file')
     def get_object_file(self):
-        id = int(self.request.matchdict['id'])
-        object_file = self.service.get_object_file_by_id(id)
-        return self.serializer.convert_object_to_json(object_file)
+        id_ = int(self.request.matchdict['id'])
+        object_file = self.service.get_object_file_by_id(id_)
+        return self.serializer.to_json(object_file)
 
     @view_config(route_name='get_object_files_by_object')
     def get_object_files_by_object(self):

@@ -1,12 +1,13 @@
 from .model import WorkTrip
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.trips.leadership_position import LeadershipPositionSerializer
 from mks_backend.entities.protocols.protocol import ProtocolSerializer
 
 from mks_backend.utils.date_and_time import get_date_string
 
 
-class WorkTripSerializer:
+class WorkTripSerializer(BaseSerializer):
 
     def to_json(self, work_trip: WorkTrip) -> dict:
         return {
@@ -17,15 +18,12 @@ class WorkTripSerializer:
             'leadershipPosition': LeadershipPositionSerializer.to_json(
                 work_trip.leadership_position
             ),
-            'protocol': ProtocolSerializer.convert_object_to_json(
+            'protocol': ProtocolSerializer.to_json(
                 work_trip.protocol
             )
         }
 
-    def convert_list_to_json(self, work_trips: list) -> list:
-        return list(map(self.to_json, work_trips))
-
-    def convert_schema_to_object(self, schema: dict) -> WorkTrip:
+    def to_mapped_object(self, schema: dict) -> WorkTrip:
         work_trip = WorkTrip()
 
         work_trip.work_trips_id = schema.get('id')

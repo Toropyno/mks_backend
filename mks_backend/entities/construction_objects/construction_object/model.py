@@ -72,23 +72,19 @@ class ConstructionObject(Base):
     )
 
     zone = relationship(
-        'Zone',
-        back_populates='construction_object'
+        'Zone'
     )
 
     object_categories_list = relationship(
-        'ObjectCategoryList',
-        back_populates='construction_object'
+        'ObjectCategoryList'
     )
 
     construction_stage = relationship(
-        'ConstructionStage',
-        back_populates='construction_object'
+        'ConstructionStage'
     )
 
     coordinate = relationship(
-        'Coordinate',
-        back_populates='construction_object'
+        'Coordinate'
     )
 
     construction_progress = relationship(
@@ -99,8 +95,7 @@ class ConstructionObject(Base):
 
     documents = relationship(
         'ConstructionDocument',
-        secondary='object_documents',
-        back_populates='parent'
+        secondary='object_documents'
     )
 
     realty_type = relationship(

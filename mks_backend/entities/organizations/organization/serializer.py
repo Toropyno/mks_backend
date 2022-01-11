@@ -2,12 +2,13 @@ from typing import List
 from uuid import uuid4
 
 from .model import Organization
-from mks_backend.entities.organizations.organization_history import OrganizationHistorySerializer
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
+from mks_backend.entities.organizations.organization_history import OrganizationHistorySerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class OrganizationSerializer:
+class OrganizationSerializer(BaseSerializer):
 
     def __init__(self):
         self.history_serializer = OrganizationHistorySerializer()

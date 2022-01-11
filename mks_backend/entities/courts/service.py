@@ -10,8 +10,8 @@ class CourtService:
     def get_all_courts(self) -> list:
         return self.repo.get_all_courts()
 
-    def get_court_by_id(self, id: int) -> Courts:
-        return self.repo.get_court_by_id(id)
+    def get_court_by_id(self, id_: int) -> Courts:
+        return self.repo.get_court_by_id(id_)
 
     def add_court(self, court: Courts) -> None:
         self.repo.add_court(court)
@@ -19,5 +19,5 @@ class CourtService:
     def update_court(self, new_court: Courts) -> None:
         self.repo.update_court(new_court)
 
-    def delete_court_by_id(self, id: int) -> None:
-        self.repo.delete_court_by_id(id)
+    def delete_court_by_id(self, id_: int) -> None:
+        self.repo.delete_court_by_id(id_)

@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -23,22 +24,22 @@ class CommissionController:
     @view_config(route_name='add_commission')
     def add_commission(self):
         commission_deserialized = self.schema.deserialize(self.request.json_body)
-        commission = self.serializer.convert_schema_to_object(commission_deserialized)
+        commission = self.serializer.to_mapped_object(commission_deserialized)
         self.service.add_commission(commission)
-        return {'id': commission.commission_id}
+        return HTTPCreated(json_body={'id': commission.commission_id})
 
     @view_config(route_name='delete_commission')
     def delete_commission(self):
         id_ = self.get_id()
         self.service.delete_commission_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_commission')
     def edit_commission(self):
         commission_deserialized = self.schema.deserialize(self.request.json_body)
         commission_deserialized['id'] = self.request.matchdict['id']
 
-        new_commission = self.serializer.convert_schema_to_object(commission_deserialized)
+        new_commission = self.serializer.to_mapped_object(commission_deserialized)
         self.service.update_commission(new_commission)
         return {'id': new_commission.commission_id}
 
@@ -46,7 +47,7 @@ class CommissionController:
     def get_commission(self):
         id_ = self.get_id()
         commission = self.service.get_commission_by_id(id_)
-        return self.serializer.convert_object_to_json(commission)
+        return self.serializer.to_json(commission)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -22,29 +23,29 @@ class ObjectCategoryController:
 
     @view_config(route_name='get_object_category')
     def get_object_category(self):
-        id = int(self.request.matchdict['id'])
-        object_category = self.service.get_object_category_by_id(id)
-        return self.serializer.convert_object_to_json(object_category)
+        id_ = int(self.request.matchdict['id'])
+        object_category = self.service.get_object_category_by_id(id_)
+        return self.serializer.to_json(object_category)
 
     @view_config(route_name='add_object_category')
     def add_object_category(self):
         object_category_deserialized = self.schema.deserialize(self.request.json_body)
-        object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
+        object_category = self.serializer.to_mapped_object(object_category_deserialized)
 
         self.service.add_object_category(object_category)
-        return {'id': object_category.object_categories_id}
+        return HTTPCreated(json_body={'id': object_category.object_categories_id})
 
     @view_config(route_name='delete_object_category')
     def delete_construction_object(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_object_category_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_object_category_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_object_category', request_method='PUT')
     def edit_object_categories_list(self):
         object_category_deserialized = self.schema.deserialize(self.request.json_body)
         object_category_deserialized['id'] = int(self.request.matchdict['id'])
 
-        object_category = self.serializer.convert_schema_to_object(object_category_deserialized)
+        object_category = self.serializer.to_mapped_object(object_category_deserialized)
         self.service.update_object_category(object_category)
         return {'id': object_category.object_categories_id}

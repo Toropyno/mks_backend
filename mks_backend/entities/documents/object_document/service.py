@@ -13,8 +13,9 @@ class ObjectDocumentService:
         self.object_service = ConstructionObjectService()
         self.construction_documents_service = ConstructionDocumentService()
 
-    def get_documents_by_construction_object(self, object_id: int) -> list:
-        return self.repo.get_object_documents_by_object_id(object_id)
+    def get_documents_by_construction_object(self, object_id: int) -> List:
+        construction_object = self.object_service.get_construction_object_by_id(object_id)
+        return construction_object.documents
 
     def edit_construction_document_and_object_relations(self, object_id: int, construction_documents_ids: List[int]):
         construction_object = self.object_service.get_construction_object_by_id(object_id)

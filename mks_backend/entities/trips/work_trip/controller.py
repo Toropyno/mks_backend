@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -26,29 +27,29 @@ class WorkTripController:
     def add_work_trip(self):
         work_trip_deserialized = self.schema.deserialize(self.request.json_body)
 
-        work_trip = self.serializer.convert_schema_to_object(work_trip_deserialized)
+        work_trip = self.serializer.to_mapped_object(work_trip_deserialized)
         self.service.add_work_trip(work_trip)
-        return {'id': work_trip.work_trips_id}
+        return HTTPCreated(json_body={'id': work_trip.work_trips_id})
 
     @view_config(route_name='delete_work_trip', permission='access.mks_crud_trips')
     def delete_work_trip(self):
-        id = self.get_id()
-        self.service.delete_work_trip_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_work_trip_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_work_trip', permission='access.mks_crud_trips')
     def edit_work_trip(self):
         work_trip_deserialized = self.schema.deserialize(self.request.json_body)
         work_trip_deserialized['id'] = self.get_id()
 
-        new_work_trip = self.serializer.convert_schema_to_object(work_trip_deserialized)
+        new_work_trip = self.serializer.to_mapped_object(work_trip_deserialized)
         self.service.update_work_trip(new_work_trip)
         return {'id': new_work_trip.work_trips_id}
 
     @view_config(route_name='get_work_trip', permission='access.mks_crud_trips')
     def get_work_trip(self):
-        id = self.get_id()
-        work_trip = self.service.get_work_trip_by_id(id)
+        id_ = self.get_id()
+        work_trip = self.service.get_work_trip_by_id(id_)
         return self.serializer.to_json(work_trip)
 
     def get_id(self) -> int:

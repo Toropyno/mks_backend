@@ -13,8 +13,8 @@ class ObjectFileRepository:
     def __init__(self):
         self._query = DBSession.query(ObjectFile)
 
-    def get_object_file_by_id(self, id: int) -> ObjectFile:
-        object_file = self._query.get(id)
+    def get_object_file_by_id(self, id_: int) -> ObjectFile:
+        object_file = self._query.get(id_)
         if not object_file:
             raise DBBasicError('object_file_nf')
         return object_file

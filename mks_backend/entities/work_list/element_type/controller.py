@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -23,29 +24,29 @@ class ElementTypeController:
     @view_config(route_name='add_element_type')
     def add_element_type(self):
         element_type_deserialized = self.schema.deserialize(self.request.json_body)
-        element_type = self.serializer.convert_schema_to_object(element_type_deserialized)
+        element_type = self.serializer.to_mapped_object(element_type_deserialized)
         self.service.add_element_type(element_type)
-        return {'id': element_type.element_types_id}
+        return HTTPCreated(json_body={'id': element_type.element_types_id})
 
     @view_config(route_name='get_element_type')
     def get_element_type(self):
-        id = int(self.request.matchdict['id'])
-        element_type = self.service.get_element_type_by_id(id)
-        return self.serializer.convert_object_to_json(element_type)
+        id_ = int(self.request.matchdict['id'])
+        element_type = self.service.get_element_type_by_id(id_)
+        return self.serializer.to_json(element_type)
 
     @view_config(route_name='delete_element_type')
     def delete_element_type(self):
-        id = int(self.request.matchdict['id'])
-        self.service.delete_element_type_by_id(id)
-        return {'id': id}
+        id_ = int(self.request.matchdict['id'])
+        self.service.delete_element_type_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_element_type')
     def edit_element_type(self):
-        id = int(self.request.matchdict['id'])
+        id_ = int(self.request.matchdict['id'])
         element_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        element_type_deserialized['id'] = id
-        element_type = self.serializer.convert_schema_to_object(element_type_deserialized)
+        element_type_deserialized['id'] = id_
+        element_type = self.serializer.to_mapped_object(element_type_deserialized)
 
         self.service.update_element_type(element_type)
-        return {'id': id}
+        return {'id': id_}

@@ -15,8 +15,8 @@ class ParticipantStatusRepository:
         DBSession.add(participant_status)
         DBSession.commit()
 
-    def delete_participant_status_by_id(self, id: int) -> None:
-        self._query.filter(ParticipantStatus.participant_statuses_id == id).delete()
+    def delete_participant_status_by_id(self, id_: int) -> None:
+        self._query.filter(ParticipantStatus.participant_statuses_id == id_).delete()
         DBSession.commit()
 
     def update_participant_status(self, new_participant_status: ParticipantStatus) -> None:
@@ -26,8 +26,8 @@ class ParticipantStatusRepository:
             DBSession.rollback()
             raise DBBasicError('participant_status_ad')
 
-    def get_participant_status_by_id(self, id: int):
-        participant_status = self._query.get(id)
+    def get_participant_status_by_id(self, id_: int):
+        participant_status = self._query.get(id_)
         if not participant_status:
             raise DBBasicError('participant_status_nf')
         return participant_status

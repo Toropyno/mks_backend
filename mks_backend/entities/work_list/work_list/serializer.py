@@ -1,5 +1,6 @@
 from .model import WorkList
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.work_list.element_type import ElementTypeSerializer
 from mks_backend.entities.work_list.measure_unit import MeasureUnitSerializer
 from mks_backend.entities.work_list.work_type import WorkTypeSerializer
@@ -7,13 +8,13 @@ from mks_backend.entities.work_list.work_type import WorkTypeSerializer
 from mks_backend.utils.date_and_time import get_date_string
 
 
-class WorkListSerializer:
+class WorkListSerializer(BaseSerializer):
 
-    def convert_object_to_json(self, work_list: WorkList) -> dict:
+    def to_json(self, work_list: WorkList) -> dict:
         return {
             'id': work_list.works_list_id,
             'constructionObject': work_list.construction_objects_id,
-            'element': ElementTypeSerializer.convert_object_to_json(
+            'element': ElementTypeSerializer.to_json(
                 work_list.element_type
             ),
             'elementDescription': work_list.element_description,
@@ -22,10 +23,10 @@ class WorkListSerializer:
             'endDate': get_date_string(work_list.end_date),
             'plan': float(work_list.plan),
             'fact': float(work_list.fact),
-            'measureUnit': MeasureUnitSerializer.convert_object_to_json(
+            'measureUnit': MeasureUnitSerializer.to_json(
                 work_list.measure_unit
             ),
-            'workType': WorkTypeSerializer.convert_object_to_json(
+            'workType': WorkTypeSerializer.to_json(
                 work_list.work_type
             ),
             'workDescription': work_list.work_description,
@@ -33,10 +34,7 @@ class WorkListSerializer:
             'note': work_list.note
         }
 
-    def convert_list_to_json(self, work_lists: list) -> list:
-        return list(map(self.convert_object_to_json, work_lists))
-
-    def convert_schema_to_object(self, schema: dict) -> WorkList:
+    def to_mapped_object(self, schema: dict) -> WorkList:
         work_list = WorkList()
 
         work_list.works_list_id = schema.get('id')

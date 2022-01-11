@@ -1,22 +1,20 @@
 from .model import LocationType
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class LocationTypeSerializer:
+class LocationTypeSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, location_type: LocationType) -> dict:
+    def to_json(cls, location_type: LocationType) -> dict:
         return {
             'id': location_type.location_types_id,
             'fullName': location_type.fullname
         }
 
-    def convert_list_to_json(self, location_types: list) -> list:
-        return list(map(self.convert_object_to_json, location_types))
-
-    def convert_schema_to_object(self, schema: dict) -> LocationType:
+    def to_mapped_object(self, schema: dict) -> LocationType:
         location_type = LocationType()
 
         location_type.location_types_id = schema.get('id')

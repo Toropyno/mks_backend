@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -24,22 +25,22 @@ class ConstructionCategoryController:
     def add_construction_category(self):
         construction_categories_deserialized = self.schema.deserialize(self.request.json_body)
 
-        construction_category = self.service.convert_schema_to_object(construction_categories_deserialized)
+        construction_category = self.service.to_mapped_object(construction_categories_deserialized)
         self.service.add_construction_category(construction_category)
 
-        return {'id': construction_category.construction_categories_id}
+        return HTTPCreated(json_body={'id': construction_category.construction_categories_id})
 
     @view_config(route_name='get_construction_category')
     def get_construction_category(self):
         id_ = int(self.request.matchdict['id'])
         construction_category = self.service.get_construction_category_by_id(id_)
-        return self.serializer.convert_object_to_json(construction_category)
+        return self.serializer.to_json(construction_category)
 
     @view_config(route_name='delete_construction_category')
     def delete_construction_category(self):
         id_ = int(self.request.matchdict['id'])
         self.service.delete_construction_category_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_construction_category')
     def edit_construction_category(self):
@@ -47,6 +48,6 @@ class ConstructionCategoryController:
         id_ = int(self.request.matchdict['id'])
         construction_categories_deserialized['id'] = id_
 
-        construction_category = self.service.convert_schema_to_object(construction_categories_deserialized)
+        construction_category = self.service.to_mapped_object(construction_categories_deserialized)
         self.service.update_construction_category(construction_category)
         return {'id': id_}

@@ -1,12 +1,13 @@
 from typing import List
 
 from .model import InspectionFile
-from mks_backend.entities.filestorage import FileStorageSerializer
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
+from mks_backend.entities.filestorage import FileStorageSerializer
 from mks_backend.utils.date_and_time import get_date_time_string
 
 
-class InspectionFileSerializer:
+class InspectionFileSerializer(BaseSerializer):
 
     def to_json(self, inspection_file: InspectionFile) -> dict:
         return {
@@ -15,13 +16,10 @@ class InspectionFileSerializer:
             'uploadDate': get_date_time_string(inspection_file.upload_date)
         }
 
-    def convert_list_to_json(self, inspection_files: List[InspectionFile]) -> List[dict]:
-        return list(map(self.to_json, inspection_files))
-
     def to_object_list(self, schema: dict) -> List[InspectionFile]:
-        return [self.to_object(schema, idfilestorage) for idfilestorage in schema.get('ids', [])]
+        return [self.to_mapped_object(schema, idfilestorage) for idfilestorage in schema.get('ids', [])]
 
-    def to_object(self, schema: dict, idfilestorage: str = None) -> InspectionFile:
+    def to_mapped_object(self, schema: dict, idfilestorage: str = None) -> InspectionFile:
         return InspectionFile(
             idfilestorage=idfilestorage,
             note=schema.get('note'),

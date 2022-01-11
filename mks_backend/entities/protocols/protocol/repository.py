@@ -9,8 +9,8 @@ class ProtocolRepository:
     def __init__(self):
         self._query = DBSession.query(Protocol)
 
-    def get_protocol_by_id(self, id: int) -> Protocol:
-        protocol = self._query.get(id)
+    def get_protocol_by_id(self, id_: int) -> Protocol:
+        protocol = self._query.get(id_)
         if not protocol:
             raise DBBasicError('protocol_ad')
         return protocol

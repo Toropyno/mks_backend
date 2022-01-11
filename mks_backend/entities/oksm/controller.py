@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -24,30 +25,30 @@ class OKSMController:
     def add_oksm(self):
         oksm_deserialized = self.schema.deserialize(self.request.json_body)
 
-        oksm = self.serializer.convert_schema_to_object(oksm_deserialized)
+        oksm = self.serializer.to_mapped_object(oksm_deserialized)
         self.service.add_oksm(oksm)
-        return {'id': oksm.oksm_id}
+        return HTTPCreated(json_body={'id': oksm.oksm_id})
 
     @view_config(route_name='delete_oksm')
     def delete_oksm(self):
-        id = self.get_id()
-        self.service.delete_oksm_by_id(id)
-        return {'id': id}
+        id_ = self.get_id()
+        self.service.delete_oksm_by_id(id_)
+        return HTTPNoContent()
 
     @view_config(route_name='edit_oksm')
     def edit_oksm(self):
         oksm_deserialized = self.schema.deserialize(self.request.json_body)
         oksm_deserialized['id'] = self.get_id()
 
-        new_oksm = self.serializer.convert_schema_to_object(oksm_deserialized)
+        new_oksm = self.serializer.to_mapped_object(oksm_deserialized)
         self.service.update_oksm(new_oksm)
         return {'id': new_oksm.oksm_id}
 
     @view_config(route_name='get_oksm')
     def get_oksm(self):
-        id = self.get_id()
-        oksm = self.service.get_oksm_by_id(id)
-        return self.serializer.convert_object_to_json(oksm)
+        id_ = self.get_id()
+        oksm = self.service.get_oksm_by_id(id_)
+        return self.serializer.to_json(oksm)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

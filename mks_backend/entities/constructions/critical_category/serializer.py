@@ -1,8 +1,10 @@
-from mks_backend.errors import serialize_error_handler
 from .model import CriticalCategory
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
+from mks_backend.errors import serialize_error_handler
 
-class CriticalCategorySerializer:
+
+class CriticalCategorySerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
@@ -12,13 +14,10 @@ class CriticalCategorySerializer:
             'fullName': critical_category.fullname,
         }
 
-    def to_object(self, schema: dict) -> CriticalCategory:
+    def to_mapped_object(self, schema: dict) -> CriticalCategory:
         critical_category = CriticalCategory()
 
         critical_category.critical_categories_id = schema.get('id')
         critical_category.fullname = schema.get('fullName')
 
         return critical_category
-
-    def list_to_json(self, critical_category_list: list) -> list:
-        return list(map(self.to_json, critical_category_list))

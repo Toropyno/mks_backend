@@ -1,20 +1,19 @@
 from .model import MeasureUnit
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 
-class MeasureUnitSerializer:
+
+class MeasureUnitSerializer(BaseSerializer):
 
     @classmethod
-    def convert_object_to_json(cls, measure_unit: MeasureUnit) -> dict:
+    def to_json(cls, measure_unit: MeasureUnit) -> dict:
         return {
             'id': measure_unit.unit_id,
             'code': measure_unit.unit_code,
             'name': measure_unit.unit_name
         }
 
-    def convert_list_to_json(self, measure_unit_list: list) -> list:
-        return list(map(self.convert_object_to_json, measure_unit_list))
-
-    def convert_schema_to_object(self, schema: dict) -> MeasureUnit:
+    def to_mapped_object(self, schema: dict) -> MeasureUnit:
         measure_unit = MeasureUnit()
 
         measure_unit.unit_id = schema.get('id')

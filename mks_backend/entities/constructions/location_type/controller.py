@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -24,22 +25,22 @@ class LocationTypeController:
     def add_location_type(self):
         location_type_deserialized = self.schema.deserialize(self.request.json_body)
 
-        location_type = self.serializer.convert_schema_to_object(location_type_deserialized)
+        location_type = self.serializer.to_mapped_object(location_type_deserialized)
         self.service.add_location_type(location_type)
-        return {'id': location_type.location_types_id}
+        return HTTPCreated(json_body={'id': location_type.location_types_id})
 
     @view_config(route_name='delete_location_type')
     def delete_location_type(self):
         id_ = self.get_id()
         self.service.delete_location_type_by_id(id_)
-        return {'id': id_}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_location_type')
     def edit_location_type(self):
         location_type_deserialized = self.schema.deserialize(self.request.json_body)
         location_type_deserialized['id'] = self.request.matchdict['id']
 
-        new_location_type = self.serializer.convert_schema_to_object(location_type_deserialized)
+        new_location_type = self.serializer.to_mapped_object(location_type_deserialized)
         self.service.update_location_type(new_location_type)
         return {'id': new_location_type.location_types_id}
 
@@ -47,7 +48,7 @@ class LocationTypeController:
     def get_location_type(self):
         id_ = self.get_id()
         location_type = self.service.get_location_type_by_id(id_)
-        return self.serializer.convert_object_to_json(location_type)
+        return self.serializer.to_json(location_type)
 
     def get_id(self):
         return int(self.request.matchdict['id'])

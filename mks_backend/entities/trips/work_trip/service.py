@@ -12,8 +12,8 @@ class WorkTripService:
     def get_all_work_trips(self) -> List[WorkTrip]:
         return self.repo.get_all_work_trips()
 
-    def get_work_trip_by_id(self, id: int) -> WorkTrip:
-        return self.repo.get_work_trip_by_id(id)
+    def get_work_trip_by_id(self, id_: int) -> WorkTrip:
+        return self.repo.get_work_trip_by_id(id_)
 
     def add_work_trip(self, work_trip: WorkTrip) -> None:
         self.repo.add_work_trip(work_trip)
@@ -21,8 +21,8 @@ class WorkTripService:
     def update_work_trip(self, new_work_trip: WorkTrip) -> None:
         self.repo.update_work_trip(new_work_trip)
 
-    def delete_work_trip_by_id(self, id: int) -> None:
-        self.repo.delete_work_trip_by_id(id)
+    def delete_work_trip_by_id(self, id_: int) -> None:
+        self.repo.delete_work_trip_by_id(id_)
 
     def get_work_trips(self, filter_params=None) -> List[WorkTrip]:
         if filter_params:

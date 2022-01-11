@@ -1,5 +1,6 @@
 from .model import Protocol
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.protocols.meeting import MeetingSerializer
 from mks_backend.entities.filestorage import FileStorageSerializer
 from mks_backend.utils.date_and_time import get_date_string
@@ -7,19 +8,16 @@ from mks_backend.utils.date_and_time import get_date_string
 from mks_backend.errors import serialize_error_handler
 
 
-class ProtocolSerializer:
-
-    def convert_list_to_json(self, protocols: list) -> list:
-        return list(map(self.convert_object_to_json, protocols))
+class ProtocolSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, protocol: Protocol) -> dict:
+    def to_json(cls, protocol: Protocol) -> dict:
         return {
             'protocolId': protocol.protocol_id,
             'protocolNumber': protocol.protocol_num,
             'protocolDate': get_date_string(protocol.protocol_date),
-            'meeting': MeetingSerializer.convert_object_to_json(
+            'meeting': MeetingSerializer.to_json(
                 protocol.meeting
             ),
             'protocolName': protocol.protocol_name,
@@ -30,7 +28,7 @@ class ProtocolSerializer:
             'signatory': protocol.signatory
         }
 
-    def convert_schema_to_object(self, schema_dict: dict) -> Protocol:
+    def to_mapped_object(self, schema_dict: dict) -> Protocol:
         protocol = Protocol()
 
         protocol.protocol_id = schema_dict.get('id')

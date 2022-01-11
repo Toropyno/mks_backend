@@ -23,8 +23,8 @@ class WorkTripRepository:
         DBSession.add(work_trip)
         DBSession.commit()
 
-    def delete_work_trip_by_id(self, id: int) -> None:
-        work_trip = self.get_work_trip_by_id(id)
+    def delete_work_trip_by_id(self, id_: int) -> None:
+        work_trip = self.get_work_trip_by_id(id_)
         DBSession.delete(work_trip)
         DBSession.commit()
 
@@ -44,8 +44,8 @@ class WorkTripRepository:
 
         DBSession.commit()
 
-    def get_work_trip_by_id(self, id: int) -> WorkTrip:
-        return self._query.get(id)
+    def get_work_trip_by_id(self, id_: int) -> WorkTrip:
+        return self._query.get(id_)
 
     def get_filtered_work_trips(self, params: dict) -> list:
 

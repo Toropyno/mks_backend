@@ -12,8 +12,8 @@ class InspectionFileService:
         self.filestorage_service = FilestorageService()
         self.repo = InspectionFileRepository()
 
-    def get_files_by_inspection_id(self, id: int) -> List[InspectionFile]:
-        return self.repo.get_files_by_inspection_id(id)
+    def get_files_by_inspection_id(self, id_: int) -> List[InspectionFile]:
+        return self.repo.get_files_by_inspection_id(id_)
 
     def add_inspection_files(self, inspection_files: List[InspectionFile]) -> None:
         self.repo.add_inspection_files(inspection_files)

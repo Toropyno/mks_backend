@@ -1,13 +1,14 @@
 from .model import ConstructionStage
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
 
 
-class ConstructionStageSerializer:
+class ConstructionStageSerializer(BaseSerializer):
 
     @classmethod
     @serialize_error_handler
-    def convert_object_to_json(cls, construction_stage: ConstructionStage) -> dict:
+    def to_json(cls, construction_stage: ConstructionStage) -> dict:
         return {
             'id': construction_stage.construction_stages_id,
             'code': construction_stage.code,
@@ -19,10 +20,7 @@ class ConstructionStageSerializer:
             } if construction_stage.parent else None
         }
 
-    def convert_list_to_json(self, construction_stages: list) -> list:
-        return list(map(self.convert_object_to_json, construction_stages))
-
-    def convert_schema_to_object(self, schema: dict) -> ConstructionStage:
+    def to_mapped_object(self, schema: dict) -> ConstructionStage:
         construction_stage = ConstructionStage()
         if 'id' in schema:
             construction_stage.construction_stages_id = schema['id']

@@ -16,8 +16,8 @@ class ConstructionCompanyRepository:
         DBSession.add(construction_company)
         DBSession.commit()
 
-    def delete_construction_company_by_id(self, id: int) -> None:
-        self._query.filter(ConstructionCompany.construction_companies_id == id).delete()
+    def delete_construction_company_by_id(self, id_: int) -> None:
+        self._query.filter(ConstructionCompany.construction_companies_id == id_).delete()
         DBSession.commit()
 
     def update_construction_company(self, new_construction_company: ConstructionCompany) -> None:
@@ -27,5 +27,5 @@ class ConstructionCompanyRepository:
             DBSession.rollback()
             raise DBBasicError('construction_company_ad')
 
-    def get_construction_company_by_id(self, id: int) -> ConstructionCompany:
-        return self._query.get(id)
+    def get_construction_company_by_id(self, id_: int) -> ConstructionCompany:
+        return self._query.get(id_)

@@ -1,8 +1,10 @@
 from .model import OrganizationHistory
+
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.utils.date_and_time import get_date_string
 
 
-class OrganizationHistorySerializer:
+class OrganizationHistorySerializer(BaseSerializer):
 
     def to_json(self, record: OrganizationHistory) -> dict:
         return {
@@ -20,9 +22,6 @@ class OrganizationHistorySerializer:
             'beginDate': get_date_string(record.begin_date),
             'endDate': get_date_string(record.end_date),
         }
-
-    def convert_list_to_json(self, history_records: list) -> list:
-        return list(map(self.to_json, history_records))
 
     def to_mapped_object(self, history_record: dict, organization_uuid: str = None) -> OrganizationHistory:
         if not history_record.get('organizationId'):

@@ -14,8 +14,8 @@ class MeasureUnitRepository:
         DBSession.add(measure_unit)
         DBSession.commit()
 
-    def get_measure_unit_by_id(self, id: int) -> MeasureUnit:
-        return self._query.get(id)
+    def get_measure_unit_by_id(self, id_: int) -> MeasureUnit:
+        return self._query.get(id_)
 
     def update_measure_unit(self, measure_unit: MeasureUnit) -> None:
         self._query.filter_by(unit_id=measure_unit.unit_id).update(
@@ -26,7 +26,7 @@ class MeasureUnitRepository:
         )
         DBSession.commit()
 
-    def delete_measure_unit_by_id(self, id: int) -> None:
-        measure_unit = self.get_measure_unit_by_id(id)
+    def delete_measure_unit_by_id(self, id_: int) -> None:
+        measure_unit = self.get_measure_unit_by_id(id_)
         DBSession.delete(measure_unit)
         DBSession.commit()

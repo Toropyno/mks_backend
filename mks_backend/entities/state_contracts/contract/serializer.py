@@ -1,5 +1,6 @@
 from .model import Contract
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.state_contracts.contract_status import ContractStatusSerializer
 from mks_backend.entities.construction_company import ConstructionCompanySerializer
 
@@ -7,14 +8,11 @@ from mks_backend.utils.date_and_time import get_date_string
 from mks_backend.utils.decimal import decimal_to_str
 
 
-class ContractSerializer:
+class ContractSerializer(BaseSerializer):
 
     def __init__(self):
         self.status_serializer = ContractStatusSerializer()
         self.construction_company_serializer = ConstructionCompanySerializer()
-
-    def convert_list_to_json(self, contracts: list) -> list:
-        return list(map(self.to_json, contracts))
 
     def to_json(self, contract: Contract) -> dict:
         return {
@@ -31,9 +29,9 @@ class ContractSerializer:
             'receivables': decimal_to_str(contract.receivables),
             'planSum': decimal_to_str(contract.plan_sum),
 
-            'contractor': self.construction_company_serializer.convert_object_to_json(contract.contractor),
-            'subcontractor': self.construction_company_serializer.convert_object_to_json(contract.subcontractor),
-            'status': self.status_serializer.convert_object_to_json(contract.status),
+            'contractor': self.construction_company_serializer.to_json(contract.contractor),
+            'subcontractor': self.construction_company_serializer.to_json(contract.subcontractor),
+            'status': self.status_serializer.to_json(contract.status),
         }
 
     def to_mapped_object(self, schema: dict) -> Contract:

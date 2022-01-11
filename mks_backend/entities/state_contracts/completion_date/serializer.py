@@ -1,12 +1,13 @@
 from .model import CompletionDate
 
+from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.state_contracts.contract import ContractSerializer
 from mks_backend.entities.state_contracts.contract_work_type import ContractWorkTypeSerializer
 
 from mks_backend.utils.date_and_time import get_date_string
 
 
-class CompletionDateSerializer:
+class CompletionDateSerializer(BaseSerializer):
 
     def __init__(self):
         self.contract_serializer = ContractSerializer()
@@ -20,10 +21,7 @@ class CompletionDateSerializer:
             'endDate': get_date_string(completion_date.end_date),
         }
 
-    def list_to_json(self, completion_dates: list) -> list:
-        return list(map(self.to_json, completion_dates))
-
-    def to_object(self, schema: dict) -> CompletionDate:
+    def to_mapped_object(self, schema: dict) -> CompletionDate:
         completion_date = CompletionDate()
 
         completion_date.completion_dates_id = schema.get('id')

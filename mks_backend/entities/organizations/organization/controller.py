@@ -1,3 +1,4 @@
+from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
@@ -32,7 +33,7 @@ class OrganizationController:
         organization_deserialized = self.schema.deserialize(self.request.json_body)
         organization = self.serializer.to_mapped_object(organization_deserialized)
         self.service.add_organization(organization)
-        return {'organizationId': organization.organizations_id}
+        return HTTPCreated(json_body={'organizationId': organization.organizations_id})
 
     @view_config(route_name='delete_organization', permission='access.mks_crud_organizations')
     def delete_organization(self):
@@ -40,7 +41,7 @@ class OrganizationController:
         new_parent_uuid = self.request.params.get('newParent')
 
         self.service.delete_organization(organization_uuid, new_parent_uuid)
-        return {'organizationId': organization_uuid}
+        return HTTPNoContent()
 
     @view_config(route_name='edit_organization', permission='access.mks_crud_organizations')
     def edit_organization(self):

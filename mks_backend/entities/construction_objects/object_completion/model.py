@@ -1,5 +1,4 @@
 from sqlalchemy import UniqueConstraint, Column, Integer, ForeignKey, TIMESTAMP, DATE, func
-from sqlalchemy.orm import relationship
 
 from mks_backend.session import Base
 
@@ -25,5 +24,3 @@ class ObjectCompletion(Base):
     construction_objects_id = Column(
         ForeignKey('construction_objects.construction_objects_id', ondelete='CASCADE'), nullable=False
     )
-
-    construction_object = relationship('ConstructionObject', lazy='joined', uselist=False)

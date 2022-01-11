@@ -7,8 +7,8 @@ class ObjectCategoryRepository:
     def __init__(self):
         self._query = DBSession.query(ObjectCategory)
 
-    def get_object_category_by_id(self, id: int) -> ObjectCategory:
-        return self._query.get(id)
+    def get_object_category_by_id(self, id_: int) -> ObjectCategory:
+        return self._query.get(id_)
 
     def get_all_object_categories(self) -> list:
         return self._query.order_by(ObjectCategory.fullname).all()
@@ -22,8 +22,8 @@ class ObjectCategoryRepository:
         DBSession.add(object_category)
         DBSession.commit()
 
-    def delete_object_category_by_id(self, id: int) -> None:
-        object_category = self.get_object_category_by_id(id)
+    def delete_object_category_by_id(self, id_: int) -> None:
+        object_category = self.get_object_category_by_id(id_)
         DBSession.delete(object_category)
         DBSession.commit()
 
