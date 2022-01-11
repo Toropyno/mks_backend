@@ -20,9 +20,9 @@ class FilestorageService:
     def get_filestorage_by_id(self, id_):
         return self.repo.get_filestorage_by_id(id_)
 
-    def create_filestorage(self, file: cgi_FieldStorage, all_formats=False) -> str:
+    def create_filestorage(self, file: cgi_FieldStorage, file_format: str = None) -> str:
         id_file_storage = str(uuid4())
-        self.hdd.create_file(id_file_storage, file, all_formats)
+        self.hdd.create_file(id_file_storage, file, file_format)
 
         filestorage = Filestorage(
             idfilestorage=id_file_storage,
