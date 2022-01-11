@@ -417,14 +417,14 @@ def insert_work_lists():
 
 def insert_object_completion():
     print('INSERT OBJECT COMPLETION')
-    objects = DBSession.query(ConstructionObject).all()
+    objects = [instance.construction_objects_id for instance in DBSession.query(ConstructionObject).all()]
 
-    for k, construction_object in enumerate(objects):
+    for k, construction_objects_id in enumerate(objects):
         for i in range(k + 5, k * 10, k + 2):
             instance = ObjectCompletion(
                 planned_date=(datetime.now() + timedelta(days=i)).date(),
                 update_datetime=datetime.now() - timedelta(days=i),
-                construction_object=construction_object
+                construction_objects_id=construction_objects_id
             )
 
             try_add(instance)
