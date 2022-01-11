@@ -6,7 +6,7 @@ from pyramid.view import view_config
 from colander import Invalid as ColanderInvalid
 from sqlalchemy.exc import DBAPIError
 
-from . import DBBasicError, FilestorageError
+from . import DBBasicError, FilestorageError, BusinessLogicError
 from mks_backend.session import DBSession
 
 
@@ -38,6 +38,11 @@ def db_error_exception_view(context, request):
 
 @view_config(context=FilestorageError)
 def filestorage_exception_view(context, request):
+    return Response(status=422, json_body={'code': context.code, 'message': context.msg})
+
+
+@view_config(context=BusinessLogicError)
+def business_logic_exception_view(context, request):
     return Response(status=422, json_body={'code': context.code, 'message': context.msg})
 
 
