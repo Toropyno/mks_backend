@@ -10,16 +10,16 @@ from mks_backend.settings import SETTINGS
 
 class FilestorageHDD:
     FILE_STORAGE = SETTINGS['FILE_STORAGE']
-    ALLOWED_EXTENSIONS = SETTINGS['ALLOWED_EXTENSIONS']
+    PHOTO_ALLOWED_EXTENSIONS = SETTINGS['PHOTO_ALLOWED_EXTENSIONS']
 
-    def create_file(self, id_file_storage: str, file: cgi_FieldStorage, all_fromats: bool = False) -> None:
+    def create_file(self, id_file_storage: str, file: cgi_FieldStorage, all_formats: bool = True) -> None:
         if not isinstance(file, cgi_FieldStorage):
             raise FilestorageError('not_received')
         elif file.limit > 5e+9:  # > ~5Gbytes
             raise FilestorageError('too_big')
         elif '.' not in file.filename:
             raise FilestorageError('extension_error')
-        elif not all_fromats and file.filename.split('.')[-1] not in self.ALLOWED_EXTENSIONS:
+        elif not all_formats and file.filename.split('.')[-1] not in self.PHOTO_ALLOWED_EXTENSIONS:
             raise FilestorageError('extension_error')
 
         file_path = os_path.join(self.FILE_STORAGE, id_file_storage)
@@ -35,7 +35,7 @@ class FilestorageHDD:
         if mime_type and len(mime_type) < 45:  # max length for models.Filestorage.mimeType
             return mime_type
         else:
-            return 'unknow/type'
+            return 'unknown/type'
 
     def get_path_to_file(self, uuid: str) -> str:
         protocol_file = os_path.join(self.FILE_STORAGE, uuid)

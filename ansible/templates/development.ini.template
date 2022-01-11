@@ -22,7 +22,7 @@ DATABASE_PASSWORD = {{ database_password }}
 
 # ------ Filestorage ---------
 FILE_STORAGE = {{ deploy_directory }}/filestorage
-ALLOWED_EXTENSIONS = "doc, docx, docm, pdf, odt, ppt, odp, txt, jpg, png, mp4, avi, mkv"
+PHOTO_ALLOWED_EXTENSIONS = "jpg, png, jpeg, gif, tiff, bmp, dng, raw, svg, webp, heif, heic"
 
 # ------------ MIV ------------
 MIV_USER = {{ miv_user }}
