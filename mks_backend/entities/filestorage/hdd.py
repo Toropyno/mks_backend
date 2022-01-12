@@ -12,14 +12,14 @@ class FilestorageHDD:
     FILE_STORAGE = SETTINGS['FILE_STORAGE']
     PHOTO_ALLOWED_EXTENSIONS = SETTINGS['PHOTO_ALLOWED_EXTENSIONS']
 
-    def create_file(self, id_file_storage: str, file: cgi_FieldStorage, all_formats: bool = True) -> None:
+    def create_file(self, id_file_storage: str, file: cgi_FieldStorage, file_format: str) -> None:
         if not isinstance(file, cgi_FieldStorage):
             raise FilestorageError('not_received')
-        elif file.limit > 5e+9:  # > ~5Gbytes
+        elif file.limit > 1e+9:  # > ~1Gbytes
             raise FilestorageError('too_big')
         elif '.' not in file.filename:
             raise FilestorageError('extension_error')
-        elif not all_formats and file.filename.split('.')[-1] not in self.PHOTO_ALLOWED_EXTENSIONS:
+        elif file_format == 'photo' and file.filename.split('.')[-1] not in self.PHOTO_ALLOWED_EXTENSIONS:
             raise FilestorageError('extension_error')
 
         file_path = os_path.join(self.FILE_STORAGE, id_file_storage)

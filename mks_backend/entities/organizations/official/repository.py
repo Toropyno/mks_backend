@@ -49,12 +49,14 @@ class OfficialRepository:
         official_name = filter_fields.get('officialName')
 
         officials = self._query.filter(Official.organizations_id == organization_uuid)
+
+        if not reflect_vacated_position:
+            officials = officials.filter(Official.end_date.is_(None))
+
         if official_name:
             officials = officials.filter(
                 func.CONCAT_WS(
                     ' ', Official.surname, Official.firstname, Official.middlename
                 ).ilike('%{}%'.format(official_name))
             )
-        if reflect_vacated_position:
-            officials = officials.filter(Official.end_date.is_(None))
         return officials
