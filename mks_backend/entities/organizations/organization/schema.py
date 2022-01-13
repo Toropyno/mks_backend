@@ -51,3 +51,9 @@ class OrganizationFilterSchema(colander.MappingSchema):
         name='officialName',
         missing=colander.drop
     )
+
+    reflect_vacated_position = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='reflectVacatedPosition',
+        missing=True
+    )
