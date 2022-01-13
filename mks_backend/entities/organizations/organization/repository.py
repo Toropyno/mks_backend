@@ -52,11 +52,14 @@ class OrganisationRepository:
         Параметр official_name фильтрует организации по ФИО должностных лиц, фигурирующих в них. Для этого формируется
             подзапрос, который конкатенирует фамилию, имя и отчество сотрудников
 
+        Параметр reflect_vacated_position фильтрует должностные лица на предмет освобождения должности. Если true -
+            отображать все должностные лица, иначе - только те, которые не освободили должность
+
         :return: List[str] Список идентификаторов организаций, удовлетворяющих параметрам фильтрации
         """
-
         organization_name = filter_fields.get('organizationName')
         official_name = filter_fields.get('officialName')
+        reflect_vacated_position = filter_fields.get('reflectVacatedPosition')
 
         organizations = DBSession.query(Organization.organizations_id)
 
@@ -71,4 +74,7 @@ class OrganisationRepository:
                     ' ', Official.surname, Official.firstname, Official.middlename
                 ).ilike('%{}%'.format(official_name))
             )
+            if not reflect_vacated_position:
+                organizations = organizations.filter(Official.end_date.is_(None))
+
         return [organization[0] for organization in organizations.distinct().all()]
