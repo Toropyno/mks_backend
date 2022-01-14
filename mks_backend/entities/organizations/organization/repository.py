@@ -78,3 +78,8 @@ class OrganisationRepository:
                 organizations = organizations.filter(Official.end_date.is_(None))
 
         return [organization[0] for organization in organizations.distinct().all()]
+
+    def move_suborganizations_to_root(self, organization_uuid: str) -> None:
+        self._query\
+            .filter(Organization.parent_organizations_id == organization_uuid)\
+            .update({'parent_organizations_id': None})
