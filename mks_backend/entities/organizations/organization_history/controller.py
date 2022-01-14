@@ -2,9 +2,9 @@ from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from .service import OrganizationHistoryService
-from .serializer import OrganizationHistorySerializer
 from .schema import OrganizationHistorySchema
+from .serializer import OrganizationHistorySerializer
+from .service import OrganizationHistoryService
 
 
 @view_defaults(renderer='json')

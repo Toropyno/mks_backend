@@ -1,9 +1,9 @@
 from typing import List
 
-from .schema import ClassRankSchema
-from .model import ClassRank
-
 from mks_backend.errors import serialize_error_handler
+
+from .model import ClassRank
+from .schema import ClassRankSchema
 
 
 class ClassRankSerializer:

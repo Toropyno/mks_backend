@@ -1,5 +1,6 @@
-from .model import MeasureUnit
 from mks_backend.session import DBSession
+
+from .model import MeasureUnit
 
 
 class MeasureUnitRepository:

@@ -1,5 +1,6 @@
-from .model import WorkType
 from mks_backend.session import DBSession
+
+from .model import WorkType
 
 
 class WorkTypeRepository:

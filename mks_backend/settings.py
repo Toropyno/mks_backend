@@ -1,5 +1,5 @@
-from os import path
 from configparser import ConfigParser
+from os import path
 
 
 def get_settings_from_config(config_uri: str) -> dict:

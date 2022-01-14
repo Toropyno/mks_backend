@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, VARCHAR, ForeignKey, CheckConstraint
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import VARCHAR, CheckConstraint, Column, ForeignKey, Integer
+from sqlalchemy.orm import backref, relationship
 
 from mks_backend.session import Base
 

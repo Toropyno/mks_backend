@@ -1,7 +1,7 @@
 from pyramid.config import Configurator
 
-from mks_backend.security import SecurityPolicy
 from mks_backend.routes import ROUTES
+from mks_backend.security import SecurityPolicy
 
 
 def main(global_config, **settings):

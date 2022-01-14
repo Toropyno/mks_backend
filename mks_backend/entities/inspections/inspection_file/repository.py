@@ -1,9 +1,9 @@
 from typing import List
 
-from mks_backend.session import DBSession
-from .model import InspectionFile
-
 from mks_backend.errors import DBBasicError
+from mks_backend.session import DBSession
+
+from .model import InspectionFile
 
 
 class InspectionFileRepository:

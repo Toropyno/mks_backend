@@ -1,4 +1,4 @@
-from sqlalchemy import UniqueConstraint, Column, Integer, ForeignKey, TIMESTAMP, DATE, func
+from sqlalchemy import DATE, TIMESTAMP, Column, ForeignKey, Integer, UniqueConstraint, func
 
 from mks_backend.session import Base
 

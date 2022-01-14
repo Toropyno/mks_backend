@@ -1,11 +1,7 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-)
+from sqlalchemy import VARCHAR, Column, Integer
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import COURTS_SCHEMA
+from mks_backend.session import Base
 
 
 class CourtDecision(Base):

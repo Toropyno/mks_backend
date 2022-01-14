@@ -1,8 +1,8 @@
-from .model import OrganizationHistory
-from .repository import OrganizationHistoryRepository
-
 from mks_backend.entities.organizations.organization import OrganizationService
 from mks_backend.errors import BusinessLogicError
+
+from .model import OrganizationHistory
+from .repository import OrganizationHistoryRepository
 
 
 class OrganizationHistoryService:

@@ -1,10 +1,10 @@
-from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
+from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
+from .schema import CompletionDateSchema
 from .serializer import CompletionDateSerializer
 from .service import CompletionDateService
-from .schema import CompletionDateSchema
 
 
 @view_defaults(renderer='json')

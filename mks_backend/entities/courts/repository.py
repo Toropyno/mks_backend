@@ -1,8 +1,7 @@
-from .model import Courts
+from mks_backend.errors import DBBasicError
 from mks_backend.session import DBSession
 
-
-from mks_backend.errors import DBBasicError
+from .model import Courts
 
 
 class CourtsRepository:

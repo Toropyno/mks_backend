@@ -1,7 +1,7 @@
+from mks_backend.entities.constructions.construction_subcategory import ConstructionSubcategoryService
+
 from .model import ConstructionCategory
 from .repository import ConstructionCategoryRepository
-
-from mks_backend.entities.constructions.construction_subcategory import ConstructionSubcategoryService
 
 
 class ConstructionCategoryService:

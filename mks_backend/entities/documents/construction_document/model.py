@@ -1,11 +1,4 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    DATE,
-    TIMESTAMP,
-    ForeignKey,
-)
+from sqlalchemy import DATE, TIMESTAMP, VARCHAR, Column, ForeignKey, Integer
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 

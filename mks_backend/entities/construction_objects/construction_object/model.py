@@ -1,16 +1,8 @@
 from decimal import Decimal
 
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    ForeignKey,
-    Date,
-    DECIMAL,
-    CheckConstraint,
-)
-from sqlalchemy.orm import relationship
+from sqlalchemy import DECIMAL, VARCHAR, CheckConstraint, Column, Date, ForeignKey, Integer
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import relationship
 
 from mks_backend.session import Base
 

@@ -1,9 +1,4 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    Float,
-    VARCHAR,
-)
+from sqlalchemy import VARCHAR, Column, Float, Integer
 from sqlalchemy.orm import relationship
 
 from mks_backend.session import Base

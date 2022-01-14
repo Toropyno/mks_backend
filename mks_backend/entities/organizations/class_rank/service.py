@@ -1,7 +1,7 @@
 from typing import List
 
-from .repository import ClassRankRepository
 from .model import ClassRank
+from .repository import ClassRankRepository
 
 
 class ClassRankService:

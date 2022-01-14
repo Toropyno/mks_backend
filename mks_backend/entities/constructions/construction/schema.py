@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.utils.validator_utils import date_validator, strip_space, organization_uuid
+from mks_backend.utils.validator_utils import date_validator, organization_uuid, strip_space
 
 
 class ConstructionSchema(colander.MappingSchema):

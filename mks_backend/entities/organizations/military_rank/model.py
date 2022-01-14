@@ -1,13 +1,8 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR
-)
-
+from sqlalchemy import VARCHAR, Column, Integer
 from sqlalchemy.orm import relationship
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import ORGANIZATION_SCHEMA
+from mks_backend.session import Base
 
 
 class MilitaryRank(Base):

@@ -1,8 +1,4 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR
-)
+from sqlalchemy import VARCHAR, Column, Integer
 from sqlalchemy.orm import relationship
 
 from mks_backend.session import Base

@@ -1,10 +1,10 @@
-from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
+from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
-from pyramid.view import view_defaults, view_config
+from pyramid.view import view_config, view_defaults
 
-from .service import ClassRankService
-from .serializer import ClassRankSerializer
 from .schema import ClassRankSchema
+from .serializer import ClassRankSerializer
+from .service import ClassRankService
 
 
 @view_defaults(renderer='json')

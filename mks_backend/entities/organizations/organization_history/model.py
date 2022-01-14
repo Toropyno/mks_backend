@@ -1,17 +1,9 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    ForeignKey,
-    UniqueConstraint,
-    VARCHAR,
-    DATE,
-    CheckConstraint
-)
+from sqlalchemy import DATE, VARCHAR, CheckConstraint, Column, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import ORGANIZATION_SCHEMA
+from mks_backend.session import Base
 
 
 class OrganizationHistory(Base):

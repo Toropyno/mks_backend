@@ -1,14 +1,8 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    ForeignKey,
-    CHAR,
-)
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import CHAR, VARCHAR, Column, ForeignKey, Integer
+from sqlalchemy.orm import backref, relationship
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import MU_SCHEMA
+from mks_backend.session import Base
 
 
 class MilitaryUnit(Base):

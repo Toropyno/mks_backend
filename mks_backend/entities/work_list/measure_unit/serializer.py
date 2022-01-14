@@ -1,6 +1,6 @@
-from .model import MeasureUnit
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
+
+from .model import MeasureUnit
 
 
 class MeasureUnitSerializer(BaseSerializer):

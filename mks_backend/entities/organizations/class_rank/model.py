@@ -1,7 +1,7 @@
-from sqlalchemy import Column, INTEGER, VARCHAR
+from sqlalchemy import INTEGER, VARCHAR, Column
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import ORGANIZATION_SCHEMA
+from mks_backend.session import Base
 
 
 class ClassRank(Base):

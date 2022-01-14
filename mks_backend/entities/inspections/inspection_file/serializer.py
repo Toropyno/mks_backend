@@ -1,10 +1,10 @@
 from typing import List
 
-from .model import InspectionFile
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.filestorage import FileStorageSerializer
 from mks_backend.utils.date_and_time import get_date_time_string
+
+from .model import InspectionFile
 
 
 class InspectionFileSerializer(BaseSerializer):

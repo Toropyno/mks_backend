@@ -1,8 +1,8 @@
-from .model import ConstructionCategory
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.constructions.construction_subcategory import ConstructionSubcategorySerializer
 from mks_backend.errors import serialize_error_handler
+
+from .model import ConstructionCategory
 
 
 class ConstructionCategorySerializer(BaseSerializer):

@@ -1,8 +1,11 @@
 from datetime import date
+
 from sqlalchemy import desc
-from .model import MilitaryUnitExtension
-from mks_backend.session import DBSession
+
 from mks_backend.errors import DBBasicError
+from mks_backend.session import DBSession
+
+from .model import MilitaryUnitExtension
 
 
 class MilitaryUnitExtensionRepository:

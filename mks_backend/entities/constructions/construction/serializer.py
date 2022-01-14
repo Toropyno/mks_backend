@@ -1,21 +1,20 @@
-from .model import Construction
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
-from mks_backend.entities.oksm import OKSMSerializer
+from mks_backend.entities.construction_company import ConstructionCompanySerializer
+from mks_backend.entities.constructions.commission import CommissionSerializer
+from mks_backend.entities.constructions.construction_category import ConstructionCategorySerializer
+from mks_backend.entities.constructions.construction_dynamic import ConstructionDynamicSerializer
+from mks_backend.entities.constructions.construction_subcategory import ConstructionSubcategorySerializer
+from mks_backend.entities.constructions.construction_type import ConstructionTypeSerializer
+from mks_backend.entities.constructions.critical_category import CriticalCategorySerializer
+from mks_backend.entities.constructions.location_type import LocationTypeSerializer
 from mks_backend.entities.coordinate import CoordinateSerializer
 from mks_backend.entities.military_unit import MilitaryUnitSerializer
-from mks_backend.entities.constructions.commission import CommissionSerializer
+from mks_backend.entities.oksm import OKSMSerializer
 from mks_backend.entities.organizations.organization import OrganizationSerializer
-from mks_backend.entities.construction_company import ConstructionCompanySerializer
-from mks_backend.entities.constructions.location_type import LocationTypeSerializer
-from mks_backend.entities.constructions.construction_type import ConstructionTypeSerializer
-from mks_backend.entities.constructions.construction_dynamic import ConstructionDynamicSerializer
-from mks_backend.entities.constructions.construction_category import ConstructionCategorySerializer
-from mks_backend.entities.constructions.construction_subcategory import ConstructionSubcategorySerializer
-
-from mks_backend.utils.decimal import decimal_to_str
 from mks_backend.utils.date_and_time import get_date_string
-from mks_backend.entities.constructions.critical_category import CriticalCategorySerializer
+from mks_backend.utils.decimal import decimal_to_str
+
+from .model import Construction
 
 
 class ConstructionSerializer(BaseSerializer):

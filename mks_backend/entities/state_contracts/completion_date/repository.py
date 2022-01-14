@@ -1,7 +1,7 @@
-from mks_backend.session import DBSession
-from .model import CompletionDate
-
 from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.session import DBSession
+
+from .model import CompletionDate
 
 
 class CompletionDateRepository:

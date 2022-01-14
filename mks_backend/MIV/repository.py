@@ -1,10 +1,10 @@
 import json
-from subprocess import Popen, PIPE
+from subprocess import PIPE, Popen
 
 import requests
 from kerberos import GSSError
-from requests_toolbelt import MultipartEncoder
 from requests_kerberos import HTTPKerberosAuth
+from requests_toolbelt import MultipartEncoder
 
 from mks_backend.settings import SETTINGS
 

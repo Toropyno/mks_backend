@@ -1,6 +1,7 @@
-from .repository import WorkTripFilesRepository
-from .model import WorkTripFile
 from typing import List
+
+from .model import WorkTripFile
+from .repository import WorkTripFilesRepository
 
 
 class WorkTripFilesService:

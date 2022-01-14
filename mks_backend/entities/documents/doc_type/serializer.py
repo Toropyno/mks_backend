@@ -1,6 +1,6 @@
-from .model import DocType
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
+
+from .model import DocType
 
 
 class DocTypeSerializer(BaseSerializer):

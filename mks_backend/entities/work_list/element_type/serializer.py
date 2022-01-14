@@ -1,6 +1,6 @@
-from .model import ElementType
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
+
+from .model import ElementType
 
 
 class ElementTypeSerializer(BaseSerializer):

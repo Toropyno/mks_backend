@@ -1,6 +1,6 @@
-from .model import SubcategoryList
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
+
+from .model import SubcategoryList
 
 
 class SubcategoryListSerializer(BaseSerializer):

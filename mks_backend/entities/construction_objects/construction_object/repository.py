@@ -1,5 +1,6 @@
-from .model import ConstructionObject
 from mks_backend.session import DBSession
+
+from .model import ConstructionObject
 
 
 class ConstructionObjectRepository:

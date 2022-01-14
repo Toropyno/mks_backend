@@ -1,7 +1,7 @@
-from .model import ReferenceHistory
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.utils.date_and_time import get_date_string
+
+from .model import ReferenceHistory
 
 
 class ReferenceHistorySerializer(BaseSerializer):

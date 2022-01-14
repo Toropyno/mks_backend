@@ -1,9 +1,9 @@
 from typing import List
 
-from .model import ConstructionDynamic
+from mks_backend.errors import DBBasicError
 from mks_backend.session import DBSession
 
-from mks_backend.errors import DBBasicError
+from .model import ConstructionDynamic
 
 
 class ConstructionDynamicRepository:

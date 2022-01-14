@@ -1,7 +1,7 @@
-from .model import ConstructionDocument
+from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.session import DBSession
 
-from mks_backend.errors.db_basic_error import DBBasicError
+from .model import ConstructionDocument
 
 
 class ConstructionDocumentRepository:

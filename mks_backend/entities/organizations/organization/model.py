@@ -1,19 +1,13 @@
 from uuid import uuid4
 
-from sqlalchemy import (
-    Column,
-    Integer,
-    ForeignKey,
-    BOOLEAN
-)
+from sqlalchemy import BOOLEAN, Column, ForeignKey, Integer
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import relationship
 
-from mks_backend.entities.organizations.organization_history import OrganizationHistory
-
-from mks_backend.session import Base
 from mks_backend.db_schemas import ORGANIZATION_SCHEMA
+from mks_backend.entities.organizations.organization_history import OrganizationHistory
+from mks_backend.session import Base
 
 
 class Organization(Base):

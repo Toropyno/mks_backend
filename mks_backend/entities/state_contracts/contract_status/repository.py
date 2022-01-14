@@ -1,6 +1,6 @@
-from .model import ContractStatus
-
 from mks_backend.session import DBSession
+
+from .model import ContractStatus
 
 
 class ContractStatusRepository:

@@ -3,11 +3,9 @@ import logging
 
 from pyramid.httpexceptions import HTTPForbidden
 
-from mks_backend.SVIP import SVIP
 from mks_backend.auth import Authorization
-
 from mks_backend.settings import SETTINGS
-
+from mks_backend.SVIP import SVIP
 
 logging.basicConfig(level=logging.INFO)
 

@@ -1,10 +1,10 @@
 from typing import List
 
-from .model import ObjectFile
-from .repository import ObjectFileRepository
-
 from mks_backend.entities.construction_objects.construction_object import ConstructionObjectService
 from mks_backend.entities.filestorage import FilestorageService
+
+from .model import ObjectFile
+from .repository import ObjectFileRepository
 
 
 class ObjectFileService:

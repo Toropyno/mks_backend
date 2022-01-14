@@ -1,4 +1,4 @@
-from .parsing import SAKURAStrategy, DefaultStrategy
+from .parsing import DefaultStrategy, SAKURAStrategy
 
 STRATEGIES = {
     'mks@int.aorti.tech': SAKURAStrategy,

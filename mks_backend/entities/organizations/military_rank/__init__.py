@@ -1,2 +1,2 @@
-from .serializer import MilitaryRankSerializer
 from .model import MilitaryRank
+from .serializer import MilitaryRankSerializer

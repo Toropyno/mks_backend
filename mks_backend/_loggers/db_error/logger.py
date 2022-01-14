@@ -1,9 +1,11 @@
-from datetime import datetime, timedelta as time_d
+from datetime import datetime
+from datetime import timedelta as time_d
 
 from sqlalchemy import desc
 
-from .model import DBError
 from mks_backend.session import DBSession
+
+from .model import DBError
 
 
 class DBErrorLogger:

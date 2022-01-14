@@ -1,8 +1,8 @@
-from .model import OrganizationDocument
-from .repository import OrganizationDocumentRepository
-
 from mks_backend.entities.documents.construction_document.upload_date_service import UploadDateService
 from mks_backend.entities.organizations.organization import OrganizationService
+
+from .model import OrganizationDocument
+from .repository import OrganizationDocumentRepository
 
 
 class OrganizationDocumentService:

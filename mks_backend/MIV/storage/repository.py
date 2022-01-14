@@ -1,5 +1,6 @@
-from .model import Storage
 from mks_backend.session import DBSession
+
+from .model import Storage
 
 
 class StorageRepository:

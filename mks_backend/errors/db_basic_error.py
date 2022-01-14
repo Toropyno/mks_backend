@@ -1,6 +1,6 @@
-from .db_error_codes import DB_ERROR_CODES
-
 from mks_backend._loggers import DBErrorLogger
+
+from .db_error_codes import DB_ERROR_CODES
 
 
 class DBBasicError(Exception):

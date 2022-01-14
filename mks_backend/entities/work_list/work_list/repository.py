@@ -1,5 +1,6 @@
-from .model import WorkList
 from mks_backend.session import DBSession
+
+from .model import WorkList
 
 
 class WorkListRepository:

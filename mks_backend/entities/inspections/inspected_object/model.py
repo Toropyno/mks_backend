@@ -1,9 +1,4 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    ForeignKey,
-    PrimaryKeyConstraint,
-)
+from sqlalchemy import Column, ForeignKey, Integer, PrimaryKeyConstraint
 
 from mks_backend.session import Base
 

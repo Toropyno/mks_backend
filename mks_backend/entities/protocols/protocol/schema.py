@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.utils.validator_utils import date_validator, uuid_file_validator, strip_space
+from mks_backend.utils.validator_utils import date_validator, strip_space, uuid_file_validator
 
 
 class ProtocolControllerSchema(colander.MappingSchema):

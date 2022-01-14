@@ -1,16 +1,15 @@
-from random import choice, randint, randrange
 from datetime import datetime, timedelta
+from random import choice, randint, randrange
 from uuid import uuid4
 
 from sqlalchemy.exc import DBAPIError
 
-from mks_backend.models_meta import *
 from mks_backend.FIAS import FIASService
-
-from .utils import try_add, get_random_address, get_random_date, get_surname, get_first_name, get_middle_name, \
-    get_random_phone, get_random_email
-
+from mks_backend.models_meta import *
 from mks_backend.session import DBSession
+
+from .utils import (get_first_name, get_middle_name, get_random_address, get_random_date, get_random_email,
+                    get_random_phone, get_surname, try_add)
 
 
 def fill_db():

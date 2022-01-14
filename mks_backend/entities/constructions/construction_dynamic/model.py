@@ -1,10 +1,5 @@
-from sqlalchemy import (
-    Column, Integer,
-    ForeignKey, VARCHAR,
-    Boolean, DATE,
-    CheckConstraint, TIMESTAMP,
-    func, UniqueConstraint
-)
+from sqlalchemy import (DATE, TIMESTAMP, VARCHAR, Boolean, CheckConstraint, Column, ForeignKey, Integer,
+                        UniqueConstraint, func)
 
 from mks_backend.session import Base
 

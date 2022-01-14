@@ -1,7 +1,7 @@
-from .model import CourtDecision
-
-from mks_backend.session import DBSession
 from mks_backend.errors import DBBasicError
+from mks_backend.session import DBSession
+
+from .model import CourtDecision
 
 
 class CourtDecisionRepository:

@@ -1,8 +1,8 @@
 from typing import Optional
 
 from .api import FIASAPI
-from .repository import FIASrepo
 from .model import FIAS
+from .repository import FIASrepo
 
 REGIONS = ['Область', 'Край']
 AREAS = ['Район']

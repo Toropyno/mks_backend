@@ -2,13 +2,12 @@ from typing import List
 
 from sqlalchemy import not_
 
-from .model import Inspection
-
-from mks_backend.entities.inspections.inspected_object import InspectedObject
 from mks_backend.entities.constructions.construction import Construction
+from mks_backend.entities.inspections.inspected_object import InspectedObject
 from mks_backend.FIAS import FIAS
-
 from mks_backend.session import DBSession
+
+from .model import Inspection
 
 
 class InspectionRepository:

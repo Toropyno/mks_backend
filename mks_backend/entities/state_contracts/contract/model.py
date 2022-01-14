@@ -1,16 +1,8 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    DATE,
-    DECIMAL,
-    UniqueConstraint,
-    ForeignKey
-)
+from sqlalchemy import DATE, DECIMAL, VARCHAR, Column, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import relationship
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import STATE_CONTRACT_SCHEMA
+from mks_backend.session import Base
 
 
 class Contract(Base):

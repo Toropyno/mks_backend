@@ -1,10 +1,9 @@
 from pyramid.request import Request
 from streaming_form_data import StreamingFormDataParser
 
-from .targets import PayloadTarget, JSONTarget
 from .repository import MIVRepository
-
 from .strategy import Context
+from .targets import JSONTarget, PayloadTarget
 
 
 class MIVService:

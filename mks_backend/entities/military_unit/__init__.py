@@ -1,2 +1,2 @@
+from .models import Combatarm, Keyword, MilitaryCity, MilitaryUnit, NameMilitaryUnit, PurposeMU, SortArmedForces
 from .serializer import MilitaryUnitSerializer
-from .models import Combatarm, Keyword, MilitaryUnit, MilitaryCity, NameMilitaryUnit, PurposeMU, SortArmedForces

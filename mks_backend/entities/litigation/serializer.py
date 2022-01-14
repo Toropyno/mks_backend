@@ -1,8 +1,8 @@
-from .model import Litigation
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
-from mks_backend.utils.date_and_time import get_date_string
 from mks_backend.errors import serialize_error_handler
+from mks_backend.utils.date_and_time import get_date_string
+
+from .model import Litigation
 
 
 class LitigationSerializer(BaseSerializer):

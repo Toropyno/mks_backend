@@ -1,7 +1,7 @@
-from .models import MilitaryUnit
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
+
+from .models import MilitaryUnit
 
 
 class MilitaryUnitSerializer(BaseSerializer):

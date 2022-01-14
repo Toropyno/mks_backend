@@ -1,8 +1,10 @@
 from typing import List
+
 from sqlalchemy import func
 
-from .model import Official
 from mks_backend.session import DBSession
+
+from .model import Official
 
 
 class OfficialRepository:

@@ -1,1 +1,1 @@
-from .repository import StorageRepository, Storage
+from .repository import Storage, StorageRepository

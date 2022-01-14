@@ -1,17 +1,10 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    ForeignKey,
-    VARCHAR,
-    Boolean,
-    CheckConstraint,
-)
-from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy import VARCHAR, Boolean, CheckConstraint, Column, ForeignKey, Integer
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import relationship
 
+from mks_backend.db_schemas import MU_SCHEMA, ORGANIZATION_SCHEMA
 from mks_backend.session import Base
-from mks_backend.db_schemas import ORGANIZATION_SCHEMA, MU_SCHEMA
 
 
 class Construction(Base):

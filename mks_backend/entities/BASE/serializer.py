@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict
+from typing import Dict, List
 
 from mks_backend.session import Base
 

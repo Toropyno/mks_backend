@@ -1,5 +1,6 @@
-from .model import ObjectDocument
 from mks_backend.session import DBSession
+
+from .model import ObjectDocument
 
 
 class ObjectDocumentRepository:

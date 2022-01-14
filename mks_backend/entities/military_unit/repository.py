@@ -1,5 +1,6 @@
-from .models.military_unit import MilitaryUnit
 from mks_backend.session import DBSession
+
+from .models.military_unit import MilitaryUnit
 
 
 class MilitaryUnitRepository:

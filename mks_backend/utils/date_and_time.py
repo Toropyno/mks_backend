@@ -1,7 +1,6 @@
-from typing import Optional
-
 from datetime import date as Date
 from datetime import datetime as DateTime
+from typing import Optional
 
 
 def get_date_string(date: Date) -> Optional[str]:

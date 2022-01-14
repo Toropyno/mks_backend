@@ -1,5 +1,6 @@
-from .model import ObjectCategoryList
 from mks_backend.session import DBSession
+
+from .model import ObjectCategoryList
 
 
 class ObjectCategoryListRepository:

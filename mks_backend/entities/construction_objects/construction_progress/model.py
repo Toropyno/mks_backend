@@ -1,15 +1,7 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    ForeignKey,
-    Date,
-    DECIMAL,
-    TIMESTAMP,
-    UniqueConstraint,
-    CheckConstraint,
-)
-from sqlalchemy.sql import func
+from sqlalchemy import DECIMAL, TIMESTAMP, CheckConstraint, Column, Date, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
+
 from mks_backend.session import Base
 
 

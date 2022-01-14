@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNoContent, HTTPCreated
+from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 

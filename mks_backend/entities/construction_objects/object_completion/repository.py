@@ -1,7 +1,8 @@
 from typing import List
 
-from .model import ObjectCompletion
 from mks_backend.session import DBSession
+
+from .model import ObjectCompletion
 
 
 class ObjectCompletionRepository:

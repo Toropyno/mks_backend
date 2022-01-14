@@ -1,4 +1,4 @@
-from sqlalchemy import UniqueConstraint, Column, Integer, ForeignKey, DATE, func
+from sqlalchemy import DATE, Column, ForeignKey, Integer, UniqueConstraint, func
 from sqlalchemy.orm import relationship
 
 from mks_backend.session import Base

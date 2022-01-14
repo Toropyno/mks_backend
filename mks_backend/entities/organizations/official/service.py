@@ -1,9 +1,9 @@
 from typing import List
 
+from mks_backend.entities.organizations.organization import OrganizationService
+
 from .model import Official
 from .repository import OfficialRepository
-
-from mks_backend.entities.organizations.organization import OrganizationService
 
 
 class OfficialService:

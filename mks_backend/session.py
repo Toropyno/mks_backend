@@ -1,8 +1,8 @@
 from os import environ
 
+from sqlalchemy.engine import Engine, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, Session
-from sqlalchemy.engine import create_engine, Engine
+from sqlalchemy.orm import Session, scoped_session
 
 from mks_backend.settings import SETTINGS
 

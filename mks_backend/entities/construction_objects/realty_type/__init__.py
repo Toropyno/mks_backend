@@ -1,3 +1,3 @@
 from .model import RealtyType
-from .service import RealtyTypeService
 from .serializer import RealtyTypeSerializer
+from .service import RealtyTypeService

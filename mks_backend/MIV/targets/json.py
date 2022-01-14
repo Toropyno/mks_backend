@@ -1,8 +1,10 @@
 import json
 
 from streaming_form_data.targets import BaseTarget
-from ..storage import StorageRepository, Storage
+
 from mks_backend.settings import SETTINGS
+
+from ..storage import Storage, StorageRepository
 
 
 class JSONTarget(BaseTarget):

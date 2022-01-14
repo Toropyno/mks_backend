@@ -1,3 +1,3 @@
-from .service import LitigationService
-from .serializer import LitigationSerializer
 from .model import Litigation
+from .serializer import LitigationSerializer
+from .service import LitigationService

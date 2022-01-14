@@ -1,5 +1,6 @@
-from .model import SubcategoryList
 from mks_backend.session import DBSession
+
+from .model import SubcategoryList
 
 
 class SubcategoryListRepository:

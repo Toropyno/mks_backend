@@ -1,7 +1,7 @@
-from .model import ReasonStopping
-
-from mks_backend.session import DBSession
 from mks_backend.errors import DBBasicError
+from mks_backend.session import DBSession
+
+from .model import ReasonStopping
 
 
 class ReasonStoppingRepository:

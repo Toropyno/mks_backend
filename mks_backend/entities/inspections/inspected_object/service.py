@@ -1,10 +1,10 @@
 from typing import List, Tuple
 
-from .repository import InspectedObjectRepository
-from .model import InspectedObject
-
-from mks_backend.entities.inspections.inspection import InspectionService
 from mks_backend.entities.constructions.construction import Construction
+from mks_backend.entities.inspections.inspection import InspectionService
+
+from .model import InspectedObject
+from .repository import InspectedObjectRepository
 
 
 class InspectedObjectService:

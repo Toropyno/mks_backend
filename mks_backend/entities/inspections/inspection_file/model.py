@@ -1,17 +1,9 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    ForeignKey,
-    TIMESTAMP,
-    VARCHAR,
-)
+from sqlalchemy import TIMESTAMP, VARCHAR, Column, ForeignKey, Integer, func
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import func
 from sqlalchemy.orm import relationship
 
 from mks_backend.entities.filestorage import Filestorage
 from mks_backend.entities.inspections.inspection import Inspection
-
 from mks_backend.session import Base
 
 

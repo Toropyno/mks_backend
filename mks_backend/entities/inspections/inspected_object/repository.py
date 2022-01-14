@@ -2,8 +2,9 @@ from typing import Tuple
 
 from sqlalchemy import and_
 
-from .model import InspectedObject
 from mks_backend.session import DBSession
+
+from .model import InspectedObject
 
 
 class InspectedObjectRepository:

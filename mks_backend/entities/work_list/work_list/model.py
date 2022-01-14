@@ -1,13 +1,4 @@
-from sqlalchemy import (
-    Column,
-    ForeignKey,
-    CheckConstraint,
-    UniqueConstraint,
-    Integer,
-    VARCHAR,
-    DATE,
-    DECIMAL,
-)
+from sqlalchemy import DATE, DECIMAL, VARCHAR, CheckConstraint, Column, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from mks_backend.session import Base

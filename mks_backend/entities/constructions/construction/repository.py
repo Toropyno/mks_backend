@@ -1,9 +1,8 @@
-from .model import Construction
-
-from mks_backend.FIAS import FIAS
-
-from mks_backend.session import DBSession
 from mks_backend.errors import DBBasicError
+from mks_backend.FIAS import FIAS
+from mks_backend.session import DBSession
+
+from .model import Construction
 
 
 class ConstructionRepository:

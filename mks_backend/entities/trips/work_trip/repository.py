@@ -1,14 +1,13 @@
 from sqlalchemy import not_
 
-from .model import WorkTrip
-
-from mks_backend.FIAS import FIAS
-from mks_backend.entities.protocols.protocol import Protocol
 from mks_backend.entities.constructions.construction import Construction
+from mks_backend.entities.protocols.protocol import Protocol
 from mks_backend.entities.trips.visited_object import VisitedObject
-
-from mks_backend.session import DBSession
 from mks_backend.entities.trips.work_trip_file import WorkTripFile
+from mks_backend.FIAS import FIAS
+from mks_backend.session import DBSession
+
+from .model import WorkTrip
 
 
 class WorkTripRepository:

@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.utils.validator_utils import strip_space, date_validator
+from mks_backend.utils.validator_utils import date_validator, strip_space
 
 
 class CompletionDateSchema(colander.MappingSchema):

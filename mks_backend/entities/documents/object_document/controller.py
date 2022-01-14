@@ -1,10 +1,10 @@
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
+from mks_backend.entities.documents.construction_document import ConstructionDocumentSerializer
+
 from .schema import ObjectDocumentSchema
 from .service import ObjectDocumentService
-
-from mks_backend.entities.documents.construction_document import ConstructionDocumentSerializer
 
 
 @view_defaults(renderer='json')

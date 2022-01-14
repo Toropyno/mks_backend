@@ -1,7 +1,7 @@
 from sqlalchemy.event import listens_for
 
-from mks_backend.entities.filestorage import FilestorageService
 from mks_backend.entities.construction_objects.object_file.model import ObjectFile
+from mks_backend.entities.filestorage import FilestorageService
 
 
 @listens_for(ObjectFile, 'before_insert')

@@ -1,8 +1,8 @@
+from mks_backend.entities.construction_objects.object_category_list import ObjectCategoryListService
+from mks_backend.entities.coordinate import CoordinateService
+
 from .model import ConstructionObject
 from .repository import ConstructionObjectRepository
-
-from mks_backend.entities.coordinate import CoordinateService
-from mks_backend.entities.construction_objects.object_category_list import ObjectCategoryListService
 
 
 class ConstructionObjectService:

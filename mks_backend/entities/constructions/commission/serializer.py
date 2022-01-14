@@ -1,6 +1,6 @@
-from .model import Commission
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
+
+from .model import Commission
 
 
 class CommissionSerializer(BaseSerializer):

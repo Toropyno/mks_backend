@@ -1,2 +1,2 @@
-from .service import CoordinateService
 from .serializer import CoordinateSerializer
+from .service import CoordinateService

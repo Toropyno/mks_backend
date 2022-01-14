@@ -1,6 +1,7 @@
-from mks_backend.session import DBSession
 from typing import List
+
 from mks_backend.errors.db_basic_error import DBBasicError
+from mks_backend.session import DBSession
 
 from .model import ClassRank
 

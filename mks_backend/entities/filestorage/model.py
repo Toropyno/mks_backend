@@ -1,14 +1,9 @@
 from uuid import uuid4
 
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    TIMESTAMP,
-)
+from sqlalchemy import TIMESTAMP, VARCHAR, Column, Integer
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.sql import func
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.sql import func
 
 from mks_backend.session import Base
 

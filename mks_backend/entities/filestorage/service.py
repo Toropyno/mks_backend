@@ -3,11 +3,11 @@ from uuid import uuid4
 
 from webob.compat import cgi_FieldStorage
 
+from mks_backend.entities.construction_objects.construction_object import ConstructionObjectService
+
+from .hdd import FilestorageHDD
 from .model import Filestorage
 from .repository import FilestorageRepository
-from .hdd import FilestorageHDD
-
-from mks_backend.entities.construction_objects.construction_object import ConstructionObjectService
 
 
 class FilestorageService:

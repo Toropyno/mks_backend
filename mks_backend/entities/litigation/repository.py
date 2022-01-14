@@ -1,7 +1,9 @@
 from sqlalchemy import desc
-from .model import Litigation
-from mks_backend.session import DBSession
+
 from mks_backend.errors import DBBasicError
+from mks_backend.session import DBSession
+
+from .model import Litigation
 
 
 class LitigationRepository:

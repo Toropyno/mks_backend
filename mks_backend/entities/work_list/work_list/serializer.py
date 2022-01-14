@@ -1,11 +1,10 @@
-from .model import WorkList
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.work_list.element_type import ElementTypeSerializer
 from mks_backend.entities.work_list.measure_unit import MeasureUnitSerializer
 from mks_backend.entities.work_list.work_type import WorkTypeSerializer
-
 from mks_backend.utils.date_and_time import get_date_string
+
+from .model import WorkList
 
 
 class WorkListSerializer(BaseSerializer):

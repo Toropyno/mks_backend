@@ -1,7 +1,7 @@
-from .model import ProgressStatus
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.errors import serialize_error_handler
+
+from .model import ProgressStatus
 
 
 class ProgressStatusSerializer(BaseSerializer):

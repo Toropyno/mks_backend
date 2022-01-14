@@ -1,8 +1,7 @@
 import colander
 
-from mks_backend.utils.validator_utils import (
-    strip_space, date_validator, organization_uuid, inn_validator, kpp_validator, ogrn_validator
-)
+from mks_backend.utils.validator_utils import (date_validator, inn_validator, kpp_validator, ogrn_validator,
+                                               organization_uuid, strip_space)
 
 
 class OrganizationHistorySchema(colander.MappingSchema):

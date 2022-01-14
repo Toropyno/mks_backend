@@ -1,6 +1,6 @@
 import colander
 
-from mks_backend.utils.validator_utils import date_validator, strip_space, uuid_file_validator, timestamp_validator
+from mks_backend.utils.validator_utils import date_validator, strip_space, timestamp_validator, uuid_file_validator
 
 
 class ConstructionDocumentSchema(colander.MappingSchema):

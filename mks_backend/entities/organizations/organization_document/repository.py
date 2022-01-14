@@ -1,5 +1,6 @@
-from .model import OrganizationDocument
 from mks_backend.session import DBSession
+
+from .model import OrganizationDocument
 
 
 class OrganizationDocumentRepository:

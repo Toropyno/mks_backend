@@ -1,10 +1,9 @@
-from .model import WorkTrip
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
-from mks_backend.entities.trips.leadership_position import LeadershipPositionSerializer
 from mks_backend.entities.protocols.protocol import ProtocolSerializer
-
+from mks_backend.entities.trips.leadership_position import LeadershipPositionSerializer
 from mks_backend.utils.date_and_time import get_date_string
+
+from .model import WorkTrip
 
 
 class WorkTripSerializer(BaseSerializer):

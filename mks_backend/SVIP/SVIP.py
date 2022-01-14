@@ -1,12 +1,12 @@
 import json
 import logging
 from os import path
-from typing import Optional, List
+from typing import List, Optional
 
 from pyramid.httpexceptions import HTTPForbidden
 
+from mks_backend.settings import BASE_DIRECTORY, SETTINGS
 from mks_backend.SVIP.repository import SVIPRepository
-from mks_backend.settings import SETTINGS, BASE_DIRECTORY
 
 
 class SVIP:

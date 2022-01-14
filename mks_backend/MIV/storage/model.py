@@ -1,17 +1,12 @@
 from enum import Enum as BuiltinEnum
 
-from sqlalchemy import (
-    Column,
-    VARCHAR,
-    PrimaryKeyConstraint,
-    TIMESTAMP
-)
+from sqlalchemy import TIMESTAMP, VARCHAR, Column, PrimaryKeyConstraint
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 from sqlalchemy.types import Enum
-from sqlalchemy.dialects.postgresql import UUID
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import MIV_SCHEMA
+from mks_backend.session import Base
 
 
 class TypeEnum(BuiltinEnum):

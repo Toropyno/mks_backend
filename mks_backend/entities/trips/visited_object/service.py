@@ -1,6 +1,6 @@
-from .repository import VisitedObjectRepository
-
 from mks_backend.entities.trips.work_trip import WorkTripService
+
+from .repository import VisitedObjectRepository
 
 
 class VisitedObjectService:

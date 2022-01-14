@@ -1,15 +1,14 @@
-from .model import ConstructionObject
-
-from mks_backend.utils.decimal import decimal_to_str
-from mks_backend.utils.date_and_time import get_date_string
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
-from mks_backend.entities.construction_objects.object_category import ObjectCategorySerializer
-from mks_backend.entities.construction_objects.zone import ZoneSerializer
-from mks_backend.entities.construction_objects.construction_stage import ConstructionStageSerializer
 from mks_backend.entities.construction_objects.construction_progress import ConstructionProgressSerializer
+from mks_backend.entities.construction_objects.construction_stage import ConstructionStageSerializer
+from mks_backend.entities.construction_objects.object_category import ObjectCategorySerializer
 from mks_backend.entities.construction_objects.realty_type import RealtyTypeSerializer
+from mks_backend.entities.construction_objects.zone import ZoneSerializer
 from mks_backend.entities.coordinate import CoordinateSerializer
+from mks_backend.utils.date_and_time import get_date_string
+from mks_backend.utils.decimal import decimal_to_str
+
+from .model import ConstructionObject
 
 
 class ConstructionObjectSerializer(BaseSerializer):

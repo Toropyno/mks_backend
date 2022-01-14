@@ -1,8 +1,7 @@
 from xml.etree import ElementTree
 
-from .constructions import ConstructionsParserXML
 from .abstract_strategy import Strategy
-
+from .constructions import ConstructionsParserXML
 
 SAKURA_STRATEGIES = {
     'Package': ConstructionsParserXML,

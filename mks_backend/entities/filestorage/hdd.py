@@ -1,5 +1,6 @@
 from mimetypes import guess_type as guess_mimetype
-from os import path as os_path, remove as os_remove
+from os import path as os_path
+from os import remove as os_remove
 from shutil import copyfileobj
 
 from webob.compat import cgi_FieldStorage

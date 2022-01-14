@@ -1,15 +1,8 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    ForeignKey,
-    Date,
-    PrimaryKeyConstraint
-)
+from sqlalchemy import VARCHAR, Column, Date, ForeignKey, Integer, PrimaryKeyConstraint
 from sqlalchemy.sql import func
 
-from mks_backend.session import Base
 from mks_backend.db_schemas import MU_SCHEMA
+from mks_backend.session import Base
 
 
 class MilitaryUnitExtension(Base):

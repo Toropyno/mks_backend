@@ -1,10 +1,9 @@
-from .model import CompletionDate
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.state_contracts.contract import ContractSerializer
 from mks_backend.entities.state_contracts.contract_work_type import ContractWorkTypeSerializer
-
 from mks_backend.utils.date_and_time import get_date_string
+
+from .model import CompletionDate
 
 
 class CompletionDateSerializer(BaseSerializer):

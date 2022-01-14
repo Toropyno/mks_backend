@@ -1,4 +1,4 @@
-from mks_backend.session import DBSession, Base
+from mks_backend.session import Base, DBSession
 
 
 class BaseRepository:

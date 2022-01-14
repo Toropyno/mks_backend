@@ -1,9 +1,4 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    CHAR
-)
+from sqlalchemy import CHAR, VARCHAR, Column, Integer
 
 from mks_backend.session import Base
 

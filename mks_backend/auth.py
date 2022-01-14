@@ -1,4 +1,4 @@
-from subprocess import Popen, PIPE
+from subprocess import PIPE, Popen
 
 import requests
 from requests_kerberos import HTTPKerberosAuth

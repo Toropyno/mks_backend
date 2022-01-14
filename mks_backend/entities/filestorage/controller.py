@@ -1,7 +1,7 @@
 from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
-from pyramid.view import view_config
 from pyramid.response import FileResponse
+from pyramid.view import view_config
 
 from .serializer import FileStorageSerializer
 from .service import FilestorageService

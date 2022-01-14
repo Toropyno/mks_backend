@@ -1,9 +1,9 @@
 from sqlalchemy import desc
 
-from mks_backend.session import DBSession
-from .model import OrganizationHistory
-
 from mks_backend.errors import DBBasicError
+from mks_backend.session import DBSession
+
+from .model import OrganizationHistory
 
 
 class OrganizationHistoryRepository:

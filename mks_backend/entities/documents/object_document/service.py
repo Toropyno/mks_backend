@@ -1,9 +1,9 @@
 from typing import List
 
-from .repository import ObjectDocumentRepository
-
 from mks_backend.entities.construction_objects.construction_object import ConstructionObjectService
 from mks_backend.entities.documents.construction_document import ConstructionDocumentService
+
+from .repository import ObjectDocumentRepository
 
 
 class ObjectDocumentService:

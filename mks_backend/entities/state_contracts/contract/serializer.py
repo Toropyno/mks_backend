@@ -1,11 +1,10 @@
-from .model import Contract
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
-from mks_backend.entities.state_contracts.contract_status import ContractStatusSerializer
 from mks_backend.entities.construction_company import ConstructionCompanySerializer
-
+from mks_backend.entities.state_contracts.contract_status import ContractStatusSerializer
 from mks_backend.utils.date_and_time import get_date_string
 from mks_backend.utils.decimal import decimal_to_str
+
+from .model import Contract
 
 
 class ContractSerializer(BaseSerializer):

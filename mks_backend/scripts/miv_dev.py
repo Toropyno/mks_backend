@@ -1,5 +1,4 @@
 import sys
-
 from pprint import pprint
 
 from mks_backend.MIV.repository import MIVRepository

@@ -1,11 +1,11 @@
 from typing import List
 from uuid import uuid4
 
-from .model import Organization
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.organizations.organization_history import OrganizationHistorySerializer
 from mks_backend.errors import serialize_error_handler
+
+from .model import Organization
 
 
 class OrganizationSerializer(BaseSerializer):

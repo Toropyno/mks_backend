@@ -1,10 +1,9 @@
-from .model import OrganizationDocument
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
 from mks_backend.entities.documents.doc_type import DocTypeSerializer
 from mks_backend.entities.filestorage import FileStorageSerializer
-
 from mks_backend.utils.date_and_time import get_date_string, get_date_time_string
+
+from .model import OrganizationDocument
 
 
 class OrganizationDocumentSerializer(BaseSerializer):

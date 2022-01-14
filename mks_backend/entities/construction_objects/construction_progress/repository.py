@@ -1,7 +1,8 @@
 from sqlalchemy import desc
 
-from .model import ConstructionProgress
 from mks_backend.session import DBSession
+
+from .model import ConstructionProgress
 
 
 class ConstructionProgressRepository:

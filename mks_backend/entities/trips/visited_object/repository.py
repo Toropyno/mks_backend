@@ -1,7 +1,8 @@
 from sqlalchemy import and_
 
-from .model import VisitedObject
 from mks_backend.session import DBSession
+
+from .model import VisitedObject
 
 
 class VisitedObjectRepository:

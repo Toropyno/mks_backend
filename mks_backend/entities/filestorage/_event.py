@@ -1,7 +1,7 @@
 from sqlalchemy.event import listens_for
 
-from .model import Filestorage
 from .hdd import FilestorageHDD
+from .model import Filestorage
 
 
 @listens_for(Filestorage, 'after_delete')

@@ -1,9 +1,9 @@
 from typing import List
 
+from mks_backend.entities.filestorage import FilestorageService
+
 from .model import Protocol
 from .repository import ProtocolRepository
-
-from mks_backend.entities.filestorage import FilestorageService
 
 
 class ProtocolService:

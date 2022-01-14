@@ -2,12 +2,11 @@ from typing import List
 
 from sqlalchemy import func, or_
 
-from .model import Organization
-from .model import OrganizationHistory
+from mks_backend.entities.organizations.official import Official
+from mks_backend.errors.db_basic_error import DBBasicError
 from mks_backend.session import DBSession
 
-from mks_backend.errors.db_basic_error import DBBasicError
-from mks_backend.entities.organizations.official import Official
+from .model import Organization, OrganizationHistory
 
 
 class OrganisationRepository:

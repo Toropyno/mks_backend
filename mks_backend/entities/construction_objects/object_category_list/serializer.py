@@ -1,6 +1,6 @@
-from .model import ObjectCategoryList
-
 from mks_backend.entities.BASE.serializer import BaseSerializer
+
+from .model import ObjectCategoryList
 
 
 class ObjectCategoryListSerializer(BaseSerializer):

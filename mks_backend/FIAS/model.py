@@ -1,5 +1,5 @@
 from sqlalchemy import Column
-from sqlalchemy.dialects.postgresql import UUID, VARCHAR, INTEGER
+from sqlalchemy.dialects.postgresql import INTEGER, UUID, VARCHAR
 
 from mks_backend.session import Base
 

@@ -1,14 +1,7 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    VARCHAR,
-    DATE,
-    UniqueConstraint
-)
+from sqlalchemy import DATE, VARCHAR, Column, Integer, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from mks_backend.entities.constructions.construction import Construction
-
 from mks_backend.session import Base
 
 
