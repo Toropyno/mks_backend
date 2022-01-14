@@ -44,7 +44,8 @@ class OrganizationService:
             new_parent.sub_organizations.extend(old_parent.sub_organizations)
             old_parent.sub_organizations.clear()
         else:
-            self.repo.move_suborganizations_to_root(old_parent_uuid)
+            for children in old_parent.sub_organizations:
+                children.parent_organizations_id = None
 
     def set_node_new_parent(self, organization_uuid: str, new_parent_uuid: str) -> None:
         """

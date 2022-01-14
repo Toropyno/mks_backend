@@ -36,7 +36,8 @@ class OrganisationRepository:
         return organization
 
     def delete(self, organization_uuid: str) -> None:
-        self._query.filter(Organization.organizations_id == organization_uuid).delete()
+        instance = self.get_by_id(organization_uuid)
+        DBSession.delete(instance)
         DBSession.commit()
 
     def get_roots(self) -> List[Organization]:
@@ -78,8 +79,3 @@ class OrganisationRepository:
                 organizations = organizations.filter(Official.end_date.is_(None))
 
         return [organization[0] for organization in organizations.distinct().all()]
-
-    def move_suborganizations_to_root(self, organization_uuid: str) -> None:
-        self._query\
-            .filter(Organization.parent_organizations_id == organization_uuid)\
-            .update({'parent_organizations_id': None})
