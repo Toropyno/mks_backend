@@ -140,5 +140,7 @@ DUPLICATE_ERROR = {
 
     'construction_dynamics_ak_duplicate': 'Ход строительства ИСП с такой отчетной датой уже существует!',
 
+    'protocol_ak_duplicate': 'Протокол с таким номером и датой уже существует!',
+
     'other_duplicate': 'Дубликат записи!',
 }
