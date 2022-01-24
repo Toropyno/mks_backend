@@ -1,5 +1,6 @@
 stages:
   - build
+  - codestyle
   - test
   - deploy
 
@@ -22,23 +23,22 @@ build-job:
     - python -c 'from mks_backend import *'
     - echo "Постаивились все пакеты, и без синтаксических ошибок. Уже неплохо" "$CI_COMMIT_AUTHOR"
 
-unit-test-job:
-  stage: test
-  script:
-    - echo "Running unit tests... This will take about 10 seconds."
-    - sleep 10
-    - echo "Code coverage is 90%"
-
 lint-test-job:
-  stage: test
+  stage: codestyle
   tags:
     - docker
   image: art-docker-public.rd.aorti.ru/python:3.5
   script:
-    - echo "Проверка flake8"
-    - pip install flake8 flake8-quotes -i https://art.rd.aorti.ru/repository/pypi-proxy/simple > /dev/null
-    - python -m flake8 mks_backend
-    - echo "Проверка закончена"
+    - pip install -e ".[dev, codestyle]" --prefer-binary -i https://art.rd.aorti.ru/repository/pypi-proxy/simple > /dev/null
+    - flake8 mks_backend
+    - isort mks_backend -rc --check-only
+
+unit-test-job:
+  stage: test
+  script:
+    - echo "Running unit tests... This will take about 10 seconds."
+    - sleep 5
+    - echo "Code coverage is 90%"
 
 deploy-job:
   only:
