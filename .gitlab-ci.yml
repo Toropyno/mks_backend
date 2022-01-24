@@ -30,7 +30,7 @@ lint-test-job:
   image: art-docker-public.rd.aorti.ru/python:3.5
   script:
     - echo "Проверка flake8"
-    - pip install -e ".[codestyle]" -i https://art.rd.aorti.ru/repository/pypi-proxy/simple > /dev/null
+    - pip install -e ".[codestyle]" --prefer-binary -i https://art.rd.aorti.ru/repository/pypi-proxy/simple > /dev/null
     - flake8 mks_backend
     - isort mks_backend -rc --check-only
 
