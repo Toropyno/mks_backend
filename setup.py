@@ -22,9 +22,14 @@ requires = [
 dev_requires = [
     'pyramid_debugtoolbar',
     'faker',
-    'flake8',
-    'flake8-quotes',
 ]
+
+codestyle_requires = [
+    'flake8==3.9.2',
+    'flake8-quotes',
+    'isort~=4.3.21',
+]
+
 
 setup(
     name='mks_backend',
@@ -32,6 +37,7 @@ setup(
     install_requires=requires,
     extras_require={
         'dev': dev_requires,
+        'codestyle': codestyle_requires,
     },
     entry_points={
         'paste.app_factory': [
