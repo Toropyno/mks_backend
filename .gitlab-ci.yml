@@ -17,12 +17,9 @@ build-job:
     - echo "deb http://art.rd.aorti.ru/repository/debian-yandex/ stretch main" > /etc/apt/sources.list
     - apt-get update
   script:
-    - python -m venv env
-    - source env/bin/activate
     - pip install -e .[dev] -i "$PYPI_INDEX"
-    - python setup.py develop
     - python -c 'from mks_backend import *'
-    - echo "Постаивились все пакеты, и без синтаксических ошибок. Уже неплохо" "$CI_COMMIT_AUTHOR"
+    - echo "Поставились все пакеты, и без синтаксических ошибок. Уже неплохо" "$CI_COMMIT_AUTHOR"
 
 lint-test-job:
   stage: codestyle
