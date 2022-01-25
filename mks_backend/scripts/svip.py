@@ -15,6 +15,13 @@ def main():
     parser.add_argument('action')
     args = parser.parse_args()
 
+    if SETTINGS['AUTH_TYPE'] == 'kerberos':
+        # прежде всего, нужно создать kerberos-ticket для пользователя,
+        # от чьего лица будет наполняться коллекция в СВИП
+        Authorization.create_ticket(SETTINGS['MKS_USER'], SETTINGS['MKS_PASSWORD'])
+    elif SETTINGS['AUTH_TYPE'] == 'explicit':
+        pass
+
     if args.action == 'create':
         create_svip()
     elif args.action == 'delete':
@@ -24,13 +31,12 @@ def main():
 def create_svip():
     service = SVIP()
 
-    # прежде, чем начнём, нужно создать kerberos-ticket для пользователя,
-    # от чьего лица будет наполняться коллекция в СВИП
-    Authorization.create_ticket(SETTINGS['MKS_USER'], SETTINGS['MKS_PASSWORD'])
-
     try:
         collection_uuid = service.get_set_uuid()
     except HTTPForbidden:
+        # Обычно этот кейс возникает, когда пользователь не входит в коллекцию,
+        # но если мы используем служебного пользователя,
+        # то это может означать только то, что такой коллекции просто не существует
         logger.info('Создаём коллекцию {}'.format(service.COLLECTION_NAME))
         collection_uuid = service.create_set()
     else:
@@ -48,10 +54,15 @@ def create_svip():
 
 def delete_svip():
     service = SVIP()
-
-    Authorization.create_ticket(SETTINGS['MKS_USER'], SETTINGS['MKS_PASSWORD'])
-    service.delete_collection()
-    logger.info('Коллекция {} удалена'.format(service.COLLECTION_NAME))
+    try:
+        service.delete_collection()
+    except HTTPForbidden:
+        # Обычно этот кейс возникает, когда пользователь не входит в коллекцию,
+        # но если мы используем служебного пользователя,
+        # то это может означать только то, что такой коллекции просто не существует
+        logger.info('Коллекция {} не существует'.format(service.COLLECTION_NAME))
+    else:
+        logger.info('Коллекция {} удалена'.format(service.COLLECTION_NAME))
 
 
 if __name__ == '__main__':

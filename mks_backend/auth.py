@@ -38,5 +38,5 @@ class Authorization:
 class ExplicitAuth(requests.auth.AuthBase):
 
     def __call__(self, request: requests.PreparedRequest) -> requests.PreparedRequest:
-        request.headers['Authorization'] = 'Explicit {}@{}'.format(SETTINGS['MIO_USER'], SETTINGS['KRB_AUTH_REALM'])
+        request.headers['Authorization'] = 'Explicit {}@{}'.format(SETTINGS['MKS_USER'], SETTINGS['KRB_AUTH_REALM'])
         return request

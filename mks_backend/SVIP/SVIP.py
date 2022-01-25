@@ -140,5 +140,4 @@ class SVIP:
         """
         collection_uuid = self.get_set_uuid()
         url = '{host}/idm/set/{collection_uuid}/'.format(host=self.host, collection_uuid=collection_uuid)
-        logger.info('Коллекция {} удалена'.format(self.COLLECTION_NAME))
         self.repo.custom_delete(url)
