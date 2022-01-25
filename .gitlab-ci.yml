@@ -21,8 +21,9 @@ build-job:
     - python -c 'from mks_backend import *'
     - echo "Поставились все пакеты, и без синтаксических ошибок. Уже неплохо" "$CI_COMMIT_AUTHOR"
 
-lint-test-job:
+lint-job:
   stage: codestyle
+  needs: ["build-job"]
   tags:
     - docker
   image: art-docker-public.rd.aorti.ru/python:3.5
@@ -33,6 +34,7 @@ lint-test-job:
 
 unit-test-job:
   stage: test
+  needs: ["lint-job"]
   script:
     - echo "Running unit tests... This will take about 10 seconds."
     - sleep 5
@@ -42,6 +44,7 @@ deploy-job:
   only:
     - dev
   stage: deploy
+  needs: ["unit-test-job"]
   tags:
     - docker
   image: art-docker-public.rd.aorti.ru/debian:9
