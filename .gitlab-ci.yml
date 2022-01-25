@@ -6,6 +6,7 @@ stages:
 
 variables:
   ANSIBLE_FORCE_COLOR: 'true'
+  PYPI_INDEX: https://art.rd.aorti.ru/repository/pypi-proxy/simple
 
 build-job:
   stage: build
@@ -18,7 +19,7 @@ build-job:
   script:
     - python -m venv env
     - source env/bin/activate
-    - pip install -e .[dev] -i https://art.rd.aorti.ru/repository/pypi-proxy/simple
+    - pip install -e .[dev] -i "$PYPI_INDEX"
     - python setup.py develop
     - python -c 'from mks_backend import *'
     - echo "Постаивились все пакеты, и без синтаксических ошибок. Уже неплохо" "$CI_COMMIT_AUTHOR"
@@ -29,7 +30,7 @@ lint-test-job:
     - docker
   image: art-docker-public.rd.aorti.ru/python:3.5
   script:
-    - pip install -e ".[dev, codestyle]" --prefer-binary -i https://art.rd.aorti.ru/repository/pypi-proxy/simple > /dev/null
+    - pip install -e .[dev,codestyle] --prefer-binary -i "$PYPI_INDEX" > /dev/null
     - flake8 mks_backend
     - isort mks_backend -rc --check-only
 
