@@ -1,3 +1,6 @@
+[![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Linter: flake8](https://img.shields.io/badge/linter-flake8-black)](https://flake8.pycqa.org/en/latest/index.html#)
+
 # ПАК ЦУПД 83т4.5 "Мониторинг капитального строительства"
 
 - ##### [Функциональные требования](https://confluence.rd.aorti.ru/pages/viewpage.action?pageId=34288411)
