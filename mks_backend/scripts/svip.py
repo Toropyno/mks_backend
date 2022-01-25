@@ -7,7 +7,7 @@ from mks_backend.auth import Authorization
 from mks_backend.settings import SETTINGS
 from mks_backend.SVIP import SVIP
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -31,18 +31,18 @@ def create_svip():
     try:
         collection_uuid = service.get_set_uuid()
     except HTTPForbidden:
-        logging.info('Создаём коллекцию {}'.format(service.COLLECTION_NAME))
+        logger.info('Создаём коллекцию {}'.format(service.COLLECTION_NAME))
         collection_uuid = service.create_set()
     else:
-        logging.info('Коллекция "{}" уже существует, используется существующая'.format(service.COLLECTION_NAME))
+        logger.info('Коллекция "{}" уже существует, используется существующая'.format(service.COLLECTION_NAME))
 
-    logging.info('Добавляем пользователей в коллекцию')
+    logger.info('Добавляем пользователей в коллекцию')
     service.add_users(collection_uuid)
 
-    logging.info('Создаём разрешения')
+    logger.info('Создаём разрешения')
     permissions = service.create_permissions(collection_uuid)
 
-    logging.info('Привязываем пользователей к разрешениям')
+    logger.info('Привязываем пользователей к разрешениям')
     service.link_permissions_to_user(collection_uuid, permissions)
 
 
@@ -51,7 +51,7 @@ def delete_svip():
 
     Authorization.create_ticket(SETTINGS['MKS_USER'], SETTINGS['MKS_PASSWORD'])
     service.delete_collection()
-    logging.info('Коллекция {} удалена'.format(service.COLLECTION_NAME))
+    logger.info('Коллекция {} удалена'.format(service.COLLECTION_NAME))
 
 
 if __name__ == '__main__':
