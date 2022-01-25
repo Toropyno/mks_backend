@@ -7,11 +7,13 @@
     recurse: yes
   become: true
 
-- name: Remove old backend
-  file:
-    path: "{{ deploy_directory }}/backend"
-    state: absent
+- name: Create the frontend directory
   become: true
+  file:
+    path: "{{ deploy_directory }}/frontend"
+    state: directory
+    owner: www-data
+    group: www-data
 
 - name: Create the backend directory
   become: true
@@ -35,11 +37,11 @@
       - "--exclude=.gitignore"
       - "--exclude=.idea"
       - "--exclude=__pycache__"
-      - "--exclude=docker-compose.yml"
       - "--exclude=ansible"
-      - "--delete"
       - "--exclude=development.ini"
+      - "--exclude=pyramid.wsgi"
       - "--exclude=mks_backend.egg-info"
+      - "--delete"
 
 - name:  Copy development.ini
   become: true
@@ -63,7 +65,7 @@
 - name: Install requirements
   become: true
   command:
-    cmd: "{{ deploy_directory }}/backend/env/bin/pip install -e .[dev] -i {{ pypi_url }} --trusted-host art.rd.aorti.ru"
+    cmd: "{{ deploy_directory }}/backend/env/bin/pip install -e .[dev] -i {{ pypi_url }} --trusted-host {{ trusted_host }}"
     chdir: "{{ deploy_directory }}/backend"
 
 - name: Create egg

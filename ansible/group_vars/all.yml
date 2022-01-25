@@ -1,6 +1,7 @@
 debug: true
 
 pypi_url: http://art.rd.aorti.ru/repository/pypi-proxy/simple
+trusted_host: art.rd.aorti.ru
 
 source_directory: "{{ lookup('env', 'PWD') }}/"
 deploy_directory: /opt/mks

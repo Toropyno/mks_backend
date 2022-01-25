@@ -63,5 +63,5 @@ deploy-job:
     - chmod 700 ~/.ssh
   script:
     - python --version
-    - ansible-playbook ansible/install_to_stands.yml -i hosts --private-key='~/.ssh/gitlab_runner' --user "$ANSIBLE_USER"
+    - ansible-playbook ansible/install_to_stands.yml -i ansible/hosts --private-key='~/.ssh/gitlab_runner' --user "$ANSIBLE_USER"
     - echo "Success deploy, congrats" "$CI_COMMIT_AUTHOR"

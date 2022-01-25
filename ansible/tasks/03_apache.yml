@@ -27,6 +27,12 @@
     src: mks.krb.conf.template
     dest: "/etc/apache2/sites-available/mks.conf"
 
+- name: WSGI. Copy config
+  become: true
+  template:
+    src: pyramid.wsgi.template
+    dest: "{{ deploy_directory}}/backend/pyramid.wsgi"
+
 - name: Disable default site
   command: "/usr/sbin/a2dissite 000-default.conf"
   become: true

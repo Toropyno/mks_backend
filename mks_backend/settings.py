@@ -1,7 +1,7 @@
-from pyramid.paster import setup_logging
-
 from configparser import ConfigParser
 from os import path
+
+from pyramid.paster import setup_logging
 
 
 def get_settings_from_config(config_uri: str) -> dict:

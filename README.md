@@ -58,10 +58,10 @@ pserve development.ini
 2. Для деплоя запустите в терминале
    ```shell
    # установить сам ansible
-   sudo apt install ansible
+   pip install -e ".[deploy]" -i http://art.rd.aorti.ru/repository/pypi-proxy/simple/ --trusted-host art.rd.aorti.ru
    
    # деплой на стенды
-   ansible-playbook ansible/install_to_stands.yml -i hosts
+   ansible-playbook ansible/install_to_stands.yml -i ansible/hosts
    ```
    Но вообще, здесь настроено CI/CD, так что dev ветку таким образом точно заливать не нужно
 </details>
