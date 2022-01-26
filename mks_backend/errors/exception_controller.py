@@ -1,4 +1,5 @@
 import logging
+import traceback
 
 from colander import Invalid as ColanderInvalid
 from pyramid.httpexceptions import HTTPForbidden, HTTPNotFound, HTTPUnprocessableEntity
@@ -9,6 +10,8 @@ from webob import Response
 from mks_backend.session import DBSession
 
 from . import BusinessLogicError, DBBasicError, FilestorageError
+
+logger = logging.getLogger(__name__)
 
 
 @view_config(context=DBAPIError)
@@ -27,7 +30,7 @@ def db_api_error(context, request):
 @view_config(context=DBBasicError)
 def db_error_exception_view(context, request):
     DBSession.rollback()
-    logging.warning(context)
+    logger.warning(context)
 
     if context.code.endswith('_nf'):
         response = HTTPNotFound(json_body={'code': context.code, 'message': context.message})
@@ -63,5 +66,6 @@ def unauthorized(context, request):
 
 @view_config(context=Exception)
 def exception_view(context, request):
-    logging.info(context)
+    traceback_text = traceback.format_exc()
+    logger.error(traceback_text)
     return Response(status=500, json_body={'code': 'something goes wrong', 'message': 'Что-то пошло не так'})

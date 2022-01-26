@@ -26,6 +26,6 @@ MKS_PASSWORD = iEfG02AE
 
 Список пользователей, которые будут добавлены в коллекцию без права на редактирование, указаны в файле [accounts.json](initial_data/accounts.json)  
 
-Разрешения указаны в файлу [permissions.json](initial_data/permissions.json)
+Разрешения указаны в файле [permissions.json](initial_data/permissions.json)
 
 Связь между пользователями и разрешениями указана в файле [account_permissions.json](initial_data/account_permissions.json)

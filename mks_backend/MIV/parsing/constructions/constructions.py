@@ -9,6 +9,8 @@ from mks_backend.session import DBSession
 from ..abstract_strategy import Strategy
 from ..base_repository import BaseRepository
 
+logger = logging.getLogger(__name__)
+
 
 class ConstructionsParserXML(Strategy):
     """
@@ -173,7 +175,7 @@ class ConstructionsParserXML(Strategy):
 
         construction_objects = stage.find('ЗданияСооружения')
         if not construction_objects:
-            logging.error(
+            logger.error(
                 'Некорректная запись в XML для <ЗданияСооружения> Код этапа {} выгрузка {}'
                 .format(code, self.upload_guid)
             )

@@ -8,6 +8,8 @@ from pyramid.httpexceptions import HTTPForbidden
 from mks_backend.settings import BASE_DIRECTORY, SETTINGS
 from mks_backend.SVIP.repository import SVIPRepository
 
+logger = logging.getLogger(__name__)
+
 
 class SVIP:
 
@@ -58,7 +60,7 @@ class SVIP:
         response = self.repo.custom_post(url=set_url, json_data={'name': self.COLLECTION_NAME})
 
         collection_uuid = response['data']['uid']
-        logging.info('Коллекция {} создана в СВИП uuid={}'.format(self.COLLECTION_NAME, collection_uuid))
+        logger.info('Коллекция {} создана в СВИП uuid={}'.format(self.COLLECTION_NAME, collection_uuid))
         return collection_uuid
 
     def add_users(self, collection_uuid: str) -> None:
@@ -138,5 +140,4 @@ class SVIP:
         """
         collection_uuid = self.get_set_uuid()
         url = '{host}/idm/set/{collection_uuid}/'.format(host=self.host, collection_uuid=collection_uuid)
-        logging.info(url)
         self.repo.custom_delete(url)
