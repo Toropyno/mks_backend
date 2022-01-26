@@ -117,5 +117,5 @@ sudo service postgresql restart
 ### МИВ
 [МИВ README](mks_backend/MIV/MIV.md)
 
-### САКУРА
+### САКУРА (ЧЕРЕЗ EXTR DOCS)
 [МИВ README](mks_backend/MIV/MIV.md)

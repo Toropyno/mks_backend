@@ -1,7 +1,9 @@
+from mks_backend.settings import SETTINGS
+
 from .parsing import DefaultStrategy, SAKURAStrategy
 
 STRATEGIES = {
-    'mks@int.aorti.tech': SAKURAStrategy,
+    SETTINGS['EXTR_DOCS_MIV_SENDER']: SAKURAStrategy,
 }
 
 

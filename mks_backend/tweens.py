@@ -1,3 +1,4 @@
+import logging
 from os import environ
 
 from pyramid.authentication import extract_http_basic_credentials
@@ -5,6 +6,8 @@ from pyramid.httpexceptions import HTTPUnauthorized
 
 from mks_backend.session import DBSession
 from mks_backend.settings import SETTINGS
+
+logger = logging.getLogger(__name__)
 
 
 def tween_factory(handler, registry):

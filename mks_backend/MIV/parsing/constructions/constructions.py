@@ -281,8 +281,8 @@ class ConstructionsParserXML(Strategy):
                     construction_id=construction.construction_id,
                     doctypes_id=rns_document_type.doctypes_id,
                     doc_number=rns_document_raw.find('Номер').text,
-                    doc_date=datetime.strptime(rns_document_raw.find('Дата').text, '%Y-%m-%d'),
-                    valid_until=datetime.strptime(rns_document_raw.find('СрокДействия').text, '%Y-%m-%d')
+                    doc_date=datetime.strptime(rns_document_raw.find('Дата').text, '%Y-%m-%d').date(),
+                    valid_until=datetime.strptime(rns_document_raw.find('СрокДействия').text, '%Y-%m-%d').date()
                 )
                 self.construction_documents_repo.add_to_session(rns_document)
 
@@ -303,7 +303,7 @@ class ConstructionsParserXML(Strategy):
                     construction_id=construction.construction_id,
                     doctypes_id=zge_document_type.doctypes_id,
                     doc_number=zge_document_raw.find('Номер').text,
-                    doc_date=datetime.strptime(zge_document_raw.find('Дата').text, '%Y-%m-%d'),
+                    doc_date=datetime.strptime(zge_document_raw.find('Дата').text, '%Y-%m-%d').date(),
                 )
                 self.construction_documents_repo.add_to_session(zge_document)
 
@@ -319,7 +319,7 @@ class ConstructionsParserXML(Strategy):
                     construction_id=construction.construction_id,
                     doctypes_id=zos_document_type.doctypes_id,
                     doc_number=zos_document_raw.find('Номер').text,
-                    doc_date=datetime.strptime(zos_document_raw.find('Дата').text, '%Y-%m-%d'),
+                    doc_date=datetime.strptime(zos_document_raw.find('Дата').text, '%Y-%m-%d').date(),
                 )
                 self.construction_documents_repo.add_to_session(zos_document)
 
