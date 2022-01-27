@@ -49,6 +49,9 @@ COLLECTION_NAME = MKS
 MKS_USER = {{ svip_user }}
 MKS_PASSWORD = {{ svip_password }}
 
+# EXTR_DOCS
+EXTR_DOCS_MIV_SENDER = {{ extr_docs_miv_sender }}
+
 [alembic]
 script_location = mks_backend/alembic
 file_template = %%(year)d%%(month).2d%%(day).2d_%%(rev)s

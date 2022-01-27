@@ -1,0 +1,6 @@
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Configure project
+      include: tasks/02_files.yml

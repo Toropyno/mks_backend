@@ -1,3 +1,5 @@
+from os import environ
+
 from pyramid.request import Request
 from streaming_form_data import StreamingFormDataParser
 
@@ -12,8 +14,8 @@ class MIVService:
         self.repo = MIVRepository()
 
     def process_data(self, request: Request):
-        sender = request.headers.environ.get('HTTP_KRN_SENDER')
-        uid = request.headers.environ.get('HTTP_KRN_UID')
+        sender = environ['HTTP_KRN_SENDER']
+        uid = environ['HTTP_KRN_UID']
 
         meta_target = JSONTarget(sender=sender, uid=uid)
         payload_target = PayloadTarget(sender=sender, uid=uid)
