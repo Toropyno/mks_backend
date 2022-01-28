@@ -27,7 +27,7 @@ class LeadershipPositionController:
 
         leadership_position = self.serializer.to_mapped_object(leadership_position_deserialized)
         self.service.add_leadership_position(leadership_position)
-        return HTTPCreated({'id': leadership_position.leadership_positions_id})
+        return HTTPCreated(json_body={'id': leadership_position.leadership_positions_id})
 
     @view_config(route_name='delete_leadership_position')
     def delete_leadership_position(self):

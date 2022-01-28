@@ -29,7 +29,7 @@ class ProtocolController:
         protocol = self.serializer.to_mapped_object(protocol_deserialized)
 
         self.service.add_protocol(protocol)
-        return HTTPCreated({'id': protocol.protocol_id})
+        return HTTPCreated(json_body={'id': protocol.protocol_id})
 
     @view_config(route_name='get_protocol', permission='access.mks_crud_protocols')
     def get_protocol(self):
