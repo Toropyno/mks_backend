@@ -78,5 +78,6 @@ class Contract(Base):
     )
 
     completion_dates = relationship(
-        'CompletionDate'
+        'CompletionDate',
+        cascade='delete, delete-orphan'
     )

@@ -26,7 +26,7 @@ class CompletionDate(Base):
 
     contracts_id = Column(
         Integer,
-        ForeignKey('{schema}.contracts.contracts_id'.format(schema=STATE_CONTRACT_SCHEMA)),
+        ForeignKey('{schema}.contracts.contracts_id'.format(schema=STATE_CONTRACT_SCHEMA), ondelete='CASCADE'),
         nullable=False
     )
 

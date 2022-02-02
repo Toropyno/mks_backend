@@ -63,6 +63,11 @@ class ConstructionsParserXML(Strategy):
         self.construction_dynamic_repo = BaseRepository(ConstructionDynamic)
         self.construction_documents_repo = BaseRepository(ConstructionDocument)
         self.doctypes_repo = BaseRepository(DocType)
+        self.contract_repo = BaseRepository(Contract)
+        self.contract_status_repo = BaseRepository(ContractStatus)
+        self.contract_work_type_repo = BaseRepository(ContractWorkType)
+        self.completion_date_repo = BaseRepository(CompletionDate)
+        self.construction_companies_repo = BaseRepository(ConstructionCompany)
 
     @property
     def upload_date_parsed(self):
@@ -160,6 +165,7 @@ class ConstructionsParserXML(Strategy):
 
         self.parse_construction_dynamic(construction, node)
         self.parse_construction_documents(construction, node)
+        self.parse_contracts(construction, node)
 
     def parse_construction_stage(self, stage: ElementTree.Element, construction: Construction):
         """
@@ -322,6 +328,68 @@ class ConstructionsParserXML(Strategy):
                     doc_date=datetime.strptime(zos_document_raw.find('Дата').text, '%Y-%m-%d').date(),
                 )
                 self.construction_documents_repo.add_to_session(zos_document)
+
+    def parse_contracts(self, construction: Construction, node: ElementTree.Element) -> None:
+        for contract_raw in node.find('СписокКонтрактов'):
+            contract_num = contract_raw.find('НомерКонтракта').text
+            identifier = contract_raw.find('Идентификатор').text
+
+            if contract_num and identifier:
+                contract = self.contract_repo.get_by_fields(contract_num=contract_num, identifier=identifier).first()
+            elif contract_num:
+                contract = self.contract_repo.get_by_fields(contract_num=contract_num).first()
+            elif identifier:
+                contract = self.contract_repo.get_by_fields(identifier=identifier).first()
+            else:
+                raise ValueError('Не заполнены данные контракта')
+
+            contract = contract or Contract()  # берем существующий, или создаем новый
+
+            contract.construction_id = construction.construction_id
+            contract.contract_num = contract_num
+            contract.contract_date = datetime.strptime(contract_raw.find('ДатаКонтракта').text, '%Y-%m-%d')
+            contract.identifier = identifier
+            contract.subject = contract_raw.find('ПредметКонтракта').text
+            contract.contract_sum = contract_raw.find('СуммаКонтракта').text
+            contract.paid_sum = contract_raw.find('Оплачено').text
+            contract.accepted_sum = contract_raw.find('Выполнено').text
+            contract.receivables = contract_raw.find('ДебиторскаяЗадолженность').text
+            contract.plan_sum = contract_raw.find('ПланФинансированияТекГода').text
+
+            contractor_name = contract_raw.find('ГенеральныйПодрядчик').text
+            contract.contractor = self.construction_companies_repo.get_by_fields(fullname=contractor_name).first()
+
+            subcontractor_name = contract_raw.find('Субподрядчик').text
+            if subcontractor_name:
+                contract.subcontractor = self.construction_companies_repo\
+                    .get_by_fields(fullname=subcontractor_name)\
+                    .first()
+
+            contract_status = contract_raw.find('СтатусГК').text
+            contract.status = self.contract_status_repo.get_by_fields(fullname=contract_status).first()
+
+            completion_dates = []
+            for completion_raw in contract_raw.find('СрокиОкончанияРаботСписок'):
+                contract_work_type_raw = completion_raw.find('ВидМероприятия').text.strip()
+                contract_work_type = self.contract_work_type_repo.get_by_fields(fullname=contract_work_type_raw).first()
+
+                end_date = completion_raw.find('Срок').text
+
+                completion_date = self.completion_date_repo.get_by_fields(
+                    contracts_id=contract.contracts_id,
+                    contract_worktypes_id=contract_work_type.contract_worktypes_id
+                ).first()
+                if not completion_date:
+                    completion_date = CompletionDate(
+                        contract_worktypes_id=contract_work_type.contract_worktypes_id,
+                        end_date=datetime.strptime(end_date, '%Y-%m-%d').date()
+                    )
+                    self.contract_repo.add_to_session(completion_date)
+
+                completion_dates.append(completion_date)
+
+            contract.completion_dates = completion_dates
+            self.contract_repo.add_to_session(contract)
 
 
 def main():

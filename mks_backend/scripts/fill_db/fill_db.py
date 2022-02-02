@@ -122,7 +122,7 @@ def insert_construction_categories_and_subcategories():
 
 def insert_construction_companies():
     print('INSERT CONSTRUCTION COMPANIES')
-    for company in ['АО РТИ', 'НПК ВТиСС']:
+    for company in ['АО РТИ', 'НПК ВТиСС', 'ГВСУ № 14', 'ГВСУ по специальным объектам', 'Трест Мосэлектротягстрой ОАО']:
         try_add(ConstructionCompany(fullname=company, shortname=company.lower()))
 
 
@@ -271,6 +271,7 @@ def insert_constructions():
     location_types = DBSession.query(LocationType).all()
     military_units = DBSession.query(MilitaryUnit).all()
     critical_categories = DBSession.query(CriticalCategory).all()
+    organizations = DBSession.query(Organization).all()
 
     for code, name in [
         ('south_base', 'Южная база'), ('north_base', 'Северная база'),
@@ -293,7 +294,8 @@ def insert_constructions():
             military_unit=choice(military_units),
             military_district=choice(military_units),
             location_type=choice(location_types),
-            critical_category=choice(critical_categories)
+            critical_category=choice(critical_categories),
+            organization=choice(organizations)
             # fias=choice(fiases)
         )
         try_add(instance)
@@ -330,13 +332,22 @@ def create_fiases():
 
 def insert_contract_statuses():
     print('INSERT CONTRACT STATUSES')
-    for name in ['На рассмотрении', 'Принят', 'Отклонён']:
+    for name in ['Исполнен', 'Расторгнут', 'Оплачен', 'Проект', 'Приостановлен', 'НаРасторжении', 'Действующий']:
         try_add(ContractStatus(fullname=name))
 
 
 def insert_contract_worktypes():
     print('INSERT CONTRACT WORKTYPES')
-    for name in ['Доставлено в распределительный центр', 'Утилизировано', 'На рассмотрении']:
+    for name in [
+        'Дата подписания итогового акта', 'Проведение обследования', 'Проведение инженерных изысканий',
+        'Обмерные работы', 'Разработка проектной документации', 'Разработка рабочей документации',
+        'Корректировка проектной документации', 'Корректировка рабочей документации',
+        'Корректировка проектно-сметной документации', 'Строительно-монтажные работы', 'Авторский надзор',
+        'Получение положительного заключения ГЭ', 'Технологическое присоединение', 'Пуско-наладочные работы',
+        'Акт приемки законченного строительством объекта', 'Разработка градостроительной документации',
+        'Корректировка градостроительной документации', 'Подготовительные работы', 'Благоустройство территории',
+        'Работы по дооснащению объекта', 'Поставка оборудования мебели'
+    ]:
         try_add(ContractWorkType(fullname=name))
 
 

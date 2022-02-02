@@ -5,7 +5,9 @@ from mks_backend.session import Base
 
 
 class ConstructionCompany(Base):
-
+    """
+    Строительные организации
+    """
     __tablename__ = 'construction_companies'
 
     __table_args__ = (
