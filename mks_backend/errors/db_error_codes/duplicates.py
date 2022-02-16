@@ -142,5 +142,8 @@ DUPLICATE_ERROR = {
 
     'protocol_ak_duplicate': 'Протокол с таким номером и датой уже существует!',
 
+    'litigation_document_unique_duplicate': 'Документ с таким типом, номером, '
+                                            'датой и ссылкой на судебный спор уже существует!',
+
     'other_duplicate': 'Дубликат записи!',
 }
