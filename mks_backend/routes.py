@@ -60,4 +60,5 @@ ROUTES = [
     'mks_backend.entities.trips.work_trip_file.routes.include_work_trip_files',
     'mks_backend.entities.litigation_work.litigation.routes.include_litigation',
     'mks_backend.entities.litigation_work.litigation_subject.routes.include_litigation_subjects',
+    'mks_backend.entities.litigation_work.litigation_documents.routes.include_litigation_documents'
 ]
