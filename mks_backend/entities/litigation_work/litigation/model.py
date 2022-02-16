@@ -58,3 +58,9 @@ class Litigation(Base):
         'Construction',
         secondary='courts.litigation_subject'
     )
+
+    construction_company = relationship('ConstructionCompany')
+    organization = relationship('Organization')
+    participant_status = relationship('ParticipantStatus')
+    court_decision = relationship('CourtDecision')
+    court = relationship('Courts')
