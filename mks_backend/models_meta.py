@@ -23,8 +23,8 @@ from mks_backend.entities.constructions.location_type.model import LocationType
 from mks_backend.entities.constructions.reason_stopping import ReasonStopping
 from mks_backend.entities.constructions.subcategory_list.model import SubcategoryList
 from mks_backend.entities.coordinate.model import Coordinate
-from mks_backend.entities.court_decisions import CourtDecision
-from mks_backend.entities.courts import Courts
+from mks_backend.entities.litigation_work.court_decisions import CourtDecision
+from mks_backend.entities.litigation_work.courts import Courts
 from mks_backend.entities.documents.construction_document.model import ConstructionDocument
 from mks_backend.entities.documents.doc_type.model import DocType
 from mks_backend.entities.documents.object_document.model import ObjectDocument
@@ -32,7 +32,7 @@ from mks_backend.entities.filestorage.model import Filestorage
 from mks_backend.entities.inspections.inspected_object.model import InspectedObject
 from mks_backend.entities.inspections.inspection.model import Inspection
 from mks_backend.entities.inspections.inspection_file.model import InspectionFile
-from mks_backend.entities.litigation import Litigation
+from mks_backend.entities.litigation_work.litigation import Litigation
 from mks_backend.entities.military_unit.models.combatarm import Combatarm
 from mks_backend.entities.military_unit.models.keyword import Keyword
 from mks_backend.entities.military_unit.models.military_unit import MilitaryUnit
@@ -48,7 +48,7 @@ from mks_backend.entities.organizations.official.model import Official
 from mks_backend.entities.organizations.organization.model import Organization
 from mks_backend.entities.organizations.organization_document.model import OrganizationDocument
 from mks_backend.entities.organizations.organization_history.model import OrganizationHistory
-from mks_backend.entities.participant_statuses import ParticipantStatus
+from mks_backend.entities.litigation_work.participant_statuses import ParticipantStatus
 from mks_backend.entities.protocols.meeting.model import Meeting
 from mks_backend.entities.protocols.protocol.model import Protocol
 from mks_backend.entities.state_contracts.completion_date.model import CompletionDate
