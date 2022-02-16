@@ -24,7 +24,11 @@ class SessionFactory(Session):
         и подключение к БД происходит через kerberos, посредством KRB5CCNAME,
         который мы положили в окружение в tweens.py
         """
-        current_user = environ.get('REMOTE_USER') or (SETTINGS['DATABASE_USER'] + ':' + SETTINGS['DATABASE_PASSWORD'])
+        if SETTINGS['AUTH_TYPE'] == 'kerberos':
+            current_user = environ.get('REMOTE_USER')
+        else:
+            current_user = SETTINGS['DATABASE_USER'] + ':' + SETTINGS['DATABASE_PASSWORD']
+
         url = 'postgresql://{user}@{host}:{port}/{dbname}'.format(
             user=current_user,
             host=SETTINGS['DATABASE_HOST'],

@@ -1,3 +1,4 @@
+from .model import Litigation
 from .repository import LitigationRepository
 
 
@@ -9,7 +10,7 @@ class LitigationService:
     def get_all_litigations(self) -> list:
         return self.repo.get_all_litigations()
 
-    def get_litigation_by_id(self, id_: int):
+    def get_litigation_by_id(self, id_: int) -> Litigation:
         return self.repo.get_litigation_by_id(id_)
 
     def add_litigation(self, litigation) -> None:

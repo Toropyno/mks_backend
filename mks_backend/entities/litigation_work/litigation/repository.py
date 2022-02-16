@@ -1,5 +1,3 @@
-from sqlalchemy import desc
-
 from mks_backend.errors import DBBasicError
 from mks_backend.session import DBSession
 
@@ -28,10 +26,8 @@ class LitigationRepository:
             DBSession.rollback()
             raise DBBasicError('litigation_ad')
 
-    def get_litigation_by_id(self, id: int):
-        litigation = self._query.filter(
-            Litigation.litigation_id == id
-        ).order_by(desc(Litigation.litigation_id)).first()
+    def get_litigation_by_id(self, id_: int) -> Litigation:
+        litigation = self._query.get(id_)
         if not litigation:
             raise DBBasicError('litigation_nf')
         return litigation
