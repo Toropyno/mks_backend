@@ -33,6 +33,7 @@ from mks_backend.entities.inspections.inspected_object.model import InspectedObj
 from mks_backend.entities.inspections.inspection.model import Inspection
 from mks_backend.entities.inspections.inspection_file.model import InspectionFile
 from mks_backend.entities.litigation_work.litigation import Litigation
+from mks_backend.entities.litigation_work.litigation_subject import LitigationSubject
 from mks_backend.entities.military_unit.models.combatarm import Combatarm
 from mks_backend.entities.military_unit.models.keyword import Keyword
 from mks_backend.entities.military_unit.models.military_unit import MilitaryUnit

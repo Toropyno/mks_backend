@@ -1,5 +1,6 @@
 from sqlalchemy import VARCHAR, Column, Date, ForeignKey, Integer
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 
 from mks_backend.db_schemas import COURTS_SCHEMA, ORGANIZATION_SCHEMA
 from mks_backend.session import Base
@@ -52,3 +53,8 @@ class Litigation(Base):
     decision_date = Column(Date(), nullable=False)
 
     note = Column(VARCHAR(1000))
+
+    constructions = relationship(
+        'Construction',
+        secondary='courts.litigation_subject'
+    )

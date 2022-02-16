@@ -53,10 +53,11 @@ ROUTES = [
     'mks_backend.entities.work_list.work_type.routes.include_work_types',
     'mks_backend.entities.constructions.critical_category.routes.include_critical_categories',
     'mks_backend.entities.constructions.reason_stopping.routes.include_reason_stoppings',
-    'mks_backend.entities.courts.routes.include_court',
-    'mks_backend.entities.court_decisions.routes.include_court_decision',
+    'mks_backend.entities.litigation_work.courts.routes.include_court',
+    'mks_backend.entities.litigation_work.court_decisions.routes.include_court_decision',
     'mks_backend.entities.military_unit_extension.routes.include_military_unit_extension',
-    'mks_backend.entities.participant_statuses.routes.include_participant_statuses',
+    'mks_backend.entities.litigation_work.participant_statuses.routes.include_participant_statuses',
     'mks_backend.entities.trips.work_trip_file.routes.include_work_trip_files',
-    'mks_backend.entities.litigation.routes.include_litigation'
+    'mks_backend.entities.litigation_work.litigation.routes.include_litigation',
+    'mks_backend.entities.litigation_work.litigation_subject.routes.include_litigation_subjects',
 ]
