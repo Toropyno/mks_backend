@@ -7,7 +7,7 @@ class LitigationSchema(colander.MappingSchema):
 
     litigation_id = colander.SchemaNode(
         colander.Int(),
-        name='litigation_id',
+        name='id',
         validator=colander.Range(
             min=0,
             min_err='Слишком длинный идентификатор cудебного спора'
@@ -17,13 +17,13 @@ class LitigationSchema(colander.MappingSchema):
 
     appeal_date = colander.SchemaNode(
         colander.String(),
-        name='appeal_date',
+        name='appealDate',
         validator=date_validator
     )
 
     courts_id = colander.SchemaNode(
         colander.Int(),
-        name='courts_id',
+        name='court',
         validator=colander.Range(
             min=0,
             min_err='Слишком длинный идентификатор суда'
@@ -32,13 +32,13 @@ class LitigationSchema(colander.MappingSchema):
 
     organizations_id = colander.SchemaNode(
         colander.String(),
-        name='organizations_id',
+        name='organization',
         validator=organization_uuid
     )
 
     participant_statuses_id = colander.SchemaNode(
         colander.Int(),
-        name='participant_statuses_id',
+        name='participantStatus',
         validator=colander.Range(
             min=0,
             min_err='Слишком длинный идентификатор статуса участника судебных споров'
@@ -47,7 +47,7 @@ class LitigationSchema(colander.MappingSchema):
 
     construction_companies_id = colander.SchemaNode(
         colander.Int(),
-        name='construction_companies_id',
+        name='constructionCompany',
         validator=colander.Range(
             min=0,
             min_err='Слишком длинный идентификатор строительной организации'
@@ -57,7 +57,7 @@ class LitigationSchema(colander.MappingSchema):
     participant_other = colander.SchemaNode(
         colander.String(),
         preparer=[strip_space],
-        name='participant_other',
+        name='participantOther',
         validator=colander.Length(
             min=1,
             max=1000,
@@ -80,7 +80,7 @@ class LitigationSchema(colander.MappingSchema):
 
     court_decisions_id = colander.SchemaNode(
         colander.Int(),
-        name='court_decisions_id',
+        name='courtDecision',
         validator=colander.Range(
             min=0,
             min_err='Слишком длинный идентификатор решения суда'
@@ -89,7 +89,7 @@ class LitigationSchema(colander.MappingSchema):
 
     decision_date = colander.SchemaNode(
         colander.String(),
-        name='decision_date',
+        name='decisionDate',
         validator=date_validator
     )
 
