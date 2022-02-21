@@ -15,7 +15,7 @@ class LitigationDocumentSchema(colander.MappingSchema):
 
     doctypes_id = colander.SchemaNode(
         colander.Int(),
-        name='docTypesId',
+        name='docType',
         validator=colander.Range(
             min=0,
             min_err='Неверный номер типа документов'

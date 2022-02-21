@@ -26,7 +26,7 @@ class LitigationDocumentSerializer(BaseSerializer):
             litigation_documents_id=schema_dict.get('id'),
             idfilestorage=schema_dict.get('idFileStorage'),
             litigation_id=schema_dict.get('litigationId'),
-            doctypes_id=schema_dict.get('docTypesId'),
+            doctypes_id=schema_dict.get('docType'),
             doc_number=schema_dict.get('docNumber'),
             doc_date=schema_dict.get('docDate'),
             doc_name=schema_dict.get('docName'),
