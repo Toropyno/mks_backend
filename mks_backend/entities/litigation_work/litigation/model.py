@@ -52,3 +52,5 @@ class Litigation(Base):
     participant_status = relationship('ParticipantStatus')
     court_decision = relationship('CourtDecision')
     court = relationship('Courts')
+    litigation_documents = relationship('LitigationDocument')
+    litigation_subject = relationship('LitigationSubject')

@@ -59,6 +59,8 @@ def fill_db():
     insert_court()
     insert_participant_status()
     insert_litigation()
+    insert_litigation_subject()
+    insert_litigation_documents()
 
 
 def insert_mu():
@@ -533,5 +535,39 @@ def insert_litigation():
             court_decisions_id=choice(court_decisions).court_decisions_id,
             decision_date=datetime.now().date(),
             note='Примечание'
+        )
+        try_add(instance)
+
+
+def insert_litigation_subject():
+    print('INSERT LITIGATION SUBJECT')
+
+    litigations = DBSession.query(Litigation).all()
+    constructions = DBSession.query(Construction).all()
+    for construction in constructions:
+        instance = LitigationSubject(
+            litigation_id=choice(litigations).litigation_id,
+            construction_id=construction.construction_id
+        )
+        try_add(instance)
+
+
+def insert_litigation_documents():
+    print('INSERT LITIGATION DOCUMENTS')
+
+    litigation = DBSession.query(Litigation).all()
+    doctypes = DBSession.query(DocType).all()
+
+    for _ in range(3):
+        instance = LitigationDocument(
+            litigation_id=choice(litigation).litigation_id,
+            doctypes_id=choice(doctypes).doctypes_id,
+            doc_number=choice([1, 2, 3]),
+            doc_date=datetime.now().date(),
+            doc_name=choice(['Alfa', 'Beta', 'Gamma']),
+            note=choice(['Документ по судебным спорам МО', 'Документ по судебным спорам ФНС',
+                        'Документ по судебным спорам КС']),
+            idfilestorage=None,
+            upload_date=datetime.now().date()
         )
         try_add(instance)

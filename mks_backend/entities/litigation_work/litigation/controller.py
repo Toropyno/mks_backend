@@ -19,9 +19,9 @@ class LitigationController:
 
     @view_config(route_name='get_all_litigations')
     def get_all_litigations(self):
-        filter_params = self.filter_schema.deserialize(self.request.GET)
-        litigation = self.service.get_litigations(filter_params)
-        return self.serializer.convert_list_to_json(litigation)
+        filter_params = self.filter_schema.deserialize(self.request.params)
+        litigations = self.service.get_litigations(filter_params)
+        return self.serializer.convert_list_to_json(litigations)
 
     @view_config(route_name='add_litigation')
     def add_litigation(self):
