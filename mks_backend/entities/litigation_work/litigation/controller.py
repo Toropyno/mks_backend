@@ -2,7 +2,7 @@ from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from .schema import LitigationSchema
+from .schema import LitigationSchema, LitigationFilterSchema
 from .serializer import LitigationSerializer
 from .service import LitigationService
 
@@ -15,11 +15,13 @@ class LitigationController:
         self.service = LitigationService()
         self.serializer = LitigationSerializer()
         self.schema = LitigationSchema()
+        self.filter_schema = LitigationFilterSchema()
 
     @view_config(route_name='get_all_litigations')
     def get_all_litigations(self):
-        litigations = self.service.get_all_litigations()
-        return self.serializer.convert_list_to_json(litigations)
+        filter_params = self.filter_schema.deserialize(self.request.GET)
+        litigation = self.service.get_litigations(filter_params)
+        return self.serializer.convert_list_to_json(litigation)
 
     @view_config(route_name='add_litigation')
     def add_litigation(self):
