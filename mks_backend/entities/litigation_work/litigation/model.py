@@ -11,14 +11,15 @@ class Litigation(Base):
     __table_args__ = {'schema': COURTS_SCHEMA}
 
     litigation_id = Column(Integer, primary_key=True)
-
     appeal_date = Column(Date(), nullable=False)
+    participant_other = Column(VARCHAR(1000))
+    information = Column(VARCHAR(1000))
+    decision_date = Column(Date())
+    note = Column(VARCHAR(1000))
 
     courts_id = Column(
         Integer,
-        ForeignKey(
-            '{schema}.courts.courts_id'.format(schema=COURTS_SCHEMA), ondelete='CASCADE'
-        ),
+        ForeignKey('{schema}.courts.courts_id'.format(schema=COURTS_SCHEMA), ondelete='CASCADE'),
         nullable=False
     )
 
@@ -38,27 +39,14 @@ class Litigation(Base):
 
     construction_companies_id = Column(
         Integer,
-        ForeignKey('construction_companies.construction_companies_id', ondelete='CASCADE'), nullable=False,)
-
-    participant_other = Column(VARCHAR(1000))
-
-    information = Column(VARCHAR(1000))
+        ForeignKey('construction_companies.construction_companies_id', ondelete='CASCADE'))
 
     court_decisions_id = Column(
         Integer,
-        ForeignKey('{schema}.court_decisions.court_decisions_id'.format(schema=COURTS_SCHEMA), ondelete='CASCADE'),
-        nullable=False,
-        )
-
-    decision_date = Column(Date(), nullable=False)
-
-    note = Column(VARCHAR(1000))
-
-    constructions = relationship(
-        'Construction',
-        secondary='courts.litigation_subject'
+        ForeignKey('{schema}.court_decisions.court_decisions_id'.format(schema=COURTS_SCHEMA), ondelete='CASCADE')
     )
 
+    constructions = relationship('Construction', secondary='courts.litigation_subject')
     construction_company = relationship('ConstructionCompany')
     organization = relationship('Organization')
     participant_status = relationship('ParticipantStatus')

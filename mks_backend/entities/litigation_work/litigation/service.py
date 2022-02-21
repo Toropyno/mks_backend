@@ -16,8 +16,8 @@ class LitigationService:
     def add_litigation(self, litigation) -> None:
         self.repo.add_litigation(litigation)
 
-    def update_litigation(self, new_litigation) -> None:
-        self.repo.update_litigation(new_litigation)
+    def update_litigation(self, litigation) -> None:
+        self.repo.update_litigation(litigation)
 
     def delete_litigation_by_id(self, id_: int) -> None:
         self.repo.delete_litigation_by_id(id_)
