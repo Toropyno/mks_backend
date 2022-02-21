@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from .model import LitigationDocument
@@ -13,6 +14,7 @@ class LitigationDocumentService:
         return self.repo.get_litigation_document_by_id(id_)
 
     def add_litigation_document(self, litigation_document: LitigationDocument) -> None:
+        litigation_document.upload_date = datetime.now()
         self.repo.add_litigation_document(litigation_document)
 
     def update_litigation_document(self, litigation_document: LitigationDocument) -> None:
