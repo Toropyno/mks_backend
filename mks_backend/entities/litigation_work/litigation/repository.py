@@ -1,5 +1,4 @@
-from mks_backend.errors import DBBasicError
-from mks_backend.session import DBSession
+from sqlalchemy import desc, not_
 
 from mks_backend.entities.construction_company import ConstructionCompany
 from mks_backend.entities.constructions.construction import Construction

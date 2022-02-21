@@ -1,5 +1,3 @@
-from os import environ
-
 from sqlalchemy.engine import Engine, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, scoped_session
@@ -24,7 +22,8 @@ class SessionFactory(Session):
         и подключение к БД происходит через kerberos, посредством KRB5CCNAME,
         который мы положили в окружение в tweens.py
         """
-        current_user = environ.get('REMOTE_USER') or (SETTINGS['DATABASE_USER'] + ':' + SETTINGS['DATABASE_PASSWORD'])
+
+        current_user = (SETTINGS['DATABASE_USER'] + ':' + SETTINGS['DATABASE_PASSWORD'])
 
         url = 'postgresql://{user}@{host}:{port}/{dbname}'.format(
             user=current_user,

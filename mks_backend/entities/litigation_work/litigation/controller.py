@@ -2,7 +2,7 @@ from pyramid.httpexceptions import HTTPCreated, HTTPNoContent
 from pyramid.request import Request
 from pyramid.view import view_config, view_defaults
 
-from .schema import LitigationSchema, LitigationFilterSchema
+from .schema import LitigationFilterSchema, LitigationSchema
 from .serializer import LitigationSerializer
 from .service import LitigationService
 
