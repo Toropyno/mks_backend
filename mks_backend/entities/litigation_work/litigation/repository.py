@@ -19,8 +19,8 @@ class LitigationRepository:
         self._query.filter(Litigation.litigation_id == id).delete()
         DBSession.commit()
 
-    def update_litigation(self, new_litigation: Litigation) -> None:
-        if DBSession.merge(new_litigation) and not DBSession.new:
+    def update_litigation(self, litigation: Litigation) -> None:
+        if DBSession.merge(litigation) and not DBSession.new:
             DBSession.commit()
         else:
             DBSession.rollback()
