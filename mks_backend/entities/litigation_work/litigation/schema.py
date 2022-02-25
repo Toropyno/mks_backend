@@ -120,3 +120,134 @@ class LitigationSchema(colander.MappingSchema):
                 raise colander.Invalid(
                     node, 'Дата окончания судебного разбирательства должна быть больше или равна дате начала'
                 )
+
+
+class LitigationFilterSchema(colander.MappingSchema):
+
+    appeal_date_start = colander.SchemaNode(
+        colander.String(),
+        name='appealDateStart',
+        validator=date_validator,
+        missing=colander.drop
+    )
+
+    appeal_date_end = colander.SchemaNode(
+        colander.String(),
+        name='appealDateEnd',
+        validator=date_validator,
+        missing=colander.drop
+    )
+
+    decision_date_start = colander.SchemaNode(
+        colander.String(),
+        name='decisionDateStart',
+        validator=date_validator,
+        missing=colander.drop
+    )
+
+    decision_date_end = colander.SchemaNode(
+        colander.String(),
+        name='decisionDateEnd',
+        validator=date_validator,
+        missing=colander.drop
+    )
+
+    court = colander.SchemaNode(
+        colander.Int(),
+        name='court',
+        validator=colander.Range(
+            min=1,
+            min_err='Идентификатор суда должен быть больше 0'
+        ),
+        missing=colander.drop
+    )
+
+    organization = colander.SchemaNode(
+        colander.String(),
+        name='organization',
+        validator=organization_uuid,
+        missing=colander.drop
+    )
+
+    participant_status = colander.SchemaNode(
+        colander.Int(),
+        name='participantStatus',
+        validator=colander.Range(
+            min=0,
+            min_err='Идентификатор статуса участника судебных споров должен быть больше 0'
+        ),
+        missing=colander.drop
+    )
+
+    participant_other = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='participantOther',
+        validator=colander.Length(
+            min=1,
+            max=1000,
+            min_err='Слишком короткое описание участника(иного лица)',
+            max_err='Слишком длинное описание участника(иного лица)'
+        ),
+        missing=colander.drop
+    )
+
+    project_code = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='projectСode',
+        validator=colander.Length(
+            min=1,
+            max=1000,
+            min_err='Слишком короткое описание объекта строительства',
+            max_err='Слишком длинное описание  объекта строительства'
+        ),
+        missing=colander.drop
+    )
+
+    information = colander.SchemaNode(
+        colander.String(),
+        preparer=[strip_space],
+        name='information',
+        validator=colander.Length(
+            min=1,
+            min_err='Слишком короткое описание информации по делу',
+            max=1000,
+            max_err='Слишком длинное описание информации по делу'
+        ),
+        missing=colander.drop
+    )
+
+    court_decision = colander.SchemaNode(
+        colander.Int(),
+        name='courtDecision',
+        validator=colander.Range(
+            min=0,
+            min_err='Идентификатор решения суда должен быть больше 0'
+        ),
+        missing=colander.drop
+    )
+
+    have_file = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='haveFile',
+        missing=colander.drop
+    )
+
+    have_isp = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='haveIsp',
+        missing=colander.drop
+    )
+
+    is_critical = colander.SchemaNode(
+        colander.Boolean(false_choices=['false', '0', 'False', 'none']),
+        name='isCritical',
+        missing=colander.drop
+    )
+
+    fias_subject = colander.SchemaNode(
+        colander.String(),
+        name='fiasSubject',
+        missing=colander.drop
+    )
