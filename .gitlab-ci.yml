@@ -6,6 +6,7 @@ stages:
 
 variables:
   ANSIBLE_FORCE_COLOR: 'true'
+  ANSIBLE_CONFIG: 'ansible.cfg'
   PYPI_INDEX: https://art.rd.aorti.ru/repository/pypi-proxy/simple
 
 build-job:
