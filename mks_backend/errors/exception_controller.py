@@ -55,7 +55,7 @@ def colander_exception_view(context, request):
     def get_collander_error_dict(errors: dict) -> dict:
         return {'code': list(errors.keys()).pop(), 'message': '.\n\n'.join(errors.values())}
 
-    return Response(status=403, json_body=get_collander_error_dict(context.asdict()))
+    return Response(status=422, json_body=get_collander_error_dict(context.asdict()))
 
 
 @view_config(context=HTTPForbidden)
