@@ -113,12 +113,12 @@ class LitigationSchema(colander.MappingSchema):
 
     def validator(self, node, cstruct):
         if not cstruct.get('constructionCompany') and not cstruct.get('participantOther'):
-            raise colander.Invalid(node, 'Участник со стороны подрядчика или Участник (иное лицо) не заполнено')
+            raise colander.Invalid(node, 'Должен быть указан хотя бы один участник: со стороны подрядчика или иное лицо')
 
         if cstruct.get('decisionDate'):
-            if cstruct.get('decisionDate') < cstruct.get('appealDate'):
+            if cstruct.get('decisionDate') > cstruct.get('appealDate'):
                 raise colander.Invalid(
-                    node, 'Дата окончания судебного разбирательства должна быть больше или равна дате начала'
+                    node, 'Дата вынесения решения должна быть больше или равна дате обращения в суд'
                 )
 
 
