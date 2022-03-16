@@ -1,6 +1,7 @@
 import colander
 
 from mks_backend.utils.validator_utils import date_validator, organization_uuid, strip_space
+from mks_backend.utils.date_and_time import get_date_time_from_string
 
 
 class LitigationSchema(colander.MappingSchema):
@@ -115,8 +116,10 @@ class LitigationSchema(colander.MappingSchema):
         if not cstruct.get('constructionCompany') and not cstruct.get('participantOther'):
             raise colander.Invalid(node, 'Должен быть указан хотя бы один участник: со стороны подрядчика или иное лицо')
 
-        if cstruct.get('decisionDate'):
-            if cstruct.get('decisionDate') > cstruct.get('appealDate'):
+        if cstruct.get('decisionDate') and cstruct.get('decisionDate'):
+            decision_date = get_date_time_from_string(cstruct.get('decisionDate'))
+            appeal_date = get_date_time_from_string(cstruct.get('appealDate'))
+            if decision_date < appeal_date:
                 raise colander.Invalid(
                     node, 'Дата вынесения решения должна быть больше или равна дате обращения в суд'
                 )
