@@ -80,7 +80,7 @@ def inn_validator(node: colander.SchemaNode, value: str) -> None:
                                6 * int(value[9]) +
                                8 * int(value[10])) % 11) % 10
 
-        if int(value[-1]) != first_check_digit and int(value[-2]) != second_check_digit:
+        if int(value[-2]) != first_check_digit and int(value[-1]) != second_check_digit:
             raise colander.Invalid(node, 'ИНН некорректен - контрольное число не прошло проверку')
 
     else:
