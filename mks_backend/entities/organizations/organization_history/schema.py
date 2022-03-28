@@ -57,6 +57,7 @@ class OrganizationHistorySchema(colander.MappingSchema):
 
     inn = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='inn',
         validator=inn_validator,
         missing=None
@@ -64,6 +65,7 @@ class OrganizationHistorySchema(colander.MappingSchema):
 
     kpp = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='kpp',
         validator=kpp_validator,
         missing=None
@@ -71,6 +73,7 @@ class OrganizationHistorySchema(colander.MappingSchema):
 
     ogrn = colander.SchemaNode(
         colander.String(),
+        preparer=[strip_space],
         name='ogrn',
         validator=ogrn_validator,
         missing=None
