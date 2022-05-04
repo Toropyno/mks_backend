@@ -107,6 +107,8 @@ class LitigationRepository:
                 litigations = litigations.filter(Litigation.decision_date <= decision_date_end)
             if 'fiasSubject' in params:
                 litigations = litigations.filter(FIAS.region.ilike('%{}%'.format(params['fiasSubject'])))
+            if 'constructionCompany' in params:
+                litigations = litigations.filter(Litigation.construction_companies_id == params['constructionCompany'])
 
         else:
             litigations = self._query
