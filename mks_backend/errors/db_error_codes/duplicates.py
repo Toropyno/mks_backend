@@ -145,5 +145,7 @@ DUPLICATE_ERROR = {
     'litigation_document_unique_duplicate': 'Документ с таким типом, номером, '
                                             'датой и ссылкой на судебный спор уже существует!',
 
+    'military_ranks_fullname_key_duplicate': 'Такое воинское звание уже существуе!',
+
     'other_duplicate': 'Дубликат записи!',
 }
