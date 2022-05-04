@@ -46,7 +46,6 @@ class DBBasicError(Exception):
 
             if code not in self.codes:
                 code = 'other_fkey'
-
         elif 'violates check' in self.error_raw:
             """
              ERROR:  new row for relation "organizations_history" violates check constraint "organizations_his_check"
@@ -78,5 +77,4 @@ class DBBasicError(Exception):
 
         else:
             code = 'other_error'
-
         return code
