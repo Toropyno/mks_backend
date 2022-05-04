@@ -51,7 +51,7 @@ class LitigationSchema(colander.MappingSchema):
         name='constructionCompany',
         validator=colander.Range(
             min=0,
-            min_err='Слишком длинный идентификатор строительной организации'
+            min_err='Такого участника не существует'
         ),
         missing=None
     )
@@ -252,5 +252,15 @@ class LitigationFilterSchema(colander.MappingSchema):
     fias_subject = colander.SchemaNode(
         colander.String(),
         name='fiasSubject',
+        missing=colander.drop
+    )
+
+    construction_companies_id = colander.SchemaNode(
+        colander.Int(),
+        name='constructionCompany',
+        validator=colander.Range(
+            min=0,
+            min_err='Такого участника не существует'
+        ),
         missing=colander.drop
     )
