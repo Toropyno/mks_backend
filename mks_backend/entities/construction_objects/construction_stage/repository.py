@@ -34,5 +34,6 @@ class ConstructionStageRepository:
             raise DBBasicError('construction_stage_ad')
 
     def check_parent(self, construction_stage: ConstructionStage):
-        if construction_stage.construction_stages_id == construction_stage.ref_construction_stages_id:
-            raise DBBasicError('construction_stage_logical')
+        if construction_stage.construction_stages_id:
+            if construction_stage.construction_stages_id == construction_stage.ref_construction_stages_id:
+                raise DBBasicError('construction_stage_logical')
