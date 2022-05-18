@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-requires = [
+REQUIRES = [
     'setuptools',
     'wheel',
 
@@ -23,18 +23,22 @@ requires = [
 
 ]
 
-dev_requires = [
+DEV_REQUIRES = [
     'pyramid_debugtoolbar',
     'faker',
 ]
 
-codestyle_requires = [
+CODESTYLE_REQUIRES = [
     'flake8==3.9.2',
-    'flake8-quotes',
+    'flake8-quotes==3.3.1',
+    'flake8-comprehensions==3.3.0',
+    'flake8-eradicate==0.4.0',
+    'flake8-print==2.0.2',
+    'flake8-bugbear==19.8.0',
     'isort~=4.3.21',
 ]
 
-deploy_requires = [
+DEPLOY_REQUIRES = [
     'ansible==4.10.0',
     'ansible-core==2.11.7',
 ]
@@ -43,11 +47,11 @@ deploy_requires = [
 setup(
     name='mks_backend',
     packages=find_packages(),
-    install_requires=requires,
+    install_requires=REQUIRES,
     extras_require={
-        'dev': dev_requires,
-        'codestyle': codestyle_requires,
-        'deploy': deploy_requires,
+        'dev': DEV_REQUIRES,
+        'codestyle': CODESTYLE_REQUIRES,
+        'deploy': DEPLOY_REQUIRES,
     },
     entry_points={
         'paste.app_factory': [
