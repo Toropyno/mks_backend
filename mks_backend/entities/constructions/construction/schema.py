@@ -453,3 +453,13 @@ class ConstructionFilterSchema(colander.MappingSchema):
         ),
         missing=colander.drop
     )
+
+    critical_category = colander.SchemaNode(
+        colander.Int(),
+        name='criticalCategory',
+        validator=colander.Range(
+            min=0,
+            min_err='Такой категории критичных объектов не существует'
+        ),
+        missing=colander.drop
+    )

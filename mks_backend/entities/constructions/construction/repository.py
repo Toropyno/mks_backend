@@ -95,6 +95,10 @@ class ConstructionRepository:
             constructions = constructions.filter(Construction.military_district_id == params['military_district'])
         if 'deletion_mark' in params:
             constructions = constructions.filter(Construction.deletion_mark)
+        if 'critical_categories_id' in params:
+            constructions = constructions.filter(
+                Construction.critical_categories_id == params['critical_categories_id']
+            )
 
         # TODO: filter planned date start/end, filter readiness
 
