@@ -66,7 +66,7 @@ class MIVRepository:
         """
         self.create_ticket()
 
-        send_data = dict()
+        send_data = {}
         if 'meta' in message:
             send_data['meta'] = (None, json.dumps(message['meta'], ensure_ascii=False), 'application/json')
         if 'payload' in message:

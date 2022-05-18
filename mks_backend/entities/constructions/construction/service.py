@@ -128,7 +128,7 @@ class ConstructionService:
             'settlement': 'settlement',
         }
 
-        params = dict()
+        params = {}
         for key, value in params_deserialized.items():
             if key in case_switcher and value is not None:
                 params[case_switcher[key]] = params_deserialized[key]

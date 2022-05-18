@@ -8,8 +8,16 @@ from mks_backend.FIAS import FIASService
 from mks_backend.models_meta import *
 from mks_backend.session import DBSession
 
-from .utils import (get_first_name, get_middle_name, get_random_address, get_random_date, get_random_email,
-                    get_random_phone, get_surname, try_add)
+from .utils import (
+    get_first_name,
+    get_middle_name,
+    get_random_address,
+    get_random_date,
+    get_random_email,
+    get_random_phone,
+    get_surname,
+    try_add
+)
 
 
 def fill_db():
@@ -30,7 +38,6 @@ def fill_db():
     insert_construction_companies()
     insert_construction_types()
     insert_location_types()
-    # fiases = create_fiases()
 
     insert_organizations()
     insert_class_ranks()
@@ -83,7 +90,7 @@ def insert_mu():
 
 def insert_class_ranks():
     print('INSERT CLASS RANK')
-    for rank in list(['Младший советник', 'Советник', 'Старший советник']):
+    for rank in ['Младший советник', 'Советник', 'Старший советник']:
         instatance = ClassRank(fullname=rank)
         try_add(instatance)
 
@@ -137,7 +144,7 @@ def insert_construction_types():
 def insert_organizations():
     print('INSERT ORGANIZATIONS')
     already_existed = DBSession.query(Organization).all()
-    names = set(organization.shortname for organization in already_existed)
+    names = {organization.shortname for organization in already_existed}
 
     for x in range(10):
         id_ = str(uuid4())
@@ -298,7 +305,6 @@ def insert_constructions():
             location_type=choice(location_types),
             critical_category=choice(critical_categories),
             organization=choice(organizations)
-            # fias=choice(fiases)
         )
         try_add(instance)
 
@@ -446,7 +452,7 @@ def insert_reference_history():
     print('INSERT REFERENCE HISTORY')
     objects = DBSession.query(ConstructionObject).all()
 
-    construction_ids = set([construction_object.construction_id for construction_object in objects])
+    construction_ids = {construction_object.construction_id for construction_object in objects}
     for construction_object in objects:
         available_ids = filter(lambda x: x != construction_object.construction_id, construction_ids)
         for i in available_ids:

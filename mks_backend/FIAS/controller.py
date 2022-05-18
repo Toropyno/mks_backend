@@ -16,5 +16,4 @@ class FIASController:
         """
         return all regions, areas, cities, settlements fir filtration
         """
-        # fias_data = self.service.get_data_for_filtration()
         return []
