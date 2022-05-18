@@ -19,6 +19,5 @@ per-file-ignores =
     mks_backend/MIV/parsing/constructions/constructions.py: F405, F403
 
 max-line-length = 121
-
 inline-quotes = '
 multiline-quotes = """

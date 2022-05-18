@@ -122,7 +122,6 @@ class ConstructionsParserXML(Strategy):
         construction.construction_company = construction_company
 
         # ------- FIAS ------- #
-        # TODO: FIAS
         fias_address = node.find('Местоположение')
 
         address_full = fias_address.find('ФактическоеМестоположение')  # Н/Т(0-200)
@@ -399,4 +398,4 @@ def main():
 
     root = ElementTree.fromstring(raw_xml)
 
-    ConstructionsParserXML(dict(), root).do_algorithm()
+    ConstructionsParserXML({}, root).do_algorithm()

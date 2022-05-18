@@ -49,7 +49,7 @@ class ProtocolService:
             'signatory': 'signatory',
         }
 
-        params = dict()
+        params = {}
         for key, value in filter_params.items():
             if key in case_switcher and value is not None:
                 params[case_switcher[key]] = filter_params[key]

@@ -17,7 +17,8 @@ class DBErrorLogger:
         DBSession.add(DBError(error_raw=error_raw))
         DBSession.commit()
 
-    def get_db_errors(self, timedelta=time_d(minutes=10)):
+    def get_db_errors(self, timedelta=None):
+        timedelta = timedelta or time_d(minutes=10)
         return self._query.filter(
             DBError.time >= (datetime.now() - timedelta)
         ).order_by(desc(DBError.time)).all()

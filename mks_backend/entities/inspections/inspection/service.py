@@ -44,7 +44,7 @@ class InspectionService:
             'fiasSubject': 'fias_subject'
         }
 
-        params = dict()
+        params = {}
         for key in filter_params:
             params[case_switcher[key]] = filter_params[key]
 
