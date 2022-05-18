@@ -33,7 +33,7 @@ class ConstructionStageSchema(colander.MappingSchema):
         name='hierarchyLevel',
         validator=colander.Range(
             min=1,
-            min_err='Уровень иерархии не может быть меньше нуля'
+            min_err='Уровень иерархии не может быть меньше единицы'
         )
     )
 
