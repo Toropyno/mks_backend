@@ -115,6 +115,7 @@ class ConstructionService:
             'locationType': 'location_types_id',
             'oksm': 'oksm_id',
             'address': 'address',
+            'criticalCategory': 'critical_categories_id',
 
             'organization': 'organization',
             'readiness': 'readiness',
