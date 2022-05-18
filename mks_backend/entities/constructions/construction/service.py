@@ -34,7 +34,10 @@ class ConstructionService:
         self.repo.delete_construction(id_)
 
     def to_mapped_object(self, schema: dict) -> Construction:
-        construction = Construction()
+        if schema.get('id'):
+            construction = self.get_construction_by_id(schema['id'])
+        else:
+            construction = Construction()
         construction.construction_id = schema.get('id')
         construction.project_code = schema.get('code')
         construction.project_name = schema.get('name')
@@ -56,6 +59,7 @@ class ConstructionService:
         construction.technical_spec = schema.get('technicalSpec')
         construction.price_calc = schema.get('priceCalc')
         construction.deletion_mark = schema.get('deletionMark')
+        construction.critical_categories_id = schema.get('criticalCategory')
 
         category_id = schema.get('category')
         subcategory_id = schema.get('subcategory')
@@ -81,7 +85,6 @@ class ConstructionService:
             construction.fias = FIAS(aoid=uuid4(), region=region, area=area,
                                      city=city, settlement=settlement, street=street)
 
-        construction.critical_categories_id = schema.get('criticalCategory')
         return construction
 
     def filter_constructions(self, params: dict) -> list:

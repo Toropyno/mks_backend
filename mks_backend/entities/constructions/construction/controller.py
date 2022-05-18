@@ -52,9 +52,8 @@ class ConstructionController:
         construction_deserialized = self.schema.deserialize(self.request.json_body)
         construction_deserialized['id'] = int(self.request.matchdict['id'])
 
-        coordinate = self.coordinate_serializer.to_mapped_object(construction_deserialized)
         new_construction = self.service.to_mapped_object(construction_deserialized)
-        new_construction.coordinate = coordinate
+        new_construction.coordinate = self.coordinate_serializer.to_mapped_object(construction_deserialized)
 
         self.service.update_construction(new_construction)
         return {'id': new_construction.construction_id}
