@@ -5,7 +5,7 @@ services:
     image: otr11/mks_backend
     container_name: backend
     ports:
-      - "6767:6767"
+      - "6543:6543"
     tty: true
     depends_on:
       - db
