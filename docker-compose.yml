@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  backend:
+    build: .
+    image: otr11/mks_backend
+    container_name: backend
+    ports:
+      - "6767:6767"
+    tty: true
+    depends_on:
+      - db
+
+  db:
+    image: postgres:9.6
+    container_name: db
+    environment:
+      POSTGRES_DB: "mks"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432"
