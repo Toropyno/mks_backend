@@ -1,0 +1,10 @@
+.venv
+env
+.idea/
+__pycache__
+/mks_backend/mks_backend.egg-info/
+/mks_backend.egg-info/
+/venv/
+/mks_backend/.env
+filestorage
+/.pytest_cache/
