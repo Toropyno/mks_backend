@@ -10,7 +10,7 @@ class ReasonStoppingSerializer(BaseSerializer):
     @serialize_error_handler
     def to_json(cls, reason_stopping: ReasonStopping) -> dict:
         return {
-            'id': reason_stopping.reason_stopping_id,
+            'id': reason_stopping.reasons_stopping_id,
             'fullName': reason_stopping.fullname,
         }
 
